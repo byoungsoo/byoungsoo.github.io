@@ -1,0 +1,27 @@
+---
+layout: page
+title: Traveled in Greece
+permalink: /category/travelB/greece/
+---
+<!-- Slider Start -->
+<section id="global-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="block">
+          <h1>Traveled in Greece</h1>
+          <p>2012.6.27 ~ 2012.7.18 Written by Bysoo</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% for post in site.categories.greece %} <!-- Check category -->
+<div class="post-area"> 
+  <a href="{{ post.url | prepend: site.baseurl }}" class="bold">{{ post.title }}</a>
+  <p class="post-date">{{ post.date | date_to_long_string }}</p>
+  <p>
+    {{ post.content | strip_html | truncatewords: 50 }}
+  </p>
+</div>
+{% endfor %}
