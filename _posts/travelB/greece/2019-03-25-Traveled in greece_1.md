@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "배낭여행 그리스 아테네로"
+title: "Record of my travel in Greece"
 author: "Byoungsoo Ko"
 category: greece
 ---
