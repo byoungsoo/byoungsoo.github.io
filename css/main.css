@@ -3,7 +3,7 @@
  * In airspace, it is called style.css
  * However, style.css now holds additional styles for this jekyll port. (Not written by ThemeFisher)
  * The original style.css is now called airspace.css
- * 
+ *
  */
 
 /*Added by Bys START ~~ */
@@ -94,8 +94,8 @@ header .navbar-default .navbar-nav {
 
 /*Main Category List Value*/
 header .navbar-default .navbar-nav li a {
-  display: block; 
-  color: #313131;        /*#000000 #9477dd, b24566*/ 
+  display: block;
+  color: #313131;        /*#000000 #9477dd, b24566*/
   padding: 10px 26px;
   font-size: 15px;
 }
@@ -120,13 +120,13 @@ header .navbar-default .navbar-nav li:hover ul{
 header .navbar-default .navbar-nav .nav-category {
 	text-align: center;
   padding-top: 10px;
-  
+
 }
 
 header .navbar-default .navbar-nav .nav-category li a{
 	padding-top: 3px;
 	font-size: 13px;
-  color: #002277;    /*#9477dd, b24566*/ 
+  color: #002277;    /*#9477dd, b24566*/
 }
 /*Added by Bys END*/
 
@@ -140,10 +140,10 @@ header .navbar-default .navbar-nav .nav-category li a{
 	Slider Start
 --*/
 #slider {
-  background: url("../img/home/slider-bg.jpg") no-repeat;
+  background: url("../img/home/slider_bys.jpg") no-repeat;
   background-size: cover;
-  background-attachment: fixed;
-  background-position: 10% 0%;
+  background-attachment: scroll;
+  background-position: 0% 0%;
   padding: 200px 0 280px 0;
   position: relative;
 }
