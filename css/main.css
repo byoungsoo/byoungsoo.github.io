@@ -118,7 +118,7 @@ header .navbar-default .navbar-nav li:hover ul{
 }
 
 header .navbar-default .navbar-nav .nav-category {
-	text-align: center;
+	text-align: left;
   padding-top: 10px;
 
 }
