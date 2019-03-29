@@ -143,8 +143,8 @@ header .navbar-default .navbar-nav .nav-category li a{
   background: url("../img/home/slider_bys.jpg") no-repeat;
   background-size: cover;
   background-attachment: scroll;
-  background-position: 0% 0%;
-  padding: 200px 0 280px 0;
+  background-position: 20% 0%;
+  padding: 280px 0 280px 0;
   position: relative;
 }
 #slider:before {
