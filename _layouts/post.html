@@ -16,13 +16,14 @@ layout: page
             <hr />
             <p>{{ content }}</p>
           </div>
+          {% include comments.html %}
         </div><!-- .col-md-7 close -->
       </div>
     </div>
   </section>
 </div>
 
-{% include comments.html %}
+
 
 <p class="center-text" style="padding: 30px;">
   <a href="{{ site.baseurl }}/blog">Back to blog</a>
