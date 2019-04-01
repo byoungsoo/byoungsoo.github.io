@@ -420,7 +420,7 @@ header .navbar-default .navbar-nav .nav-category li a{
   height: 100%;
   /*Modified by Bys changed color */
   /*background: linear-gradient(to left, #928dab, #1f1c2c 70%);*/
-  background: linear-gradient(to left, #52527a, #003366 100%)
+  background: linear-gradient(to left, #52527a, #003366 100%);
   opacity: 0.8;
 }
 
