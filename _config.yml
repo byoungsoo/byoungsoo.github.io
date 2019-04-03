@@ -40,10 +40,3 @@ ga_tracking_id: "UA-137282255-1"
 
 # Category
 categories: category/
-
-plugins:
-  - jekyll-paginate-v2
-pagination:
-  enabled: true
-  per_page: 9
-  sort_reverse: true
