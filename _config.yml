@@ -41,8 +41,6 @@ ga_tracking_id: "UA-137282255-1"
 # Category
 categories: category/
 
-author: "Bysoo"
-
 plugins:
   - jekyll-paginate-v2
 pagination:
