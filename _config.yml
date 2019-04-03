@@ -41,7 +41,7 @@ ga_tracking_id: "UA-137282255-1"
 # Category
 categories: category/
 
-author: "Byoungsoo Ko"
+author: "Bysoo"
 
 plugins:
   - jekyll-paginate-v2
