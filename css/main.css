@@ -94,7 +94,7 @@ header .navbar-default .navbar-nav {
 
 /*Main Category List Value*/
 header .navbar-default .navbar-nav li a {
-  display: block;
+  display: inline-block;
   color: #313131;        /*#000000 #9477dd, b24566*/
   padding: 10px 35px;
   font-size: 15px;
@@ -107,26 +107,31 @@ font header .navbar-default .navbar-nav li a:hover {
 
 /*Added by Bys START Sub category*/
 
-/*Display none at the first time*/
-header .navbar-default .navbar-nav li ul {
-  display: none;
-}
-
 /*When Mouse cursor on the list ul is shown*/
-header .navbar-default .navbar-nav li:hover ul{
+header .navbar-default .navbar-nav li:hover .nav-category {
 	display: block;
 }
 
+/*For category submenus*/
 header .navbar-default .navbar-nav .nav-category {
-	text-align: left;
+  display: none;
+  position: absolute;
+  background-color: white;
+  text-align: left;
   padding-top: 10px;
-
+  /*box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);*/
+  z-index: 1;
 }
 
-header .navbar-default .navbar-nav .nav-category li a{
-	padding-top: 3px;
+header .navbar-default .navbar-nav .nav-category a{
+  display: block;
+  padding-top: 3px;
 	font-size: 13px;
   color: #002277;    /*#9477dd, b24566*/
+}
+
+header .navbar-default .navbar-nav .nav-category a:hover{
+  color: #0022ff;    /*#9477dd, b24566*/
 }
 /*Added by Bys END*/
 
@@ -147,7 +152,7 @@ header .navbar-default .navbar-nav .nav-category li a{
   /*background-position: 20% 0%;*/
   background-position: bottom;
   padding: 280px 0 280px 0;
-  position: relative;
+  position: absolute;
 }
 #slider:before {
   content: "";
