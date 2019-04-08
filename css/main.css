@@ -152,7 +152,7 @@ header .navbar-default .navbar-nav .nav-category a:hover{
   /*background-position: 20% 0%;*/
   background-position: bottom;
   padding: 280px 0 280px 0;
-  position: absolute;
+  position: relative;
 }
 #slider:before {
   content: "";
