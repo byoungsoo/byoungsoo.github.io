@@ -17,11 +17,15 @@ permalink: /category/it/jekyll
   </div>
 </section>
 {% for post in site.categories.jekyll %}
-<div class="post-area">
-  <a href="{{ post.url | prepend: site.baseurl }}" class="bold">{{ post.title }}</a>
-  <p class="post-date">{{ post.date | date_to_long_string }}</p>
-  <p>
-    {{ post.content | strip_html | truncatewords: 50 }}
-  </p>
+<div class="container">
+  <div class="row">
+    <div class="post-area">
+        <a href="{{ post.url | prepend: site.baseurl }}" class="bold">{{ post.title }}</a>
+        <p class="post-date">{{ post.date | date_to_long_string }}</p>
+        <p>
+          {{ post.content | strip_html | truncatewords: 50 }}
+        </p>
+    </div>
+  </div>
 </div>
 {% endfor %}

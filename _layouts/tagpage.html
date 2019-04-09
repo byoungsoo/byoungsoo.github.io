@@ -1,14 +1,12 @@
 ---
 layout: default
 ---
-
-
 <div class="container">
   <div class="row">
       <div class="title-area">
         <h1 class="tag-title">Tag: #{{ page.tag }}</h1>
       </div>
-
+      
       <div class="post-area">
         <ul>
           {% for post in site.tags[page.tag] %}
@@ -17,7 +15,6 @@ layout: default
             <p>
               {{ post.content | strip_html | truncatewords: 20 }}
             </p>
-
           {% endfor %}
         </ul>
       </div>
