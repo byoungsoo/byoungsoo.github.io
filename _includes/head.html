@@ -27,14 +27,7 @@
 
 
 <script src="{{ site.baseurl }}/js/main.js"></script>
-
-<!--
-/*
- * Airspace
- * Ported to Jekyll by Andrew Lee
- * https://github.com/luminousrubyist/airspace-jekyll
- * Designed and Developed by ThemeFisher
- * https://themefisher.com/
- *
- */
--->
+<!--Byoungsoo settings start-->
+{% if site.tags != "" %}
+  {% include collecttags.html %}
+{% endif %}

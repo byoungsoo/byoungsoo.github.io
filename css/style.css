@@ -32,3 +32,19 @@
 .post-area a:hover {
   color: #0D0017;
 }
+
+.post-tag {
+  font-size: 18px;
+  padding: 0px 100px 0px 100px;
+}
+
+.post-tag h1 {
+  padding-top: 100px;
+}
+
+.tag-title {
+  font-size:25px;
+  margin: auto;
+  margin-bottom: 1rem;
+  padding-bottom: 10px;
+}

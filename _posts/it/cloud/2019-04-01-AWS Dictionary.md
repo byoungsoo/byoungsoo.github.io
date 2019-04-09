@@ -4,6 +4,7 @@ title: "AWS 용어 정리"
 author: "Byoungsoo Ko"
 category: cloud
 date: 2019-04-01 18:00:00
+tags: cloud aws
 ---
 AWS - Amazon Web Service
 
