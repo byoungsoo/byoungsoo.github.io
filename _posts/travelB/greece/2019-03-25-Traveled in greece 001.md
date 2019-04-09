@@ -3,18 +3,20 @@ layout: post
 title: "[나홀로 배낭여행:그리스:아테네] #1. 아무것도 모르지만 떠나자"
 author: "Byoungsoo Ko"
 category: greece
-tag: greece athene travel 
+tag: greece athene travel
 ---
 
 
 
 
 
+```css
+background-color: black;
+font-size
 ```
-```
+
 ##  [Greece를 향해 떠나다]()
-```
-```
+
 
 아주 오래전...나 홀로 배낭을 챙겨 떠났던 여행
 오랜 시간이 지났지만 다시 기록을 정리해 보려 한다.
