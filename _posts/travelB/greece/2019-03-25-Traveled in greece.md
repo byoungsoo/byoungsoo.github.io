@@ -1,6 +1,0 @@
----
-layout: post
-title: "배낭여행 그리스 아테네로"
-author: "Byoungsoo Ko"
-category: greece
----
