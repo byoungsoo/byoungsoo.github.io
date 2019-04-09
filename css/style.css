@@ -33,9 +33,14 @@
   color: #0D0017;
 }
 
+/*Byoungsoo setting start*/
+.post-block {
+  padding: 0px 300px 0px 300px;
+}
+
 .post-tag {
   font-size: 18px;
-  padding: 0px 100px 0px 100px;
+  padding: 0px 300px 0px 300px;
 }
 
 .post-tag h1 {
@@ -44,6 +49,7 @@
 
 .tag-title {
   font-size:25px;
+  background-color: black;
   margin: auto;
   margin-bottom: 1rem;
   padding-bottom: 10px;
