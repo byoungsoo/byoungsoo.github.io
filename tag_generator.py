@@ -1,6 +1,14 @@
 ﻿import glob
 import os
 
+
+'''
+post_dir = '_posts/travelB/greece/'
+post_dir = '_posts/travelB/turkey/'
+post_dir = '_posts/it/java/'
+post_dir = '_posts/it/cloud/'
+post_dir = '_posts/it/network/'
+'''
 post_dir = '_posts/travelB/greece/'
 tag_dir = 'tag/'
 
