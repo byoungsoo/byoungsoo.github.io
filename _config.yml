@@ -24,7 +24,6 @@ logo: "/assets/logo.png"
 # Build settings
 markdown: kramdown
 
-
 descriptions:
   - cat: jekyll
     desc: "Posts describing Jekyll setup techniques."
