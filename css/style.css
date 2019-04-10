@@ -46,3 +46,35 @@
   margin-bottom: 1rem;
   padding-bottom: 10px;
 }
+
+#sero-img1{
+  padding: 0px !important;
+  width: 340px !important;
+  height: 435px !important;
+}
+#sero-img2{
+  padding: 0px !important;
+  width: 480px !important;
+  height: 640px !important;
+}
+
+#garo-img1{
+  padding: 0px !important;
+  width: 580px !important;
+  height: 435px !important;
+}
+
+#garo-img2{
+  padding: 0px !important;
+  width: 640px !important;
+  height: 480px !important;
+}
+
+.img-rotate-left{
+  transform: rotate(-90deg);
+}
+
+
+#post-p{
+    font-size: 17px !important;
+}
