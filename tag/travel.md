@@ -1,6 +1,6 @@
 ---
 layout: tagpage
-title: "Tag: aws"
-tag: aws
+title: "Tag: travel"
+tag: travel
 robots: noindex
 ---
