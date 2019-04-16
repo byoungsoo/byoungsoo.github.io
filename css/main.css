@@ -408,9 +408,14 @@ header .navbar-default .navbar-nav .nav-category a:hover{
 /*---------------------------------------------
 					Work Start
 -----------------------------------------------*/
-/*--
-	Slider-work Start
---*/
+
+
+/*---------------------------------------------
+###### Byoungsoo Setting for Global Header #####
+-----------------------------------------------*/
+
+
+/*--	Default Header--*/
 #global-header {
   /*Modified by Bys Blocking backrgounrd url */
   /*background: url("../img/home/slider_bys.jpg") no-repeat;*/
@@ -452,6 +457,105 @@ header .navbar-default .navbar-nav .nav-category a:hover{
   text-transform: capitalize;
 }
 #global-header .block p {
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  word-spacing: 3px;
+}
+
+
+/*--	Greece Header--*/
+#global-header-greece {
+  /*Modified by Bys Blocking backrgounrd url */
+  background: url("../img/slide/greece_flag.jpg") no-repeat;
+  background-size: contain;
+  padding-top: 150px;
+  padding-bottom: 107px;
+  position: relative;
+  background-attachment: scroll;
+}
+#global-header-greece:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  /*Modified by Bys changed color */
+  /*background: linear-gradient(to left, #928dab, #1f1c2c 70%);*/
+  background: linear-gradient(to left, #52527a, #003366 100%);
+  opacity: 0.8;
+}
+
+/*Modified by Bys padding-left */
+#global-header-greece .block {
+  color: #E3E3E4;
+  margin: 0 auto;
+  /*padding-left: 90px;*/
+  padding-left: 0px;
+  text-align: center;
+}
+#global-header-greece .block h1 {
+  font-weight: 100;
+  font-size: 45px;
+  letter-spacing: 6px;
+  padding-bottom: 15px;
+  margin-top: 0;
+  text-transform: capitalize;
+}
+#global-header-greece .block p {
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  word-spacing: 3px;
+}
+
+/*--
+	Turkey Header
+--*/
+#global-header-turkey {
+  /*Modified by Bys Blocking backrgounrd url */
+  /*background: url("../img/home/slider_bys.jpg") no-repeat;*/
+  background-size: cover;
+  padding-top: 150px;
+  padding-bottom: 107px;
+  position: relative;
+  background-attachment: fixed;
+}
+#global-header-turkey:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  /*Modified by Bys changed color */
+  /*background: linear-gradient(to left, #928dab, #1f1c2c 70%);*/
+  background: linear-gradient(to left, #52527a, #003366 100%);
+  opacity: 0.8;
+}
+
+/*Modified by Bys padding-left */
+#global-header-turkey .block {
+  color: #E3E3E4;
+  margin: 0 auto;
+  /*padding-left: 90px;*/
+  padding-left: 0px;
+  text-align: center;
+}
+#global-header-turkey .block h1 {
+  font-weight: 100;
+  font-size: 45px;
+  letter-spacing: 6px;
+  padding-bottom: 15px;
+  margin-top: 0;
+  text-transform: capitalize;
+}
+#global-header-turkey .block p {
   font-size: 16px;
   font-weight: 300;
   letter-spacing: 1px;
