@@ -235,6 +235,10 @@ header .navbar-default .navbar-nav .nav-category a:hover{
   font-size: 14px;
   line-height: 1.8;
 }
+
+#service .service_align {
+  text-align: left;
+}
 /*--
 	call-to-action Start
 --*/
