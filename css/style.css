@@ -70,6 +70,12 @@
   height: 480px !important;
 }
 
+#schedule-img1{
+  padding: 0px !important;
+  width: 640px !important;
+  height: 60px !important;
+}
+
 .img-rotate-left{
   transform: rotate(-90deg);
 }
