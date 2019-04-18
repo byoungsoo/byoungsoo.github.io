@@ -188,7 +188,7 @@ header .navbar-default .navbar-nav .nav-category a:hover{
 	wrapper Start
 --*/
 #intro {
-  padding: 100px 0;
+  padding: 100px 1px;
 }
 #intro .block h2 {
   padding-top: 35px;
