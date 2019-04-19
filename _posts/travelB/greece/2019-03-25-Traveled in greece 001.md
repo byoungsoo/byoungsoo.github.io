@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[나홀로 배낭여행:그리스:아테네] #1. 아무것도 모르지만 떠나자"
+title: "[그리스 배낭여행:아테네] #1. 아무것도 모르지만 떠나자"
 author: "Byoungsoo Ko"
 category: greece
 tags: greece athene travel

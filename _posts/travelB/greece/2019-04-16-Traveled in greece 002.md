@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[나홀로 배낭여행:그리스:아테네] #2. 아테네 피레우스항구와 리카비토스 언덕"
+title: "[그리스 배낭여행:아테네] #2. 아테네 피레우스항구와 리카비토스 언덕"
 author: "Byoungsoo Ko"
 category: greece
 tags: greece athene travel

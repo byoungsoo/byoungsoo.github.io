@@ -34,77 +34,110 @@
 }
 
 /*Byoungsoo setting start*/
-.title-area {
-  padding-top: 50px;
-  padding-left: 20px;
-  color: gray;
-  border-top: 1px dotted #ddd;
+#post-bys {
+  padding: 100px 1px;
 }
+#post-bys .block h2 {
+  padding-top: 35px;
+  line-height: 27px;
+  margin: 0;
+}
+#post-bys .block p {
+  color: black;
+  font-size: 18px;
+  padding-top: 20px;
 
-.tag-title {
-  font-size:25px;
-  margin-bottom: 1rem;
-  padding-bottom: 10px;
+}
+#post-bys .block img {
+  padding-left: 40px;
+  width: 100%;
+}
+#post-bys .section-title {
+  margin-bottom: 0px;
+}
+#post-bys .section-title p {
+  padding-top: 20px;
 }
 
 #sero-img1{
+  margin: 40px 0px 10px 0px !important;
   padding: 0px !important;
   width: 340px !important;
   height: 435px !important;
 }
 #sero-img2{
+  margin: 40px 0px 10px 0px !important;
   padding: 0px !important;
   width: 480px !important;
   height: 640px !important;
 }
 
 #garo-img1{
+  margin: 40px 0px 10px 0px !important;
   padding: 0px !important;
   width: 580px !important;
   height: 435px !important;
 }
 
 #garo-img2{
+  margin: 40px 0px 10px 0px !important;
   padding: 0px !important;
   width: 640px !important;
   height: 480px !important;
 }
 
+#garo-img3{
+  margin: 40px 0px 10px 0px !important;
+  padding: 0px !important;
+  width: 740px !important;
+  height: 555px !important;
+}
+
 #schedule-img1{
+  margin: 40px 0px 10px 0px !important;
   padding: 0px !important;
   width: 640px !important;
   height: 60px !important;
 }
 
-.img-rotate-left{
-  transform: rotate(-90deg);
-}
 
 @media (max-width: 1200px) {
   #sero-img1{
+    margin: 4rem 0px 1rem 0px !important;
     padding: 0px !important;
     width: 100% !important;
     height: 100% !important;
   }
   #sero-img2{
+    margin: 4rem 0px 1rem 0px !important;
     padding: 0px !important;
     width: 100% !important;
     height: 100% !important;
   }
 
   #garo-img1{
+    margin: 4rem 0px 1rem 0px !important;
     padding: 0px !important;
     width: 100% !important;
     height: 100% !important;
   }
 
   #garo-img2{
+    margin: 4rem 0px 1rem 0px !important;
+    padding: 0px !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  #garo-img3{
+    margin: 4rem 0px 1rem 0px !important;
     padding: 0px !important;
     width: 100% !important;
     height: 100% !important;
   }
 
   #schedule-img1{
+    margin: 4rem 0px 1rem 0px !important;
     padding: 0px !important;
     width: 100% !important;
     height: 60px !important;
