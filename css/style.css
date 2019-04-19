@@ -46,8 +46,12 @@
   color: black;
   font-size: 18px;
   padding-top: 20px;
-
 }
+
+#post-bys .block li {
+  font-size: 18px;
+}
+
 #post-bys .block img {
   padding-left: 40px;
   width: 100%;
@@ -68,8 +72,15 @@
 #sero-img2{
   margin: 40px 0px 10px 0px !important;
   padding: 0px !important;
-  width: 480px !important;
-  height: 640px !important;
+  width: 400px !important;
+  height: 525px !important;
+}
+
+#sero-img3{
+  margin: 40px 0px 10px 0px !important;
+  padding: 0px !important;
+  width: 510px !important;
+  height: 680px !important;
 }
 
 #garo-img1{
@@ -82,8 +93,8 @@
 #garo-img2{
   margin: 40px 0px 10px 0px !important;
   padding: 0px !important;
-  width: 640px !important;
-  height: 480px !important;
+  width: 700px !important;
+  height: 525px !important;
 }
 
 #garo-img3{
@@ -109,6 +120,13 @@
     height: 100% !important;
   }
   #sero-img2{
+    margin: 4rem 0px 1rem 0px !important;
+    padding: 0px !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  #sero-img3{
     margin: 4rem 0px 1rem 0px !important;
     padding: 0px !important;
     width: 100% !important;
