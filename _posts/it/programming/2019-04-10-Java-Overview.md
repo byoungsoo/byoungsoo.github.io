@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Java 기초 개념"
-author: "Byoungsoo Ko"
-category: java
+author: "Bys"
+category: programming
 tags: java programming
 ---
 

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Middleware 솔루션"
-author: "Byoungsoo Ko"
+author: "Bys"
 category: middleware
 tags: middleware
 ---
