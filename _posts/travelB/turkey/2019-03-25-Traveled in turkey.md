@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "나홀로 떠난 터키 배낭여행"
-author: "Byoungsoo Ko"
+author: "Bys"
 category: turkey
 ---
 

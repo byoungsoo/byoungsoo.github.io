@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "[그리스 배낭여행:아테네] #5. 아테네 가볼만한 곳과 기념품"
-author: "Byoungsoo Ko"
+author: "Bys"
 category: greece
 tags: greece athene travel
 ---

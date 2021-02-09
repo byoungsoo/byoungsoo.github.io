@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "[그리스 배낭여행:아테네] #4. 그리스 수니온 곶"
-author: "Byoungsoo Ko"
+author: "Bys"
 category: greece
 tags: greece athene travel
 ---

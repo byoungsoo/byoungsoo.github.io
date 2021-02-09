@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Openstack 용어 정리"
-author: "Byoungsoo Ko"
+author: "Bys"
 category: cloud
 date: 2019-04-03 18:00:00
 tags: cloud openstack

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Middleware의 개념과 분류"
-author: "Byoungsoo Ko"
+author: "Bys"
 category: middleware
 date: 2019-04-11 11:00:00
 tags: middleware

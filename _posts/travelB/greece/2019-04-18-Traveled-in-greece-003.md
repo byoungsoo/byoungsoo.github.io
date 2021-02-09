@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "[그리스 배낭여행:아테네] #3. 그리스의 아름다운 해변가와 Yaniess 집"
-author: "Byoungsoo Ko"
+author: "Bys"
 category: greece
 tags: greece athene travel
 ---
