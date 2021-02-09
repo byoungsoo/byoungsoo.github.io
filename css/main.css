@@ -191,16 +191,18 @@ header .navbar-default .navbar-nav .nav-category a:hover{
   padding: 100px 1px;
 }
 #intro .block h2 {
+  font-size: 28px;
   padding-top: 35px;
   line-height: 27px;
   margin: 0;
 }
 #intro .block p {
-  color: #7B7B7B;
+  font-size: 20px;
+  color: #555555;
   padding-top: 20px;
 }
 #intro .block img {
-  padding-left: 40px;
+  /* padding-left: 40px; */
   width: 100%;
 }
 #intro .section-title {
@@ -216,6 +218,10 @@ header .navbar-default .navbar-nav .nav-category a:hover{
   text-align: center;
   padding: 90px 0;
 }
+#service .section-title {
+  text-align: left;
+}
+
 #service .service-item {
   padding-bottom: 30px;
 }
@@ -435,14 +441,15 @@ header .navbar-default .navbar-nav .nav-category a:hover{
   width: 100%;
   height: 100%;
   /*Modified by Bys changed color */
-  /*background: linear-gradient(to left, #928dab, #1f1c2c 70%);*/
-  background: linear-gradient(to left, #52527a, #003366 100%);
-  opacity: 0.8;
+  /* background: linear-gradient(to left, #928dab, #1f1c2c 70%); */
+  /* background: linear-gradient(to left, hsl(0, 0%, 100%), #003366 100%); */
+  /* opacity: 0.8; */
+  background-color: #f3f3f3e7;
 }
 
 /*Modified by Bys padding-left */
 #global-header .block {
-  color: #E3E3E4;
+  color: #030305;
   margin: 0 auto;
   /*padding-left: 90px;*/
   padding-left: 0px;
@@ -462,6 +469,54 @@ header .navbar-default .navbar-nav .nav-category a:hover{
   letter-spacing: 1px;
   word-spacing: 3px;
 }
+
+
+/*--	Contact Header--*/
+#global-header-contact {
+  /*Modified by Bys Blocking backrgounrd url */
+  background-size: cover;
+  padding-top: 150px;
+  padding-bottom: 107px;
+  position: relative;
+  background-attachment: scroll;
+}
+#global-header-contact:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  /*Modified by Bys changed color */
+  background-color: #f1f1f1;
+  opacity: 0.8;
+}
+
+/*Modified by Bys padding-left */
+#global-header-contact .block {
+  color: #000000;
+  margin: 0 auto;
+  /*padding-left: 90px;*/
+  padding-left: 0px;
+  text-align: center;
+}
+#global-header-contact .block h1 {
+  font-weight: 100;
+  font-size: 45px;
+  letter-spacing: 6px;
+  padding-bottom: 15px;
+  margin-top: 0;
+  text-transform: capitalize;
+}
+#global-header-contact .block p {
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  word-spacing: 3px;
+}
+
 
 
 /*--	Greece Header--*/
