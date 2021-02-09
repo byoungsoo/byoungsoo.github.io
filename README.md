@@ -18,6 +18,9 @@ E-mail: skwltg90@naver.com
 
 ---
 ### Skill Set
+
+PLSQL / Forms
+
 Middleware
 
 Cloud
