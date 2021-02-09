@@ -15,7 +15,7 @@ keep_files:
 # Site settings
 title: Bysoo GithubPage
 subtitle: "Github Blog"
-url: "https://bys.github.io/" # the base hostname & protocol for your site
+url: "https://byshouse.github.io/" # the base hostname & protocol for your site
 # baseurl: "/the/subpath/of/your/site" # Set this value to "" if you want your site to be root
 baseurl: ""
 cover: "/assets/cover.png"
