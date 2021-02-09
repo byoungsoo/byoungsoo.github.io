@@ -1,6 +1,6 @@
 ## Github Page by Bys
 <br><br>
-http://byoungsoo.github.io/
+http://bys.github.io/
 
 ---
 ## Work
