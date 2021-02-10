@@ -15,6 +15,37 @@
 @import url(//fonts.googleapis.com/css?family=Open+Sans:400,300,600);
 @import url(//fonts.googleapis.com/css?family=Roboto:400,100,300,500,700);
 @import url(//fonts.googleapis.com/css?family=Volkhov:400italic);
+
+/* WebFont */
+@font-face {
+  font-family: 'MyriadProLight';
+  src: url("../fonts/MyriadPro-Light.otf");
+}
+
+@font-face {
+  font-family: 'MyriadRegular';
+  src: url("../fonts/MYRIADPRO-REGULAR.otf");
+}
+
+@font-face {
+  font-family: 'MyriadSemiBold';
+  src: url("../fonts/MYRIADPRO-SEMIBOLD.otf");
+}
+
+@font-face {
+  font-family: 'MyriadProCondit';
+  src: url("../fonts/MYRIADPRO-CONDIT.otf");
+}
+
+@font-face {
+  font-family: 'Binggrae';
+  src: url("../fonts/Binggrae.ttf");
+}
+
+
+
+
+
 /* var text-decoration */
 /*--
 	Common Css
@@ -184,36 +215,56 @@ header .navbar-default .navbar-nav .nav-category a:hover{
   font-weight: 300;
   letter-spacing: 3px;
 }
-/*--
-	wrapper Start
---*/
+
+
+/* ABOUT ME */
 #intro {
   padding: 100px 1px;
+  font-family: 'MyriadProLight';
 }
+
+#intro .block {
+  font-size: 15px;
+}
+/* Project, Skills */
 #intro .block h2 {
-  font-size: 28px;
+  font-family: 'MyriadSemiBold';
+  font-size: 25px;
   padding-top: 35px;
   line-height: 27px;
   margin: 0;
 }
+
 #intro .block p {
-  font-size: 20px;
+  font-family: 'MyriadProCondit';
+  font-size: 25px;
   color: #555555;
-  padding-top: 20px;
+  padding-top: 10px;
 }
+
+#intro .bucket-list {
+  font-family: 'Binggrae';
+  font-size: 14px;
+  color: #555555;
+  padding-top: 5px;
+}
+
 #intro .block img {
   /* padding-left: 40px; */
   width: 100%;
 }
 #intro .section-title {
+  font-family: 'MyriadSemiBold';
   margin-bottom: 0px;
 }
+
 #intro .section-title p {
   padding-top: 20px;
 }
-/*--
-	service Start
---*/
+
+
+
+/* Service */
 #service {
   text-align: center;
   padding: 90px 0;
