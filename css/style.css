@@ -37,6 +37,12 @@
 #post-bys {
   padding: 100px 1px;
 }
+
+/* Title */
+#post-bys .block h1 {
+  padding-top: 32px;
+}
+
 #post-bys .block h2 {
   padding-top: 35px;
   line-height: 27px;
@@ -44,8 +50,8 @@
 }
 #post-bys .block p {
   color: black;
-  font-size: 18px;
-  padding-top: 20px;
+  font-size: 14px;
+  padding-top: 10px;
 }
 
 #post-bys .block li {
