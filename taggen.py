@@ -5,6 +5,7 @@ import os
 '''
 post_dir = '_posts/it/algorithm/'
 post_dir = '_posts/it/programming/'
+post_dir = '_posts/it/git/'
 post_dir = '_posts/it/cloud/'
 post_dir = '_posts/it/network/'
 '''
