@@ -1,2 +1,2 @@
-localtest1
-not changed yet in localfile
+localtest
+fetch test (changed origin)
