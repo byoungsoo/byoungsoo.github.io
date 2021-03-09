@@ -17,7 +17,7 @@ https://github.com/scouter-project/scouter/releases/
 
 - Scouter의 동작 방식은 아래와 같이 Agent를 각 WAS에 심고, 각 WAS의 Metric정보를 Host서버가 수집한다. Client는 Clinet툴을 이용하여 Host서버에 붙어 모니터링 정보를 확인 할 수 있다.  
 Client ↔︎ Collector(EC2) ↔︎ WAS(VM/Container)  
-![Scouter](/assets/it/Scouter.jpg)
+![Scouter](/assets/it/middleware/Scouter.jpg)
 
 - Scouter의 동작을 확인하기 위해서는 즉, 3가지 설치가 필요하다.  
 
@@ -56,8 +56,6 @@ COPY scouter.agent.java /usr/local/appServer/scouter/agent.java
 RUN sed -i -e "s#WAS-01#WAS_NAME#g" /usr/local/appServer/scouter/agent.java/conf/scouter.conf 
 RUN sed -i -e "s#HOST_IP#HOST_IP#g" /usr/local/appServer/scouter/agent.java/conf/scouter.conf 
 ```
-
-
 
 
 2. Host
