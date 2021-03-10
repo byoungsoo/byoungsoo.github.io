@@ -41,12 +41,12 @@ Platform Middleware는 응용프로그램의 실행을 관리하기 위한 Middl
 <br/>
 
 <EAI 미 적용 시>  
-![middleware2](/assets/middleware2.jpg)
+![middleware2](/assets/it/middleware/middleware/middleware2.jpg)
 <br/><br/>
 인사시스템과 M/F 들은 서로 다른 Chracter Encoding 으로 관리되고 있으며, 이들이 주로 사용하는 타 시스템 연계 방식 역시, FTP, Socket, DB Link 등 다양하다고 가정한다면, **인사시스템은 서로 다른 3개의 시스템과 서로 다른 프로토콜, 코드관리 프로그램, Business Logic등을 처리하기 위한 프로그램이 다양하게 존해해야 한다.**
 
 <EAI 적용 시>  
-![middleware3](/assets/middleware3.jpg)
+![middleware3](/assets/it/middleware/middleware/middleware3.jpg)
 <br/><br/>
 각 시스템들은 자신들이 관리하는 Chracter Encoding Type으로 EAI를 통한 방식으로 통신을 수행하면 되고, EAI에서는 서로 다른 시스템과의 Routing 등을 수행하게 된다. 필요 시에는 송/수신하는 데이터에 추가적인 정보를 포함시키거나 원래의 데이터를 나누어 시스템에 전송해주는 기능을 수행해 줄 수 있다.
 
