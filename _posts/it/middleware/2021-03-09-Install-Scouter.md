@@ -19,7 +19,7 @@ Client: scouter.client.product-win32.win32.x86_64.zip
 - Scouter의 동작 방식은 아래와 같이 Agent를 각 WAS에 심고, 각 WAS의 Metric정보를 Host서버가 수집한다. Client는 Clinet툴을 이용하여 Host서버에 붙어 모니터링 정보를 확인 할 수 있다.  
 Client ↔︎ Collector(EC2) ↔︎ WAS(VM/Container)  
 
-![scouter](/assets/it/miiddleware/scouter/scouter.png)
+![scouter](/assets/it/miiddleware/scouter/scouter.png){: width="400" height="300"}  
 
 - Scouter의 동작을 확인하기 위해서는 즉, 3가지 설치가 필요하다. (Linux 환경을 기본으로 한다.)
 <br><br>
@@ -74,11 +74,13 @@ tail -100 nohup.out
 <br>
 
 
-3. Clinet
+3. Clinet  
 
 scouter.client.product-win32.win32.x86_64.zip  
-해당 ZIP파일을 다운로드 후 scouter.exe 파일을 실행 시키면 아래와 같다.  
-![scouterClient](/assets/it/middleware/scouter/scouterClient.png)  
+해당 ZIP파일을 다운로드 후 scouter.exe 파일을 실행 시키면 아래와 같다.
+
+![scouterClient](/assets/it/middleware/scouter/scouterClient.png){: width="400" height="300"}  
+
 Host서버의 IP주소를 입력한다.  
 초기 계정 및 패스워드는 admin / admin으로 로그인 한다.  
 물론 Clinet PC와 Host 간 6100 TCP 통신은 허용이 되어 있어야 정상 접근이 가능할 것이다.  
