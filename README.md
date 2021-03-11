@@ -38,4 +38,6 @@ Spring / Java
 
 2021.01.01 ~ 2020.03.31 - Hanwha Life MSP / `SWA`
 
+2021.02.01 ~ 2020.02.28 - MSA Outer Arhictecture(Essential) 교육과정 개발 / `SWA`
+
 ---
