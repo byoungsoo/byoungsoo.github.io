@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "SpringBoot에 APM툴 Scouter 설치하기"
+title: "APM툴 Scouter 설치하기"
 author: "Bys"
 category: middleware
 date: 2021-03-09 01:00:00
