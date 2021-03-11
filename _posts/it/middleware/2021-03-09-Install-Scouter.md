@@ -10,13 +10,15 @@ tags: apm scouter opensource oss
 Scouter는 Open Source로 나와있는 APM툴이다. 
 
 
-- Scouter Download  
+Scouter Download  
 Scouter는 무료 오픈 소스로 아래의 github에서 다운 받을 수 있다.  
-https://github.com/scouter-project/scouter/releases/  
+
+>https://github.com/scouter-project/scouter/releases/  
 Agent, Server: scouter-all-*.tar.gz  
 Client: scouter.client.product-win32.win32.x86_64.zip  
 
-- Scouter의 동작 방식은 아래와 같이 Agent를 각 WAS에 심고, 각 WAS의 Metric정보를 Host서버가 수집한다. Client는 Clinet툴을 이용하여 Host서버에 붙어 모니터링 정보를 확인 할 수 있다.  
+Scouter의 동작 방식은 아래와 같이 Agent를 각 WAS에 심고, 각 WAS의 Metric정보를 Host서버가 수집한다.  
+Client는 Clinet툴을 이용하여 Host서버에 붙어 모니터링 정보를 확인 할 수 있다.  
 Client ↔︎ Collector(EC2) ↔︎ WAS(VM/Container)  
 
 ![scouter](/assets/it/miiddleware/scouter/scouter.png){: width="300" height="217"}  
@@ -25,7 +27,7 @@ Client ↔︎ Collector(EC2) ↔︎ WAS(VM/Container)
 Scouter의 동작을 확인하기 위해서는 즉, 3가지 설치가 필요하다. (Linux 환경을 기본으로 한다.)
 <br><br>
 
-1. Agent (scouter/agent.java)  
+#### 1. Agent (scouter/agent.java)  
 
 scouter/agent.java의 구성은 confg, plugin, scouter.agent.jar로 구성이 되어있다.  
 conf파일을 WAS의 적당한 위치에 올리고, agent.jar 파일을 WAS에 심은 후 연동하면 된다.   
@@ -61,8 +63,9 @@ COPY scouter.agent.java /usr/local/appServer/scouter/agent.java
 RUN sed -i -e "s#WAS-01#WAS_NAME#g" /usr/local/appServer/scouter/agent.java/conf/scouter.conf 
 RUN sed -i -e "s#HOST_IP#HOST_IP#g" /usr/local/appServer/scouter/agent.java/conf/scouter.conf 
 ```
+<br><br>
 
-2. Host (scouter/server)  
+#### 2. Host (scouter/server)  
 
 scouter/server의 구성은 scouter-server-boot.jar, startup.sh, stop.sh 로 구성이 되어있다.  
 Collector 서버로 사용 할 서버에서 startup.sh 을 기동시켜주기만 하면 된다.
@@ -72,10 +75,10 @@ nohup java -Xmx1024m -classpath ./scouter-server-boot.jar scouter.boot.Boot ./li
 sleep 1
 tail -100 nohup.out
 ```
-<br>
+<br><br>
 
 
-3. Clinet  
+#### 3. Clinet  
 
 scouter.client.product-win32.win32.x86_64.zip  
 해당 ZIP파일을 다운로드 후 scouter.exe 파일을 실행 시키면 아래와 같다.
