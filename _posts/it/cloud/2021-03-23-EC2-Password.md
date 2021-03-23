@@ -34,7 +34,8 @@ PasswordAuthentication yes
 sudo systemctl restart sshd 
 ```
 
-AMI이미지로 사용할 경우는 아래와 같이 PasswordAuthentication yes 로 설정해놓은 파일을 sshd_config.orig 파일로 만들어놓고 EC2 생성 시 User Setting 부분에 아래와 같이 넣어준다.
+AMI이미지로 사용할 경우는 아래와 같이 PasswordAuthentication yes 로 설정해놓은 파일을 sshd_config.orig 파일로 만들어놓고  
+EC2 생성 시 User Setting 부분에 아래와 같이 넣어준다.
 
 `/etc/ssh/sshd_config`
 ```bash
