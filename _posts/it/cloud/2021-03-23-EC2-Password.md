@@ -29,6 +29,11 @@ PasswordAuthentication yes
 ```
 다만 해당 내용을 AMI로 저장하고 사용하려고 하면 PasswordAuthentication 값은 자동으로 no 값으로 셋팅된다.  
 
+이 후 아래의 명령 실행
+```bash
+sudo systemctl restart sshd 
+```
+
 AMI이미지로 사용할 경우는 아래와 같이 PasswordAuthentication yes 로 설정해놓은 파일을 sshd_config.orig 파일로 만들어놓고 EC2 생성 시 User Setting 부분에 아래와 같이 넣어준다.
 
 `/etc/ssh/sshd_config`
