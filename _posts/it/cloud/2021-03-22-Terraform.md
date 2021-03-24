@@ -35,7 +35,8 @@ tf 파일은 용도에 맞게 적당히 합쳐도, 나누어도 무방하다.
 `vpc.tf`
 `gateway.tf`
 `security.tf`
-`route.tf`
+`route.tf`  
+  
 
 #### 2. tf파일 만들기  
 vpc 폴더 밑으로 생성 된 tf파일의 내용은 아래와 같다.  
@@ -295,7 +296,7 @@ resource "aws_route_table_association" "smp_dev_private_subnet2_association" {
 ```
 
 
-
+  
 #### 3. terraform 적용하기    
 vpc 폴더 밑으로 해당 tf 파일들을 모두 작성하였다면 현재 vpc 폴더 밑으로는 provider.tf, vpc.tf, gateway.tf, security.tf, route.tf 파일 총 5개의 파일이 존재한다.  
 

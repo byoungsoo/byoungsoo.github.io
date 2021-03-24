@@ -3,7 +3,7 @@ layout: post
 title: "EC2 Password 접속하기"
 author: "Bys"
 category: cloud
-date: 2021-03-04 01:00:00
+date: 2021-03-23 01:00:00
 tags: aws ec2 password
 ---
 
