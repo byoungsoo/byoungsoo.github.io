@@ -35,7 +35,8 @@ tf 파일은 용도에 맞게 적당히 합쳐도, 나누어도 무방하다.
 `vpc.tf`
 `gateway.tf`
 `security.tf`
-`route.tf`
+`route.tf`  
+  
 
 #### 2. tf파일 만들기  
 vpc 폴더 밑으로 생성 된 tf파일의 내용은 아래와 같다.  
