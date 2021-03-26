@@ -15,9 +15,12 @@ keep_files:
 # Site settings
 title: Bysoo GithubPage
 subtitle: "Github Blog"
-url: "https://byoungsoo.github.io/" # the base hostname & protocol for your site
+
+# the base hostname & protocol for your site
+url: "https://byoungsoo.github.io" 
+
 # baseurl: "/the/subpath/of/your/site" # Set this value to "" if you want your site to be root
-baseurl: ""
+baseurl: "/"
 cover: "/assets/cover.png"
 logo: "/assets/logo.png"
 
@@ -39,3 +42,7 @@ ga_tracking_id: "UA-137282255-1"
 
 # Category
 categories: category/
+
+
+feed:
+  path: feed.xml
