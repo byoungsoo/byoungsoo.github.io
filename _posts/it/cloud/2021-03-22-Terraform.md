@@ -42,6 +42,7 @@ tf 파일은 용도에 맞게 적당히 합쳐도, 나누어도 무방하다.
 vpc 폴더 밑으로 생성 된 tf파일의 내용은 아래와 같다.  
 
 `provider.tf`  
+
 provider.tf는 AWS계정의 IAM Security credential의 Access Keys 파일의 정보이다.  
 Terraform 수행 계정이 된다.  
 ```js
@@ -53,6 +54,7 @@ region     = "ap-northeast-2"
 ```
 
 `vpc.tf`  
+
 vpc.tf의 경우 vpc 및 subnet의 resource 정보가 담겨있다.   
 vpc생성 시 "smp_dev_vpc" 와 같이 이름을 설정하여 다른 resource 구성 시 aws_vpc.smp_dev_vpc.id 와 같이 변수 사용하여 추가적인 resource를 구성 할 수 있다.  
 
@@ -178,6 +180,7 @@ resource "aws_subnet" "smp_dev_sbn_az2_db" {
 
 
 `gateway.tf`  
+
 gateway.tf는 Internet Gateway, NAT ateway를 구성한다.   
 ```js
 #ProjectCode-Account-Resource-{att1}-{zone}
@@ -210,6 +213,7 @@ resource "aws_nat_gateway" "smp_dev_nat" {
 
 
 `security.tf`  
+
 security.tf는 network acl 및 security group에 대한 설정 정보를 구성한다.  
 ```js
 //network acl default
