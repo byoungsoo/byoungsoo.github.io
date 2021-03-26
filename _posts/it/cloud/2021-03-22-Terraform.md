@@ -27,8 +27,8 @@ Terraform 사용하기
 
 #### 1. 시작하기  
 간단하게 Terraform을 적용해보기로 한다. 적당한 위치에 폴더를 만든다.  
-이번의 경우는 AWS 계정을 생성 한 후 가장 기본적인 수준의 Landing Zone 구성을 Terraform을 통해 진행해 보려고 한다.  
-적당한 위치에 다음과 같은 C:\dev\terraform_0.14.8\terraform\vpc 폴더 구조를 생성하고 vpc 폴더 밑으로 아래와 같이 4개의 파일을 구성했다.  
+이번의 경우는 AWS 계정을 생성 한 후 기본적인 수준의 Landing Zone 구성을 Terraform을 통해 진행해 보려고 한다.  
+적당한 위치에 다음과 같은 C:\dev\terraform_0.14.8\terraform\vpc 폴더 구조를 생성하고 vpc 폴더 밑으로 아래와 같이 5개의 파일을 구성했다.  
 tf 파일은 용도에 맞게 적당히 합쳐도, 나누어도 무방하다.  
 
 `provider.tf`
@@ -41,10 +41,10 @@ tf 파일은 용도에 맞게 적당히 합쳐도, 나누어도 무방하다.
 #### 2. tf파일 만들기  
 vpc 폴더 밑으로 생성 된 tf파일의 내용은 아래와 같다.  
 
-`provider.tf`  
+`provider.tf`
 provider.tf는 AWS계정의 IAM Security credential의 Access Keys 파일의 정보이다.  
 Terraform 수행 계정이 된다.  
-```json
+```js
 provider "aws" {
 access_key = "**********************"
 secret_key = "*******************************"
@@ -55,10 +55,13 @@ region     = "ap-northeast-2"
 `vpc.tf`  
 vpc.tf의 경우 vpc 및 subnet의 resource 정보가 담겨있다.   
 vpc생성 시 "smp_dev" 이름을 설정하여 subnet에 구성 시 ${aws_vpc.smp_dev.id} 라는 변수 값을 통해 해당 vpc내 subnet을 구성 할 수 있다.  
-```json
+```js
+#Naming Rule
+#ProjectCode-Account-Resource-{att1}-{zone}
+
 // vpc
-resource "aws_vpc" "smp_dev" { 
-  cidr_block  = "10.10.0.0/16" 
+resource "aws_vpc" "smp_dev_vpc" { 
+  cidr_block  = "10.20.0.0/16" 
   instance_tenancy = "default" 
   enable_dns_support                = true 
   enable_dns_hostnames              = true 
@@ -71,81 +74,156 @@ resource "aws_vpc" "smp_dev" {
         }
 }
 
-// private subnets
-resource "aws_subnet" "smp_dev_public_subnet1" {
-  vpc_id = "${aws_vpc.smp_dev.id}"
-  cidr_block = "10.10.1.0/24"
+// public subnets
+resource "aws_subnet" "smp_dev_sbn_az1_dmz" {
+  vpc_id = aws_vpc.smp_dev_vpc.id
+  cidr_block = "10.20.1.0/24"
   map_public_ip_on_launch = false
   availability_zone = "ap-northeast-2a"
   tags = {
-    Name = "smp_dev_public_subnet1"
+    Name = "SMP-DEV-SBN-AZ1-DMZ"
   }
 }
 
-resource "aws_subnet" "smp_dev_public_subnet2" {
-  vpc_id = "${aws_vpc.smp_dev.id}"
-  cidr_block = "10.10.2.0/24"
+resource "aws_subnet" "smp_dev_sbn_az2_dmz" {
+  vpc_id = aws_vpc.smp_dev_vpc.id
+  cidr_block = "10.20.2.0/24"
   map_public_ip_on_launch = true
   availability_zone = "ap-northeast-2c"
   tags = {
-    Name = "smp_dev_public_subnet2"
+    Name = "SMP-DEV-SBN-AZ2-DMZ"
   }
 }
 
 // private subnets
-resource "aws_subnet" "smp_dev_private_subnet1" {
-  vpc_id = "${aws_vpc.smp_dev.id}"
-  cidr_block = "10.10.3.0/24"
+resource "aws_subnet" "smp_dev_sbn_az1_app" {
+  vpc_id = aws_vpc.smp_dev_vpc.id
+  cidr_block = "10.20.10.0/24"
   availability_zone = "ap-northeast-2a"
   tags = {
-    Name = "smp_dev_private_subnet1"
+    Name = "SMP-DEV-SBN-AZ1-APP"
   }
 }
 
-resource "aws_subnet" "smp_dev_private_subnet2" {
-  vpc_id = "${aws_vpc.smp_dev.id}"
-  cidr_block = "10.10.11.0/24"
+resource "aws_subnet" "smp_dev_sbn_az2_app" {
+  vpc_id = aws_vpc.smp_dev_vpc.id
+  cidr_block = "10.20.11.0/24"
   availability_zone = "ap-northeast-2c"
   tags = {
-    Name = "smp_dev_private_subnet2"
+    Name = "SMP-DEV-SBN-AZ2-APP"
+  }
+}
+
+// private subnets
+resource "aws_subnet" "smp_dev_sbn_az1_elb" {
+  vpc_id = aws_vpc.smp_dev_vpc.id
+  cidr_block = "10.20.12.0/24"
+  availability_zone = "ap-northeast-2a"
+  tags = {
+    Name = "SMP-DEV-SBN-AZ1-ELB"
+  }
+}
+
+resource "aws_subnet" "smp_dev_sbn_az2_elb" {
+  vpc_id = aws_vpc.smp_dev_vpc.id
+  cidr_block = "10.20.13.0/24"
+  availability_zone = "ap-northeast-2c"
+  tags = {
+    Name = "SMP-DEV-SBN-AZ2-ELB"
+  }
+}
+
+resource "aws_subnet" "smp_dev_sbn_az1_eks" {
+  vpc_id = aws_vpc.smp_dev_vpc.id
+  cidr_block = "10.20.14.0/24"
+  availability_zone = "ap-northeast-2a"
+  tags = {
+    Name = "SMP-DEV-SBN-AZ1-EKS"
+  }
+}
+
+resource "aws_subnet" "smp_dev_sbn_az2_eks" {
+  vpc_id = aws_vpc.smp_dev_vpc.id
+  cidr_block = "10.20.15.0/24"
+  availability_zone = "ap-northeast-2c"
+  tags = {
+    Name = "SMP-DEV-SBN-AZ2-EKS"
+  }
+}
+
+
+resource "aws_subnet" "smp_dev_sbn_az1_db" {
+  vpc_id = aws_vpc.smp_dev_vpc.id
+  cidr_block = "10.20.16.0/24"
+  availability_zone = "ap-northeast-2a"
+  tags = {
+    Name = "SMP-DEV-SBN-AZ1-DB"
+  }
+}
+
+resource "aws_subnet" "smp_dev_sbn_az2_db" {
+  vpc_id = aws_vpc.smp_dev_vpc.id
+  cidr_block = "10.20.17.0/24"
+  availability_zone = "ap-northeast-2c"
+  tags = {
+    Name = "SMP-DEV-SBN-AZ2-DB"
   }
 }
 ```
 
 
 `gateway.tf`  
-gateway.tf는 Internet Gateway, NAT Gateway를 구성한다.   
-```json
+gateway.tf는 Internet Gateway, NAT ateway를 구성한다.   
+```js
+#ProjectCode-Account-Resource-{att1}-{zone}
 // igw
 resource "aws_internet_gateway" "smp_dev_igw" {
-  vpc_id = "${aws_vpc.smp_dev.id}"
+  vpc_id = aws_vpc.smp_dev_vpc.id
 
   tags = {
-    Name = "main"
+    Name = "SMP-DEV-IGW"
   }
 }
 
 // eip for NAT
-resource "aws_eip" "smp_dev_nat_eip" {
+resource "aws_eip" "smp_dev_eip_nat" {
   vpc = true
-  depends_on = ["aws_internet_gateway.smp_dev_igw"]
+  depends_on = [aws_internet_gateway.smp_dev_igw]
+
+  tags = {
+    Name = "IGW"
+  }
 }
 
 // NAT gateway
 resource "aws_nat_gateway" "smp_dev_nat" {
-  allocation_id = "${aws_eip.smp_dev_nat_eip.id}"
-  subnet_id = "${aws_subnet.smp_dev_public_subnet1.id}"
-  depends_on = ["aws_internet_gateway.smp_dev_igw"]
+  allocation_id = aws_eip.smp_dev_eip_nat.id
+  subnet_id = aws_subnet.smp_dev_sbn_az1_dmz.id
+  depends_on = [aws_internet_gateway.smp_dev_igw]
 }
 ```
 
 
 `security.tf`  
 security.tf는 network acl 및 security group에 대한 설정 정보를 구성한다.  
-```json
+```js
 //network acl default
-resource "aws_default_network_acl" "smp_dev_default" {
-  default_network_acl_id = "${aws_vpc.smp_dev.default_network_acl_id}"
+resource "aws_default_network_acl" "SMP-DEV-NACL-DEFAULT" {
+  default_network_acl_id = aws_vpc.smp_dev_vpc.default_network_acl_id 
+  
+  subnet_ids = [
+    aws_subnet.smp_dev_sbn_az1_dmz.id,
+    aws_subnet.smp_dev_sbn_az2_dmz.id,
+    
+    aws_subnet.smp_dev_sbn_az1_app.id,
+    aws_subnet.smp_dev_sbn_az2_app.id,
+
+    aws_subnet.smp_dev_sbn_az1_eks.id,
+    aws_subnet.smp_dev_sbn_az2_eks.id,
+
+    aws_subnet.smp_dev_sbn_az1_db.id,
+    aws_subnet.smp_dev_sbn_az2_db.id    
+  ]
 
   ingress {
     protocol   = -1
@@ -171,23 +249,9 @@ resource "aws_default_network_acl" "smp_dev_default" {
 }
 
 
-// network acl for public subnets
-resource "aws_network_acl" "smp_dev_public" {
-  vpc_id = "${aws_vpc.smp_dev.id}"
-  subnet_ids = [
-    "${aws_subnet.smp_dev_public_subnet1.id}",
-    "${aws_subnet.smp_dev_public_subnet2.id}",
-  ]
-
-  tags = {
-    Name = "public"
-  }
-}
-
-
 // default security group
-resource "aws_default_security_group" "smp_dev_default" {
-  vpc_id = "${aws_vpc.smp_dev.id}"
+resource "aws_default_security_group" "smp_dev_sg_deafult" {
+  vpc_id = aws_vpc.smp_dev_vpc.id
 
   ingress {
     protocol  = -1
@@ -204,16 +268,16 @@ resource "aws_default_security_group" "smp_dev_default" {
   }
 
   tags = {
-    Name = "default"
+    Name = "SMP-DEV-SG-Default"
   }
 }
 
 
 // Basiton Host
-resource "aws_security_group" "smp_dev_bastion" {
-  name = "sg_bastion"
+resource "aws_security_group" "smp_dev_sg_bastion" {
+  name = "SMP-DEV-SG-Bastion"
   description = "Security group for bastion instance"
-  vpc_id = "${aws_vpc.smp_dev.id}"
+  vpc_id = aws_vpc.smp_dev_vpc.id
 
   ingress {
     from_port = 22
@@ -230,7 +294,7 @@ resource "aws_security_group" "smp_dev_bastion" {
   }
 
   tags = {
-    Name = "sg_bastion"
+    Name = "SMP-DEV-SG-Bastion"
   }
 }
 ```
@@ -238,60 +302,90 @@ resource "aws_security_group" "smp_dev_bastion" {
 
 `route.tf`  
 route.tf는 subnet 간 routing 테이블을 설정한다.  
-```json
-resource "aws_default_route_table" "smp_dev" {
-  default_route_table_id = "${aws_vpc.smp_dev.default_route_table_id}"
+```js
+//default route table
+resource "aws_default_route_table" "smp_dev_rtb_default" {
+  default_route_table_id = aws_vpc.smp_dev_vpc.default_route_table_id
 
   tags = {
-    Name = "default"
+    Name = "SMP-DEV-RTB-PUBLIC"
   }
 }
 
-
 // route to internet
-resource "aws_route" "smp_dev_internet_access" {
-  route_table_id = "${aws_vpc.smp_dev.main_route_table_id}"
+resource "aws_route" "smp_dev_rt_public" {
+  route_table_id = aws_vpc.smp_dev_vpc.main_route_table_id
   destination_cidr_block = "0.0.0.0/0"
-  gateway_id = "${aws_internet_gateway.smp_dev_igw.id}"
+  gateway_id = aws_internet_gateway.smp_dev_igw.id
 }
 
 
 // private route table
-resource "aws_route_table" "smp_dev_private_route_table" {
-  vpc_id = "${aws_vpc.smp_dev.id}"
+resource "aws_route_table" "smp_dev_rtb_private" {
+  vpc_id = aws_vpc.smp_dev_vpc.id
   
   tags = {
-    Name = "private"
+    Name = "SMP-DEV-RTB-PRIVATE"
   }
 }
 
-resource "aws_route" "private_route" {
-  route_table_id = "${aws_route_table.smp_dev_private_route_table.id}"
+resource "aws_route" "smp_dev_rt_private" {
+  route_table_id = aws_route_table.smp_dev_rtb_private.id
   destination_cidr_block = "0.0.0.0/0"
-  nat_gateway_id = "${aws_nat_gateway.smp_dev_nat.id}"
+  nat_gateway_id = aws_nat_gateway.smp_dev_nat.id
 }
 
 
 
 // associate subnets to route tables
-resource "aws_route_table_association" "smp_dev_public_subnet1_association" {
-  subnet_id = "${aws_subnet.smp_dev_public_subnet1.id}"
-  route_table_id = "${aws_vpc.smp_dev.main_route_table_id}"
+resource "aws_route_table_association" "smp_dev_sbn_az1_dmz_association" {
+  subnet_id = aws_subnet.smp_dev_sbn_az1_dmz.id
+  route_table_id = aws_vpc.smp_dev_vpc.main_route_table_id
 }
 
-resource "aws_route_table_association" "smp_dev_public_subnet2_association" {
-  subnet_id = "${aws_subnet.smp_dev_public_subnet2.id}"
-  route_table_id = "${aws_vpc.smp_dev.main_route_table_id}"
+resource "aws_route_table_association" "smp_dev_sbn_az2_dmz_association" {
+  subnet_id = aws_subnet.smp_dev_sbn_az2_dmz.id
+  route_table_id = aws_vpc.smp_dev_vpc.main_route_table_id
 }
 
-resource "aws_route_table_association" "smp_dev_private_subnet1_association" {
-  subnet_id = "${aws_subnet.smp_dev_private_subnet1.id}"
-  route_table_id = "${aws_route_table.smp_dev_private_route_table.id}"
+resource "aws_route_table_association" "smp_dev_sbn_az1_app_association" {
+  subnet_id = aws_subnet.smp_dev_sbn_az1_app.id
+  route_table_id = aws_route_table.smp_dev_rtb_private.id
 }
 
-resource "aws_route_table_association" "smp_dev_private_subnet2_association" {
-  subnet_id = "${aws_subnet.smp_dev_private_subnet2.id}"
-  route_table_id = "${aws_route_table.smp_dev_private_route_table.id}"
+resource "aws_route_table_association" "smp_dev_sbn_az2_app_association" {
+  subnet_id = aws_subnet.smp_dev_sbn_az2_app.id
+  route_table_id = aws_route_table.smp_dev_rtb_private.id
+}
+
+resource "aws_route_table_association" "smp_dev_sbn_az1_elb_association" {
+  subnet_id = aws_subnet.smp_dev_sbn_az1_elb.id
+  route_table_id = aws_route_table.smp_dev_rtb_private.id
+}
+
+resource "aws_route_table_association" "smp_dev_sbn_az2_elb_association" {
+  subnet_id = aws_subnet.smp_dev_sbn_az2_elb.id
+  route_table_id = aws_route_table.smp_dev_rtb_private.id
+}
+
+resource "aws_route_table_association" "smp_dev_sbn_az1_eks_association" {
+  subnet_id = aws_subnet.smp_dev_sbn_az1_eks.id
+  route_table_id = aws_route_table.smp_dev_rtb_private.id
+}
+
+resource "aws_route_table_association" "smp_dev_sbn_az2_eks_association" {
+  subnet_id = aws_subnet.smp_dev_sbn_az2_eks.id
+  route_table_id = aws_route_table.smp_dev_rtb_private.id
+}
+
+resource "aws_route_table_association" "smp_dev_sbn_az1_db_association" {
+  subnet_id = aws_subnet.smp_dev_sbn_az1_db.id
+  route_table_id = aws_route_table.smp_dev_rtb_private.id
+}
+
+resource "aws_route_table_association" "smp_dev_sbn_az2_db_association" {
+  subnet_id = aws_subnet.smp_dev_sbn_az2_db.id
+  route_table_id = aws_route_table.smp_dev_rtb_private.id
 }
 ```
 
