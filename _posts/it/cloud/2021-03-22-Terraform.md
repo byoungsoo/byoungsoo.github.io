@@ -41,7 +41,7 @@ tf 파일은 용도에 맞게 적당히 합쳐도, 나누어도 무방하다.
 #### 2. tf파일 만들기  
 vpc 폴더 밑으로 생성 된 tf파일의 내용은 아래와 같다.  
 
-`provider.tf`
+`provider.tf`  
 provider.tf는 AWS계정의 IAM Security credential의 Access Keys 파일의 정보이다.  
 Terraform 수행 계정이 된다.  
 ```js
