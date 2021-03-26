@@ -54,7 +54,12 @@ region     = "ap-northeast-2"
 
 `vpc.tf`  
 vpc.tf의 경우 vpc 및 subnet의 resource 정보가 담겨있다.   
-vpc생성 시 "smp_dev" 이름을 설정하여 subnet에 구성 시 ${aws_vpc.smp_dev.id} 라는 변수 값을 통해 해당 vpc내 subnet을 구성 할 수 있다.  
+vpc생성 시 "smp_dev_vpc" 와 같이 이름을 설정하여 다른 resource 구성 시 aws_vpc.smp_dev_vpc.id 와 같이 변수 사용하여 추가적인 resource를 구성 할 수 있다.  
+
+Subnet은 Public인 DMZ, Private인 APP, DB, EKS로 나누어진다.  
+모든 통신은 DMZ망을 통해서 Private인 AP서버 DB서버 등으로 들어올 예정이다.  
+사용자는 DMZ에 Bastion Host를 생성하여 SSH접속을 시도한다.  
+
 ```js
 #Naming Rule
 #ProjectCode-Account-Resource-{att1}-{zone}
