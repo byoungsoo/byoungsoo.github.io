@@ -131,13 +131,13 @@ def lambda_handler(event, context):
 #### Version2, 3 Event 등록  
 Cloudwatch - Events - Rules - Create Rule  
 
-![scouter](/assets/it/cloud/ec2schedule/createRule.png){: width="700" height="400"}  
+![scouter](/assets/it/cloud/ec2schedule/createRule.png){: width="90%" height="auto"}  
 
 위의 이미지와 같이 Cron expression 0 10 ? * MON-SUN * 을 통해 월요일-일요일 매 10:00:00GMT (18:00:00 KMT) 시간에 StopEC2Instance 스케줄이 돌도록 설정한다.  
 
 <br><br>
 
-![scouter](/assets/it/cloud/ec2schedule/cloudEvents.png){: width="700" height="217"}   
+![scouter](/assets/it/cloud/ec2schedule/cloudEvents.png){: width="90%" height="auto"}  
 
 마찬가지로 StartEC2Instance 스케줄이 돌도록 시간을 설정한다.  
 
