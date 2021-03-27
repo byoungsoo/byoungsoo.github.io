@@ -11,7 +11,6 @@ tags: git gitcommand
 ## Samba를 이용한 Windows to Linux 데이터 이관
 
 삼바(samba)는 Windows 운영체제를 사용하는 PC에서 Linux 또는 UNIX 서버에 접속하여 파일이나 프린터를 공유하여 사용할 수 있도록 해 주는 소프트웨어이다.
-> 출처: https://ko.wikipedia.org/wiki/%EC%82%BC%EB%B0%94_(%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4)
 
 프로젝트에서 기존 On-Premise의 Windows 시스템을 Cloud Amazon Linux2로 이관하면서 On-Premise에서 사용하던 NAS를 AWS상에 EFS로 이관하는 방법에 대한 설명이다.  
 
