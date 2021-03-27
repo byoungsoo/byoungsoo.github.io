@@ -17,10 +17,10 @@ title: Bysoo GithubPage
 subtitle: "Github Blog"
 
 # the base hostname & protocol for your site
-url: "https://byoungsoo.github.io" 
+url: "https://byoungsoo.github.io/"
 
 # baseurl: "/the/subpath/of/your/site" # Set this value to "" if you want your site to be root
-baseurl: "/"
+baseurl: ""
 cover: "/assets/cover.png"
 logo: "/assets/logo.png"
 
