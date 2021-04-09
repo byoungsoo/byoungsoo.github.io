@@ -1,0 +1,53 @@
+---
+layout: post
+title: "Install Jenkins"
+author: "Bys"
+category: cloud
+date: 2021-04-06 01:00:00
+tags: cicd jenkins pipeline
+---
+
+#### Install Jenkins
+/fsjks/bin
+/fsjks/logs
+/fsjks/src/jenkins.war
+
+`start_jenkins.sh`
+```bash
+#!/bin/bash
+
+export JENKINS_HOME=/fsjks/home
+export JAVA_HOME=/usr/local/java
+export HTTP_PORT=11010
+DATE=`date +%Y%m%d`
+
+nohup $JAVA_HOME/bin/java -jar /fsjks/src/jenkins.war --httpPort=$HTTP_PORT --sessionTimeout=120 -XX:+AggressiveOpts >> /fsjks/logs/jenkins_$DATE.log 2>&1 &
+```
+<br>
+
+
+`stop_jenkins.sh`
+```bash
+ps -ef | grep jenkins | grep -v grep | awk '{print $2}' | xargs kill;
+```
+<br>
+
+
+
+`/etc/systemd/system/jenkins.service`
+```bash
+[Unit]
+Description=Jenkins
+[Service]
+Type=forking
+ExecStart=/fsjks/bin/start_jenkins.sh
+ExecStop=/fsjks/bin/stop_jenkins.sh
+User=jksadm
+Group=grubd
+UMask=0007
+RestartSec=10
+Restart=no
+[Install]
+WantedBy=multi-user.target
+```
+<br>
