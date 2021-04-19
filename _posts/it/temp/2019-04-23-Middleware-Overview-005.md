@@ -2,7 +2,7 @@
 layout: post
 title: "Middleware 솔루션"
 author: "Bys"
-category: middleware
+category: temp
 tags: middleware
 ---
 

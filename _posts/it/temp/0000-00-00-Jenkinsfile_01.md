@@ -2,7 +2,7 @@
 layout: post
 title: "Jenkinsfile Test"
 author: "Bys"
-category: cloud
+category: cicd
 date: 2021-04-06 01:00:00
 tags: cicd jenkins pipeline
 ---
