@@ -9,10 +9,9 @@ tags: cicd jenkins pipeline
 
 #### Jenkinsfile sample  
 
-- `jenkinsfile`
+- `jenkinsfile`  
 ```groovy
 #!groovy
-
 def utils
 def BUILD_RESULT
 def RCS_URL = "http://111.111.111.111"
