@@ -2,7 +2,7 @@
 layout: post
 title: "Install Jenkins"
 author: "Bys"
-category: cloud
+category: solution
 date: 2021-04-06 01:00:00
 tags: cicd jenkins pipeline
 ---
