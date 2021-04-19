@@ -8,9 +8,9 @@ tags: cicd jenkins pipeline
 ---
 
 #### Install Jenkins
-/fsjks/bin
-/fsjks/logs
-/fsjks/src/jenkins.war
+/fsjks/bin  
+/fsjks/logs  
+/fsjks/src/jenkins.war  
 
 `start_jenkins.sh`
 ```bash
