@@ -16,34 +16,40 @@ tags: cicd gitlab gitlab-runner pipeline docker
 version: '3.5'
 services:
   web:
-    image: "gitlab/gitlab-ee"
+    image: "gitlab/gitlab-ee:13.10.3-ee.0"
+    restart: always
+    hostname: "gitlab.example.com"
+    privileged: true
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'https://gitlab.example.com'
+        # external_url 'http://10.75.235.125'
+    ports:
+    - "80:80"
+    - "443:443"
+#    - "22:22"
+    volumes:
+    - 'config:/etc/gitlab'
+    - 'data:/var/opt/gitlab'
+    - 'logs:/var/log/gitlab'
+volumes:
+  config:
+  logs:
+  data:
     
 ```
 <br>
 
-
-`stop_jenkins.sh`
+`start_gitlab.sh`
 ```bash
-ps -ef | grep jenkins | grep -v grep | awk '{print $2}' | xargs kill;
+docker-compose up -d
 ```
 <br>
 
 
-
-`/etc/systemd/system/jenkins.service`
+`stop_gitlab.sh`
 ```bash
-[Unit]
-Description=Jenkins
-[Service]
-Type=forking
-ExecStart=/fsjks/bin/start_jenkins.sh
-ExecStop=/fsjks/bin/stop_jenkins.sh
-User=jksadm
-Group=grubd
-UMask=0007
-RestartSec=10
-Restart=no
-[Install]
-WantedBy=multi-user.target
+docker-compose down
 ```
 <br>
+
