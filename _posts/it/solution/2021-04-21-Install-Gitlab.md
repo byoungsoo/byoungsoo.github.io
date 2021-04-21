@@ -8,18 +8,16 @@ tags: cicd gitlab gitlab-runner pipeline docker
 ---
 
 #### Install Jenkins
-/gitlab/
+/gitlab/gitlab/bin/docker-compose.yml
+/gitlab/gitlab-runner
 
-`start_jenkins.sh`
-```bash
-#!/bin/bash
-
-export JENKINS_HOME=/fsjks/home
-export JAVA_HOME=/usr/local/java
-export HTTP_PORT=11010
-DATE=`date +%Y%m%d`
-
-nohup $JAVA_HOME/bin/java -jar /fsjks/src/jenkins.war --httpPort=$HTTP_PORT --sessionTimeout=120 -XX:+AggressiveOpts >> /fsjks/logs/jenkins_$DATE.log 2>&1 &
+`docker-compose.yml`
+```yml
+version: '3.5'
+services:
+  web:
+    image: "gitlab/gitlab-ee"
+    
 ```
 <br>
 
