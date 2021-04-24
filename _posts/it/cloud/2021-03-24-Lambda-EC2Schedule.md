@@ -7,9 +7,16 @@ date: 2021-03-24 01:00:00
 tags: aws ec2 lambda schedule tags
 ---
 
+해당 내용들은 모두 EC2 Tag기반으로 Lambda가 Instance를 조회하기 때문에 EC2에 Tag를 꼭 등록해주어야 작동한다.
 
-#### Version1. Lambda를 이용한 Stop
+다음과 같이 Tag를 등록하고 동작시키면 작동이 된다.  
 
+Scheduled: True  
+ScheduleStart: 09:00  
+ScheduleStop: 18:00  
+
+
+#### Version1. Lambda를 이용한 Stop  
 ```Python
 import boto3
 import time
@@ -128,7 +135,7 @@ def lambda_handler(event, context):
 ```
 <br><br>
 
-#### Version2, 3 Event 등록  
+#### Version1, 2 Event 등록  
 Cloudwatch - Events - Rules - Create Rule  
 
 ![scouter](/assets/it/cloud/ec2schedule/createRule.png){: width="90%" height="auto"}  
