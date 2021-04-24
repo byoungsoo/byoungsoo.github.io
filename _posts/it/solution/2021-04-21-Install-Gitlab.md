@@ -62,8 +62,8 @@ volumes:
   config:
   logs:
   data:
-    
 ```
+
 | Volumes | Container location | Usage |
 |---|:---:|:---|
 | config | /etc/gitlab | GitLab 구성 파일 저장용 |
