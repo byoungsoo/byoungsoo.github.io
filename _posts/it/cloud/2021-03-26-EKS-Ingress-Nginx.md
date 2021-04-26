@@ -114,3 +114,15 @@ rbac:
   create: true
   serviceAccountName: default
 ```
+<br>
+
+`Delete All Resources`  
+```bash
+kubectl delete ns ingress-nginx
+kubectl delete clusterrolebinding nginx-internal-ingress-nginx
+kubectl delete clusterrolebinding external-dns
+kubectl delete clusterrole nginx-internal-ingress-nginx
+kubectl delete clusterrole external-dns
+kubectl delete validatingwebhookconfiguration nginx-internal-ingress-nginx-admission
+
+```
