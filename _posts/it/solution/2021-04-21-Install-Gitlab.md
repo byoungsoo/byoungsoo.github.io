@@ -8,14 +8,14 @@ tags: cicd gitlab gitlab-runner pipeline docker docker-compose
 ---
 
 #### Gitlab, Gitlab-Runner를 위한 OS계정 등록
-```
+```bash
 groupadd cicdadm
 useradd -g cicdadm -m cicdadm
 ```   
 <br>
 
 #### Install Docker  
-```
+```bash
 sudo yum install docker
 # cicdadm계정으로 docker 사용
 sudo usermod -aG docker cicdadm
@@ -23,7 +23,7 @@ sudo usermod -aG docker cicdadm
 <br>
 
 #### Install Docker-Compose  
-```
+```bash
 sudo curl -L "https://github.com/docker/compose/releases/download/1.29.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 
