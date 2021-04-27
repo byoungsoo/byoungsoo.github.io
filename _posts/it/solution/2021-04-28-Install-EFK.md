@@ -7,10 +7,6 @@ date: 2021-04-28 01:00:00
 tags: eks efk fluentd elasticsearch kibana
 ---
 
-#### CloudWatch Agent 설정  
-
-
-
 #### FluentD 설정  
 
 `Create Configmap cluster-info`
@@ -36,3 +32,6 @@ kubectl apply -f https://raw.githubusercontent.com/aws-samples/amazon-cloudwatch
 
 이렇게 배포를 하면 amazon-cloudwatch namespace상에 fluentd-cloudwatch-* 형태의 pod가 eks cluster에 배포가 된다.  
 배포가 된 Pod의 Container로그는 Cloudwatch Log Groups에서 확인 할 수 있다.  
+
+
+#### AWS ElasticSearch 설정  
