@@ -9,6 +9,10 @@ tags: aws eks ingress alb
 
 #### EKS Ingress ALB
 
+`ALB Ingress IAM Policy`  
+```bash
+```
+
 `Asoociate IAM OIDC to Cluster`  
 ```bash
 ekstcl utils associate-iam-oidc-provider --region=ap-northeast-2 --cluster=ClusterName --approve
