@@ -7,130 +7,39 @@ date: 2021-04-26 01:00:00
 tags: aws eks ingress alb
 ---
 
-#### Kubernetes Nginx-Ingress 설정
+#### EKS Ingress ALB
 
-`Install Helm`  
+`Asoociate IAM OIDC to Cluster`  
 ```bash
-wget https://get.helm.sh/helm-v3.1.2-linux-amd64.tar.gz
-tar -xvf helm*.gz
-mv helm /usr/bin
-# Check version
-helm version
+ekstcl utils associate-iam-oidc-provider --region=ap-northeast-2 --cluster=ClusterName --approve
 ```
 <br>
 
-`Create namespace`
+`Create an IAM role and annotate the kubernetes service account named aws-load-balancer-controller in the kube-system namespace for the AWS Load Balancer Controller`
 ```bash
-kubectl create ns ingress-nginx
+export idnumber=`aws sts get-caller-identity | jq -r .Account`
+eksctl create iamserviceaccount \
+--cluster=ClusterName \
+--namespace=kube-system \
+--name=aws-load-balancer-controller \
+--attach-policy-arn=arn:aws:iam::ACCOUNT_ID:policy/AWSLoadBalancerControllerIAMPolicy \
+--override-existing-serviceaccounts \
+--approve
 ```
 <br>
 
-`Helm Repository Add`  
+`Install the TargetGroupBinding custom resource definitions`  
 ```bash
-helm init
-helm repo add bitnami https://charts.bitnami.com/bitnami
-helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+kubectl apply -k "github.com/aws/eks-charts/stable/aws-load-balancer-controller//crds?ref=master"
 ```
 <br>
 
-`Helm Install`
+`Install the AWS Load Balancer Controller`  
 ```bash
-#install external_dns
-helm install external-dns bitnami/external-dns --namespace ingress-nginx -f external_dns_values.yml --debug 
-#install ingress nginx
-helm install nginx-internal ingress-nginx/ingress-nginx --namespace ingress-nginx -f ingress_controller_values.yml --debug
+helm upgrade -i aws-load-balancer-controller eks/aws-load-balancer-controller \
+--set clusterName=ClusterName \
+--set serviceAccount.create=false \
+--set serviceAccount.name=aws-load-balancer-controller \
+-n kube-system
 ```
 <br>
-
-`external_dns_values.yml`  
-```yaml
-sources:
-  - service
-  - ingress
-provider: aws
-
-txtOwnerId: ""
-
-policy: sync
-logLevel: info
-
-rbac:
-  create: false
-  apiVersion: v1
-  serviceAccountName: externaldns
-  
-podAnnotations:
-  iam.amazonaws.com/role: TF-EKS-EXTERNAL-DNS-ROLE
-
-
-domainFilters:
-  - inner.ing.cluster.local
-```
-<br>
-
-`ingress_controller_values.yml`  
-```yaml
-controller:
-  name: ccccontroller
-  
-  ingressClass: nginx-internal
-  
-  publishService:
-    enabled: true
-    
-  kind: Deployment
-  
-  resources:
-    request:
-      cpu: 50m
-      memory: 100Mi
-  
-  replicaCount: 2
-  config:
-    proxy-body-size: 100m
-    use-forwarded-headers: "true"
-    
-  affinity:
-    podAntiAffinity:
-      preferredDuringSchedulingIgnoredDuringExecution:
-      - weight: 100
-        podAffinityTerm:
-          labelSelector:
-            matchExpressions:
-              - key: "app"
-                operator: In
-                values:
-                  - ingress-nginx
-          topologyKey: "kubernetes.io/hostname"
-  
-  service:
-    annotations:
-      service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
-      service.beta.kubernetes.io/aws-load-balancer-internal: "true"
-      service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
-    targetPorts:
-      http: 80
-    externalTrafficPolicy: "Local"
-
-defaultBackend:
-  resources:
-    requests:
-      cpu: 10m
-      memory: 20Mi
-
-rbac:
-  create: true
-  serviceAccountName: default
-```
-<br>
-
-`Delete All Resources`  
-```bash
-kubectl delete ns ingress-nginx
-kubectl delete clusterrolebinding nginx-internal-ingress-nginx
-kubectl delete clusterrolebinding external-dns
-kubectl delete clusterrole nginx-internal-ingress-nginx
-kubectl delete clusterrole external-dns
-kubectl delete validatingwebhookconfiguration nginx-internal-ingress-nginx-admission
-
-```
