@@ -40,6 +40,7 @@ kubectl apply -k "github.com/aws/eks-charts/stable/aws-load-balancer-controller/
 
 `Install the AWS Load Balancer Controller`  
 ```bash
+helm repo add eks https://aws.github.io/eks-charts
 helm upgrade -i aws-load-balancer-controller eks/aws-load-balancer-controller \
 --set clusterName=ClusterName \
 --set serviceAccount.create=false \
