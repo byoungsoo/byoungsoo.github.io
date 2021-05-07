@@ -77,8 +77,3 @@ Kubernetes control plane is running at https://07DC6DFD63866257FB41C************
 CoreDNS is running at https://07DC6DFD63866257FB***.yl4.ap-northeast-2.eks.amazonaws.com/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
 To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 ```
-
-
-**- SAMPLE**  
-테라폼에서 사용하는 설정 언어. 테라폼에서 모든 설정과 리소스 선언은 HCL을 사용하며 HCL 파일의 확장자는 .tf를 사용한다.
-
