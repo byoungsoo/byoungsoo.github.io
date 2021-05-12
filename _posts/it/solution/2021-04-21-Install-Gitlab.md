@@ -122,3 +122,44 @@ sudo service gitlab-runner restart
 `/etc/gitlab-runner/config.toml`
 
 <br>
+
+
+#### Gitlab-Runner Credential Helper 설정
+Credential Helper는 ecr docker login을 유지하기 위해 사용하였으며,
+해당 프로젝트에서는 gitlab-runner 각 Stage에서 사용하는 ecr image를 pull 하기 위해서 ecr_login에 대한 부분을 처리하기 위해 설정.  
+Credential Helper를 설치하기 위해서는 아래를 참고한다. 
+https://github.com/awslabs/amazon-ecr-credential-helper
+
+`Install golang && export PATH`
+```bash
+yum install go
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+```
+
+`docker-credential-ecr-login`
+go get 을 통해 docker-credential-ecr-login을 설치  
+environment 설정에 DOCKER_AUTH_CONFIG 설정을 잡아주면 된다.  
+```bash
+go get -u github.com/awslabs/amazon-ecr-credential-helper/ecr-login/cli/docker-credential-ecr-login
+#아래 경로로 move
+/usr/local/bin/docker-credential-ecr-login
+```
+
+`/etc/gitlab-runner/config.toml`
+```bash
+concurrent =1 
+check_interval = 0
+
+[session_server]
+  session_timeout = 1800
+
+[[runners]]
+  name = "docker-runner"
+  url = "http://10.75.235.125:11010"
+  token = "Dv45HecFQmtasdf"
+  executor = "docker"
+  environment = ["DOCKER_AUTH_CONFIG={ \"credHelpers\": { \"222383050459.dkr.ecr.ap-northeast-2.amazonaws.com\": \"ecr-login\" }} "]
+  .......
+```
+
