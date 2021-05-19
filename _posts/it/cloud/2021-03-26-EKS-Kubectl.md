@@ -6,21 +6,9 @@ category: cloud
 date: 2021-03-26 01:00:00
 tags: aws eks istio bookinfo
 ---
-
-#### AWS EKS Cluster 구성  
-
-1. EKS Cluter 생성하기
-
-2. EKS Computing 구성 하기 
- 2-1. role
- 2-2. launch template 생성
- 2-3. computing group 생성하기
- 
-
-
 <br>
 
-#### kubectl설정  
+#### - kubectl설정  
 kubectl 설치
 https://kubernetes.io/ko/docs/tasks/tools/install-kubectl-windows/
 
