@@ -1,20 +1,20 @@
 ---
 layout: post
-title: "Docker를 이용한 Gitlab, Gitlab-Runner 구성"
+title: "Install Gitlab, Gitlab-Runner (Docker)"
 author: "Bys"
 category: solution
 date: 2021-04-21 01:00:00
 tags: cicd gitlab gitlab-runner pipeline docker docker-compose
 ---
 
-#### Gitlab, Gitlab-Runner를 위한 OS계정 등록
+#### - Gitlab, Gitlab-Runner를 위한 OS계정 등록
 ```bash
 groupadd cicdadm
 useradd -g cicdadm -m cicdadm
 ```   
 <br>
 
-#### Install Docker  
+#### - Install Docker  
 ```bash
 sudo yum install docker
 # cicdadm계정으로 docker 사용
@@ -22,7 +22,7 @@ sudo usermod -aG docker cicdadm
 ```
 <br>
 
-#### Install Docker-Compose  
+#### - Install Docker-Compose  
 ```bash
 sudo curl -L "https://github.com/docker/compose/releases/download/1.29.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
@@ -31,7 +31,7 @@ docker-compose --version
 ```
 <br>
 
-#### Install Gitlab  
+#### - Install Gitlab  
 
 **- Path**  
 /gitlab/gitlab/bin/docker-compose.yml  
@@ -89,7 +89,7 @@ docker-compose down
 
 
 
-#### Install Gitlab-Runner  
+#### - Install Gitlab-Runner  
 `install_gitlab-runner.sh`
 ```bash
 curl -L "https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.rpm.sh" | sudo bash
@@ -102,6 +102,8 @@ gitlab-runner --version
 sudo mkdir /gitlab/gitlab-runner/.gradle  
 sudo chown -R cicdadm:cicdadm /gitlab/gitlab-runner/.gradle  
 
+
+
 sudo gitlab-runner register --non-interactive \
   --url "http://10.20.11.239:11010" \
   --registration-token "sTygbanb-nN9LVzsmxZK" \
@@ -112,19 +114,55 @@ sudo gitlab-runner register --non-interactive \
   --run-untagged="true" \
   --locked="false" \
   --access-level="not_protected" \
+  --docker-volumes "/fsgitlab/gitlab/repository:/fsgitlab/gitlab/repository" \
+  --docker-volumes "/fsgitlab/gitlab-runner/.kube:/root/.kube" \
   --docker-volumes "/gitlab/gitlab-runner/.gradle:/root/.gradle" \
   --docker-volumes "/var/run/docker.sock:/var/run/docker.sock"
+
 
 sudo service gitlab-runner restart
 ```
 
-위 설정은 아래 config 파일에 저장 됨
-`/etc/gitlab-runner/config.toml`
+위 설정은 아래 config 파일에 저장 됨  
+`/etc/gitlab-runner/config.toml`  
 
+최종설정은 아래와 같으며 environment에 DOCKER_AUTH_CONFIG 는 Runner에서 각 Stage마다 Image Pull 할 때 인증에 대한 처리를 위해서 설정필요  
+pull_policy의 경우 Docker Image에 대한 정책 설정이다.  
+
+```bash
+concurrent = 2
+check_interval = 0
+
+[session_server]
+  session_timeout = 1800
+
+[[runners]]
+  name = "docker-runner"
+  url = "http://10.75.235.125:11010"
+  token = "Dv45HecFqMTiiBzf4QSE"
+  executor = "docker"
+  environment = ["DOCKER_AUTH_CONFIG={ \"credHelpers\": { \"222383050459.dkr.ecr.ap-northeast-2.amazonaws.com\": \"ecr-login\" }} "]
+  [runners.custom_build_dir]
+  [runners.cache]
+    [runners.cache.s3]
+    [runners.cache.gcs]
+    [runners.cache.azure]
+  [runners.docker]
+    tls_verify = false
+    image = "222383050459.dkr.ecr.ap-northeast-2.amazonaws.com/common:docker-stable"
+    privileged = false
+    disable_entrypoint_overwrite = false
+    oom_kill_disable = false
+    disable_cache = false
+    volumes = ["/fsgitlab/gitlab/repository:/fsgitlab/gitlab/repository", "/fsgitlab/gitlab-runner/.gradle:/root/.gradle", "/var/run/docker.sock:/var/run/docker.sock", "/cache", "/fsgitlab/gitlab-runner/.kube:/root/.kube"]
+    pull_policy = ["if-not-present"]
+    shm_size = 0
+
+```
 <br>
 
 
-#### Gitlab-Runner Credential Helper 설정
+#### - Gitlab-Runner Credential Helper 설정
 Credential Helper는 ecr docker login을 유지하기 위해 사용하였으며,
 해당 프로젝트에서는 gitlab-runner 각 Stage에서 사용하는 ecr image를 pull 하기 위해서 ecr_login에 대한 부분을 처리하기 위해 설정.  
 Credential Helper를 설치하기 위해서는 아래를 참고한다. 
