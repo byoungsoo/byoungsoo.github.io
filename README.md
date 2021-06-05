@@ -4,11 +4,13 @@ http://byoungsoo.github.io/
 
 ---
 ## Work
-1. Cloud
+1. Public Cloud (AWS)
    
-2. Spring
+2. DevOps CI/CD
    
 3. Middleware
+
+4. Spring
 
 
 
@@ -30,14 +32,17 @@ Spring / Java
 
 ---
 ### Project
-2015.01.01 ~ 2018.12.31 - LG Electronics Oracle ERP Management / `개발 및 분석`
+2015.01.01 ~ 2018.12.31 - LG Electronics Oracle ERP SM/SI 업무 / `개발 및 분석`
 
-2019.01.01 ~ 2020.06.30 - Korean Air AWS Cloud Migration / `SWA`
+2019.01.01 ~ 2020.06.30 - Korean Air AWS Cloud 전환 / `SWA`
 
-2019.07.01 ~ 2020.12.24 - LG Chemical AWS Cloud Migration / `SWA`
+2019.07.01 ~ 2020.12.24 - LG Chemical AWS Cloud 전환 / `SWA`
 
-2021.01.01 ~ 2020.03.31 - Hanwha Life MSP / `SWA`
+2021.01.01 ~ 2021.03.31 - Hanwha Life MSP 운영 / `SWA`
 
-2021.02.01 ~ 2020.02.28 - MSA Outer Arhictecture(Essential) 교육과정 개발 / `SWA`
+2021.02.01 ~ 2021.02.28 - MSA Outer Arhictecture(Essential) 교육과정 개발 / `SWA`
 
+2021.03.01 ~ 2021.04.02 - TEC 과제 / `SWA`
+
+2021.04.03 ~ 2021.08.24 - KB Card Mydata 구축  / `SWA`
 ---
