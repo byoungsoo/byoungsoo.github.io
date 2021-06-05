@@ -2,7 +2,7 @@
 layout: post
 title: "git clone, git init - git 사용법#2"
 author: "Bys"
-category: git
+category: etc
 date: 2021-02-10 11:00:00
 tags: git gitcommand
 ---

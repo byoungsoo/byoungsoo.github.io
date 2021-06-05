@@ -2,7 +2,7 @@
 layout: post
 title: "git pull - git 사용법#3"
 author: "Bys"
-category: git
+category: etc
 date: 2021-02-11 01:00:00
 tags: git gitcommand
 ---

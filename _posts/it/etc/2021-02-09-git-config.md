@@ -2,7 +2,7 @@
 layout: post
 title: "git config 설정 - git 사용법#1"
 author: "Bys"
-category: git
+category: etc
 date: 2021-02-09 00:00:00
 tags: git gitcommand
 ---
