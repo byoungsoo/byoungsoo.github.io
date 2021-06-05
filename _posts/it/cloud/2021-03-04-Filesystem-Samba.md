@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "samba(삼바)를 이용한 Windows to Linux 데이터 이관"
+title: "Windows to Linux 데이터 이관 (Samba)"
 author: "Bys"
 category: cloud
 date: 2021-03-04 01:00:00
