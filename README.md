@@ -2,6 +2,8 @@
 <br><br>
 http://byoungsoo.github.io/
 
+            
+
 ---
 ## Work
 1. Public Cloud (AWS)
@@ -36,7 +38,7 @@ Spring / Java
 
 2019.01.01 ~ 2020.06.30 - Korean Air AWS Cloud 전환 / `SWA`
 
-2019.07.01 ~ 2020.12.24 - LG Chemical AWS Cloud 전환 / `SWA`
+2020.07.01 ~ 2020.12.24 - LG Chemical AWS Cloud 전환 / `SWA`
 
 2021.01.01 ~ 2021.03.31 - Hanwha Life MSP 운영 / `SWA`
 
