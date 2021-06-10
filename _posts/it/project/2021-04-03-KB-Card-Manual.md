@@ -11,43 +11,32 @@ tags: project issue
 
 + ## 1.1 kubectl  
   ```bash
-  # namespace 를 명령줄 마다 계속치기 귀찮을 때
-  kubectl config set-context --current --namespace=co
-
-  # namespace 가 co인 pod 조회
-  kubectl get pods --namespace co
-
-  # namespace 가 co인 pod 조회
-  # 상세조회 : -o wide
-  # 실행중인 상태 : --field-selector=status.phase=Running
-  kubectl get pods --namespace co -o wide --field-selector=status.phase=Running
+  # 특정namespace pod 조회 # 상세조회 : -o wide
+  kubectl get pods -n <namespace> -o wide
 
   # 로그 조회
-  kubectl logs -f co-dev-6cd76d78bd-ps84g -c co --namespace co
+  kubectl logs -f <pod_name> -n <namespace>
 
   # 서비스 조회
-  kubectl get services --all-namespaces -o wide | grep oz
+  kubectl get svc -A -o wide
 
   # 디플로이먼트 조회
-  kubectl get deployment --all-namespaces -o wide
+  kubectl get deployment -A -o wdie
 
   # Ingress 조회
-  kubectl get ing --all-namespaces
-
-  kubectl exec ing --all-namespaces
+  kubectl get ing -A
 
   # pod 상세 정보 출력
-  kubectl describe pod co-dev-7b6fc4b7c7-4tt2w --namespace co
+  kubectl describe pod <pod_name> -n <namespace>
 
   # pod 컨테이너 접속
-  kubectl exec co-dev-7b6fc4b7c7-4tt2w -c co --namespace co bash
-
-  # 노드에 할당된 POD 등 상세정보 조회
-  kubectl describe nodes ip-10-253-136-163.ap-northeast-2.compute.internal
+  kubectl exec -it <pod_name > -n <namespace> /bin/bash
 
   # POD 자원사용량 확인
   kubectl top pods -A
-  ```
+
+  # NODE 자원사용량 확인
+  kubectl top nodes
   ```
 
 
@@ -56,7 +45,9 @@ tags: project issue
 + ## 2.1 사전 구성 서비스  
 
   + ### 2.1.1 metrics-server  
-    Metric Server 어플리케이션을 클러스터에 배포하여 노드 및 파드의 Metric을 수집
+    Metric Server 어플리케이션을 클러스터에 배포하여 노드 및 파드의 Metric을 수집  
+
+    -참고
     ```yaml
     apiVersion: v1
     kind: ServiceAccount
@@ -253,6 +244,46 @@ tags: project issue
     ```
 
   +  ### 2.1.2 aws-load-balancer-controller  
+     Kubernetes Cluster에 Ingress 배포 시 AWS ALB 생성 요청 및 Rule을 추가 하는  Controller 역할  
+     
+     -참고
+     
+     ```bash
+     #ALB Ingress IAM Policy
+     curl -o iam_policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.2.0/docs/install/iam_policy.json
+     
+     aws iam create-policy \
+      --policy-name AWSLoadBalancerControllerIAMPolicy \
+      --policy-document file://iam_policy.json
+      
+     #Asoociate IAM OIDC to Cluster
+     ekstcl utils associate-iam-oidc-provider --region=ap-northeast-2 --cluster=ClusterName --approve
+
+     #iamserviceaccount 생성
+     export idnumber=`aws sts get-caller-identity | jq -r .Account`
+     eksctl create iamserviceaccount \
+     --cluster=ClusterName \
+     --namespace=kube-system \
+     --name=aws-load-balancer-controller \
+     --attach-policy-arn=arn:aws:iam::ACCOUNT_ID:policy/AWSLoadBalancerControllerIAMPolicy \
+     --override-existing-serviceaccounts \
+     --approve
+     
+     #TargetGroupBinding custom resource definitions
+     kubectl apply -k "github.com/aws/eks-charts/stable/aws-load-balancer-controller//crds?ref=master"
+
+     #Install the AWS Load Balancer Controller
+     helm upgrade -i aws-load-balancer-controller eks/aws-load-balancer-controller \
+      --set clusterName=ClusterName \
+      --set serviceAccount.create=false \
+      --set serviceAccount.name=aws-load-balancer-controller \
+      --set image.repository=222383050459.dkr.ecr.ap-northeast-2.amazonaws.com/opensource-components \
+      --set image.tag=aws-load-balancer-controller-v2.2.0 \
+      --set enableWaf=false \
+      --set enableWafv2=false \
+      --set enableShield=false \
+      -n kube-system
+     ```
 
   +  ### 2.1.3 cloudwatch-agent  
 
