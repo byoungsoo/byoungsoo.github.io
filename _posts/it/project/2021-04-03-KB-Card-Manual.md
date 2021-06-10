@@ -10,8 +10,45 @@ tags: project issue
 ## 1. 명령어  
 
 + ## 1.1 kubectl  
-  kubectl get pods -n namespace
-  kubectl 
+  ```bash
+  # namespace 를 명령줄 마다 계속치기 귀찮을 때
+  kubectl config set-context --current --namespace=co
+
+  # namespace 가 co인 pod 조회
+  kubectl get pods --namespace co
+
+  # namespace 가 co인 pod 조회
+  # 상세조회 : -o wide
+  # 실행중인 상태 : --field-selector=status.phase=Running
+  kubectl get pods --namespace co -o wide --field-selector=status.phase=Running
+
+  # 로그 조회
+  kubectl logs -f co-dev-6cd76d78bd-ps84g -c co --namespace co
+
+  # 서비스 조회
+  kubectl get services --all-namespaces -o wide | grep oz
+
+  # 디플로이먼트 조회
+  kubectl get deployment --all-namespaces -o wide
+
+  # Ingress 조회
+  kubectl get ing --all-namespaces
+
+  kubectl exec ing --all-namespaces
+
+  # pod 상세 정보 출력
+  kubectl describe pod co-dev-7b6fc4b7c7-4tt2w --namespace co
+
+  # pod 컨테이너 접속
+  kubectl exec co-dev-7b6fc4b7c7-4tt2w -c co --namespace co bash
+
+  # 노드에 할당된 POD 등 상세정보 조회
+  kubectl describe nodes ip-10-253-136-163.ap-northeast-2.compute.internal
+
+  # POD 자원사용량 확인
+  kubectl top pods -A
+  ```
+  ```
 
 
 ## 2. EKS 구성  
