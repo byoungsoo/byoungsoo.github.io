@@ -912,3 +912,4 @@ tags: project issue
 ## 2.2 사전 구성 서비스
 
 + ### 2.2.1 API서비스 (UBE, UBD, UBF)
+  API 서비스는 Helm을 통해 배포 하며 
