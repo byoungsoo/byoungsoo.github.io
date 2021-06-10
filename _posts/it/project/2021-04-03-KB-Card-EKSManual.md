@@ -23,6 +23,7 @@ tags: project issue
   + #### 2.2.2 API서비스 파이프라인
   + #### 2.2.3 API서비스 Helm 배포  
   + #### 2.2.4 API서비스 Values.yaml
+  + #### 2.2.5 API서비스 수동 배포
 + ### 2.3 Logging
   + #### 2.3.1 Fluentd 배포
   + #### 2.3.2 ElasticSearch 구성
@@ -1373,6 +1374,12 @@ tags: project issue
       # If not set and create is true, a name is generated using the fullname template
       name:   
     ```
+
+  + #### 2.2.5 API서비스 수동 배포
+    수작업 배포를 하려면 위 Helm배포를 이해하여야하며 helm 하위에 values.yaml 파일과 chart.yaml 파일의 변수들을 모두 실제 값으로 채워 넣은 후 helm 배포를 진행해야 한다.  
+    배포 되어야 하는 이미지 태그의 <CI_COMMIT_SHORT_SHA> 값은 실제 ECR에서 latest로 배포되어있는 태그를 달아야 하며 원하는 값만 수정하여 배포한다.  
+    
+    
 + ## 2.3 Logging
   + ### 2.3.1 Fluentd 배포  
     FluentD 배포의 경우 사전구성단계의 2.1.4 fluentd-cloudwatch 를 참고  
