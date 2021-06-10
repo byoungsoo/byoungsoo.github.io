@@ -23,7 +23,7 @@ tags: project issue
   + #### 2.2.2 API서비스 파이프라인
   + #### 2.2.3 API서비스 Helm 배포  
   + #### 2.2.4 API서비스 Values.yaml
-  + #### 2.2.5 API서비스 수동 배포
+  + #### 2.2.5 API서비스 수작업 배포 및 변경
 + ### 2.3 Logging
   + #### 2.3.1 Fluentd 배포
   + #### 2.3.2 ElasticSearch 구성
@@ -1290,34 +1290,34 @@ tags: project issue
     tolerations: []
 
     affinity:
-            nodeAffinity:
-              requiredDuringSchedulingIgnoredDuringExecution:
-                  nodeSelectorTerms:
-                  - matchExpressions:
-                    - key: node-group-type
-                      operator: In
-                      values:
-                      - <APPLICATION_GROUP>
-            podAffinity:
-              preferredDuringSchedulingIgnoredDuringExecution:
-                - weight: 99
-                  podAffinityTerm:
-                    labelSelector:
-                      matchExpressions:
-                      - key: "app.kubernetes.io/name"
-                        operator: In
-                        values:
-                        - <APPLICATION_NAME>-<ENVIRONMENT>
-                    topologyKey: "kubernetes.io/hostname"
-                - weight: 100
-                  podAffinityTerm:
-                    labelSelector:
-                      matchExpressions:
-                      - key: "app.kubernetes.io/name"
-                        operator: In
-                        values:
-                        - <APPLICATION_NAME>-<ENVIRONMENT>
-                    topologyKey: "failure-domain.beta.kubernetes.io/zone"
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-group-type
+                operator: In
+                values:
+                - <APPLICATION_GROUP>
+      podAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 99
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: "app.kubernetes.io/name"
+                  operator: In
+                  values:
+                  - <APPLICATION_NAME>-<ENVIRONMENT>
+              topologyKey: "kubernetes.io/hostname"
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: "app.kubernetes.io/name"
+                  operator: In
+                  values:
+                  - <APPLICATION_NAME>-<ENVIRONMENT>
+              topologyKey: "failure-domain.beta.kubernetes.io/zone"
 
 
     ############ service.yaml ############
@@ -1375,9 +1375,24 @@ tags: project issue
       name:   
     ```
 
-  + #### 2.2.5 API서비스 수동 배포
+  + #### 2.2.5 API서비스 수작업 배포 및 변경
     수작업 배포를 하려면 위 Helm배포를 이해하여야하며 helm 하위에 values.yaml 파일과 chart.yaml 파일의 변수들을 모두 실제 값으로 채워 넣은 후 helm 배포를 진행해야 한다.  
     배포 되어야 하는 이미지 태그의 <CI_COMMIT_SHORT_SHA> 값은 실제 ECR에서 latest로 배포되어있는 태그를 달아야 하며 원하는 값만 수정하여 배포한다.  
+
+    만약 급하게 수작업으로 변경이 필요한 경우 아래와 같이 COMMAND를 통해 수정은 가능하지만 반드시 Values.yaml 파일이 변경되어야 추후에도 반영이 된다.  
+    ```bash
+    #deployment.yaml 수정
+    kubectl edit deploy <deployment_name> -n namespace
+
+    #service.yaml 수정
+    kubectl edit svc <service_name> -n namespace
+
+    #ingress.yaml 수정
+    kubectl edit ing <ingress_name> -n namespace
+
+    #hpa.yaml 수정
+    kubectl edit hpa <hpa_name> -n namespace
+    ```
     
     
 + ## 2.3 Logging
