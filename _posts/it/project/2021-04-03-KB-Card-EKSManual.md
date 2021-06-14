@@ -309,7 +309,8 @@ tags: project issue
     -n kube-system
     ```
 
-  + ### 2.1.3 cloudwatch-agent  
+  + ### 2.1.3 cloudwatch-agent   
+    아래 내용에 configmap for cwagent config: cwagentconfig.json 형식에 ClusterName은 필수로 설정을 해주어야 한다.  
     ```yaml
     # create amazon-cloudwatch namespace
     apiVersion: v1
@@ -376,11 +377,12 @@ tags: project issue
           "logs": {
             "metrics_collected": {
               "kubernetes": {
-                "cluster_name": "{{cluster_name}}",
+                "cluster_name": "myClusterNameDev",
                 "metrics_collection_interval": 60
               }
             },
-            "force_flush_interval": 5
+            "force_flush_interval": 5,
+            "endpoint_override": "logs.ap-northeast-2.amazonaws.com"
           }
         }
     kind: ConfigMap
@@ -1375,24 +1377,13 @@ tags: project issue
       name:   
     ```
 
-  + #### 2.2.5 API서비스 수작업 배포 및 변경
-    수작업 배포를 하려면 위 Helm배포를 이해하여야하며 helm 하위에 values.yaml 파일과 chart.yaml 파일의 변수들을 모두 실제 값으로 채워 넣은 후 helm 배포를 진행해야 한다.  
-    배포 되어야 하는 이미지 태그의 <CI_COMMIT_SHORT_SHA> 값은 실제 ECR에서 latest로 배포되어있는 태그를 달아야 하며 원하는 값만 수정하여 배포한다.  
+  + #### 2.2.5 API서비스 수작업 배포 및 변경  
+  
+    수작업 배포를 원할 경우에는 gitlab 서비스에 접속하여 CI/CD - Pipeline에서 배포된 소스의 deploy 단계에 들어가서 retry를 누른다.  
+    Repository -> CI/CD -> Pipeline -> Deploy (Stages의 3번째 단계) -> Retry
 
-    만약 급하게 수작업으로 변경이 필요한 경우 아래와 같이 COMMAND를 통해 수정은 가능하지만 반드시 Values.yaml 파일이 변경되어야 추후에도 반영이 된다.  
-    ```bash
-    #deployment.yaml 수정
-    kubectl edit deploy <deployment_name> -n namespace
-
-    #service.yaml 수정
-    kubectl edit svc <service_name> -n namespace
-
-    #ingress.yaml 수정
-    kubectl edit ing <ingress_name> -n namespace
-
-    #hpa.yaml 수정
-    kubectl edit hpa <hpa_name> -n namespace
-    ```
+    만약 비지니스 로직으로 인한 장애 발생 시 에는 rollback의 실행을 누르면 바로 이 전 버전의 백업 태그로 돌악나다.  
+    
     
     
 + ## 2.3 Logging
