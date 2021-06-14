@@ -7,6 +7,15 @@ date: 2021-04-26 01:00:00
 tags: aws eks ingress alb
 ---
 
+#### - eksctl 설치  
+`Install eksctl`
+```bash
+curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+sudo mv /tmp/eksctl /usr/local/bin
+eksctl version
+```
+<br>
+
 #### EKS Ingress ALB
 
 `ALB Ingress IAM Policy`  
