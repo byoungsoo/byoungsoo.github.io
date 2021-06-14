@@ -34,14 +34,14 @@ docker-compose --version
 #### - Install Gitlab  
 
 **- Path**  
-/gitlab/gitlab/bin/docker-compose.yml  
+/gitlab/gitlab/docker-compose.yml  
 /gitlab/gitlab-runner  
 
 `docker-compose.yml` 
 ```yml
 version: '3.5'
 services:
-  web:
+  service:
     image: "gitlab/gitlab-ee:13.10.3-ee.0"
     restart: always
     hostname: "10.20.11.239"
@@ -74,7 +74,7 @@ volumes:
 
 `start_gitlab.sh`
 ```bash
-cd /gitlab/gitlab/bin
+cd /gitlab/gitlab
 docker-compose up -d
 ```
 <br>
@@ -82,7 +82,7 @@ docker-compose up -d
 
 `stop_gitlab.sh`
 ```bash
-cd /gitlab/gitlab/bin
+cd /gitlab/gitlab
 docker-compose down
 ```
 <br>
@@ -201,3 +201,13 @@ check_interval = 0
   .......
 ```
 
+공식 문서의 샘플  
+To use this credential helper for a specific ECR registry, create a credHelpers section with the URI of your ECR registry:
+```json
+{
+	"credHelpers": {
+		"public.ecr.aws": "ecr-login",
+		"<aws_account_id>.dkr.ecr.<region>.amazonaws.com": "ecr-login"
+	}
+}
+```
