@@ -311,8 +311,8 @@ tags: project issue
 
   + ### 2.1.3 cloudwatch-agent   
     아래 내용에 configmap for cwagent config: cwagentconfig.json 형식에 ClusterName은 필수로 설정을 해주어야 한다.  
+    
     ```yaml
-    # create amazon-cloudwatch namespace
     apiVersion: v1
     kind: Namespace
     metadata:
@@ -320,7 +320,7 @@ tags: project issue
       labels:
         name: amazon-cloudwatch
         
-    # create cwagent service account and role binding
+    ---
     apiVersion: v1
     kind: ServiceAccount
     metadata:
@@ -367,7 +367,7 @@ tags: project issue
       name: cloudwatch-agent-role
       apiGroup: rbac.authorization.k8s.io
       
-    # create configmap for cwagent config
+    ---
     apiVersion: v1
     data:
       # Configuration is in Json format. No matter what configure change you make,
@@ -390,7 +390,7 @@ tags: project issue
       name: cwagentconfig
       namespace: amazon-cloudwatch
       
-    # deploy cwagent as daemonset
+    ---
     apiVersion: apps/v1
     kind: DaemonSet
     metadata:
