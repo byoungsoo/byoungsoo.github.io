@@ -7,12 +7,12 @@ date: 2021-04-03 01:00:00
 tags: project issue
 ---
 
+### **목차**
 
-## 목차
-### 1. 명령어  
+## 1. 명령어  
 + ### 1.1 kubectl  
 
-### 2. EKS 구성  
+## 2. EKS 구성  
 + ### 2.1 사전 구성 서비스  
   + #### 2.1.1 metrics-server  
   + #### 2.1.2 aws-load-balancer-controller  
@@ -33,7 +33,7 @@ tags: project issue
 
 ## 1. 명령어  
 
-+ ## 1.1 kubectl  
++ ### 1.1 kubectl  
   ```bash
   # 특정namespace pod 조회 # 상세조회 : -o wide
   kubectl get pods -n <namespace> -o wide
@@ -62,13 +62,14 @@ tags: project issue
   # NODE 자원사용량 확인
   kubectl top nodes
   ```
+  <br><br>
 
 
 ## 2. EKS 구성  
 
-+ ## 2.1 사전 구성 서비스  
++ ### 2.1 사전 구성 서비스  
 
-  + ### 2.1.1 metrics-server  
+  + #### 2.1.1 metrics-server  
     Metric Server 어플리케이션을 클러스터에 배포하여 노드 및 파드의 Metric을 수집  
 
     -참고
@@ -266,8 +267,9 @@ tags: project issue
       version: v1beta1
       versionPriority: 100
     ```
+    <br>
 
-  + ### 2.1.2 aws-load-balancer-controller  
+  + #### 2.1.2 aws-load-balancer-controller  
     Kubernetes Cluster에 Ingress 배포 시 AWS ALB 생성 요청 및 Rule을 추가 하는  Controller 역할  
     
     -참고
@@ -308,10 +310,11 @@ tags: project issue
     --set enableShield=false \
     -n kube-system
     ```
+    <br>
 
-  + ### 2.1.3 cloudwatch-agent   
+  + #### 2.1.3 cloudwatch-agent   
+
     아래 내용에 configmap for cwagent config: cwagentconfig.json 형식에 ClusterName은 필수로 설정을 해주어야 한다.  
-    
     ```yaml
     apiVersion: v1
     kind: Namespace
@@ -319,14 +322,12 @@ tags: project issue
       name: amazon-cloudwatch
       labels:
         name: amazon-cloudwatch
-        
     ---
     apiVersion: v1
     kind: ServiceAccount
     metadata:
       name: cloudwatch-agent
       namespace: amazon-cloudwatch
-
     ---
     kind: ClusterRole
     apiVersion: rbac.authorization.k8s.io/v1
@@ -352,7 +353,6 @@ tags: project issue
         resources: ["configmaps"]
         resourceNames: ["cwagent-clusterleader"]
         verbs: ["get","update"]
-
     ---
     kind: ClusterRoleBinding
     apiVersion: rbac.authorization.k8s.io/v1
@@ -366,7 +366,6 @@ tags: project issue
       kind: ClusterRole
       name: cloudwatch-agent-role
       apiGroup: rbac.authorization.k8s.io
-      
     ---
     apiVersion: v1
     data:
@@ -389,7 +388,6 @@ tags: project issue
     metadata:
       name: cwagentconfig
       namespace: amazon-cloudwatch
-      
     ---
     apiVersion: apps/v1
     kind: DaemonSet
@@ -482,9 +480,10 @@ tags: project issue
           terminationGracePeriodSeconds: 60
           serviceAccountName: cloudwatch-agent
     ```
+    <br>
      
 
-  + ### 2.1.4 fluentd-cloudwatch  
+  + #### 2.1.4 fluentd-cloudwatch  
     EKS 로그 시스템을 구축하기 위해 배포 FluentD를 통해 Cloudwatch로 로그를 전송  
 
     ```yaml
@@ -933,11 +932,12 @@ tags: project issue
               hostPath:
                 path: /var/log/dmesg
     ```
+    <br>
 
 
-+ ## 2.2 API서비스
++ ### 2.2 API서비스
 
-  + ### 2.2.1 Frism 연계
+  + #### 2.2.1 Frism 연계
     KB카드의 EKS 배포를 Frism과 연계 하기 위해 아래와 같은 Script가 존재한다.  
     Frism에서 소스 배포를 하면 기존 Frism 체계와 동일하게 소스를 /fscm 하위 특정 디렉토리로 Copy 하고, 아래와 같은 연계 Script를 호출해 준다.  
 
@@ -1003,8 +1003,9 @@ tags: project issue
       echo "Fail Command git pull" >> /fscm/logs/$3/${APPLICATION_NAME}_$DATE.log  2>&1;
     fi
     ```
+    <br>
 
-  + ### 2.2.2 API서비스 파이프라인
+  + #### 2.2.2 API서비스 파이프라인
     Frism 배포 후 자동 수행 되는 파이프라인은 총 4단계로 구성 된다.  
     Build, Package, Deploy, Deploycheck 로 나뉘어져 있으며 각 단계에서는 gradle build, docker build, eks deploy, eks deploy check 를 수행 한다.  
     ```yaml
@@ -1230,8 +1231,9 @@ tags: project issue
         - stage
         - master
     ```
+    <br>
     
-  + ### 2.2.3 API서비스 Helm 배포  
+  + #### 2.2.3 API서비스 Helm 배포  
     API 서비스는 Helm을 통해 배포 한다. templates 하위에는 deployment.yaml, hpa.yaml, ingress.yaml, service.yaml 이 존재하며 아래의 명령어를 통해 templates하위 자원들을 배포한다.  
     ```bash
     helm upgrade -i --debug ${APPLICATION_NAME}-${ENVIRONMENT} ./helm/ -f ./helm/${HELM_VALUES_FILE} -n ${APPLICATION_NAME}
@@ -1239,6 +1241,8 @@ tags: project issue
     helm/values-${ENVIRONMENT}.yaml 파일에서 모든 values 값을 가지고 있으며 몇 몇 중복되는 값들의 경우 변수 처리를 하고 gitlab-ci.yml 파일에서 변경한다.  
 
     실제 배포되는 자원들의 값을 변경하고 싶을 때는 values.yaml 파일을 수정하도록 한다.  
+    <br>
+
     
   + #### 2.2.4 API서비스 Values.yaml  
     Values 값에는 EKS에 배포되는 모든 설정 및 값들이 들어 있다. 
@@ -1376,6 +1380,7 @@ tags: project issue
       # If not set and create is true, a name is generated using the fullname template
       name:   
     ```
+    <br>
 
   + #### 2.2.5 API서비스 수작업 배포 및 변경  
   
@@ -1386,12 +1391,12 @@ tags: project issue
     
     
     
-+ ## 2.3 Logging
-  + ### 2.3.1 Fluentd 배포  
++ ### 2.3 Logging
+  + #### 2.3.1 Fluentd 배포  
     FluentD 배포의 경우 사전구성단계의 2.1.4 fluentd-cloudwatch 를 참고  
     
-  + ### 2.3.2 ElasticSearch 구성  
+  + #### 2.3.2 ElasticSearch 구성  
     *ElasticSearch 구성 문서 참고
 
-  + ### 2.3.3 Kibana 구성  
+  + #### 2.3.3 Kibana 구성  
     *Kibana 운영 환경 설정 가이드 문서 참고
