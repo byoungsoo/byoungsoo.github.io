@@ -9,60 +9,59 @@ tags: project issue
 
 
 ## 목차
-+ ### 1. 명령어  
-  + ### 1.1 kubectl  
+### 1. 명령어  
++ ### 1.1 kubectl  
 
-+ ### 2. EKS 구성  
-  + ### 2.1 사전 구성 서비스  
-    + #### 2.1.1 metrics-server  
-    + #### 2.1.2 aws-load-balancer-controller  
-    + #### 2.1.3 cloudwatch-agent  
-    + #### 2.1.4 fluentd-cloudwatch  
-  + ### 2.2 API서비스
-    + #### 2.2.1 Frism 연계
-    + #### 2.2.2 API서비스 파이프라인
-    + #### 2.2.3 API서비스 Helm 배포  
-    + #### 2.2.4 API서비스 Values.yaml
-    + #### 2.2.5 API서비스 수작업 배포 및 변경
-  + ### 2.3 Logging
-    + #### 2.3.1 Fluentd 배포
-    + #### 2.3.2 ElasticSearch 구성
-    + #### 2.3.3 Kibana 구성
+### 2. EKS 구성  
++ ### 2.1 사전 구성 서비스  
+  + #### 2.1.1 metrics-server  
+  + #### 2.1.2 aws-load-balancer-controller  
+  + #### 2.1.3 cloudwatch-agent  
+  + #### 2.1.4 fluentd-cloudwatch  
++ ### 2.2 API서비스
+  + #### 2.2.1 Frism 연계
+  + #### 2.2.2 API서비스 파이프라인
+  + #### 2.2.3 API서비스 Helm 배포  
+  + #### 2.2.4 API서비스 Values.yaml
+  + #### 2.2.5 API서비스 수작업 배포 및 변경
++ ### 2.3 Logging
+  + #### 2.3.1 Fluentd 배포
+  + #### 2.3.2 ElasticSearch 구성
+  + #### 2.3.3 Kibana 구성
   
 ------
 
-
 ## 1. 명령어  
 
-      + ## 1.1 kubectl  
-      ```bash
-      # 특정namespace pod 조회 # 상세조회 : -o wide
-      kubectl get pods -n <namespace> -o wide
-      
-      # 로그 조회
-      kubectl logs -f <pod_name> -n <namespace>
-      
-      # 서비스 조회
-      kubectl get svc -A -o wide
-      
-      # 디플로이먼트 조회
-      kubectl get deployment -A -o wdie
-      
-      # Ingress 조회
-      kubectl get ing -A
-      
-      # pod 상세 정보 출력
-      kubectl describe pod <pod_name> -n <namespace>
-      
-      # pod 컨테이너 접속
-      kubectl exec -it <pod_name > -n <namespace> /bin/bash
-      
-      # POD 자원사용량 확인
-      kubectl top pods -A
-      
-      # NODE 자원사용량 확인
-      kubectl top nodes
-      ```
++ ## 1.1 kubectl  
+  ```bash
+  # 특정namespace pod 조회 # 상세조회 : -o wide
+  kubectl get pods -n <namespace> -o wide
+
+  # 로그 조회
+  kubectl logs -f <pod_name> -n <namespace>
+
+  # 서비스 조회
+  kubectl get svc -A -o wide
+
+  # 디플로이먼트 조회
+  kubectl get deployment -A -o wdie
+
+  # Ingress 조회
+  kubectl get ing -A
+
+  # pod 상세 정보 출력
+  kubectl describe pod <pod_name> -n <namespace>
+
+  # pod 컨테이너 접속
+  kubectl exec -it <pod_name > -n <namespace> /bin/bash
+
+  # POD 자원사용량 확인
+  kubectl top pods -A
+
+  # NODE 자원사용량 확인
+  kubectl top nodes
+  ```
 
 
 ## 2. EKS 구성  
