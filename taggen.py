@@ -3,14 +3,12 @@ import os
 
 
 '''
-post_dir = '_posts/it/middleware/'
 post_dir = '_posts/it/algorithm/'
-post_dir = '_posts/it/programming/'
-post_dir = '_posts/it/git/'
 post_dir = '_posts/it/cloud/'
-post_dir = '_posts/it/network/'
+post_dir = '_posts/it/etc/'
+post_dir = '_posts/it/solution/'
 '''
-post_dir = '_posts/it/middleware/'
+post_dir = '_posts/it/solution/'
 tag_dir = 'tag/'
 
 filenames = glob.glob(post_dir + '*md')
