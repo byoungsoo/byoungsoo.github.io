@@ -9,25 +9,25 @@ tags: project issue
 
 
 ## 목차
-    ### 1. 명령어  
-        + ### 1.1 kubectl  
++ ### 1. 명령어  
+  + ### 1.1 kubectl  
 
-    ### 2. EKS 구성  
-        + ### 2.1 사전 구성 서비스  
-          + #### 2.1.1 metrics-server  
-          + #### 2.1.2 aws-load-balancer-controller  
-          + #### 2.1.3 cloudwatch-agent  
-          + #### 2.1.4 fluentd-cloudwatch  
-        + ### 2.2 API서비스
-          + #### 2.2.1 Frism 연계
-          + #### 2.2.2 API서비스 파이프라인
-          + #### 2.2.3 API서비스 Helm 배포  
-          + #### 2.2.4 API서비스 Values.yaml
-          + #### 2.2.5 API서비스 수작업 배포 및 변경
-        + ### 2.3 Logging
-          + #### 2.3.1 Fluentd 배포
-          + #### 2.3.2 ElasticSearch 구성
-          + #### 2.3.3 Kibana 구성
++ ### 2. EKS 구성  
+  + ### 2.1 사전 구성 서비스  
+    + #### 2.1.1 metrics-server  
+    + #### 2.1.2 aws-load-balancer-controller  
+    + #### 2.1.3 cloudwatch-agent  
+    + #### 2.1.4 fluentd-cloudwatch  
+  + ### 2.2 API서비스
+    + #### 2.2.1 Frism 연계
+    + #### 2.2.2 API서비스 파이프라인
+    + #### 2.2.3 API서비스 Helm 배포  
+    + #### 2.2.4 API서비스 Values.yaml
+    + #### 2.2.5 API서비스 수작업 배포 및 변경
+  + ### 2.3 Logging
+    + #### 2.3.1 Fluentd 배포
+    + #### 2.3.2 ElasticSearch 구성
+    + #### 2.3.3 Kibana 구성
   
 ------
 

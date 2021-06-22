@@ -32,7 +32,7 @@ aws iam create-policy \
 `Asoociate IAM OIDC to Cluster`  
 EKS OIDC 자격 증명 공급  
 ```bash
-ekstcl utils associate-iam-oidc-provider --region=ap-northeast-2 --cluster=ClusterName --approve
+eksctl utils associate-iam-oidc-provider --region=ap-northeast-2 --cluster=ClusterName --approve
 ```
 <br>
 

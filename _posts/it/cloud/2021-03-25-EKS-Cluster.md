@@ -9,93 +9,72 @@ tags: aws eks eksctl
 
 #### - EKS Cluster 생성  
 
-`variables.tf`
-```json
-variable "region" {
-  default = "us-west-2"
-}
+--클러스터 생성 이미지 캡처
 
-variable "map_accounts" {
-  description = "Additional AWS account numbers to add to the aws-auth configmap."
-  type        = list(string)
+마스터 계정만 접근 가능하므로 최초에 cluster를 생성한 IAM User로 aws configure 인증 후 작업
 
-  default = [
-    "777777777777",
-    "888888888888",
-  ]
-}
 
-variable "map_roles" {
-  description = "Additional IAM roles to add to the aws-auth configmap."
-  type = list(object({
-    rolearn  = string
-    username = string
-    groups   = list(string)
-  }))
+#### - EKS Cluster 설정  
+`aws-auth configmap 적용`
+클러스터의 유저와 IAM 역할을 관리하기 위해 최초로 aws-auth configmap을 설정한다.  
 
-  default = [
-    {
-      rolearn  = "arn:aws:iam::66666666666:role/role1"
-      username = "role1"
-      groups   = ["system:masters"]
-    },
-  ]
-}
+아래의 명령을 통해 적용여부 체크
+```bash
+kubectl describe configmap -n kube-system aws-auth
+```
 
-variable "map_users" {
-  description = "Additional IAM users to add to the aws-auth configmap."
-  type = list(object({
-    userarn  = string
-    username = string
-    groups   = list(string)
-  }))
+적용이 안되었다면 아래의 명령을 통해 yaml 파일을 받은 후 수정을 한 뒤 재 배포 한다.  
+```bash
+curl -o aws-auth-cm.yaml https://s3.us-west-2.amazonaws.com/amazon-eks/cloudformation/2020-10-29/aws-auth-cm.yaml
+```
 
-  default = [
-    {
-      userarn  = "arn:aws:iam::66666666666:user/user1"
-      username = "user1"
-      groups   = ["system:masters"]
-    },
-    {
-      userarn  = "arn:aws:iam::66666666666:user/user2"
-      username = "user2"
-      groups   = ["system:masters"]
-    },
-  ]
-}
+추가 되는 내용은 EKSAdminRole과 같이 role을 하나 생성하여 맵핑시켜주고 이 후 클러스터 접근에 필요한 인원들의 IAM Role을 해당 Role로 제어 할 수 있다.  
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aws-auth
+  namespace: kube-system
+data:
+  mapRoles: |
+    - rolearn: arn:aws:iam::718652001716:role/SMP-DEV-ROLE-EC2-SSM
+      username: system:node:{{EC2PrivateDNSName}}
+      groups:
+        - system:bootstrappers
+        - system:nodes
+    - rolearn: arn:aws:iam::718652001716:role/EKSAdminRole
+      username: EKSAdminRole
+      groups:
+        - system:masters
+
+#Sample
+apiVersion: v1
+data:
+  mapRoles: |
+    - rolearn: <arn:aws:iam::111122223333:role/eksctl-my-cluster-nodegroup-standard-wo-NodeInstanceRole-1WP3NUE3O6UCF>
+      username: <system:node:{{EC2PrivateDNSName}}>
+      groups:
+        - <system:bootstrappers>
+        - <system:nodes>
+    - rolearn: <arn:aws:iam::111122223333:role/EKSAdminRole>
+      username: EKSAdminRole
+      groups:
+        - system:masters
+  mapUsers: |
+    - userarn: <arn:aws:iam::111122223333:user/admin>
+      username: <admin>
+      groups:
+        - <system:masters>
+    - userarn: <arn:aws:iam::111122223333:user/ops-user>
+      username: <ops-user>
+      groups:
+        - <system:masters>
 ```
 
 
-`Install EKS Cluster`
-```json
-data "aws_eks_cluster" "cluster" {
-  name = module.smp-dev-eks-cluster.cluster_id
-}
-
-data "aws_eks_cluster_auth" "cluster" {
-  name = module.smp-dev-eks-cluster.cluster_id
-}
-
-provider "kubernetes" {
-  host                   = data.aws_eks_cluster.cluster.endpoint
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
-  token                  = data.aws_eks_cluster_auth.cluster.token
-  load_config_file       = false
-  version                = "~> 1.9"
-}
-
-module "smp-dev-eks-cluster" {
-  source          = "terraform-aws-modules/eks/aws"
-  cluster_name    = "smp-dev-eks-cluster"
-  cluster_version = "1.17"
-  subnets         = ["subnet-abcde012", "subnet-bcde012a", "subnet-fghi345a"]
-  vpc_id          = "vpc-1234556abcdef"
-
-  worker_groups = [
-    {
-      instance_type = "m4.large"
-      asg_max_size  = 5
-    }
-  ]
-}
+`Asoociate IAM OIDC to Cluster`  
+EKS OIDC 자격 증명 공급  
+```bash
+eksctl utils associate-iam-oidc-provider --region=ap-northeast-2 --cluster=smp-dev-eks-cluster --approve
 ```
+<br>
