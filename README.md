@@ -23,7 +23,7 @@ E-mail: skwltg90@naver.com
 ---
 ### Skill Set
 
-Cloud
+AWS Cloud
 
 Kubernetes, CI/CD
 
