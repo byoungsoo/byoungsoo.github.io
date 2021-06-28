@@ -83,7 +83,7 @@
 }
 #post-bys .block p {
   color: black;
-  font-size: 14px;
+  font-size: 18px;
   padding-top: 10px;
 }
 
@@ -95,6 +95,10 @@
 
 #post-bys .block li {
   font-size: 18px;
+}
+
+#post-bys .block strong {
+  font-size: 20px;
 }
 
 /* #post-bys .block img {
