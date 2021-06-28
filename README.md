@@ -52,9 +52,15 @@ Spring / Java
 
 
 ---
-### **Certificated**  
+### **Certification**  
 Amazon Web Services (AWS)   
 AWS Certified DevOps Engineer - Professional (2020.10 ~ 2023.10)  
+Validation Number: S6JBRZDL1EQQQ4G8
 
 Google (GCP)  
 Google Cloud Certified - Professional Cloud Architect (2019.11 ~ 2021.11)  
+Certification ID: 7c5gV1
+
+OPIc
+IM2(Intermediate Mid) (2020.12.06 ~ 2022.12.05)
+Validation Number: 2A0641138096
