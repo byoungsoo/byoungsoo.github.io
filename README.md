@@ -1,11 +1,11 @@
-## Github Page by Bys
+## **Github Page by Bys**  
 <br><br>
 http://byoungsoo.github.io/
 
             
 
 ---
-## Work
+## **Work**
 1. Public Cloud (AWS)
    
 2. DevOps CI/CD
@@ -16,12 +16,12 @@ http://byoungsoo.github.io/
 
 
 ---
-### Contact
+### **Contact**
 E-mail: skwltg90@naver.com
 
 
 ---
-### Skill Set
+### **Skill Set**  
 
 AWS Cloud
 
@@ -35,7 +35,7 @@ Spring / Java
 
 
 ---
-### Project
+### **Project**  
 2021.04.03 ~ 2021.08.24 - KB Card Mydata 구축  / `SWA`  
 
 2021.03.01 ~ 2021.04.02 - TEC 과제 / `SWA`  
@@ -50,4 +50,11 @@ Spring / Java
 
 2015.01.01 ~ 2018.12.31 - LG Electronics Oracle ERP SM/SI 업무 / `개발 및 분석`  
 
+
 ---
+### **Certificated**  
+Amazon Web Services (AWS)   
+AWS Certified DevOps Engineer - Professional (2020.10 ~ 2023.10)  
+
+Google (GCP)  
+Google Cloud Certified - Professional Cloud Architect (2019.11 ~ 2021.11)  
