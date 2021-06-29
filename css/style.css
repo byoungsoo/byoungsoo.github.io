@@ -104,12 +104,10 @@
 }
 
 #post-bys .block table thead th {
-  padding: 1rem 2rem;
+  padding: 0.5rem 2rem;
   font-size: 18px;
-  font-weight: bold;
   border: 0.5px solid #ddd;
-  background-color: #d1d1d1;
-  
+  background-color: #ffffff; 
 }
 
 #post-bys .block table tr td {

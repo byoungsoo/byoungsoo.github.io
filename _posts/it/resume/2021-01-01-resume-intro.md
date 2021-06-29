@@ -30,7 +30,7 @@ category: resume
 **경력**
 
 |회사명|입사일/퇴사일|담당직무|
-| :-: | :-: | :-: |
+| :---: | :---: | :--- |
 |LG CNS|2015.01현재 재직|Software Arhictecture|
 |근무부서|퇴직사유|실적(간략히)|
 |GERP생산/서비스|현재 재직 중|- LG전자 GERP 시스템 SI (하도급 보상 프로젝트) <br>- LG전자 GERP 시스템 SI (외주 프로세스 자동화)<br>- LG전자 GERP 시스템 SI (인도법인 GST 프로젝트)<br>- LG전자 GERP 시스템 SM 업무 운영<br>- LG전자 재고실사 프로그램 SI/SM (Spring 기반의 자사 Devon 프레임워크 적용)|
