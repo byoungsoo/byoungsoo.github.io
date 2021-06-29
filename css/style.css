@@ -103,14 +103,14 @@
   font-size: 18px;
 }
 
-#post-bys .block thead tr {
+#post-bys .block thead tr th {
   padding: 1rem 2rem;
   font-size: 18px;
   border: 0.5px solid #ddd;
   background-color: #d1d1d1;
 }
 
-#post-bys .block tbody tr {
+#post-bys .block tbody tr td {
   padding: 0.5rem 2rem;
   font-size: 18px;
   border: 0.5px solid #ddd;
