@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE requisite PUBLIC "-//LG CNS, Inc.//DTD Requisite Rule Configuration 1.0//EN" "../conf/dtd/requisite_rule_1.0.dtd">
+<requisite version="1.0">
+ 
+  <form ruleId="////avigation/COM01010100.ajax"  id="dataForm">
+    <input name="EB_ID" title="M_APPROVER">required</input>
+    <input name="ACES_PSWD" title="M_WORK_HOUR">integer</input>
+  </form>
+
+</requisite>

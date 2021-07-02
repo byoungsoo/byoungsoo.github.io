@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvLstGcbBwkChpSmsTgByWhl" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::21.IT장애관리지원::GCB업무점검SMS대상원장Ebi::GCB업무점검SMS대상원장Dao::GCB업무점검SMS대상By전체목록조회">
+		<![CDATA[
+			SELECT /*+ 김은령::/gcb/itObstMgSpt/gcbBwkChpSmsTgLdgEbi/TBGCBEM22/retvLstGcbBwkChpSmsTgByWhl */ 
+			       A.어플리케이션코드
+			     , A.업무점검번호
+			     , A.SMS전송대상자식별내용
+			     , A.SMS전송요일구분코드
+			     , A.미점검SMS대상여부
+			     , A.일괄SMS대상여부
+			     , A.일괄SMS전송시분
+			     , A.즉시SMS대상여부
+			     , A.즉시SMS대상구분코드
+			     , A.부가숫자시작값
+			     , A.부가숫자종료값
+			     , A.부가문자값
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			     , (SELECT 한글직원명 FROM INSTC.TBGCBHR01 B
+			        WHERE B.직원번호 = A.SMS전송대상자식별내용) AS 한글직원명
+			   FROM INSTC.TBGCBEM22 A        /* GCB업무점검SMS대상원장 */
+			  WHERE A.어플리케이션코드 LIKE '%'||${어플리케이션코드}||'%'
+			   AND A.업무점검번호  LIKE '%'||${업무점검번호}||'%'   
+			   AND A.SMS전송대상자식별내용 LIKE '%'||${SMS전송대상자식별내용}||'%'
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGcbBwkChpSmsTgByApP" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::21.IT장애관리지원::GCB업무점검SMS대상원장Ebi::GCB업무점검SMS대상원장Dao::GCB업무점검SMS대상ByAPP목록조회">
+		<![CDATA[
+			SELECT /*+ 김은령::/gcb/itObstMgSpt/gcbBwkChpSmsTgLdgEbi/TBGCBEM22/retvLstGcbBwkChpSmsTgByApP */ 
+			       A.어플리케이션코드
+			     , A.업무점검번호
+			     , A.SMS전송대상자식별내용
+			     , A.SMS전송요일구분코드
+			     , A.미점검SMS대상여부
+			     , A.일괄SMS대상여부
+			     , A.일괄SMS전송시분
+			     , A.즉시SMS대상여부
+			     , A.즉시SMS대상구분코드
+			     , A.부가숫자시작값
+			     , A.부가숫자종료값
+			     , A.부가문자값
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			     , (SELECT 한글직원명 FROM INSTC.TBGCBHR01 B
+			        WHERE B.직원번호 = A.SMS전송대상자식별내용) AS 한글직원명
+			  FROM INSTC.TBGCBEM22 A        /* GCB업무점검SMS대상원장 */
+			 WHERE A.어플리케이션코드     = ${어플리케이션코드}
+			   AND A.업무점검번호 LIKE '%'||${업무점검번호}||'%'
+			   AND A.SMS전송대상자식별내용 LIKE '%'||${SMS전송대상자식별내용}||'%'
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGcbBwkChpSmsTgByEmp" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::21.IT장애관리지원::GCB업무점검SMS대상원장Ebi::GCB업무점검SMS대상원장Dao::GCB업무점검SMS대상By직원목록조회">
+		<![CDATA[
+			SELECT /*+ 김은령::/gcb/itObstMgSpt/gcbBwkChpSmsTgLdgEbi/TBGCBEM22/retvLstGcbBwkChpSmsTgByEmp */ 
+			       A.어플리케이션코드
+			     , A.업무점검번호
+			     , A.SMS전송대상자식별내용
+			     , A.SMS전송요일구분코드
+			     , A.미점검SMS대상여부
+			     , A.일괄SMS대상여부
+			     , A.일괄SMS전송시분
+			     , A.즉시SMS대상여부
+			     , A.즉시SMS대상구분코드
+			     , A.부가숫자시작값
+			     , A.부가숫자종료값
+			     , A.부가문자값
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			     , (SELECT 한글직원명 FROM INSTC.TBGCBHR01 B
+			        WHERE B.직원번호 = A.SMS전송대상자식별내용) AS 한글직원명     
+			  FROM INSTC.TBGCBEM22 A        /* GCB업무점검SMS대상원장 */
+			 WHERE A.SMS전송대상자식별내용 = ${SMS전송대상자식별내용}
+			   AND A.어플리케이션코드 LIKE '%'||${어플리케이션코드}||'%'
+			   AND A.업무점검번호  LIKE '%'||${업무점검번호}||'%'
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="regtGcbBwkChpSmsTgLdg" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::21.IT장애관리지원::GCB업무점검SMS대상원장Ebi::GCB업무점검SMS대상원장Dao::GCB업무점검SMS대상원장등록">
+		<![CDATA[
+			INSERT /*+ 김은령::/gcb/itObstMgSpt/gcbBwkChpSmsTgLdgEbi/TBGCBEM22/regtGcbBwkChpSmsTgLdg */
+			  INTO INSTC.TBGCBEM22        /* GCB업무점검SMS대상원장 */
+			(
+			   어플리케이션코드
+			 , 업무점검번호
+			 , SMS전송대상자식별내용
+			 , SMS전송요일구분코드
+			 , 미점검SMS대상여부
+			 , 일괄SMS대상여부
+			 , 일괄SMS전송시분
+			 , 즉시SMS대상여부
+			 , 즉시SMS대상구분코드
+			 , 부가숫자시작값
+			 , 부가숫자종료값
+			 , 부가문자값
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${어플리케이션코드}
+			 ,${업무점검번호}
+			 ,${SMS전송대상자식별내용}
+			 ,${SMS전송요일구분코드}
+			 ,${미점검SMS대상여부}
+			 ,${일괄SMS대상여부}
+			 ,${일괄SMS전송시분}
+			 ,${즉시SMS대상여부}
+			 ,${즉시SMS대상구분코드}
+			 ,${부가숫자시작값}
+			 ,${부가숫자종료값}
+			 ,${부가문자값}
+			 ,SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,${시스템최종거래일시}
+			)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="uptGcbBwkChpSmsTgLdg" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::21.IT장애관리지원::GCB업무점검SMS대상원장Ebi::GCB업무점검SMS대상원장Dao::GCB업무점검SMS대상원장수정">
+		<![CDATA[
+			UPDATE /*+ 김은령::/gcb/itObstMgSpt/gcbBwkChpSmsTgLdgEbi/TBGCBEM22/uptGcbBwkChpSmsTgLdg */ 
+			       INSTC.TBGCBEM22        /* GCB업무점검SMS대상원장 */
+			   SET SMS전송요일구분코드 = ${SMS전송요일구분코드}
+			     , 미점검SMS대상여부  = ${미점검SMS대상여부}
+			     , 일괄SMS대상여부   = ${일괄SMS대상여부}
+			     , 일괄SMS전송시분   = ${일괄SMS전송시분}
+			     , 즉시SMS대상여부   = ${즉시SMS대상여부}
+			     , 즉시SMS대상구분코드 = ${즉시SMS대상구분코드}
+			     , 부가숫자시작값     = ${부가숫자시작값}
+			     , 부가숫자종료값     = ${부가숫자종료값}
+			     , 부가문자값       = ${부가문자값}
+			     , 시스템최종갱신일시   = SYSTIMESTAMP
+			     , 시스템최종갱신식별자  = ${시스템최종갱신식별자}
+			     , 시스템최종거래일시   = ${시스템최종거래일시}
+			 WHERE 어플리케이션코드     = ${어플리케이션코드}
+			   AND 업무점검번호       = ${업무점검번호}
+			   AND SMS전송대상자식별내용 = ${SMS전송대상자식별내용}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvGcbBwkChpSmsTgLdg" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::21.IT장애관리지원::GCB업무점검SMS대상원장Ebi::GCB업무점검SMS대상원장Dao::GCB업무점검SMS대상원장조회" >
+		<![CDATA[
+			SELECT /*+ 김은령::/gcb/itObstMgSpt/gcbBwkChpSmsTgLdgEbi/TBGCBEM22/retvGcbBwkChpSmsTgLdg */ 
+			       A.어플리케이션코드
+			     , A.업무점검번호
+			     , A.SMS전송대상자식별내용
+			     , A.SMS전송요일구분코드
+			     , A.미점검SMS대상여부
+			     , A.일괄SMS대상여부
+			     , A.일괄SMS전송시분
+			     , A.즉시SMS대상여부
+			     , A.즉시SMS대상구분코드
+			     , A.부가숫자시작값
+			     , A.부가숫자종료값
+			     , A.부가문자값
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBEM22 A        /* GCB업무점검SMS대상원장 */
+			 WHERE A.어플리케이션코드     = ${어플리케이션코드}
+			   AND A.업무점검번호       = ${업무점검번호}
+			   AND A.SMS전송대상자식별내용 = ${SMS전송대상자식별내용}
+			
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="delGcbBwkChpSmsTgLdg" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::21.IT장애관리지원::GCB업무점검SMS대상원장Ebi::GCB업무점검SMS대상원장Dao::GCB업무점검SMS대상원장삭제" >
+		<![CDATA[
+			DELETE /*+ 김은령::/gcb/itObstMgSpt/gcbBwkChpSmsTgLdgEbi/TBGCBEM22/delGcbBwkChpSmsTgLdg */
+			  FROM INSTC.TBGCBEM22        /* GCB업무점검SMS대상원장 */
+			 WHERE 어플리케이션코드     = ${어플리케이션코드}
+			   AND 업무점검번호       = ${업무점검번호}
+			   AND SMS전송대상자식별내용 = ${SMS전송대상자식별내용}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvGcbBwkChpSmsTgNcn" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::21.IT장애관리지원::GCB업무점검SMS대상원장Ebi::GCB업무점검SMS대상원장Dao::GCB업무점검SMS대상건수조회">
+		<![CDATA[
+			SELECT /*+ 김은령::/gcb/itObstMgSpt/gcbBwkChpSmsTgLdgEbi/TBGCBEM22/retvGcbBwkChpSmsTgNcn */ 
+			       COUNT(1) AS 조회건수_N6
+			  FROM INSTC.TBGCBEM22 A        /* GCB업무점검SMS대상원장 */
+			 WHERE A.어플리케이션코드 = ${어플리케이션코드}
+			   AND A.업무점검번호   = ${업무점검번호}
+		]]>
+    </statement>
+</statements>

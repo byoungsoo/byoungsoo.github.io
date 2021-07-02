@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<statements>
+
+    <statement name="selectLnPdCtg">
+		<![CDATA[  
+SELECT /*+ 전정길::/card/MyDtLnPdCtgEbc/selectLnPdCtg */
+       CASE WHEN NVL(SUM(단기대출여부),'0') = '0' THEN 'false' ELSE 'true' END 단기대출여부
+     , CASE WHEN NVL(SUM(장기대출여부),'0') = '0' THEN 'false' ELSE 'true' END 장기대출여부
+  FROM (
+        SELECT '1' 단기대출여부
+             , '0' 장기대출여부
+          FROM INSTC.TBUBDG005 A        /* GBC청구전표기본(TBGBCJ001) */
+         WHERE 1 = 1
+           AND A.회원일련번호         = ${회원일련번호}
+           AND A.테이블파티션구분번호 = SUBSTR(${회원일련번호}, -2)
+           AND A.회수후잔액 > 0
+           AND A.청구전표구분코드 = '03'
+           AND A.카드거래처리구분코드 = '1'
+           AND A.해외전표여부 = '0'
+           AND ROWNUM = 1
+         UNION ALL
+        SELECT '0' 단기대출여부
+             , '1' 장기대출여부
+          FROM INSTC.TBUBDN001 A /* GEA카드론계약기본(TBGEAA101) */
+         WHERE 1 = 1
+           AND A.고객식별자   = ${고객식별자}
+           AND A.고객관리번호 = ${고객관리번호}
+           AND A.카드론상태구분코드 =  '1'
+           AND A.카드론평가상품구분코드 NOT IN ('13','16')
+           AND ROWNUM = 1
+       )
+		]]>
+    </statement>    
+    
+</statements>

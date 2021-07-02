@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvLstBchVlnBas" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::05.IT운영지원::02.SMS통보::배치미수행규칙검증SMS통보Job::DAO::배치미수행규칙검증SMS통보Bdao::배치검증기본목록조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/batch/itOpSpt/smsNotf/bchNtAcmpRulVlnSmsNotfJob/BchNtAcmpRulVlnSmsNotf/retvLstBchVlnBas */ 
+			       A.어플리케이션구분코드
+			     , A.배치작업검증대분류내용
+			     , A.배치작업검증중분류내용
+			     , A.배치작업검증소분류내용
+			     , A.배치작업검증분류일련번호
+			     , A.배치작업검증일련번호
+			     , A.배치작업검증담당자SMS수신여부
+			     , A.배치작업검증구분코드
+			     , A.배치작업검증오차허용범위율
+			     , A.검증대상배치작업명
+			     , A.작업주기구분코드
+			     , A.작업주기세부구분코드
+			     , A.배치작업시작시각
+			     , A.배치작업종료시각
+			     , A.IT운영SMS일련번호
+			     , A.IT운영SMS부가일련번호
+			     , A.등록년월일
+			     , A.등록부점코드
+			     , A.등록직원번호
+			     , A.해제년월일
+			     , A.해제부점코드
+			     , A.해제직원번호
+			     , A.배치작업검증업무내용
+			     , A.등록상태구분코드
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBMB01 A 
+			 WHERE A.작업주기구분코드 <> '00'
+			   AND A.작업주기구분코드 IS NOT NULL
+			   AND A.배치작업검증담당자SMS수신여부 = '1'
+			   AND A.검증대상배치작업명 IS NOT NULL
+			   AND A.등록상태구분코드 IN ('1', '3')
+			   AND A.배치작업시작시각 IS NOT NULL
+			   AND A.배치작업종료시각 IS NOT NULL
+			   AND A.IT운영SMS일련번호 > 0
+			   AND A.배치작업검증일련번호 = (SELECT MAX(B.배치작업검증일련번호) 배치작업검증일련번호
+			                            FROM INSTC.TBGCBMB01 B
+			                           WHERE B.어플리케이션구분코드 = A.어플리케이션구분코드
+			                             AND B.배치작업검증대분류내용 = A.배치작업검증대분류내용
+			                             AND B.배치작업검증중분류내용 = A.배치작업검증중분류내용
+			                             AND B.배치작업검증소분류내용 = A.배치작업검증소분류내용
+			                             AND B.배치작업검증분류일련번호 = A.배치작업검증분류일련번호)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvBchVlnHis" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::05.IT운영지원::02.SMS통보::배치미수행규칙검증SMS통보Job::DAO::배치미수행규칙검증SMS통보Bdao::배치검증내역조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/batch/itOpSpt/smsNotf/bchNtAcmpRulVlnSmsNotfJob/BchNtAcmpRulVlnSmsNotf/retvBchVlnHis */ 
+			       A.어플리케이션구분코드
+			     , A.배치작업검증대분류내용
+			     , A.배치작업검증중분류내용
+			     , A.배치작업검증소분류내용
+			     , A.배치작업검증분류일련번호
+			     , A.생성년월일
+			     , A.결제년월일
+			     , A.카드결제기관구분코드
+			     , A.카드결제방법구분코드
+			     , A.배치작업검증대상처리건수
+			     , A.배치작업검증대상처리금액
+			     , A.배치작업검증대상제외여부
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBMB02 A 
+			 WHERE A.어플리케이션구분코드 = ${어플리케이션구분코드}
+			   AND A.배치작업검증대분류내용 = ${배치작업검증대분류내용}
+			   AND A.배치작업검증중분류내용 = ${배치작업검증중분류내용}
+			   AND A.배치작업검증소분류내용 = ${배치작업검증소분류내용}
+			   AND A.배치작업검증분류일련번호 = ${배치작업검증분류일련번호}
+			   AND A.생성년월일 = ${생성년월일}
+		]]>
+    </statement>
+</statements>

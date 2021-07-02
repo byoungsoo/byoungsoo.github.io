@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvLstGCB_ItOpSmsMsgCnvBseTrsHis" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::12.IT운영SMS관리::GCB_IT운영SMS메시지전환기준Ebi::GCB_IT운영SMS메시지전환기준Jdao::GCB_IT운영SMS메시지전환기준전송내역목록조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itOpSmsMg/gCB_ItOpSmsMsgCnvBseEbi/GCB_ItOpSmsMsgCnvBse/retvLstGCB_ItOpSmsMsgCnvBseTrsHis */ 
+			       A.어플리케이션코드
+			     , A.IT운영SMS일련번호
+			     , A.IT운영SMS부가일련번호
+			     , NVL(B.최종SMS전송일시, A.최종SMS전송일시) 최종SMS전송일시
+			     , NVL(B.최종일자SMS전송건수, A.최종일자SMS전송건수) 최종일자SMS전송건수
+			     , NVL(B.SMS전송거래유형구분코드, A.최종SMS전송거래유형구분코드) 최종SMS전송거래유형구분코드
+			     , NVL(B.SMS전송거래코드, A.최종SMS전송거래코드) 최종SMS전송거래코드
+			     , NVL(B.SMS전송배치작업명, A.최종SMS전송배치작업명) 최종SMS전송배치작업명
+			     , NVL(B.SMS전송프로그램명, A.최종SMS전송프로그램명) 최종SMS전송프로그램명
+			     , NVL(B.SMS전송메시지내용, A.최종SMS전송메시지내용) 최종SMS전송메시지내용
+			     , 등록직원번호
+			     , 등록년월일
+			     , 사용여부
+			     , IT운영SMS제어내용
+			     , SMS전송통제시작일시
+			     , SMS전송통제종료일시
+			     , IT운영SMS일전송허용건수
+			     , IT운영SMS일전송허용간격수
+			     , IT운영SMS메시지분류구분코드
+			     , IT운영SMS메시지내용
+			     , IT운영SMS메시지용도내용
+			     , A.IT운영SMS전송대상그룹식별내용
+			     , NVL(B.시스템최종거래일시, A.시스템최종거래일시) 시스템최종거래일시
+			     , NVL(B.시스템최종갱신식별자, A.시스템최종갱신식별자) 시스템최종갱신식별자
+			  FROM INSTC.TBGCBSM03 A
+			     , (SELECT C.어플리케이션코드
+			             , C.IT운영SMS일련번호
+			             , C.IT운영SMS부가일련번호
+			             , MAX(C.IT운영SMS전송년월일 || SUBSTR(C.IT운영SMS전송시각, 1, 6)) 최종SMS전송일시
+			             , COUNT(*) 최종일자SMS전송건수
+			             , SUBSTR(MAX(C.IT운영SMS전송시각 || C.SMS전송거래유형구분코드), 13) SMS전송거래유형구분코드
+			             , SUBSTR(MAX(C.IT운영SMS전송시각 || C.SMS전송거래코드), 13) SMS전송거래코드
+			             , SUBSTR(MAX(C.IT운영SMS전송시각 || C.SMS전송배치작업명), 13) SMS전송배치작업명
+			             , SUBSTR(MAX(C.IT운영SMS전송시각 || C.SMS전송프로그램명), 13) SMS전송프로그램명
+			             , SUBSTR(MAX(C.IT운영SMS전송시각 || C.SMS전송메시지내용), 13) SMS전송메시지내용
+			             , SUBSTR(MAX(C.IT운영SMS전송시각 || C.시스템최종거래일시), 13) 시스템최종거래일시
+			             , SUBSTR(MAX(C.IT운영SMS전송시각 || C.시스템최종갱신식별자), 13) 시스템최종갱신식별자
+			          FROM INSTC.TBGCBSM04 C
+			         WHERE C.IT운영SMS전송년월일 = TO_CHAR(SYSDATE, 'YYYYMMDD')
+			           AND C.어플리케이션코드 = ${어플리케이션코드}
+			           AND C.IT운영SMS일련번호 BETWEEN ${IT운영SMS일련번호1} AND ${IT운영SMS일련번호2}
+			           AND C.IT운영SMS전송시각 NOT LIKE 'E%'
+			         GROUP BY C.어플리케이션코드
+			             , C.IT운영SMS일련번호
+			             , C.IT운영SMS부가일련번호) B
+			 WHERE A.어플리케이션코드 = B.어플리케이션코드(+)
+			   AND A.IT운영SMS일련번호 = B.IT운영SMS일련번호(+)
+			   AND A.IT운영SMS부가일련번호 = B.IT운영SMS부가일련번호(+)
+			   AND A.어플리케이션코드 = ${어플리케이션코드}
+			   AND A.IT운영SMS일련번호 BETWEEN ${IT운영SMS일련번호1} AND ${IT운영SMS일련번호2}
+			   AND (A.사용여부 = ${사용여부} OR ${사용여부} IS NULL)
+			   AND (A.IT운영SMS메시지분류구분코드 = ${IT운영SMS메시지분류구분코드} OR ${IT운영SMS메시지분류구분코드} IS NULL)
+			   AND (${IT운영SMS전송통제여부_V1} IS NULL OR (${IT운영SMS전송통제여부_V1} = '1' AND (A.SMS전송통제시작일시 IS NOT NULL OR A.SMS전송통제종료일시 IS NOT NULL)))
+			   AND A.IT운영SMS메시지내용 LIKE '%' || ${IT운영SMS메시지내용} || '%'
+			   AND A.IT운영SMS전송대상그룹식별내용 LIKE '%' || ${IT운영SMS전송대상그룹식별내용} || '%'
+		]]>
+    </statement>
+</statements>

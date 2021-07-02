@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvLstGcbErrTrMngVlnHis" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::21.IT장애관리지원::GCB오류거래모니터링검증내역Ebi::GCB오류거래모니터링검증내역Dao::GCB오류거래모니터링검증내역목록조회">
+		<![CDATA[
+			SELECT /*+ 박혜림::/gcb/itObstMgSpt/gcbErrTrMngVlnHisEbi/TBGCBEM13/retvLstGcbErrTrMngVlnHis */ 
+			       A.상품처리거래집계구분코드
+			     , A.상품처리거래집계년월일
+			     , A.상품처리거래집계시분
+			     , A.채널구분코드
+			     , A.채널세부업무구분코드
+			     , A.거래코드
+			     , A.오류메시지코드
+			     , A.조치메시지코드
+			     , A.상품처리거래검증일련번호
+			     , A.상품처리정상거래건수
+			     , A.상품처리오류거래건수
+			     , A.상품처리오류거래비율
+			     , A.IT운영SMS전송여부
+			     , A.IT운영SMS전송일시
+			     , A.IT운영SMS일련번호
+			     , A.IT운영SMS부가일련번호
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBEM13 A        /* GCB오류거래모니터링검증내역 */
+			 WHERE  A.상품처리거래집계년월일  = ${상품처리거래집계년월일}
+			   AND (A.상품처리거래집계시분   BETWEEN ${시작시분_V4} AND ${종료시분_V4})
+			   AND (A.상품처리거래집계구분코드 = ${상품처리거래집계구분코드} OR ${상품처리거래집계구분코드} IS NULL)
+			   AND (A.채널구분코드       = ${채널구분코드} OR ${채널구분코드} IS NULL)
+			   AND (A.채널세부업무구분코드   = ${채널세부업무구분코드} OR ${채널세부업무구분코드} IS NULL)
+			   AND (A.거래코드         = ${거래코드} OR ${거래코드} IS NULL)
+			   AND (A.오류메시지코드      = ${오류메시지코드} OR ${오류메시지코드} IS NULL)
+			   AND (A.조치메시지코드      = ${조치메시지코드} OR ${조치메시지코드} IS NULL)
+			   AND (A.상품처리거래검증일련번호 = ${상품처리거래검증일련번호} OR ${상품처리거래검증일련번호} IS NULL)
+		]]>
+    </statement>
+</statements>

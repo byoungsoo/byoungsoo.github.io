@@ -1,0 +1,3373 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="uptItOpSmsTgBizErrBseRmk" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::05.IT운영지원::02.SMS통보::비즈니스오류로그발생SMS통보Dmfreec::DAO::비즈니스에러로그발생SMS통보Ddao::IT운영SMS대상비즈니스오류기준비고수정">
+		<![CDATA[
+			UPDATE /*+ 위상규::/gcb/itOpSpt/smsNotf/bizErrLogOccSmsNotfDmfreec/BizErrLogOccSmsNotf/uptItOpSmsTgBizErrBseRmk */ 
+			       INSTC.TBGCBSM11 
+			   SET IT운영SMS비고          = ${IT운영SMS비고}
+			     , 시스템최종갱신일시          = SYSTIMESTAMP
+			     , 시스템최종갱신식별자         = ${시스템최종갱신식별자}
+			     , 시스템최종거래일시          = ${시스템최종거래일시}
+			 WHERE IT운영SMS대상오류식별내용 = ${IT운영SMS대상오류식별내용}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvItOpSmsTgBizErrBseTrsTgp" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::05.IT운영지원::02.SMS통보::비즈니스오류로그발생SMS통보Dmfreec::DAO::비즈니스에러로그발생SMS통보Ddao::IT운영SMS대상비즈니스오류기준전송대상자조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itOpSpt/smsNotf/bizErrLogOccSmsNotfDmfreec/BizErrLogOccSmsNotf/retvItOpSmsTgBizErrBseTrsTgp */ 
+			       A.IT운영SMS전송대상자식별내용01
+			     , A.IT운영SMS전송대상자식별내용02
+			     , A.IT운영SMS전송대상자식별내용03
+			     , A.IT운영SMS전송대상자식별내용04
+			     , A.IT운영SMS전송대상자식별내용05
+			     , A.IT운영SMS전송대상자식별내용06
+			     , A.IT운영SMS전송대상자식별내용07
+			     , A.IT운영SMS전송대상자식별내용08
+			     , A.IT운영SMS전송대상자식별내용09
+			     , A.IT운영SMS전송대상자식별내용10
+			  FROM INSTC.TBGCBSM11 A 
+			 WHERE A.IT운영SMS대상오류식별내용 = ${IT운영SMS대상오류식별내용}
+			   AND A.사용여부 = '1'
+			   AND A.전송제어구분코드 = '0'
+			   AND 'OK' = CASE WHEN A.전송가능요일구분코드 = '0' AND TO_CHAR(SYSDATE, 'D') BETWEEN '2' AND '6' THEN 'OK'
+			                   WHEN A.전송가능요일구분코드 = '1' AND TO_CHAR(SYSDATE, 'D') BETWEEN '2' AND '7' THEN 'OK'
+			                   WHEN A.전송가능요일구분코드 = '2' AND TO_CHAR(SYSDATE, 'D') BETWEEN '1' AND '7' THEN 'OK'
+			                   WHEN A.전송가능요일구분코드 = '3' AND TO_CHAR(SYSDATE, 'D') IN ('1', '7') THEN 'OK'
+			                   WHEN A.전송가능요일구분코드 = '4' AND TO_CHAR(SYSDATE, 'D') = '7' THEN 'OK'
+			                   WHEN A.전송가능요일구분코드 = '5' AND TO_CHAR(SYSDATE, 'D') = '1' THEN 'OK'
+			                   WHEN A.전송가능요일구분코드 = '6' AND ${공휴일유무_V1} = 'Y' THEN 'OK'
+			                   ELSE ' ' END
+			   AND (A.전송가능요일구분코드 IN ('2', '6') OR ${공휴일유무_V1} = 'N')
+			   AND ROWNUM = 1
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstItOpSmsTgBizErrBseSngErrPt" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::05.IT운영지원::02.SMS통보::비즈니스오류로그발생SMS통보Dmfreec::DAO::비즈니스에러로그발생SMS통보Ddao::IT운영SMS대상비즈오류기준단일오류유형목록조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itOpSpt/smsNotf/bizErrLogOccSmsNotfDmfreec/BizErrLogOccSmsNotf/retvLstItOpSmsTgBizErrBseSngErrPt */ 
+			       A.IT운영SMS대상오류식별내용
+			     , A.거래유형구분코드
+			     , A.중계인터페이스구분코드
+			     , A.채널구분코드
+			     , A.전송가능요일구분코드
+			     , A.IT운영SMS대상부가식별내용
+			     , A.등록직원번호
+			     , A.사용여부
+			     , A.전송제어구분코드
+			     , A.IT운영SMS전송시작발생건수
+			     , A.IT운영SMS전송종료발생건수
+			     , A.IT운영SMS전송종료전송건수
+			     , A.IT운영SMS전송가능간격분수
+			     , A.IT운영SMS전송가능시작시분
+			     , A.IT운영SMS전송가능종료시분
+			     , A.SMS전송통제시작일시
+			     , A.SMS전송통제종료일시
+			     , A.IT운영SMS거래담당자전송여부
+			     , A.IT운영SMS전송대상자식별내용01
+			     , A.IT운영SMS전송대상자식별내용02
+			     , A.IT운영SMS전송대상자식별내용03
+			     , A.IT운영SMS전송대상자식별내용04
+			     , A.IT운영SMS전송대상자식별내용05
+			     , A.IT운영SMS전송대상자식별내용06
+			     , A.IT운영SMS전송대상자식별내용07
+			     , A.IT운영SMS전송대상자식별내용08
+			     , A.IT운영SMS전송대상자식별내용09
+			     , A.IT운영SMS전송대상자식별내용10
+			     , A.IT운영SMS비고
+			     , A.최종SMS대상발생일시
+			     , CASE WHEN SUBSTR(A.최종SMS대상발생일시, 1, 8) = TO_CHAR(SYSDATE, 'YYYYMMDD') THEN A.최종SMS대상발생건수
+			            ELSE 0 END 최종SMS대상발생건수
+			     , A.최종SMS전송일시
+			     , A.최종SMS대상전송건수
+			     , A.최종SMS전송메시지내용
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBSM11 A 
+			 WHERE A.IT운영SMS대상오류식별내용 IN (SELECT 'S)' || B.거래코드 || '-' || B.오류메시지코드 || '-' || B.조치메시지코드
+			                                  FROM INSTC.TBGCBSM13 B
+			                                 WHERE B.오류거래발생년월일 = ${오류거래발생년월일}
+			                                   AND B.오류거래발생시각 >= ${오류거래발생시각1}
+			                                   AND B.오류거래발생시각 < ${오류거래발생시각2})
+			   AND A.사용여부 = '1'
+			   AND A.전송제어구분코드 = '0'
+			   AND A.IT운영SMS전송종료발생건수 > (CASE WHEN SUBSTR(A.최종SMS대상발생일시, 1, 8) = TO_CHAR(SYSDATE, 'YYYYMMDD') THEN A.최종SMS대상발생건수
+			                                    ELSE 0 END)
+			   AND A.IT운영SMS전송종료전송건수 > (CASE WHEN SUBSTR(A.최종SMS전송일시, 1, 8) = TO_CHAR(SYSDATE, 'YYYYMMDD') THEN A.최종SMS대상전송건수
+			                                    ELSE 0 END)
+			   AND NVL(A.최종SMS전송일시, '0') < TO_CHAR(SYSDATE - A.IT운영SMS전송가능간격분수 / 1440, 'YYYYMMDDHH24MISS')
+			   AND TO_CHAR(SYSDATE, 'HH24MI') BETWEEN A.IT운영SMS전송가능시작시분 AND A.IT운영SMS전송가능종료시분
+			   AND TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS') NOT BETWEEN NVL(A.SMS전송통제시작일시, '0') AND NVL(A.SMS전송통제종료일시, '0')
+			   AND 'OK' = CASE WHEN A.전송가능요일구분코드 = '0' AND TO_CHAR(SYSDATE, 'D') BETWEEN '2' AND '6' THEN 'OK'
+			                   WHEN A.전송가능요일구분코드 = '1' AND TO_CHAR(SYSDATE, 'D') BETWEEN '2' AND '7' THEN 'OK'
+			                   WHEN A.전송가능요일구분코드 = '2' AND TO_CHAR(SYSDATE, 'D') BETWEEN '1' AND '7' THEN 'OK'
+			                   WHEN A.전송가능요일구분코드 = '3' AND TO_CHAR(SYSDATE, 'D') IN ('1', '7') THEN 'OK'
+			                   WHEN A.전송가능요일구분코드 = '4' AND TO_CHAR(SYSDATE, 'D') = '7' THEN 'OK'
+			                   WHEN A.전송가능요일구분코드 = '5' AND TO_CHAR(SYSDATE, 'D') = '1' THEN 'OK'
+			                   WHEN A.전송가능요일구분코드 = '6' AND ${공휴일유무_V1} = 'Y' THEN 'OK'
+			                   ELSE ' ' END
+			   AND (A.전송가능요일구분코드 IN ('2', '6') OR ${공휴일유무_V1} = 'N')
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvItOpSmsTgTnhsSngErrPtNcn" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::05.IT운영지원::02.SMS통보::비즈니스오류로그발생SMS통보Dmfreec::DAO::비즈니스에러로그발생SMS통보Ddao::IT운영SMS대상거래내역단일오류유형건수조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itOpSpt/smsNotf/bizErrLogOccSmsNotfDmfreec/BizErrLogOccSmsNotf/retvItOpSmsTgTnhsSngErrPtNcn */ 
+			       COUNT(1) 건수_N7
+			     , NVL(MIN(A.오류거래발생시각), '    ') 오류거래발생시각1
+			     , NVL(MAX(A.오류거래발생시각), '    ') 오류거래발생시각2
+			  FROM INSTC.TBGCBSM13 A 
+			 WHERE A.오류거래발생년월일 = ${오류거래발생년월일}
+			   AND A.오류거래발생시각 >= ${오류거래발생시각1}
+			   AND A.오류거래발생시각 < ${오류거래발생시각2}
+			   AND A.거래코드 || '-' || A.오류메시지코드 || '-' || A.조치메시지코드 = SUBSTR(${IT운영SMS대상오류식별내용}, 3, 28)
+			   --AND ('0' = {거래유형구분코드} OR A.거래유형구분코드  = {거래유형구분코드})
+			   AND ('00' = ${중계인터페이스구분코드} OR A.중계인터페이스구분코드  = ${중계인터페이스구분코드})
+			   AND ('00' = ${채널구분코드} OR A.채널구분코드  = ${채널구분코드})
+			   AND NOT EXISTS (SELECT 1
+			                     FROM INSTC.TBGCBSM11 B
+			                    WHERE B.IT운영SMS대상오류식별내용 = 'S)' || A.거래코드 || '-' || A.오류메시지코드 || '-' || A.조치메시지코드
+			                      --AND (B.거래유형구분코드 = '0' OR B.거래유형구분코드 = A.거래유형구분코드)
+			                      AND (B.중계인터페이스구분코드 = '00' OR B.중계인터페이스구분코드 = A.중계인터페이스구분코드)
+			                      AND (B.채널구분코드 = '00' OR B.채널구분코드 = A.채널구분코드)
+			                      AND B.사용여부 = '1'
+			                      AND B.전송제어구분코드 = '1'
+			                      AND 'OK' = CASE WHEN B.전송가능요일구분코드 = '0' AND TO_CHAR(SYSDATE, 'D') BETWEEN '2' AND '6' THEN 'OK'
+			                                      WHEN B.전송가능요일구분코드 = '1' AND TO_CHAR(SYSDATE, 'D') BETWEEN '2' AND '7' THEN 'OK'
+			                                      WHEN B.전송가능요일구분코드 = '2' AND TO_CHAR(SYSDATE, 'D') BETWEEN '1' AND '7' THEN 'OK'
+			                                      WHEN B.전송가능요일구분코드 = '3' AND TO_CHAR(SYSDATE, 'D') IN ('1', '7') THEN 'OK'
+			                                      WHEN B.전송가능요일구분코드 = '4' AND TO_CHAR(SYSDATE, 'D') = '7' THEN 'OK'
+			                                      WHEN B.전송가능요일구분코드 = '5' AND TO_CHAR(SYSDATE, 'D') = '1' THEN 'OK'
+			                                      WHEN B.전송가능요일구분코드 = '6' AND ${공휴일유무_V1} = 'Y' THEN 'OK'
+			                                      ELSE ' ' END
+			                      AND (B.전송가능요일구분코드 IN ('2', '6') OR ${공휴일유무_V1} = 'N'))
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="uptItOpSmsTgTnhsSngErrPt" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::05.IT운영지원::02.SMS통보::비즈니스오류로그발생SMS통보Dmfreec::DAO::비즈니스에러로그발생SMS통보Ddao::IT운영SMS대상거래내역단일오류유형수정">
+		<![CDATA[
+			UPDATE /*+ 위상규::/gcb/itOpSpt/smsNotf/bizErrLogOccSmsNotfDmfreec/BizErrLogOccSmsNotf/uptItOpSmsTgTnhsSngErrPt */ 
+			       INSTC.TBGCBSM13 A
+			   SET A.IT운영SMS전송여부 = ${IT운영SMS전송여부}
+			     , A.IT운영SMS전송일시 = ${IT운영SMS전송일시}
+			     , A.IT운영SMS전송대상자식별내용01 = ${IT운영SMS전송대상자식별내용01}
+			     , A.IT운영SMS전송대상자식별내용02 = ${IT운영SMS전송대상자식별내용02}
+			     , A.IT운영SMS전송대상자식별내용03 = ${IT운영SMS전송대상자식별내용03}
+			     , A.IT운영SMS전송대상자식별내용04 = ${IT운영SMS전송대상자식별내용04}
+			     , A.IT운영SMS전송대상자식별내용05 = ${IT운영SMS전송대상자식별내용05}
+			     , A.IT운영SMS전송대상자식별내용06 = ${IT운영SMS전송대상자식별내용06}
+			     , A.IT운영SMS전송대상자식별내용07 = ${IT운영SMS전송대상자식별내용07}
+			     , A.IT운영SMS전송대상자식별내용08 = ${IT운영SMS전송대상자식별내용08}
+			     , A.IT운영SMS전송대상자식별내용09 = ${IT운영SMS전송대상자식별내용09}
+			     , A.IT운영SMS전송대상자식별내용10 = ${IT운영SMS전송대상자식별내용10}
+			     , A.IT운영SMS전송대상자식별내용11 = ${IT운영SMS전송대상자식별내용11}
+			     , A.IT운영SMS전송대상자식별내용12 = ${IT운영SMS전송대상자식별내용12}
+			     , A.IT운영SMS전송대상자식별내용13 = ${IT운영SMS전송대상자식별내용13}
+			     , A.IT운영SMS전송대상자식별내용14 = ${IT운영SMS전송대상자식별내용14}
+			     , A.IT운영SMS전송대상자식별내용15 = ${IT운영SMS전송대상자식별내용15}
+			     , A.IT운영SMS전송대상자식별내용16 = ${IT운영SMS전송대상자식별내용16}
+			     , A.IT운영SMS전송대상자식별내용17 = ${IT운영SMS전송대상자식별내용17}
+			     , A.IT운영SMS전송대상자식별내용18 = ${IT운영SMS전송대상자식별내용18}
+			     , A.IT운영SMS전송대상자식별내용19 = ${IT운영SMS전송대상자식별내용19}
+			     , A.IT운영SMS전송대상자식별내용20 = ${IT운영SMS전송대상자식별내용20}
+			     , A.IT운영SMS비고 = CASE WHEN LENGTH(RTRIM(A.IT운영SMS비고)) >= 200 THEN A.IT운영SMS비고
+			                           WHEN LENGTH(RTRIM(A.IT운영SMS비고)) > 173 THEN RTRIM(A.IT운영SMS비고) || '+'
+			                           WHEN LENGTH(RTRIM(A.IT운영SMS비고)) > 0 THEN RTRIM(A.IT운영SMS비고) || ',' || SUBSTR(${IT운영SMS대상오류식별내용}, 3, 28)
+			                           ELSE SUBSTR(${IT운영SMS대상오류식별내용}, 3, 28) END
+			     , A.시스템최종갱신일시 = SYSTIMESTAMP
+			     , A.시스템최종갱신식별자 = ${시스템최종갱신식별자}
+			     , A.시스템최종거래일시 = ${시스템최종거래일시}
+			 WHERE A.오류거래발생년월일 = ${오류거래발생년월일}
+			   AND A.오류거래발생시각 >= ${오류거래발생시각1}
+			   AND A.오류거래발생시각 < ${오류거래발생시각2}
+			   AND A.거래코드 || '-' || A.오류메시지코드 || '-' || A.조치메시지코드 = SUBSTR(${IT운영SMS대상오류식별내용}, 3, 28)
+			   --AND ('0' = {거래유형구분코드} OR A.거래유형구분코드  = {거래유형구분코드})
+			   AND ('00' = ${중계인터페이스구분코드} OR A.중계인터페이스구분코드  = ${중계인터페이스구분코드})
+			   AND ('00' = ${채널구분코드} OR A.채널구분코드  = ${채널구분코드})
+			   AND NOT EXISTS (SELECT 1
+			                     FROM INSTC.TBGCBSM11 B
+			                    WHERE B.IT운영SMS대상오류식별내용 = 'S)' || A.거래코드 || '-' || A.오류메시지코드 || '-' || A.조치메시지코드
+			                      --AND (B.거래유형구분코드 = '0' OR B.거래유형구분코드 = A.거래유형구분코드)
+			                      AND (B.중계인터페이스구분코드 = '00' OR B.중계인터페이스구분코드 = A.중계인터페이스구분코드)
+			                      AND (B.채널구분코드 = '00' OR B.채널구분코드 = A.채널구분코드)
+			                      AND B.사용여부 = '1'
+			                      AND B.전송제어구분코드 = '1'
+			                      AND 'OK' = CASE WHEN B.전송가능요일구분코드 = '0' AND TO_CHAR(SYSDATE, 'D') BETWEEN '2' AND '6' THEN 'OK'
+			                                      WHEN B.전송가능요일구분코드 = '1' AND TO_CHAR(SYSDATE, 'D') BETWEEN '2' AND '7' THEN 'OK'
+			                                      WHEN B.전송가능요일구분코드 = '2' AND TO_CHAR(SYSDATE, 'D') BETWEEN '1' AND '7' THEN 'OK'
+			                                      WHEN B.전송가능요일구분코드 = '3' AND TO_CHAR(SYSDATE, 'D') IN ('1', '7') THEN 'OK'
+			                                      WHEN B.전송가능요일구분코드 = '4' AND TO_CHAR(SYSDATE, 'D') = '7' THEN 'OK'
+			                                      WHEN B.전송가능요일구분코드 = '5' AND TO_CHAR(SYSDATE, 'D') = '1' THEN 'OK'
+			                                      WHEN B.전송가능요일구분코드 = '6' AND ${공휴일유무_V1} = 'Y' THEN 'OK'
+			                                      ELSE ' ' END
+			                      AND (B.전송가능요일구분코드 IN ('2', '6') OR ${공휴일유무_V1} = 'N'))
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="uptItOpSmsTgBizErrBseSngErrPtLstOccInf" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::05.IT운영지원::02.SMS통보::비즈니스오류로그발생SMS통보Dmfreec::DAO::비즈니스에러로그발생SMS통보Ddao::IT운영SMS대상비즈오류기준단일오류유형최종발생정보수정">
+		<![CDATA[
+			UPDATE /*+ 위상규::/gcb/itOpSpt/smsNotf/bizErrLogOccSmsNotfDmfreec/BizErrLogOccSmsNotf/uptItOpSmsTgBizErrBseSngErrPtLstOccInf */ 
+			       INSTC.TBGCBSM11 
+			   SET 최종SMS대상발생일시 = ${최종SMS대상발생일시}
+			     , 최종SMS대상발생건수 = CASE WHEN SUBSTR(최종SMS대상발생일시, 1, 8) = TO_CHAR(SYSDATE, 'YYYYMMDD') THEN 최종SMS대상발생건수 + TO_NUMBER(${최종SMS대상발생건수})
+			                            ELSE TO_NUMBER(${최종SMS대상발생건수}) END
+			     , 최종SMS전송일시 = CASE WHEN ${SMS전송여부_V1} = '1' THEN ${최종SMS대상발생일시}
+			                         ELSE 최종SMS전송일시 END
+			     , 최종SMS대상전송건수 = CASE WHEN ${SMS전송여부_V1} = '1' AND SUBSTR(최종SMS전송일시, 1, 8) = TO_CHAR(SYSDATE, 'YYYYMMDD') THEN 최종SMS대상전송건수 + 1
+			                            WHEN ${SMS전송여부_V1} = '1' AND SUBSTR(최종SMS전송일시, 1, 8) != TO_CHAR(SYSDATE, 'YYYYMMDD') THEN 1
+			                            ELSE 최종SMS대상전송건수  END
+			     , 최종SMS전송메시지내용 = CASE WHEN ${SMS전송여부_V1} = '1' THEN ${최종SMS전송메시지내용}
+			                              ELSE 최종SMS전송메시지내용 END
+			     , 시스템최종갱신일시 = SYSTIMESTAMP
+			     , 시스템최종갱신식별자 = ${시스템최종갱신식별자}
+			     , 시스템최종거래일시 = ${시스템최종거래일시}
+			 WHERE IT운영SMS대상오류식별내용 = ${IT운영SMS대상오류식별내용}
+			   --AND 거래유형구분코드 = {거래유형구분코드}
+			   AND 중계인터페이스구분코드 = ${중계인터페이스구분코드}
+			   AND 채널구분코드 = ${채널구분코드}
+			   AND 전송가능요일구분코드 = ${전송가능요일구분코드}
+			   AND IT운영SMS대상부가식별내용 = ${IT운영SMS대상부가식별내용}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvItOpSmsMsgBse" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::05.IT운영지원::02.SMS통보::비즈니스오류로그발생SMS통보Dmfreec::DAO::비즈니스에러로그발생SMS통보Ddao::IT운영SMS메시지기준조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itOpSpt/smsNotf/bizErrLogOccSmsNotfDmfreec/BizErrLogOccSmsNotf/retvItOpSmsMsgBse */ 
+			       A.어플리케이션코드
+			     , A.IT운영SMS일련번호
+			     , A.IT운영SMS부가일련번호
+			     , A.등록직원번호
+			     , A.등록년월일
+			     , A.사용여부
+			     , A.IT운영SMS제어내용
+			     , A.SMS전송통제시작일시
+			     , A.SMS전송통제종료일시
+			     , A.IT운영SMS일전송허용건수
+			     , A.IT운영SMS일전송허용간격수
+			     , A.IT운영SMS메시지분류구분코드
+			     , A.IT운영SMS메시지내용
+			     , A.IT운영SMS메시지용도내용
+			     , A.IT운영SMS전송대상그룹식별내용
+			     , A.최종SMS전송일시
+			     , A.최종일자SMS전송건수
+			     , A.최종SMS전송거래유형구분코드
+			     , A.최종SMS전송거래코드
+			     , A.최종SMS전송배치작업명
+			     , A.최종SMS전송프로그램명
+			     , A.최종SMS전송메시지내용
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBSM03 A 
+			 WHERE A.어플리케이션코드      = ${어플리케이션코드}
+			   AND A.IT운영SMS일련번호   = ${IT운영SMS일련번호}
+			   AND A.IT운영SMS부가일련번호 = ${IT운영SMS부가일련번호}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstItOpSmsTgBizErrBseMultiErrPt" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::05.IT운영지원::02.SMS통보::비즈니스오류로그발생SMS통보Dmfreec::DAO::비즈니스에러로그발생SMS통보Ddao::IT운영SMS대상비즈오류기준멀티오류유형목록조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itOpSpt/smsNotf/bizErrLogOccSmsNotfDmfreec/BizErrLogOccSmsNotf/retvLstItOpSmsTgBizErrBseMultiErrPt */ 
+			       A.IT운영SMS대상오류식별내용
+			     , A.거래유형구분코드
+			     , A.중계인터페이스구분코드
+			     , A.채널구분코드
+			     , A.전송가능요일구분코드
+			     , A.IT운영SMS대상부가식별내용
+			     , A.등록직원번호
+			     , A.사용여부
+			     , A.전송제어구분코드
+			     , A.IT운영SMS전송시작발생건수
+			     , A.IT운영SMS전송종료발생건수
+			     , A.IT운영SMS전송종료전송건수
+			     , A.IT운영SMS전송가능간격분수
+			     , A.IT운영SMS전송가능시작시분
+			     , A.IT운영SMS전송가능종료시분
+			     , A.SMS전송통제시작일시
+			     , A.SMS전송통제종료일시
+			     , CASE WHEN SUBSTR(A.IT운영SMS대상오류식별내용, 3, 10) = '**********' THEN A.IT운영SMS거래담당자전송여부
+			            ELSE '0' END IT운영SMS거래담당자전송여부
+			     , A.IT운영SMS전송대상자식별내용01
+			     , A.IT운영SMS전송대상자식별내용02
+			     , A.IT운영SMS전송대상자식별내용03
+			     , A.IT운영SMS전송대상자식별내용04
+			     , A.IT운영SMS전송대상자식별내용05
+			     , A.IT운영SMS전송대상자식별내용06
+			     , A.IT운영SMS전송대상자식별내용07
+			     , A.IT운영SMS전송대상자식별내용08
+			     , A.IT운영SMS전송대상자식별내용09
+			     , A.IT운영SMS전송대상자식별내용10
+			     , A.IT운영SMS비고
+			     , A.최종SMS대상발생일시
+			     , CASE WHEN SUBSTR(A.최종SMS대상발생일시, 1, 8) = TO_CHAR(SYSDATE, 'YYYYMMDD') THEN A.최종SMS대상발생건수
+			            ELSE 0 END 최종SMS대상발생건수
+			     , A.최종SMS전송일시
+			     , A.최종SMS대상전송건수
+			     , A.최종SMS전송메시지내용
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBSM11 A 
+			 WHERE A.IT운영SMS대상오류식별내용 LIKE 'M)%'
+			   AND (SUBSTR(A.IT운영SMS대상오류식별내용, 3, 10) IN (SELECT 거래코드
+			                                                  FROM INSTC.TBGCBSM13 B
+			                                                 WHERE B.오류거래발생년월일 = ${오류거래발생년월일}
+			                                                   AND B.오류거래발생시각 >= ${오류거래발생시각1}
+			                                                   AND B.오류거래발생시각 < ${오류거래발생시각2})
+			    OR SUBSTR(A.IT운영SMS대상오류식별내용, 14, 8) IN (SELECT 오류메시지코드
+			                                                 FROM INSTC.TBGCBSM13 C
+			                                                WHERE C.오류거래발생년월일 = ${오류거래발생년월일}
+			                                                  AND C.오류거래발생시각 >= ${오류거래발생시각1}
+			                                                  AND C.오류거래발생시각 < ${오류거래발생시각2})
+			    OR SUBSTR(A.IT운영SMS대상오류식별내용, 23, 8) IN (SELECT 조치메시지코드
+			                                                 FROM INSTC.TBGCBSM13 D
+			                                                WHERE D.오류거래발생년월일 = ${오류거래발생년월일}
+			                                                  AND D.오류거래발생시각 >= ${오류거래발생시각1}
+			                                                  AND D.오류거래발생시각 < ${오류거래발생시각2})
+			    OR SUBSTR(A.IT운영SMS대상오류식별내용, 3, 28) = '**********-********-********')
+			   AND A.사용여부 = '1'
+			   AND A.전송제어구분코드 = '0'
+			   AND A.IT운영SMS전송종료발생건수 > (CASE WHEN SUBSTR(A.최종SMS대상발생일시, 1, 8) = TO_CHAR(SYSDATE, 'YYYYMMDD') THEN A.최종SMS대상발생건수
+			                                    ELSE 0 END)
+			   AND A.IT운영SMS전송종료전송건수 > (CASE WHEN SUBSTR(A.최종SMS전송일시, 1, 8) = TO_CHAR(SYSDATE, 'YYYYMMDD') THEN A.최종SMS대상전송건수
+			                                    ELSE 0 END)
+			   AND NVL(A.최종SMS전송일시, '0') < TO_CHAR(SYSDATE - A.IT운영SMS전송가능간격분수 / 1440, 'YYYYMMDDHH24MISS')
+			   AND TO_CHAR(SYSDATE, 'HH24MI') BETWEEN A.IT운영SMS전송가능시작시분 AND A.IT운영SMS전송가능종료시분
+			   AND TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS') NOT BETWEEN NVL(A.SMS전송통제시작일시, '0') AND NVL(A.SMS전송통제종료일시, '0')
+			   AND 'OK' = CASE WHEN A.전송가능요일구분코드 = '0' AND TO_CHAR(SYSDATE, 'D') BETWEEN '2' AND '6' THEN 'OK'
+			                   WHEN A.전송가능요일구분코드 = '1' AND TO_CHAR(SYSDATE, 'D') BETWEEN '2' AND '7' THEN 'OK'
+			                   WHEN A.전송가능요일구분코드 = '2' AND TO_CHAR(SYSDATE, 'D') BETWEEN '1' AND '7' THEN 'OK'
+			                   WHEN A.전송가능요일구분코드 = '3' AND TO_CHAR(SYSDATE, 'D') IN ('1', '7') THEN 'OK'
+			                   WHEN A.전송가능요일구분코드 = '4' AND TO_CHAR(SYSDATE, 'D') = '7' THEN 'OK'
+			                   WHEN A.전송가능요일구분코드 = '5' AND TO_CHAR(SYSDATE, 'D') = '1' THEN 'OK'
+			                   WHEN A.전송가능요일구분코드 = '6' AND ${공휴일유무_V1} = 'Y' THEN 'OK'
+			                   ELSE ' ' END
+			   AND (A.전송가능요일구분코드 IN ('2', '6') OR ${공휴일유무_V1} = 'N')
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvItOpSmsTgTnhsMultiErrPtNcn" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::05.IT운영지원::02.SMS통보::비즈니스오류로그발생SMS통보Dmfreec::DAO::비즈니스에러로그발생SMS통보Ddao::IT운영SMS대상거래내역멀티오류유형건수조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itOpSpt/smsNotf/bizErrLogOccSmsNotfDmfreec/BizErrLogOccSmsNotf/retvItOpSmsTgTnhsMultiErrPtNcn */ 
+			       COUNT(1) 건수_N7
+			     , NVL(MIN(A.오류거래발생시각), '    ') 오류거래발생시각1
+			     , NVL(MAX(A.오류거래발생시각), '    ') 오류거래발생시각2
+			     , NVL(MAX(A.오류메시지코드 || '-' || A.조치메시지코드), '') IT운영SMS대상오류식별내용
+			     , COUNT(DISTINCT A.거래코드) 건수_N8
+			  FROM INSTC.TBGCBSM13 A 
+			 WHERE A.오류거래발생년월일 = ${오류거래발생년월일}
+			   AND A.오류거래발생시각 >= ${오류거래발생시각1}
+			   AND A.오류거래발생시각 < ${오류거래발생시각2}
+			   AND (SUBSTR(${IT운영SMS대상오류식별내용}, 3, 10) = '**********' OR SUBSTR(${IT운영SMS대상오류식별내용}, 3, 10) = A.거래코드)
+			   AND (SUBSTR(${IT운영SMS대상오류식별내용}, 14, 8) = '********' OR SUBSTR(${IT운영SMS대상오류식별내용}, 14, 8) = A.오류메시지코드)
+			   AND (SUBSTR(${IT운영SMS대상오류식별내용}, 23, 8) = '********' OR SUBSTR(${IT운영SMS대상오류식별내용}, 23, 8) = A.조치메시지코드)
+			   --AND ('0' = {거래유형구분코드} OR A.거래유형구분코드  = {거래유형구분코드})
+			   AND ('00' = ${중계인터페이스구분코드} OR A.중계인터페이스구분코드  = ${중계인터페이스구분코드})
+			   AND ('00' = ${채널구분코드} OR A.채널구분코드  = ${채널구분코드})
+			   AND NOT EXISTS (SELECT 1
+			                     FROM INSTC.TBGCBSM11 B
+			                    WHERE B.전송제어구분코드 = '1'
+			                      AND (SUBSTR(B.IT운영SMS대상오류식별내용, 3, 10) = '**********' OR SUBSTR(B.IT운영SMS대상오류식별내용, 3, 10) = A.거래코드)
+			                      AND (SUBSTR(B.IT운영SMS대상오류식별내용, 14, 8) = '********' OR SUBSTR(B.IT운영SMS대상오류식별내용, 14, 8) = A.오류메시지코드)
+			                      AND (SUBSTR(B.IT운영SMS대상오류식별내용, 23, 8) = '********' OR SUBSTR(B.IT운영SMS대상오류식별내용, 23, 8) = A.조치메시지코드)
+			                      --AND (B.거래유형구분코드 = '0' OR B.거래유형구분코드 = A.거래유형구분코드)
+			                      AND (B.중계인터페이스구분코드 = '00' OR B.중계인터페이스구분코드 = A.중계인터페이스구분코드)
+			                      AND (B.채널구분코드 = '00' OR B.채널구분코드 = A.채널구분코드)
+			                      AND B.사용여부 = '1'
+			                      AND 'OK' = CASE WHEN B.전송가능요일구분코드 = '0' AND TO_CHAR(SYSDATE, 'D') BETWEEN '2' AND '6' THEN 'OK'
+			                                      WHEN B.전송가능요일구분코드 = '1' AND TO_CHAR(SYSDATE, 'D') BETWEEN '2' AND '7' THEN 'OK'
+			                                      WHEN B.전송가능요일구분코드 = '2' AND TO_CHAR(SYSDATE, 'D') BETWEEN '1' AND '7' THEN 'OK'
+			                                      WHEN B.전송가능요일구분코드 = '3' AND TO_CHAR(SYSDATE, 'D') IN ('1', '7') THEN 'OK'
+			                                      WHEN B.전송가능요일구분코드 = '4' AND TO_CHAR(SYSDATE, 'D') = '7' THEN 'OK'
+			                                      WHEN B.전송가능요일구분코드 = '5' AND TO_CHAR(SYSDATE, 'D') = '1' THEN 'OK'
+			                                      WHEN B.전송가능요일구분코드 = '6' AND ${공휴일유무_V1} = 'Y' THEN 'OK'
+			                                      ELSE ' ' END
+			                      AND (B.전송가능요일구분코드 IN ('2', '6') OR ${공휴일유무_V1} = 'N'))
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="uptItOpSmsTgTnhsMultiErrPt" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::05.IT운영지원::02.SMS통보::비즈니스오류로그발생SMS통보Dmfreec::DAO::비즈니스에러로그발생SMS통보Ddao::IT운영SMS대상거래내역멀티오류유형수정">
+		<![CDATA[
+			UPDATE /*+ 위상규::/gcb/itOpSpt/smsNotf/bizErrLogOccSmsNotfDmfreec/BizErrLogOccSmsNotf/uptItOpSmsTgTnhsMultiErrPt */ 
+			       INSTC.TBGCBSM13 A
+			   SET A.IT운영SMS전송여부 = ${IT운영SMS전송여부}
+			     , A.IT운영SMS전송일시 = ${IT운영SMS전송일시}
+			     , A.IT운영SMS전송대상자식별내용01 = ${IT운영SMS전송대상자식별내용01}
+			     , A.IT운영SMS전송대상자식별내용02 = ${IT운영SMS전송대상자식별내용02}
+			     , A.IT운영SMS전송대상자식별내용03 = ${IT운영SMS전송대상자식별내용03}
+			     , A.IT운영SMS전송대상자식별내용04 = ${IT운영SMS전송대상자식별내용04}
+			     , A.IT운영SMS전송대상자식별내용05 = ${IT운영SMS전송대상자식별내용05}
+			     , A.IT운영SMS전송대상자식별내용06 = ${IT운영SMS전송대상자식별내용06}
+			     , A.IT운영SMS전송대상자식별내용07 = ${IT운영SMS전송대상자식별내용07}
+			     , A.IT운영SMS전송대상자식별내용08 = ${IT운영SMS전송대상자식별내용08}
+			     , A.IT운영SMS전송대상자식별내용09 = ${IT운영SMS전송대상자식별내용09}
+			     , A.IT운영SMS전송대상자식별내용10 = ${IT운영SMS전송대상자식별내용10}
+			     , A.IT운영SMS전송대상자식별내용11 = ${IT운영SMS전송대상자식별내용11}
+			     , A.IT운영SMS전송대상자식별내용12 = ${IT운영SMS전송대상자식별내용12}
+			     , A.IT운영SMS전송대상자식별내용13 = ${IT운영SMS전송대상자식별내용13}
+			     , A.IT운영SMS전송대상자식별내용14 = ${IT운영SMS전송대상자식별내용14}
+			     , A.IT운영SMS전송대상자식별내용15 = ${IT운영SMS전송대상자식별내용15}
+			     , A.IT운영SMS전송대상자식별내용16 = ${IT운영SMS전송대상자식별내용16}
+			     , A.IT운영SMS전송대상자식별내용17 = ${IT운영SMS전송대상자식별내용17}
+			     , A.IT운영SMS전송대상자식별내용18 = ${IT운영SMS전송대상자식별내용18}
+			     , A.IT운영SMS전송대상자식별내용19 = ${IT운영SMS전송대상자식별내용19}
+			     , A.IT운영SMS전송대상자식별내용20 = ${IT운영SMS전송대상자식별내용20}
+			     , A.IT운영SMS비고 = CASE WHEN LENGTH(RTRIM(A.IT운영SMS비고)) >= 202 THEN A.IT운영SMS비고
+			                           WHEN LENGTH(RTRIM(A.IT운영SMS비고)) > 171 THEN RTRIM(A.IT운영SMS비고) || '+'
+			                           WHEN LENGTH(RTRIM(A.IT운영SMS비고)) > 0 THEN RTRIM(A.IT운영SMS비고) || ',' || SUBSTR(${IT운영SMS대상오류식별내용}, 3, 28) || ${IT운영SMS대상부가식별내용}
+			                           ELSE SUBSTR(${IT운영SMS대상오류식별내용}, 3, 28) || ${IT운영SMS대상부가식별내용} END
+			     , A.시스템최종갱신일시 = SYSTIMESTAMP
+			     , A.시스템최종갱신식별자 = ${시스템최종갱신식별자}
+			     , A.시스템최종거래일시 = ${시스템최종거래일시}
+			 WHERE A.오류거래발생년월일 = ${오류거래발생년월일}
+			   AND A.오류거래발생시각 >= ${오류거래발생시각1}
+			   AND A.오류거래발생시각 < ${오류거래발생시각2}
+			   AND (SUBSTR(${IT운영SMS대상오류식별내용}, 3, 10) = '**********' OR SUBSTR(${IT운영SMS대상오류식별내용}, 3, 10) = A.거래코드)
+			   AND (SUBSTR(${IT운영SMS대상오류식별내용}, 14, 8) = '********' OR SUBSTR(${IT운영SMS대상오류식별내용}, 14, 8) = A.오류메시지코드)
+			   AND (SUBSTR(${IT운영SMS대상오류식별내용}, 23, 8) = '********' OR SUBSTR(${IT운영SMS대상오류식별내용}, 23, 8) = A.조치메시지코드)
+			   --AND ('0' = {거래유형구분코드} OR A.거래유형구분코드  = {거래유형구분코드})
+			   AND ('00' = ${중계인터페이스구분코드} OR A.중계인터페이스구분코드  = ${중계인터페이스구분코드})
+			   AND ('00' = ${채널구분코드} OR A.채널구분코드  = ${채널구분코드})
+			   AND NOT EXISTS (SELECT 1
+			                     FROM INSTC.TBGCBSM11 B
+			                    WHERE B.전송제어구분코드 = '1'
+			                      AND (SUBSTR(B.IT운영SMS대상오류식별내용, 3, 10) = '**********' OR SUBSTR(B.IT운영SMS대상오류식별내용, 3, 10) = A.거래코드)
+			                      AND (SUBSTR(B.IT운영SMS대상오류식별내용, 14, 8) = '********' OR SUBSTR(B.IT운영SMS대상오류식별내용, 14, 8) = A.오류메시지코드)
+			                      AND (SUBSTR(B.IT운영SMS대상오류식별내용, 23, 8) = '********' OR SUBSTR(B.IT운영SMS대상오류식별내용, 23, 8) = A.조치메시지코드)
+			                      --AND (B.거래유형구분코드 = '0' OR B.거래유형구분코드 = A.거래유형구분코드)
+			                      AND (B.중계인터페이스구분코드 = '00' OR B.중계인터페이스구분코드 = A.중계인터페이스구분코드)
+			                      AND (B.채널구분코드 = '00' OR B.채널구분코드 = A.채널구분코드)
+			                      AND B.사용여부 = '1'
+			                      AND 'OK' = CASE WHEN B.전송가능요일구분코드 = '0' AND TO_CHAR(SYSDATE, 'D') BETWEEN '2' AND '6' THEN 'OK'
+			                                      WHEN B.전송가능요일구분코드 = '1' AND TO_CHAR(SYSDATE, 'D') BETWEEN '2' AND '7' THEN 'OK'
+			                                      WHEN B.전송가능요일구분코드 = '2' AND TO_CHAR(SYSDATE, 'D') BETWEEN '1' AND '7' THEN 'OK'
+			                                      WHEN B.전송가능요일구분코드 = '3' AND TO_CHAR(SYSDATE, 'D') IN ('1', '7') THEN 'OK'
+			                                      WHEN B.전송가능요일구분코드 = '4' AND TO_CHAR(SYSDATE, 'D') = '7' THEN 'OK'
+			                                      WHEN B.전송가능요일구분코드 = '5' AND TO_CHAR(SYSDATE, 'D') = '1' THEN 'OK'
+			                                      WHEN B.전송가능요일구분코드 = '6' AND ${공휴일유무_V1} = 'Y' THEN 'OK'
+			                                      ELSE ' ' END
+			                      AND (B.전송가능요일구분코드 IN ('2', '6') OR ${공휴일유무_V1} = 'N'))
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstItOpSmsTgTnhsMultiErrPtTrsTg" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::05.IT운영지원::02.SMS통보::비즈니스오류로그발생SMS통보Dmfreec::DAO::비즈니스에러로그발생SMS통보Ddao::IT운영SMS대상거래내역멀티오류유형전송대상목록조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itOpSpt/smsNotf/bizErrLogOccSmsNotfDmfreec/BizErrLogOccSmsNotf/retvLstItOpSmsTgTnhsMultiErrPtTrsTg */ 
+			       A.거래코드
+			     , A.건수_N7
+			     , A.오류거래발생시각
+			     , A.IT운영SMS전송대상자식별내용01
+			     , A.IT운영SMS전송대상자식별내용02
+			     , A.IT운영SMS전송대상자식별내용03
+			     , A.IT운영SMS전송대상자식별내용04
+			     , A.IT운영SMS전송대상자식별내용05
+			     , A.IT운영SMS전송대상자식별내용06
+			     , A.IT운영SMS전송대상자식별내용07
+			     , A.IT운영SMS전송대상자식별내용08
+			     , A.IT운영SMS전송대상자식별내용09
+			     , A.IT운영SMS전송대상자식별내용10
+			  FROM (SELECT ROW_NUMBER() OVER(PARTITION BY B.거래코드 ORDER BY C.LEN DESC) RN
+			             , B.거래코드
+			             , B.건수_N7
+			             , B.오류거래발생시각
+			             , C.IT운영SMS전송대상자식별내용01
+			             , C.IT운영SMS전송대상자식별내용02
+			             , C.IT운영SMS전송대상자식별내용03
+			             , C.IT운영SMS전송대상자식별내용04
+			             , C.IT운영SMS전송대상자식별내용05
+			             , C.IT운영SMS전송대상자식별내용06
+			             , C.IT운영SMS전송대상자식별내용07
+			             , C.IT운영SMS전송대상자식별내용08
+			             , C.IT운영SMS전송대상자식별내용09
+			             , C.IT운영SMS전송대상자식별내용10
+			          FROM (SELECT D.거래코드
+			                     , COUNT(1) 건수_N7
+			                     , MAX(D.오류거래발생시각) 오류거래발생시각
+			                  FROM INSTC.TBGCBSM13 D
+			                 WHERE D.오류거래발생년월일  = ${오류거래발생년월일}
+			                   AND D.오류거래발생시각 >= ${오류거래발생시각1}
+			                   AND D.오류거래발생시각 < ${오류거래발생시각2}
+			                   AND (SUBSTR(${IT운영SMS대상오류식별내용}, 3, 10) = '**********' OR SUBSTR(${IT운영SMS대상오류식별내용}, 3, 10) = D.거래코드)
+			                   AND (SUBSTR(${IT운영SMS대상오류식별내용}, 14, 8) = '********' OR SUBSTR(${IT운영SMS대상오류식별내용}, 14, 8) = D.오류메시지코드)
+			                   AND (SUBSTR(${IT운영SMS대상오류식별내용}, 23, 8) = '********' OR SUBSTR(${IT운영SMS대상오류식별내용}, 23, 8) = D.조치메시지코드)
+			                   --AND ('0' = {거래유형구분코드} OR D.거래유형구분코드  = {거래유형구분코드})
+			                   AND ('00' = ${중계인터페이스구분코드} OR D.중계인터페이스구분코드  = ${중계인터페이스구분코드})
+			                   AND ('00' = ${채널구분코드} OR D.채널구분코드  = ${채널구분코드})
+			                   AND NOT EXISTS (SELECT 1
+			                                     FROM INSTC.TBGCBSM11 E
+			                                    WHERE E.전송제어구분코드 = '1'
+			                                      AND (SUBSTR(E.IT운영SMS대상오류식별내용, 3, 10) = '**********' OR SUBSTR(E.IT운영SMS대상오류식별내용, 3, 10) = D.거래코드)
+			                                      AND (SUBSTR(E.IT운영SMS대상오류식별내용, 14, 8) = '********' OR SUBSTR(E.IT운영SMS대상오류식별내용, 14, 8) = D.오류메시지코드)
+			                                      AND (SUBSTR(E.IT운영SMS대상오류식별내용, 23, 8) = '********' OR SUBSTR(E.IT운영SMS대상오류식별내용, 23, 8) = D.조치메시지코드)
+			                                      --AND (E.거래유형구분코드 = '0' OR E.거래유형구분코드 = D.거래유형구분코드)
+			                                      AND (E.중계인터페이스구분코드 = '00' OR E.중계인터페이스구분코드 = D.중계인터페이스구분코드)
+			                                      AND (E.채널구분코드 = '00' OR E.채널구분코드 = D.채널구분코드)
+			                                      AND E.사용여부 = '1'
+			                                      AND 'OK' = CASE WHEN E.전송가능요일구분코드 = '0' AND TO_CHAR(SYSDATE, 'D') BETWEEN '2' AND '6' THEN 'OK'
+			                                                      WHEN E.전송가능요일구분코드 = '1' AND TO_CHAR(SYSDATE, 'D') BETWEEN '2' AND '7' THEN 'OK'
+			                                                      WHEN E.전송가능요일구분코드 = '2' AND TO_CHAR(SYSDATE, 'D') BETWEEN '1' AND '7' THEN 'OK'
+			                                                      WHEN E.전송가능요일구분코드 = '3' AND TO_CHAR(SYSDATE, 'D') IN ('1', '7') THEN 'OK'
+			                                                      WHEN E.전송가능요일구분코드 = '4' AND TO_CHAR(SYSDATE, 'D') = '7' THEN 'OK'
+			                                                      WHEN E.전송가능요일구분코드 = '5' AND TO_CHAR(SYSDATE, 'D') = '1' THEN 'OK'
+			                                                      WHEN E.전송가능요일구분코드 = '6' AND ${공휴일유무_V1} = 'Y' THEN 'OK'
+			                                                      ELSE ' ' END
+			                                      AND (E.전송가능요일구분코드 IN ('2', '6') OR ${공휴일유무_V1} = 'N'))                                                 
+			                 GROUP BY 거래코드) B,
+			               (SELECT RTRIM(F.거래코드) 거래코드
+			                     , LENGTH(RTRIM(F.거래코드)) LEN
+			                     , F.IT운영SMS전송대상자식별내용01
+			                     , F.IT운영SMS전송대상자식별내용02
+			                     , F.IT운영SMS전송대상자식별내용03
+			                     , F.IT운영SMS전송대상자식별내용04
+			                     , F.IT운영SMS전송대상자식별내용05
+			                     , F.IT운영SMS전송대상자식별내용06
+			                     , F.IT운영SMS전송대상자식별내용07
+			                     , F.IT운영SMS전송대상자식별내용08
+			                     , F.IT운영SMS전송대상자식별내용09
+			                     , F.IT운영SMS전송대상자식별내용10
+			                  FROM INSTC.TBGCBSM12 F) C                                                      
+			         WHERE SUBSTR(B.거래코드, 1, C.LEN) = C.거래코드) A
+			 WHERE RN = 1
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="uptItOpSmsTgBizErrBseMultiErrPtLstOccInf" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::05.IT운영지원::02.SMS통보::비즈니스오류로그발생SMS통보Dmfreec::DAO::비즈니스에러로그발생SMS통보Ddao::IT운영SMS대상비즈오류기준멀티오류유형최종발생정보수정">
+		<![CDATA[
+			UPDATE /*+ 위상규::/gcb/itOpSpt/smsNotf/bizErrLogOccSmsNotfDmfreec/BizErrLogOccSmsNotf/uptItOpSmsTgBizErrBseMultiErrPtLstOccInf */ 
+			       INSTC.TBGCBSM11 
+			   SET 최종SMS대상발생일시 = ${최종SMS대상발생일시}
+			     , 최종SMS대상발생건수 = CASE WHEN SUBSTR(최종SMS대상발생일시, 1, 8) = TO_CHAR(SYSDATE, 'YYYYMMDD') THEN 최종SMS대상발생건수 + TO_NUMBER(${최종SMS대상발생건수})
+			                            ELSE TO_NUMBER(${최종SMS대상발생건수}) END
+			     , 최종SMS전송일시 = CASE WHEN ${SMS전송여부_V1} = '1' THEN ${최종SMS대상발생일시}
+			                         ELSE 최종SMS전송일시 END
+			     , 최종SMS대상전송건수 = CASE WHEN ${SMS전송여부_V1} = '1' AND SUBSTR(최종SMS전송일시, 1, 8) = TO_CHAR(SYSDATE, 'YYYYMMDD') THEN 최종SMS대상전송건수 + 1
+			                            WHEN ${SMS전송여부_V1} = '1' AND SUBSTR(최종SMS전송일시, 1, 8) != TO_CHAR(SYSDATE, 'YYYYMMDD') THEN 1
+			                            ELSE 최종SMS대상전송건수  END
+			     , 최종SMS전송메시지내용 = CASE WHEN ${SMS전송여부_V1} = '1' THEN ${최종SMS전송메시지내용}
+			                              ELSE 최종SMS전송메시지내용 END
+			     , 시스템최종갱신일시 = SYSTIMESTAMP
+			     , 시스템최종갱신식별자 = ${시스템최종갱신식별자}
+			     , 시스템최종거래일시 = ${시스템최종거래일시}
+			 WHERE IT운영SMS대상오류식별내용 = ${IT운영SMS대상오류식별내용}
+			   --AND 거래유형구분코드        = {거래유형구분코드}
+			   AND 중계인터페이스구분코드        = ${중계인터페이스구분코드}
+			   AND 채널구분코드          = ${채널구분코드}
+			   AND 전송가능요일구분코드      = ${전송가능요일구분코드}
+			   AND IT운영SMS대상부가식별내용 = ${IT운영SMS대상부가식별내용}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="uptItOpSmsTgTnhsTrsYn" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::05.IT운영지원::02.SMS통보::비즈니스오류로그발생SMS통보Dmfreec::DAO::비즈니스에러로그발생SMS통보Ddao::IT운영SMS대상거래내역전송여부수정">
+		<![CDATA[
+			UPDATE /*+ 위상규::/gcb/itOpSpt/smsNotf/bizErrLogOccSmsNotfDmfreec/BizErrLogOccSmsNotf/uptItOpSmsTgTnhsTrsYn */ 
+			       INSTC.TBGCBSM13 A
+			   SET A.IT운영SMS전송여부 = NULL
+			     , A.시스템최종갱신일시 = SYSTIMESTAMP
+			     , A.시스템최종갱신식별자 = ${시스템최종갱신식별자}
+			     , A.시스템최종거래일시 = ${시스템최종거래일시}
+			 WHERE A.오류거래발생년월일 = ${오류거래발생년월일}
+			   AND A.오류거래발생시각 >= ${오류거래발생시각1}
+			   AND A.오류거래발생시각 < ${오류거래발생시각2}
+			   AND A.IT운영SMS전송여부 = '0'
+			   AND EXISTS (SELECT 1
+			                 FROM INSTC.TBGCBSM11 B
+			                WHERE B.전송제어구분코드 = '1'
+			                  AND (SUBSTR(B.IT운영SMS대상오류식별내용, 3, 10) = '**********' OR SUBSTR(B.IT운영SMS대상오류식별내용, 3, 10) = A.거래코드)
+			                  AND (SUBSTR(B.IT운영SMS대상오류식별내용, 14, 8) = '********' OR SUBSTR(B.IT운영SMS대상오류식별내용, 14, 8) = A.오류메시지코드)
+			                  AND (SUBSTR(B.IT운영SMS대상오류식별내용, 23, 8) = '********' OR SUBSTR(B.IT운영SMS대상오류식별내용, 23, 8) = A.조치메시지코드)
+			                  --AND (B.거래유형구분코드 = '0' OR B.거래유형구분코드 = A.거래유형구분코드)
+			                  AND (B.중계인터페이스구분코드 = '00' OR B.중계인터페이스구분코드 = A.중계인터페이스구분코드)
+			                  AND (B.채널구분코드 = '00' OR B.채널구분코드 = A.채널구분코드)
+			                  AND B.사용여부 = '1'
+			                  AND 'OK' = CASE WHEN B.전송가능요일구분코드 = '0' AND TO_CHAR(SYSDATE, 'D') BETWEEN '2' AND '6' THEN 'OK'
+			                                  WHEN B.전송가능요일구분코드 = '1' AND TO_CHAR(SYSDATE, 'D') BETWEEN '2' AND '7' THEN 'OK'
+			                                  WHEN B.전송가능요일구분코드 = '2' AND TO_CHAR(SYSDATE, 'D') BETWEEN '1' AND '7' THEN 'OK'
+			                                  WHEN B.전송가능요일구분코드 = '3' AND TO_CHAR(SYSDATE, 'D') IN ('1', '7') THEN 'OK'
+			                                  WHEN B.전송가능요일구분코드 = '4' AND TO_CHAR(SYSDATE, 'D') = '7' THEN 'OK'
+			                                  WHEN B.전송가능요일구분코드 = '5' AND TO_CHAR(SYSDATE, 'D') = '1' THEN 'OK'
+			                                  WHEN B.전송가능요일구분코드 = '6' AND ${공휴일유무_V1} = 'Y' THEN 'OK'
+			                                  ELSE ' ' END
+			                  AND (B.전송가능요일구분코드 IN ('2', '6') OR ${공휴일유무_V1} = 'N'))
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvItOpSmsTgTnhsSysErrNcn" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::05.IT운영지원::02.SMS통보::비즈니스오류로그발생SMS통보Dmfreec::DAO::비즈니스에러로그발생SMS통보Ddao::IT운영SMS대상거래내역시스템오류건수조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itOpSpt/smsNotf/bizErrLogOccSmsNotfDmfreec/BizErrLogOccSmsNotf/retvItOpSmsTgTnhsSysErrNcn */ 
+			       COUNT(1) 건수_N7
+			     , COUNT(DISTINCT 오류메시지코드) 건수_N8
+			     , NVL(MAX(오류메시지코드), '') 오류메시지코드
+			     , NVL(MAX(거래코드), '') 거래코드
+			  FROM INSTC.TBGCBSM13 A 
+			 WHERE A.오류거래발생년월일 = ${오류거래발생년월일}
+			   AND A.오류거래발생시각 >= ${오류거래발생시각1}
+			   AND A.오류거래발생시각 < ${오류거래발생시각2}
+			   AND A.오류메시지코드 NOT LIKE 'A%'
+			   AND A.오류메시지코드 NOT LIKE 'B%'
+			   AND A.오류메시지코드 NOT LIKE 'T%'
+			   AND A.오류메시지코드 NOT LIKE 'U%'
+			   AND A.오류메시지코드 NOT IN (SELECT NVL(SUBSTR(B.IT운영SMS대상오류식별내용, 14, 8), '********') 오류메시지코드
+			                             FROM INSTC.TBGCBSM11 B)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="uptItOpSmsMsgBse" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::05.IT운영지원::02.SMS통보::비즈니스오류로그발생SMS통보Dmfreec::DAO::비즈니스에러로그발생SMS통보Ddao::IT운영SMS메시지기준수정">
+		<![CDATA[
+			UPDATE /*+ 위상규::/gcb/itOpSpt/smsNotf/bizErrLogOccSmsNotfDmfreec/BizErrLogOccSmsNotf/uptItOpSmsMsgBse */ 
+			       INSTC.TBGCBSM03 
+			   SET 등록직원번호             = ${등록직원번호}
+			     , 등록년월일              = ${등록년월일}
+			     , 사용여부               = ${사용여부}
+			     , IT운영SMS제어내용        = ${IT운영SMS제어내용}
+			     , SMS전송통제시작일시        = ${SMS전송통제시작일시}
+			     , SMS전송통제종료일시        = ${SMS전송통제종료일시}
+			     , IT운영SMS일전송허용건수     = ${IT운영SMS일전송허용건수}
+			     , IT운영SMS일전송허용간격수    = ${IT운영SMS일전송허용간격수}
+			     , IT운영SMS메시지분류구분코드   = ${IT운영SMS메시지분류구분코드}
+			     , IT운영SMS메시지내용       = ${IT운영SMS메시지내용}
+			     , IT운영SMS메시지용도내용     = ${IT운영SMS메시지용도내용}
+			     , IT운영SMS전송대상그룹식별내용 = ${IT운영SMS전송대상그룹식별내용}
+			     , 최종SMS전송일시          = ${최종SMS전송일시}
+			     , 최종일자SMS전송건수        = ${최종일자SMS전송건수}
+			     , 최종SMS전송거래유형구분코드    = ${최종SMS전송거래유형구분코드}
+			     , 최종SMS전송거래코드        = ${최종SMS전송거래코드}
+			     , 최종SMS전송배치작업명       = ${최종SMS전송배치작업명}
+			     , 최종SMS전송프로그램명       = ${최종SMS전송프로그램명}
+			     , 최종SMS전송메시지내용       = ${최종SMS전송메시지내용}
+			     , 시스템최종갱신일시          = SYSTIMESTAMP
+			     , 시스템최종갱신식별자         = ${시스템최종갱신식별자}
+			     , 시스템최종거래일시          = ${시스템최종거래일시}
+			 WHERE 어플리케이션코드      = ${어플리케이션코드}
+			   AND IT운영SMS일련번호   = ${IT운영SMS일련번호}
+			   AND IT운영SMS부가일련번호 = ${IT운영SMS부가일련번호}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="regtItOpSmsTgTnhs01" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::05.IT운영지원::02.SMS통보::비즈니스오류로그발생SMS통보Dmfreec::DAO::비즈니스에러로그발생SMS통보Ddao::IT운영SMS대상거래내역01등록">
+		<![CDATA[
+			INSERT /*+ 위상규::/gcb/itOpSpt/smsNotf/bizErrLogOccSmsNotfDmfreec/BizErrLogOccSmsNotf/regtItOpSmsTgTnhs01 */
+			  INTO INSTC.TBGCBSM13        /* GCB_IT운영SMS대상거래내역 */
+			(
+			   오류거래발생년월일
+			 , 오류거래발생시각
+			 , 거래직원번호
+			 , 거래코드
+			 , 오류메시지코드
+			 , 조치메시지코드
+			 , GUID번호
+			 , 거래유형구분코드
+			 , 중계인터페이스구분코드
+			 , 채널구분코드
+			 , 채널세부업무구분코드
+			 , 연동대표거래코드
+			 , 취소구분코드
+			 , 취소유형구분코드
+			 , 부점코드
+			 , 단말번호
+			 , 화면번호
+			 , 책임자승인구분코드
+			 , 승인완료구분코드
+			 , 입력매체부분정보유무
+			 , IT운영SMS전송여부
+			 , IT운영SMS비고
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			WITH TEMP1 AS (
+			SELECT /*+MATERIALIZE*/
+			       T2.거래기준년월일
+			     , SUBSTR(T2.거래기준시각, 1, 9) || TO_CHAR(T2.시스템최종갱신일시, 'FF3') 거래기준시각
+			     , NVL(T2.직원번호, 'C000000') 직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명
+			     , T2.오류위치번호
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM INSTC.TBGCCDE01 T2
+			 WHERE T2.거래기준년월일 = ${오류거래발생년월일}
+			   AND T2.거래기준시각 >= ${오류거래발생시각1}
+			   AND T2.거래기준시각 < ${오류거래발생시각2}
+			),
+			TEMP2 AS (
+			SELECT /*+MATERIALIZE*/
+			       T1.IT운영SMS대상오류식별내용
+			  FROM INSTC.TBGCBSM11 T1
+			 WHERE T1.전송제어구분코드 = '0'
+			   AND T1.사용여부 = '1'
+			)
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10)
+			                    , SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8)
+			                    , SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) != '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = T2.거래코드
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = T2.오류메시지코드
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = T2.조치메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10)
+			                    , SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) != '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = T2.거래코드
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = T2.오류메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10)
+			                    , SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) != '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = T2.거래코드
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = T2.조치메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) != '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = T2.거래코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8)
+			                    , SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = T2.오류메시지코드
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = T2.조치메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1=1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = T2.오류메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = T2.조치메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND ${오류여부_V1} = 'Y'
+			   AND T2.오류메시지코드 NOT LIKE 'A%'
+			   AND T2.오류메시지코드 NOT LIKE 'B%'
+			   AND T2.오류메시지코드 NOT LIKE 'T%'
+			   AND T2.오류메시지코드 NOT LIKE 'U%'
+			   AND T2.오류메시지코드 NOT IN (SELECT NVL(SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8), '********') 오류메시지코드
+			                              FROM TEMP2 T1)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="regtItOpSmsTgTnhs02" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::05.IT운영지원::02.SMS통보::비즈니스오류로그발생SMS통보Dmfreec::DAO::비즈니스에러로그발생SMS통보Ddao::IT운영SMS대상거래내역02등록">
+		<![CDATA[
+			INSERT /*+ 위상규::/gcb/itOpSpt/smsNotf/bizErrLogOccSmsNotfDmfreec/BizErrLogOccSmsNotf/regtItOpSmsTgTnhs02 */
+			  INTO INSTC.TBGCBSM13        /* GCB_IT운영SMS대상거래내역 */
+			(
+			   오류거래발생년월일
+			 , 오류거래발생시각
+			 , 거래직원번호
+			 , 거래코드
+			 , 오류메시지코드
+			 , 조치메시지코드
+			 , GUID번호
+			 , 거래유형구분코드
+			 , 중계인터페이스구분코드
+			 , 채널구분코드
+			 , 채널세부업무구분코드
+			 , 연동대표거래코드
+			 , 취소구분코드
+			 , 취소유형구분코드
+			 , 부점코드
+			 , 단말번호
+			 , 화면번호
+			 , 책임자승인구분코드
+			 , 승인완료구분코드
+			 , 입력매체부분정보유무
+			 , IT운영SMS전송여부
+			 , IT운영SMS비고
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			WITH TEMP1 AS (
+			SELECT /*+MATERIALIZE*/
+			       T2.거래기준년월일
+			     , SUBSTR(T2.거래기준시각, 1, 9) || TO_CHAR(T2.시스템최종갱신일시, 'FF3') 거래기준시각
+			     , NVL(T2.직원번호, 'C000000') 직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명
+			     , T2.오류위치번호
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM INSTC.TBGCCDE02 T2
+			 WHERE T2.거래기준년월일 = ${오류거래발생년월일}
+			   AND T2.거래기준시각 >= ${오류거래발생시각1}
+			   AND T2.거래기준시각 < ${오류거래발생시각2}
+			),
+			TEMP2 AS (
+			SELECT /*+MATERIALIZE*/
+			       T1.IT운영SMS대상오류식별내용
+			  FROM INSTC.TBGCBSM11 T1
+			 WHERE T1.전송제어구분코드 = '0'
+			   AND T1.사용여부 = '1'
+			)
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10)
+			                    , SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8)
+			                    , SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) != '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = T2.거래코드
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = T2.오류메시지코드
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = T2.조치메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10)
+			                    , SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) != '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = T2.거래코드
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = T2.오류메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10)
+			                    , SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) != '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = T2.거래코드
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = T2.조치메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) != '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = T2.거래코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8)
+			                    , SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = T2.오류메시지코드
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = T2.조치메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1=1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = T2.오류메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = T2.조치메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND ${오류여부_V1} = 'Y'
+			   AND T2.오류메시지코드 NOT LIKE 'A%'
+			   AND T2.오류메시지코드 NOT LIKE 'B%'
+			   AND T2.오류메시지코드 NOT LIKE 'T%'
+			   AND T2.오류메시지코드 NOT LIKE 'U%'
+			   AND T2.오류메시지코드 NOT IN (SELECT NVL(SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8), '********') 오류메시지코드
+			                              FROM TEMP2 T1)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="regtItOpSmsTgTnhs03" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::05.IT운영지원::02.SMS통보::비즈니스오류로그발생SMS통보Dmfreec::DAO::비즈니스에러로그발생SMS통보Ddao::IT운영SMS대상거래내역03등록">
+		<![CDATA[
+			INSERT /*+ 위상규::/gcb/itOpSpt/smsNotf/bizErrLogOccSmsNotfDmfreec/BizErrLogOccSmsNotf/regtItOpSmsTgTnhs03 */
+			  INTO INSTC.TBGCBSM13        /* GCB_IT운영SMS대상거래내역 */
+			(
+			   오류거래발생년월일
+			 , 오류거래발생시각
+			 , 거래직원번호
+			 , 거래코드
+			 , 오류메시지코드
+			 , 조치메시지코드
+			 , GUID번호
+			 , 거래유형구분코드
+			 , 중계인터페이스구분코드
+			 , 채널구분코드
+			 , 채널세부업무구분코드
+			 , 연동대표거래코드
+			 , 취소구분코드
+			 , 취소유형구분코드
+			 , 부점코드
+			 , 단말번호
+			 , 화면번호
+			 , 책임자승인구분코드
+			 , 승인완료구분코드
+			 , 입력매체부분정보유무
+			 , IT운영SMS전송여부
+			 , IT운영SMS비고
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			WITH TEMP1 AS (
+			SELECT /*+MATERIALIZE*/
+			       T2.거래기준년월일
+			     , SUBSTR(T2.거래기준시각, 1, 9) || TO_CHAR(T2.시스템최종갱신일시, 'FF3') 거래기준시각
+			     , NVL(T2.직원번호, 'C000000') 직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명
+			     , T2.오류위치번호
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM INSTC.TBGCCDE03 T2
+			 WHERE T2.거래기준년월일 = ${오류거래발생년월일}
+			   AND T2.거래기준시각 >= ${오류거래발생시각1}
+			   AND T2.거래기준시각 < ${오류거래발생시각2}
+			),
+			TEMP2 AS (
+			SELECT /*+MATERIALIZE*/
+			       T1.IT운영SMS대상오류식별내용
+			  FROM INSTC.TBGCBSM11 T1
+			 WHERE T1.전송제어구분코드 = '0'
+			   AND T1.사용여부 = '1'
+			)
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10)
+			                    , SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8)
+			                    , SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) != '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = T2.거래코드
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = T2.오류메시지코드
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = T2.조치메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10)
+			                    , SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) != '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = T2.거래코드
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = T2.오류메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10)
+			                    , SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) != '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = T2.거래코드
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = T2.조치메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) != '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = T2.거래코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8)
+			                    , SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = T2.오류메시지코드
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = T2.조치메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1=1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = T2.오류메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = T2.조치메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND ${오류여부_V1} = 'Y'
+			   AND T2.오류메시지코드 NOT LIKE 'A%'
+			   AND T2.오류메시지코드 NOT LIKE 'B%'
+			   AND T2.오류메시지코드 NOT LIKE 'T%'
+			   AND T2.오류메시지코드 NOT LIKE 'U%'
+			   AND T2.오류메시지코드 NOT IN (SELECT NVL(SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8), '********') 오류메시지코드
+			                              FROM TEMP2 T1)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="regtItOpSmsTgTnhs04" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::05.IT운영지원::02.SMS통보::비즈니스오류로그발생SMS통보Dmfreec::DAO::비즈니스에러로그발생SMS통보Ddao::IT운영SMS대상거래내역04등록">
+		<![CDATA[
+			INSERT /*+ 위상규::/gcb/itOpSpt/smsNotf/bizErrLogOccSmsNotfDmfreec/BizErrLogOccSmsNotf/regtItOpSmsTgTnhs04 */
+			  INTO INSTC.TBGCBSM13        /* GCB_IT운영SMS대상거래내역 */
+			(
+			   오류거래발생년월일
+			 , 오류거래발생시각
+			 , 거래직원번호
+			 , 거래코드
+			 , 오류메시지코드
+			 , 조치메시지코드
+			 , GUID번호
+			 , 거래유형구분코드
+			 , 중계인터페이스구분코드
+			 , 채널구분코드
+			 , 채널세부업무구분코드
+			 , 연동대표거래코드
+			 , 취소구분코드
+			 , 취소유형구분코드
+			 , 부점코드
+			 , 단말번호
+			 , 화면번호
+			 , 책임자승인구분코드
+			 , 승인완료구분코드
+			 , 입력매체부분정보유무
+			 , IT운영SMS전송여부
+			 , IT운영SMS비고
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			WITH TEMP1 AS (
+			SELECT /*+MATERIALIZE*/
+			       T2.거래기준년월일
+			     , SUBSTR(T2.거래기준시각, 1, 9) || TO_CHAR(T2.시스템최종갱신일시, 'FF3') 거래기준시각
+			     , NVL(T2.직원번호, 'C000000') 직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명
+			     , T2.오류위치번호
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM INSTC.TBGCCDE04 T2
+			 WHERE T2.거래기준년월일 = ${오류거래발생년월일}
+			   AND T2.거래기준시각 >= ${오류거래발생시각1}
+			   AND T2.거래기준시각 < ${오류거래발생시각2}
+			),
+			TEMP2 AS (
+			SELECT /*+MATERIALIZE*/
+			       T1.IT운영SMS대상오류식별내용
+			  FROM INSTC.TBGCBSM11 T1
+			 WHERE T1.전송제어구분코드 = '0'
+			   AND T1.사용여부 = '1'
+			)
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10)
+			                    , SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8)
+			                    , SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) != '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = T2.거래코드
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = T2.오류메시지코드
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = T2.조치메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10)
+			                    , SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) != '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = T2.거래코드
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = T2.오류메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10)
+			                    , SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) != '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = T2.거래코드
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = T2.조치메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) != '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = T2.거래코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8)
+			                    , SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = T2.오류메시지코드
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = T2.조치메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1=1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = T2.오류메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = T2.조치메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND ${오류여부_V1} = 'Y'
+			   AND T2.오류메시지코드 NOT LIKE 'A%'
+			   AND T2.오류메시지코드 NOT LIKE 'B%'
+			   AND T2.오류메시지코드 NOT LIKE 'T%'
+			   AND T2.오류메시지코드 NOT LIKE 'U%'
+			   AND T2.오류메시지코드 NOT IN (SELECT NVL(SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8), '********') 오류메시지코드
+			                              FROM TEMP2 T1)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="regtItOpSmsTgTnhs05" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::05.IT운영지원::02.SMS통보::비즈니스오류로그발생SMS통보Dmfreec::DAO::비즈니스에러로그발생SMS통보Ddao::IT운영SMS대상거래내역05등록">
+		<![CDATA[
+			INSERT /*+ 위상규::/gcb/itOpSpt/smsNotf/bizErrLogOccSmsNotfDmfreec/BizErrLogOccSmsNotf/regtItOpSmsTgTnhs05 */
+			  INTO INSTC.TBGCBSM13        /* GCB_IT운영SMS대상거래내역 */
+			(
+			   오류거래발생년월일
+			 , 오류거래발생시각
+			 , 거래직원번호
+			 , 거래코드
+			 , 오류메시지코드
+			 , 조치메시지코드
+			 , GUID번호
+			 , 거래유형구분코드
+			 , 중계인터페이스구분코드
+			 , 채널구분코드
+			 , 채널세부업무구분코드
+			 , 연동대표거래코드
+			 , 취소구분코드
+			 , 취소유형구분코드
+			 , 부점코드
+			 , 단말번호
+			 , 화면번호
+			 , 책임자승인구분코드
+			 , 승인완료구분코드
+			 , 입력매체부분정보유무
+			 , IT운영SMS전송여부
+			 , IT운영SMS비고
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			WITH TEMP1 AS (
+			SELECT /*+MATERIALIZE*/
+			       T2.거래기준년월일
+			     , SUBSTR(T2.거래기준시각, 1, 9) || TO_CHAR(T2.시스템최종갱신일시, 'FF3') 거래기준시각
+			     , NVL(T2.직원번호, 'C000000') 직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명
+			     , T2.오류위치번호
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM INSTC.TBGCCDE05 T2
+			 WHERE T2.거래기준년월일 = ${오류거래발생년월일}
+			   AND T2.거래기준시각 >= ${오류거래발생시각1}
+			   AND T2.거래기준시각 < ${오류거래발생시각2}
+			),
+			TEMP2 AS (
+			SELECT /*+MATERIALIZE*/
+			       T1.IT운영SMS대상오류식별내용
+			  FROM INSTC.TBGCBSM11 T1
+			 WHERE T1.전송제어구분코드 = '0'
+			   AND T1.사용여부 = '1'
+			)
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10)
+			                    , SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8)
+			                    , SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) != '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = T2.거래코드
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = T2.오류메시지코드
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = T2.조치메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10)
+			                    , SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) != '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = T2.거래코드
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = T2.오류메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10)
+			                    , SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) != '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = T2.거래코드
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = T2.조치메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) != '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = T2.거래코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8)
+			                    , SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = T2.오류메시지코드
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = T2.조치메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1=1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = T2.오류메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = T2.조치메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND ${오류여부_V1} = 'Y'
+			   AND T2.오류메시지코드 NOT LIKE 'A%'
+			   AND T2.오류메시지코드 NOT LIKE 'B%'
+			   AND T2.오류메시지코드 NOT LIKE 'T%'
+			   AND T2.오류메시지코드 NOT LIKE 'U%'
+			   AND T2.오류메시지코드 NOT IN (SELECT NVL(SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8), '********') 오류메시지코드
+			                              FROM TEMP2 T1)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="regtItOpSmsTgTnhs06" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::05.IT운영지원::02.SMS통보::비즈니스오류로그발생SMS통보Dmfreec::DAO::비즈니스에러로그발생SMS통보Ddao::IT운영SMS대상거래내역06등록">
+		<![CDATA[
+			INSERT /*+ 위상규::/gcb/itOpSpt/smsNotf/bizErrLogOccSmsNotfDmfreec/BizErrLogOccSmsNotf/regtItOpSmsTgTnhs06 */
+			  INTO INSTC.TBGCBSM13        /* GCB_IT운영SMS대상거래내역 */
+			(
+			   오류거래발생년월일
+			 , 오류거래발생시각
+			 , 거래직원번호
+			 , 거래코드
+			 , 오류메시지코드
+			 , 조치메시지코드
+			 , GUID번호
+			 , 거래유형구분코드
+			 , 중계인터페이스구분코드
+			 , 채널구분코드
+			 , 채널세부업무구분코드
+			 , 연동대표거래코드
+			 , 취소구분코드
+			 , 취소유형구분코드
+			 , 부점코드
+			 , 단말번호
+			 , 화면번호
+			 , 책임자승인구분코드
+			 , 승인완료구분코드
+			 , 입력매체부분정보유무
+			 , IT운영SMS전송여부
+			 , IT운영SMS비고
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			WITH TEMP1 AS (
+			SELECT /*+MATERIALIZE*/
+			       T2.거래기준년월일
+			     , SUBSTR(T2.거래기준시각, 1, 9) || TO_CHAR(T2.시스템최종갱신일시, 'FF3') 거래기준시각
+			     , NVL(T2.직원번호, 'C000000') 직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명
+			     , T2.오류위치번호
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM INSTC.TBGCCDE06 T2
+			 WHERE T2.거래기준년월일 = ${오류거래발생년월일}
+			   AND T2.거래기준시각 >= ${오류거래발생시각1}
+			   AND T2.거래기준시각 < ${오류거래발생시각2}
+			),
+			TEMP2 AS (
+			SELECT /*+MATERIALIZE*/
+			       T1.IT운영SMS대상오류식별내용
+			  FROM INSTC.TBGCBSM11 T1
+			 WHERE T1.전송제어구분코드 = '0'
+			   AND T1.사용여부 = '1'
+			)
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10)
+			                    , SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8)
+			                    , SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) != '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = T2.거래코드
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = T2.오류메시지코드
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = T2.조치메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10)
+			                    , SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) != '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = T2.거래코드
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = T2.오류메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10)
+			                    , SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) != '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = T2.거래코드
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = T2.조치메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) != '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = T2.거래코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8)
+			                    , SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = T2.오류메시지코드
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = T2.조치메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1=1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = T2.오류메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = T2.조치메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND ${오류여부_V1} = 'Y'
+			   AND T2.오류메시지코드 NOT LIKE 'A%'
+			   AND T2.오류메시지코드 NOT LIKE 'B%'
+			   AND T2.오류메시지코드 NOT LIKE 'T%'
+			   AND T2.오류메시지코드 NOT LIKE 'U%'
+			   AND T2.오류메시지코드 NOT IN (SELECT NVL(SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8), '********') 오류메시지코드
+			                              FROM TEMP2 T1)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="regtItOpSmsTgTnhs07" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::05.IT운영지원::02.SMS통보::비즈니스오류로그발생SMS통보Dmfreec::DAO::비즈니스에러로그발생SMS통보Ddao::IT운영SMS대상거래내역07등록">
+		<![CDATA[
+			INSERT /*+ 위상규::/gcb/itOpSpt/smsNotf/bizErrLogOccSmsNotfDmfreec/BizErrLogOccSmsNotf/regtItOpSmsTgTnhs07 */
+			  INTO INSTC.TBGCBSM13        /* GCB_IT운영SMS대상거래내역 */
+			(
+			   오류거래발생년월일
+			 , 오류거래발생시각
+			 , 거래직원번호
+			 , 거래코드
+			 , 오류메시지코드
+			 , 조치메시지코드
+			 , GUID번호
+			 , 거래유형구분코드
+			 , 중계인터페이스구분코드
+			 , 채널구분코드
+			 , 채널세부업무구분코드
+			 , 연동대표거래코드
+			 , 취소구분코드
+			 , 취소유형구분코드
+			 , 부점코드
+			 , 단말번호
+			 , 화면번호
+			 , 책임자승인구분코드
+			 , 승인완료구분코드
+			 , 입력매체부분정보유무
+			 , IT운영SMS전송여부
+			 , IT운영SMS비고
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			WITH TEMP1 AS (
+			SELECT /*+MATERIALIZE*/
+			       T2.거래기준년월일
+			     , SUBSTR(T2.거래기준시각, 1, 9) || TO_CHAR(T2.시스템최종갱신일시, 'FF3') 거래기준시각
+			     , NVL(T2.직원번호, 'C000000') 직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명
+			     , T2.오류위치번호
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM INSTC.TBGCCDE07 T2
+			 WHERE T2.거래기준년월일 = ${오류거래발생년월일}
+			   AND T2.거래기준시각 >= ${오류거래발생시각1}
+			   AND T2.거래기준시각 < ${오류거래발생시각2}
+			),
+			TEMP2 AS (
+			SELECT /*+MATERIALIZE*/
+			       T1.IT운영SMS대상오류식별내용
+			  FROM INSTC.TBGCBSM11 T1
+			 WHERE T1.전송제어구분코드 = '0'
+			   AND T1.사용여부 = '1'
+			)
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10)
+			                    , SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8)
+			                    , SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) != '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = T2.거래코드
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = T2.오류메시지코드
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = T2.조치메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10)
+			                    , SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) != '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = T2.거래코드
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = T2.오류메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10)
+			                    , SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) != '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = T2.거래코드
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = T2.조치메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) != '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = T2.거래코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8)
+			                    , SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = T2.오류메시지코드
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = T2.조치메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1=1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = T2.오류메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND EXISTS (SELECT SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8)
+			                 FROM TEMP2 T1
+			                WHERE 1 = 1
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 3, 10) = '**********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8) = '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) != '********'
+			                  AND SUBSTR(T1.IT운영SMS대상오류식별내용, 23, 8) = T2.조치메시지코드)
+			 UNION
+			SELECT T2.거래기준년월일
+			     , T2.거래기준시각
+			     , T2.직원번호
+			     , T2.거래코드
+			     , T2.오류메시지코드
+			     , T2.조치메시지코드
+			     , T2.GUID번호
+			     , T2.거래유형구분코드
+			     , T2.중계인터페이스구분코드
+			     , T2.채널구분코드
+			     , T2.채널세부업무구분코드
+			     , T2.연동대표거래코드
+			     , T2.취소구분코드
+			     , T2.취소유형구분코드
+			     , T2.부점코드
+			     , T2.단말번호
+			     , T2.화면번호
+			     , T2.책임자승인구분코드
+			     , T2.승인완료구분코드
+			     , T2.입력매체부분정보유무
+			     , '0'
+			     , T2.오류프로그램명 || '(' || T2.오류위치번호 || ')'
+			     , T2.시스템최종갱신일시
+			     , T2.시스템최종갱신식별자
+			     , T2.시스템최종거래일시
+			  FROM TEMP1 T2
+			 WHERE 1 = 1
+			   AND ${오류여부_V1} = 'Y'
+			   AND T2.오류메시지코드 NOT LIKE 'A%'
+			   AND T2.오류메시지코드 NOT LIKE 'B%'
+			   AND T2.오류메시지코드 NOT LIKE 'T%'
+			   AND T2.오류메시지코드 NOT LIKE 'U%'
+			   AND T2.오류메시지코드 NOT IN (SELECT NVL(SUBSTR(T1.IT운영SMS대상오류식별내용, 14, 8), '********') 오류메시지코드
+			                              FROM TEMP2 T1)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvItOpSmsTgTnhs" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::05.IT운영지원::02.SMS통보::비즈니스오류로그발생SMS통보Dmfreec::DAO::비즈니스에러로그발생SMS통보Ddao::IT운영SMS대상거래내역조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itOpSpt/smsNotf/bizErrLogOccSmsNotfDmfreec/BizErrLogOccSmsNotf/retvItOpSmsTgTnhs */ 
+			       A.오류거래발생년월일
+			     , A.오류거래발생시각
+			     , A.거래직원번호
+			     , A.거래코드
+			     , A.오류메시지코드
+			     , A.조치메시지코드
+			     , A.GUID번호
+			     , A.거래유형구분코드
+			     , A.중계인터페이스구분코드
+			     , A.채널구분코드
+			     , A.채널세부업무구분코드
+			     , A.연동대표거래코드
+			     , A.취소구분코드
+			     , A.취소유형구분코드
+			     , A.부점코드
+			     , A.단말번호
+			     , A.화면번호
+			     , A.책임자승인구분코드
+			     , A.승인완료구분코드
+			     , A.입력매체부분정보유무
+			     , A.IT운영SMS전송여부
+			     , A.IT운영SMS전송일시
+			     , A.IT운영SMS전송대상자식별내용01
+			     , A.IT운영SMS전송대상자식별내용02
+			     , A.IT운영SMS전송대상자식별내용03
+			     , A.IT운영SMS전송대상자식별내용04
+			     , A.IT운영SMS전송대상자식별내용05
+			     , A.IT운영SMS전송대상자식별내용06
+			     , A.IT운영SMS전송대상자식별내용07
+			     , A.IT운영SMS전송대상자식별내용08
+			     , A.IT운영SMS전송대상자식별내용09
+			     , A.IT운영SMS전송대상자식별내용10
+			     , A.IT운영SMS전송대상자식별내용11
+			     , A.IT운영SMS전송대상자식별내용12
+			     , A.IT운영SMS전송대상자식별내용13
+			     , A.IT운영SMS전송대상자식별내용14
+			     , A.IT운영SMS전송대상자식별내용15
+			     , A.IT운영SMS전송대상자식별내용16
+			     , A.IT운영SMS전송대상자식별내용17
+			     , A.IT운영SMS전송대상자식별내용18
+			     , A.IT운영SMS전송대상자식별내용19
+			     , A.IT운영SMS전송대상자식별내용20
+			     , A.IT운영SMS비고
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBSM13 A        /* GCB_IT운영SMS대상거래내역 */
+			 WHERE A.오류거래발생년월일 = ${오류거래발생년월일}
+			   AND A.오류거래발생시각 >= ${오류거래발생시각1}
+			   AND A.오류거래발생시각 < ${오류거래발생시각2}
+			   AND (A.거래코드 IN (SELECT SUBSTR(B.IT운영SMS대상오류식별내용, 3, 10) 거래코드
+			                      FROM INSTC.TBGCBSM11 B
+			                     WHERE 1 = 1
+			                       AND B.IT운영SMS대상오류식별내용 = ${IT운영SMS대상오류식별내용})
+			    OR A.오류메시지코드 IN (SELECT SUBSTR(B.IT운영SMS대상오류식별내용, 14, 8) 오류메시지코드
+			                         FROM INSTC.TBGCBSM11 B
+			                        WHERE 1 = 1
+			                          AND B.IT운영SMS대상오류식별내용 = ${IT운영SMS대상오류식별내용})
+			    OR A.조치메시지코드 IN (SELECT SUBSTR(B.IT운영SMS대상오류식별내용, 23, 8) 조치메시지코드
+			                         FROM INSTC.TBGCBSM11 B
+			                        WHERE 1 = 1
+			                          AND B.IT운영SMS대상오류식별내용 = ${IT운영SMS대상오류식별내용}))
+			   AND ROWNUM = 1
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvItOpSmsTgTnhsFstOcc" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::05.IT운영지원::02.SMS통보::비즈니스오류로그발생SMS통보Dmfreec::DAO::비즈니스에러로그발생SMS통보Ddao::IT운영SMS대상거래내역최초발생조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itOpSpt/smsNotf/bizErrLogOccSmsNotfDmfreec/BizErrLogOccSmsNotf/retvItOpSmsTgTnhsFstOcc */ 
+			       A.오류거래발생년월일
+			     , MIN(A.오류거래발생시각) 오류거래발생시각
+			  FROM INSTC.TBGCBSM13 A        /* GCB_IT운영SMS대상거래내역 */
+			 WHERE A.오류거래발생년월일 = ${오류거래발생년월일}
+			   AND (${거래코드} = '**********' OR A.거래코드 = ${거래코드})
+			   AND (${오류메시지코드} = '********' OR A.오류메시지코드 = ${오류메시지코드})
+			   AND (${조치메시지코드} = '********' OR A.조치메시지코드 = ${조치메시지코드})
+			 GROUP BY A.오류거래발생년월일
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvItOpSmsTgTnhsCmpr" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::05.IT운영지원::02.SMS통보::비즈니스오류로그발생SMS통보Dmfreec::DAO::비즈니스에러로그발생SMS통보Ddao::IT운영SMS대상거래내역비교조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itOpSpt/smsNotf/bizErrLogOccSmsNotfDmfreec/BizErrLogOccSmsNotf/retvItOpSmsTgTnhsCmpr */ 
+			       A.오류거래발생년월일
+			     , MIN(A.오류거래발생시각) 오류거래발생시각
+			  FROM INSTC.TBGCBSM13 A        /* GCB_IT운영SMS대상거래내역 */
+			 WHERE A.오류거래발생년월일 = ${오류거래발생년월일}
+			   AND A.오류거래발생시각 >= ${오류거래발생시각1}
+			   AND A.오류거래발생시각 < ${오류거래발생시각2}
+			   AND (${거래코드} = '**********' OR A.거래코드 = ${거래코드})
+			   AND (${오류메시지코드} = '********' OR A.오류메시지코드 = ${오류메시지코드})
+			   AND (${조치메시지코드} = '********' OR A.조치메시지코드 = ${조치메시지코드})
+			 GROUP BY A.오류거래발생년월일
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="regtItOpSmsTrsHis" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::05.IT운영지원::02.SMS통보::비즈니스오류로그발생SMS통보Dmfreec::DAO::비즈니스에러로그발생SMS통보Ddao::IT운영SMS전송내역등록" >
+		<![CDATA[
+			INSERT /*+ 위상규::/gcb/itOpSpt/smsNotf/bizErrLogOccSmsNotfDmfreec/BizErrLogOccSmsNotf/regtItOpSmsTrsHis */
+			  INTO INSTC.TBGCBSM04        /* GCB_IT운영SMS전송내역 */
+			(
+			   IT운영SMS전송년월일
+			 , 어플리케이션코드
+			 , IT운영SMS일련번호
+			 , IT운영SMS부가일련번호
+			 , IT운영SMS전송시각
+			 , SMS전송거래유형구분코드
+			 , SMS전송거래코드
+			 , SMS전송배치작업명
+			 , SMS전송프로그램명
+			 , SMS전송메시지내용
+			 , IT운영SMS비고
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${IT운영SMS전송년월일}
+			 ,${어플리케이션코드}
+			 ,${IT운영SMS일련번호}
+			 ,${IT운영SMS부가일련번호}
+			 ,${IT운영SMS전송시각}
+			 ,${SMS전송거래유형구분코드}
+			 ,${SMS전송거래코드}
+			 ,${SMS전송배치작업명}
+			 ,${SMS전송프로그램명}
+			 ,${SMS전송메시지내용}
+			 ,${IT운영SMS비고}
+			 ,SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,${시스템최종거래일시}
+			)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstItOpSmsTgTnhsSysErr" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::05.IT운영지원::02.SMS통보::비즈니스오류로그발생SMS통보Dmfreec::DAO::비즈니스에러로그발생SMS통보Ddao::IT운영SMS대상거래내역시스템오류목록조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itOpSpt/smsNotf/bizErrLogOccSmsNotfDmfreec/BizErrLogOccSmsNotf/retvLstItOpSmsTgTnhsSysErr */ 
+			       A.거래코드
+			     , A.오류메시지코드
+			     , A.조치메시지코드
+			  FROM INSTC.TBGCBSM13 A        /* GCB_IT운영SMS대상거래내역 */
+			 WHERE A.오류거래발생년월일 = ${오류거래발생년월일}
+			   AND A.오류거래발생시각 >= ${오류거래발생시각1}
+			   AND A.오류거래발생시각 < ${오류거래발생시각2}
+			   AND A.오류메시지코드 NOT LIKE 'A%'
+			   AND A.오류메시지코드 NOT LIKE 'B%'
+			   AND A.오류메시지코드 NOT LIKE 'T%'
+			   AND A.오류메시지코드 NOT LIKE 'U%'
+			   AND A.오류메시지코드 NOT IN (SELECT NVL(SUBSTR(B.IT운영SMS대상오류식별내용, 14, 8), '********') 오류메시지코드
+			                             FROM INSTC.TBGCBSM11 B)
+			 GROUP BY A.거래코드, A.오류메시지코드, A.조치메시지코드
+		]]>
+    </statement>
+</statements>

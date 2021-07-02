@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvLstNotePrgSndPrc" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::03.업무지원::05.쪽지예약발송관리::쪽지예약발송처리Dmfreec::DAO::쪽지예약발송처리Ddao::쪽지예약발송처리목록조회">
+		<![CDATA[
+			SELECT /*+ 송재복::/gcb/bwkSpt/notePrgSndMg/notePrgSndPrcDmfreec/NotePrgSndPrc/retvLstNotePrgSndPrc */ 
+			       A.쪽지발송예약일련번호
+			     , A.쪽지발송대상구분코드
+			     , A.쪽지발송대상외주직원포함여부
+			     , A.쪽지제목
+			     , A.쪽지내용
+			     , A.등록부점코드
+			     , A.등록직원번호
+			  FROM INSTC.TBGCBMS01 A 
+			 WHERE A.적용종료년월일     >= ${기준년월일}
+			   AND A.쪽지예약발송년월일 <= ${기준년월일}
+			   AND A.쪽지예약발송시각   <= ${기준시각_V6}
+			   AND NVL(A.쪽지최종발송년월일,'19010101') < ${기준년월일}
+			ORDER  BY A.쪽지발송예약일련번호
+			        , A.쪽지발송대상구분코드
+			
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstNoteSndTgp" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::03.업무지원::05.쪽지예약발송관리::쪽지예약발송처리Dmfreec::DAO::쪽지예약발송처리Ddao::쪽지발송대상자목록조회">
+		<![CDATA[
+			SELECT /*+ 송재복::/gcb/bwkSpt/notePrgSndMg/notePrgSndPrcDmfreec/NotePrgSndPrc/retvLstNoteSndTgp */ 
+			       A.쪽지발송예약일련번호
+			     , B.직원번호
+			  FROM INSTC.TBGCBMS02 A
+			     , INSTC.TBGCBHR01 B
+			 WHERE A.쪽지발송예약일련번호 = ${쪽지발송예약일련번호}
+			   AND A.쪽지발송대상구분코드 = '3'
+			   AND A.쪽지발송대상식별번호 = B.직원번호
+			   AND B.퇴직년월일           > ${기준년월일}
+			 ORDER BY B.직원번호
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstNoteSndBhTgp" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::03.업무지원::05.쪽지예약발송관리::쪽지예약발송처리Dmfreec::DAO::쪽지예약발송처리Ddao::쪽지발송부점대상자목록조회">
+		<![CDATA[
+			SELECT /*+ 송재복::/gcb/bwkSpt/notePrgSndMg/notePrgSndPrcDmfreec/NotePrgSndPrc/retvLstNoteSndBhTgp */ 
+			       A.쪽지발송예약일련번호
+			     , B.직원번호
+			  FROM INSTC.TBGCBMS02 A
+			     , INSTC.TBGCBHR01 B
+			 WHERE A.쪽지발송예약일련번호   = ${쪽지발송예약일련번호}
+			   AND A.쪽지발송대상구분코드   = '1'
+			   AND A.쪽지발송대상식별번호   = B.소속부점코드
+			   AND B.직원데이터원천구분코드 <= ${직원데이터원천구분코드}   
+			   AND B.퇴직년월일             > ${기준년월일}
+			 ORDER BY B.직원번호
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstNoteSndClwrAltmTgp" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::03.업무지원::05.쪽지예약발송관리::쪽지예약발송처리Dmfreec::DAO::쪽지예약발송처리Ddao::쪽지발송사무분담대상자목록조회">
+		<![CDATA[
+			SELECT /*+ 송재복::/gcb/bwkSpt/notePrgSndMg/notePrgSndPrcDmfreec/NotePrgSndPrc/retvLstNoteSndClwrAltmTgp */ 
+			       A.쪽지발송예약일련번호
+			     , B.직원번호
+			  FROM INSTC.TBGCBMS02 A
+			     , INSTC.TBGCBHM01 B
+			 WHERE A.쪽지발송예약일련번호   = ${쪽지발송예약일련번호}
+			   AND A.쪽지발송대상구분코드   = '2'
+			   AND A.쪽지발송대상식별번호   = B.사무분담코드
+			   AND ${기준년월일} BETWEEN B.적용시작년월일 AND B.적용종료년월일
+			 ORDER BY B.직원번호
+		]]>
+    </statement>
+</statements>

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvLstGcbBchVlnRulInf" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::21.IT장애관리지원::GCB배치검증규칙정보Ebi::GCB배치검증규칙정보Dao::GCB배치검증규칙정보목록조회">
+		<![CDATA[
+			SELECT /*+ 김민교::/gcb/itObstMgSpt/gcbBchVlnRulInfEbi/TBGCBEM01/retvLstGcbBchVlnRulInf */ 
+			       A.JAS작업ID
+			     , A.배치검증번호
+			     , A.배치검증규칙내용
+			     , A.참조통계데이터구분코드
+			     , A.배치검증유형구분코드
+			     , A.배치검증방법구분코드
+			     , A.배치검증오차범위값
+			     , A.배치검증임계값
+			     , A.전체건수검증여부
+			     , A.성공건수검증여부
+			     , A.오류건수검증여부
+			     , A.생략건수검증여부
+			     , A.작업오류처리여부
+			     , A.삭제여부
+			     , A.IT운영SMS전송대상그룹식별내용
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBEM01 A        /* GCB배치검증규칙정보 */
+			 WHERE A.JAS작업ID = ${JAS작업ID}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="regtGcbBchVlnRulInf" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::21.IT장애관리지원::GCB배치검증규칙정보Ebi::GCB배치검증규칙정보Dao::GCB배치검증규칙정보등록">
+		<![CDATA[
+			INSERT /*+ 김민교::/gcb/itObstMgSpt/gcbBchVlnRulInfEbi/TBGCBEM01/regtGcbBchVlnRulInf */
+			  INTO INSTC.TBGCBEM01        /* GCB배치검증규칙정보 */
+			(
+			   JAS작업ID
+			 , 배치검증번호
+			 , 배치검증규칙내용
+			 , 참조통계데이터구분코드
+			 , 배치검증유형구분코드
+			 , 배치검증방법구분코드
+			 , 배치검증오차범위값
+			 , 배치검증임계값
+			 , 전체건수검증여부
+			 , 성공건수검증여부
+			 , 오류건수검증여부
+			 , 생략건수검증여부
+			 , 작업오류처리여부
+			 , 삭제여부
+			 , IT운영SMS전송대상그룹식별내용
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${JAS작업ID}
+			 ,(SELECT NVL(MAX(A.배치검증번호), 0) + 1 FROM INSTC.TBGCBEM01 A WHERE A.JAS작업ID = ${JAS작업ID})
+			 ,${배치검증규칙내용}
+			 ,${참조통계데이터구분코드}
+			 ,${배치검증유형구분코드}
+			 ,${배치검증방법구분코드}
+			 ,${배치검증오차범위값}
+			 ,${배치검증임계값}
+			 ,${전체건수검증여부}
+			 ,${성공건수검증여부}
+			 ,${오류건수검증여부}
+			 ,${생략건수검증여부}
+			 ,${작업오류처리여부}
+			 ,${삭제여부}
+			 ,${IT운영SMS전송대상그룹식별내용}
+			 ,SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,${시스템최종거래일시}
+			)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLckGcbBchVlnRulInf" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::21.IT장애관리지원::GCB배치검증규칙정보Ebi::GCB배치검증규칙정보Dao::GCB배치검증규칙정보락조회">
+		<![CDATA[
+			SELECT /*+ 김민교::/gcb/itObstMgSpt/gcbBchVlnRulInfEbi/TBGCBEM01/retvLckGcbBchVlnRulInf */ 
+			       A.JAS작업ID
+			     , A.배치검증번호
+			     , A.배치검증규칙내용
+			     , A.참조통계데이터구분코드
+			     , A.배치검증유형구분코드
+			     , A.배치검증방법구분코드
+			     , A.배치검증오차범위값
+			     , A.배치검증임계값
+			     , A.전체건수검증여부
+			     , A.성공건수검증여부
+			     , A.오류건수검증여부
+			     , A.생략건수검증여부
+			     , A.작업오류처리여부
+			     , A.삭제여부
+			     , A.IT운영SMS전송대상그룹식별내용
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBEM01 A        /* GCB배치검증규칙정보 */
+			 WHERE A.JAS작업ID = ${JAS작업ID}
+			   AND A.배치검증번호  = ${배치검증번호}
+			   FOR UPDATE NOWAIT
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="delGcbBchVlnRulInf" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::21.IT장애관리지원::GCB배치검증규칙정보Ebi::GCB배치검증규칙정보Dao::GCB배치검증규칙정보삭제" >
+		<![CDATA[
+			DELETE /*+ 김민교::/gcb/itObstMgSpt/gcbBchVlnRulInfEbi/TBGCBEM01/delGcbBchVlnRulInf */
+			  FROM INSTC.TBGCBEM01        /* GCB배치검증규칙정보 */
+			 WHERE JAS작업ID = ${JAS작업ID}
+			   AND 배치검증번호  = ${배치검증번호}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="uptGcbBchVlnRulInf" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::21.IT장애관리지원::GCB배치검증규칙정보Ebi::GCB배치검증규칙정보Dao::GCB배치검증규칙정보수정" >
+		<![CDATA[
+			UPDATE /*+ 김민교::/gcb/itObstMgSpt/gcbBchVlnRulInfEbi/TBGCBEM01/uptGcbBchVlnRulInf */ 
+			       INSTC.TBGCBEM01        /* GCB배치검증규칙정보 */
+			   SET 배치검증규칙내용          = ${배치검증규칙내용}
+			     , 참조통계데이터구분코드       = ${참조통계데이터구분코드}
+			     , 배치검증유형구분코드        = ${배치검증유형구분코드}
+			     , 배치검증방법구분코드        = ${배치검증방법구분코드}
+			     , 배치검증오차범위값         = ${배치검증오차범위값}
+			     , 배치검증임계값           = ${배치검증임계값}
+			     , 전체건수검증여부          = ${전체건수검증여부}
+			     , 성공건수검증여부          = ${성공건수검증여부}
+			     , 오류건수검증여부          = ${오류건수검증여부}
+			     , 생략건수검증여부          = ${생략건수검증여부}
+			     , 작업오류처리여부          = ${작업오류처리여부}
+			     , 삭제여부              = ${삭제여부}
+			     , IT운영SMS전송대상그룹식별내용 = ${IT운영SMS전송대상그룹식별내용}
+			     , 시스템최종갱신일시         = SYSTIMESTAMP
+			     , 시스템최종갱신식별자        = ${시스템최종갱신식별자}
+			     , 시스템최종거래일시         = ${시스템최종거래일시}
+			 WHERE JAS작업ID = ${JAS작업ID}
+			   AND 배치검증번호  = ${배치검증번호}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvGcbBchVlnRulInf" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::21.IT장애관리지원::GCB배치검증규칙정보Ebi::GCB배치검증규칙정보Dao::GCB배치검증규칙정보조회" >
+		<![CDATA[
+			SELECT /*+ 김민교::/gcb/itObstMgSpt/gcbBchVlnRulInfEbi/TBGCBEM01/retvGcbBchVlnRulInf */ 
+			       A.JAS작업ID
+			     , A.배치검증번호
+			     , A.배치검증규칙내용
+			     , A.참조통계데이터구분코드
+			     , A.배치검증유형구분코드
+			     , A.배치검증방법구분코드
+			     , A.배치검증오차범위값
+			     , A.배치검증임계값
+			     , A.전체건수검증여부
+			     , A.성공건수검증여부
+			     , A.오류건수검증여부
+			     , A.생략건수검증여부
+			     , A.작업오류처리여부
+			     , A.삭제여부
+			     , A.IT운영SMS전송대상그룹식별내용
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBEM01 A        /* GCB배치검증규칙정보 */
+			 WHERE A.JAS작업ID = ${JAS작업ID}
+			   AND A.배치검증번호  = ${배치검증번호}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvGcbBchVlnRulInfSttcDatDc" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::21.IT장애관리지원::GCB배치검증규칙정보Ebi::GCB배치검증규칙정보Dao::GCB배치검증규칙정보통계데이터구분조회 ">
+		<![CDATA[
+			SELECT /*+ 노광희::/gcb/itObstMgSpt/gcbBchVlnRulInfEbi/TBGCBEM01/retvGcbBchVlnRulInfSttcDatDc */ 
+			       A.JAS작업ID
+			     , A.배치검증번호
+			     , A.배치검증규칙내용
+			     , A.참조통계데이터구분코드
+			     , A.배치검증유형구분코드
+			     , A.배치검증방법구분코드
+			     , A.배치검증오차범위값
+			     , A.배치검증임계값
+			     , A.전체건수검증여부
+			     , A.성공건수검증여부
+			     , A.오류건수검증여부
+			     , A.생략건수검증여부
+			     , A.작업오류처리여부
+			     , A.삭제여부
+			     , A.IT운영SMS전송대상그룹식별내용
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBEM01 A        /* GCB배치검증규칙정보 */
+			 WHERE A.JAS작업ID = ${JAS작업ID}
+			   AND A.참조통계데이터구분코드  = ${참조통계데이터구분코드}
+			   
+			   
+		]]>
+    </statement>
+</statements>

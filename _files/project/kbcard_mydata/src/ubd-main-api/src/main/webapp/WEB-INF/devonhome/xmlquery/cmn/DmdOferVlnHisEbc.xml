@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<statements>
+
+    <statement name="insertMydtDmdVlnHis">
+		<![CDATA[
+			INSERT /*+ 임용택::/phs/DmdOferVlnHisEbc/insertMydtDmdVlnHis */
+			  INTO INSTC.TBUBDS111        /* UBD마이데이터요청검증내역 */
+			(
+			   마이데이터전문거래년월일
+			 , 마이데이터거래고유번호
+			 , 오픈API거래식별번호
+			 , 마이데이터이용기관코드
+			 , 마이데이터전송대상구분코드
+			 , 마이데이터클라이언트식별번호
+			 , CI내용
+			 , 고객식별자
+			 , 고객관리번호
+			 , 마이데이터정기전송여부
+			 , 마이데이터전문요청내용
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${마이데이터전문거래년월일}
+			 ,${마이데이터거래고유번호}
+			 ,${오픈API거래식별번호}
+			 ,${마이데이터이용기관코드}
+			 ,${마이데이터전송대상구분코드}
+			 ,${마이데이터클라이언트식별번호}
+			 ,${CI내용}
+			 ,${고객식별자}
+			 ,${고객관리번호}
+			 ,${마이데이터정기전송여부}
+			 ,${마이데이터전문요청내용}
+			 , SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF6') --시스템최종거래일시
+			)
+		]]>
+    </statement>
+
+    <statement name="updateMydtDmdVlnHis">
+		<![CDATA[
+			UPDATE /*+ 임용택::/phs/DmdOferVlnHisEbc/updateMydtDmdVlnHis */ 
+			       INSTC.TBUBDS111        /* UBD마이데이터요청검증내역 */
+			   SET 오픈API거래식별번호 			= ${오픈API거래식별번호}
+			     , 마이데이터이용기관코드 		= ${마이데이터이용기관코드}
+			     , 마이데이터전송대상구분코드 	= ${마이데이터전송대상구분코드}
+			     , 마이데이터클라이언트식별번호 = ${마이데이터클라이언트식별번호}
+			     , CI내용       				= ${CI내용}
+			     , 고객식별자      				= ${고객식별자}
+			     , 고객관리번호     			= ${고객관리번호}
+			     , 고객관리번호     			= ${고객관리번호}
+			     , 마이데이터정기전송여부 		= ${마이데이터정기전송여부}
+			     , 시스템최종갱신일시  			= SYSTIMESTAMP
+			     , 시스템최종갱신식별자 		= ${시스템최종갱신식별자}
+			     , 시스템최종거래일시  			= TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF6') --시스템최종거래일시
+			 WHERE 마이데이터전문거래년월일 = ${마이데이터전문거래년월일}
+			   AND 마이데이터거래고유번호 	= ${마이데이터거래고유번호}
+		]]>
+    </statement>
+
+    <statement name="deleteMydtDmdVlnHis">
+		<![CDATA[
+			DELETE /*+ 임용택::/phs/DmdOferVlnHisEbc/deleteMydtDmdVlnHis */
+			  FROM INSTC.TBUBDS111        /* UBD마이데이터요청검증내역 */
+			 WHERE 마이데이터전문거래년월일 = ${마이데이터전문거래년월일}
+			   AND 마이데이터거래고유번호 	= ${마이데이터거래고유번호}
+		]]>
+    </statement>
+
+    <statement name="selectMydtDmdVlnHis">
+		<![CDATA[
+			SELECT /*+ 임용택::/phs/DmdOferVlnHisEbc/selectMydtDmdVlnHis */ 
+			       A.마이데이터전문거래년월일
+			     , A.마이데이터거래고유번호
+			     , A.오픈API거래식별번호
+			     , A.마이데이터이용기관코드
+			     , A.마이데이터전송대상구분코드
+				 , A.마이데이터클라이언트식별번호
+			     , A.CI내용
+			     , A.고객식별자
+			     , A.고객관리번호
+			     , A.마이데이터정기전송여부
+			     , A.마이데이터전문요청내용
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') AS 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBUBDS111 A        /* UBD마이데이터요청검증내역 */
+			 WHERE A.마이데이터전문거래년월일   = ${마이데이터전문거래년월일}
+			   AND A.마이데이터거래고유번호 	= ${마이데이터거래고유번호}
+		]]>
+    </statement>
+
+    <statement name="insertMydtOferVlnHis">
+		<![CDATA[
+			INSERT /*+ 임용택::/phs/DmdOferVlnHisEbc/insertMydtOferVlnHis */
+			  INTO INSTC.TBUBDS112        /* UBD마이데이터제공검증내역 */
+			(
+			   마이데이터전문거래년월일
+			 , 마이데이터거래고유번호
+			 , 오픈API거래식별번호
+			 , 마이데이터이용기관코드
+			 , 마이데이터전송대상구분코드
+			 , 마이데이터클라이언트식별번호
+			 , CI내용
+			 , 고객식별자
+			 , 고객관리번호
+			 , 마이데이터정기전송여부
+			 , 마이데이터전문응답내용
+			 , 오픈API응답코드
+			 , 오픈API응답메시지내용
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${마이데이터전문거래년월일}
+			 ,${마이데이터거래고유번호}
+			 ,${오픈API거래식별번호}
+			 ,${마이데이터이용기관코드}
+			 ,${마이데이터전송대상구분코드}
+			 ,${마이데이터클라이언트식별번호}
+			 ,${CI내용}
+			 ,${고객식별자}
+			 ,${고객관리번호}
+			 ,${마이데이터정기전송여부}
+			 ,${마이데이터전문응답내용}
+			 ,${오픈API응답코드}
+			 ,${오픈API응답메시지내용}
+			 , SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF6') --시스템최종거래일시
+			)
+		]]>
+    </statement>
+
+    <statement name="updateMydtOferVlnHis">
+		<![CDATA[
+			UPDATE /*+ 임용택::/phs/DmdOferVlnHisEbc/updateMydtOferVlnHis */ 
+			       INSTC.TBUBDS112        /* UBD마이데이터제공검증내역 */
+			   SET 오픈API거래식별번호 			= ${오픈API거래식별번호}
+			     , 마이데이터이용기관코드 		= ${마이데이터이용기관코드}
+			     , 마이데이터전송대상구분코드 	= ${마이데이터전송대상구분코드}
+			     , 마이데이터클라이언트식별번호 = ${마이데이터클라이언트식별번호}
+			     , CI내용        				= ${CI내용}
+			     , 고객식별자       			= ${고객식별자}
+			     , 고객관리번호     			= ${고객관리번호}
+			     , 마이데이터정기전송여부		= ${마이데이터정기전송여부}
+			     , 마이데이터전문응답내용 		= ${마이데이터전문응답내용}
+			     , 오픈API응답코드    			= ${오픈API응답코드}
+			     , 오픈API응답메시지내용 		= ${오픈API응답메시지내용}
+			     , 시스템최종갱신일시   		= SYSTIMESTAMP
+			     , 시스템최종갱신식별자 		= ${시스템최종갱신식별자}
+			     , 시스템최종거래일시   		= TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF6') --시스템최종거래일시
+			 WHERE 마이데이터전문거래년월일 = ${마이데이터전문거래년월일}
+			   AND 마이데이터거래고유번호 	= ${마이데이터거래고유번호}
+		]]>
+    </statement>
+
+    <statement name="deleteMydtOferVlnHis">
+		<![CDATA[
+			DELETE /*+ 임용택::/phs/DmdOferVlnHisEbc/deleteMydtOferVlnHis */
+			  FROM INSTC.TBUBDS112        /* UBD마이데이터제공검증내역 */
+			 WHERE 마이데이터전문거래년월일 = ${마이데이터전문거래년월일}
+			   AND 마이데이터거래고유번호 	= ${마이데이터거래고유번호}
+		]]>
+    </statement>
+
+    <statement name="selectMydtOferVlnHis">
+		<![CDATA[
+			SELECT /*+ 임용택::/phs/DmdOferVlnHisEbc/selectMydtOferVlnHis */ 
+			       A.마이데이터전문거래년월일
+			     , A.마이데이터거래고유번호
+			     , A.오픈API거래식별번호
+			     , A.마이데이터이용기관코드
+			     , A.마이데이터전송대상구분코드
+				 , A.마이데이터클라이언트식별번호
+			     , A.CI내용
+			     , A.고객식별자
+			     , A.고객관리번호
+			     , A.마이데이터정기전송여부
+			     , A.마이데이터전문응답내용
+			     , A.오픈API응답코드
+			     , A.오픈API응답메시지내용
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') AS 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBUBDS112 A        /* UBD마이데이터제공검증내역 */
+			 WHERE A.마이데이터전문거래년월일   = ${마이데이터전문거래년월일}
+			   AND A.마이데이터거래고유번호 	= ${마이데이터거래고유번호}
+		]]>
+    </statement>
+
+    <statement name="insertMydtOferVlnHisDtl">
+		<![CDATA[
+			INSERT /*+ 임용택::/phs/DmdOferVlnHisEbc/insertMydtOferVlnHisDtl */
+			  INTO INSTC.TBUBDS113        /* UBD마이데이터제공검증내역상세 */
+			(
+			   마이데이터전문거래년월일
+			 , 마이데이터거래고유번호  
+			 , 처리계GUID번호			 
+			 , 인터페이스ID
+			 , 처리계전문요청내용
+			 , 처리계전문응답내용
+			 , 오류메시지코드
+			 , 오류메시지출력내용
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${마이데이터전문거래년월일}
+			 ,${마이데이터거래고유번호} 
+			 ,${처리계GUID번호}			 
+			 ,${인터페이스ID}
+			 ,${처리계전문요청내용}
+			 ,${처리계전문응답내용}
+			 ,${오류메시지코드}
+			 ,${오류메시지출력내용}
+			 , SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF6') --시스템최종거래일시
+			)
+		]]>
+    </statement>
+
+    <statement name="updateMydtOferVlnHisDtl">
+		<![CDATA[
+			UPDATE /*+ 임용택::/phs/DmdOferVlnHisEbc/updateMydtOferVlnHisDtl */ 
+			       INSTC.TBUBDS113        /* UBD마이데이터제공검증내역상세 */
+			   SET 인터페이스ID    		= ${인터페이스ID}
+			     , 처리계전문요청내용  	= ${처리계전문요청내용}
+			     , 처리계전문응답내용  	= ${처리계전문응답내용}
+			     , 오류메시지코드    	= ${오류메시지코드}
+			     , 오류메시지출력내용 	= ${오류메시지출력내용}
+			     , 시스템최종갱신일시  	= SYSTIMESTAMP
+			     , 시스템최종갱신식별자 = ${시스템최종갱신식별자}
+			     , 시스템최종거래일시  	= TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF6') --시스템최종거래일시
+			 WHERE 마이데이터전문거래년월일 = ${마이데이터전문거래년월일}
+			   AND 마이데이터거래고유번호 	= ${마이데이터거래고유번호}
+			   AND 처리계GUID번호    		= ${처리계GUID번호}			   
+		]]>
+    </statement>
+
+    <statement name="deleteMydtOferVlnHisDtl">
+		<![CDATA[
+			DELETE /*+ 임용택::/phs/DmdOferVlnHisEbc/deleteMydtOferVlnHisDtl */
+			  FROM INSTC.TBUBDS113        /* UBD마이데이터제공검증내역상세 */
+			 WHERE 마이데이터전문거래년월일 = ${마이데이터전문거래년월일}			   
+			   AND 마이데이터거래고유번호 	= ${마이데이터거래고유번호}
+			   AND 처리계GUID번호    		= ${처리계GUID번호}
+		]]>
+    </statement>
+
+    <statement name="selectMydtOferVlnHisDtl">
+		<![CDATA[
+			SELECT /*+ 임용택::/phs/DmdOferVlnHisEbc/selectMydtOferVlnHisDtl */ 
+			       A.마이데이터전문거래년월일
+			     , A.마이데이터거래고유번호 
+			     , A.처리계GUID번호			     
+			     , A.인터페이스ID
+			     , A.처리계전문요청내용
+			     , A.처리계전문응답내용
+			     , A.오류메시지코드
+			     , A.오류메시지출력내용
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') AS 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBUBDS113 A        /* UBD마이데이터제공검증내역상세 */
+			 WHERE A.마이데이터전문거래년월일  	= ${마이데이터전문거래년월일}			   
+			   AND A.마이데이터거래고유번호 	= ${마이데이터거래고유번호}
+			   AND A.처리계GUID번호    			= ${처리계GUID번호}
+		]]>
+    </statement>
+    
+    <statement name="selectMydtDmdVlnHisTrUnoDupInq">
+		<![CDATA[
+			SELECT /*+ 임용택::/phs/DmdOferVlnHisEbc/selectMydtDmdVlnHisTrUnoDupInq */ 
+			       A.마이데이터전문거래년월일
+			     , A.마이데이터거래고유번호
+			     , A.오픈API거래식별번호
+			  FROM INSTC.TBUBDS111 A        /* UBD마이데이터요청검증내역 */
+			 WHERE A.마이데이터전문거래년월일   = ${마이데이터전문거래년월일}
+			   AND A.마이데이터거래고유번호 	= ${마이데이터거래고유번호}
+			   AND A.오픈API거래식별번호 	  	= ${오픈API거래식별번호}
+		]]>
+    </statement>
+    
+</statements>

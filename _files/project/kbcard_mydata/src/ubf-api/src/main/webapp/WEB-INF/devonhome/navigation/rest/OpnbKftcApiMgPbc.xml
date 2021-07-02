@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<navigation>
+   <!-- 오픈뱅킹금결원API정보조회 -->
+    <action name="/retvOpnbKftcApiInf">
+         <method>post</method>
+         <command>#restCommonCmd</command>
+         <tran-id>UBF1010601</tran-id> 
+    </action>  
+    
+</navigation>

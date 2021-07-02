@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<navigation>
+    <action name="/inbound/{source}/{tranId}">
+    	<method>post</method>
+    	<command>#eaiRecvCmd</command>
+    	<!-- <command>com.kbcard.ubd.common.cmd.EaiRecvCmd</command> -->
+    </action>
+    <action name="/inbound/{tranId}">
+    	<method>post</method>
+    	<command>#eaiRecvCmd</command>
+    	<!-- 공통모듈화 해서 처리할 수 있을 것으로 보임. header 정보에서 source system 정보를 얻을 수 있음 -->
+    	<!--  <command>com.kbcard.ubd.common.cmd.EaiRecvCmd</command> -->
+    	<!--  <return-handler>json</return-handler> -->
+    </action>
+</navigation>

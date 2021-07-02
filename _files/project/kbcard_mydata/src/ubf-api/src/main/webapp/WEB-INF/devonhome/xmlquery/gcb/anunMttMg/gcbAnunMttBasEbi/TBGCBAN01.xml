@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="regtGcbAnunMttBas" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::20.공지사항관리::GCB공지사항기본Ebi::GCB공지사항기본Dao::GCB공지사항기본등록">
+		<![CDATA[
+			INSERT /*+ 박혜림::/gcb/anunMttMg/gcbAnunMttBasEbi/TBGCBAN01/regtGcbAnunMttBas */
+			  INTO INSTC.TBGCBAN01        /* GCB공지사항기본 */
+			(
+			      등록일시
+			 , 등록직원번호
+			 , 등록부점코드
+			 , 단말공지대상구분코드
+			 , 단말공지알람여부
+			 , 공지사항제목
+			 , 단말공지사항내용
+			 , 단말공지사항첨부파일그룹번호
+			 , 단말공지사항조회수
+			 , 단말공지위치고정여부
+			 , 삭제여부
+			 , 공지게시시작년월일
+			 , 공지게시시작시각
+			 , 공지게시종료년월일
+			 , 공지게시종료시각
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${등록일시}
+			 ,${등록직원번호}
+			 ,${등록부점코드}
+			 ,${단말공지대상구분코드}
+			 ,${단말공지알람여부} 
+			 ,${공지사항제목}
+			 ,${단말공지사항내용}
+			 ,${단말공지사항첨부파일그룹번호}
+			 ,${단말공지사항조회수}
+			 ,${단말공지위치고정여부}
+			 ,${삭제여부}
+			 ,${공지게시시작년월일}
+			 ,${공지게시시작시각}
+			 ,${공지게시종료년월일}
+			 ,${공지게시종료시각}
+			 ,SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,${시스템최종거래일시}
+			)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGcbAnunMttBas" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::20.공지사항관리::GCB공지사항기본Ebi::GCB공지사항기본Dao::GCB공지사항기본목록조회">
+		<![CDATA[
+			SELECT /*+ 박혜림::/gcb/anunMttMg/gcbAnunMttBasEbi/TBGCBAN01/retvLstGcbAnunMttBas */ 
+			       A.등록일시
+			     , A.등록직원번호
+			     , A.등록부점코드
+			     , A.단말공지대상구분코드
+			     , A.단말공지알람여부     
+			     , A.공지사항제목
+			     , A.단말공지사항내용
+			     , A.단말공지사항첨부파일그룹번호
+			     , A.단말공지사항조회수
+			     , A.단말공지위치고정여부
+			     , A.삭제여부
+			     , A.공지게시시작년월일
+			     , A.공지게시시작시각
+			     , A.공지게시종료년월일
+			     , A.공지게시종료시각
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBAN01 A        /* GCB공지사항기본 */
+			 WHERE A.삭제여부 != '1'
+			   AND (A.공지사항제목  LIKE '%' || ${공지사항제목} || '%' OR ${공지사항제목} IS NULL )
+			   AND (A.단말공지사항내용 LIKE '%' || ${단말공지사항내용} || '%' OR ${단말공지사항내용} IS NULL)
+			   AND (((A.단말공지대상구분코드 = ${단말공지대상구분코드} OR A.단말공지대상구분코드 = '0') OR A.단말공지대상구분코드 IS NULL) OR ${단말공지대상구분코드} IS NULL)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="uptGcbAnunMttBas" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::20.공지사항관리::GCB공지사항기본Ebi::GCB공지사항기본Dao::GCB공지사항기본수정">
+		<![CDATA[
+			UPDATE /*+ 박혜림::/gcb/anunMttMg/gcbAnunMttBasEbi/TBGCBAN01/uptGcbAnunMttBas */ 
+			       INSTC.TBGCBAN01        /* GCB공지사항기본 */
+			   SET 등록부점코드         = ${등록부점코드}
+			     , 단말공지대상구분코드  = ${단말공지대상구분코드}
+			     , 단말공지알람여부  = ${단말공지알람여부}
+			     , 공지사항제목         = ${공지사항제목}
+			     , 단말공지사항내용       = ${단말공지사항내용}
+			     , 단말공지사항첨부파일그룹번호 = ${단말공지사항첨부파일그룹번호}
+			     , 단말공지위치고정여부     = ${단말공지위치고정여부}
+			     , 삭제여부           = ${삭제여부}
+			     , 공지게시시작년월일      = ${공지게시시작년월일}
+			     , 공지게시시작시각       = ${공지게시시작시각}
+			     , 공지게시종료년월일      = ${공지게시종료년월일}
+			     , 공지게시종료시각       = ${공지게시종료시각}
+			     , 시스템최종갱신일시      = SYSTIMESTAMP
+			     , 시스템최종갱신식별자     = ${시스템최종갱신식별자}
+			     , 시스템최종거래일시      = ${시스템최종거래일시}
+			 WHERE 등록일시   = ${등록일시}
+			   AND 등록직원번호 = ${등록직원번호}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvGcbAnunMttBas" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::20.공지사항관리::GCB공지사항기본Ebi::GCB공지사항기본Dao::GCB공지사항기본조회">
+		<![CDATA[
+			SELECT /*+ 박혜림::/gcb/anunMttMg/gcbAnunMttBasEbi/TBGCBAN01/retvGcbAnunMttBas */ 
+			       A.등록일시
+			     , A.등록직원번호
+			     , A.등록부점코드
+			     , A.단말공지대상구분코드
+			     , A.단말공지알람여부
+			     , A.공지사항제목
+			     , A.단말공지사항내용
+			     , A.단말공지사항첨부파일그룹번호
+			     , A.단말공지사항조회수
+			     , A.단말공지위치고정여부
+			     , A.삭제여부
+			     , A.공지게시시작년월일
+			     , A.공지게시시작시각
+			     , A.공지게시종료년월일
+			     , A.공지게시종료시각
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBAN01 A        /* GCB공지사항기본 */
+			 WHERE A.삭제여부 != '1'
+			   AND A.등록일시   = ${등록일시}
+			   AND A.등록직원번호 = ${등록직원번호}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGcbAnunMttAlam" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::20.공지사항관리::GCB공지사항기본Ebi::GCB공지사항기본Dao::GCB공지사항알람목록조회">
+		<![CDATA[
+			SELECT /*+ 박혜림::/gcb/anunMttMg/gcbAnunMttBasEbi/TBGCBAN01/retvLstGcbAnunMttAlam */ 
+			       A.등록일시
+			     , A.등록직원번호
+			     , A.등록부점코드
+			     , A.단말공지대상구분코드
+			     , A.공지사항제목
+			     , A.단말공지사항내용
+			     , A.단말공지사항첨부파일그룹번호
+			     , A.삭제여부
+			     , A.단말공지사항조회수
+			     , A.단말공지위치고정여부
+			     , A.공지게시시작년월일
+			     , A.공지게시시작시각
+			     , A.공지게시종료년월일
+			     , A.공지게시종료시각
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			     , A.단말공지알람여부
+			  FROM INSTC.TBGCBAN01 A        /* GCB공지사항기본 */
+			 WHERE A.삭제여부 != '1'
+			   AND A.등록일시 LIKE  ${등록년월일} ||'%'
+			  
+		]]>
+    </statement>
+</statements>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<navigation>
+  	<!-- 카드사용자등록 -->
+    <action name="/regtCrdUsr">
+         <method>post</method>
+         <command>#restCommonCmd</command>
+         <tran-id>UBF0300500</tran-id>
+    </action> 
+    
+    <!-- 카드정보조회 -->
+    <action name="/retvCrdInf">
+         <method>post</method>
+         <command>#restCommonCmd</command>
+         <tran-id>UBF0100540</tran-id>
+    </action>
+    
+    <!-- 카드정보변경 -->
+    <action name="/chngCrdInf">
+         <method>post</method>
+         <command>#restCommonCmd</command>
+         <tran-id>UBF0400510</tran-id>
+    </action>
+    
+    <!-- 채널별카드목록등록 -->
+    <action name="/regtChnPrCrdCtg">
+         <method>post</method>
+         <command>#restCommonCmd</command>
+         <tran-id>UBF0300501</tran-id>
+    </action>
+    
+    <!-- 등록카드정보채널복사처리 -->
+    <action name="/prcRgCrdInfChnCpy">
+         <method>post</method>
+         <command>#restCommonCmd</command>
+         <tran-id>UBF0300502</tran-id>
+    </action>
+    
+    <!-- 채널별통합카드정보목록조회 -->
+    <action name="/retvChnPrIngCrdInfCtg">
+         <method>post</method>
+         <command>#restCommonCmd</command>
+         <tran-id>UBF0100542</tran-id>
+    </action>
+    
+    <!-- 카드조회 해지처리 -->
+    <action name="/prcTmnCrdInq">
+         <method>post</method>
+         <command>#restCommonCmd</command>
+         <tran-id>UBF0300530</tran-id>
+    </action>
+    
+    <!-- 채널별카드목록조회 -->
+    <action name="retvChnPrCrdCtg">
+         <method>post</method>
+         <command>#restCommonCmd</command>
+         <tran-id>UBF0100541</tran-id>
+    </action>
+    
+</navigation>

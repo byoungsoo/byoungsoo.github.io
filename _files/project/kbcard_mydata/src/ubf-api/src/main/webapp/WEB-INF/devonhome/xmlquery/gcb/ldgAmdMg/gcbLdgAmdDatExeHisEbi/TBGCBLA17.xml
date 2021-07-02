@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvGcbLdgAmdDatExeHis" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::10.원장수정관리::GCB원장수정데이터실행내역Ebi::GCB원장수정데이터실행내역Dao::GCB원장수정데이터실행내역조회" >
+		<![CDATA[
+			SELECT /*+ 김민교::/gcb/ldgAmdMg/gcbLdgAmdDatExeHisEbi/TBGCBLA17/retvGcbLdgAmdDatExeHis */ 
+			       A.원장수정의뢰번호
+			     , A.원장수정IT담당팀구분코드
+			     , A.원장수정대상서버구분코드
+			     , A.어플리케이션코드
+			     , A.원장수정담당직원번호
+			     , A.원장수정처리SQL일련번호
+			     , A.원장수정처리SQL구분코드
+			     , A.관리일련번호
+			     , A.원장수정처리SQL내용
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBLA17 A 
+			 WHERE A.원장수정의뢰번호      = ${원장수정의뢰번호}
+			   AND A.원장수정IT담당팀구분코드 = ${원장수정IT담당팀구분코드}
+			   AND A.원장수정대상서버구분코드  = ${원장수정대상서버구분코드}
+			   AND A.어플리케이션코드      = ${어플리케이션코드}
+			   AND A.원장수정담당직원번호    = ${원장수정담당직원번호}
+			   AND A.원장수정처리SQL일련번호 = ${원장수정처리SQL일련번호}
+			   AND A.원장수정처리SQL구분코드 = ${원장수정처리SQL구분코드}
+			   AND A.관리일련번호        = ${관리일련번호}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="regtGcbLdgAmdDatExeHis" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::10.원장수정관리::GCB원장수정데이터실행내역Ebi::GCB원장수정데이터실행내역Dao::GCB원장수정데이터실행내역등록" >
+		<![CDATA[
+			INSERT /*+ 김민교::/gcb/ldgAmdMg/gcbLdgAmdDatExeHisEbi/TBGCBLA17/regtGcbLdgAmdDatExeHis */
+			  INTO INSTC.TBGCBLA17
+			(
+			   원장수정의뢰번호
+			 , 원장수정IT담당팀구분코드
+			 , 원장수정대상서버구분코드
+			 , 어플리케이션코드
+			 , 원장수정담당직원번호
+			 , 원장수정처리SQL일련번호
+			 , 원장수정처리SQL구분코드
+			 , 관리일련번호
+			 , 원장수정처리SQL내용
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${원장수정의뢰번호}
+			 ,${원장수정IT담당팀구분코드}
+			 ,${원장수정대상서버구분코드}
+			 ,${어플리케이션코드}
+			 ,${원장수정담당직원번호}
+			 ,${원장수정처리SQL일련번호}
+			 ,${원장수정처리SQL구분코드}
+			 ,${관리일련번호}
+			 ,${원장수정처리SQL내용}
+			 ,SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,${시스템최종거래일시}
+			)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="uptGcbLdgAmdDatExeHis" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::10.원장수정관리::GCB원장수정데이터실행내역Ebi::GCB원장수정데이터실행내역Dao::GCB원장수정데이터실행내역수정" >
+		<![CDATA[
+			UPDATE /*+ 김민교::/gcb/ldgAmdMg/gcbLdgAmdDatExeHisEbi/TBGCBLA17/uptGcbLdgAmdDatExeHis */ 
+			       INSTC.TBGCBLA17 
+			   SET 원장수정처리SQL내용 = ${원장수정처리SQL내용}
+			     , 시스템최종갱신일시   = SYSTIMESTAMP
+			     , 시스템최종갱신식별자  = ${시스템최종갱신식별자}
+			     , 시스템최종거래일시   = ${시스템최종거래일시}
+			 WHERE 원장수정의뢰번호      = ${원장수정의뢰번호}
+			   AND 원장수정IT담당팀구분코드 = ${원장수정IT담당팀구분코드}
+			   AND 원장수정대상서버구분코드  = ${원장수정대상서버구분코드}
+			   AND 어플리케이션코드      = ${어플리케이션코드}
+			   AND 원장수정담당직원번호    = ${원장수정담당직원번호}
+			   AND 원장수정처리SQL일련번호 = ${원장수정처리SQL일련번호}
+			   AND 원장수정처리SQL구분코드 = ${원장수정처리SQL구분코드}
+			   AND 관리일련번호        = ${관리일련번호}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="delGcbLdgAmdDatExeHis" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::10.원장수정관리::GCB원장수정데이터실행내역Ebi::GCB원장수정데이터실행내역Dao::GCB원장수정데이터실행내역삭제" >
+		<![CDATA[
+			DELETE /*+ 김민교::/gcb/ldgAmdMg/gcbLdgAmdDatExeHisEbi/TBGCBLA17/delGcbLdgAmdDatExeHis */
+			  FROM INSTC.TBGCBLA17  
+			 WHERE 원장수정의뢰번호      = ${원장수정의뢰번호}
+			   AND 원장수정IT담당팀구분코드 = ${원장수정IT담당팀구분코드}
+			   AND 원장수정대상서버구분코드  = ${원장수정대상서버구분코드}
+			   AND 어플리케이션코드      = ${어플리케이션코드}
+			   AND 원장수정담당직원번호    = ${원장수정담당직원번호}
+			   AND 원장수정처리SQL일련번호 = ${원장수정처리SQL일련번호}
+			   AND 원장수정처리SQL구분코드 = ${원장수정처리SQL구분코드}
+			   AND 관리일련번호        = ${관리일련번호}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGcbLdgAmdDatExeHisByRgDelTg" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::10.원장수정관리::GCB원장수정데이터실행내역Ebi::GCB원장수정데이터실행내역Dao::GCB원장수정데이터실행내역By등록삭제대상목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ldgAmdMg/gcbLdgAmdDatExeHisEbi/TBGCBLA17/retvLstGcbLdgAmdDatExeHisByRgDelTg */ 
+			       A.원장수정의뢰번호
+			     , A.원장수정IT담당팀구분코드
+			     , A.원장수정대상서버구분코드
+			     , A.어플리케이션코드
+			     , A.원장수정담당직원번호
+			     , A.원장수정처리SQL일련번호
+			     , A.원장수정처리SQL구분코드
+			     , A.관리일련번호
+			     , A.원장수정처리SQL내용
+			  FROM INSTC.TBGCBLA17 A 
+			 WHERE A.원장수정의뢰번호      = ${원장수정의뢰번호}
+			   AND A.원장수정IT담당팀구분코드 = ${원장수정IT담당팀구분코드}
+			   AND A.원장수정대상서버구분코드  = ${원장수정대상서버구분코드}
+			   AND A.어플리케이션코드      = ${어플리케이션코드}
+			   AND A.원장수정담당직원번호    = ${원장수정담당직원번호}
+			   AND A.원장수정처리SQL일련번호 = ${원장수정처리SQL일련번호}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvGcbLdgAmdDatExeHisByRegNcn" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::10.원장수정관리::GCB원장수정데이터실행내역Ebi::GCB원장수정데이터실행내역Dao::GCB원장수정데이터실행내역By등록건수조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ldgAmdMg/gcbLdgAmdDatExeHisEbi/TBGCBLA17/retvGcbLdgAmdDatExeHisByRegNcn */ 
+			       DECODE(COUNT(*), 0, 0, 1) 조회건수_N2
+			  FROM INSTC.TBGCBLA17 A 
+			 WHERE A.원장수정의뢰번호      = ${원장수정의뢰번호}
+			   AND A.원장수정IT담당팀구분코드 = ${원장수정IT담당팀구분코드}
+			   AND A.원장수정대상서버구분코드  = ${원장수정대상서버구분코드}
+			   AND A.어플리케이션코드      = ${어플리케이션코드}
+			   AND A.원장수정담당직원번호    = ${원장수정담당직원번호}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGcbLdgAmdDatExeHisByMdHisSql" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::10.원장수정관리::GCB원장수정데이터실행내역Ebi::GCB원장수정데이터실행내역Dao::GCB원장수정데이터실행내역By변경내역SQL목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ldgAmdMg/gcbLdgAmdDatExeHisEbi/TBGCBLA17/retvLstGcbLdgAmdDatExeHisByMdHisSql */ 
+			       A.원장수정의뢰번호
+			     , A.원장수정IT담당팀구분코드
+			     , A.원장수정대상서버구분코드
+			     , A.어플리케이션코드
+			     , A.원장수정담당직원번호
+			     , A.원장수정처리SQL일련번호
+			     , A.원장수정처리SQL구분코드
+			     , A.관리일련번호
+			     , A.원장수정처리SQL내용
+			  FROM INSTC.TBGCBLA17 A 
+			 WHERE A.원장수정의뢰번호      = ${원장수정의뢰번호}
+			   AND A.원장수정IT담당팀구분코드 = ${원장수정IT담당팀구분코드}
+			   AND A.원장수정대상서버구분코드  = ${원장수정대상서버구분코드}
+			   AND A.어플리케이션코드      = ${어플리케이션코드}
+			   AND A.원장수정담당직원번호    = ${원장수정담당직원번호}
+			   AND A.원장수정처리SQL일련번호 = ${원장수정처리SQL일련번호}
+			   AND A.원장수정처리SQL구분코드 = ${원장수정처리SQL구분코드}
+			ORDER BY A.관리일련번호 ASC
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="regtGcbLdgAmdDatExeHisRgByBch" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::10.원장수정관리::GCB원장수정데이터실행내역Ebi::GCB원장수정데이터실행내역Dao::GCB원장수정데이터실행내역등록By배치등록">
+		<![CDATA[
+			INSERT /*+ 김동현::/gcb/ldgAmdMg/gcbLdgAmdDatExeHisEbi/TBGCBLA17/regtGcbLdgAmdDatExeHisRgByBch */
+			  INTO INSTC.TBGCBLA17        /* GCB원장수정데이터실행내역 */
+			(
+			   원장수정의뢰번호
+			 , 원장수정IT담당팀구분코드
+			 , 원장수정대상서버구분코드
+			 , 어플리케이션코드
+			 , 원장수정담당직원번호
+			 , 원장수정처리SQL일련번호
+			 , 원장수정처리SQL구분코드
+			 , 관리일련번호
+			 , 원장수정처리SQL내용
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${원장수정의뢰번호}
+			 ,${원장수정IT담당팀구분코드}
+			 ,${원장수정대상서버구분코드}
+			 ,${어플리케이션코드}
+			 ,${원장수정담당직원번호}
+			 ,(SELECT NVL(MAX(원장수정처리SQL일련번호), 0)+1
+			     FROM INSTC.TBGCBLA17
+			    WHERE 원장수정의뢰번호 = ${원장수정의뢰번호}
+			      AND 원장수정IT담당팀구분코드 = ${원장수정IT담당팀구분코드}
+			      AND 원장수정대상서버구분코드 = ${원장수정대상서버구분코드}
+			      AND 어플리케이션코드 = ${어플리케이션코드}
+			      AND 원장수정담당직원번호 = ${원장수정담당직원번호}
+			      AND 원장수정처리SQL구분코드 = ${원장수정처리SQL구분코드}
+			      AND 관리일련번호 = ${관리일련번호})
+			 ,${원장수정처리SQL구분코드}
+			 ,${관리일련번호}
+			 ,${원장수정처리SQL내용}
+			 ,SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,${시스템최종거래일시}
+			)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGcbLdgAmdDatRgCtgInqByBch" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::10.원장수정관리::GCB원장수정데이터실행내역Ebi::GCB원장수정데이터실행내역Dao::GCB원장수정데이터등록목록조회By배치목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ldgAmdMg/gcbLdgAmdDatExeHisEbi/TBGCBLA17/retvLstGcbLdgAmdDatRgCtgInqByBch */ 
+			       A.원장수정의뢰번호
+			     , A.원장수정IT담당팀구분코드
+			     , A.원장수정대상서버구분코드
+			     , A.어플리케이션코드
+			     , A.원장수정담당직원번호
+			     , A.원장수정처리SQL일련번호
+			     , A.원장수정처리SQL구분코드
+			     , A.관리일련번호
+			     , A.원장수정처리SQL내용
+			  FROM INSTC.TBGCBLA17 A        /* GCB원장수정데이터실행내역 */
+			 WHERE A.원장수정의뢰번호      = ${원장수정의뢰번호}
+			   AND A.원장수정IT담당팀구분코드 = ${원장수정IT담당팀구분코드}
+			   AND A.원장수정대상서버구분코드  = ${원장수정대상서버구분코드}
+			   AND A.어플리케이션코드      = ${어플리케이션코드}
+			   AND A.원장수정담당직원번호    = ${원장수정담당직원번호}
+			   AND A.원장수정처리SQL구분코드 = ${원장수정처리SQL구분코드}
+			   AND A.관리일련번호        = ${관리일련번호}
+			ORDER BY A.원장수정처리SQL일련번호  ASC  
+		]]>
+    </statement>
+</statements>

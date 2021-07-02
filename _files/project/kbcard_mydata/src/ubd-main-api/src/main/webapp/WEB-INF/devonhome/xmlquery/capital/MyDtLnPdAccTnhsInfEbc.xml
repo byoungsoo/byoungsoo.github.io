@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<statements>
+
+    <statement name="selectMyDtApiShtmLnInf">
+		<![CDATA[
+		SELECT /*+ 김형구::/card/MyDtShtmLnInfEbc/selectMyDtApiShtmLnInf */ 
+		       A.전표매출년월일||A.매출승인시각 AS 이용일시
+		     , A.매출금액
+		     , A.회수후잔액
+		     , A.청구년월일
+		     , A.수수료율
+		  FROM INSTC.TBUBDG005 A        /* GBC청구전표기본 */
+		 WHERE A.회원일련번호           = ${회원일련번호}
+		   AND A.테이블파티션구분번호   = SUBSTR(A.회원일련번호, -2)
+		   AND A.회수후잔액 > 0
+		   AND A.청구전표구분코드 = '03'
+		   AND A.카드거래처리구분코드 = '1'
+		   AND A.해외전표여부 = '0'		  
+		]]>
+    </statement>
+    
+</statements>

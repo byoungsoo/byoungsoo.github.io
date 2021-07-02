@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvGcbBhOpTtmBseBhOpTtmHis" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::04.부점정보관리::GCB부점운영시간기준Ebi::GCB부점운영시간기준Dao::GCB부점운영시간기준부점운영시간내역조회">
+		<![CDATA[
+			SELECT /*+ 송재복::/gcb/bhInfMg/gcbBhOpTtmBseEbi/TBGCBBR13/retvGcbBhOpTtmBseBhOpTtmHis */ 
+			       A.부점코드
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , A.부점운영시간구분코드
+			     , A.부점영업시작시각
+			     , A.부점영업종료시각
+			     , A.부점운영시간비고11
+			     , A.부점운영시간비고12
+			     , A.부점운영시간비고21
+			     , A.부점운영시간비고22
+			     , A.부점운영시간비고41
+			     , A.부점운영시간비고42
+			     , A.부점운영시간비고61
+			     , A.부점운영시간비고62
+			     , A.부점운영시간비고81
+			     , A.부점운영시간비고82
+			  FROM INSTC.TBGCBBR13 A 
+			 WHERE A.부점코드    = ${부점코드}
+			   AND A.적용시작년월일 <= ${적용시작년월일}   
+			   AND A.적용종료년월일 >= ${적용종료년월일}
+			
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGcbBhOpTtm" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::04.부점정보관리::GCB부점운영시간기준Ebi::GCB부점운영시간기준Dao::GCB부점운영시간목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/bhInfMg/gcbBhOpTtmBseEbi/TBGCBBR13/retvLstGcbBhOpTtm */ 
+			       A.부점코드
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , A.부점운영시간구분코드
+			     , A.부점영업시작시각
+			     , A.부점영업종료시각
+			     , A.부점운영시간비고11
+			     , A.부점운영시간비고12
+			     , A.부점운영시간비고21
+			     , A.부점운영시간비고22
+			     , A.부점운영시간비고41
+			     , A.부점운영시간비고42
+			     , A.부점운영시간비고61
+			     , A.부점운영시간비고62
+			     , A.부점운영시간비고81
+			     , A.부점운영시간비고82
+			  FROM INSTC.TBGCBBR13 A 
+			 WHERE A.부점코드    = ${부점코드}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="regtGcbBhOpTtmBse" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::04.부점정보관리::GCB부점운영시간기준Ebi::GCB부점운영시간기준Dao::GCB부점운영시간기준등록" >
+		<![CDATA[
+			INSERT /*+ 박재훈::/gcb/bhInfMg/gcbBhOpTtmBseEbi/TBGCBBR13/regtGcbBhOpTtmBse */
+			  INTO INSTC.TBGCBBR13
+			(
+			   부점코드
+			 , 적용시작년월일
+			 , 적용종료년월일
+			 , 부점운영시간구분코드
+			 , 부점영업시작시각
+			 , 부점영업종료시각
+			 , 부점운영시간비고11
+			 , 부점운영시간비고12
+			 , 부점운영시간비고21
+			 , 부점운영시간비고22
+			 , 부점운영시간비고41
+			 , 부점운영시간비고42
+			 , 부점운영시간비고61
+			 , 부점운영시간비고62
+			 , 부점운영시간비고81
+			 , 부점운영시간비고82
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${부점코드}
+			 ,${적용시작년월일}
+			 ,${적용종료년월일}
+			 ,${부점운영시간구분코드}
+			 ,${부점영업시작시각}
+			 ,${부점영업종료시각}
+			 ,${부점운영시간비고11}
+			 ,${부점운영시간비고12}
+			 ,${부점운영시간비고21}
+			 ,${부점운영시간비고22}
+			 ,${부점운영시간비고41}
+			 ,${부점운영시간비고42}
+			 ,${부점운영시간비고61}
+			 ,${부점운영시간비고62}
+			 ,${부점운영시간비고81}
+			 ,${부점운영시간비고82}
+			 ,SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,${시스템최종거래일시}
+			)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="delGcbBhOpTtmBse" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::04.부점정보관리::GCB부점운영시간기준Ebi::GCB부점운영시간기준Dao::GCB부점운영시간기준삭제" >
+		<![CDATA[
+			DELETE /*+ 박재훈::/gcb/bhInfMg/gcbBhOpTtmBseEbi/TBGCBBR13/delGcbBhOpTtmBse */
+			  FROM INSTC.TBGCBBR13  
+			 WHERE 부점코드    = ${부점코드}
+			   AND 적용시작년월일 = ${적용시작년월일}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="uptGcbBhOpTtmBse" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::04.부점정보관리::GCB부점운영시간기준Ebi::GCB부점운영시간기준Dao::GCB부점운영시간기준수정" >
+		<![CDATA[
+			UPDATE /*+ 박재훈::/gcb/bhInfMg/gcbBhOpTtmBseEbi/TBGCBBR13/uptGcbBhOpTtmBse */ 
+			       INSTC.TBGCBBR13 
+			   SET 적용종료년월일    = ${적용종료년월일}
+			     , 부점운영시간구분코드 = ${부점운영시간구분코드}
+			     , 부점영업시작시각   = ${부점영업시작시각}
+			     , 부점영업종료시각   = ${부점영업종료시각}
+			     , 부점운영시간비고11 = ${부점운영시간비고11}
+			     , 부점운영시간비고12 = ${부점운영시간비고12}
+			     , 부점운영시간비고21 = ${부점운영시간비고21}
+			     , 부점운영시간비고22 = ${부점운영시간비고22}
+			     , 부점운영시간비고41 = ${부점운영시간비고41}
+			     , 부점운영시간비고42 = ${부점운영시간비고42}
+			     , 부점운영시간비고61 = ${부점운영시간비고61}
+			     , 부점운영시간비고62 = ${부점운영시간비고62}
+			     , 부점운영시간비고81 = ${부점운영시간비고81}
+			     , 부점운영시간비고82 = ${부점운영시간비고82}
+			     , 시스템최종갱신일시  = SYSTIMESTAMP
+			     , 시스템최종갱신식별자 = ${시스템최종갱신식별자}
+			     , 시스템최종거래일시  = ${시스템최종거래일시}
+			 WHERE 부점코드    = ${부점코드}
+			   AND 적용시작년월일 = ${적용시작년월일}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvGcbBhOpTtmBse" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::04.부점정보관리::GCB부점운영시간기준Ebi::GCB부점운영시간기준Dao::GCB부점운영시간기준조회" >
+		<![CDATA[
+			SELECT /*+ 박재훈::/gcb/bhInfMg/gcbBhOpTtmBseEbi/TBGCBBR13/retvGcbBhOpTtmBse */ 
+			       A.부점코드
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , A.부점운영시간구분코드
+			     , A.부점영업시작시각
+			     , A.부점영업종료시각
+			     , A.부점운영시간비고11
+			     , A.부점운영시간비고12
+			     , A.부점운영시간비고21
+			     , A.부점운영시간비고22
+			     , A.부점운영시간비고41
+			     , A.부점운영시간비고42
+			     , A.부점운영시간비고61
+			     , A.부점운영시간비고62
+			     , A.부점운영시간비고81
+			     , A.부점운영시간비고82
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBBR13 A 
+			 WHERE A.부점코드    = ${부점코드}
+			   AND A.적용시작년월일 = ${적용시작년월일}
+		]]>
+    </statement>
+</statements>

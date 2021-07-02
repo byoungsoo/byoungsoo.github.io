@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvGCB_ItEmpDtyDtlEmpDtlInf" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::03.직원정보관리::GCB_IT직원직무상세Ebi::GCB_IT직원직무상세Dao::GCB_IT직원직무상세직원상세정보조회">
+		<![CDATA[
+			SELECT /*+ 송재복::/gcb/empInfMg/gCB_ItEmpDtyDtlEbi/TBGCBHR03/retvGCB_ItEmpDtyDtlEmpDtlInf */ 
+			       A.직원번호
+			     , A.담당어플리케이션코드
+			     , A.단위업무구분코드
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , A.한글직원명
+			     , A.약어직원구분명
+			     , A.소속IT부서구분코드
+			     , A.소속IT부서명
+			     , A.소속IT팀구분코드
+			     , A.소속IT팀명
+			     , A.회계부점코드
+			     , A.부서장직원번호
+			     , A.한글부서장명
+			     , A.팀장직원번호
+			     , A.한글팀장명
+			     , A.IT재직구분코드
+			     , A.IT부서재직구분명
+			     , A.IT부서전입년월일
+			     , A.IT부서전출년월일
+			     , A.직원직통전화번호
+			     , A.직원자택전화번호
+			     , A.직원휴대폰번호
+			     , A.직원이메일주소
+			     , A.직원자택우편번호
+			     , A.직원자택상세주소
+			     , A.외주지원팀명
+			     , A.외주소속회사명
+			     , A.외주시작년월일
+			     , A.외주종료년월일
+			     , A.IT부서근무여부
+			     , A.IT부서단위업무내용
+			     , A.IT부서업무역할명
+			     , A.업무투입시작년월일
+			     , A.업무투입종료년월일
+			  FROM INSTC.TBGCBHR03 A 
+			 WHERE A.직원번호       = ${직원번호}
+			   AND A.담당어플리케이션코드 = ${담당어플리케이션코드}
+			   AND A.단위업무구분코드   = ${단위업무구분코드}
+			   AND A.적용시작년월일   <= ${적용시작년월일}
+			   AND A.적용종료년월일   >= ${적용종료년월일}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGCB_ItEmpDtyDtlEmpUntBwk" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::03.직원정보관리::GCB_IT직원직무상세Ebi::GCB_IT직원직무상세Dao::GCB_IT직원직무상세직원단위업무목록조회">
+		<![CDATA[
+			SELECT /*+ 송재복::/gcb/empInfMg/gCB_ItEmpDtyDtlEbi/TBGCBHR03/retvLstGCB_ItEmpDtyDtlEmpUntBwk */ 
+			       A.직원번호
+			     , A.담당어플리케이션코드
+			     , A.단위업무구분코드
+			     , A.한글직원명 
+			  FROM INSTC.TBGCBHR03 A 
+			 WHERE A.직원번호    = ${직원번호}
+			   AND A.적용시작년월일 <= ${적용시작년월일}
+			   AND A.적용종료년월일 >= ${적용종료년월일}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGCB_ItEmpDtyDtlBlngTemEmpUntBwk" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::03.직원정보관리::GCB_IT직원직무상세Ebi::GCB_IT직원직무상세Dao::GCB_IT직원직무상세소속팀직원단위업무목록조회">
+		<![CDATA[
+			SELECT /*+ 송재복::/gcb/empInfMg/gCB_ItEmpDtyDtlEbi/TBGCBHR03/retvLstGCB_ItEmpDtyDtlBlngTemEmpUntBwk */ 
+			       A.직원번호
+			     , A.담당어플리케이션코드
+			     , A.단위업무구분코드
+			     , A.한글직원명 
+			  FROM INSTC.TBGCBHR03 A 
+			 WHERE A.소속IT팀구분코드 = ${소속IT팀구분코드} 
+			   AND A.적용종료년월일   >= ${적용종료년월일}
+			   AND A.적용시작년월일   <= ${적용시작년월일} 
+			ORDER BY A.직원번호
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGCB_ItEmpDtyDtlEmpRsbUppl" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::03.직원정보관리::GCB_IT직원직무상세Ebi::GCB_IT직원직무상세Dao::GCB_IT직원직무상세직원담당어플리케이션목록조회">
+		<![CDATA[
+			SELECT /*+ 송재복::/gcb/empInfMg/gCB_ItEmpDtyDtlEbi/TBGCBHR03/retvLstGCB_ItEmpDtyDtlEmpRsbUppl */ 
+			       DISTINCT(A.담당어플리케이션코드) 담당어플리케이션코드 
+			  FROM INSTC.TBGCBHR03 A 
+			 WHERE A.직원번호       = ${직원번호}
+			   AND A.담당어플리케이션코드 LIKE ${담당어플리케이션코드}
+			   AND ${기준년월일} BETWEEN A.적용시작년월일 AND A.적용종료년월일
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvGCB_ItEmpDtyDtlEmpRsbUppl" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::03.직원정보관리::GCB_IT직원직무상세Ebi::GCB_IT직원직무상세Dao::GCB_IT직원직무상세직원담당어플리케이션조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/empInfMg/gCB_ItEmpDtyDtlEbi/TBGCBHR03/retvGCB_ItEmpDtyDtlEmpRsbUppl */ 
+			       A.직원번호
+			     , A.담당어플리케이션코드
+			     , A.단위업무구분코드
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , A.한글직원명
+			     , A.약어직원구분명
+			     , A.소속IT부서구분코드
+			     , A.소속IT부서명
+			     , A.소속IT팀구분코드
+			     , A.소속IT팀명
+			     , A.회계부점코드
+			     , A.부서장직원번호
+			     , A.한글부서장명
+			     , A.팀장직원번호
+			     , A.한글팀장명
+			     , A.IT재직구분코드
+			     , A.IT부서재직구분명
+			     , A.IT부서전입년월일
+			     , A.IT부서전출년월일
+			     , A.직원직통전화번호
+			     , A.직원자택전화번호
+			     , A.직원휴대폰번호
+			     , A.직원이메일주소
+			     , A.직원자택우편번호
+			     , A.직원자택상세주소
+			     , A.외주지원팀명
+			     , A.외주소속회사명
+			     , A.외주시작년월일
+			     , A.외주종료년월일
+			     , A.IT부서근무여부
+			     , A.IT부서단위업무내용
+			     , A.IT부서업무역할명
+			     , A.업무투입시작년월일
+			     , A.업무투입종료년월일
+			     , TO_CHAR(시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBHR03 A 
+			 WHERE A.직원번호 = ${직원번호}
+			   AND A.담당어플리케이션코드 = ${담당어플리케이션코드}
+			   AND A.적용시작년월일 <= ${적용시작년월일}
+			   AND A.적용종료년월일 >= ${적용종료년월일}
+			   AND ROWNUM = 1
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGCB_ItEmpBasInfPup" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::03.직원정보관리::GCB_IT직원직무상세Ebi::GCB_IT직원직무상세Dao::GCB_IT직원기본정보팝업목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/empInfMg/gCB_ItEmpDtyDtlEbi/TBGCBHR03/retvLstGCB_ItEmpBasInfPup */ 
+			       A.직원번호
+			     , A.담당어플리케이션코드
+			     , A.단위업무구분코드
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , A.한글직원명
+			     , A.약어직원구분명
+			     , A.소속IT부서구분코드
+			     , A.소속IT부서명
+			     , A.소속IT팀구분코드
+			     , A.소속IT팀명
+			     , A.회계부점코드
+			     , A.부서장직원번호
+			     , A.한글부서장명
+			     , A.팀장직원번호
+			     , A.한글팀장명
+			     , A.IT재직구분코드
+			     , A.IT부서재직구분명
+			     , A.IT부서전입년월일
+			     , A.IT부서전출년월일
+			     , A.직원직통전화번호
+			     , A.직원자택전화번호
+			     , A.직원휴대폰번호
+			     , A.직원이메일주소
+			     , A.직원자택우편번호
+			     , A.직원자택상세주소
+			     , A.외주지원팀명
+			     , A.외주소속회사명
+			     , A.외주시작년월일
+			     , A.외주종료년월일
+			     , A.IT부서근무여부
+			     , A.IT부서단위업무내용
+			     , A.IT부서업무역할명
+			     , A.업무투입시작년월일
+			     , A.업무투입종료년월일
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBHR03 A 
+			 WHERE (A.한글직원명 LIKE '%'||TRIM(${한글직원명})||'%'
+			        OR ${한글직원명} IS NULL)
+			   AND (A.회계부점코드 = ${회계부점코드}
+			        OR ${회계부점코드} IS NULL)   
+			   AND (A.소속IT팀명 LIKE '%'||TRIM(${소속IT팀명})||'%'
+			        OR ${소속IT팀명} IS NULL)   
+			   AND (A.담당어플리케이션코드  = ${담당어플리케이션코드}
+			        OR ${담당어플리케이션코드} IS NULL)   
+			   AND (A.IT부서단위업무내용 LIKE '%'||TRIM(${IT부서단위업무내용})||'%'
+			       OR ${IT부서단위업무내용} IS NULL)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGcbLdgAmdItRcpDv" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::03.직원정보관리::GCB_IT직원직무상세Ebi::GCB_IT직원직무상세Dao::GCB원장수정IT접수부서목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/empInfMg/gCB_ItEmpDtyDtlEbi/TBGCBHR03/retvLstGcbLdgAmdItRcpDv */ 
+			       DISTINCT A.회계부점코드
+			     , A.소속IT부서구분코드
+			     , A.소속IT부서명
+			     , A.소속IT팀구분코드
+			     , A.소속IT팀명
+			  FROM INSTC.TBGCBHR03 A
+			 WHERE A.회계부점코드 = ${회계부점코드}
+			   AND A.적용시작년월일 <= ${적용시작년월일}
+			   AND A.적용종료년월일 >= ${적용종료년월일}
+			   AND A.소속IT팀구분코드 IS NOT NULL
+			ORDER BY A.회계부점코드, A.소속IT부서구분코드, A.소속IT팀구분코드
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGcbLdgAmdItRsbTem" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::03.직원정보관리::GCB_IT직원직무상세Ebi::GCB_IT직원직무상세Dao::GCB원장수정IT담당팀목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/empInfMg/gCB_ItEmpDtyDtlEbi/TBGCBHR03/retvLstGcbLdgAmdItRsbTem */ 
+			       DISTINCT A.회계부점코드
+			     , A.소속IT부서구분코드
+			     , A.소속IT부서명
+			     , A.소속IT팀구분코드
+			     , A.소속IT팀명
+			  FROM INSTC.TBGCBHR03 A
+			 WHERE (A.회계부점코드 = ${회계부점코드}
+			        OR ${회계부점코드} IS NULL)
+			   AND (A.소속IT부서구분코드 = ${소속IT부서구분코드}
+			        OR ${소속IT부서구분코드} IS NULL)
+			   AND A.적용시작년월일 <= ${적용시작년월일}
+			   AND A.적용종료년월일 >= ${적용종료년월일}
+			   AND A.소속IT팀구분코드 LIKE 'KIT%'
+			ORDER BY A.소속IT팀구분코드
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvGCB_ItEmpDtyDtlByBlngItTemDtcd" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::03.직원정보관리::GCB_IT직원직무상세Ebi::GCB_IT직원직무상세Dao::GCB_IT직원직무상세By소속IT팀구분코드조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/empInfMg/gCB_ItEmpDtyDtlEbi/TBGCBHR03/retvGCB_ItEmpDtyDtlByBlngItTemDtcd */ 
+			       A.직원번호
+			     , A.담당어플리케이션코드
+			     , A.단위업무구분코드
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , A.한글직원명
+			     , A.약어직원구분명
+			     , A.소속IT부서구분코드
+			     , A.소속IT부서명
+			     , A.소속IT팀구분코드
+			     , A.소속IT팀명
+			     , A.회계부점코드
+			     , A.부서장직원번호
+			     , A.한글부서장명
+			     , A.팀장직원번호
+			     , A.한글팀장명
+			     , A.IT재직구분코드
+			     , A.IT부서재직구분명
+			     , A.IT부서전입년월일
+			     , A.IT부서전출년월일
+			     , A.직원직통전화번호
+			     , A.직원자택전화번호
+			     , A.직원휴대폰번호
+			     , A.직원이메일주소
+			     , A.직원자택우편번호
+			     , A.직원자택상세주소
+			     , A.외주지원팀명
+			     , A.외주소속회사명
+			     , A.외주시작년월일
+			     , A.외주종료년월일
+			     , A.IT부서근무여부
+			     , A.IT부서단위업무내용
+			     , A.IT부서업무역할명
+			     , A.업무투입시작년월일
+			     , A.업무투입종료년월일
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBHR03 A 
+			 WHERE A.소속IT팀구분코드       = ${소속IT팀구분코드}
+			   AND ROWNUM = 1
+		]]>
+    </statement>
+    
+    <!--  -->
+    <statement name="retvLstGcbLdgAmdItRsbp" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::03.직원정보관리::GCB_IT직원직무상세Ebi::GCB_IT직원직무상세Dao::GCB원장수정IT담당자목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/empInfMg/gCB_ItEmpDtyDtlEbi/TBGCBHR03/retvLstGcbLdgAmdItRsbp */ 
+			       A.직원번호
+			     , LISTAGG(A.담당어플리케이션코드, NVL(${데이터구분_V3}, '#|@')) WITHIN GROUP(ORDER BY A.직원번호) 담당어플리케이션코드_V1000
+			  FROM INSTC.TBGCBHR03 A
+			 WHERE A.소속IT팀구분코드 = ${소속IT팀구분코드}
+			   AND A.적용시작년월일 <= ${적용시작년월일}
+			   AND A.적용종료년월일 >= ${적용종료년월일}
+			   AND A.담당어플리케이션코드 <> '999'
+			GROUP BY A.직원번호
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGCB_ItEmpDtyDtlByNoteSndTg" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::03.직원정보관리::GCB_IT직원직무상세Ebi::GCB_IT직원직무상세Dao::GCB_IT직원직무상세By쪽지발송대상목록조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/empInfMg/gCB_ItEmpDtyDtlEbi/TBGCBHR03/retvLstGCB_ItEmpDtyDtlByNoteSndTg */ 
+			       A.직원번호
+			     , A.담당어플리케이션코드
+			     , A.단위업무구분코드
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , A.한글직원명
+			     , A.약어직원구분명
+			     , A.소속IT부서구분코드
+			     , A.소속IT부서명
+			     , A.소속IT팀구분코드
+			     , A.소속IT팀명
+			     , A.회계부점코드
+			     , A.부서장직원번호
+			     , A.한글부서장명
+			     , A.팀장직원번호
+			     , A.한글팀장명
+			     , A.IT재직구분코드
+			     , A.IT부서재직구분명
+			     , A.IT부서전입년월일
+			     , A.IT부서전출년월일
+			     , A.직원직통전화번호
+			     , A.직원자택전화번호
+			     , A.직원휴대폰번호
+			     , A.직원이메일주소
+			     , A.직원자택우편번호
+			     , A.직원자택상세주소
+			     , A.외주지원팀명
+			     , A.외주소속회사명
+			     , A.외주시작년월일
+			     , A.외주종료년월일
+			     , A.IT부서근무여부
+			     , A.IT부서단위업무내용
+			     , A.IT부서업무역할명
+			     , A.업무투입시작년월일
+			     , A.업무투입종료년월일
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBHR03 A 
+			 WHERE A.담당어플리케이션코드 = ${담당어플리케이션코드}
+			   AND A.적용시작년월일 <= ${적용시작년월일}
+			   AND A.적용종료년월일 >= ${적용시작년월일}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGCB_ItEmpDtyDtlEmpnoByInf" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::03.직원정보관리::GCB_IT직원직무상세Ebi::GCB_IT직원직무상세Dao::GCB_IT직원직무상세직원번호By정보목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/empInfMg/gCB_ItEmpDtyDtlEbi/TBGCBHR03/retvLstGCB_ItEmpDtyDtlEmpnoByInf */ 
+			       A.직원번호
+			     , A.담당어플리케이션코드
+			     , A.단위업무구분코드
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , A.한글직원명
+			     , A.약어직원구분명
+			     , A.소속IT부서구분코드
+			     , A.소속IT부서명
+			     , A.소속IT팀구분코드
+			     , A.소속IT팀명
+			     , A.회계부점코드
+			     , A.부서장직원번호
+			     , A.한글부서장명
+			     , A.팀장직원번호
+			     , A.한글팀장명
+			     , A.IT재직구분코드
+			     , A.IT부서재직구분명
+			     , A.IT부서전입년월일
+			     , A.IT부서전출년월일
+			     , A.직원직통전화번호
+			     , A.직원자택전화번호
+			     , A.직원휴대폰번호
+			     , A.직원이메일주소
+			     , A.직원자택우편번호
+			     , A.직원자택상세주소
+			     , A.외주지원팀명
+			     , A.외주소속회사명
+			     , A.외주시작년월일
+			     , A.외주종료년월일
+			     , A.IT부서근무여부
+			     , A.IT부서단위업무내용
+			     , A.IT부서업무역할명
+			     , A.업무투입시작년월일
+			     , A.업무투입종료년월일
+			  FROM INSTC.TBGCBHR03 A 
+			 WHERE A.직원번호       = ${직원번호}
+			   AND A.소속IT팀구분코드 = ${소속IT팀구분코드}
+			   AND A.적용시작년월일 <= ${적용시작년월일}
+			   AND A.적용종료년월일 >= ${적용종료년월일}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvGCB_ItEmpDtyDtlByBlngItTemDtcdUpplNcn" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::03.직원정보관리::GCB_IT직원직무상세Ebi::GCB_IT직원직무상세Dao::GCB_IT직원직무상세By소속IT팀구분코드어플리케이션건수조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/empInfMg/gCB_ItEmpDtyDtlEbi/TBGCBHR03/retvGCB_ItEmpDtyDtlByBlngItTemDtcdUpplNcn */ 
+			       COUNT(*) 조회건수_N3
+			  FROM INSTC.TBGCBHR03 A 
+			 WHERE A.직원번호       = ${직원번호}
+			   AND A.담당어플리케이션코드 = ${담당어플리케이션코드}
+			   AND A.적용시작년월일    <= ${적용시작년월일}
+			   AND A.적용종료년월일    >= ${적용종료년월일}
+			   AND A.소속IT팀구분코드  = ${소속IT팀구분코드}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGcbLdgAmdItEmp" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::03.직원정보관리::GCB_IT직원직무상세Ebi::GCB_IT직원직무상세Dao::GCB원장수정IT직원목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/empInfMg/gCB_ItEmpDtyDtlEbi/TBGCBHR03/retvLstGcbLdgAmdItEmp */ 
+			       DISTINCT A.직원번호
+			  FROM INSTC.TBGCBHR03 A 
+			 WHERE (A.담당어플리케이션코드 = ${담당어플리케이션코드}
+			        OR ${담당어플리케이션코드} IS NULL)
+			   AND (A.단위업무구분코드 = ${단위업무구분코드}
+			        OR ${단위업무구분코드} IS NULL)
+			   AND (A.소속IT부서구분코드 = ${소속IT부서구분코드}
+			        OR ${소속IT부서구분코드} IS NULL)
+			   AND (A.소속IT팀구분코드 = ${소속IT팀구분코드}
+			        OR ${소속IT팀구분코드} IS NULL)
+			   AND (A.회계부점코드 = ${회계부점코드}
+			        OR ${회계부점코드} IS NULL)        
+			   AND A.적용시작년월일    <= ${적용시작년월일}
+			   AND A.적용종료년월일    >= ${적용종료년월일}
+			   AND A.직원번호 LIKE 'K%'
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGCB_ItEmpDtyDtlByBlngFmalTemm" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::03.직원정보관리::GCB_IT직원직무상세Ebi::GCB_IT직원직무상세Dao::GCB_IT직원직무상세By소속정규팀원목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/empInfMg/gCB_ItEmpDtyDtlEbi/TBGCBHR03/retvLstGCB_ItEmpDtyDtlByBlngFmalTemm */ 
+			       DISTINCT A.직원번호
+			  FROM INSTC.TBGCBHR03 A        /* GCB_IT직원직무상세 */
+			 WHERE A.적용시작년월일 <= ${적용시작년월일}
+			   AND A.적용종료년월일 >= ${적용종료년월일}
+			   AND A.소속IT팀구분코드 = ${소속IT팀구분코드}
+			   AND A.직원번호 LIKE 'K%'
+		]]>
+    </statement>
+</statements>

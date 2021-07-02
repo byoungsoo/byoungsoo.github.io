@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<navigation>
+    <action name="/employee/{querynum}">
+    	<method>get</method>
+    	<command>com.kbcard.frw.cmd.RetrieveEmployeeCmd</command>
+    </action>
+    
+    <action name="/tranList/{tranId}">
+    	<method>get</method>
+    	<command>com.kbcard.frw.cmd.TranListCmd</command>
+    </action>
+  
+    <!-- 약정계좌등록 -->
+    <action name="/regtAgmAcc">
+         <method>post</method>
+         <command>#restCommonCmd</command>
+         <tran-id>UBF1010401</tran-id>
+    </action>
+    
+    <!-- 약정계좌조회 -->
+    <action name="/retvAgmAcc">
+         <method>post</method>
+         <command>#restCommonCmd</command>
+         <tran-id>UBF1010402</tran-id>
+    </action> 
+    
+</navigation>

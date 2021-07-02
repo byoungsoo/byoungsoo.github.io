@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvLstGcbBchJb" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::21.IT장애관리지원::GCB배치검증정보Jebi::GCB배치검증정보Jdao::GCB배치작업목록조회">
+		<![CDATA[
+			SELECT /*+ 김민교::/gcb/itObstMgSpt/gcbBchVlnInfJebi/GcbBchVlnInf/retvLstGcbBchJb */ 
+			       DISTINCT(A.JAS작업ID)
+			     , A.JOBID
+			     , B.JOB_DESC JOB설명_V500
+			  FROM INSTC.TBGCBEM03 A
+			     , DEVON.SERE_BT_JOB_INFO_TB B
+			 WHERE A.JOBID = B.JOB_ID(+)
+			   AND A.JAS작업ID = ${JAS작업ID}
+		]]>
+    </statement>
+</statements>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="regtClwrAltmInf" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::01.공통데이터동기화관리::01.공통데이터접수::직원사무분담정보적재Job::DAO::직원사무분담정보적재Bdao::사무분담정보등록">
+		<![CDATA[
+			INSERT /*+ 김남식::/gcb/batch/cmnDatSynchMg/cmnDatRcp/empClwrAltmInfLdinJob/EmpClwrAltmInfLdin/regtClwrAltmInf */
+			  INTO INSTC.TBGCBHM01
+			(
+			   부점코드
+			 , 사무분담코드
+			 , 직원번호
+			 , 적용시작년월일
+			 , 적용종료년월일
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			 , 대직여부
+			)
+			VALUES
+			(
+			  ${부점코드}
+			 ,${사무분담코드}
+			 ,${직원번호}
+			 ,${적용시작년월일}
+			 ,${적용종료년월일}
+			 ,SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,${시스템최종거래일시}
+			 ,${대직여부}
+			)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="delClwrAltmInf" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::01.공통데이터동기화관리::01.공통데이터접수::직원사무분담정보적재Job::DAO::직원사무분담정보적재Bdao::사무분담정보삭제" >
+		<![CDATA[
+			DELETE /*+ 김남식::/gcb/batch/cmnDatSynchMg/cmnDatRcp/empClwrAltmInfLdinJob/EmpClwrAltmInfLdin/delClwrAltmInf */
+			  FROM INSTC.TBGCBHM01  
+			 WHERE 부점코드    = ${부점코드}
+			   AND 사무분담코드  = ${사무분담코드}
+			   AND 직원번호    = ${직원번호}
+			   AND 적용시작년월일 = ${적용시작년월일}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="uptClwrAltmInf" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::01.공통데이터동기화관리::01.공통데이터접수::직원사무분담정보적재Job::DAO::직원사무분담정보적재Bdao::사무분담정보수정">
+		<![CDATA[
+			UPDATE /*+ 김남식::/gcb/batch/cmnDatSynchMg/cmnDatRcp/empClwrAltmInfLdinJob/EmpClwrAltmInfLdin/uptClwrAltmInf */ 
+			       INSTC.TBGCBHM01 
+			   SET 적용종료년월일    = ${적용종료년월일}
+			     , 시스템최종갱신일시  = SYSTIMESTAMP
+			     , 시스템최종갱신식별자 = ${시스템최종갱신식별자}
+			     , 시스템최종거래일시  = ${시스템최종거래일시}
+			     , 대직여부  = ${대직여부}
+			 WHERE 부점코드    = ${부점코드}
+			   AND 사무분담코드  = ${사무분담코드}
+			   AND 직원번호    = ${직원번호}
+			   AND 적용시작년월일 = ${적용시작년월일}
+		]]>
+    </statement>
+</statements>

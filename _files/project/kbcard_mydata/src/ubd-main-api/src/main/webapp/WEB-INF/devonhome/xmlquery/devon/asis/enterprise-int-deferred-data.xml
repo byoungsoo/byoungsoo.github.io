@@ -1,0 +1,3841 @@
+<?xml version="1.0" encoding="EUC-KR"?> 
+<statements>
+
+    <!--  후행 데이터 분배를 위한 조회용 Query -->
+   <statement name="retrieveDfrdDataForProc01">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( A.ROWID ) DATA_ROW_ID
+                   ,A.DFRD_BIZ_ID
+                   ,A.INST_NO
+                   ,A.NODE_NO
+                   ,A.DFRD_SEQ
+                   ,B.PROC_ST
+                   ,B.PROC_STRT_DT
+                   ,B.PROC_END_DT
+                   ,A.GUID
+                   ,A.PATH_NO
+                   ,A.TRAN_ID
+                   ,A.TRAN_DT
+                   ,A.TRAN_HEADER
+                   ,A.IN_DATA1
+                   ,A.IN_DATA2
+            FROM    DEVON.SERE_DFRDDATA_TB01  A
+                   ,DEVON.SERE_DFRDDATPROC_TB B
+            WHERE   A.DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     A.DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     A.TRAN_DT = ${TRAN_DT}
+            AND     A.NODE_NO = ${NODE_NO}
+            AND     A.INST_NO = ${INST_NO}
+            AND     B.DFRD_PROC_ID = ${DFRD_PROC_ID}
+            AND     A.TRAN_DT = B.TRAN_DT
+            AND     B.DAY_CD = SUBSTR(A.TRAN_DT,7,2)
+            AND     A.INST_NO = B.INST_NO
+            AND     A.NODE_NO = B.NODE_NO
+            AND     A.DFRD_SEQ = B.DFRD_SEQ            
+        ]]>
+   </statement>
+   <statement name="retrieveDfrdDataForProc02">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( A.ROWID ) DATA_ROW_ID
+                   ,A.DFRD_BIZ_ID
+                   ,A.INST_NO
+                   ,A.NODE_NO
+                   ,A.DFRD_SEQ
+                   ,B.PROC_ST
+                   ,B.PROC_STRT_DT
+                   ,B.PROC_END_DT
+                   ,A.GUID
+                   ,A.PATH_NO
+                   ,A.TRAN_ID
+                   ,A.TRAN_DT
+                   ,A.TRAN_HEADER
+                   ,A.IN_DATA1
+                   ,A.IN_DATA2
+            FROM    DEVON.SERE_DFRDDATA_TB02  A
+                   ,DEVON.SERE_DFRDDATPROC_TB B
+            WHERE   A.DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     A.DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     A.TRAN_DT = ${TRAN_DT}
+            AND     A.NODE_NO = ${NODE_NO}
+            AND     A.INST_NO = ${INST_NO}
+            AND     B.DFRD_PROC_ID = ${DFRD_PROC_ID}
+            AND     A.TRAN_DT = B.TRAN_DT
+            AND     B.DAY_CD = SUBSTR(A.TRAN_DT,7,2)
+            AND     A.INST_NO = B.INST_NO
+            AND     A.NODE_NO = B.NODE_NO
+            AND     A.DFRD_SEQ = B.DFRD_SEQ     
+        ]]>
+   </statement>
+  <statement name="retrieveDfrdDataForProc03">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( A.ROWID ) DATA_ROW_ID
+                   ,A.DFRD_BIZ_ID
+                   ,A.INST_NO
+                   ,A.NODE_NO
+                   ,A.DFRD_SEQ
+                   ,B.PROC_ST
+                   ,B.PROC_STRT_DT
+                   ,B.PROC_END_DT
+                   ,A.GUID
+                   ,A.PATH_NO
+                   ,A.TRAN_ID
+                   ,A.TRAN_DT
+                   ,A.TRAN_HEADER
+                   ,A.IN_DATA1
+                   ,A.IN_DATA2
+            FROM    DEVON.SERE_DFRDDATA_TB03  A
+                   ,DEVON.SERE_DFRDDATPROC_TB B
+            WHERE   A.DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     A.DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     A.TRAN_DT = ${TRAN_DT}
+            AND     A.NODE_NO = ${NODE_NO}
+            AND     A.INST_NO = ${INST_NO}
+            AND     B.DFRD_PROC_ID = ${DFRD_PROC_ID}
+            AND     A.TRAN_DT = B.TRAN_DT
+            AND     B.DAY_CD = SUBSTR(A.TRAN_DT,7,2)
+            AND     A.INST_NO = B.INST_NO
+            AND     A.NODE_NO = B.NODE_NO
+            AND     A.DFRD_SEQ = B.DFRD_SEQ     
+        ]]>
+   </statement>
+   <statement name="retrieveDfrdDataForProc04">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( A.ROWID ) DATA_ROW_ID
+                   ,A.DFRD_BIZ_ID
+                   ,A.INST_NO
+                   ,A.NODE_NO
+                   ,A.DFRD_SEQ
+                   ,B.PROC_ST
+                   ,B.PROC_STRT_DT
+                   ,B.PROC_END_DT
+                   ,A.GUID
+                   ,A.PATH_NO
+                   ,A.TRAN_ID
+                   ,A.TRAN_DT
+                   ,A.TRAN_HEADER
+                   ,A.IN_DATA1
+                   ,A.IN_DATA2
+            FROM    DEVON.SERE_DFRDDATA_TB04  A
+                   ,DEVON.SERE_DFRDDATPROC_TB B
+            WHERE   A.DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     A.DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     A.TRAN_DT = ${TRAN_DT}
+            AND     A.NODE_NO = ${NODE_NO}
+            AND     A.INST_NO = ${INST_NO}
+            AND     B.DFRD_PROC_ID = ${DFRD_PROC_ID}
+            AND     A.TRAN_DT = B.TRAN_DT
+            AND     B.DAY_CD = SUBSTR(A.TRAN_DT,7,2)
+            AND     A.INST_NO = B.INST_NO
+            AND     A.NODE_NO = B.NODE_NO
+            AND     A.DFRD_SEQ = B.DFRD_SEQ     
+        ]]>
+    </statement>
+   <statement name="retrieveDfrdDataForProc05">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( A.ROWID ) DATA_ROW_ID
+                   ,A.DFRD_BIZ_ID
+                   ,A.INST_NO
+                   ,A.NODE_NO
+                   ,A.DFRD_SEQ
+                   ,B.PROC_ST
+                   ,B.PROC_STRT_DT
+                   ,B.PROC_END_DT
+                   ,A.GUID
+                   ,A.PATH_NO
+                   ,A.TRAN_ID
+                   ,A.TRAN_DT
+                   ,A.TRAN_HEADER
+                   ,A.IN_DATA1
+                   ,A.IN_DATA2
+            FROM    DEVON.SERE_DFRDDATA_TB05  A
+                   ,DEVON.SERE_DFRDDATPROC_TB B
+            WHERE   A.DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     A.DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     A.TRAN_DT = ${TRAN_DT}
+            AND     A.NODE_NO = ${NODE_NO}
+            AND     A.INST_NO = ${INST_NO}
+            AND     B.DFRD_PROC_ID = ${DFRD_PROC_ID}
+            AND     A.TRAN_DT = B.TRAN_DT
+            AND     B.DAY_CD = SUBSTR(A.TRAN_DT,7,2)
+            AND     A.INST_NO = B.INST_NO
+            AND     A.NODE_NO = B.NODE_NO
+            AND     A.DFRD_SEQ = B.DFRD_SEQ     
+        ]]>
+    </statement>
+   <statement name="retrieveDfrdDataForProc06">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( A.ROWID ) DATA_ROW_ID
+                   ,A.DFRD_BIZ_ID
+                   ,A.INST_NO
+                   ,A.NODE_NO
+                   ,A.DFRD_SEQ
+                   ,B.PROC_ST
+                   ,B.PROC_STRT_DT
+                   ,B.PROC_END_DT
+                   ,A.GUID
+                   ,A.PATH_NO
+                   ,A.TRAN_ID
+                   ,A.TRAN_DT
+                   ,A.TRAN_HEADER
+                   ,A.IN_DATA1
+                   ,A.IN_DATA2
+            FROM    DEVON.SERE_DFRDDATA_TB06  A
+                   ,DEVON.SERE_DFRDDATPROC_TB B
+            WHERE   A.DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     A.DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     A.TRAN_DT = ${TRAN_DT}
+            AND     A.NODE_NO = ${NODE_NO}
+            AND     A.INST_NO = ${INST_NO}
+            AND     B.DFRD_PROC_ID = ${DFRD_PROC_ID}
+            AND     A.TRAN_DT = B.TRAN_DT
+            AND     B.DAY_CD = SUBSTR(A.TRAN_DT,7,2)
+            AND     A.INST_NO = B.INST_NO
+            AND     A.NODE_NO = B.NODE_NO
+            AND     A.DFRD_SEQ = B.DFRD_SEQ     
+        ]]>
+   </statement>
+   <statement name="retrieveDfrdDataForProc07">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( A.ROWID ) DATA_ROW_ID
+                   ,A.DFRD_BIZ_ID
+                   ,A.INST_NO
+                   ,A.NODE_NO
+                   ,A.DFRD_SEQ
+                   ,B.PROC_ST
+                   ,B.PROC_STRT_DT
+                   ,B.PROC_END_DT
+                   ,A.GUID
+                   ,A.PATH_NO
+                   ,A.TRAN_ID
+                   ,A.TRAN_DT
+                   ,A.TRAN_HEADER
+                   ,A.IN_DATA1
+                   ,A.IN_DATA2
+            FROM    DEVON.SERE_DFRDDATA_TB07  A
+                   ,DEVON.SERE_DFRDDATPROC_TB B
+            WHERE   A.DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     A.DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     A.TRAN_DT = ${TRAN_DT}
+            AND     A.NODE_NO = ${NODE_NO}
+            AND     A.INST_NO = ${INST_NO}
+            AND     B.DFRD_PROC_ID = ${DFRD_PROC_ID}
+            AND     A.TRAN_DT = B.TRAN_DT
+            AND     B.DAY_CD = SUBSTR(A.TRAN_DT,7,2)
+            AND     A.INST_NO = B.INST_NO
+            AND     A.NODE_NO = B.NODE_NO
+            AND     A.DFRD_SEQ = B.DFRD_SEQ
+        ]]>
+   </statement>
+   <statement name="retrieveDfrdDataForProc08">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( A.ROWID ) DATA_ROW_ID
+                   ,A.DFRD_BIZ_ID
+                   ,A.INST_NO
+                   ,A.NODE_NO
+                   ,A.DFRD_SEQ
+                   ,B.PROC_ST
+                   ,B.PROC_STRT_DT
+                   ,B.PROC_END_DT
+                   ,A.GUID
+                   ,A.PATH_NO
+                   ,A.TRAN_ID
+                   ,A.TRAN_DT
+                   ,A.TRAN_HEADER
+                   ,A.IN_DATA1
+                   ,A.IN_DATA2
+            FROM    DEVON.SERE_DFRDDATA_TB08  A
+                   ,DEVON.SERE_DFRDDATPROC_TB B
+            WHERE   A.DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     A.DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     A.TRAN_DT = ${TRAN_DT}
+            AND     A.NODE_NO = ${NODE_NO}
+            AND     A.INST_NO = ${INST_NO}
+            AND     B.DFRD_PROC_ID = ${DFRD_PROC_ID}
+            AND     A.TRAN_DT = B.TRAN_DT
+            AND     B.DAY_CD = SUBSTR(A.TRAN_DT,7,2)
+            AND     A.INST_NO = B.INST_NO
+            AND     A.NODE_NO = B.NODE_NO
+            AND     A.DFRD_SEQ = B.DFRD_SEQ
+        ]]>
+   </statement>
+   <statement name="retrieveDfrdDataForProc09">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( A.ROWID ) DATA_ROW_ID
+                   ,A.DFRD_BIZ_ID
+                   ,A.INST_NO
+                   ,A.NODE_NO
+                   ,A.DFRD_SEQ
+                   ,B.PROC_ST
+                   ,B.PROC_STRT_DT
+                   ,B.PROC_END_DT
+                   ,A.GUID
+                   ,A.PATH_NO
+                   ,A.TRAN_ID
+                   ,A.TRAN_DT
+                   ,A.TRAN_HEADER
+                   ,A.IN_DATA1
+                   ,A.IN_DATA2
+            FROM    DEVON.SERE_DFRDDATA_TB09  A
+                   ,DEVON.SERE_DFRDDATPROC_TB B
+            WHERE   A.DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     A.DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     A.TRAN_DT = ${TRAN_DT}
+            AND     A.NODE_NO = ${NODE_NO}
+            AND     A.INST_NO = ${INST_NO}
+            AND     B.DFRD_PROC_ID = ${DFRD_PROC_ID}
+            AND     A.TRAN_DT = B.TRAN_DT
+            AND     B.DAY_CD = SUBSTR(A.TRAN_DT,7,2)
+            AND     A.INST_NO = B.INST_NO
+            AND     A.NODE_NO = B.NODE_NO
+            AND     A.DFRD_SEQ = B.DFRD_SEQ
+        ]]>
+   </statement>
+   <statement name="retrieveDfrdDataForProc10">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( A.ROWID ) DATA_ROW_ID
+                   ,A.DFRD_BIZ_ID
+                   ,A.INST_NO
+                   ,A.NODE_NO
+                   ,A.DFRD_SEQ
+                   ,B.PROC_ST
+                   ,B.PROC_STRT_DT
+                   ,B.PROC_END_DT
+                   ,A.GUID
+                   ,A.PATH_NO
+                   ,A.TRAN_ID
+                   ,A.TRAN_DT
+                   ,A.TRAN_HEADER
+                   ,A.IN_DATA1
+                   ,A.IN_DATA2
+            FROM    DEVON.SERE_DFRDDATA_TB10  A
+                   ,DEVON.SERE_DFRDDATPROC_TB B
+            WHERE   A.DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     A.DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     A.TRAN_DT = ${TRAN_DT}
+            AND     A.NODE_NO = ${NODE_NO}
+            AND     A.INST_NO = ${INST_NO}
+            AND     B.DFRD_PROC_ID = ${DFRD_PROC_ID}
+            AND     A.TRAN_DT = B.TRAN_DT
+            AND     B.DAY_CD = SUBSTR(A.TRAN_DT,7,2)
+            AND     A.INST_NO = B.INST_NO
+            AND     A.NODE_NO = B.NODE_NO
+            AND     A.DFRD_SEQ = B.DFRD_SEQ
+        ]]>
+   </statement>
+   <statement name="retrieveDfrdDataForProc11">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( A.ROWID ) DATA_ROW_ID
+                   ,A.DFRD_BIZ_ID
+                   ,A.INST_NO
+                   ,A.NODE_NO
+                   ,A.DFRD_SEQ
+                   ,B.PROC_ST
+                   ,B.PROC_STRT_DT
+                   ,B.PROC_END_DT
+                   ,A.GUID
+                   ,A.PATH_NO
+                   ,A.TRAN_ID
+                   ,A.TRAN_DT
+                   ,A.TRAN_HEADER
+                   ,A.IN_DATA1
+                   ,A.IN_DATA2
+            FROM    DEVON.SERE_DFRDDATA_TB11  A
+                   ,DEVON.SERE_DFRDDATPROC_TB B
+            WHERE   A.DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     A.DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     A.TRAN_DT = ${TRAN_DT}
+            AND     A.NODE_NO = ${NODE_NO}
+            AND     A.INST_NO = ${INST_NO}
+            AND     B.DFRD_PROC_ID = ${DFRD_PROC_ID}
+            AND     A.TRAN_DT = B.TRAN_DT
+            AND     B.DAY_CD = SUBSTR(A.TRAN_DT,7,2)
+            AND     A.INST_NO = B.INST_NO
+            AND     A.NODE_NO = B.NODE_NO
+            AND     A.DFRD_SEQ = B.DFRD_SEQ
+        ]]>
+   </statement>
+   <statement name="retrieveDfrdDataForProc12">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( A.ROWID ) DATA_ROW_ID
+                   ,A.DFRD_BIZ_ID
+                   ,A.INST_NO
+                   ,A.NODE_NO
+                   ,A.DFRD_SEQ
+                   ,B.PROC_ST
+                   ,B.PROC_STRT_DT
+                   ,B.PROC_END_DT
+                   ,A.GUID
+                   ,A.PATH_NO
+                   ,A.TRAN_ID
+                   ,A.TRAN_DT
+                   ,A.TRAN_HEADER
+                   ,A.IN_DATA1
+                   ,A.IN_DATA2
+            FROM    DEVON.SERE_DFRDDATA_TB12  A
+                   ,DEVON.SERE_DFRDDATPROC_TB B
+            WHERE   A.DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     A.DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     A.TRAN_DT = ${TRAN_DT}
+            AND     A.NODE_NO = ${NODE_NO}
+            AND     A.INST_NO = ${INST_NO}
+            AND     B.DFRD_PROC_ID = ${DFRD_PROC_ID}
+            AND     A.TRAN_DT = B.TRAN_DT
+            AND     B.DAY_CD = SUBSTR(A.TRAN_DT,7,2)
+            AND     A.INST_NO = B.INST_NO
+            AND     A.NODE_NO = B.NODE_NO
+            AND     A.DFRD_SEQ = B.DFRD_SEQ
+        ]]>
+    </statement>
+   <statement name="retrieveDfrdDataForProc13">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( A.ROWID ) DATA_ROW_ID
+                   ,A.DFRD_BIZ_ID
+                   ,A.INST_NO
+                   ,A.NODE_NO
+                   ,A.DFRD_SEQ
+                   ,B.PROC_ST
+                   ,B.PROC_STRT_DT
+                   ,B.PROC_END_DT
+                   ,A.GUID
+                   ,A.PATH_NO
+                   ,A.TRAN_ID
+                   ,A.TRAN_DT
+                   ,A.TRAN_HEADER
+                   ,A.IN_DATA1
+                   ,A.IN_DATA2
+            FROM    DEVON.SERE_DFRDDATA_TB13  A
+                   ,DEVON.SERE_DFRDDATPROC_TB B
+            WHERE   A.DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     A.DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     A.TRAN_DT = ${TRAN_DT}
+            AND     A.NODE_NO = ${NODE_NO}
+            AND     A.INST_NO = ${INST_NO}
+            AND     B.DFRD_PROC_ID = ${DFRD_PROC_ID}
+            AND     A.TRAN_DT = B.TRAN_DT
+            AND     B.DAY_CD = SUBSTR(A.TRAN_DT,7,2)
+            AND     A.INST_NO = B.INST_NO
+            AND     A.NODE_NO = B.NODE_NO
+            AND     A.DFRD_SEQ = B.DFRD_SEQ
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForProc14">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( A.ROWID ) DATA_ROW_ID
+                   ,A.DFRD_BIZ_ID
+                   ,A.INST_NO
+                   ,A.NODE_NO
+                   ,A.DFRD_SEQ
+                   ,B.PROC_ST
+                   ,B.PROC_STRT_DT
+                   ,B.PROC_END_DT
+                   ,A.GUID
+                   ,A.PATH_NO
+                   ,A.TRAN_ID
+                   ,A.TRAN_DT
+                   ,A.TRAN_HEADER
+                   ,A.IN_DATA1
+                   ,A.IN_DATA2
+            FROM    DEVON.SERE_DFRDDATA_TB14  A
+                   ,DEVON.SERE_DFRDDATPROC_TB B
+            WHERE   A.DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     A.DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     A.TRAN_DT = ${TRAN_DT}
+            AND     A.NODE_NO = ${NODE_NO}
+            AND     A.INST_NO = ${INST_NO}
+            AND     B.DFRD_PROC_ID = ${DFRD_PROC_ID}
+            AND     A.TRAN_DT = B.TRAN_DT
+            AND     B.DAY_CD = SUBSTR(A.TRAN_DT,7,2)
+            AND     A.INST_NO = B.INST_NO
+            AND     A.NODE_NO = B.NODE_NO
+            AND     A.DFRD_SEQ = B.DFRD_SEQ
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForProc15">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( A.ROWID ) DATA_ROW_ID
+                   ,A.DFRD_BIZ_ID
+                   ,A.INST_NO
+                   ,A.NODE_NO
+                   ,A.DFRD_SEQ
+                   ,B.PROC_ST
+                   ,B.PROC_STRT_DT
+                   ,B.PROC_END_DT
+                   ,A.GUID
+                   ,A.PATH_NO
+                   ,A.TRAN_ID
+                   ,A.TRAN_DT
+                   ,A.TRAN_HEADER
+                   ,A.IN_DATA1
+                   ,A.IN_DATA2
+            FROM    DEVON.SERE_DFRDDATA_TB15  A
+                   ,DEVON.SERE_DFRDDATPROC_TB B
+            WHERE   A.DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     A.DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     A.TRAN_DT = ${TRAN_DT}
+            AND     A.NODE_NO = ${NODE_NO}
+            AND     A.INST_NO = ${INST_NO}
+            AND     B.DFRD_PROC_ID = ${DFRD_PROC_ID}
+            AND     A.TRAN_DT = B.TRAN_DT
+            AND     B.DAY_CD = SUBSTR(A.TRAN_DT,7,2)
+            AND     A.INST_NO = B.INST_NO
+            AND     A.NODE_NO = B.NODE_NO
+            AND     A.DFRD_SEQ = B.DFRD_SEQ
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForProc16">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( A.ROWID ) DATA_ROW_ID
+                   ,A.DFRD_BIZ_ID
+                   ,A.INST_NO
+                   ,A.NODE_NO
+                   ,A.DFRD_SEQ
+                   ,B.PROC_ST
+                   ,B.PROC_STRT_DT
+                   ,B.PROC_END_DT
+                   ,A.GUID
+                   ,A.PATH_NO
+                   ,A.TRAN_ID
+                   ,A.TRAN_DT
+                   ,A.TRAN_HEADER
+                   ,A.IN_DATA1
+                   ,A.IN_DATA2
+            FROM    DEVON.SERE_DFRDDATA_TB16  A
+                   ,DEVON.SERE_DFRDDATPROC_TB B
+            WHERE   A.DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     A.DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     A.TRAN_DT = ${TRAN_DT}
+            AND     A.NODE_NO = ${NODE_NO}
+            AND     A.INST_NO = ${INST_NO}
+            AND     B.DFRD_PROC_ID = ${DFRD_PROC_ID}
+            AND     A.TRAN_DT = B.TRAN_DT
+            AND     B.DAY_CD = SUBSTR(A.TRAN_DT,7,2)
+            AND     A.INST_NO = B.INST_NO
+            AND     A.NODE_NO = B.NODE_NO
+            AND     A.DFRD_SEQ = B.DFRD_SEQ
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForProc17">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( A.ROWID ) DATA_ROW_ID
+                   ,A.DFRD_BIZ_ID
+                   ,A.INST_NO
+                   ,A.NODE_NO
+                   ,A.DFRD_SEQ
+                   ,B.PROC_ST
+                   ,B.PROC_STRT_DT
+                   ,B.PROC_END_DT
+                   ,A.GUID
+                   ,A.PATH_NO
+                   ,A.TRAN_ID
+                   ,A.TRAN_DT
+                   ,A.TRAN_HEADER
+                   ,A.IN_DATA1
+                   ,A.IN_DATA2
+            FROM    DEVON.SERE_DFRDDATA_TB17  A
+                   ,DEVON.SERE_DFRDDATPROC_TB B
+            WHERE   A.DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     A.DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     A.TRAN_DT = ${TRAN_DT}
+            AND     A.NODE_NO = ${NODE_NO}
+            AND     A.INST_NO = ${INST_NO}
+            AND     B.DFRD_PROC_ID = ${DFRD_PROC_ID}
+            AND     A.TRAN_DT = B.TRAN_DT
+            AND     B.DAY_CD = SUBSTR(A.TRAN_DT,7,2)
+            AND     A.INST_NO = B.INST_NO
+            AND     A.NODE_NO = B.NODE_NO
+            AND     A.DFRD_SEQ = B.DFRD_SEQ
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForProc18">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( A.ROWID ) DATA_ROW_ID
+                   ,A.DFRD_BIZ_ID
+                   ,A.INST_NO
+                   ,A.NODE_NO
+                   ,A.DFRD_SEQ
+                   ,B.PROC_ST
+                   ,B.PROC_STRT_DT
+                   ,B.PROC_END_DT
+                   ,A.GUID
+                   ,A.PATH_NO
+                   ,A.TRAN_ID
+                   ,A.TRAN_DT
+                   ,A.TRAN_HEADER
+                   ,A.IN_DATA1
+                   ,A.IN_DATA2
+            FROM    DEVON.SERE_DFRDDATA_TB18  A
+                   ,DEVON.SERE_DFRDDATPROC_TB B
+            WHERE   A.DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     A.DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     A.TRAN_DT = ${TRAN_DT}
+            AND     A.NODE_NO = ${NODE_NO}
+            AND     A.INST_NO = ${INST_NO}
+            AND     B.DFRD_PROC_ID = ${DFRD_PROC_ID}
+            AND     A.TRAN_DT = B.TRAN_DT
+            AND     B.DAY_CD = SUBSTR(A.TRAN_DT,7,2)
+            AND     A.INST_NO = B.INST_NO
+            AND     A.NODE_NO = B.NODE_NO
+            AND     A.DFRD_SEQ = B.DFRD_SEQ
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForProc19">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( A.ROWID ) DATA_ROW_ID
+                   ,A.DFRD_BIZ_ID
+                   ,A.INST_NO
+                   ,A.NODE_NO
+                   ,A.DFRD_SEQ
+                   ,B.PROC_ST
+                   ,B.PROC_STRT_DT
+                   ,B.PROC_END_DT
+                   ,A.GUID
+                   ,A.PATH_NO
+                   ,A.TRAN_ID
+                   ,A.TRAN_DT
+                   ,A.TRAN_HEADER
+                   ,A.IN_DATA1
+                   ,A.IN_DATA2
+            FROM    DEVON.SERE_DFRDDATA_TB19  A
+                   ,DEVON.SERE_DFRDDATPROC_TB B
+            WHERE   A.DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     A.DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     A.TRAN_DT = ${TRAN_DT}
+            AND     A.NODE_NO = ${NODE_NO}
+            AND     A.INST_NO = ${INST_NO}
+            AND     B.DFRD_PROC_ID = ${DFRD_PROC_ID}
+            AND     A.TRAN_DT = B.TRAN_DT
+            AND     B.DAY_CD = SUBSTR(A.TRAN_DT,7,2)
+            AND     A.INST_NO = B.INST_NO
+            AND     A.NODE_NO = B.NODE_NO
+            AND     A.DFRD_SEQ = B.DFRD_SEQ
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForProc20">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( A.ROWID ) DATA_ROW_ID
+                   ,A.DFRD_BIZ_ID
+                   ,A.INST_NO
+                   ,A.NODE_NO
+                   ,A.DFRD_SEQ
+                   ,B.PROC_ST
+                   ,B.PROC_STRT_DT
+                   ,B.PROC_END_DT
+                   ,A.GUID
+                   ,A.PATH_NO
+                   ,A.TRAN_ID
+                   ,A.TRAN_DT
+                   ,A.TRAN_HEADER
+                   ,A.IN_DATA1
+                   ,A.IN_DATA2
+            FROM    DEVON.SERE_DFRDDATA_TB20  A
+                   ,DEVON.SERE_DFRDDATPROC_TB B
+            WHERE   A.DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     A.DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     A.TRAN_DT = ${TRAN_DT}
+            AND     A.NODE_NO = ${NODE_NO}
+            AND     A.INST_NO = ${INST_NO}
+            AND     B.DFRD_PROC_ID = ${DFRD_PROC_ID}
+            AND     A.TRAN_DT = B.TRAN_DT
+            AND     B.DAY_CD = SUBSTR(A.TRAN_DT,7,2)
+            AND     A.INST_NO = B.INST_NO
+            AND     A.NODE_NO = B.NODE_NO
+            AND     A.DFRD_SEQ = B.DFRD_SEQ
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForProc21">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( A.ROWID ) DATA_ROW_ID
+                   ,A.DFRD_BIZ_ID
+                   ,A.INST_NO
+                   ,A.NODE_NO
+                   ,A.DFRD_SEQ
+                   ,B.PROC_ST
+                   ,B.PROC_STRT_DT
+                   ,B.PROC_END_DT
+                   ,A.GUID
+                   ,A.PATH_NO
+                   ,A.TRAN_ID
+                   ,A.TRAN_DT
+                   ,A.TRAN_HEADER
+                   ,A.IN_DATA1
+                   ,A.IN_DATA2
+            FROM    DEVON.SERE_DFRDDATA_TB21  A
+                   ,DEVON.SERE_DFRDDATPROC_TB B
+            WHERE   A.DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     A.DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     A.TRAN_DT = ${TRAN_DT}
+            AND     A.NODE_NO = ${NODE_NO}
+            AND     A.INST_NO = ${INST_NO}
+            AND     B.DFRD_PROC_ID = ${DFRD_PROC_ID}
+            AND     A.TRAN_DT = B.TRAN_DT
+            AND     B.DAY_CD = SUBSTR(A.TRAN_DT,7,2)
+            AND     A.INST_NO = B.INST_NO
+            AND     A.NODE_NO = B.NODE_NO
+            AND     A.DFRD_SEQ = B.DFRD_SEQ
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForProc22">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( A.ROWID ) DATA_ROW_ID
+                   ,A.DFRD_BIZ_ID
+                   ,A.INST_NO
+                   ,A.NODE_NO
+                   ,A.DFRD_SEQ
+                   ,B.PROC_ST
+                   ,B.PROC_STRT_DT
+                   ,B.PROC_END_DT
+                   ,A.GUID
+                   ,A.PATH_NO
+                   ,A.TRAN_ID
+                   ,A.TRAN_DT
+                   ,A.TRAN_HEADER
+                   ,A.IN_DATA1
+                   ,A.IN_DATA2
+            FROM    DEVON.SERE_DFRDDATA_TB22  A
+                   ,DEVON.SERE_DFRDDATPROC_TB B
+            WHERE   A.DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     A.DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     A.TRAN_DT = ${TRAN_DT}
+            AND     A.NODE_NO = ${NODE_NO}
+            AND     A.INST_NO = ${INST_NO}
+            AND     B.DFRD_PROC_ID = ${DFRD_PROC_ID}
+            AND     A.TRAN_DT = B.TRAN_DT
+            AND     B.DAY_CD = SUBSTR(A.TRAN_DT,7,2)
+            AND     A.INST_NO = B.INST_NO
+            AND     A.NODE_NO = B.NODE_NO
+            AND     A.DFRD_SEQ = B.DFRD_SEQ
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForProc23">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( A.ROWID ) DATA_ROW_ID
+                   ,A.DFRD_BIZ_ID
+                   ,A.INST_NO
+                   ,A.NODE_NO
+                   ,A.DFRD_SEQ
+                   ,B.PROC_ST
+                   ,B.PROC_STRT_DT
+                   ,B.PROC_END_DT
+                   ,A.GUID
+                   ,A.PATH_NO
+                   ,A.TRAN_ID
+                   ,A.TRAN_DT
+                   ,A.TRAN_HEADER
+                   ,A.IN_DATA1
+                   ,A.IN_DATA2
+            FROM    DEVON.SERE_DFRDDATA_TB23  A
+                   ,DEVON.SERE_DFRDDATPROC_TB B
+            WHERE   A.DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     A.DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     A.TRAN_DT = ${TRAN_DT}
+            AND     A.NODE_NO = ${NODE_NO}
+            AND     A.INST_NO = ${INST_NO}
+            AND     B.DFRD_PROC_ID = ${DFRD_PROC_ID}
+            AND     A.TRAN_DT = B.TRAN_DT
+            AND     B.DAY_CD = SUBSTR(A.TRAN_DT,7,2)
+            AND     A.INST_NO = B.INST_NO
+            AND     A.NODE_NO = B.NODE_NO
+            AND     A.DFRD_SEQ = B.DFRD_SEQ
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForProc24">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( A.ROWID ) DATA_ROW_ID
+                   ,A.DFRD_BIZ_ID
+                   ,A.INST_NO
+                   ,A.NODE_NO
+                   ,A.DFRD_SEQ
+                   ,B.PROC_ST
+                   ,B.PROC_STRT_DT
+                   ,B.PROC_END_DT
+                   ,A.GUID
+                   ,A.PATH_NO
+                   ,A.TRAN_ID
+                   ,A.TRAN_DT
+                   ,A.TRAN_HEADER
+                   ,A.IN_DATA1
+                   ,A.IN_DATA2
+            FROM    DEVON.SERE_DFRDDATA_TB24  A
+                   ,DEVON.SERE_DFRDDATPROC_TB B
+            WHERE   A.DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     A.DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     A.TRAN_DT = ${TRAN_DT}
+            AND     A.NODE_NO = ${NODE_NO}
+            AND     A.INST_NO = ${INST_NO}
+            AND     B.DFRD_PROC_ID = ${DFRD_PROC_ID}
+            AND     A.TRAN_DT = B.TRAN_DT
+            AND     B.DAY_CD = SUBSTR(A.TRAN_DT,7,2)
+            AND     A.INST_NO = B.INST_NO
+            AND     A.NODE_NO = B.NODE_NO
+            AND     A.DFRD_SEQ = B.DFRD_SEQ
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForProc25">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( A.ROWID ) DATA_ROW_ID
+                   ,A.DFRD_BIZ_ID
+                   ,A.INST_NO
+                   ,A.NODE_NO
+                   ,A.DFRD_SEQ
+                   ,B.PROC_ST
+                   ,B.PROC_STRT_DT
+                   ,B.PROC_END_DT
+                   ,A.GUID
+                   ,A.PATH_NO
+                   ,A.TRAN_ID
+                   ,A.TRAN_DT
+                   ,A.TRAN_HEADER
+                   ,A.IN_DATA1
+                   ,A.IN_DATA2
+            FROM    DEVON.SERE_DFRDDATA_TB25  A
+                   ,DEVON.SERE_DFRDDATPROC_TB B
+            WHERE   A.DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     A.DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     A.TRAN_DT = ${TRAN_DT}
+            AND     A.NODE_NO = ${NODE_NO}
+            AND     A.INST_NO = ${INST_NO}
+            AND     B.DFRD_PROC_ID = ${DFRD_PROC_ID}
+            AND     A.TRAN_DT = B.TRAN_DT
+            AND     B.DAY_CD = SUBSTR(A.TRAN_DT,7,2)
+            AND     A.INST_NO = B.INST_NO
+            AND     A.NODE_NO = B.NODE_NO
+            AND     A.DFRD_SEQ = B.DFRD_SEQ
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForProc26">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( A.ROWID ) DATA_ROW_ID
+                   ,A.DFRD_BIZ_ID
+                   ,A.INST_NO
+                   ,A.NODE_NO
+                   ,A.DFRD_SEQ
+                   ,B.PROC_ST
+                   ,B.PROC_STRT_DT
+                   ,B.PROC_END_DT
+                   ,A.GUID
+                   ,A.PATH_NO
+                   ,A.TRAN_ID
+                   ,A.TRAN_DT
+                   ,A.TRAN_HEADER
+                   ,A.IN_DATA1
+                   ,A.IN_DATA2
+            FROM    DEVON.SERE_DFRDDATA_TB26  A
+                   ,DEVON.SERE_DFRDDATPROC_TB B
+            WHERE   A.DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     A.DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     A.TRAN_DT = ${TRAN_DT}
+            AND     A.NODE_NO = ${NODE_NO}
+            AND     A.INST_NO = ${INST_NO}
+            AND     B.DFRD_PROC_ID = ${DFRD_PROC_ID}
+            AND     A.TRAN_DT = B.TRAN_DT
+            AND     B.DAY_CD = SUBSTR(A.TRAN_DT,7,2)
+            AND     A.INST_NO = B.INST_NO
+            AND     A.NODE_NO = B.NODE_NO
+            AND     A.DFRD_SEQ = B.DFRD_SEQ
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForProc27">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( A.ROWID ) DATA_ROW_ID
+                   ,A.DFRD_BIZ_ID
+                   ,A.INST_NO
+                   ,A.NODE_NO
+                   ,A.DFRD_SEQ
+                   ,B.PROC_ST
+                   ,B.PROC_STRT_DT
+                   ,B.PROC_END_DT
+                   ,A.GUID
+                   ,A.PATH_NO
+                   ,A.TRAN_ID
+                   ,A.TRAN_DT
+                   ,A.TRAN_HEADER
+                   ,A.IN_DATA1
+                   ,A.IN_DATA2
+            FROM    DEVON.SERE_DFRDDATA_TB27  A
+                   ,DEVON.SERE_DFRDDATPROC_TB B
+            WHERE   A.DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     A.DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     A.TRAN_DT = ${TRAN_DT}
+            AND     A.NODE_NO = ${NODE_NO}
+            AND     A.INST_NO = ${INST_NO}
+            AND     B.DFRD_PROC_ID = ${DFRD_PROC_ID}
+            AND     A.TRAN_DT = B.TRAN_DT
+            AND     B.DAY_CD = SUBSTR(A.TRAN_DT,7,2)
+            AND     A.INST_NO = B.INST_NO
+            AND     A.NODE_NO = B.NODE_NO
+            AND     A.DFRD_SEQ = B.DFRD_SEQ
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForProc28">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( A.ROWID ) DATA_ROW_ID
+                   ,A.DFRD_BIZ_ID
+                   ,A.INST_NO
+                   ,A.NODE_NO
+                   ,A.DFRD_SEQ
+                   ,B.PROC_ST
+                   ,B.PROC_STRT_DT
+                   ,B.PROC_END_DT
+                   ,A.GUID
+                   ,A.PATH_NO
+                   ,A.TRAN_ID
+                   ,A.TRAN_DT
+                   ,A.TRAN_HEADER
+                   ,A.IN_DATA1
+                   ,A.IN_DATA2
+            FROM    DEVON.SERE_DFRDDATA_TB28  A
+                   ,DEVON.SERE_DFRDDATPROC_TB B
+            WHERE   A.DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     A.DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     A.TRAN_DT = ${TRAN_DT}
+            AND     A.NODE_NO = ${NODE_NO}
+            AND     A.INST_NO = ${INST_NO}
+            AND     B.DFRD_PROC_ID = ${DFRD_PROC_ID}
+            AND     A.TRAN_DT = B.TRAN_DT
+            AND     B.DAY_CD = SUBSTR(A.TRAN_DT,7,2)
+            AND     A.INST_NO = B.INST_NO
+            AND     A.NODE_NO = B.NODE_NO
+            AND     A.DFRD_SEQ = B.DFRD_SEQ
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForProc29">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( A.ROWID ) DATA_ROW_ID
+                   ,A.DFRD_BIZ_ID
+                   ,A.INST_NO
+                   ,A.NODE_NO
+                   ,A.DFRD_SEQ
+                   ,B.PROC_ST
+                   ,B.PROC_STRT_DT
+                   ,B.PROC_END_DT
+                   ,A.GUID
+                   ,A.PATH_NO
+                   ,A.TRAN_ID
+                   ,A.TRAN_DT
+                   ,A.TRAN_HEADER
+                   ,A.IN_DATA1
+                   ,A.IN_DATA2
+            FROM    DEVON.SERE_DFRDDATA_TB29  A
+                   ,DEVON.SERE_DFRDDATPROC_TB B
+            WHERE   A.DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     A.DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     A.TRAN_DT = ${TRAN_DT}
+            AND     A.NODE_NO = ${NODE_NO}
+            AND     A.INST_NO = ${INST_NO}
+            AND     B.DFRD_PROC_ID = ${DFRD_PROC_ID}
+            AND     A.TRAN_DT = B.TRAN_DT
+            AND     B.DAY_CD = SUBSTR(A.TRAN_DT,7,2)
+            AND     A.INST_NO = B.INST_NO
+            AND     A.NODE_NO = B.NODE_NO
+            AND     A.DFRD_SEQ = B.DFRD_SEQ
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForProc30">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( A.ROWID ) DATA_ROW_ID
+                   ,A.DFRD_BIZ_ID
+                   ,A.INST_NO
+                   ,A.NODE_NO
+                   ,A.DFRD_SEQ
+                   ,B.PROC_ST
+                   ,B.PROC_STRT_DT
+                   ,B.PROC_END_DT
+                   ,A.GUID
+                   ,A.PATH_NO
+                   ,A.TRAN_ID
+                   ,A.TRAN_DT
+                   ,A.TRAN_HEADER
+                   ,A.IN_DATA1
+                   ,A.IN_DATA2
+            FROM    DEVON.SERE_DFRDDATA_TB30  A
+                   ,DEVON.SERE_DFRDDATPROC_TB B
+            WHERE   A.DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     A.DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     A.TRAN_DT = ${TRAN_DT}
+            AND     A.NODE_NO = ${NODE_NO}
+            AND     A.INST_NO = ${INST_NO}
+            AND     B.DFRD_PROC_ID = ${DFRD_PROC_ID}
+            AND     A.TRAN_DT = B.TRAN_DT
+            AND     B.DAY_CD = SUBSTR(A.TRAN_DT,7,2)
+            AND     A.INST_NO = B.INST_NO
+            AND     A.NODE_NO = B.NODE_NO
+            AND     A.DFRD_SEQ = B.DFRD_SEQ
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForProc31">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( A.ROWID ) DATA_ROW_ID
+                   ,A.DFRD_BIZ_ID
+                   ,A.INST_NO
+                   ,A.NODE_NO
+                   ,A.DFRD_SEQ
+                   ,B.PROC_ST
+                   ,B.PROC_STRT_DT
+                   ,B.PROC_END_DT
+                   ,A.GUID
+                   ,A.PATH_NO
+                   ,A.TRAN_ID
+                   ,A.TRAN_DT
+                   ,A.TRAN_HEADER
+                   ,A.IN_DATA1
+                   ,A.IN_DATA2
+            FROM    DEVON.SERE_DFRDDATA_TB31  A
+                   ,DEVON.SERE_DFRDDATPROC_TB B
+            WHERE   A.DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     A.DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     A.TRAN_DT = ${TRAN_DT}
+            AND     A.NODE_NO = ${NODE_NO}
+            AND     A.INST_NO = ${INST_NO}
+            AND     B.DFRD_PROC_ID = ${DFRD_PROC_ID}
+            AND     A.TRAN_DT = B.TRAN_DT
+            AND     B.DAY_CD = SUBSTR(A.TRAN_DT,7,2)
+            AND     A.INST_NO = B.INST_NO
+            AND     A.NODE_NO = B.NODE_NO
+            AND     A.DFRD_SEQ = B.DFRD_SEQ
+        ]]>
+    </statement>
+
+   <!--  업무 서비스에서 후행 데이터 저장하기 위한 Query -->
+   <statement name="insertDfrdData01">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_DFRDDATA_TB01
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,INST_NO
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${INST_NO}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+            )
+        ]]>
+    </statement>
+   <statement name="insertDfrdData02">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_DFRDDATA_TB02
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,INST_NO
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${INST_NO}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+            )
+        ]]>
+    </statement>
+   <statement name="insertDfrdData03">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_DFRDDATA_TB03
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,INST_NO
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${INST_NO}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData04">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_DFRDDATA_TB04
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,INST_NO
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${INST_NO}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData05">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_DFRDDATA_TB05
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,INST_NO
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${INST_NO}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData06">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_DFRDDATA_TB06
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,INST_NO
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${INST_NO}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData07">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_DFRDDATA_TB07
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,INST_NO
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${INST_NO}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData08">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_DFRDDATA_TB08
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,INST_NO
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${INST_NO}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData09">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_DFRDDATA_TB09
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,INST_NO
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${INST_NO}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData10">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_DFRDDATA_TB10
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,INST_NO
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${INST_NO}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData11">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_DFRDDATA_TB11
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,INST_NO
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${INST_NO}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData12">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_DFRDDATA_TB12
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,INST_NO
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${INST_NO}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData13">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_DFRDDATA_TB13
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,INST_NO
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${INST_NO}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData14">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_DFRDDATA_TB14
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,INST_NO
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${INST_NO}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData15">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_DFRDDATA_TB15
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,INST_NO
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${INST_NO}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData16">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_DFRDDATA_TB16
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,INST_NO
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${INST_NO}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+            )
+        ]]>
+    </statement>
+  <statement name="insertDfrdData17">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_DFRDDATA_TB17
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,INST_NO
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${INST_NO}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+            )
+        ]]>
+    </statement>
+  <statement name="insertDfrdData18">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_DFRDDATA_TB18
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,INST_NO
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${INST_NO}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+            )
+        ]]>
+    </statement>
+   <statement name="insertDfrdData19">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_DFRDDATA_TB19
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,INST_NO
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${INST_NO}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+            )
+        ]]>
+    </statement>
+
+   <statement name="insertDfrdData20">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_DFRDDATA_TB20
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,INST_NO
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${INST_NO}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData21">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_DFRDDATA_TB21
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,INST_NO
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${INST_NO}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+            )
+        ]]>
+    </statement>
+     <statement name="insertDfrdData22">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_DFRDDATA_TB22
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,INST_NO
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${INST_NO}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData23">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_DFRDDATA_TB23
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,INST_NO
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${INST_NO}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData24">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_DFRDDATA_TB24
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,INST_NO
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${INST_NO}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData25">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_DFRDDATA_TB25
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,INST_NO
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${INST_NO}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData26">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_DFRDDATA_TB26
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,INST_NO
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${INST_NO}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData27">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_DFRDDATA_TB27
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,INST_NO
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${INST_NO}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData28">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_DFRDDATA_TB28
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,INST_NO
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${INST_NO}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData29">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_DFRDDATA_TB29
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,INST_NO
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${INST_NO}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData30">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_DFRDDATA_TB30
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,INST_NO
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${INST_NO}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData31">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_DFRDDATA_TB31
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,INST_NO
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${INST_NO}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+            )
+        ]]>
+    </statement>
+
+    <!--  Numbering을 위한 조회 Query -->
+    <statement name="retrieveDfrdDataForNumber01">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       --,PROC_TM
+                FROM    DEVON.SERE_DFRDDATA_TB01
+                WHERE   DFRD_SEQ = 0
+                AND     ( PROC_TM <= ${PROC_TM} OR PROC_TM = '999999999' )            
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber02">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       --,PROC_TM
+                FROM    DEVON.SERE_DFRDDATA_TB02
+                WHERE   DFRD_SEQ = 0
+                AND     ( PROC_TM <= ${PROC_TM} OR PROC_TM = '999999999' )
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber03">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       --,PROC_TM
+                FROM    DEVON.SERE_DFRDDATA_TB03
+                WHERE   DFRD_SEQ = 0
+                AND     ( PROC_TM <= ${PROC_TM} OR PROC_TM = '999999999' )
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber04">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       --,PROC_TM
+                FROM    DEVON.SERE_DFRDDATA_TB04
+                WHERE   DFRD_SEQ = 0
+                AND     ( PROC_TM <= ${PROC_TM} OR PROC_TM = '999999999' )
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber05">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       --,PROC_TM
+                FROM    DEVON.SERE_DFRDDATA_TB05
+                WHERE   DFRD_SEQ = 0
+                AND     ( PROC_TM <= ${PROC_TM} OR PROC_TM = '999999999' )
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber06">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       --,PROC_TM
+                FROM    DEVON.SERE_DFRDDATA_TB06
+                WHERE   DFRD_SEQ = 0
+                AND     ( PROC_TM <= ${PROC_TM} OR PROC_TM = '999999999' )
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber07">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       --,PROC_TM
+                FROM    DEVON.SERE_DFRDDATA_TB07
+                WHERE   DFRD_SEQ = 0
+                AND     ( PROC_TM <= ${PROC_TM} OR PROC_TM = '999999999' )
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber08">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       --,PROC_TM
+                FROM    DEVON.SERE_DFRDDATA_TB08
+                WHERE   DFRD_SEQ = 0
+                AND     ( PROC_TM <= ${PROC_TM} OR PROC_TM = '999999999' )
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber09">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       --,PROC_TM
+                FROM    DEVON.SERE_DFRDDATA_TB09
+                WHERE   DFRD_SEQ = 0
+                AND     ( PROC_TM <= ${PROC_TM} OR PROC_TM = '999999999' )
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber10">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                      --,PROC_TM
+                FROM    DEVON.SERE_DFRDDATA_TB10
+                WHERE   DFRD_SEQ = 0
+                AND     ( PROC_TM <= ${PROC_TM} OR PROC_TM = '999999999' )
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber11">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       --,PROC_TM
+                FROM    DEVON.SERE_DFRDDATA_TB11
+                WHERE   DFRD_SEQ = 0
+                AND     ( PROC_TM <= ${PROC_TM} OR PROC_TM = '999999999' )
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber12">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       --,PROC_TM
+                FROM    DEVON.SERE_DFRDDATA_TB12
+                WHERE   DFRD_SEQ = 0
+                AND     ( PROC_TM <= ${PROC_TM} OR PROC_TM = '999999999' )
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber13">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       --,PROC_TM
+                FROM    DEVON.SERE_DFRDDATA_TB13
+                WHERE   DFRD_SEQ = 0
+                AND     ( PROC_TM <= ${PROC_TM} OR PROC_TM = '999999999' )
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber14">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       --,PROC_TM
+                FROM    DEVON.SERE_DFRDDATA_TB14
+                WHERE   DFRD_SEQ = 0
+                AND     ( PROC_TM <= ${PROC_TM} OR PROC_TM = '999999999' )
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber15">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       --,PROC_TM
+                FROM    DEVON.SERE_DFRDDATA_TB15
+                WHERE   DFRD_SEQ = 0
+                AND     ( PROC_TM <= ${PROC_TM} OR PROC_TM = '999999999' )
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+     <statement name="retrieveDfrdDataForNumber16">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       --,PROC_TM
+                FROM    DEVON.SERE_DFRDDATA_TB16
+                WHERE   DFRD_SEQ = 0
+                AND     ( PROC_TM <= ${PROC_TM} OR PROC_TM = '999999999' )
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber17">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       --,PROC_TM
+                FROM    DEVON.SERE_DFRDDATA_TB17
+                WHERE   DFRD_SEQ = 0
+                AND     ( PROC_TM <= ${PROC_TM} OR PROC_TM = '999999999' )
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber18">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       --,PROC_TM
+                FROM    DEVON.SERE_DFRDDATA_TB18
+                WHERE   DFRD_SEQ = 0
+                AND     ( PROC_TM <= ${PROC_TM} OR PROC_TM = '999999999' )
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber19">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       --,PROC_TM
+                FROM    DEVON.SERE_DFRDDATA_TB19
+                WHERE   DFRD_SEQ = 0
+                AND     ( PROC_TM <= ${PROC_TM} OR PROC_TM = '999999999' )
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber20">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       --,PROC_TM
+                FROM    DEVON.SERE_DFRDDATA_TB20
+                WHERE   DFRD_SEQ = 0
+                AND     ( PROC_TM <= ${PROC_TM} OR PROC_TM = '999999999' )
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber21">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       --,PROC_TM
+                FROM    DEVON.SERE_DFRDDATA_TB21
+                WHERE   DFRD_SEQ = 0
+                AND     ( PROC_TM <= ${PROC_TM} OR PROC_TM = '999999999' )
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber22">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       --,PROC_TM
+                FROM    DEVON.SERE_DFRDDATA_TB22
+                WHERE   DFRD_SEQ = 0
+                AND     ( PROC_TM <= ${PROC_TM} OR PROC_TM = '999999999' )
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber23">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       --,PROC_TM
+                FROM    DEVON.SERE_DFRDDATA_TB23
+                WHERE   DFRD_SEQ = 0
+                AND     ( PROC_TM <= ${PROC_TM} OR PROC_TM = '999999999' )
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber24">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       --,PROC_TM
+                FROM    DEVON.SERE_DFRDDATA_TB24
+                WHERE   DFRD_SEQ = 0
+                AND     ( PROC_TM <= ${PROC_TM} OR PROC_TM = '999999999' )
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber25">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       --,PROC_TM
+                FROM    DEVON.SERE_DFRDDATA_TB25
+                WHERE   DFRD_SEQ = 0
+                AND     ( PROC_TM <= ${PROC_TM} OR PROC_TM = '999999999' )
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber26">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       --,PROC_TM
+                FROM    DEVON.SERE_DFRDDATA_TB26
+                WHERE   DFRD_SEQ = 0
+                AND     ( PROC_TM <= ${PROC_TM} OR PROC_TM = '999999999' )
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber27">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       --,PROC_TM
+                FROM    DEVON.SERE_DFRDDATA_TB27
+                WHERE   DFRD_SEQ = 0
+                AND     ( PROC_TM <= ${PROC_TM} OR PROC_TM = '999999999' )
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+     <statement name="retrieveDfrdDataForNumber28">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       --,PROC_TM
+                FROM    DEVON.SERE_DFRDDATA_TB28
+                WHERE   DFRD_SEQ = 0
+                AND     ( PROC_TM <= ${PROC_TM} OR PROC_TM = '999999999' )
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber29">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       --,PROC_TM
+                FROM    DEVON.SERE_DFRDDATA_TB29
+                WHERE   DFRD_SEQ = 0
+                AND     ( PROC_TM <= ${PROC_TM} OR PROC_TM = '999999999' )
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber30">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       --,PROC_TM
+                FROM    DEVON.SERE_DFRDDATA_TB30
+                WHERE   DFRD_SEQ = 0
+                AND     ( PROC_TM <= ${PROC_TM} OR PROC_TM = '999999999' )
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+     <statement name="retrieveDfrdDataForNumber31">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       --,PROC_TM
+                FROM    DEVON.SERE_DFRDDATA_TB31
+                WHERE   DFRD_SEQ = 0
+                AND     ( PROC_TM <= ${PROC_TM} OR PROC_TM = '999999999' )
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+
+    <!--  Numbering된 Max Seq를 조회하기 위한 Query -->
+    <statement name="retrieveDfrdDataMaxSeq01">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERE_DFRDDATA_TB01
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq02">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERE_DFRDDATA_TB02
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq03">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERE_DFRDDATA_TB03
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq04">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERE_DFRDDATA_TB04
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq05">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERE_DFRDDATA_TB05
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq06">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERE_DFRDDATA_TB06
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq07">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERE_DFRDDATA_TB07
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq08">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERE_DFRDDATA_TB08
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq09">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERE_DFRDDATA_TB09
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq10">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERE_DFRDDATA_TB10
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq11">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERE_DFRDDATA_TB11
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq12">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERE_DFRDDATA_TB12
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq13">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERE_DFRDDATA_TB13
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq14">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERE_DFRDDATA_TB14
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq15">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERE_DFRDDATA_TB15
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq16">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERE_DFRDDATA_TB16
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq17">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERE_DFRDDATA_TB17
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq18">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERE_DFRDDATA_TB18
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq19">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERE_DFRDDATA_TB19
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq20">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERE_DFRDDATA_TB20
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq21">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERE_DFRDDATA_TB21
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq22">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERE_DFRDDATA_TB22
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq23">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERE_DFRDDATA_TB23
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq24">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERE_DFRDDATA_TB24
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq25">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERE_DFRDDATA_TB25
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq26">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERE_DFRDDATA_TB26
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq27">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERE_DFRDDATA_TB27
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq28">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERE_DFRDDATA_TB28
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq29">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERE_DFRDDATA_TB29
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq30">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERE_DFRDDATA_TB30
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq31">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERE_DFRDDATA_TB31
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+
+    <!--  후행 데이터 Numbering Update Query -->
+    <statement name="updateDfrdDataForNumber01">
+        <![CDATA[
+            UPDATE DEVON.SERE_DFRDDATA_TB01
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber02">
+        <![CDATA[
+            UPDATE DEVON.SERE_DFRDDATA_TB02
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber03">
+        <![CDATA[
+            UPDATE DEVON.SERE_DFRDDATA_TB03
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber04">
+        <![CDATA[
+            UPDATE DEVON.SERE_DFRDDATA_TB04
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber05">
+        <![CDATA[
+            UPDATE DEVON.SERE_DFRDDATA_TB05
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber06">
+        <![CDATA[
+            UPDATE DEVON.SERE_DFRDDATA_TB06
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber07">
+        <![CDATA[
+            UPDATE DEVON.SERE_DFRDDATA_TB07
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber08">
+        <![CDATA[
+            UPDATE DEVON.SERE_DFRDDATA_TB08
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber09">
+        <![CDATA[
+            UPDATE DEVON.SERE_DFRDDATA_TB09
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber10">
+        <![CDATA[
+            UPDATE DEVON.SERE_DFRDDATA_TB10
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber11">
+        <![CDATA[
+            UPDATE DEVON.SERE_DFRDDATA_TB11
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber12">
+        <![CDATA[
+            UPDATE DEVON.SERE_DFRDDATA_TB12
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+     <statement name="updateDfrdDataForNumber13">
+        <![CDATA[
+            UPDATE DEVON.SERE_DFRDDATA_TB13
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber14">
+        <![CDATA[
+            UPDATE DEVON.SERE_DFRDDATA_TB14
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber15">
+        <![CDATA[
+            UPDATE DEVON.SERE_DFRDDATA_TB15
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber16">
+        <![CDATA[
+            UPDATE DEVON.SERE_DFRDDATA_TB16
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber17">
+        <![CDATA[
+            UPDATE DEVON.SERE_DFRDDATA_TB17
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber18">
+        <![CDATA[
+            UPDATE DEVON.SERE_DFRDDATA_TB18
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber19">
+        <![CDATA[
+            UPDATE DEVON.SERE_DFRDDATA_TB19
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber20">
+        <![CDATA[
+            UPDATE DEVON.SERE_DFRDDATA_TB20
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+   <statement name="updateDfrdDataForNumber21">
+        <![CDATA[
+            UPDATE DEVON.SERE_DFRDDATA_TB21
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+   <statement name="updateDfrdDataForNumber22">
+        <![CDATA[
+            UPDATE DEVON.SERE_DFRDDATA_TB22
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber23">
+        <![CDATA[
+            UPDATE DEVON.SERE_DFRDDATA_TB23
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber24">
+        <![CDATA[
+            UPDATE DEVON.SERE_DFRDDATA_TB24
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber25">
+        <![CDATA[
+            UPDATE DEVON.SERE_DFRDDATA_TB25
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber26">
+        <![CDATA[
+            UPDATE DEVON.SERE_DFRDDATA_TB26
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber27">
+        <![CDATA[
+            UPDATE DEVON.SERE_DFRDDATA_TB27
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber28">
+        <![CDATA[
+            UPDATE DEVON.SERE_DFRDDATA_TB28
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber29">
+        <![CDATA[
+            UPDATE DEVON.SERE_DFRDDATA_TB29
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber30">
+        <![CDATA[
+            UPDATE DEVON.SERE_DFRDDATA_TB30
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber31">
+        <![CDATA[
+            UPDATE DEVON.SERE_DFRDDATA_TB31
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData01">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERE_DFRDDATA_TB01
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData02">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERE_DFRDDATA_TB02
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData03">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERE_DFRDDATA_TB03
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData04">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERE_DFRDDATA_TB04
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData05">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERE_DFRDDATA_TB05
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData06">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERE_DFRDDATA_TB06
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData07">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERE_DFRDDATA_TB07
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData08">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERE_DFRDDATA_TB08
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData09">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERE_DFRDDATA_TB09
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData10">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERE_DFRDDATA_TB10
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData11">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERE_DFRDDATA_TB11
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData12">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERE_DFRDDATA_TB12
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData13">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERE_DFRDDATA_TB13
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData14">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERE_DFRDDATA_TB14
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData15">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERE_DFRDDATA_TB15
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData16">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERE_DFRDDATA_TB16
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData17">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERE_DFRDDATA_TB17
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData18">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERE_DFRDDATA_TB18
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData19">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERE_DFRDDATA_TB19
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData20">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERE_DFRDDATA_TB21
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData21">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERE_DFRDDATA_TB21
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData22">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERE_DFRDDATA_TB22
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData23">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERE_DFRDDATA_TB23
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData24">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERE_DFRDDATA_TB24
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData25">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERE_DFRDDATA_TB25
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData26">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERE_DFRDDATA_TB26
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData27">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERE_DFRDDATA_TB27
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData28">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERE_DFRDDATA_TB28
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData29">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERE_DFRDDATA_TB29
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData30">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERE_DFRDDATA_TB30
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData31">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERE_DFRDDATA_TB31
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdRestForApplog01">
+		<![CDATA[
+			SELECT   /*+ LEADING(A) USE_HASH(A B) */  count(1) AS DFRD_CNT
+			FROM    DEVON.SERE_DFRDPROC_TB  A
+			       ,DEVON.SERL_APPLOG_LG01  B
+			WHERE   A.DFRD_PROC_ID IN ( ${DFRD_PROC_ID:string:in} )
+			AND     A.SITE_CD     = ${SITE_CD}
+			AND     A.DFRD_BIZ_ID = B.DFRD_BIZ_ID
+			AND     B.TRAN_DT    = ${TRAN_DT}
+			AND     B.DFRD_SEQ = 0
+		]]>
+    </statement>
+    <statement name="retrieveDfrdRestForApplog02">
+		<![CDATA[
+			SELECT  /*+ LEADING(A) USE_HASH(A B) */  count(1)  AS DFRD_CNT
+			FROM    DEVON.SERE_DFRDPROC_TB  A
+			       ,DEVON.SERL_APPLOG_LG02  B
+			WHERE   A.DFRD_PROC_ID IN ( ${DFRD_PROC_ID:string:in} )
+			AND     A.SITE_CD     = ${SITE_CD}
+			AND     A.DFRD_BIZ_ID = B.DFRD_BIZ_ID
+			AND     B.TRAN_DT    = ${TRAN_DT}
+			AND     B.DFRD_SEQ = 0
+		]]>
+    </statement>
+    <statement name="retrieveDfrdRestForApplog03">
+		<![CDATA[
+			SELECT  /*+ LEADING(A) USE_HASH(A B) */  count(1)  AS DFRD_CNT
+			FROM    DEVON.SERE_DFRDPROC_TB  A
+			       ,DEVON.SERL_APPLOG_LG03  B
+			WHERE   A.DFRD_PROC_ID IN ( ${DFRD_PROC_ID:string:in} )
+			AND     A.SITE_CD     = ${SITE_CD}
+			AND     A.DFRD_BIZ_ID = B.DFRD_BIZ_ID
+			AND     B.TRAN_DT    = ${TRAN_DT}
+			AND     B.DFRD_SEQ = 0
+		]]>
+    </statement>
+    <statement name="retrieveDfrdRestForApplog04">
+		<![CDATA[
+			SELECT  /*+ LEADING(A) USE_HASH(A B) */  count(1)  AS DFRD_CNT
+			FROM    DEVON.SERE_DFRDPROC_TB  A
+			       ,DEVON.SERL_APPLOG_LG04  B
+			WHERE   A.DFRD_PROC_ID IN ( ${DFRD_PROC_ID:string:in} )
+			AND     A.SITE_CD     = ${SITE_CD}
+			AND     A.DFRD_BIZ_ID = B.DFRD_BIZ_ID
+			AND     B.TRAN_DT    = ${TRAN_DT}
+			AND     B.DFRD_SEQ = 0
+		]]>
+    </statement>
+    <statement name="retrieveDfrdRestForApplog05">
+		<![CDATA[
+			SELECT  /*+ LEADING(A) USE_HASH(A B) */  count(1)  AS DFRD_CNT
+			FROM    DEVON.SERE_DFRDPROC_TB  A
+			       ,DEVON.SERL_APPLOG_LG05  B
+			WHERE   A.DFRD_PROC_ID IN ( ${DFRD_PROC_ID:string:in} )
+			AND     A.SITE_CD     = ${SITE_CD}
+			AND     A.DFRD_BIZ_ID = B.DFRD_BIZ_ID
+			AND     B.TRAN_DT    = ${TRAN_DT}
+			AND     B.DFRD_SEQ = 0
+		]]>
+    </statement> 
+    <statement name="retrieveDfrdRestForApplog06">
+		<![CDATA[
+			SELECT  /*+ LEADING(A) USE_HASH(A B) */  count(1)  AS DFRD_CNT
+			FROM    DEVON.SERE_DFRDPROC_TB  A
+			       ,DEVON.SERL_APPLOG_LG06  B
+			WHERE   A.DFRD_PROC_ID IN ( ${DFRD_PROC_ID:string:in} )
+			AND     A.SITE_CD     = ${SITE_CD}
+			AND     A.DFRD_BIZ_ID = B.DFRD_BIZ_ID
+			AND     B.TRAN_DT    = ${TRAN_DT}
+			AND     B.DFRD_SEQ = 0
+		]]>
+    </statement>
+    <statement name="retrieveDfrdRestForApplog07">
+		<![CDATA[
+			SELECT /*+ LEADING(A) USE_HASH(A B) */   count(1)  AS DFRD_CNT
+			FROM    DEVON.SERE_DFRDPROC_TB  A
+			       ,DEVON.SERL_APPLOG_LG07  B
+			WHERE   A.DFRD_PROC_ID IN ( ${DFRD_PROC_ID:string:in} )
+			AND     A.SITE_CD     = ${SITE_CD}
+			AND     A.DFRD_BIZ_ID = B.DFRD_BIZ_ID
+			AND     B.TRAN_DT    = ${TRAN_DT}
+			AND     B.DFRD_SEQ = 0
+		]]>
+    </statement>
+    <statement name="retrieveDfrdRestForApplog08">
+		<![CDATA[
+			SELECT  /*+ LEADING(A) USE_HASH(A B) */  count(1)  AS DFRD_CNT
+			FROM    DEVON.SERE_DFRDPROC_TB  A
+			       ,DEVON.SERL_APPLOG_LG08  B
+			WHERE   A.DFRD_PROC_ID IN ( ${DFRD_PROC_ID:string:in} )
+			AND     A.SITE_CD     = ${SITE_CD}
+			AND     A.DFRD_BIZ_ID = B.DFRD_BIZ_ID
+			AND     B.TRAN_DT    = ${TRAN_DT}
+			AND     B.DFRD_SEQ = 0
+		]]>
+    </statement>  
+    <statement name="retrieveDfrdRestForApplog09">
+		<![CDATA[
+			SELECT /*+ LEADING(A) USE_HASH(A B) */   count(1)  AS DFRD_CNT
+			FROM    DEVON.SERE_DFRDPROC_TB  A
+			       ,DEVON.SERL_APPLOG_LG09  B
+			WHERE   A.DFRD_PROC_ID IN ( ${DFRD_PROC_ID:string:in} )
+			AND     A.SITE_CD     = ${SITE_CD}
+			AND     A.DFRD_BIZ_ID = B.DFRD_BIZ_ID
+			AND     B.TRAN_DT    = ${TRAN_DT}
+			AND     B.DFRD_SEQ = 0
+		]]>
+    </statement>   
+    <statement name="retrieveDfrdRestForApplog10">
+		<![CDATA[
+			SELECT /*+ LEADING(A) USE_HASH(A B) */   count(1)  AS DFRD_CNT
+			FROM    DEVON.SERE_DFRDPROC_TB  A
+			       ,DEVON.SERL_APPLOG_LG10  B
+			WHERE   A.DFRD_PROC_ID IN ( ${DFRD_PROC_ID:string:in} )
+			AND     A.SITE_CD     = ${SITE_CD}
+			AND     A.DFRD_BIZ_ID = B.DFRD_BIZ_ID
+			AND     B.TRAN_DT    = ${TRAN_DT}
+			AND     B.DFRD_SEQ = 0
+		]]>
+    </statement>  
+    <statement name="retrieveDfrdRestForApplog11">
+		<![CDATA[
+			SELECT /*+ LEADING(A) USE_HASH(A B) */   count(1)  AS DFRD_CNT
+			FROM    DEVON.SERE_DFRDPROC_TB  A
+			       ,DEVON.SERL_APPLOG_LG11  B
+			WHERE   A.DFRD_PROC_ID IN ( ${DFRD_PROC_ID:string:in} )
+			AND     A.SITE_CD     = ${SITE_CD}
+			AND     A.DFRD_BIZ_ID = B.DFRD_BIZ_ID
+			AND     B.TRAN_DT    = ${TRAN_DT}
+			AND     B.DFRD_SEQ = 0
+		]]>
+    </statement>   
+    <statement name="retrieveDfrdRestForApplog12">
+		<![CDATA[
+			SELECT  /*+ LEADING(A) USE_HASH(A B) */  count(1)  AS DFRD_CNT
+			FROM    DEVON.SERE_DFRDPROC_TB  A
+			       ,DEVON.SERL_APPLOG_LG12  B
+			WHERE   A.DFRD_PROC_ID IN ( ${DFRD_PROC_ID:string:in} )
+			AND     A.SITE_CD     = ${SITE_CD}
+			AND     A.DFRD_BIZ_ID = B.DFRD_BIZ_ID
+			AND     B.TRAN_DT    = ${TRAN_DT}
+			AND     B.DFRD_SEQ = 0
+		]]>
+    </statement>
+    <statement name="retrieveDfrdRestForApplog13">
+		<![CDATA[
+			SELECT /*+ LEADING(A) USE_HASH(A B) */   count(1)  AS DFRD_CNT
+			FROM    DEVON.SERE_DFRDPROC_TB  A
+			       ,DEVON.SERL_APPLOG_LG13  B
+			WHERE   A.DFRD_PROC_ID IN ( ${DFRD_PROC_ID:string:in} )
+			AND     A.SITE_CD     = ${SITE_CD}
+			AND     A.DFRD_BIZ_ID = B.DFRD_BIZ_ID
+			AND     B.TRAN_DT    = ${TRAN_DT}
+			AND     B.DFRD_SEQ = 0
+		]]>
+    </statement> 
+    <statement name="retrieveDfrdRestForApplog14">
+		<![CDATA[
+			SELECT /*+ LEADING(A) USE_HASH(A B) */   count(1)  AS DFRD_CNT
+			FROM    DEVON.SERE_DFRDPROC_TB  A
+			       ,DEVON.SERL_APPLOG_LG14  B
+			WHERE   A.DFRD_PROC_ID IN ( ${DFRD_PROC_ID:string:in} )
+			AND     A.SITE_CD     = ${SITE_CD}
+			AND     A.DFRD_BIZ_ID = B.DFRD_BIZ_ID
+			AND     B.TRAN_DT    = ${TRAN_DT}
+			AND     B.DFRD_SEQ = 0
+		]]>
+    </statement>
+    <statement name="retrieveDfrdRestForApplog15">
+		<![CDATA[
+			SELECT /*+ LEADING(A) USE_HASH(A B) */   count(1)  AS DFRD_CNT
+			FROM    DEVON.SERE_DFRDPROC_TB  A
+			       ,DEVON.SERL_APPLOG_LG15  B
+			WHERE   A.DFRD_PROC_ID IN ( ${DFRD_PROC_ID:string:in} )
+			AND     A.SITE_CD     = ${SITE_CD}
+			AND     A.DFRD_BIZ_ID = B.DFRD_BIZ_ID
+			AND     B.TRAN_DT    = ${TRAN_DT}
+			AND     B.DFRD_SEQ = 0
+		]]>
+    </statement>
+    <statement name="retrieveDfrdRestForApplog16">
+		<![CDATA[
+			SELECT /*+ LEADING(A) USE_HASH(A B) */   count(1)  AS DFRD_CNT
+			FROM    DEVON.SERE_DFRDPROC_TB  A
+			       ,DEVON.SERL_APPLOG_LG16  B
+			WHERE   A.DFRD_PROC_ID IN ( ${DFRD_PROC_ID:string:in} )
+			AND     A.SITE_CD     = ${SITE_CD}
+			AND     A.DFRD_BIZ_ID = B.DFRD_BIZ_ID
+			AND     B.TRAN_DT    = ${TRAN_DT}
+			AND     B.DFRD_SEQ = 0
+		]]>
+    </statement>
+    <statement name="retrieveDfrdRestForApplog17">
+		<![CDATA[
+			SELECT /*+ LEADING(A) USE_HASH(A B) */   count(1)  AS DFRD_CNT
+			FROM    DEVON.SERE_DFRDPROC_TB  A
+			       ,DEVON.SERL_APPLOG_LG17  B
+			WHERE   A.DFRD_PROC_ID IN ( ${DFRD_PROC_ID:string:in} )
+			AND     A.SITE_CD     = ${SITE_CD}
+			AND     A.DFRD_BIZ_ID = B.DFRD_BIZ_ID
+			AND     B.TRAN_DT    = ${TRAN_DT}
+			AND     B.DFRD_SEQ = 0
+		]]>
+    </statement>                        
+    <statement name="retrieveDfrdRestForApplog18">
+		<![CDATA[
+			SELECT  /*+ LEADING(A) USE_HASH(A B) */  count(1)  AS DFRD_CNT
+			FROM    DEVON.SERE_DFRDPROC_TB  A
+			       ,DEVON.SERL_APPLOG_LG18  B
+			WHERE   A.DFRD_PROC_ID IN ( ${DFRD_PROC_ID:string:in} )
+			AND     A.SITE_CD     = ${SITE_CD}
+			AND     A.DFRD_BIZ_ID = B.DFRD_BIZ_ID
+			AND     B.TRAN_DT    = ${TRAN_DT}
+			AND     B.DFRD_SEQ = 0
+		]]>
+    </statement>
+    <statement name="retrieveDfrdRestForApplog19">
+		<![CDATA[
+			SELECT /*+ LEADING(A) USE_HASH(A B) */   count(1)  AS DFRD_CNT
+			FROM    DEVON.SERE_DFRDPROC_TB  A
+			       ,DEVON.SERL_APPLOG_LG19  B
+			WHERE   A.DFRD_PROC_ID IN ( ${DFRD_PROC_ID:string:in} )
+			AND     A.SITE_CD     = ${SITE_CD}
+			AND     A.DFRD_BIZ_ID = B.DFRD_BIZ_ID
+			AND     B.TRAN_DT    = ${TRAN_DT}
+			AND     B.DFRD_SEQ = 0
+		]]>
+    </statement> 
+    <statement name="retrieveDfrdRestForApplog20">
+		<![CDATA[
+			SELECT /*+ LEADING(A) USE_HASH(A B) */   count(1)  AS DFRD_CNT
+			FROM    DEVON.SERE_DFRDPROC_TB  A
+			       ,DEVON.SERL_APPLOG_LG20  B
+			WHERE   A.DFRD_PROC_ID IN ( ${DFRD_PROC_ID:string:in} )
+			AND     A.SITE_CD     = ${SITE_CD}
+			AND     A.DFRD_BIZ_ID = B.DFRD_BIZ_ID
+			AND     B.TRAN_DT    = ${TRAN_DT}
+			AND     B.DFRD_SEQ = 0
+		]]>
+    </statement>         
+    <statement name="retrieveDfrdRestForApplog21">
+		<![CDATA[
+			SELECT /*+ LEADING(A) USE_HASH(A B) */    count(1)  AS DFRD_CNT
+			FROM    DEVON.SERE_DFRDPROC_TB  A
+			       ,DEVON.SERL_APPLOG_LG21  B
+			WHERE   A.DFRD_PROC_ID IN ( ${DFRD_PROC_ID:string:in} )
+			AND     A.SITE_CD     = ${SITE_CD}
+			AND     A.DFRD_BIZ_ID = B.DFRD_BIZ_ID
+			AND     B.TRAN_DT    = ${TRAN_DT}
+			AND     B.DFRD_SEQ = 0
+		]]>
+    </statement> 
+    <statement name="retrieveDfrdRestForApplog22">
+		<![CDATA[
+			SELECT /*+ LEADING(A) USE_HASH(A B) */    count(1)  AS DFRD_CNT
+			FROM    DEVON.SERE_DFRDPROC_TB  A
+			       ,DEVON.SERL_APPLOG_LG22  B
+			WHERE   A.DFRD_PROC_ID IN ( ${DFRD_PROC_ID:string:in} )
+			AND     A.SITE_CD     = ${SITE_CD}
+			AND     A.DFRD_BIZ_ID = B.DFRD_BIZ_ID
+			AND     B.TRAN_DT    = ${TRAN_DT}
+			AND     B.DFRD_SEQ = 0
+		]]>
+    </statement>
+    
+    <statement name="retrieveDfrdRestForApplog23">
+		<![CDATA[
+			SELECT /*+ LEADING(A) USE_HASH(A B) */    count(1)  AS DFRD_CNT
+			FROM    DEVON.SERE_DFRDPROC_TB  A
+			       ,DEVON.SERL_APPLOG_LG23  B
+			WHERE   A.DFRD_PROC_ID IN ( ${DFRD_PROC_ID:string:in} )
+			AND     A.SITE_CD     = ${SITE_CD}
+			AND     A.DFRD_BIZ_ID = B.DFRD_BIZ_ID
+			AND     B.TRAN_DT    = ${TRAN_DT}
+			AND     B.DFRD_SEQ = 0
+		]]>
+    </statement>
+    <statement name="retrieveDfrdRestForApplog24">
+		<![CDATA[
+			SELECT /*+ LEADING(A) USE_HASH(A B) */    count(1)  AS DFRD_CNT
+			FROM    DEVON.SERE_DFRDPROC_TB  A
+			       ,DEVON.SERL_APPLOG_LG24  B
+			WHERE   A.DFRD_PROC_ID IN ( ${DFRD_PROC_ID:string:in} )
+			AND     A.SITE_CD     = ${SITE_CD}
+			AND     A.DFRD_BIZ_ID = B.DFRD_BIZ_ID
+			AND     B.TRAN_DT    = ${TRAN_DT}
+			AND     B.DFRD_SEQ = 0
+		]]>
+    </statement>                        
+    <statement name="retrieveDfrdRestForApplog25">
+		<![CDATA[
+			SELECT  /*+ LEADING(A) USE_HASH(A B) */   count(1)  AS DFRD_CNT
+			FROM    DEVON.SERE_DFRDPROC_TB  A
+			       ,DEVON.SERL_APPLOG_LG25  B
+			WHERE   A.DFRD_PROC_ID IN ( ${DFRD_PROC_ID:string:in} )
+			AND     A.SITE_CD     = ${SITE_CD}
+			AND     A.DFRD_BIZ_ID = B.DFRD_BIZ_ID
+			AND     B.TRAN_DT    = ${TRAN_DT}
+			AND     B.DFRD_SEQ = 0
+		]]>
+    </statement>
+    <statement name="retrieveDfrdRestForApplog26">
+		<![CDATA[
+			SELECT /*+ LEADING(A) USE_HASH(A B) */    count(1)  AS DFRD_CNT
+			FROM    DEVON.SERE_DFRDPROC_TB  A
+			       ,DEVON.SERL_APPLOG_LG26  B
+			WHERE   A.DFRD_PROC_ID IN ( ${DFRD_PROC_ID:string:in} )
+			AND     A.SITE_CD     = ${SITE_CD}
+			AND     A.DFRD_BIZ_ID = B.DFRD_BIZ_ID
+			AND     B.TRAN_DT    = ${TRAN_DT}
+			AND     B.DFRD_SEQ = 0
+		]]>
+    </statement> 
+    <statement name="retrieveDfrdRestForApplog27">
+		<![CDATA[
+			SELECT /*+ LEADING(A) USE_HASH(A B) */    count(1)  AS DFRD_CNT
+			FROM    DEVON.SERE_DFRDPROC_TB  A
+			       ,DEVON.SERL_APPLOG_LG27  B
+			WHERE   A.DFRD_PROC_ID IN ( ${DFRD_PROC_ID:string:in} )
+			AND     A.SITE_CD     = ${SITE_CD}
+			AND     A.DFRD_BIZ_ID = B.DFRD_BIZ_ID
+			AND     B.TRAN_DT    = ${TRAN_DT}
+			AND     B.DFRD_SEQ = 0
+		]]>
+    </statement>         
+    <statement name="retrieveDfrdRestForApplog28">
+		<![CDATA[
+			SELECT /*+ LEADING(A) USE_HASH(A B) */    count(1)  AS DFRD_CNT
+			FROM    DEVON.SERE_DFRDPROC_TB  A
+			       ,DEVON.SERL_APPLOG_LG28  B
+			WHERE   A.DFRD_PROC_ID IN ( ${DFRD_PROC_ID:string:in} )
+			AND     A.SITE_CD     = ${SITE_CD}
+			AND     A.DFRD_BIZ_ID = B.DFRD_BIZ_ID
+			AND     B.TRAN_DT    = ${TRAN_DT}
+			AND     B.DFRD_SEQ = 0
+		]]>
+    </statement> 
+    <statement name="retrieveDfrdRestForApplog29">
+		<![CDATA[
+			SELECT /*+ LEADING(A) USE_HASH(A B) */    count(1)  AS DFRD_CNT
+     		FROM    DEVON.SERE_DFRDPROC_TB  A
+			       ,DEVON.SERL_APPLOG_LG29  B
+			WHERE   A.DFRD_PROC_ID IN ( ${DFRD_PROC_ID:string:in} )
+			AND     A.SITE_CD     = ${SITE_CD}
+			AND     A.DFRD_BIZ_ID = B.DFRD_BIZ_ID
+			AND     B.TRAN_DT    = ${TRAN_DT}
+			AND     B.DFRD_SEQ = 0
+		]]>
+    </statement>
+    <statement name="retrieveDfrdRestForApplog30">
+		<![CDATA[
+			SELECT /*+ LEADING(A) USE_HASH(A B) */    count(1)  AS DFRD_CNT
+			FROM    DEVON.SERE_DFRDPROC_TB  A
+			       ,DEVON.SERL_APPLOG_LG30  B
+			WHERE   A.DFRD_PROC_ID IN ( ${DFRD_PROC_ID:string:in} )
+			AND     A.SITE_CD     = ${SITE_CD}
+			AND     A.DFRD_BIZ_ID = B.DFRD_BIZ_ID
+			AND     B.TRAN_DT    = ${TRAN_DT}
+			AND     B.DFRD_SEQ = 0
+		]]>
+    </statement>
+    <statement name="retrieveDfrdRestForApplog31">
+		<![CDATA[
+			SELECT  /*+ LEADING(A) USE_HASH(A B) */   count(1)  AS DFRD_CNT
+			FROM    DEVON.SERE_DFRDPROC_TB  A
+			       ,DEVON.SERL_APPLOG_LG31  B
+			WHERE   A.DFRD_PROC_ID IN ( ${DFRD_PROC_ID:string:in} )
+			AND     A.SITE_CD     = ${SITE_CD}
+			AND     A.DFRD_BIZ_ID = B.DFRD_BIZ_ID
+			AND     B.TRAN_DT    = ${TRAN_DT}
+			AND     B.DFRD_SEQ = 0
+		]]>
+     </statement>
+    
+    <statement name="retrieveDfrdNotProcessCnt">
+		<![CDATA[
+             SELECT NVL(SUM(END_DFRD_SEQ - STRT_DFRD_SEQ + 1 -  NOR_END_CNT - ERR_END_CNT - CFM_END_CNT),0) AS NOT_CNT 
+             FROM DEVON.SERE_DFRDDATBLCK_TB
+             WHERE  TRAN_DT = ${TRAN_DT}
+             AND    DFRD_PROC_ID IN ( ${DFRD_PROC_ID:string:in} ) 
+             AND  PROC_ST IN ('00','01') 
+             AND  DAY_CD = SUBSTR(${TRAN_DT},7,8)
+		]]>
+     </statement>
+     
+    <statement name="retrieveDfrdInfolist">
+		<![CDATA[
+            SELECT SUBSTR(A.DFRD_BIZ_ID, 2, 3) AS 후행업무코드_V3  ,
+                   B.DFRD_BIZ_ID AS  후행업무ID_V20,
+                   B.DFRD_PROC_ID AS 후행처리ID_V50 
+              FROM DEVON.SERE_DFRDBIZ_TB A,
+                   DEVON.SERE_DFRDPROC_TB B
+             WHERE A.SITE_CD = ${SITE_CD}
+               AND A.DFRD_BIZ_ID LIKE 'D'||${DFRD_BWK_CD}|| '%'
+               {#1}
+               AND B.SITE_CD = A.SITE_CD
+               AND B.DFRD_BIZ_ID = A.DFRD_BIZ_ID
+               AND B.DFRD_PROC_ID LIKE 'D'||${DFRD_BWK_CD}|| '%' 
+             ORDER BY 후행업무코드_V3 ,
+                      후행업무ID_V20,
+                      후행처리ID_V50 ASC
+		]]>
+        <append where="false" condition="${DFRD_BIZ_ID_YN}.NOTEMPTY" id="#1">
+        <![CDATA[
+              AND A.DFRD_BIZ_ID IN ( ${DFRD_BIZ_ID:string:in} )  
+        ]]>
+        </append>		
+    </statement>
+    
+    
+    <statement name="retrieveDfrdprcInfolist">
+		<![CDATA[
+            SELECT SUBSTR(DFRD_PROC_ID, 2, 3) AS  후행업무코드_V3 ,
+                   DFRD_PROC_ID AS 후행처리ID_V50 
+              FROM DEVON.SERE_DFRDPROC_TB
+             WHERE SITE_CD = ${SITE_CD}
+               AND DFRD_PROC_ID LIKE 'D'||${DFRD_BWK_CD}|| '%'
+             ORDER BY 후행업무코드_V3, 후행처리ID_V50 ASC
+		]]>
+    </statement> 
+    
+    
+    <statement name="retrieveDfrdStatusCnt">
+		<![CDATA[
+         SELECT TRAN_DT AS 후행처리일자_V8,
+                DFRD_PROC_ID AS 후행처리ID_V50,
+                PROC_ST AS  후행처리상태코드_V2,
+                SUM(CASE WHEN PROC_ST IN ('21','31','91','41' ) THEN ERR_END_CNT + CFM_END_CNT   /*  21 시스템 오류, 31 비즈오류, 41 롤백종료, 91 비정상종료 */
+                     WHEN PROC_ST = '10' THEN END_DFRD_SEQ - STRT_DFRD_SEQ + 1    /* 처리 진행중 */
+                     ELSE END_DFRD_SEQ - STRT_DFRD_SEQ + 1 -  NOR_END_CNT - ERR_END_CNT - CFM_END_CNT  END)  AS 후행건수_N8
+           FROM DEVON.SERE_DFRDDATBLCK_TB
+          WHERE 1=1
+            AND TRAN_DT = ${DFRD_TRAN_DT}
+            AND DFRD_PROC_ID IN ( ${DFRD_PROC_ID:STRING:IN} ) 
+            AND PROC_ST <> '11'    /* 11 정상처리 */
+            {#1}
+          GROUP BY TRAN_DT,
+                DFRD_PROC_ID,
+                PROC_ST
+          ORDER BY 후행처리일자_V8, 후행처리ID_V50, 후행처리상태코드_V2
+		]]>
+        <append where="false" condition="${DFRD_PRC_ST}.NOTEMPTY" id="#1">
+        <![CDATA[
+           AND PROC_ST = ${DFRD_PRC_ST} 
+        ]]>
+        </append>			
+    </statement>       
+
+</statements>

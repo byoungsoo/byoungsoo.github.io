@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvGcbBchGlTtmVlnInfInqByVlnTg" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::21.IT장애관리지원::GCB배치목표시간검증정보Ebi::GCB배치목표시간검증정보Dao::GCB배치목표시간검증정보조회By검증대상조회">
+		<![CDATA[
+			SELECT /*+ 노광희::/gcb/itObstMgSpt/gcbBchGlTtmVlnInfEbi/TBGCBEM07/retvGcbBchGlTtmVlnInfInqByVlnTg */ 
+			       A.배치작업년월일
+			     , A.JAS작업ID
+			     , A.배치작업종료일시
+			     , A.IT운영SMS전송일시
+			     , A.배치검증완료여부
+			     , A.배치작업종료목표일시
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBEM07 A        /* GCB배치목표시간검증정보 */
+			 WHERE A.배치작업종료일시 is null 
+			   AND A.IT운영SMS전송일시 is null
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvGcbBchGlTtmVlnInf" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::21.IT장애관리지원::GCB배치목표시간검증정보Ebi::GCB배치목표시간검증정보Dao::GCB배치목표시간검증정보조회" >
+		<![CDATA[
+			SELECT /*+ 노광희::/gcb/itObstMgSpt/gcbBchGlTtmVlnInfEbi/TBGCBEM07/retvGcbBchGlTtmVlnInf */ 
+			       A.배치작업년월일
+			     , A.JAS작업ID
+			     , A.배치작업종료일시
+			     , A.IT운영SMS전송일시
+			     , A.배치검증완료여부
+			     , A.배치작업종료목표일시
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBEM07 A        /* GCB배치목표시간검증정보 */
+			 WHERE A.배치작업년월일 = ${배치작업년월일}
+			   AND A.JAS작업ID = ${JAS작업ID}
+			
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLckGcbBchGlTtmVlnInf" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::21.IT장애관리지원::GCB배치목표시간검증정보Ebi::GCB배치목표시간검증정보Dao::GCB배치목표시간검증정보락조회">
+		<![CDATA[
+			SELECT /*+ 노광희::/gcb/itObstMgSpt/gcbBchGlTtmVlnInfEbi/TBGCBEM07/retvLckGcbBchGlTtmVlnInf */ 
+			       A.배치작업년월일
+			     , A.JAS작업ID
+			     , A.배치작업종료일시
+			     , A.IT운영SMS전송일시
+			     , A.배치검증완료여부
+			     , A.배치작업종료목표일시
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBEM07 A        /* GCB배치목표시간검증정보 */
+			 WHERE A.배치작업년월일 = ${배치작업년월일}
+			   AND A.JAS작업ID = ${JAS작업ID}
+			   FOR UPDATE NOWAIT
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="regtGcbBchGlTtmVlnInf" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::21.IT장애관리지원::GCB배치목표시간검증정보Ebi::GCB배치목표시간검증정보Dao::GCB배치목표시간검증정보등록" >
+		<![CDATA[
+			INSERT /*+ 노광희::/gcb/itObstMgSpt/gcbBchGlTtmVlnInfEbi/TBGCBEM07/regtGcbBchGlTtmVlnInf */
+			  INTO INSTC.TBGCBEM07        /* GCB배치목표시간검증정보 */
+			(
+			   배치작업년월일
+			 , JAS작업ID
+			 , 배치작업종료일시
+			 , IT운영SMS전송일시
+			 , 배치검증완료여부
+			 , 배치작업종료목표일시
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${배치작업년월일}
+			 ,${JAS작업ID}
+			 ,${배치작업종료일시}
+			 ,${IT운영SMS전송일시}
+			 ,${배치검증완료여부}
+			 ,${배치작업종료목표일시}
+			 ,SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,${시스템최종거래일시}
+			)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="uptGcbBchGlTtmVlnInf" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::21.IT장애관리지원::GCB배치목표시간검증정보Ebi::GCB배치목표시간검증정보Dao::GCB배치목표시간검증정보수정" >
+		<![CDATA[
+			UPDATE /*+ 노광희::/gcb/itObstMgSpt/gcbBchGlTtmVlnInfEbi/TBGCBEM07/uptGcbBchGlTtmVlnInf */ 
+			       INSTC.TBGCBEM07        /* GCB배치목표시간검증정보 */
+			   SET 배치작업종료일시    = ${배치작업종료일시}
+			     , IT운영SMS전송일시 = ${IT운영SMS전송일시}
+			     , 배치검증완료여부    = ${배치검증완료여부}
+			     , 배치작업종료목표일시  = ${배치작업종료목표일시}
+			     , 시스템최종갱신일시   = SYSTIMESTAMP
+			     , 시스템최종갱신식별자  = ${시스템최종갱신식별자}
+			     , 시스템최종거래일시   = ${시스템최종거래일시}
+			 WHERE 배치작업년월일 = ${배치작업년월일}
+			   AND JAS작업ID = ${JAS작업ID}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="delGcbBchGlTtmVlnInf" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::21.IT장애관리지원::GCB배치목표시간검증정보Ebi::GCB배치목표시간검증정보Dao::GCB배치목표시간검증정보삭제" >
+		<![CDATA[
+			DELETE /*+ 노광희::/gcb/itObstMgSpt/gcbBchGlTtmVlnInfEbi/TBGCBEM07/delGcbBchGlTtmVlnInf */
+			  FROM INSTC.TBGCBEM07        /* GCB배치목표시간검증정보 */
+			 WHERE 배치작업년월일 = ${배치작업년월일}
+			   AND JAS작업ID = ${JAS작업ID}
+		]]>
+    </statement>
+</statements>

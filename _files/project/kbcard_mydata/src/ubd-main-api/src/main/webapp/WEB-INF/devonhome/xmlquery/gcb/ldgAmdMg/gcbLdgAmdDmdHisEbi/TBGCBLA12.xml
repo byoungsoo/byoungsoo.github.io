@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvGcbLdgAmdDmdHis" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::10.원장수정관리::GCB원장수정요청내역Ebi::GCB원장수정요청내역Dao::GCB원장수정요청내역조회" >
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ldgAmdMg/gcbLdgAmdDmdHisEbi/TBGCBLA12/retvGcbLdgAmdDmdHis */ 
+			       A.원장수정의뢰번호
+			     , A.원장수정의뢰상세요청일련번호
+			     , A.원장수정대상내용
+			     , A.원장수정착오사유
+			     , A.원장수정착오내용
+			     , A.원장수정정당내용
+			     , A.원장수정비고
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBLA12 A 
+			 WHERE A.원장수정의뢰번호       = ${원장수정의뢰번호}
+			   AND A.원장수정의뢰상세요청일련번호 = ${원장수정의뢰상세요청일련번호}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="regtGcbLdgAmdDmdHis" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::10.원장수정관리::GCB원장수정요청내역Ebi::GCB원장수정요청내역Dao::GCB원장수정요청내역등록" >
+		<![CDATA[
+			INSERT /*+ 김동현::/gcb/ldgAmdMg/gcbLdgAmdDmdHisEbi/TBGCBLA12/regtGcbLdgAmdDmdHis */
+			  INTO INSTC.TBGCBLA12
+			(
+			   원장수정의뢰번호
+			 , 원장수정의뢰상세요청일련번호
+			 , 원장수정대상내용
+			 , 원장수정착오사유
+			 , 원장수정착오내용
+			 , 원장수정정당내용
+			 , 원장수정비고
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${원장수정의뢰번호}
+			 ,${원장수정의뢰상세요청일련번호}
+			 ,${원장수정대상내용}
+			 ,${원장수정착오사유}
+			 ,${원장수정착오내용}
+			 ,${원장수정정당내용}
+			 ,${원장수정비고}
+			 ,SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,${시스템최종거래일시}
+			)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="uptGcbLdgAmdDmdHis" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::10.원장수정관리::GCB원장수정요청내역Ebi::GCB원장수정요청내역Dao::GCB원장수정요청내역수정" >
+		<![CDATA[
+			UPDATE /*+ 김동현::/gcb/ldgAmdMg/gcbLdgAmdDmdHisEbi/TBGCBLA12/uptGcbLdgAmdDmdHis */ 
+			       INSTC.TBGCBLA12 
+			   SET 원장수정대상내용   = ${원장수정대상내용}
+			     , 원장수정착오사유   = ${원장수정착오사유}
+			     , 원장수정착오내용   = ${원장수정착오내용}
+			     , 원장수정정당내용   = ${원장수정정당내용}
+			     , 원장수정비고     = ${원장수정비고}
+			     , 시스템최종갱신일시  = SYSTIMESTAMP
+			     , 시스템최종갱신식별자 = ${시스템최종갱신식별자}
+			     , 시스템최종거래일시  = ${시스템최종거래일시}
+			 WHERE 원장수정의뢰번호       = ${원장수정의뢰번호}
+			   AND 원장수정의뢰상세요청일련번호 = ${원장수정의뢰상세요청일련번호}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="delGcbLdgAmdDmdHis" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::10.원장수정관리::GCB원장수정요청내역Ebi::GCB원장수정요청내역Dao::GCB원장수정요청내역삭제" >
+		<![CDATA[
+			DELETE /*+ 김동현::/gcb/ldgAmdMg/gcbLdgAmdDmdHisEbi/TBGCBLA12/delGcbLdgAmdDmdHis */
+			  FROM INSTC.TBGCBLA12  
+			 WHERE 원장수정의뢰번호       = ${원장수정의뢰번호}
+			   AND 원장수정의뢰상세요청일련번호 = ${원장수정의뢰상세요청일련번호}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGcbLdgAmdDmdHis" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::10.원장수정관리::GCB원장수정요청내역Ebi::GCB원장수정요청내역Dao::GCB원장수정요청내역목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ldgAmdMg/gcbLdgAmdDmdHisEbi/TBGCBLA12/retvLstGcbLdgAmdDmdHis */ 
+			       A.원장수정의뢰번호
+			     , A.원장수정의뢰상세요청일련번호
+			     , A.원장수정대상내용
+			     , A.원장수정착오사유
+			     , A.원장수정착오내용
+			     , A.원장수정정당내용
+			     , A.원장수정비고
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBLA12 A 
+			 WHERE A.원장수정의뢰번호       = ${원장수정의뢰번호}
+			ORDER BY A.원장수정의뢰상세요청일련번호 ASC 
+		]]>
+    </statement>
+</statements>

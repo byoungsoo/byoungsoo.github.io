@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: <APPLICATION_NAME>
+  name: <APPLICATION_NAME>-<ENVIRONMENT>-ingress
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/group.name: <APPLICATION_GROUP>-<ENVIRONMENT>
+    alb.ingress.kubernetes.io/subnets: <EKS_INGRESS_SUBNET>
+    alb.ingress.kubernetes.io/scheme : internal
+    alb.ingress.kubernetes.io/security-groups: <EKS_INGRESS_SG>
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+    alb.ingress.kubernetes.io/healthcheck-path: /<APPLICATION_NAME>/
+    alb.ingress.kubernetes.io/healthcheck-interval-seconds: '15'
+    alb.ingress.kubernetes.io/healthcheck-timeout-seconds: '10'
+    alb.ingress.kubernetes.io/healthy-threshold-count: '2'
+    alb.ingress.kubernetes.io/unhealthy-threshold-count: '4'
+    alb.ingress.kubernetes.io/success-codes: '200'
+    alb.ingress.kubernetes.io/target-type: ip
+spec:
+  rules:
+   - http:
+        paths:
+        - path: /<APPLICATION_NAME>
+          pathType: Prefix
+          backend:
+            service:
+              name: <APPLICATION_NAME>-<ENVIRONMENT>-service
+              port:
+                number: <APPLICATION_PORT>

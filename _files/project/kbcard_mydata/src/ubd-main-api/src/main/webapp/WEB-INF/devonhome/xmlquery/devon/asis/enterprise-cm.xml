@@ -1,0 +1,1229 @@
+<?xml version="1.0" encoding="euc-kr"?>
+
+<statements>
+    
+    <statement name="cm.DELETE_SGMC_TRAN_TBS">
+        DELETE FROM DEVON.SGMC_TRAN_TB
+        WHERE  TRAN_SITE_ID = ${TRAN_SITE_ID}
+        AND    TRAN_ID      = ${TRAN_ID}
+    </statement>
+    <statement name="cm.INSERT_SGMC_TRAN_TBS">
+        INSERT INTO DEVON.SGMC_TRAN_TB (
+                    TRAN_ID,
+                    TRAN_SITE_ID,
+                    TRAN_MOD_DT,
+                    TRAN_MODUSER_ID,
+                    TRAN_REG_DT,
+                    TRAN_REGUSER_ID,
+                    TRAN_TYPE_CD,
+                    TRAN_NM,
+                    TRAN_DESC_TX,
+                    TRAN_REQCLASS_TX,
+                    TRAN_REQMETHOD_TX,
+                    TRAN_PRESURCLASS_TX,
+                    TRAN_REQSPEC_CD,
+                    TRAN_KIND_CD,
+                    TRAN_TX_CD,
+                    TRAN_TIMEOUT_NO,
+                    TRAN_IMAGEINLOG_YN,
+                    TRAN_IMAGEOUTLOG_YN,
+                    TRAN_SYSLOGLEVEL_CD,
+                    TRAN_TRACEOPTION_CD,
+                    TRAN_TRACELOGLEVEL_NO,
+                    TRAN_VALDFROM_NM,
+                    TRAN_VALDTO_NM,
+                    TRAN_CTRL_YN,
+                    TRAN_ABEND_YN,
+                    TRAN_SIMULATION_YN,
+                    TRAN_ACCCTRL_YN,
+                    TRAN_VALIDATE_YN,
+                    TRAN_DUPLICATE_YN,
+                    TRAN_CTGR_ID,
+                    TRAN_INIOSP_ID,
+                    TRAN_OUTIOSP_ID
+        ) values (
+                    ${TRAN_ID},
+                    ${TRAN_SITE_ID},
+                    TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF3'),
+                    ${TRAN_MODUSER_ID},
+                    ${TRAN_REG_DT},
+                    ${TRAN_REGUSER_ID},
+                    ${TRAN_TYPE_CD},
+                    ${TRAN_NM},
+                    ${TRAN_DESC_TX},
+                    ${TRAN_REQCLASS_TX},
+                    ${TRAN_REQMETHOD_TX},
+                    ${TRAN_PRESURCLASS_TX},
+                    ${TRAN_REQSPEC_CD},
+                    ${TRAN_KIND_CD},
+                    ${TRAN_TX_CD},
+                    ${TRAN_TIMEOUT_NO},
+                    ${TRAN_IMAGEINLOG_YN},
+                    ${TRAN_IMAGEOUTLOG_YN},
+                    ${TRAN_SYSLOGLEVEL_CD},
+                    ${TRAN_TRACEOPTION_CD},
+                    ${TRAN_TRACELOGLEVEL_NO},
+                    ${TRAN_VALDFROM_NM},
+                    ${TRAN_VALDTO_NM},
+                    ${TRAN_CTRL_YN},
+                    ${TRAN_ABEND_YN},
+                    ${TRAN_SIMULATION_YN},
+                    ${TRAN_ACCCTRL_YN},
+                    ${TRAN_VALIDATE_YN},
+                    ${TRAN_DUPLICATE_YN},
+                    ${TRAN_CTGR_ID},
+                    ${TRAN_INIOSP_ID},
+                    ${TRAN_OUTIOSP_ID}
+        )
+    </statement>
+    
+    <statement name="cm.DELETE_SGRS_TRANS">
+        DELETE FROM DEVON.SGRS_TRAN
+        WHERE  SITE_CD = ${SITE_CD}
+        AND    TRAN_ID = ${TRAN_ID}
+    </statement>
+    <statement name="cm.INSERT_SGRS_TRANS">
+        INSERT INTO DEVON.SGRS_TRAN (
+                    REFRESH_ST,
+                    SITE_CD,
+                    TRAN_ID,
+                    TRAN_TYPE_CD,
+                    TRAN_CALL_CLASS,
+                    TRAN_CALL_METHOD,
+                    TRAN_PRESUR_CLASS,
+                    TRAN_SPEC_CD,
+                    TRAN_KIND_CD,
+                    TRAN_TX_CD,
+                    TRAN_TIMEOUT_NO,
+                    TRAN_IMAGE_INLOG_YN,
+                    TRAN_IMAGE_OUTLOG_YN,
+                    TRAN_LOG_LEVEL,
+                    TRAN_TRACE_OPTION,
+                    TRAN_TRACE_LOG_LEVEL,
+                    TRAN_VALD_FROMTIME,
+                    TRAN_VALD_TOTIME,
+                    TRAN_CTRL_YN,
+                    TRAN_ABEND_YN,
+                    TRAN_SIMULATION_YN,
+                    TRAN_BIZ_TYPE,
+                    TRAN_INIOSP_ID,
+                    TRAN_OUTIOSP_ID,
+                    TRAN_ACCCTRL_YN,
+                    TRAN_VALIDATE_YN,
+                    TRAN_SAVEDTOKEN_YN
+        ) values (
+                    ${REFRESH_ST},
+                    ${SITE_CD},
+                    ${TRAN_ID},
+                    ${TRAN_TYPE_CD},
+                    ${TRAN_CALL_CLASS},
+                    ${TRAN_CALL_METHOD},
+                    ${TRAN_PRESUR_CLASS},
+                    ${TRAN_SPEC_CD},
+                    ${TRAN_KIND_CD},
+                    ${TRAN_TX_CD},
+                    ${TRAN_TIMEOUT_NO},
+                    ${TRAN_IMAGE_INLOG_YN},
+                    ${TRAN_IMAGE_OUTLOG_YN},
+                    ${TRAN_LOG_LEVEL},
+                    ${TRAN_TRACE_OPTION},
+                    ${TRAN_TRACE_LOG_LEVEL},
+                    ${TRAN_VALD_FROMTIME},
+                    ${TRAN_VALD_TOTIME},
+                    ${TRAN_CTRL_YN},
+                    ${TRAN_ABEND_YN},
+                    ${TRAN_SIMULATION_YN},
+                    ${TRAN_BIZ_TYPE},
+                    ${TRAN_INIOSP_ID},
+                    ${TRAN_OUTIOSP_ID},
+                    ${TRAN_ACCCTRL_YN},
+                    ${TRAN_VALIDATE_YN},
+                    ${TRAN_SAVEDTOKEN_YN}
+        )
+    </statement>
+
+    <statement name="cm.DELETE_SERE_BT_JOB_INFO_TBS">
+        DELETE FROM DEVON.SERE_BT_JOB_INFO_TB
+        WHERE  SITE_CD = ${SITE_CD}
+        AND    JOB_ID  = ${JOB_ID}
+    </statement>
+    <statement name="cm.INSERT_SERE_BT_JOB_INFO_TBS">
+        INSERT INTO DEVON.SERE_BT_JOB_INFO_TB (
+                    JOB_ID,
+                    JOB_DESC,
+                    EXECUTOR_ID,
+                    EXEC_ENABLE,
+                    COMMIT_COUNT,
+                    EXECUTION_TYPE,
+                    IS_SIMULTANEOUS,
+                    TIMEOUT,
+                    JOB_CYCLE,
+                    MOD_DT,
+                    MOD_USER_ID,
+                    REG_DT,
+                    REG_USER_ID,
+                    SITE_CD,
+                    SERVER_ID,
+                    SHELL_ID,
+                    PATH_ID,
+                    SIMULTANEOUS_LIMIT_COUNT,
+                    TUNING_API_ENABLE,
+                    MEMORY_OPTION
+        ) values (
+                    ${JOB_ID},
+                    ${JOB_DESC},
+                    ${EXECUTOR_ID},
+                    ${EXEC_ENABLE},
+                    ${COMMIT_COUNT},
+                    ${EXECUTION_TYPE},
+                    ${IS_SIMULTANEOUS},
+                    ${TIMEOUT},
+                    ${JOB_CYCLE},
+                    TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF3'),
+                    ${MOD_USER_ID},
+                    ${REG_DT},
+                    ${REG_USER_ID},
+                    ${SITE_CD},
+                    ${SERVER_ID},
+                    ${SHELL_ID},
+                    ${PATH_ID},
+                    ${SIMULTANEOUS_LIMIT_COUNT},
+                    ${TUNING_API_ENABLE},
+                    ${MEMORY_OPTION}
+        )
+    </statement>
+    
+    <statement name="cm.DELETE_SERE_BT_PARAM_INFO_TBS">
+        DELETE FROM DEVON.SERE_BT_PARAM_INFO_TB
+        WHERE  SITE_CD = ${SITE_CD}
+        AND    JOB_ID  = ${JOB_ID}
+    </statement>
+    <statement name="cm.INSERT_SERE_BT_PARAM_INFO_TBS">
+        INSERT INTO DEVON.SERE_BT_PARAM_INFO_TB (
+                    JOB_ID,
+                    PARAM_KEY,
+                    PARAM_SEQ,
+                    PARAM_VALUE,
+                    PARAM_DESC,
+                    MOD_DT,
+                    REG_USER_ID,
+                    REG_DT,
+                    MOD_USER_ID,
+                    SEQ,
+                    CALE_REF_FLAG,
+                    SITE_CD,
+                    SYSIN_YN
+        ) values (
+                    ${JOB_ID},
+                    ${PARAM_KEY},
+                    ${PARAM_SEQ},
+                    ${PARAM_VALUE},
+                    ${PARAM_DESC},
+                    TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF3'),
+                    ${REG_USER_ID},
+                    ${REG_DT},
+                    ${MOD_USER_ID},
+                    ${SEQ},
+                    ${CALE_REF_FLAG},
+                    ${SITE_CD},
+                    ${SYSIN_YN}
+        )
+    </statement>
+    
+    <statement name="cm.DELETE_SERE_BT_STEP_INFO_TBS">
+        DELETE FROM DEVON.SERE_BT_STEP_INFO_TB
+        WHERE  SITE_CD = ${SITE_CD}
+        AND    JOB_ID  = ${JOB_ID}
+    </statement>
+    <statement name="cm.INSERT_SERE_BT_STEP_INFO_TBS">
+        INSERT INTO DEVON.SERE_BT_STEP_INFO_TB (
+                    JOB_ID,
+                    STEP_ID,
+                    STEP_DESC,
+                    WORKER_CLASS,
+                    THREAD_NUM,
+                    MAIN_ITEM_TYPE,
+                    REG_USER_ID,
+                    REG_DT,
+                    MOD_USER_ID,
+                    MOD_DT,
+                    SITE_CD,
+                    PARALLEL_MODE,
+                    REF_JOB_ID,
+                    REF_STEP_ID
+        ) values (
+                    ${JOB_ID},
+                    ${STEP_ID},
+                    ${STEP_DESC},
+                    ${WORKER_CLASS},
+                    ${THREAD_NUM},
+                    ${MAIN_ITEM_TYPE},
+                    ${REG_USER_ID},
+                    ${REG_DT},
+                    ${MOD_USER_ID},
+                    TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF3'),
+                    ${SITE_CD},
+                    ${PARALLEL_MODE},
+                    ${REF_JOB_ID},
+                    ${REF_STEP_ID}
+        )
+    </statement>
+    
+    <statement name="cm.DELETE_SERE_BT_DB_INFO_TBS">
+        DELETE FROM DEVON.SERE_BT_DB_INFO_TB
+        WHERE  SITE_CD = ${SITE_CD}
+        AND    JOB_ID  = ${JOB_ID}
+    </statement>
+    <statement name="cm.INSERT_SERE_BT_DB_INFO_TBS">
+        INSERT INTO DEVON.SERE_BT_DB_INFO_TB (
+                    JOB_ID,
+                    STEP_ID,
+                    DB_SPEC,
+                    XML_QUERY_LOC,
+                    XML_QUERY_NAME,
+                    MAIN_CHECK,
+                    MOD_DT,
+                    MOD_USER_ID,
+                    REG_DT,
+                    REG_USER_ID,
+                    XML_QUERY_ALIAS,
+                    SEQ,
+                    SITE_CD,
+                    INOUT_TYPE
+        ) values (
+                    ${JOB_ID},
+                    ${STEP_ID},
+                    ${DB_SPEC},
+                    ${XML_QUERY_LOC},
+                    ${XML_QUERY_NAME},
+                    ${MAIN_CHECK},
+                    TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF3'),
+                    ${MOD_USER_ID},
+                    ${REG_DT},
+                    ${REG_USER_ID},
+                    ${XML_QUERY_ALIAS},
+                    ${SEQ},
+                    ${SITE_CD},
+                    ${INOUT_TYPE}
+        )
+    </statement>
+    
+    <statement name="cm.DELETE_SERE_BT_FILE_INFO_TBS">
+        DELETE FROM DEVON.SERE_BT_FILE_INFO_TB
+        WHERE  SITE_CD = ${SITE_CD}
+        AND    JOB_ID  = ${JOB_ID}
+    </statement>
+    <statement name="cm.INSERT_SERE_BT_FILE_INFO_TBS">
+        INSERT INTO DEVON.SERE_BT_FILE_INFO_TB (
+                    JOB_ID,
+                    STEP_ID,
+                    FILE_SEQ,
+                    INOUT_TYPE,
+                    FILE_NAME,
+                    FILE_PATH,
+                    BIZ_FILE_PATH,
+                    FILE_ENC,
+                    IO_SPEC_ID,
+                    FILE_TYPE,
+                    FILE_FORM,
+                    FILE_CHECK,
+                    FILE_ALIAS,
+                    MAIN_CHECK,
+                    MOD_DT,
+                    MOD_USER_ID,
+                    REG_DT,
+                    REG_USER_ID,
+                    FILE_WORK_PATH,
+                    RENAME_FLAG,
+                    COMMENTS,
+                    CRLF_CHA_CD,
+                    FILE_BASE_DIRECTORY,
+                    SITE_CD,
+                    PRESERVE_CYCLE,
+                    IOIT_REC_ENCF1,
+                    LINE_END_DELIMITER_YN,
+                    FILE_CTGR_ID,
+                    EMPTY_FILE_CREAT_YN,
+                    NOP_CRYPTO_YN,
+                    EBCDIC_CONV_YN,
+                    SOSI_OPTION,
+                    BACKUP_DIR_PATH,
+                    BACKUP_FILENAME
+
+        ) values (
+                    ${JOB_ID},
+                    ${STEP_ID},
+                    ${FILE_SEQ},
+                    ${INOUT_TYPE},
+                    ${FILE_NAME},
+                    ${FILE_PATH},
+                    ${BIZ_FILE_PATH},
+                    ${FILE_ENC},
+                    ${IO_SPEC_ID},
+                    ${FILE_TYPE},
+                    ${FILE_FORM},
+                    ${FILE_CHECK},
+                    ${FILE_ALIAS},
+                    ${MAIN_CHECK},
+                    TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF3'),
+                    ${MOD_USER_ID},
+                    ${REG_DT},
+                    ${REG_USER_ID},
+                    ${FILE_WORK_PATH},
+                    ${RENAME_FLAG},
+                    ${COMMENTS},
+                    ${CRLF_CHA_CD},
+                    ${FILE_BASE_DIRECTORY},
+                    ${SITE_CD},
+                    ${PRESERVE_CYCLE},
+                    ${IOIT_REC_ENCF1},
+                    ${LINE_END_DELIMITER_YN},
+                    ${FILE_CTGR_ID},
+                    ${EMPTY_FILE_CREAT_YN},
+                    ${NOP_CRYPTO_YN},
+                    ${EBCDIC_CONV_YN},
+                    ${SOSI_OPTION},
+                    ${BACKUP_DIR_PATH},
+                    ${BACKUP_FILENAME}
+        )
+    </statement>
+
+    <statement name="cm.DELETE_SERE_BT_STEP_DEPEND_ONS_TBS">
+        DELETE FROM DEVON.SERE_BT_STEP_DEPEND_ONS_TB
+        WHERE  SITE_CD = ${SITE_CD}
+        AND    JOB_ID  = ${JOB_ID}
+    </statement>
+    <statement name="cm.INSERT_SERE_BT_STEP_DEPEND_ONS_TBS">
+        INSERT INTO DEVON.SERE_BT_STEP_DEPEND_ONS_TB (
+                    JOB_ID,
+                    STEP_ID,
+                    DEPEND_ONS_STEP_ID,
+                    REG_USER_ID,
+                    REG_DT,
+                    MOD_USER_ID,
+                    MOD_DT,
+                    SITE_CD
+        ) values (
+                    ${JOB_ID},
+                    ${STEP_ID},
+                    ${DEPEND_ONS_STEP_ID},
+                    ${REG_USER_ID},
+                    ${REG_DT},
+                    ${MOD_USER_ID},
+                    TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF3'),
+                    ${SITE_CD}
+        )
+    </statement>
+    
+    <statement name="cm.DELETE_SERE_BT_ONDEMAND_INFO_TBS">
+        DELETE FROM DEVON.SERE_BT_ONDEMAND_INFO_TB
+        WHERE  SITE_CD = ${SITE_CD}
+        AND    JOB_ID  = ${JOB_ID}
+    </statement>
+    <statement name="cm.INSERT_SERE_BT_ONDEMAND_INFO_TBS">
+        INSERT INTO DEVON.SERE_BT_ONDEMAND_INFO_TB (
+                    JOB_ID,
+                    EXEC_ENABLE_START_TIME,
+                    EXEC_ENABLE_END_TIME,
+                    EXEC_ENABLE_YN,
+                    EXEC_ENABLE_WEEK_DAYS,
+                    EXIT_RESPONSE_CHN,
+                    REG_DT,
+                    MOD_DT,
+                    MOD_USER_ID,
+                    REG_USER_ID,
+                    SITE_CD
+        ) values (
+                    ${JOB_ID},
+                    ${EXEC_ENABLE_START_TIME},
+                    ${EXEC_ENABLE_END_TIME},
+                    ${EXEC_ENABLE_YN},
+                    ${EXEC_ENABLE_WEEK_DAYS},
+                    ${EXIT_RESPONSE_CHN},
+                    ${REG_DT},
+                    TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF3'),
+                    ${MOD_USER_ID},
+                    ${REG_USER_ID},
+                    ${SITE_CD}
+        )
+    </statement>
+    
+    <statement name="cm.DELETE_SGMC_IOSPEC_TBS">
+        DELETE FROM DEVON.SGMC_IOSPEC_TB
+        WHERE  IOSP_ID      = ${IOSP_ID}
+        AND    IOSP_SITE_ID = ${IOSP_SITE_ID}
+    </statement>
+    <statement name="cm.INSERT_SGMC_IOSPEC_TBS">
+        INSERT INTO DEVON.SGMC_IOSPEC_TB (
+                    IOSP_ID,
+                    IOSP_SITE_ID,
+                    IOSP_MOD_DT,
+                    IOSP_MODUSER_ID,
+                    IOSP_REG_DT,
+                    IOSP_REGUSER_ID,
+                    IOSP_RESCGROUP_ID,
+                    IOSP_IDEPACKAGE_NM,
+                    IOSP_TY,
+                    IOSP_INCLUDE_YN,
+                    IOSP_DESC_TX,
+                    IOSP_CHKOUT_YN,
+                    IOSP_CHKOUT_DT,
+                    IOSP_CHKOUTUSER_ID,
+                    IOSP_CHNGUSER_ID,
+                    IOSP_CHNG_DT,
+                    IOSP_VERSION_NO,
+                    IOSP_CTGR_ID
+        ) values (
+                    ${IOSP_ID},
+                    ${IOSP_SITE_ID},
+                    TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF3'),
+                    ${IOSP_MODUSER_ID},
+                    ${IOSP_REG_DT},
+                    ${IOSP_REGUSER_ID},
+                    ${IOSP_RESCGROUP_ID},
+                    ${IOSP_IDEPACKAGE_NM},
+                    ${IOSP_TY},
+                    ${IOSP_INCLUDE_YN},
+                    ${IOSP_DESC_TX},
+                    ${IOSP_CHKOUT_YN},
+                    ${IOSP_CHKOUT_DT},
+                    ${IOSP_CHKOUTUSER_ID},
+                    ${IOSP_CHNGUSER_ID},
+                    ${IOSP_CHNG_DT},
+                    ${IOSP_VERSION_NO},
+                    ${IOSP_CTGR_ID}
+        )
+    </statement>
+    
+    <statement name="cm.DELETE_SGMC_IOITEM_TBS">
+        DELETE FROM DEVON.SGMC_IOITEM_TB
+        WHERE  IOIT_IOSP_ID = ${IOIT_IOSP_ID}
+        AND    IOIT_SITE_ID = ${IOIT_SITE_ID}
+    </statement>
+    <statement name="cm.INSERT_SGMC_IOITEM_TBS">
+        INSERT INTO DEVON.SGMC_IOITEM_TB (
+                    IOIT_ID,
+                    IOIT_SITE_ID,
+                    IOIT_MOD_DT,
+                    IOIT_MODUSER_ID,
+                    IOIT_REG_DT,
+                    IOIT_REGUSER_ID,
+                    IOIT_SQ,
+                    IOIT_IOSP_ID,
+                    IOIT_DATA_TY,
+                    IOIT_PARENTPATH_ID,
+                    IOIT_LENGTH_NO,
+                    IOIT_MANDATORY_YN,
+                    IOIT_DEFAULTVAL_NM,
+                    IOIT_DECIMAL_NO,
+                    IOIT_DESC_TX,
+                    IOIT_HANGUL_YN,
+                    IOIT_POINT_YN,
+                    IOIT_VERSION_NO,
+                    IOIT_TYPE_CD,
+                    IOIT_SORT_CD,
+                    IOIT_REMARK_YN,
+                    IOIT_SCALE_NO,
+                    IOIT_FILLER_TX,
+                    IOIT_VALIDATE_NM,
+                    IOIT_BT_FLD_TP_CD,
+                    IOIT_BT_CHK_FLD_CD,
+                    IOIT_BT_CHK_FLD_YN,
+                    IOIT_BT_FLD_VAL_CD,
+                    IOIT_ORDER_NO,
+                    IOIT_CRYPTO_YN,
+                    IOIT_CRYPTO_ALG,
+                    IOIT_IDENTIF_YN,
+                    IOIT_ENCTP,
+                    IOIT_ENCF1,
+                    IOIT_ENCF2,
+                    IOIT_ENCF3,
+                    IOIT_ENCF4,
+                    IOIT_REC_ENCF1,
+                    SIGN_BIT_YN,
+                    SIGN_BIT_POS,
+                    TRIM_YN,
+                    TRIM_TY,
+                    NON_ENC_CN_FM,
+                    WN_CHAR_OPTION
+        ) values (
+                    ${IOIT_ID},
+                    ${IOIT_SITE_ID},
+                    TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF3'),
+                    ${IOIT_MODUSER_ID},
+                    ${IOIT_REG_DT},
+                    ${IOIT_REGUSER_ID},
+                    ${IOIT_SQ},
+                    ${IOIT_IOSP_ID},
+                    ${IOIT_DATA_TY},
+                    ${IOIT_PARENTPATH_ID},
+                    ${IOIT_LENGTH_NO},
+                    ${IOIT_MANDATORY_YN},
+                    ${IOIT_DEFAULTVAL_NM},
+                    ${IOIT_DECIMAL_NO},
+                    ${IOIT_DESC_TX},
+                    ${IOIT_HANGUL_YN},
+                    ${IOIT_POINT_YN},
+                    ${IOIT_VERSION_NO},
+                    ${IOIT_TYPE_CD},
+                    ${IOIT_SORT_CD},
+                    ${IOIT_REMARK_YN},
+                    ${IOIT_SCALE_NO},
+                    ${IOIT_FILLER_TX},
+                    ${IOIT_VALIDATE_NM},
+                    ${IOIT_BT_FLD_TP_CD},
+                    ${IOIT_BT_CHK_FLD_CD},
+                    ${IOIT_BT_CHK_FLD_YN},
+                    ${IOIT_BT_FLD_VAL_CD},
+                    ${IOIT_ORDER_NO},
+                    ${IOIT_CRYPTO_YN},
+                    ${IOIT_CRYPTO_ALG},
+                    ${IOIT_IDENTIF_YN},
+                    ${IOIT_ENCTP},
+                    ${IOIT_ENCF1},
+                    ${IOIT_ENCF2},
+                    ${IOIT_ENCF3},
+                    ${IOIT_ENCF4},
+                    ${IOIT_REC_ENCF1},
+                    ${SIGN_BIT_YN},
+                    ${SIGN_BIT_POS},
+                    ${TRIM_YN},
+                    ${TRIM_TY},
+                    ${NON_ENC_CN_FM},
+                    ${WN_CHAR_OPTION}
+        )
+    </statement>
+    
+    <statement name="cm.DELETE_SGRS_IOSPECITEMS">
+        DELETE FROM DEVON.SGRS_IOSPECITEM
+        WHERE  SPEC_ID = ${SPEC_ID}
+        AND    SITE_CD = ${SITE_CD}
+    </statement>
+    <statement name="cm.INSERT_SGRS_IOSPECITEMS">
+        INSERT INTO DEVON.SGRS_IOSPECITEM (
+                    REFRESH_ST,
+                    SITE_CD,
+                    SPEC_ID,
+                    IOIT_INCLUDE_YN,
+                    ITEM_ID,
+                    IOIT_SQ,
+                    IOIT_DATA_TY,
+                    IOIT_PARENTPATH_ID,
+                    IOIT_LENGTH_NO,
+                    IOIT_MANDATORY_YN,
+                    IOIT_DEFAULTVAL_NM,
+                    IOIT_DECIMAL_NO,
+                    IOIT_DESC_TX,
+                    IOIT_POINT_YN,
+                    IOIT_VERSION_NO,
+                    IOIT_TYPE_CD,
+                    IOIT_REMARK_YN,
+                    IOIT_SORT_CD,
+                    IOIT_SCALE_NO,
+                    IOIT_FILLER_TX,
+                    IOIT_VALIDATE_NM,
+                    IOIT_BT_FLD_TP_CD,
+                    IOIT_BT_CHK_FLD_CD,
+                    IOIT_BT_CHK_FLD_YN,
+                    IOIT_BT_FLD_VAL_CD,
+                    IOIT_CRYPTO_YN,
+                    IOIT_CRYPTO_ALG,
+                    IOIT_IDENTIF_YN,
+                    IOIT_ENCTP,
+                    IOIT_ENCF1,
+                    IOIT_ENCF2,
+                    IOIT_ENCF3,
+                    IOIT_ENCF4,
+                    IOIT_REC_ENCF1,
+                    SIGN_BIT_YN,
+                    SIGN_BIT_POS,
+                    TRIM_YN,
+                    TRIM_TY,
+                    NON_ENC_CN_FM,
+                    WN_CHAR_OPTION
+        ) values (
+                    ${REFRESH_ST},
+                    ${SITE_CD},
+                    ${SPEC_ID},
+                    ${IOIT_INCLUDE_YN},
+                    ${ITEM_ID},
+                    ${IOIT_SQ},
+                    ${IOIT_DATA_TY},
+                    ${IOIT_PARENTPATH_ID},
+                    ${IOIT_LENGTH_NO},
+                    ${IOIT_MANDATORY_YN},
+                    ${IOIT_DEFAULTVAL_NM},
+                    ${IOIT_DECIMAL_NO},
+                    ${IOIT_DESC_TX},
+                    ${IOIT_POINT_YN},
+                    ${IOIT_VERSION_NO},
+                    ${IOIT_TYPE_CD},
+                    ${IOIT_REMARK_YN},
+                    ${IOIT_SORT_CD},
+                    ${IOIT_SCALE_NO},
+                    ${IOIT_FILLER_TX},
+                    ${IOIT_VALIDATE_NM},
+                    ${IOIT_BT_FLD_TP_CD},
+                    ${IOIT_BT_CHK_FLD_CD},
+                    ${IOIT_BT_CHK_FLD_YN},
+                    ${IOIT_BT_FLD_VAL_CD},
+                    ${IOIT_CRYPTO_YN},
+                    ${IOIT_CRYPTO_ALG},
+                    ${IOIT_IDENTIF_YN},
+                    ${IOIT_ENCTP},
+                    ${IOIT_ENCF1},
+                    ${IOIT_ENCF2},
+                    ${IOIT_ENCF3},
+                    ${IOIT_ENCF4},
+                    ${IOIT_REC_ENCF1},
+                    ${SIGN_BIT_YN},
+                    ${SIGN_BIT_POS},
+                    ${TRIM_YN},
+                    ${TRIM_TY},
+                    ${NON_ENC_CN_FM},
+                    ${WN_CHAR_OPTION}
+        )
+    </statement>
+    
+    
+    <statement name="cm.DELETE_SGMC_TRANTOTXPR_TLS">
+        DELETE FROM DEVON.SGMC_TRANTOTXPR_TL
+        WHERE  TTXP_TRAN_ID = ${TTXP_TRAN_ID}
+        AND    TTXP_SITE_ID      = ${TTXP_SITE_ID}
+    </statement>
+    <statement name="cm.INSERT_SGMC_TRANTOTXPR_TLS">
+        INSERT INTO DEVON.SGMC_TRANTOTXPR_TL (
+            TTXP_TRAN_ID
+            ,TTXP_TXPR_ID
+            ,TTXP_SITE_ID
+            ,TTXP_MOD_DT
+            ,TTXP_MODUSER_ID
+            ,TTXP_REG_DT
+            ,TTXP_REGUSER_ID
+            ,TTXP_BASICVALUE_TX
+            ,TTXP_TRANVALUE_TX
+        ) values (
+            ${TTXP_TRAN_ID}
+            ,${TTXP_TXPR_ID}
+            ,${TTXP_SITE_ID}
+            , TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+            ,${TTXP_MODUSER_ID}
+            ,${TTXP_REG_DT}
+            ,${TTXP_REGUSER_ID}
+            ,${TTXP_BASICVALUE_TX}
+            ,${TTXP_TRANVALUE_TX}
+        )
+    </statement>
+    
+    <statement name="cm.DELETE_SGMC_TRAN_VER_TBS">
+        DELETE FROM DEVON.SGMC_TRAN_VER_TB
+        WHERE  SITE_CD = ${SITE_CD}
+        AND    LINK_ID      = ${LINK_ID}
+    </statement>
+    <statement name="cm.INSERT_SGMC_TRAN_VER_TBS">
+        INSERT INTO DEVON.SGMC_TRAN_VER_TB (
+             SITE_CD
+             ,LINK_ID
+             ,LINK_VER
+             ,TRAN_ID
+             ,MOD_DT
+             ,MODUSER_ID
+             ,REG_DT
+             ,REGUSER_ID
+             ,TIMEOUT
+        ) values (
+             ${SITE_CD}
+             ,${LINK_ID}
+             ,${LINK_VER}
+             ,${TRAN_ID}
+             , TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+             ,${MODUSER_ID}
+             ,${REG_DT}
+             ,${REGUSER_ID}
+             ,${TIMEOUT}
+        )
+    </statement>
+    
+    <statement name="cm.DELETE_SGMC_TRAN_FORM_TBS">
+        DELETE FROM DEVON.SGMC_TRAN_FORM_TB
+        WHERE  SITE_CD = ${SITE_CD}
+        AND    TRAN_ID      = ${TRAN_ID}
+    </statement>
+    <statement name="cm.INSERT_SGMC_TRAN_FORM_TBS">
+        INSERT INTO DEVON.SGMC_TRAN_FORM_TB (
+             SITE_CD
+            ,TRAN_ID
+            ,FORM_ID
+            ,LINK_ID
+            ,MOD_DT
+            ,MODUSER_ID
+            ,REG_DT
+            ,REGUSER_ID
+            ,SEC_DTCD
+            ,OUT_DTCD
+        ) values (
+             ${SITE_CD}
+            ,${TRAN_ID}
+            ,${FORM_ID}
+            ,${LINK_ID}
+            , TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+            ,${MODUSER_ID}
+            ,${REG_DT}
+            ,${REGUSER_ID}
+            ,${SEC_DTCD}
+            ,${OUT_DTCD}
+        )
+    </statement>
+    
+    <statement name="cm.DELETE_SGRS_TRANEXTPARAMS">
+        DELETE FROM DEVON.SGRS_TRANEXTPARAM
+        WHERE  SITE_CD = ${SITE_CD}
+        AND    TRAN_ID      = ${TRAN_ID}
+    </statement>
+    <statement name="cm.INSERT_SGRS_TRANEXTPARAMS">
+        INSERT INTO DEVON.SGRS_TRANEXTPARAM (
+             REFRESH_ST
+            ,SITE_CD
+            ,TRAN_ID
+            ,TRAN_PRAM_ID
+            ,TRAN_PRAM_VALUE
+        ) values (
+             ${REFRESH_ST}
+            ,${SITE_CD}
+            ,${TRAN_ID}
+            ,${TRAN_PRAM_ID}
+            ,${TRAN_PRAM_VALUE}
+        )
+    </statement>
+    
+    <statement name="cm.DELETE_SGMC_LINKTRAN_TBS">
+        DELETE FROM DEVON.SGMC_LINKTRAN_TB
+        WHERE  LTRN_ID = ${LTRN_ID}
+        AND    LTRN_SITE_ID      = ${LTRN_SITE_ID}
+    </statement>
+    <statement name="cm.INSERT_SGMC_LINKTRAN_TBS">
+        INSERT INTO DEVON.SGMC_LINKTRAN_TB (
+            LTRN_ID
+            ,LTRN_SITE_ID
+            ,LTRN_MOD_DT
+            ,LTRN_MODUSER_ID
+            ,LTRN_REG_DT
+            ,LTRN_REGUSER_ID
+            ,LTRN_NM
+            ,LTRN_DESC_TX
+            ,LTRN_PATH_TX
+            ,LTRN_RSRP_CD
+            ,LTRN_TESTUSE_YN
+            ,LTRN_INTERFACE_ID
+            ,LTRN_ORG_CD
+            ,LTRN_ASYNCRESTRAN_ID
+            ,LTRN_ERRORTRAN_ID
+            ,LTRN_TIMEOUTTRAN_ID
+            ,LTRN_CALLTRAN_ID
+            ,LTRN_LOGN_ID
+            ,LTRN_LNDE_ID
+            ,LTRN_INIOSP_ID
+            ,LTRN_OUTIOSP_ID
+            ,LTRN_CALLBACKTRAN_ID
+            ,LTRN_TIMEOUT
+            ,LTRN_ERRIOSP_ID
+        ) values (
+            ${LTRN_ID}
+            ,${LTRN_SITE_ID}
+            , TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+            ,${LTRN_MODUSER_ID}
+            ,${LTRN_REG_DT}
+            ,${LTRN_REGUSER_ID}
+            ,${LTRN_NM}
+            ,${LTRN_DESC_TX}
+            ,${LTRN_PATH_TX}
+            ,${LTRN_RSRP_CD}
+            ,${LTRN_TESTUSE_YN}
+            ,${LTRN_INTERFACE_ID}
+            ,${LTRN_ORG_CD}
+            ,${LTRN_ASYNCRESTRAN_ID}
+            ,${LTRN_ERRORTRAN_ID}
+            ,${LTRN_TIMEOUTTRAN_ID}
+            ,${LTRN_CALLTRAN_ID}
+            ,${LTRN_LOGN_ID}
+            ,${LTRN_LNDE_ID}
+            ,${LTRN_INIOSP_ID}
+            ,${LTRN_OUTIOSP_ID}
+            ,${LTRN_CALLBACKTRAN_ID}
+            ,${LTRN_TIMEOUT}
+            ,${LTRN_ERRIOSP_ID}
+        )
+    </statement>
+    
+    <statement name="cm.DELETE_SGRS_LINKTRANS">
+        DELETE FROM DEVON.SGRS_LINKTRAN
+        WHERE  SITE_CD = ${SITE_CD}
+        AND    LINK_ID      = ${LINK_ID}
+    </statement>
+    <statement name="cm.INSERT_SGRS_LINKTRANS">
+        INSERT INTO DEVON.SGRS_LINKTRAN (
+             REFRESH_ST
+            ,SITE_CD
+            ,LINK_ID
+            ,LOGN_CD
+            ,LNDE_CD
+            ,LTRN_NM
+            ,LTRN_DESC_TX
+            ,LTRN_INIOSP_ID
+            ,LTRN_OUTIOSP_ID
+            ,LTRN_PATH_TX
+            ,LTRN_CALLTRAN_ID
+            ,LTRN_ASYNCRESTRAN_ID
+            ,LTRN_TIMEOUTTRAN_ID
+            ,LTRN_ERRORTRAN_ID
+            ,LTRN_RSRP_CD
+            ,LTRN_TESTUSE_CD
+            ,LTRN_INTERFACE_ID
+            ,LTRN_ORG_CD
+            ,LTRN_CALLBACKTRAN_ID
+            ,LTRN_TIMEOUT
+            ,LINK_VER
+            ,LTRN_ERRIOSP_ID
+        ) values (
+             ${REFRESH_ST}
+            ,${SITE_CD}
+            ,${LINK_ID}
+            ,${LOGN_CD}
+            ,${LNDE_CD}
+            ,${LTRN_NM}
+            ,${LTRN_DESC_TX}
+            ,${LTRN_INIOSP_ID}
+            ,${LTRN_OUTIOSP_ID}
+            ,${LTRN_PATH_TX}
+            ,${LTRN_CALLTRAN_ID}
+            ,${LTRN_ASYNCRESTRAN_ID}
+            ,${LTRN_TIMEOUTTRAN_ID}
+            ,${LTRN_ERRORTRAN_ID}
+            ,${LTRN_RSRP_CD}
+            ,${LTRN_TESTUSE_CD}
+            ,${LTRN_INTERFACE_ID}
+            ,${LTRN_ORG_CD}
+            ,${LTRN_CALLBACKTRAN_ID}
+            ,${LTRN_TIMEOUT}
+            ,${LINK_VER}
+            ,${LTRN_ERRIOSP_ID}
+        )
+    </statement>
+    
+    <statement name="cm.DELETE_ONLINE_SGMC_IOITEM_TBS">
+        DELETE FROM DEVON.SGMC_IOITEM_TB
+        WHERE  IOIT_IOSP_ID = ${IOIT_IOSP_ID}
+        AND    IOIT_SITE_ID = ${IOIT_SITE_ID}
+        AND    IOIT_SQ      = ${IOIT_SQ}
+    </statement>
+    
+    <statement name="cm.DELETE_ONLINE_SGRS_IOSPECITEMS">
+        DELETE FROM DEVON.SGRS_IOSPECITEM
+        WHERE  SPEC_ID = ${SPEC_ID}
+        AND    SITE_CD = ${SITE_CD}
+        AND    IOIT_SQ = ${IOIT_SQ}
+    </statement>
+    
+    <statement name="cm.DELETE_SERE_DFRDSVC_TBS">
+        DELETE FROM DEVON.SERE_DFRDSVC_TB
+        WHERE  SITE_CD = ${SITE_CD}
+        AND    DFRD_ID  = ${DFRD_ID}
+    </statement>
+    
+    <statement name="cm.INSERT_SERE_DFRDSVC_TBS">
+        INSERT INTO DEVON.SERE_DFRDSVC_TB (
+              DFRD_ID
+            , STAT_TY          
+            , STRT_DT          
+            , END_DT      
+            , ALLPROC_NO       
+            , NORMPROC_NO      
+            , NOTPROC_NO       
+            , ERRPROC_NO        
+            , CHK_DT         
+            , EXESVR_NM       
+            , EXEINST_NM       
+            , ENVR_TY       
+            , MOD_DT      
+            , REG_DT       
+            , MOD_USER_ID
+            , REG_USER_ID   
+            , SITE_CD
+        ) values (
+              ${DFRD_ID}
+            , ${STAT_TY}     
+            , ${STRT_DT}     
+            , ${END_DT}     
+            , ${ALLPROC_NO}  
+            , ${NORMPROC_NO}     
+            , ${NOTPROC_NO}      
+            , ${ERRPROC_NO}           
+            , ${CHK_DT}
+            , ${EXESVR_NM}
+            , ${EXEINST_NM}
+            , ${ENVR_TY}
+            , TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+            , ${REG_DT}
+            , ${MOD_USER_ID}
+            , ${REG_USER_ID} 
+            , ${SITE_CD}
+        )  
+    </statement>
+    
+    <statement name="cm.DELETE_SERE_DFRDMAIN_TBS">
+        DELETE FROM DEVON.SERE_DFRDMAIN_TB
+        WHERE  SITE_CD = ${SITE_CD}
+        AND    DFRD_ID  = ${DFRD_ID}
+    </statement>
+    
+    <statement name="cm.INSERT_SERE_DFRDMAIN_TBS">
+        INSERT INTO DEVON.SERE_DFRDMAIN_TB (
+            DFRD_ID
+          , DFRD_NM
+          , TGTINST_NM
+          , EXECLASS_NM
+          , AUTOEXE_YN
+          , POOLTIME_NO
+          , ERRSTOP_YN
+          , REPEXE_YN
+          , PARAM_NM
+          , LASTEXE_DT
+          , PROCSVC_NO
+          , STOPSTRT_DT
+          , STOPEND_DT
+          , EXEPOOLTIME_NO
+          , SYSLOGLEVEL_CD
+          , TRACEOPTION_CD
+          , TRACELOGLEVEL_NO
+          , MOD_DT
+          , REG_DT
+          , MOD_USER_ID
+          , REG_USER_ID
+          , SITE_CD
+          , TRAN_TX_CD
+          , USE_YN
+        ) values (
+            ${DFRD_ID}
+          , ${DFRD_NM}
+          , ${TGTINST_NM}
+          , ${EXECLASS_NM}
+          , ${AUTOEXE_YN}
+          , ${POOLTIME_NO}
+          , ${ERRSTOP_YN}
+          , ${REPEXE_YN}
+          , ${PARAM_NM}
+          , ${LASTEXE_DT}
+          , ${PROCSVC_NO}
+          , ${STOPSTRT_DT}
+          , ${STOPEND_DT}
+          , ${EXEPOOLTIME_NO}
+          , ${SYSLOGLEVEL_CD}
+          , ${TRACEOPTION_CD}
+          , ${TRACELOGLEVEL_NO}
+          , TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+          , ${REG_DT}
+          , ${MOD_USER_ID}
+          , ${REG_USER_ID} 
+          , ${SITE_CD}
+          , ${TRAN_TX_CD}
+          , ${USE_YN}
+        )
+    </statement>
+
+    <statement name="cm.DELETE_SERE_DFRDBIZMNG_TBS">
+        DELETE FROM DEVON.SERE_DFRDBIZMNG_TB
+        WHERE  SITE_CD = ${SITE_CD}
+        AND    DFRD_BIZ_ID  = ${DFRD_BIZ_ID}
+    </statement>
+    
+    <statement name="cm.INSERT_SERE_DFRDBIZMNG_TBS">
+        INSERT INTO DEVON.SERE_DFRDBIZMNG_TB( 
+            DFRD_BIZ_ID
+           ,SITE_CD
+           ,REG_DT
+           ,REG_USER_ID
+           ,TRAN_DT
+           ,LAST_DFRD_SEQ
+        ) VALUES (
+           ${DFRD_BIZ_ID}
+          ,${SITE_CD}
+          ,${REG_DT}
+          ,${REG_USER_ID}
+          ,${TRAN_DT}
+          ,0
+        )
+    </statement>
+    
+    <statement name="cm.DELETE_SERE_DFRDBIZ_TBS">
+        DELETE FROM DEVON.SERE_DFRDBIZ_TB
+        WHERE  SITE_CD = ${SITE_CD}
+        AND    DFRD_BIZ_ID  = ${DFRD_BIZ_ID}
+    </statement>
+
+    <statement name="cm.INSERT_SERE_DFRDBIZ_TBS">
+        INSERT INTO DEVON.SERE_DFRDBIZ_TB( 
+             DFRD_BIZ_ID 
+            ,SITE_CD
+            ,REG_DT
+            ,REG_USER_ID
+            ,MOD_DT
+            ,MOD_USER_ID
+            ,DFRD_BIZ_NM
+            ,DFRD_ID
+            ,IO_SPEC_ID
+            ,MAX_SEL_CNT
+            ,HEADER_FLAG
+            ,INST_QUERY_PATH
+            ,QUERY_PATH
+            ,QUERY_SEQ_PATH
+            ,QUERY_RENUM_PATH
+            ,UPT_RENUM_PATH
+            ,DFRD_DAT_TBL_NM
+        ) VALUES (
+             ${DFRD_BIZ_ID}
+            ,${SITE_CD}
+            ,${REG_DT}
+            ,${REG_USER_ID}
+            , TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+            ,${MOD_USER_ID}
+            ,${DFRD_BIZ_NM}
+            ,${DFRD_ID}
+            ,${IO_SPEC_ID}
+            ,${MAX_SEL_CNT}
+            ,${HEADER_FLAG}
+            ,${INST_QUERY_PATH}
+            ,${QUERY_PATH}
+            ,${QUERY_SEQ_PATH}
+            ,${QUERY_RENUM_PATH}
+            ,${UPT_RENUM_PATH}
+            ,${DFRD_DAT_TBL_NM}
+        )
+    </statement>
+    
+    <statement name="cm.DELETE_SERE_DFRDPROCJOB_TBS">
+        DELETE FROM DEVON.SERE_DFRDPROCJOB_TB
+        WHERE  SITE_CD = ${SITE_CD}
+        AND    DFRD_PROC_ID  = ${DFRD_PROC_ID}
+    </statement>
+
+    <statement name="cm.INSERT_SERE_DFRDPROCJOB_TBS">
+        INSERT INTO DEVON.SERE_DFRDPROCJOB_TB( 
+             DFRD_PROC_ID
+            ,SITE_CD
+            ,DFRD_ID
+            ,REG_DT
+            ,REG_USER_ID
+            ,MOD_DT
+            ,MOD_USER_ID
+            ,MAX_THREAD_CNT
+            ,CFM_CHK_INT
+        ) VALUES (
+             ${DFRD_PROC_ID}
+            ,${SITE_CD}
+            ,${DFRD_ID}
+            ,${REG_DT}
+            ,${REG_USER_ID}
+            , TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+            ,${MOD_USER_ID}
+            ,${MAX_THREAD_CNT}
+            ,${CFM_CHK_INT}
+        )
+    </statement>
+    
+    <statement name="cm.DELETE_SERE_DFRDPROC_TBS">
+        DELETE FROM DEVON.SERE_DFRDPROC_TB
+        WHERE  SITE_CD = ${SITE_CD}
+        AND    DFRD_PROC_ID  = ${DFRD_PROC_ID}
+    </statement>
+
+    <statement name="cm.INSERT_SERE_DFRDPROC_TBS">
+        INSERT INTO DEVON.SERE_DFRDPROC_TB( 
+            DFRD_PROC_ID
+           ,SITE_CD
+           ,REG_DT
+           ,REG_USER_ID
+           ,MOD_DT
+           ,MOD_USER_ID
+           ,DFRD_PROC_NM
+           ,DFRD_BIZ_ID
+           ,BLOCK_MAX_CNT
+           ,PROC_TRAN_ID
+           ,DAY_CHG_CHK_FLAG
+           ,PROC_TYPE_CD
+           ,ERR_RTRY_CNT
+           ,ERR_RTRY_INT
+           ,THD_STOP_WAIT_TM
+        ) VALUES (
+            ${DFRD_PROC_ID}
+           ,${SITE_CD}
+           ,${REG_DT}
+           ,${REG_USER_ID}
+           , TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+           ,${MOD_USER_ID}
+           ,${DFRD_PROC_NM}
+           ,${DFRD_BIZ_ID}
+           ,${BLOCK_MAX_CNT}
+           ,${PROC_TRAN_ID}
+           ,${DAY_CHG_CHK_FLAG}
+           ,${PROC_TYPE_CD}
+           ,${ERR_RTRY_CNT}
+           ,${ERR_RTRY_INT}
+           ,${THD_STOP_WAIT_TM}
+        )
+    </statement>
+    
+        <statement name="cm.DELETE_SERE_CCMAIN_TBS">
+        DELETE FROM DEVON.SERE_CCMAIN_TB
+        WHERE  SITE_CD = ${SITE_CD}
+        AND    CC_ID  = ${CC_ID}
+    </statement>
+
+    <statement name="cm.INSERT_SERE_CCMAIN_TBS">
+        INSERT INTO DEVON.SERE_CCMAIN_TB( 
+            CC_ID
+           ,SITE_CD
+           ,REG_DT
+           ,REG_USER_ID
+           ,MOD_DT
+           ,MOD_USER_ID
+           ,TR_BRCD
+           ,TR_EMPNO
+           ,EXECFBDEND_TM
+           ,PROCTBL_ID
+           ,FNS_PTIM_RE_EXE_YN
+           ,BWK_ERR_STS_ED_YN
+           ,EXECFBDSTR_TM
+           ,PROCSVC_NO
+           ,CC_NM
+           ,GROUP_CNT
+           ,ERR_STP_YN
+           ,LST_LDIN_NTH_CLLG_YN
+           ,SCHDCLSS_TY
+           ,TRAN_ID
+           ,ERRSTOP_YN
+        ) VALUES (
+            ${CC_ID}
+           ,${SITE_CD}
+           ,${REG_DT}
+           ,${REG_USER_ID}
+           , TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+           ,${MOD_USER_ID}
+           ,${TR_BRCD}
+           ,${TR_EMPNO}
+           ,${EXECFBDEND_TM}
+           ,${PROCTBL_ID}
+           ,${FNS_PTIM_RE_EXE_YN}
+           ,${BWK_ERR_STS_ED_YN}
+           ,${EXECFBDSTR_TM}
+           ,${PROCSVC_NO}
+           ,${CC_NM}
+           ,${GROUP_CNT}
+           ,${ERR_STP_YN}
+           ,${LST_LDIN_NTH_CLLG_YN}
+           ,${SCHDCLSS_TY}
+           ,${TRAN_ID}
+           ,${ERRSTOP_YN}
+        )
+    </statement>
+    
+</statements>

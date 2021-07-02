@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvLstGcbLdgAmdDatInTg" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::10.원장수정관리::GCB원장수정데이터입력Jebi::GCB원장수정데이터입력Jdao::GCB원장수정데이터입력대상목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ldgAmdMg/gcbLdgAmdDatInJebi/GcbLdgAmdDatIn/retvLstGcbLdgAmdDatInTg */ 
+			       A.원장수정의뢰번호
+			     , A.원장수정의뢰서상태구분코드
+			     , A.원장수정진행단계구분코드
+			     , A.원장수정의뢰서명
+			     , A.원장수정요청년월일
+			     , A.원장수정의뢰서작성시각
+			     , A.원장수정의뢰부점코드
+			     , A.원장수정의뢰부점명
+			     , A.원장수정의뢰직원번호
+			     , A.원장수정의뢰직원명
+			     , A.원장수정접수IT팀부점코드
+			     , A.원장수정접수IT팀부점명
+			     , A.원장수정접수IT팀구분코드
+			     , A.원장수정접수IT팀명
+			     , B.원장수정의뢰서결재일련번호
+			     , B.원장수정의뢰서결재직원번호
+			     , D.원장수정IT담당팀구분코드
+			     , D.원장수정대상서버구분코드
+			     , D.어플리케이션코드
+			     , D.원장수정담당직원번호
+			  FROM INSTC.TBGCBLA11 A
+			     , INSTC.TBGCBLA13 B
+			     , INSTC.TBGCBLA14 C
+			     , INSTC.TBGCBLA15 D
+			 WHERE A.원장수정의뢰번호 = B.원장수정의뢰번호
+			   AND A.원장수정진행단계구분코드 = B.원장수정진행단계구분코드
+			   AND B.원장수정의뢰번호 = C.원장수정의뢰번호
+			   AND C.원장수정의뢰번호 = D.원장수정의뢰번호
+			   AND C.원장수정IT담당팀구분코드 = D.원장수정IT담당팀구분코드
+			   AND A.원장수정의뢰서상태구분코드 = '03' /*03(진행중)*/
+			   AND A.원장수정진행단계구분코드 = '11' /*11(IT담당팀)*/   
+			   AND B.원장수정의뢰서진행상태구분코드 = '01' /*01(진행중)*/ 
+			   AND C.원장수정진행단계구분코드 = '13' /*13(IT담당자배정)*/ 
+			   AND C.원장수정의뢰서진행상태구분코드 = '02' /*02(결재완료)*/ 
+			   AND D.원장수정진행단계구분코드 IN ('21', '41', '61') /*21-IT담당팀원, 41-IT담당팀원(계획서입력), 61-IT담당팀원(계획서입력)*/
+			   AND D.원장수정의뢰서진행상태구분코드 IN ('01', '05')/*01(진행중), 05(배정추가)*/
+			   AND D.원장수정담당직원번호 = ${원장수정담당직원번호}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGcbLdgAmdDatRg" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::10.원장수정관리::GCB원장수정데이터입력Jebi::GCB원장수정데이터입력Jdao::GCB원장수정데이터등록목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ldgAmdMg/gcbLdgAmdDatInJebi/GcbLdgAmdDatIn/retvLstGcbLdgAmdDatRg */ 
+			       DISTINCT A.원장수정의뢰번호
+			     , A.원장수정IT담당팀구분코드
+			     , A.원장수정대상서버구분코드
+			     , A.어플리케이션코드
+			     , A.원장수정담당직원번호
+			     , A.원장수정처리SQL일련번호
+			     , A.원장수정대상테이블명
+			     , A.원장수정대상테이블PK내용
+			     , A.원장수정데이터처리구분코드
+			     , A.원장수정첨부파일그룹번호
+			  FROM INSTC.TBGCBLA16 A
+			 WHERE A.원장수정의뢰번호 = ${원장수정의뢰번호}
+			   AND A.원장수정IT담당팀구분코드 = ${원장수정IT담당팀구분코드}
+			   AND A.원장수정대상서버구분코드 = ${원장수정대상서버구분코드}
+			   AND A.어플리케이션코드 = ${어플리케이션코드}
+			   AND A.원장수정담당직원번호 = ${원장수정담당직원번호}
+			ORDER BY A.원장수정처리SQL일련번호 ASC
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGcbLdgAmdTgMdBfDat" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::10.원장수정관리::GCB원장수정데이터입력Jebi::GCB원장수정데이터입력Jdao::GCB원장수정대상변경전데이터목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ldgAmdMg/gcbLdgAmdDatInJebi/GcbLdgAmdDatIn/retvLstGcbLdgAmdTgMdBfDat */ 
+			       A.원장수정의뢰번호
+			     , A.원장수정IT담당팀구분코드
+			     , A.원장수정대상서버구분코드
+			     , A.어플리케이션코드
+			     , A.원장수정담당직원번호
+			     , A.원장수정처리SQL일련번호
+			     , A.원장수정대상컬럼일련번호
+			     , A.원장수정대상테이블명
+			     , A.원장수정대상테이블PK내용
+			     , A.원장수정데이터처리구분코드
+			     , A.원장수정대상컬럼명
+			     , A.원장수정대상컬럼타입내용
+			     , A.원장수정대상컬럼길이
+			     , A.원장수정전데이터내용
+			     , A.원장수정후데이터내용
+			     , A.원장수정첨부파일그룹번호
+			  FROM INSTC.TBGCBLA16 A     
+			 WHERE A.원장수정의뢰번호 = ${원장수정의뢰번호}
+			   AND A.원장수정IT담당팀구분코드 = ${원장수정IT담당팀구분코드}
+			   AND A.원장수정대상서버구분코드 = ${원장수정대상서버구분코드}
+			   AND A.어플리케이션코드 = ${어플리케이션코드}
+			   AND A.원장수정담당직원번호 = ${원장수정담당직원번호}
+			   AND A.원장수정처리SQL일련번호 = ${원장수정처리SQL일련번호}
+			ORDER BY A.원장수정대상컬럼일련번호 ASC
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvGcbLdgAmdRsbpOndmndBchExeNcn" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::10.원장수정관리::GCB원장수정데이터입력Jebi::GCB원장수정데이터입력Jdao::GCB원장수정담당자온디맨드배치실행건수조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ldgAmdMg/gcbLdgAmdDatInJebi/GcbLdgAmdDatIn/retvGcbLdgAmdRsbpOndmndBchExeNcn */ 
+			       COUNT(*) 조회건수_N5
+			  FROM INSTC.TBGCBLA16 A        /* GCB원장수정데이터내역 */
+			 WHERE A.원장수정의뢰번호      = ${원장수정의뢰번호}
+			   AND A.원장수정IT담당팀구분코드 = ${원장수정IT담당팀구분코드}
+			   AND A.원장수정대상서버구분코드  = ${원장수정대상서버구분코드}
+			   AND A.어플리케이션코드      = ${어플리케이션코드}
+			   AND A.원장수정담당직원번호    = ${원장수정담당직원번호}
+			   AND A.원장수정처리SQL일련번호 = (SELECT MAX(B.원장수정처리SQL일련번호)
+			                               FROM INSTC.TBGCBLA17 B
+			                              WHERE B.원장수정의뢰번호 = ${원장수정의뢰번호}
+			                                AND B.원장수정IT담당팀구분코드 = ${원장수정IT담당팀구분코드}
+			                                AND B.원장수정대상서버구분코드 = ${원장수정대상서버구분코드}
+			                                AND B.어플리케이션코드 = ${어플리케이션코드}
+			                                AND B.원장수정담당직원번호 = ${원장수정담당직원번호})
+		]]>
+    </statement>
+</statements>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<navigation>
+      <action name="/2.0/test">
+    	<method>get</method>
+    	<command>#restCommonCmd</command>  
+    	<tran-id>UBD1000340</tran-id>
+    	<attribute>body</attribute>
+    </action>
+    
+    <!-- 선불전자지급수단 목록 조회(미정) -->
+    <action name="/efin/prepaid">
+    	<method>get</method>
+    	<command>#restCommonCmd</command>  
+    	<tran-id>UBD000000</tran-id>
+    	<attribute>body</attribute>
+    </action>
+    
+
+</navigation>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="delGcbSlpRcetRePrtTgHis" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::05.IT운영지원::10.공통테이블운영관리::전표영수증재발행이력삭제Job::DAO::전표영수증재발행이력삭제Bdao::GCB전표영수증재인자대상내역삭제" >
+		<![CDATA[
+			DELETE /*+ 박재훈::/gcb/batch/itOpSpt/cmnTblOpMg/slpRcetReisPhsDelJob/SlpRcetReisPhsDel/delGcbSlpRcetRePrtTgHis */
+			  FROM INSTC.TBGCBRP04  
+			 WHERE 거래기준년월일   = ${거래기준년월일}
+			   AND 거래부점코드    = ${거래부점코드}
+			   AND 원거래GUID번호 = ${원거래GUID번호}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="delGcbRcetReisHis" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::05.IT운영지원::10.공통테이블운영관리::전표영수증재발행이력삭제Job::DAO::전표영수증재발행이력삭제Bdao::GCB영수증재발행내역삭제" >
+		<![CDATA[
+			DELETE /*+ 박재훈::/gcb/batch/itOpSpt/cmnTblOpMg/slpRcetReisPhsDelJob/SlpRcetReisPhsDel/delGcbRcetReisHis */
+			  FROM INSTC.TBGCBRP03  
+			 WHERE 거래기준년월일   = ${거래기준년월일}
+			   AND 거래부점코드    = ${거래부점코드}
+			   AND 원거래GUID번호 = ${원거래GUID번호}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="delGcbRcetReisCnvHis" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::05.IT운영지원::10.공통테이블운영관리::전표영수증재발행이력삭제Job::DAO::전표영수증재발행이력삭제Bdao::GCB영수증재발행전환내역삭제" >
+		<![CDATA[
+			DELETE /*+ 송재복::/gcb/batch/itOpSpt/cmnTblOpMg/slpRcetReisPhsDelJob/SlpRcetReisPhsDel/delGcbRcetReisCnvHis */
+			  FROM INSTC.TBGCBRP13        /* GCB영수증재발행전환내역 */
+			 WHERE 기준년월일     = ${기준년월일}
+			   AND 부점코드      = ${부점코드}
+			   AND 원거래GUID번호 = ${원거래GUID번호}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="delGcbSlpRePrtCnvHis" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::05.IT운영지원::10.공통테이블운영관리::전표영수증재발행이력삭제Job::DAO::전표영수증재발행이력삭제Bdao::GCB전표재인자전환내역삭제" >
+		<![CDATA[
+			DELETE /*+ 송재복::/gcb/batch/itOpSpt/cmnTblOpMg/slpRcetReisPhsDelJob/SlpRcetReisPhsDel/delGcbSlpRePrtCnvHis */
+			  FROM INSTC.TBGCBRP11        /* GCB전표재인자전환내역 */
+			 WHERE 기준년월일  = ${기준년월일}
+			   AND 부점코드   = ${부점코드}
+			   AND 거래직원번호 = ${거래직원번호}
+			   AND 전표번호   = ${전표번호}
+			   AND 전표구분코드 = ${전표구분코드}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="delGcbSlpRePrtHis" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::05.IT운영지원::10.공통테이블운영관리::전표영수증재발행이력삭제Job::DAO::전표영수증재발행이력삭제Bdao::GCB전표재인자내역삭제">
+		<![CDATA[
+			DELETE /*+ 박재훈::/gcb/batch/itOpSpt/cmnTblOpMg/slpRcetReisPhsDelJob/SlpRcetReisPhsDel/delGcbSlpRePrtHis */
+			  FROM INSTC.TBGCBRP01        /* GCB전표재인자내역 */
+			 WHERE 거래기준년월일   = ${거래기준년월일}
+			   AND 거래부점코드    = ${거래부점코드}
+			   AND 원거래GUID번호 = ${원거래GUID번호}
+		]]>
+    </statement>
+</statements>

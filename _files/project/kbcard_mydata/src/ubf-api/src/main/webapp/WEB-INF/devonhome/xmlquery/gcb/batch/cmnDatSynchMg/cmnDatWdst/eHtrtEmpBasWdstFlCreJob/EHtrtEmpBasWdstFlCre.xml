@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvLstEmpBas" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::01.공통데이터동기화관리::02.공통데이터배포::eHR직원기본배포파일생성Job::DAO::eHR직원기본배포파일생성Bdao::직원기본목록조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/batch/cmnDatSynchMg/cmnDatWdst/eHtrtEmpBasWdstFlCreJob/EHtrtEmpBasWdstFlCre/retvLstEmpBas */ 
+			       A.직원번호
+			     , A.직원고객식별자
+			  FROM INSTC.TBGCBHR01 A        /* GCB직원기본 */
+			 WHERE A.지주회사구분코드 = '02'
+			   AND A.직원데이터원천구분코드 = '1'
+		]]>
+    </statement>
+</statements>

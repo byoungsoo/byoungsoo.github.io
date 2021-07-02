@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<navigation>
+    <!-- hotdeploy 업로드 시 호출 -->
+    <action name="deploy">
+        <interceptor>hotdeployStack</interceptor>
+        <command>devonenterprise.agent.hotdeploy.cmd.LUploadDeployResourceCmd</command>
+        <return handler="null"></return>
+    </action>
+    <!-- hotdeploy 적용 시 호출 -->
+    <action name="doDeploy">
+        <command>devonenterprise.agent.hotdeploy.cmd.LDoDeployCmd</command>
+        <return handler="null"></return>
+    </action>
+
+    <action name="doRevert">
+        <command>devonenterprise.agent.hotdeploy.cmd.LDoRevertCmd</command>
+        <return handler="null"></return>
+    </action>
+    <action name="showVersionList">
+        <command>devonenterprise.agent.hotdeploy.cmd.LVersionListCmd</command>
+        <return handler="null"></return>
+    </action>
+    <action name="deployByClassName">
+        <command>devonenterprise.agent.hotdeploy.cmd.LDeployByClassNameCmd</command>
+        <return handler="null"></return>
+    </action>
+    <action name="deployClassesAndQueriesByName">
+        <command>devonenterprise.agent.hotdeploy.cmd.DeployClassesAndQueriesByNameCmd</command>
+        <return handler="null"></return>
+    </action>
+    <action name="copyClassFile">
+        <command>devonenterprise.agent.util.CopyClassFileCmd</command>
+        <return handler="null"></return>
+    </action>    
+    
+    <!-- <action name="deploy"> -->
+    <!--     <interceptor>hotdeployStack</interceptor>-->
+    <!--     <command>scp.management.agent.hotdeploy.cmd.LUploadDeployResourceCmd</command>-->
+    <!--     <return handler="null"></return>-->
+    <!-- </action>-->
+    <action name="deployClass">
+        <interceptor>hotdeployStack</interceptor>
+        <command>scp.management.agent.dynamicloading.cmd.LUploadDeployResourceCmd</command>
+        <return handler="null"></return>
+    </action>
+    <action name="doDeployClass">
+        <command>scp.management.agent.dynamicloading.cmd.LDoDeployCmd</command>
+        <return handler="null"></return>
+    </action>
+    <action name="touchClass">
+        <interceptor>dynamicloadingStack</interceptor>
+        <command>devonenterprise.agent.dynamicloading.cmd.TouchSubClassLoaderCmd</command>
+        <return handler="null"></return>
+    </action>
+    
+    <action name="RetrieveConfigurationMenu">
+        <command>devonenterprise.agent.config.cmd.RetrieveMenuCmd</command>
+        <return handler="null" />
+    </action>
+
+    <action name="RetrieveComponentData">
+        <command>devonenterprise.agent.config.cmd.RetrieveComponentDataCmd</command>
+        <return handler="null" />
+    </action>
+
+    <action name="RetrieveComponentXml">
+        <command>devonenterprise.agent.config.cmd.RetrieveComponentXmlCmd</command>
+        <return handler="null" />
+    </action>
+
+    <action name="RetrieveConfigurationXml">
+        <command>devonenterprise.agent.config.cmd.RetrieveConfigurationXmlCmd</command>
+        <return handler="null" />
+    </action>
+
+    <action name="ProcessComponentData">
+        <command>devonenterprise.agent.config.cmd.ProcessComponentDataCmd</command>
+        <return handler="null" />
+    </action>
+
+    <action name="BackupConfiguration">
+        <command>devonenterprise.agent.config.cmd.BackupConfigurationCmd</command>
+        <return handler="null" />
+    </action>
+
+    <action name="RestoreConfiguration">
+        <command>devonenterprise.agent.config.cmd.RestoreConfigurationCmd</command>
+        <return handler="null" />
+    </action>
+
+    <action name="RetrieveConfFileList">
+        <command>devonenterprise.agent.config.cmd.RetrieveConfFileListCmd</command>
+        <return handler="null" />
+    </action>
+
+    <action name="RetrieveConfProductList">
+        <command>devonenterprise.agent.config.cmd.RetrieveConfProductListCmd</command>
+        <return handler="null" />
+    </action>
+
+    <!--  Refresh START -->
+    <action name="RetrieveComponentSpec">
+        <command>devonenterprise.agent.refresh.cmd.RetrieveComponentSpecCmd</command>
+    </action>
+
+    <action name="RetrieveRefreshStatus">
+        <command>devonenterprise.agent.refresh.cmd.RetrieveRefreshStatusCmd</command>
+    </action>
+
+    <action name="RetrieveCacheSize">
+        <command>devonenterprise.agent.refresh.cmd.RetrieveCacheSizeCmd</command>
+    </action>
+    
+    <action name="RetrieveCacheData">
+        <command>devonenterprise.agent.refresh.cmd.RetrieveCacheDataCmd</command>
+    </action>
+        
+    <action name="ProcessRefresh">
+        <command>devonenterprise.agent.refresh.cmd.ProcessRefreshCmd</command>
+    </action>
+
+    <action name="RetrieveRefreshData">
+        <command>devonenterprise.agent.refresh.cmd.RetrieveRefreshDataCmd</command>
+    </action>
+
+    <action name="ProcessItemRefresh">
+        <command>devonenterprise.agent.refresh.cmd.ProcessItemRefreshCmd</command>
+    </action>
+    
+    <action name="ProcessTranRefresh">
+        <command>devonenterprise.agent.refresh.cmd.ProcessTranRefreshCmd</command>
+    </action>
+    
+    <!-- 거래제어 다음일자조회 -->
+    <action name="RetrieveHoliday">
+        <command>devonenterprise.agent.config.cmd.RetrieveHolidayCmd</command>
+    </action>
+    
+    <!-- 거래항목 전체룰검증 -->
+    <action name="RetrieveTranIoMetaList">
+        <command>devonenterprise.agent.config.cmd.RetrieveTranIoMetaListCmd</command>
+    </action>
+    
+    <!-- 거래항목 전체룰검증 -->
+    <action name="RetrieveTranValidateList">
+        <command>devonenterprise.agent.config.cmd.RetrieveTranValidateListCmd</command>
+    </action>
+    
+    <action name="RetrieveLoadType">
+        <command>devonenterprise.agent.refresh.cmd.RetrieveLoadTypeCmd</command>
+    </action>
+    
+    <action name="ProcessServiceDataZipReceive">
+        <command>devonenterprise.agent.refresh.cmd.ProcessServiceDataZipReceiveCmd</command>
+    </action>
+    
+    <!-- Outbound -->
+    <action name="RetrieveOutbound">
+        <command>devonenterprise.agent.Link.cmd.LRetrieveOutboundCmd</command>
+        <return handler="null" />
+    </action>
+     <!-- Preservation Start-->
+    <action name="preservationStart">
+        <command>devonenterprise.agent.preservation.cmd.PreservationStart</command>
+    </action>
+    <!-- Preservation Start-->
+    <action name="preservationEnd">
+        <command>devonenterprise.agent.preservation.cmd.PreservationEnd</command>
+    </action>
+    <!-- Preservation Ready-->
+    <action name="preservationReady">
+        <command>devonenterprise.agent.preservation.cmd.PreservationReady</command>
+    </action>    
+    <!-- Thread Info -->
+    <action name="RetrieveThreadInfo">
+        <command>devonenterprise.agent.system.cmd.RetrieveThreadInfoCmd</command>
+    </action>       
+</navigation>

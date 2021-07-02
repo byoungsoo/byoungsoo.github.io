@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<navigation>
+ 	<!-- 카드목록조회 -->
+    <action name="/retvCrdCtg">
+         <method>post</method>
+         <command>#restCommonCmd</command>
+         <tran-id>UBF0100940</tran-id>
+    </action>  
+    
+     <!-- 카드기본정보조회 -->
+    <action name="/retvCrdBasInf">
+         <method>post</method>
+         <command>#restCommonCmd</command>
+         <tran-id>UBF0100941</tran-id>
+    </action>  
+    
+    <!-- 카드청구기본정보 조회 -->
+    <action name="/retvCrdBilBasInf">
+         <method>post</method>
+         <command>#restCommonCmd</command>
+         <tran-id>UBF0100942</tran-id>
+    </action>
+    
+    <!-- 카드청구상세정보 조회 -->
+    <action name="/retvCrdBilDtlInf">
+         <method>post</method>
+         <command>#restCommonCmd</command>
+         <tran-id>UBF0100943</tran-id>
+    </action>
+    
+</navigation>

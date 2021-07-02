@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvLckGcbSpsrAthAtrDtl" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::14.책임자승인내역관리::GCB책임자승인권한상세Ebi::GCB책임자승인권한상세Dao::GCB책임자승인권한상세락조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/spsrAthHisMg/gcbSpsrAthAtrDtlEbi/TBGCBAT05/retvLckGcbSpsrAthAtrDtl */ 
+			       A.직원번호
+			     , A.등록해제구분코드
+			     , A.등록년월일
+			     , A.해제년월일
+			     , A.변경전책임자승인비밀번호
+			     , A.변경후책임자승인비밀번호
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBAT05 A 
+			 WHERE A.직원번호 = ${직원번호}
+			FOR UPDATE WAIT 0
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="uptGcbSpsrAthAtrDtl" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::14.책임자승인내역관리::GCB책임자승인권한상세Ebi::GCB책임자승인권한상세Dao::GCB책임자승인권한상세수정" >
+		<![CDATA[
+			UPDATE /*+ 김동현::/gcb/spsrAthHisMg/gcbSpsrAthAtrDtlEbi/TBGCBAT05/uptGcbSpsrAthAtrDtl */ 
+			       INSTC.TBGCBAT05 
+			   SET 등록해제구분코드     = ${등록해제구분코드}
+			     , 등록년월일        = ${등록년월일}
+			     , 해제년월일        = ${해제년월일}
+			     , 변경전책임자승인비밀번호 = ${변경전책임자승인비밀번호}
+			     , 변경후책임자승인비밀번호 = ${변경후책임자승인비밀번호}
+			     , 시스템최종갱신일시    = SYSTIMESTAMP
+			     , 시스템최종갱신식별자   = ${시스템최종갱신식별자}
+			     , 시스템최종거래일시    = ${시스템최종거래일시}
+			 WHERE 직원번호 = ${직원번호}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvGcbSpsrAthAtrDtl" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::14.책임자승인내역관리::GCB책임자승인권한상세Ebi::GCB책임자승인권한상세Dao::GCB책임자승인권한상세조회" >
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/spsrAthHisMg/gcbSpsrAthAtrDtlEbi/TBGCBAT05/retvGcbSpsrAthAtrDtl */ 
+			       A.직원번호
+			     , A.등록해제구분코드
+			     , A.등록년월일
+			     , A.해제년월일
+			     , A.변경전책임자승인비밀번호
+			     , A.변경후책임자승인비밀번호
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBAT05 A 
+			 WHERE A.직원번호 = ${직원번호}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="regtGcbSpsrAthAtrDtl" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::14.책임자승인내역관리::GCB책임자승인권한상세Ebi::GCB책임자승인권한상세Dao::GCB책임자승인권한상세등록" >
+		<![CDATA[
+			INSERT /*+ 김동현::/gcb/spsrAthHisMg/gcbSpsrAthAtrDtlEbi/TBGCBAT05/regtGcbSpsrAthAtrDtl */
+			  INTO INSTC.TBGCBAT05
+			(
+			   직원번호
+			 , 등록해제구분코드
+			 , 등록년월일
+			 , 해제년월일
+			 , 변경전책임자승인비밀번호
+			 , 변경후책임자승인비밀번호
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${직원번호}
+			 ,${등록해제구분코드}
+			 ,${등록년월일}
+			 ,${해제년월일}
+			 ,${변경전책임자승인비밀번호}
+			 ,${변경후책임자승인비밀번호}
+			 ,SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,${시스템최종거래일시}
+			)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="delGcbSpsrAthAtrDtl" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::14.책임자승인내역관리::GCB책임자승인권한상세Ebi::GCB책임자승인권한상세Dao::GCB책임자승인권한상세삭제" >
+		<![CDATA[
+			DELETE /*+ 김동현::/gcb/spsrAthHisMg/gcbSpsrAthAtrDtlEbi/TBGCBAT05/delGcbSpsrAthAtrDtl */
+			  FROM INSTC.TBGCBAT05  
+			 WHERE 직원번호 = ${직원번호}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvGcbUsrPtMdPt" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::14.책임자승인내역관리::GCB책임자승인권한상세Ebi::GCB책임자승인권한상세Dao::GCB사용자유형변경유형조회">
+		<![CDATA[
+			SELECT 처리구분코드_V1
+			       , 내용_V40
+			       , 사용자권한일련번호
+			FROM
+			(SELECT  '1' AS 처리구분코드_V1
+			       , '퇴직직원' AS 내용_V40
+			       , 000 AS 사용자권한일련번호
+			  FROM INSTC.TBGCBHR01
+			 WHERE 직원번호 = ${직원번호}
+			   AND 퇴직년월일 < ${작업기준년월일}
+			UNION ALL
+			SELECT   '2' AS 처리구분코드_V1
+			       , '인사이동' AS 내용_V40
+			       , B.사용자권한일련번호  AS 사용자권한일련번호
+			  FROM INSTC.TBGCBHR01 A, INSTC.TBGCBAT04 B
+			 WHERE A.직원번호 = B.직원번호
+			   AND A.사용자업무부점코드 <> B.사용자업무부점코드
+			   AND A.직원번호 = ${직원번호}
+			   AND B.사용자권한구분코드 = '1'
+			   AND B.적용시작년월일 <= ${작업기준년월일}
+			   AND B.적용종료년월일 >= ${작업기준년월일}
+			UNION ALL
+			SELECT   '3' AS 처리구분코드_V1
+			       , '부점장' AS 내용_V40
+			       , 000 AS 사용자권한일련번호       
+			  FROM INSTC.TBGCBHR01
+			 WHERE 직원번호 = ${직원번호}
+			   AND 부점장여부 = '1'
+			UNION ALL
+			SELECT   '4' AS 처리구분코드_V1
+			       , '내부통제자' AS 내용_V40
+			       , 000 AS 사용자권한일련번호       
+			  FROM INSTC.TBGCBHM01
+			 WHERE 직원번호 = ${직원번호}
+			   AND 사무분담코드 = ${사무분담코드}
+			   AND 적용시작년월일 <= ${작업기준년월일}
+			   AND 적용종료년월일 >= ${작업기준년월일}
+			UNION ALL
+			SELECT   '5' AS 처리구분코드_V1
+			       , '후선책임자' AS 내용_V40
+			       , 000 AS 사용자권한일련번호       
+			  FROM INSTC.TBGCBAT04
+			 WHERE 직원번호 = ${직원번호}
+			   AND 사용자권한구분코드 = '1'
+			   AND 적용시작년월일 <= ${작업기준년월일}
+			   AND 적용종료년월일 >= ${작업기준년월일}
+			   AND 사용자권한유효여부 = '1')
+			WHERE ROWNUM <= 1
+			ORDER BY 처리구분코드_V1
+		]]>
+    </statement>
+</statements>

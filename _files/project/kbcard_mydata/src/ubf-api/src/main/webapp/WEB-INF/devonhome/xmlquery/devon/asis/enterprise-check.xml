@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="euc-kr"?>
+
+<statements>
+  <statement name="selectGuidDupTran">
+    <![CDATA[
+			SELECT  
+			        GUID
+			      , PATH_NO
+			      , 어플리케이션코드
+			      , 거래구분코드
+			      , 거래구분식별번호
+			      , 단축거래구분코드
+			      , 거래식별번호
+			      , 거래직원번호
+			      , COUNT(1) AS CNT
+			  {#1}
+			WHERE TRAN_ID <> 'GCB03R0101' 
+			  AND TRAN_DT=${작업일자}
+			 GROUP BY   GUID 
+			          , PATH_NO
+			          , GUID
+			          , PATH_NO
+			          , TRAN_ID
+			          , 어플리케이션코드
+			          , 거래구분코드
+			          , 거래구분식별번호
+			          , 단축거래구분코드
+			          , 거래식별번호
+			          , 거래직원번호
+			  HAVING COUNT(1) > 1  
+    ]]>
+    <append where="false" condition="${일자}.EQ.01" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG01]]></append>
+    <append where="false" condition="${일자}.EQ.02" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG02]]></append>
+    <append where="false" condition="${일자}.EQ.03" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG03]]></append>
+    <append where="false" condition="${일자}.EQ.04" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG04]]></append>
+    <append where="false" condition="${일자}.EQ.05" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG05]]></append>
+    <append where="false" condition="${일자}.EQ.06" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG06]]></append>
+    <append where="false" condition="${일자}.EQ.07" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG07]]></append>
+    <append where="false" condition="${일자}.EQ.08" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG08]]></append>
+    <append where="false" condition="${일자}.EQ.09" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG09]]></append>
+    <append where="false" condition="${일자}.EQ.10" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG10]]></append>
+    <append where="false" condition="${일자}.EQ.11" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG11]]></append>
+    <append where="false" condition="${일자}.EQ.12" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG12]]></append>
+    <append where="false" condition="${일자}.EQ.13" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG13]]></append>
+    <append where="false" condition="${일자}.EQ.14" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG14]]></append>
+    <append where="false" condition="${일자}.EQ.15" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG15]]></append>
+    <append where="false" condition="${일자}.EQ.16" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG16]]></append>
+    <append where="false" condition="${일자}.EQ.17" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG17]]></append>
+    <append where="false" condition="${일자}.EQ.18" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG18]]></append>
+    <append where="false" condition="${일자}.EQ.19" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG19]]></append>
+    <append where="false" condition="${일자}.EQ.20" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG20]]></append>
+    <append where="false" condition="${일자}.EQ.21" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG21]]></append>
+    <append where="false" condition="${일자}.EQ.22" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG22]]></append>
+    <append where="false" condition="${일자}.EQ.23" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG23]]></append>
+    <append where="false" condition="${일자}.EQ.24" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG24]]></append>
+    <append where="false" condition="${일자}.EQ.25" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG25]]></append>
+    <append where="false" condition="${일자}.EQ.26" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG26]]></append>
+    <append where="false" condition="${일자}.EQ.27" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG27]]></append>
+    <append where="false" condition="${일자}.EQ.28" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG28]]></append>
+    <append where="false" condition="${일자}.EQ.29" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG29]]></append>
+    <append where="false" condition="${일자}.EQ.30" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG30]]></append>
+    <append where="false" condition="${일자}.EQ.31" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG31]]></append>
+    <append where="false" condition="${일자}.EQ.01" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER01]]></append>
+    <append where="false" condition="${일자}.EQ.02" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER02]]></append>
+    <append where="false" condition="${일자}.EQ.03" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER03]]></append>
+    <append where="false" condition="${일자}.EQ.04" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER04]]></append>
+    <append where="false" condition="${일자}.EQ.05" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER05]]></append>
+    <append where="false" condition="${일자}.EQ.06" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER06]]></append>
+    <append where="false" condition="${일자}.EQ.07" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER07]]></append>
+    <append where="false" condition="${일자}.EQ.08" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER08]]></append>
+    <append where="false" condition="${일자}.EQ.09" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER09]]></append>
+    <append where="false" condition="${일자}.EQ.10" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER10]]></append>
+    <append where="false" condition="${일자}.EQ.11" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER11]]></append>
+    <append where="false" condition="${일자}.EQ.12" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER12]]></append>
+    <append where="false" condition="${일자}.EQ.13" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER13]]></append>
+    <append where="false" condition="${일자}.EQ.14" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER14]]></append>
+    <append where="false" condition="${일자}.EQ.15" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER15]]></append>
+    <append where="false" condition="${일자}.EQ.16" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER16]]></append>
+    <append where="false" condition="${일자}.EQ.17" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER17]]></append>
+    <append where="false" condition="${일자}.EQ.18" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER18]]></append>
+    <append where="false" condition="${일자}.EQ.19" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER19]]></append>
+    <append where="false" condition="${일자}.EQ.20" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER20]]></append>
+    <append where="false" condition="${일자}.EQ.21" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER21]]></append>
+    <append where="false" condition="${일자}.EQ.22" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER22]]></append>
+    <append where="false" condition="${일자}.EQ.23" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER23]]></append>
+    <append where="false" condition="${일자}.EQ.24" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER24]]></append>
+    <append where="false" condition="${일자}.EQ.25" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER25]]></append>
+    <append where="false" condition="${일자}.EQ.26" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER26]]></append>
+    <append where="false" condition="${일자}.EQ.27" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER27]]></append>
+    <append where="false" condition="${일자}.EQ.28" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER28]]></append>
+    <append where="false" condition="${일자}.EQ.29" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER29]]></append>
+    <append where="false" condition="${일자}.EQ.30" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER30]]></append>
+    <append where="false" condition="${일자}.EQ.31" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER31]]></append>
+    
+    </statement>
+    
+    <!-- 현재 수행중 인 배치job 정보 조회 -->
+    <statement name="retreiveJobExeList">
+		<![CDATA[
+          SELECT
+          /*+ INDEX(A IX_SERE_BT_JOB_EXEC_TX_TB_02) */
+              A.EXECUTOR_ID
+            , A.JOB_ID
+            , A.EXEC_COUNT
+            , A.SITE_CD
+            , A.JAS_NAME
+            , A.PID
+            , A.O_DATE
+          FROM DEVON.SERE_BT_JOB_EXEC_TX_TB A
+          WHERE 1=1 
+          AND A.JOB_ID <> ${JOB_ID}
+          AND A.STATUS_CODE IN ( ${STATUS_CODE:string:in} )
+          AND A.EXECUTOR_ID = ${EXECUTOR_ID}
+          AND A.SITE_CD = ${SITE_CD}
+          AND A.PID LIKE '%@'||${SERVER_NAME}
+		]]>
+    </statement>
+    
+    <!-- JOB실행 이력정보의 종료업데이트  -->
+    <statement name="updateJobExeInfo">
+		<![CDATA[
+			UPDATE DEVON.SERE_BT_JOB_EXEC_TX_TB
+			SET
+			   STATUS_CODE = ${STATUS_CODE}
+			 , CAUSE_STATUS_CODE = ${CAUSE_STATUS_CODE}
+			 , MOD_USER_ID = ${MOD_USER_ID}
+			 , MOD_DT = TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3')
+			WHERE EXECUTOR_ID = ${EXECUTOR_ID}
+			AND   JOB_ID  = ${JOB_ID}
+			AND   EXEC_COUNT =${EXEC_COUNT}
+			AND   SITE_CD = ${SITE_CD}
+			AND   STATUS_CODE <> ${STATUS_CODE}
+		]]>
+    </statement>
+    
+    <!-- STEP실행 이력정보의 종료업데이트  -->
+    <statement name="updateStepExeInfo">
+		<![CDATA[
+			UPDATE DEVON.SERE_BT_STEP_EXEC_TX_TB
+			  SET 
+			      STATUS_CODE = ${STATUS_CODE}
+			   ,  CAUSE_STATUS_CODE = ${CAUSE_STATUS_CODE}
+			   , MOD_USER_ID = ${MOD_USER_ID}
+			   , MOD_DT = TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3')
+			 WHERE
+			     EXECUTOR_ID = ${EXECUTOR_ID}
+			AND JOB_ID = ${JOB_ID}
+			AND EXEC_COUNT = ${EXEC_COUNT}
+			AND SITE_CD = ${SITE_CD}
+			AND STATUS_CODE <> ${STATUS_CODE}
+		]]>
+    </statement>
+
+    <!--
+    ================================================================================================
+    *** 데몬/후행 기준년월일이 틀린 데몬/후행ID 조회
+    ================================================================================================
+    -->
+    <statement name="retrieveNotEquBizDateList">
+        <![CDATA[
+            SELECT  DFRD_BIZ_ID AS DFRD_ID
+                 ,  SITE_CD
+                 ,  REG_DT
+                 ,  REG_USER_ID
+                 ,  MOD_DT
+                 ,  MOD_USER_ID
+                 ,  TRAN_DT
+                 , ${기준년월일} AS BASE_DT
+                 ,  LAST_DFRD_SEQ
+              FROM  DEVON.SERE_DFRDBIZMNG_TB
+             WHERE  TRAN_DT <> ${기준년월일}
+               AND  SITE_CD  = ${SITE_CD}
+        ]]>
+    </statement>
+
+    <!--
+    ================================================================================================
+    *** 데몬/후행 처리상태 조회 (오류정지(03),비정상종료(11))
+    ================================================================================================
+    -->
+    <statement name="retrieveErrorStopList">
+        <![CDATA[
+            SELECT  DFRD_ID
+                 ,  STAT_TY
+                 ,  EXESVR_NM
+                 ,  EXEINST_NM
+              FROM  DEVON.SERE_DFRDSVC_TB
+             WHERE  STAT_TY IN ('03','11')  /* '03':오류정지,'11':비정상종료 */
+               AND  SITE_CD = ${SITE_CD}
+        ]]>
+    </statement>
+
+    <!--
+    ================================================================================================
+    *** 데몬/후행 처리일자 미분배건이 없는 건중 일자처리 안된 건
+    ================================================================================================
+    -->
+    <statement name="retrieveNotPrcBizDateList">
+        <![CDATA[
+            SELECT  DFRD_BIZ_ID AS DFRD_ID
+                 ,  TRAN_DT
+                 ,  TO_CHAR(TO_DATE(${기준년월일}),'YYYYMMDD')   AS BASE_DT
+                 ,  TO_CHAR(TO_DATE(${기준년월일})-1,'YYYYMMDD') AS PROC_DT
+              FROM  DEVON.SERE_DFRDBIZMNG_TB A
+             WHERE  A.TRAN_DT <> TO_CHAR(TO_DATE(${기준년월일}),'YYYYMMDD')
+               AND  A.SITE_CD  = ${SITE_CD}
+               AND  A.DFRD_BIZ_ID NOT IN (SELECT 'D' || SUBSTR(DFRD_ID,2) AS DFRD_BIZ_ID
+                                            FROM DEVON.SERE_DFRDMAIN_TB
+                                           WHERE USE_YN     = 'N'
+                                             AND DFRD_ID LIKE 'M%')
+        ]]>
+   </statement>
+        
+</statements>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="euc-kr"?>
+<navigation>
+    
+    <!-- 테스트 배포후 반영처리를 위한 객체 by Lee EunJun -->
+    <action name="ProcessItemExtRefresh">
+        <interceptor>devStack</interceptor>
+        <command>devonenterprise.agent.refresh.cmd.ProcessItemRefreshExtCmd</command>
+    </action>
+    
+    <!-- 쿼리파일 참조 케쉬정보 clear -->
+    <action name="QueryStatementAllRefresh">
+        <interceptor>devStack</interceptor>
+        <command>devonenterprise.agent.refresh.cmd.QueryStatementAllRefreshCmd</command>
+    </action>
+    
+    <action name="PreservationStart">
+        <command>devonenterprise.agent.preservation.cmd.PreservationStart</command>
+    </action>
+    
+    <action name="CacheRefresh">
+        <command>devonenterprise.agent.refresh.cmd.CacheClearCmd</command>
+    </action>
+    
+    <!-- 운영관리 CACHE INFO SEARCH -->
+    <action name="retrieveCacheObjectInfo">
+        <command>devonenterprise.agent.refresh.cmd.RetrieveCacheObjectInfoCmd</command>
+    </action>   
+    
+    <!-- 전문파싱 -->
+    <action name="messageConvertTestCmd">
+        <command>devonenterprise.agent.refresh.cmd.MessageConvertTestCmd</command>
+    </action>
+    
+</navigation>

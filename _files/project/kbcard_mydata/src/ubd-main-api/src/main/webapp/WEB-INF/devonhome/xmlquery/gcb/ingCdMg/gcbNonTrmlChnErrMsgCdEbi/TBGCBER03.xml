@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvGcbNonTrmlChnErrMsgCdTrtMsgCd" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB단말외채널오류메시지코드Ebi::GCB단말외채널오류메시지코드Dao::GCB단말외채널오류메시지코드조치메시지코드조회">
+		<![CDATA[
+			SELECT /*+ 송재복::/gcb/ingCdMg/gcbNonTrmlChnErrMsgCdEbi/TBGCBER03/retvGcbNonTrmlChnErrMsgCdTrtMsgCd */ 
+			       A.오류메시지코드
+			     , A.조치메시지코드 
+			  FROM INSTC.TBGCBER03 A 
+			 WHERE A.언어구분코드    = ${언어구분코드}
+			   AND A.메시지채널구분코드 = ${메시지채널구분코드}
+			   AND A.채널오류코드    = ${채널오류코드}
+			   AND A.적용시작년월일  <= ${적용시작년월일}
+			   AND A.적용종료년월일   >= ${적용종료년월일}
+			 
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvGcbNonTrmlChnTrtMsgUseNcn" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB단말외채널오류메시지코드Ebi::GCB단말외채널오류메시지코드Dao::GCB단말외채널조치메시지사용건수조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ingCdMg/gcbNonTrmlChnErrMsgCdEbi/TBGCBER03/retvGcbNonTrmlChnTrtMsgUseNcn */ 
+			       COUNT(*) 조회건수_N2
+			  FROM INSTC.TBGCBER03 A 
+			 WHERE A.조치메시지코드    = ${조치메시지코드}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGcbNonTrmlChnErrMsgPup" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB단말외채널오류메시지코드Ebi::GCB단말외채널오류메시지코드Dao::GCB단말외채널오류메시지팝업목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ingCdMg/gcbNonTrmlChnErrMsgCdEbi/TBGCBER03/retvLstGcbNonTrmlChnErrMsgPup */ 
+			       A.언어구분코드
+			     , A.메시지채널구분코드
+			     , A.채널오류코드
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , A.등록년월일
+			     , A.오류메시지사용여부
+			     , A.오류메시지코드
+			     , A.조치메시지코드
+			     , A.담당어플리케이션코드
+			     , A.오류메시지출력내용
+			  FROM INSTC.TBGCBER03 A 
+			 WHERE 언어구분코드 = ${언어구분코드}
+			   AND 메시지채널구분코드 = ${메시지채널구분코드}
+			   AND (채널오류코드 = ${채널오류코드} 
+			        OR ${채널오류코드} IS NULL)
+			   AND ${기준년월일} BETWEEN 적용시작년월일 AND 적용종료년월일
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGcbNonTrmlChnErrMsg" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB단말외채널오류메시지코드Ebi::GCB단말외채널오류메시지코드Dao::GCB단말외채널오류메시지목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ingCdMg/gcbNonTrmlChnErrMsgCdEbi/TBGCBER03/retvLstGcbNonTrmlChnErrMsg */ 
+			       A.언어구분코드
+			     , A.메시지채널구분코드
+			     , A.채널오류코드
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , A.등록년월일
+			     , A.오류메시지사용여부
+			     , A.오류메시지코드
+			     , A.조치메시지코드
+			     , A.담당어플리케이션코드
+			     , A.오류메시지출력내용
+			  FROM INSTC.TBGCBER03 A 
+			 WHERE A.언어구분코드    = ${언어구분코드}
+			   AND A.메시지채널구분코드 = ${메시지채널구분코드}
+			   AND (A.채널오류코드 >= ${채널오류코드시작_V10}
+			       OR ${채널오류코드시작_V10} IS NULL)
+			   AND (A.채널오류코드 <= ${채널오류코드종료_V10}
+			       OR ${채널오류코드종료_V10} IS NULL)
+			   AND A.적용시작년월일 >= ${적용시작년월일}
+			   AND A.적용시작년월일 <= ${적용종료년월일}
+			   AND (A.담당어플리케이션코드 = ${담당어플리케이션코드}
+			       OR ${담당어플리케이션코드} IS NULL)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvGcbNonTrmlChnErrMsgUseNcn" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB단말외채널오류메시지코드Ebi::GCB단말외채널오류메시지코드Dao::GCB단말외채널오류메시지사용건수조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ingCdMg/gcbNonTrmlChnErrMsgCdEbi/TBGCBER03/retvGcbNonTrmlChnErrMsgUseNcn */ 
+			       COUNT(*) 조회건수_N2
+			  FROM INSTC.TBGCBER03 A 
+			 WHERE A.언어구분코드    = ${언어구분코드}
+			   AND A.메시지채널구분코드 = ${메시지채널구분코드}
+			   AND A.채널오류코드    = ${채널오류코드}
+			   AND A.적용시작년월일   = ${적용시작년월일}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="regtGcbNonTrmlChnErrMsgCd" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB단말외채널오류메시지코드Ebi::GCB단말외채널오류메시지코드Dao::GCB단말외채널오류메시지코드등록" >
+		<![CDATA[
+			INSERT /*+ 김동현::/gcb/ingCdMg/gcbNonTrmlChnErrMsgCdEbi/TBGCBER03/regtGcbNonTrmlChnErrMsgCd */
+			  INTO INSTC.TBGCBER03
+			(
+			   언어구분코드
+			 , 메시지채널구분코드
+			 , 채널오류코드
+			 , 적용시작년월일
+			 , 적용종료년월일
+			 , 등록년월일
+			 , 오류메시지사용여부
+			 , 오류메시지코드
+			 , 조치메시지코드
+			 , 담당어플리케이션코드
+			 , 오류메시지출력내용
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${언어구분코드}
+			 ,${메시지채널구분코드}
+			 ,${채널오류코드}
+			 ,${적용시작년월일}
+			 ,${적용종료년월일}
+			 ,${등록년월일}
+			 ,${오류메시지사용여부}
+			 ,${오류메시지코드}
+			 ,${조치메시지코드}
+			 ,${담당어플리케이션코드}
+			 ,${오류메시지출력내용}
+			 ,SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,${시스템최종거래일시}
+			)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLckGcbNonTrmlChnErrMsgCd" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB단말외채널오류메시지코드Ebi::GCB단말외채널오류메시지코드Dao::GCB단말외채널오류메시지코드락조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ingCdMg/gcbNonTrmlChnErrMsgCdEbi/TBGCBER03/retvLckGcbNonTrmlChnErrMsgCd */ 
+			       A.언어구분코드
+			     , A.메시지채널구분코드
+			     , A.채널오류코드
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , A.등록년월일
+			     , A.오류메시지사용여부
+			     , A.오류메시지코드
+			     , A.조치메시지코드
+			     , A.담당어플리케이션코드
+			     , A.오류메시지출력내용
+			  FROM INSTC.TBGCBER03 A 
+			 WHERE A.언어구분코드    = ${언어구분코드}
+			   AND A.메시지채널구분코드 = ${메시지채널구분코드}
+			   AND A.채널오류코드    = ${채널오류코드}
+			   AND A.적용시작년월일   = ${적용시작년월일}
+			FOR UPDATE WAIT 0   
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="uptGcbNonTrmlChnErrMsgCd" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB단말외채널오류메시지코드Ebi::GCB단말외채널오류메시지코드Dao::GCB단말외채널오류메시지코드수정" >
+		<![CDATA[
+			UPDATE /*+ 김동현::/gcb/ingCdMg/gcbNonTrmlChnErrMsgCdEbi/TBGCBER03/uptGcbNonTrmlChnErrMsgCd */ 
+			       INSTC.TBGCBER03 
+			   SET 적용종료년월일    = ${적용종료년월일}
+			     , 등록년월일      = ${등록년월일}
+			     , 오류메시지사용여부  = ${오류메시지사용여부}
+			     , 오류메시지코드    = ${오류메시지코드}
+			     , 조치메시지코드    = ${조치메시지코드}
+			     , 담당어플리케이션코드 = ${담당어플리케이션코드}
+			     , 오류메시지출력내용  = ${오류메시지출력내용}
+			     , 시스템최종갱신일시  = SYSTIMESTAMP
+			     , 시스템최종갱신식별자 = ${시스템최종갱신식별자}
+			     , 시스템최종거래일시  = ${시스템최종거래일시}
+			 WHERE 언어구분코드    = ${언어구분코드}
+			   AND 메시지채널구분코드 = ${메시지채널구분코드}
+			   AND 채널오류코드    = ${채널오류코드}
+			   AND 적용시작년월일   = ${적용시작년월일}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="delGcbNonTrmlChnErrMsgCd" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB단말외채널오류메시지코드Ebi::GCB단말외채널오류메시지코드Dao::GCB단말외채널오류메시지코드삭제" >
+		<![CDATA[
+			DELETE /*+ 김동현::/gcb/ingCdMg/gcbNonTrmlChnErrMsgCdEbi/TBGCBER03/delGcbNonTrmlChnErrMsgCd */
+			  FROM INSTC.TBGCBER03  
+			 WHERE 언어구분코드    = ${언어구분코드}
+			   AND 메시지채널구분코드 = ${메시지채널구분코드}
+			   AND 채널오류코드    = ${채널오류코드}
+			   AND 적용시작년월일   = ${적용시작년월일}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvGcbNonTrmlChnErrMsgCd" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB단말외채널오류메시지코드Ebi::GCB단말외채널오류메시지코드Dao::GCB단말외채널오류메시지코드조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ingCdMg/gcbNonTrmlChnErrMsgCdEbi/TBGCBER03/retvGcbNonTrmlChnErrMsgCd */ 
+			       A.언어구분코드
+			     , A.메시지채널구분코드
+			     , A.채널오류코드
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , A.등록년월일
+			     , A.오류메시지사용여부
+			     , A.오류메시지코드
+			     , A.조치메시지코드
+			     , A.담당어플리케이션코드
+			     , A.오류메시지출력내용
+			  FROM INSTC.TBGCBER03 A 
+			 WHERE A.언어구분코드    = ${언어구분코드}
+			   AND A.메시지채널구분코드 = ${메시지채널구분코드}
+			   AND A.채널오류코드    = ${채널오류코드}
+			   AND A.적용시작년월일   = ${적용시작년월일}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGcbNonTrmlChnErrMsgCdInf" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB단말외채널오류메시지코드Ebi::GCB단말외채널오류메시지코드Dao::GCB단말외채널오류메시지코드정보목록조회">
+		<![CDATA[
+			SELECT /*+ 송재복::/gcb/ingCdMg/gcbNonTrmlChnErrMsgCdEbi/TBGCBER03/retvLstGcbNonTrmlChnErrMsgCdInf */ 
+			       A.언어구분코드
+			     , A.메시지채널구분코드
+			     , A.채널오류코드
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , A.등록년월일
+			     , A.오류메시지사용여부
+			     , A.오류메시지코드
+			     , A.조치메시지코드
+			     , A.담당어플리케이션코드
+			     , A.오류메시지출력내용
+			     , TO_CHAR(시스템최종갱신일시, 'YYYYMMDDHH24MISSFF6') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBER03 A 
+			 WHERE A.언어구분코드 = ${언어구분코드}
+			   AND A.메시지채널구분코드    BETWEEN ${메시지채널구분코드1} AND ${메시지채널구분코드2}
+			   AND A.채널오류코드            BETWEEN ${채널오류코드1} AND ${채널오류코드2}
+			   AND A.담당어플리케이션코드 BETWEEN ${담당어플리케이션코드1} AND ${담당어플리케이션코드2}  
+			   AND A.시스템최종거래일시    BETWEEN ${조회시작년월일} || '000000000000' AND ${조회종료년월일} || '999999999999'
+			   AND ( ${오류메시지출력내용} IS NULL OR A.오류메시지출력내용  LIKE ${오류메시지출력내용} || '%' )
+		]]>
+    </statement>
+</statements>

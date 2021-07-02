@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+<!-- 오픈뱅킹카드사용여부조회 -->
+    <statement name="selectOpnbCrdUseYnInq">
+		<![CDATA[
+			SELECT /*+ 박건우::/opnb/opnbPuse/usrSvc/opnbCrdMgEbc/selectOpnbCrdUseYnInq */
+				   B.오픈뱅킹사용자고유번호  
+              FROM INSTC.TBUBFS001 A, INSTC.TBUBFS005 B
+             WHERE A.오픈뱅킹사용자고유번호    = B.오픈뱅킹사용자고유번호
+               AND CI내용                           = ${CI내용}
+               AND B.오픈뱅킹회원금융회사코드  = ${오픈뱅킹회원금융회사코드}
+               AND B.오픈뱅킹개설기관코드       = ${오픈뱅킹개설기관코드}
+               AND B.카드정보조회동의여부       = ${카드정보조회동의여부}
+		]]>
+	</statement>
+	
+	<!-- 오픈뱅킹카드고객기본조회 -->
+    <statement name="selectOpnbCrdBas">
+		<![CDATA[
+			SELECT /*+ 박건우::/opnb/opnbPuse/usrSvc/opnbCrdMgEbc/selectOpnbCrdBas */
+				     오픈뱅킹사용자고유번호  
+              FROM INSTC.TBUBFS005
+             WHERE 오픈뱅킹사용자고유번호    = ${오픈뱅킹사용자고유번호}
+               AND 오픈뱅킹회원금융회사코드  = ${오픈뱅킹회원금융회사코드}
+               AND 오픈뱅킹개설기관코드       = ${오픈뱅킹개설기관코드}
+               AND 카드정보조회동의여부       = ${카드정보조회동의여부}
+		]]>
+	</statement>
+	
+	<!-- 오픈뱅킹카드고객기본전체조회 -->
+    <statement name="selectOpnbCrdCstBasWhlInq">
+		<![CDATA[
+			SELECT /*+ 박건우::/opnb/opnbPuse/usrSvc/opnbCrdMgEbc/selectOpnbCrdCstBasWhlInq */
+			       DISTINCT 
+                                 오픈뱅킹회원금융회사코드 
+              FROM INSTC.TBUBFS005
+             WHERE 오픈뱅킹사용자고유번호 = ${오픈뱅킹사용자고유번호}
+               AND 카드정보조회동의여부    = ${카드정보조회동의여부}
+		]]>
+    </statement>
+	
+	<!-- 오픈뱅킹카드고객상세조회 -->
+    <statement name="selectOpnbCrdDtl">
+		<![CDATA[ 
+			SELECT /*+ 박건우::/opnb/opnbPuse/usrSvc/opnbCrdMgEbc/selectOpnbCrdDtl */
+                                 준회원식별자  
+                 , 고객식별자
+                 , 오픈뱅킹플랫폼식별번호
+                 , 카드정보조회동의여부
+                 , TO_CHAR(카드정보조회동의갱신일시, 'YYYYMMDDHHMMSS') AS 카드정보조회동의갱신일시
+                 , TO_CHAR(카드정보조회동의해제일시, 'YYYYMMDDHHMMSS') AS 카드정보조회동의해제일시
+              FROM INSTC.TBUBFS006
+             WHERE 오픈뱅킹회원금융회사코드 = ${오픈뱅킹회원금융회사코드}
+               AND 채널세부업무구분코드      = ${채널세부업무구분코드}
+               AND CI내용                       = ${CI내용}
+		]]>
+    </statement>
+    
+    <!-- 오픈뱅킹카드상세등록카드사수조회 -->
+    <statement name="selectOpnbCrdDtlRgAccnt">
+		<![CDATA[ 
+			SELECT /*+ 박건우::/opnb/opnbPuse/usrSvc/opnbCrdMgEbc/selectOpnbCrdDtlRgAccnt */
+                   COUNT(*) 등록카드사수
+              FROM INSTC.TBUBFS006
+             WHERE 오픈뱅킹회원금융회사코드    = ${오픈뱅킹회원금융회사코드}
+               AND CI내용                          = ${CI내용}
+               AND 카드정보조회동의여부         = ${카드정보조회동의여부}
+		]]>
+    </statement>
+    
+    <!-- 오픈뱅킹카드상세채널별등록카드사수조회 -->
+    <statement name="selectOpnbCrdDtlChnRgAccnt">
+		<![CDATA[ 
+			SELECT /*+ 박건우::/opnb/opnbPuse/usrSvc/opnbCrdMgEbc/selectOpnbCrdDtlChnRgAccnt */
+                   COUNT(*) 채널사용가능건수
+              FROM INSTC.TBUBFS006
+             WHERE 채널세부업무구분코드         = ${채널세부업무구분코드} 
+               AND 카드정보조회동의여부         = ${카드정보조회동의여부}
+               AND CI내용                          = ${CI내용} 
+		]]>
+    </statement>
+     
+    <!-- 오픈뱅킹카드고객상세등록 -->
+    <statement name="insertOpnbCrdDtl">
+		<![CDATA[
+			INSERT /*+ 박건우::/opnb/opnbPuse/usrSvc/opnbCrdMgEbc/insertOpnbCrdDtl */
+	          INTO INSTC.TBUBFS006        /* UBF오픈뱅킹카드고객상세 */
+		    	 (
+		 	              채널세부업무구분코드 
+                  , 오픈뱅킹회원금융회사코드 
+                  , CI내용 
+                  , 준회원식별자 
+                  , 고객식별자 
+                  , 오픈뱅킹플랫폼식별번호
+                  , 카드정보조회동의여부
+                  , 카드정보조회동의갱신일시
+                  , 카드정보조회동의해제일시
+                  , 시스템최초생성식별자 
+                  , 시스템최초생성일시
+                  , 시스템최종갱신식별자
+                  , 시스템최종갱신일시 
+                  , 시스템최종거래일시
+                  
+			    )
+			     VALUES
+			    (
+			      ${채널세부업무구분코드} 
+                , ${오픈뱅킹회원금융회사코드} 
+                , ${CI내용} 
+                , ${준회원식별자} 
+                , ${고객식별자} 
+                , ${오픈뱅킹플랫폼식별번호}
+                , ${카드정보조회동의여부} 
+                , TO_DATE(${카드정보조회동의갱신일시}, 'YYYYMMDDHH24MISS')
+                , TO_DATE(${카드정보조회동의해제일시}, 'YYYYMMDDHH24MISS')
+                , ${시스템최초생성식별자} 
+                , SYSTIMESTAMP
+                , ${시스템최종갱신식별자} 
+                , SYSTIMESTAMP
+                , ${시스템최종거래일시}	
+			)
+			
+		]]>
+    </statement>
+    
+    <!-- 오픈뱅킹카드고객상세채널별등록 -->
+    <statement name="insertOpnbCrdDtlChnPr">
+		<![CDATA[
+			INSERT /*+ 박건우::/opnb/opnbPuse/usrSvc/opnbCrdMgEbc/insertOpnbCrdDtlChnPr */
+	          INTO INSTC.TBUBFS006        /* UBF오픈뱅킹카드고객상세 */
+		    SELECT ${채널세부업무구분코드}
+		         , 오픈뱅킹회원금융회사코드
+		         , CI내용
+                 , NVL(${오픈뱅킹플랫폼식별번호}, 오픈뱅킹플랫폼식별번호)
+                 , 준회원식별자  
+                 , 고객식별자
+                 , ${카드정보조회동의여부} 
+                 , TO_DATE(${카드정보조회동의갱신일시}, 'YYYYMMDDHH24MISS')
+                 , NULL
+                 , ${시스템최초생성식별자}
+                 , ${시스템최종거래일시}
+                 , ${시스템최종갱신식별자}  
+                 , SYSTIMESTAMP
+                 , SYSTIMESTAMP
+              FROM INSTC.TBUBFS006
+             WHERE 오픈뱅킹회원금융회사코드 = ${오픈뱅킹회원금융회사코드}
+               AND CI내용                       = ${CI내용}	
+               AND ROWNUM            = 1
+		]]>
+    </statement>
+    
+    
+    <!-- 오픈뱅킹카드고객상세 동의여부 변경 -->
+    <statement name="updateCrdDtlUseYn">
+		<![CDATA[
+			UPDATE /*+ 박건우::/opnb/opnbPuse/usrSvc/opnbCrdMgEbc/updateCrdDtlUseYn */ 
+                   INSTC.TBUBFS006        /* UBF오픈뱅킹카드고객상세 */
+               SET 카드정보조회동의여부        = ${카드정보조회동의여부}
+                 , 카드정보조회동의갱신일시  = NVL(TO_DATE(${카드정보조회동의갱신일시}, 'YYYYMMDDHH24MISS') , 카드정보조회동의갱신일시) 
+                 , 카드정보조회동의해제일시  = NVL(TO_DATE(${카드정보조회동의해제일시}, 'YYYYMMDDHH24MISS')  , 카드정보조회동의해제일시) 
+                 , 시스템최종갱신일시          = SYSTIMESTAMP      
+                 , 시스템최종갱신식별자        = ${시스템최종갱신식별자}        
+                 , 시스템최종거래일시          = ${시스템최종거래일시}
+             WHERE 오픈뱅킹회원금융회사코드   = ${오픈뱅킹회원금융회사코드}
+               AND 채널세부업무구분코드        = ${채널세부업무구분코드}
+               AND CI내용                         = ${CI내용}
+               
+		]]>
+    </statement>        	
+		 
+	<!-- 채널별카드목록조회 -->
+    <statement name="selectChnPrCrdCtg">
+		<![CDATA[
+            SELECT /*+ 김상현::/opnb/opnbPuse/usrSvc/opnbCrdMgEbc/selectChnPrCrdCtg */ 
+                   A.오픈뱅킹회원금융회사코드
+                 , A.오픈뱅킹사용자고유번호
+                 , A.오픈뱅킹카드식별자
+                 , A.오픈뱅킹개설기관코드
+                 , A.오픈뱅킹마스킹카드번호
+                 , A.카드상품명
+                 , A.가족카드여부
+                 , A.오픈뱅킹카드구분코드
+                 , A.결제은행코드
+                 , A.마스킹카드결제계좌번호
+                 , A.카드발급년월일
+              FROM INSTC.TBUBFS020 A
+                   /* UBF오픈뱅킹카드정보기본 */
+             WHERE A.오픈뱅킹회원금융회사코드 = ${오픈뱅킹회원금융회사코드}
+               AND A.오픈뱅킹사용자고유번호 = ${오픈뱅킹사용자고유번호}
+		]]>
+    </statement>
+    
+    <!-- 채널별카드목록등록  -->
+	<statement name="insertChnPrCrdCtg">
+		<![CDATA[
+		 MERGE /* 박건우::/opnb/opnbPuse/usrSvc/opnbCrdMgEbc/insertChnPrCrdCtg */
+		 INTO INSTC.TBUBFS020
+		 USING DUAL
+		   ON (오픈뱅킹회원금융회사코드  = ${오픈뱅킹회원금융회사코드}
+		   AND 오픈뱅킹사용자고유번호    = ${오픈뱅킹사용자고유번호}
+		   AND 오픈뱅킹카드식별자         = ${오픈뱅킹카드식별자})
+		 WHEN MATCHED THEN UPDATE SET
+		            오픈뱅킹마스킹카드번호  = NVL(${오픈뱅킹마스킹카드번호}, 오픈뱅킹마스킹카드번호)
+		     , 카드상품명 		  = NVL(${카드상품명}, 카드상품명)
+		     , 가족카드여부 		  = NVL(${가족카드여부}, 가족카드여부)
+		     , 오픈뱅킹카드구분코드 	  = NVL(${오픈뱅킹카드구분코드}, 오픈뱅킹카드구분코드)
+		     , 결제은행코드 		  = NVL(${결제은행코드}, 결제은행코드)
+		     , 카드결제계좌번호          = NVL(${카드결제계좌번호}, 카드결제계좌번호)
+		     , 마스킹카드결제계좌번호  = NVL(${마스킹카드결제계좌번호}, 마스킹카드결제계좌번호)
+		     , 카드발급년월일  	  = NVL(${카드발급년월일}, 카드발급년월일)
+		     , 시스템최종갱신일시       = SYSTIMESTAMP
+		     , 시스템최종갱신식별자    = ${시스템최종갱신식별자}
+		     , 시스템최종거래일시       = ${시스템최종거래일시}
+		 WHEN NOT MATCHED THEN INSERT 
+		     ( 오픈뱅킹회원금융회사코드
+		     , 오픈뱅킹사용자고유번호 
+		     , 오픈뱅킹카드식별자
+		     , 오픈뱅킹개설기관코드
+		     , 오픈뱅킹마스킹카드번호
+		     , 카드상품명
+		     , 가족카드여부
+		     , 오픈뱅킹카드구분코드
+		     , 결제은행코드
+		     , 카드결제계좌번호
+		     , 마스킹카드결제계좌번호
+		     , 카드발급년월일
+		     , 시스템최초생성일시
+		     , 시스템최초생성식별자
+		     , 시스템최종갱신일시
+		     , 시스템최종갱신식별자
+		     , 시스템최종거래일시 )
+		VALUES 
+		     ( ${오픈뱅킹회원금융회사코드}
+		     , ${오픈뱅킹사용자고유번호}
+		     , ${오픈뱅킹카드식별자}
+		     , ${오픈뱅킹개설기관코드}
+		     , ${오픈뱅킹마스킹카드번호}
+		     , ${카드상품명}
+		     , ${가족카드여부}
+		     , ${오픈뱅킹카드구분코드}
+		     , ${결제은행코드}
+		     , ${카드결제계좌번호}
+		     , ${마스킹카드결제계좌번호}
+		     , ${카드발급년월일}
+		     , SYSTIMESTAMP
+		     , ${시스템최초생성식별자}
+		     , SYSTIMESTAMP
+		     , ${시스템최종갱신식별자}
+		     , ${시스템최종거래일시} )
+		]]>
+	</statement>	 
+    
+    
+    <!-- 카드고객목록조회 -->
+    <statement name="selectCrdCstCtg">
+		<![CDATA[
+			SELECT DISTINCT /*+ 김상현::/opnb/opnbPuse/usrSvc/opnbCrdMgEbc/selectCrdCstCtg */ 
+                   B.오픈뱅킹회원금융회사코드
+              FROM INSTC.TBUBFS001 A, INSTC.TBUBFS006 B
+                   /* UBF오픈뱅킹고객기본, UBF오픈뱅킹카드고객상세 */
+             WHERE A.오픈뱅킹서비스해지여부	= 'N'
+               AND A.오픈뱅킹사용자고유번호	= ${오픈뱅킹사용자고유번호}
+               AND A.CI내용				= B.CI내용
+               AND B.채널세부업무구분코드		= ${채널세부업무구분코드}
+               AND B.카드정보조회동의여부		= 'Y'
+               
+		]]>
+    </statement>
+    
+    <!-- 카드사용자등록 -->
+    <statement name="insertCrdUsr">
+		<![CDATA[
+			INSERT /*+ 박건우::/opnb/opnbPuse/usrSvc/opnbCrdMgEbc/insertCrdUsr */
+	          INTO INSTC.TBUBFS005        /* UBF오픈뱅킹카드고객기본 */
+		    	 (
+		    	     오픈뱅킹사용자고유번호
+                 , 오픈뱅킹회원금융회사코드
+                 , 고객명
+                 , 오픈뱅킹개설기관코드
+                 , 오픈뱅킹카드개설기관명
+                 , 오픈뱅킹이메일주소전문내용
+                 , 카드정보조회동의여부
+                 , 카드정보조회동의등록일시
+                 , 카드정보조회동의갱신일시
+                 , 카드정보조회동의해제일시
+                 , 조회등록채널세부업무구분코드
+                 , 조회갱신채널세부업무구분코드
+                 , 조회해제채널세부업무구분코드
+                 , 시스템최초생성일시
+                 , 시스템최초생성식별자
+                 , 시스템최종갱신일시
+                 , 시스템최종갱신식별자
+                 , 시스템최종거래일시			
+			    )
+			     VALUES
+			    (
+			      ${오픈뱅킹사용자고유번호}
+                , ${오픈뱅킹회원금융회사코드}
+                , ${고객명}
+                , ${오픈뱅킹개설기관코드}
+                , ${오픈뱅킹카드개설기관명}
+                , ${오픈뱅킹이메일주소전문내용}
+                , ${카드정보조회동의여부}
+                , TO_DATE(${카드정보조회동의등록일시}, 'YYYYMMDDHH24MISS')
+                , TO_DATE(${카드정보조회동의갱신일시}, 'YYYYMMDDHH24MISS') 
+                , TO_DATE(${카드정보조회동의해제일시}, 'YYYYMMDDHH24MISS')  
+                , ${조회등록채널세부업무구분코드}
+                , ${조회갱신채널세부업무구분코드}
+                , ${조회해제채널세부업무구분코드}
+                , SYSTIMESTAMP
+                , ${시스템최초생성식별자}
+                , SYSTIMESTAMP
+                , ${시스템최종갱신식별자}
+                , ${시스템최종거래일시}	
+			)
+		]]>
+    </statement>
+    
+    <!-- 카드정보변경 -->
+    <statement name="updateCrdInf">
+		<![CDATA[
+			UPDATE /*+ 박건우::/opnb/opnbPuse/usrSvc/opnbCrdMgEbc/updateCrdInf */  
+                   INSTC.TBUBFS005        /* UBF오픈뱅킹카드고객기본 */
+               SET 오픈뱅킹이메일주소전문내용   = ${오픈뱅킹이메일주소전문내용}
+                 , 시스템최종갱신일시             = SYSTIMESTAMP      
+                 , 시스템최종갱신식별자          = ${시스템최종갱신식별자}        
+                 , 시스템최종거래일시            = ${시스템최종거래일시}
+             WHERE 오픈뱅킹회원금융회사코드     = ${오픈뱅킹회원금융회사코드} 
+               AND 오픈뱅킹사용자고유번호       = ${오픈뱅킹사용자고유번호}
+               AND 카드정보조회동의여부          = 'Y'
+		]]>
+    </statement>
+    
+    <!-- 오픈뱅킹카드사용여부수정 -->
+    <statement name="updateCrdBasUseYn">
+		<![CDATA[
+			UPDATE /*+ 박건우::/opnb/opnbPuse/usrSvc/opnbCrdMgEbc/updateCrdBasUseYn */ 
+                   INSTC.TBUBFS005        /* UBF오픈뱅킹카드고객기본 */
+               SET 카드정보조회동의여부           = NVL(${카드정보조회동의여부}           , 카드정보조회동의여부 )
+                 , 카드정보조회동의갱신일시      = NVL(TO_DATE(${카드정보조회동의갱신일시}, 'YYYYMMDDHH24MISS'), 카드정보조회동의갱신일시)
+                 , 조회갱신채널세부업무구분코드 = NVL(${조회갱신채널세부업무구분코드}     , 조회갱신채널세부업무구분코드)
+                 , 카드정보조회동의해제일시      = NVL(TO_DATE(${카드정보조회동의해제일시}, 'YYYYMMDDHH24MISS'), 카드정보조회동의해제일시)
+                 , 조회해제채널세부업무구분코드 = NVL(${조회해제채널세부업무구분코드}     , 조회해제채널세부업무구분코드 )                 
+                 , 시스템최종갱신일시             = SYSTIMESTAMP      
+                 , 시스템최종갱신식별자          = ${시스템최종갱신식별자}        
+                 , 시스템최종거래일시             = ${시스템최종거래일시}
+             WHERE 오픈뱅킹회원금융회사코드     = ${오픈뱅킹회원금융회사코드} 
+               AND 오픈뱅킹사용자고유번호       = ${오픈뱅킹사용자고유번호}
+		]]>
+    </statement>
+    
+    <!-- 카드개설기관명조회 -->
+    <statement name="selectCrdOpeInsNm">
+		<![CDATA[
+			SELECT 오픈뱅킹기관명 /*+ 박건우::/opnb/opnbPuse/usrSvc/opnbCrdMgEbc/selectCrdOpeInsNm */ 
+              FROM INSTC.TBUBFS023 /* UBF오픈뱅킹기관기본 */
+             WHERE 오픈뱅킹금융기관코드 = ${오픈뱅킹금융기관코드}
+             AND   ROWNUM = 1
+		]]>
+    </statement>
+    
+    <!-- 오픈뱅킹카드고객기본삭제 -->         
+    <statement name="deleteOpnbCrdCstBas">
+		<![CDATA[ 
+			DELETE /*+ 정영훈::/opnb/opnbPuse/usrSvc/opnbCrdMgEbc/deleteOpnbCrdCstBas */                  
+             FROM INSTC.TBUBFS005 
+            WHERE 오픈뱅킹사용자고유번호  = ${오픈뱅킹사용자고유번호}              
+               
+		]]>
+    </statement>
+    
+    <!-- 오픈뱅킹카드고객상세삭제 -->         
+    <statement name="deleteOpnbCrdCstDtl">
+		<![CDATA[ 
+			DELETE /*+ 정영훈::/opnb/opnbPuse/usrSvc/opnbCrdMgEbc/deleteOpnbCrdCstDtl */                  
+             FROM INSTC.TBUBFS006 
+            WHERE CI내용 = ${CI내용}              
+               
+		]]>
+    </statement>
+    
+    <!-- 오픈뱅킹카드정보기본삭제 -->         
+    <statement name="deleteOpnbCrdInfBasDtl">
+		<![CDATA[ 
+			DELETE /*+ 박건우::/opnb/opnbPuse/usrSvc/opnbCrdMgEbc/deleteOpnbCrdInfBasDtl */                  
+             FROM INSTC.TBUBFS020 
+            WHERE 오픈뱅킹사용자고유번호  = ${오픈뱅킹사용자고유번호}         
+		]]>
+    </statement> 	
+    
+   <!-- 오픈뱅킹카드고객일련번호채번조회 (미사용) -->
+    <statement name="selectOpnbCrdSnoBbr">
+		<![CDATA[
+			SELECT /*+ 박건우::/opnb/opnbPuse/usrSvc/opnbCrdMgEbc/selectOpnbCrdSnoBbr */
+                   INSTC.SQ_TBUBFS005_01.NEXTVAL AS 오픈뱅킹카드고객일련번호
+              FROM DUAL 
+		]]>
+    </statement>
+    
+    
+</statements>

@@ -1,0 +1,54 @@
+plugins {
+    id 'eclipse'
+    id 'eclipse-wtp'
+    id 'idea'
+    
+    id 'java'
+    id 'war'
+    id 'maven-publish'
+    id 'application'
+}
+
+apply plugin: 'war'
+
+war {
+    enabled = true
+    baseName = 'ubf-api'
+}
+
+group = 'com.kbcard'
+version = ''
+description = 'ubf-api'
+
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+dependencies {
+    compile fileTree(dir: 'C:/MYDATA_API/DOMA/workspace/UBD_REFERENCE_LIB/common', include: ['**/*.jar'])
+    compile fileTree(dir: 'C:/MYDATA_API/DOMA/workspace/UBD_REFERENCE_LIB/3rdparty', include: ['**/*.jar'])
+    compileOnly fileTree(dir: 'C:/MYDATA_API/DOMA/worksapce/UBD_REFERENCE_LIB/link-modules', include: ['**/*.jar'])
+    compileOnly fileTree(dir: 'C:/MYDATA_API/DOMA/workspace/UBD_REFERENCE_LIB/compile-only', include: ['**/*.jar'])
+    
+    compile fileTree(dir: 'C:/MYDATA_API/DOMA/workspace/UBD_COMMON/build/libs', include: ['ubd-common.jar'])
+}
+
+eclipse.wtp.component.file {
+	withXml{
+		def wbModules = it.asNode().findAll{ node -> node.name() == 'wb-module'}
+		if(wbModules.size() != 1){
+			throw new StopActionException("wtp eclipse wb-module problem")
+		}
+		
+		def node = wbModules.get(0)
+		
+		groovy.util.Node dependentModule = new Node(node, 'dependent-module')
+		dependentModule.attributes().put('archiveName', 'UBD_COMMON.jar')
+		dependentModule.attributes().put('deploy-path', '/WEB-INF/lib')
+		dependentModule.attributes().put('handle', 'module:/resource/UBD_COMMON/UBD_COMMON')
+		
+		groovy.util.Node dependencyType = new Node(dependentModule, 'dependency-type', 'uses')
+		
+	}
+}

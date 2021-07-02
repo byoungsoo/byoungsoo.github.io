@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvGcbCstDsgAcno" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::07.채번관리::GCB고객지정계좌번호채번Ebi::GCB고객지정계좌번호채번Dao::GCB고객지정계좌번호조회" >
+		<![CDATA[
+			SELECT /*+ 송재복::/gcb/nbrMg/gcbCstDsgAcnoNbrEbi/TBGCBCN05/retvGcbCstDsgAcno */ 
+			       A.고객지정계좌구분코드
+			     , A.고객지정계좌관리번호
+			     , A.계좌번호
+			     , A.고객지정계좌번호사용여부
+			     , A.계좌신규부점지정여부
+			     , A.계좌신규부점코드
+			     , A.시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시 
+			  FROM INSTC.TBGCBCN05 A 
+			 WHERE A.계좌번호 = ${계좌번호}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLckGcbCstDsgAcnoNbr" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::07.채번관리::GCB고객지정계좌번호채번Ebi::GCB고객지정계좌번호채번Dao::GCB고객지정계좌번호채번락조회">
+		<![CDATA[
+			SELECT /*+ 송재복::/gcb/nbrMg/gcbCstDsgAcnoNbrEbi/TBGCBCN05/retvLckGcbCstDsgAcnoNbr */ 
+			       A.고객지정계좌구분코드
+			     , A.고객지정계좌관리번호
+			     , A.계좌번호
+			     , A.고객지정계좌번호사용여부
+			     , A.계좌신규부점지정여부
+			     , A.계좌신규부점코드
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBCN05 A 
+			 WHERE A.고객지정계좌구분코드 = ${고객지정계좌구분코드}
+			   AND A.고객지정계좌관리번호 = ${고객지정계좌관리번호}
+			   FOR UPDATE NOWAIT   
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="delGcbCstDsgAcnoNbr" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::07.채번관리::GCB고객지정계좌번호채번Ebi::GCB고객지정계좌번호채번Dao::GCB고객지정계좌번호채번삭제" >
+		<![CDATA[
+			DELETE /*+ 송재복::/gcb/nbrMg/gcbCstDsgAcnoNbrEbi/TBGCBCN05/delGcbCstDsgAcnoNbr */
+			  FROM INSTC.TBGCBCN05  
+			 WHERE 고객지정계좌구분코드 = ${고객지정계좌구분코드}
+			   AND 고객지정계좌관리번호 = ${고객지정계좌관리번호}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="uptGcbCstDsgAcnoNbr" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::07.채번관리::GCB고객지정계좌번호채번Ebi::GCB고객지정계좌번호채번Dao::GCB고객지정계좌번호채번수정" >
+		<![CDATA[
+			UPDATE /*+ 송재복::/gcb/nbrMg/gcbCstDsgAcnoNbrEbi/TBGCBCN05/uptGcbCstDsgAcnoNbr */ 
+			       INSTC.TBGCBCN05 
+			   SET 계좌번호         = ${계좌번호}
+			     , 고객지정계좌번호사용여부 = ${고객지정계좌번호사용여부}
+			     , 계좌신규부점지정여부   = ${계좌신규부점지정여부}
+			     , 계좌신규부점코드     = ${계좌신규부점코드}
+			     , 시스템최종갱신일시    = SYSTIMESTAMP
+			     , 시스템최종갱신식별자   = ${시스템최종갱신식별자}
+			     , 시스템최종거래일시    = ${시스템최종거래일시}
+			 WHERE 고객지정계좌구분코드 = ${고객지정계좌구분코드}
+			   AND 고객지정계좌관리번호 = ${고객지정계좌관리번호}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="regtGcbCstDsgAcnoNbr" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::07.채번관리::GCB고객지정계좌번호채번Ebi::GCB고객지정계좌번호채번Dao::GCB고객지정계좌번호채번등록" >
+		<![CDATA[
+			INSERT /*+ 송재복::/gcb/nbrMg/gcbCstDsgAcnoNbrEbi/TBGCBCN05/regtGcbCstDsgAcnoNbr */
+			  INTO INSTC.TBGCBCN05
+			(
+			   고객지정계좌구분코드
+			 , 고객지정계좌관리번호
+			 , 계좌번호
+			 , 고객지정계좌번호사용여부
+			 , 계좌신규부점지정여부
+			 , 계좌신규부점코드
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${고객지정계좌구분코드}
+			 ,${고객지정계좌관리번호}
+			 ,${계좌번호}
+			 ,${고객지정계좌번호사용여부}
+			 ,${계좌신규부점지정여부}
+			 ,${계좌신규부점코드}
+			 ,SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,${시스템최종거래일시}
+			)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvGcbCstDsgAcnoNbr" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::07.채번관리::GCB고객지정계좌번호채번Ebi::GCB고객지정계좌번호채번Dao::GCB고객지정계좌번호채번조회" >
+		<![CDATA[
+			SELECT /*+ 송재복::/gcb/nbrMg/gcbCstDsgAcnoNbrEbi/TBGCBCN05/retvGcbCstDsgAcnoNbr */ 
+			       A.고객지정계좌구분코드
+			     , A.고객지정계좌관리번호
+			     , A.계좌번호
+			     , A.고객지정계좌번호사용여부
+			     , A.계좌신규부점지정여부
+			     , A.계좌신규부점코드
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBCN05 A 
+			 WHERE A.고객지정계좌구분코드 = ${고객지정계좌구분코드}
+			   AND A.고객지정계좌관리번호 = ${고객지정계좌관리번호}
+		]]>
+    </statement>
+</statements>

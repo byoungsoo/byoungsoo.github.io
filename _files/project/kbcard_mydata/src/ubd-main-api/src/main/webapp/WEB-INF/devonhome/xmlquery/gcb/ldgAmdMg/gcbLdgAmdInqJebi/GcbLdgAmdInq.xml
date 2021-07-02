@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvLstGcbBwkTbl" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::10.원장수정관리::GCB원장수정조회Jebi::GCB원장수정조회Jdao::GCB업무테이블목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ldgAmdMg/gcbLdgAmdInqJebi/GcbLdgAmdInq/retvLstGcbBwkTbl */ 
+			       A.TABLE_NAME 테이블ID_V9
+			     , B.COMMENTS 테이블명_V60
+			  FROM ALL_TABLES A
+			     , ALL_TAB_COMMENTS B
+			 WHERE A.OWNER = 'INSTC'
+			   AND A.OWNER = B.OWNER(+)
+			   AND A.TABLE_NAME = B.TABLE_NAME(+)
+			   AND SUBSTR(A.TABLE_NAME, 3, 3) = UPPER(${어플리케이션코드})
+			   AND LENGTH(A.TABLE_NAME) = 9
+			ORDER BY 테이블ID_V9 ASC
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGcbClmn" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::10.원장수정관리::GCB원장수정조회Jebi::GCB원장수정조회Jdao::GCB컬럼목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ldgAmdMg/gcbLdgAmdInqJebi/GcbLdgAmdInq/retvLstGcbClmn */ 
+			       A.COLUMN_ID 순번_N3
+			     , A.TABLE_NAME 테이블ID_V9
+			     , A.COLUMN_NAME 컬럼명_V50 
+			     , SUBSTR(A.DATA_TYPE, 1, 9) 컬럼타입_V15
+			     , DECODE(A.DATA_TYPE, 'VARCHAR2', A.DATA_LENGTH, 'CHAR', A.DATA_LENGTH, 'NUMBER', A.DATA_PRECISION, 0) 컬럼길이_V5
+			     , DECODE(A.DATA_TYPE, 'NUMBER', A.DATA_SCALE, 0) 컬럼소수점길이_V3
+			     , DECODE(A.NULLABLE, 'N', '0', 'Y', '1', '') 여백허용여부_V1
+			     , DECODE(B.POSITION, NULL, '0', '1') 컬럼PK여부_V1
+			  FROM ALL_TAB_COLUMNS A
+			     , ALL_CONS_COLUMNS B
+			 WHERE A.OWNER = 'INSTC'
+			   AND A.TABLE_NAME = ${테이블ID_V9}
+			   AND A.OWNER = B.OWNER(+)
+			   AND A.TABLE_NAME = B.TABLE_NAME(+)
+			   AND A.COLUMN_NAME = B.COLUMN_NAME(+)
+			   AND B.POSITION(+) IS NOT NULL
+			   AND B.CONSTRAINT_NAME(+) LIKE '%P'
+			ORDER BY A.COLUMN_ID ASC
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGcbLdgAmdApvpByBhEmp" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::10.원장수정관리::GCB원장수정조회Jebi::GCB원장수정조회Jdao::GCB원장수정결재자By부점직원목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ldgAmdMg/gcbLdgAmdInqJebi/GcbLdgAmdInq/retvLstGcbLdgAmdApvpByBhEmp */ 
+			       A.직원번호
+			     , A.한글직원명
+			     , A.직급구분코드
+			     , A.직급구분명
+			     , A.인사직위구분코드
+			     , A.한글인사직위구분명
+			     , A.사용자업무부점코드
+			     , B.한글부점명
+			  FROM INSTC.TBGCBHR01 A
+			     , INSTC.TBGCBBR01 B
+			 WHERE A.사용자업무부점코드 = B.부점코드
+			   AND A.직원데이터원천구분코드 = '1'                           
+			   AND A.사용자업무부점코드 IN (${사용자업무부점코드1}
+			                        , ${사용자업무부점코드2})     
+			   AND (A.한글직원명 = ${한글직원명}
+			       OR ${한글직원명} IS NULL)
+			   AND (A.퇴직년월일 = ' ' OR A.퇴직년월일 = '99991231')
+			   AND B.적용시작년월일 <= ${적용시작년월일}        
+			   AND B.적용종료년월일 >= ${적용종료년월일}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGcbLdgAmdApvpByItEmp" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::10.원장수정관리::GCB원장수정조회Jebi::GCB원장수정조회Jdao::GCB원장수정결재자ByIT직원목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ldgAmdMg/gcbLdgAmdInqJebi/GcbLdgAmdInq/retvLstGcbLdgAmdApvpByItEmp */ 
+			       DISTINCT A.직원번호
+			     , A.한글직원명
+			     , B.직급구분코드
+			     , B.직급구분명
+			     , B.인사직위구분코드
+			     , B.한글인사직위구분명
+			  FROM INSTC.TBGCBHR03 A
+			     , INSTC.TBGCBHR01 B
+			 WHERE A.직원번호 = B. 직원번호
+			   AND B.직원데이터원천구분코드 = '1'
+			   AND A.회계부점코드 = ${회계부점코드}
+			   AND (A.한글직원명 = ${한글직원명}
+			       OR ${한글직원명} IS NULL)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGcbLdgAmdHis" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::10.원장수정관리::GCB원장수정조회Jebi::GCB원장수정조회Jdao::GCB원장수정내역목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ldgAmdMg/gcbLdgAmdInqJebi/GcbLdgAmdInq/retvLstGcbLdgAmdHis */ 
+			       A.원장수정의뢰번호
+			     , A.원장수정의뢰서명
+			     , A.원장수정요청년월일
+			     , A.원장수정의뢰서작성시각
+			     , A.원장수정의뢰부점코드
+			     , A.원장수정의뢰부점명
+			     , A.원장수정의뢰직원번호
+			     , A.원장수정의뢰직원명
+			     , A.원장수정주무부점코드
+			     , A.원장수정주무부점명
+			     , A.원장수정주무부점직원번호
+			     , A.원장수정주무부점직원명
+			     , A.원장수정접수IT팀부점코드
+			     , A.원장수정접수IT팀부점명
+			     , A.원장수정접수IT팀구분코드
+			     , A.원장수정접수IT팀명
+			     , B.원장수정담당자결재년월일
+			     , B.원장수정담당자결재시각
+			     , B.원장수정IT담당팀구분코드
+			     , (SELECT D.소속IT팀명
+			          FROM INSTC.TBGCBHR03 D
+			         WHERE D.소속IT팀구분코드 = B.원장수정IT담당팀구분코드
+			           AND D.적용시작년월일 <= ${적용시작년월일}
+			           AND D.적용종료년월일 >= ${적용종료년월일}
+			           AND ROWNUM = 1) 원장수정IT담당팀명_V30
+			     , B.원장수정대상서버구분코드
+			     , B.어플리케이션코드
+			     , B.표준원장수정여부
+			     , B.원장수정담당직원번호
+			     , C.원장수정처리SQL일련번호
+			     , C.원장수정대상컬럼일련번호
+			     , C.원장수정대상테이블명
+			     , (SELECT E.COMMENTS
+			          FROM ALL_TAB_COMMENTS E
+			         WHERE E.OWNER = 'INSTC' 
+			           AND E.TABLE_TYPE = 'TABLE' 
+			           AND E.TABLE_NAME = C.원장수정대상테이블명
+			           AND ROWNUM = 1) 테이블명_V100
+			     , C.원장수정데이터처리구분코드
+			     , C.원장수정대상컬럼명
+			     , C.원장수정전데이터내용
+			     , C.원장수정후데이터내용
+			  FROM INSTC.TBGCBLA11 A
+			     , INSTC.TBGCBLA15 B
+			     , INSTC.TBGCBLA16 C
+			 WHERE A.원장수정의뢰번호 = B.원장수정의뢰번호
+			   AND B.원장수정의뢰번호 = C.원장수정의뢰번호
+			   AND B.원장수정IT담당팀구분코드 = C.원장수정IT담당팀구분코드
+			   AND B.원장수정대상서버구분코드 = C.원장수정대상서버구분코드
+			   AND B.어플리케이션코드 = C.어플리케이션코드
+			   AND B.원장수정담당직원번호 = C.원장수정담당직원번호
+			   AND A.원장수정의뢰서상태구분코드 = '04' /*04-완료*/
+			   AND B.원장수정진행단계구분코드 = DECODE(B.원장수정대상서버구분코드, 'M0000000', '24'
+			                                                     , 'ZZZZZZZZ', '44'
+			                                                     , 'B0000000', '64'
+			                                                     , '') /*24(원장수정담당자), 44(IT담당 팀원(결과서입력)), 64(원장수정담당자)*/
+			   AND B.원장수정의뢰서진행상태구분코드 = '02' /*02-결재완료*/
+			   AND C.원장수정처리SQL일련번호 <> 0 /*배치(JAS)인 경우 첨부파일 내역 제외*/
+			   AND A.원장수정요청년월일 BETWEEN NVL(${원장수정요청년월일1}, '00010101') 
+			                          AND NVL(${원장수정요청년월일2}, '99991231')
+			   AND B.원장수정담당자결재년월일 BETWEEN NVL(${원장수정담당자결재년월일1}, '00010101') 
+			                              AND NVL(${원장수정담당자결재년월일2}, '99991231')
+			   AND (A.원장수정의뢰번호 = ${원장수정의뢰번호} 
+			        OR ${원장수정의뢰번호} IS NULL)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGcbLdgAmdRsbp" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::10.원장수정관리::GCB원장수정조회Jebi::GCB원장수정조회Jdao::GCB원장수정담당자목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ldgAmdMg/gcbLdgAmdInqJebi/GcbLdgAmdInq/retvLstGcbLdgAmdRsbp */ 
+			       DISTINCT A.직원번호
+			  FROM INSTC.TBGCBHM01 A        /* GCB직원사무분담상세 */
+			     , INSTC.TBGCBHR03 B        /* GCB_IT직원직무상세 */
+			 WHERE A.직원번호 = B.직원번호
+			   AND A.부점코드 = B.회계부점코드
+			   AND A.적용시작년월일 <= ${적용시작년월일}
+			   AND A.적용종료년월일 >= ${적용종료년월일}
+			   AND A.사무분담코드 = ${사무분담코드}
+			   AND B.적용시작년월일 <= ${적용시작년월일}
+			   AND B.적용종료년월일 >= ${적용종료년월일}
+			   AND B.소속IT팀구분코드 = ${소속IT팀구분코드}
+		]]>
+    </statement>
+</statements>

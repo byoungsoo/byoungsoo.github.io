@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvLstEmpBasInfKbFncBkCrdTgp" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::02.공통정보관리::02.직원정보관리::직원기본정보KB금융은행카드직원기본등록Job::DAO::직원기본정보KB금융은행카드직원기본등록Bdao::직원기본정보KB금융은행카드대상자목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/batch/cmnInfMg/empInfMg/empBasInfKbFncBkCrdEmpBasRgJob/EmpBasInfKbFncBkCrdEmpBasRg/retvLstEmpBasInfKbFncBkCrdTgp */ 
+			       A.직원번호
+			     , A.한글직원명
+			     , A.소속부점코드
+			     , A.퇴직년월일
+			     , A.직급구분코드
+			     , A.직급구분명
+			     , A.인사직위구분코드
+			     , A.한글인사직위구분명
+			     , A.지주회사구분코드
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBHR01 A        /* GCB직원기본 */
+			 WHERE A.퇴직년월일 >= ${퇴직년월일}
+			   AND A.직원데이터원천구분코드 = '1' /*1-직원정보(인사), 2-도급직원정보(보안), 3-IT HRMS(IT기획)*/
+		]]>
+    </statement>
+</statements>

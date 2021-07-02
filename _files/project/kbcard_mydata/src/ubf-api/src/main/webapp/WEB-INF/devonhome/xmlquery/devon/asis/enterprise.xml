@@ -1,0 +1,3408 @@
+<?xml version="1.0" encoding="euc-kr"?>
+<statements> 
+
+    <!-- ================================================================================================
+    * 설    명 : 재인자 전문 관리
+    * 관련소스 :
+    ================================================================================================== -->
+    <statement name="insertIospecItemHty">
+        <![CDATA[
+            MERGE INTO DEVON.SGRS_IOSPECITEM_HTY
+            USING DUAL
+            ON( SITE_CD = ${SITE_CD} AND SPEC_ID=${SPEC_ID} AND IOIT_SQ=${IOIT_SQ} AND LINK_VER= ${LINK_VER} AND INF_ID=${INF_ID})
+            WHEN NOT MATCHED THEN
+            INSERT (
+                REFRESH_ST ,SITE_CD ,SPEC_ID ,LINK_VER ,INF_ID,IOIT_INCLUDE_YN,
+                ITEM_ID ,IOIT_SQ ,IOIT_DATA_TY ,IOIT_PARENTPATH_ID ,IOIT_LENGTH_NO,
+                IOIT_MANDATORY_YN ,IOIT_DEFAULTVAL_NM ,IOIT_DECIMAL_NO ,IOIT_DESC_TX ,IOIT_POINT_YN,
+                IOIT_VERSION_NO ,IOIT_TYPE_CD ,IOIT_REMARK_YN ,IOIT_SORT_CD ,IOIT_SCALE_NO,
+                IOIT_FILLER_TX ,IOIT_VALIDATE_NM ,IOIT_BT_FLD_TP_CD ,IOIT_BT_CHK_FLD_CD ,IOIT_BT_CHK_FLD_YN,
+                IOIT_BT_FLD_VAL_CD ,IOIT_CRYPTO_YN ,IOIT_CRYPTO_ALG ,IOIT_IDENTIF_YN ,IOIT_ENCTP,
+                IOIT_ENCF1 ,IOIT_ENCF2 ,IOIT_ENCF3 ,IOIT_ENCF4 ,IOIT_REC_ENCF1,
+                SIGN_BIT_YN ,SIGN_BIT_POS ,TRIM_YN ,TRIM_TY ,NON_ENC_CN_FM  
+            ) VALUES(
+                ${REFRESH_ST} ,${SITE_CD} ,${SPEC_ID} ,${LINK_VER} ,${INF_ID}, ${IOIT_INCLUDE_YN},
+                ${ITEM_ID} ,${IOIT_SQ} ,${IOIT_DATA_TY} ,${IOIT_PARENTPATH_ID} ,${IOIT_LENGTH_NO},
+                ${IOIT_MANDATORY_YN} ,${IOIT_DEFAULTVAL_NM} ,${IOIT_DECIMAL_NO} ,${IOIT_DESC_TX} ,${IOIT_POINT_YN},
+                ${IOIT_VERSION_NO} ,${IOIT_TYPE_CD} ,${IOIT_REMARK_YN} ,${IOIT_SORT_CD} ,${IOIT_SCALE_NO},
+                ${IOIT_FILLER_TX} ,${IOIT_VALIDATE_NM} ,${IOIT_BT_FLD_TP_CD} ,${IOIT_BT_CHK_FLD_CD} ,${IOIT_BT_CHK_FLD_YN},
+                ${IOIT_BT_FLD_VAL_CD} ,${IOIT_CRYPTO_YN} ,${IOIT_CRYPTO_ALG} ,${IOIT_IDENTIF_YN} ,${IOIT_ENCTP},
+                ${IOIT_ENCF1} ,${IOIT_ENCF2} ,${IOIT_ENCF3} ,${IOIT_ENCF4} ,${IOIT_REC_ENCF1},
+                ${SIGN_BIT_YN} ,${SIGN_BIT_POS} ,${TRIM_YN} ,${TRIM_TY} ,${NON_ENC_CN_FM}
+            )
+        ]]>
+    </statement>
+    
+    <statement name="selectIospecItemCntHty">
+        <![CDATA[
+            SELECT 
+                COUNT(SPEC_ID) CNT
+            FROM DEVON.SGRS_IOSPECITEM_HTY
+            WHERE SITE_CD = ${SITE_CD} AND SPEC_ID=${SPEC_ID} AND LINK_VER=${LINK_VER}  AND INF_ID=${INF_ID}
+        ]]>
+    </statement>
+    
+    <statement name="selectIospecItem">
+        <![CDATA[
+            SELECT 
+                REFRESH_ST ,SITE_CD ,SPEC_ID ,${LINK_VER} LINK_VER ,${INF_ID} INF_ID, IOIT_INCLUDE_YN ,
+                ITEM_ID ,IOIT_SQ ,IOIT_DATA_TY ,IOIT_PARENTPATH_ID ,IOIT_LENGTH_NO ,
+                IOIT_MANDATORY_YN ,IOIT_DEFAULTVAL_NM ,IOIT_DECIMAL_NO ,IOIT_DESC_TX ,IOIT_POINT_YN ,
+                IOIT_VERSION_NO ,IOIT_TYPE_CD ,IOIT_REMARK_YN ,IOIT_SORT_CD ,IOIT_SCALE_NO ,
+                IOIT_FILLER_TX ,IOIT_VALIDATE_NM ,IOIT_BT_FLD_TP_CD ,IOIT_BT_CHK_FLD_CD ,IOIT_BT_CHK_FLD_YN ,
+                IOIT_BT_FLD_VAL_CD ,IOIT_CRYPTO_YN ,IOIT_CRYPTO_ALG ,IOIT_IDENTIF_YN ,IOIT_ENCTP,
+                IOIT_ENCF1 ,IOIT_ENCF2 ,IOIT_ENCF3 ,IOIT_ENCF4 ,IOIT_REC_ENCF1 ,
+                SIGN_BIT_YN ,SIGN_BIT_POS ,TRIM_YN ,TRIM_TY ,NON_ENC_CN_FM  
+            FROM DEVON.SGRS_IOSPECITEM
+            WHERE SITE_CD = ${SITE_CD} AND SPEC_ID=${SPEC_ID}
+        ]]>
+    </statement>
+    
+    <statement name="reprintitemSpec">
+        <![CDATA[
+            SELECT  REFRESH_ST
+                   ,SITE_CD
+                   ,SPEC_ID
+                   ,LINK_VER
+                   ,ITEM_ID
+                   ,IOIT_SQ
+                   ,IOIT_DATA_TY
+                   ,IOIT_PARENTPATH_ID
+                   ,IOIT_LENGTH_NO
+                   ,IOIT_MANDATORY_YN
+                   ,IOIT_DEFAULTVAL_NM
+                   ,IOIT_DECIMAL_NO
+                   ,IOIT_DESC_TX
+                   ,IOIT_POINT_YN
+                   ,IOIT_VERSION_NO
+                   ,IOIT_TYPE_CD
+                   ,IOIT_SORT_CD
+                   ,IOIT_REMARK_YN
+                   ,IOIT_SCALE_NO
+                   ,IOIT_FILLER_TX
+                   ,IOIT_VALIDATE_NM
+                   ,IOIT_IDENTIF_YN
+                   ,IOIT_BT_FLD_VAL_CD
+                   ,IOIT_BT_CHK_FLD_CD
+                   ,IOIT_BT_CHK_FLD_YN
+                   ,IOIT_BT_FLD_TP_CD 
+                   ,IOIT_ENCTP
+                   ,IOIT_ENCF1
+                   ,IOIT_ENCF2
+                   ,IOIT_ENCF3
+                   ,IOIT_ENCF4
+                   ,SIGN_BIT_YN
+                   ,SIGN_BIT_POS
+                   ,TRIM_TY
+                   ,NON_ENC_CN_FM
+            FROM    DEVON.SGRS_IOSPECITEM_HTY
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_IOSPECITEM WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+            AND     SPEC_ID = ${SPEC_ID}
+            AND     LINK_VER = ${LINK_VER}
+            AND     INF_ID = ${INF_ID}
+            ORDER BY SITE_CD,SPEC_ID,IOIT_SQ
+        ]]>
+    </statement>
+
+     <statement name="reprintspecList">
+        <![CDATA[
+            SELECT  REFRESH_ST
+                   ,SITE_CD
+                   ,SPEC_ID
+                   ,LINK_VER
+                   ,ITEM_ID
+                   ,IOIT_SQ
+                   ,IOIT_DATA_TY
+                   ,IOIT_PARENTPATH_ID
+                   ,IOIT_LENGTH_NO
+                   ,IOIT_MANDATORY_YN
+                   ,IOIT_DEFAULTVAL_NM
+                   ,IOIT_DECIMAL_NO
+                   ,IOIT_DESC_TX
+                   ,IOIT_POINT_YN
+                   ,IOIT_VERSION_NO
+                   ,IOIT_TYPE_CD
+                   ,IOIT_SORT_CD
+                   ,IOIT_REMARK_YN
+                   ,IOIT_SCALE_NO
+                   ,IOIT_FILLER_TX
+                   ,IOIT_VALIDATE_NM
+                   ,IOIT_IDENTIF_YN
+                   ,IOIT_BT_FLD_VAL_CD
+                   ,IOIT_BT_CHK_FLD_CD
+                   ,IOIT_BT_CHK_FLD_YN
+                   ,IOIT_BT_FLD_TP_CD 
+                   ,IOIT_ENCTP
+                   ,IOIT_ENCF1
+                   ,IOIT_ENCF2
+                   ,IOIT_ENCF3
+                   ,IOIT_ENCF4
+                   ,SIGN_BIT_YN
+                   ,SIGN_BIT_POS
+                   ,TRIM_TY
+                   ,NON_ENC_CN_FM
+            FROM    DEVON.SGRS_IOSPECITEM_HTY
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_IOSPECITEM WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+            ORDER BY SITE_CD,SPEC_ID,IOIT_SQ
+        ]]>
+    </statement>
+     <!-- ================================================================================================
+    * 설    명 : 거래 폼 정보 조회
+    ================================================================================================== -->
+     <statement name="tranForms">
+        <![CDATA[
+        SELECT
+            SITE_CD
+            ,TRAN_ID
+            ,FORM_ID
+            ,LINK_ID
+        FROM DEVON.SGMC_TRAN_FORM_TB
+        WHERE SITE_CD = ${SITE_CD}
+        AND TRAN_ID = ${TRAN_ID}
+        ]]>
+    </statement>
+
+    <statement name="tranFormsList">
+        <![CDATA[
+         SELECT
+            SITE_CD
+            ,TRAN_ID
+            ,FORM_ID
+            ,LINK_ID
+        FROM DEVON.SGMC_TRAN_FORM_TB
+        WHERE SITE_CD = ${SITE_CD}
+        ORDER BY TRAN_ID
+        ]]>
+    </statement>
+    
+    <!-- ================================================================================================
+    * 설    명 : FW Config Parameter 조회
+    ================================================================================================== -->
+     <statement name="fwConfigParam">
+        <![CDATA[
+            SELECT  KEY
+                   ,VALUE
+                   ,CONFIG_TX
+            FROM    DEVON.SERE_FWCONFIG_TB
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     KEY = ${KEY}
+        ]]>
+    </statement>
+
+    <statement name="fwConfigParamList">
+        <![CDATA[
+            SELECT  KEY
+                   ,VALUE
+                   ,CONFIG_TX
+            FROM    DEVON.SERE_FWCONFIG_TB
+            WHERE   SITE_CD = ${SITE_CD}
+        ]]>
+    </statement>
+    
+    <statement name="updateFwConfigParam">
+        <![CDATA[
+            UPDATE  DEVON.SERE_FWCONFIG_TB
+            SET     VALUE = ${VALUE}
+                   ,MODUSER_ID = ${MODUSER_ID}
+                   ,MOD_DT = TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+            WHERE   KEY     = ${KEY}
+            AND     SITE_CD = ${SITE_CD}
+        ]]>
+    </statement>
+    
+    <statement name="insertFwConfigParam">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_FWCONFIG_TB
+            (
+                KEY
+               ,VALUE
+               ,CONFIG_TX
+               ,MOD_DT
+               ,MODUSER_ID
+               ,REG_DT
+               ,REGUSER_ID
+               ,SITE_CD
+            ) VALUES (
+                ${KEY}
+               ,${VALUE}
+               ,${CONFIG_TX}
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,${MODUSER_ID}
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,${REGUSER_ID}
+               ,${SITE_CD}
+            )
+        ]]>
+    </statement>
+    
+    <!-- ================================================================================================
+    * 설    명 : Timer
+    * 관련소스 :
+    ================================================================================================== -->
+    <!-- BATCH BID 등록 -->
+    <statement name="insertBatchBid">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_BT_BID_TB
+            (
+                GLOB_ID
+                ,PGRS_NO
+                ,PROC_STAT_CD
+                ,REG_DT
+                ,ORI_RQST_HEDR_CTT
+                ,ORI_RQST_TMSG_CTT
+                ,ORI_RQST_TMSG_CTT2
+                ,JOB_ID
+                ,ORI_RQST_IO_SPEC_ID
+                ,CHNG_DT
+                ,CHNG_USR_ID
+                ,SITE_CD
+            )VALUES(
+                ${GLOB_ID}
+               ,${PGRS_NO}
+               ,${PROC_STAT_CD}
+               ,TO_CHAR( CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISS')
+                ,${ORI_RQST_HEDR_CTT}
+                ,${ORI_RQST_TMSG_CTT}
+                ,${ORI_RQST_TMSG_CTT2}
+                ,${JOB_ID}
+                ,${ORI_RQST_IO_SPEC_ID}
+                ,TO_CHAR( CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISS')
+                ,${CHNG_USR_ID}
+                ,${SITE_CD}
+            )
+        ]]>
+    </statement>
+    
+    <!-- BATCH BID 대상조회 -->
+    <statement name="selectBatchBid">
+        <![CDATA[
+            SELECT 
+                GLOB_ID,
+                ORI_RQST_HEDR_CTT
+            FROM DEVON.SERE_BT_BID_TB 
+            WHERE GLOB_ID=  ${GLOB_ID}
+            AND PGRS_NO = ${PGRS_NO}
+            AND SITE_CD = ${SITE_CD}
+            --AND PROC_STAT_CD != '1' 
+        ]]>
+    </statement>
+    
+    <!-- BATCH BID 상태업데이트 -->
+    <statement name="updateBatchBid">
+        <![CDATA[
+            UPDATE  DEVON.SERE_BT_BID_TB
+            SET     PROC_STAT_CD = ${PROC_STAT_CD}
+                   ,CHNG_DT = TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISS')
+                   ,END_DT = TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISS')
+            WHERE GLOB_ID = ${GLOB_ID}
+            AND PGRS_NO = ${PGRS_NO}
+            AND SITE_CD = ${SITE_CD}
+        ]]>
+    </statement>
+    
+    <!-- ================================================================================================ 
+        * 설 명 : 인터페이스 버전 정보 * 관련소스 :
+     ================================================================================================== -->
+      <statement name="InterfaceVerParam">
+        <![CDATA[
+        SELECT
+          SITE_CD
+          ,LINK_ID
+          ,LINK_VER
+          ,TRAN_ID
+          ,TIMEOUT
+        FROM DEVON.SGMC_TRAN_VER_TB
+        WHERE SITE_CD = ${SITE_CD}
+        AND LINK_ID = ${LINK_ID}
+        ]]>
+    </statement>
+
+    <statement name="InterfaceVerParamList">
+        <![CDATA[
+         SELECT
+          SITE_CD
+          ,LINK_ID
+          ,LINK_VER
+          ,TRAN_ID
+          ,TIMEOUT
+        FROM DEVON.SGMC_TRAN_VER_TB
+        WHERE SITE_CD = ${SITE_CD}
+        ]]>
+    </statement>
+    
+    <!-- ================================================================================================ 
+        * 설 명 : MQ오류로그조회 * 관련소스 :
+     ================================================================================================== -->
+    <statement name="selectQueueErrorOutMessage">
+        SELECT 
+            MQER_INTERFACE_ID    
+            ,MQER_IO_SPEC_ID
+            ,MQER_HEDR_CTN
+            ,TO_CLOB(MQER_TMSG_CTN1||MQER_TMSG_CTN2||MQER_TMSG_CTN4||MQER_TMSG_CTN5)  MQER_TOTAL_TMSG_CTN
+            ,MQER_IDEN_KEY
+            ,MQER_RETRY_CNT
+        FROM DEVON.SERL_MQERRLOG_OUT_TB
+        WHERE  MQER_SITE_CD = ${MQER_SITE_CD}
+        AND GUID = ${GUID}
+        AND SYS_PATH_NO = ${SYS_PATH_NO}
+        AND MQER_PRC_STS != '2'
+    </statement>
+    
+     <statement name="updateQueueErrorOutMessage">
+        UPDATE DEVON.SERL_MQERRLOG_OUT_TB
+            SET MQER_PRC_STS = ${MQER_PRC_STS}
+            ,MQER_RETRY_CNT = NVL(MQER_RETRY_CNT,0) +1
+            ,MQER_MOD_DT = TO_CHAR( CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISS')
+            ,MQER_MODUSER_ID = ${MQER_MODUSER_ID}
+            ,MQER_ERR_INFO = NVL(${MQER_ERR_INFO},MQER_ERR_INFO)
+        WHERE  MQER_SITE_CD = ${MQER_SITE_CD}
+        AND GUID = ${GUID}
+        AND SYS_PATH_NO = ${SYS_PATH_NO}
+    </statement>
+    
+    <statement name="selectQueueErrorInMessage">
+        SELECT 
+            MQER_INTERFACE_ID    
+            ,MQER_IO_SPEC_ID
+            ,MQER_HEDR_CTN
+            ,TO_CLOB(MQER_TMSG_CTN1||MQER_TMSG_CTN2||MQER_TMSG_CTN4||MQER_TMSG_CTN5)  MQER_TOTAL_TMSG_CTN
+            ,MQER_RECV_QUEUE_NM
+        FROM DEVON.SERL_MQERRLOG_IN_TB
+        WHERE  MQER_SITE_CD = ${MQER_SITE_CD}    
+        AND GUID = ${GUID}
+        AND SYS_PATH_NO = ${SYS_PATH_NO}
+        AND MQER_PRC_STS NOT IN ('1','2')
+    </statement>
+    
+    <statement name="updateQueueErrorInMessage">
+        UPDATE DEVON.SERL_MQERRLOG_IN_TB
+            SET MQER_PRC_STS = ${MQER_PRC_STS}
+            ,MQER_ERR_INFO = NVL(${MQER_ERR_INFO},MQER_ERR_INFO)
+            ,MQER_MOD_DT = TO_CHAR( CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISS')
+            ,MQER_MODUSER_ID = ${MQER_MODUSER_ID}
+        WHERE  MQER_SITE_CD = ${MQER_SITE_CD}
+        AND GUID = ${GUID}
+        AND SYS_PATH_NO = ${SYS_PATH_NO}
+    </statement>
+
+    <statement name="updateQueueInGcaSetMessage">
+        UPDATE DEVON.SERL_MQERRLOG_IN_TB
+        SET MQER_GCA_SETYN = ${MQER_GCA_SETYN}
+            ,MQER_MOD_DT = TO_CHAR( CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISS')
+            ,MQER_MODUSER_ID = ${시스템최종갱신식별자}
+        WHERE  MQER_SITE_CD = ${MQER_SITE_CD}
+        AND GUID = ${GUID}
+        AND SYS_PATH_NO = ${SYS_PATH_NO} 
+    </statement>
+
+    <!-- ================================================================================================ 
+        * 설 명 : MQ오류로그적재 * 관련소스 :
+     ================================================================================================== -->
+    <statement name="insertQueueErrorOutMessage">
+        <![CDATA[
+           INSERT INTO DEVON.SERL_MQERRLOG_OUT_TB(
+                GUID                ,
+                SYS_PATH_NO         ,
+                MQER_SYS_DT         ,
+                MQER_SYS_TIME       ,
+                MQER_INTERFACE_ID   ,
+                MQER_HOST_NM        ,
+                MQER_INST_NM        ,
+                MQER_HEDR_CTN       ,
+                MQER_TMSG_CTN1      ,
+                MQER_TMSG_CTN2      ,
+                MQER_TMSG_CTN3      ,
+                MQER_TMSG_CTN4      ,
+                MQER_TMSG_CTN5      ,
+                MQER_IO_SPEC_ID     ,
+                MQER_ERR_INFO       ,
+                MQER_SITE_CD        ,
+                MQER_PRC_STS        ,
+                MQER_SDRV_DTCD      ,
+                MQER_OGTN_GUID      ,
+                MQER_OGTN_PATH_NO   ,
+                MQER_IDEN_KEY       ,
+                MQER_RETRY_CNT      ,
+                MQER_MOD_DT         ,
+                MQER_MODUSER_ID     ,
+                MQER_REG_DT         ,
+                MQER_REGUSER_ID     
+            ) VALUES(
+                ${GUID}                ,
+                ${SYS_PATH_NO}        ,
+                ${MQER_SYS_DT}         ,
+                ${MQER_SYS_TIME}       ,
+                ${MQER_INTERFACE_ID}   ,
+                ${MQER_HOST_NM}        ,
+                ${MQER_INST_NM}        ,
+                ${MQER_HEDR_CTN}       ,
+                ${MQER_TMSG_CTN1}      ,
+                ${MQER_TMSG_CTN2}      ,
+                ${MQER_TMSG_CTN3}      ,
+                ${MQER_TMSG_CTN4}      ,
+                ${MQER_TMSG_CTN5}      ,
+                ${MQER_IO_SPEC_ID}     ,
+                ${MQER_ERR_INFO}       ,
+                ${MQER_SITE_CD}        ,
+                ${MQER_PRC_STS}        ,
+                ${MQER_SDRV_DTCD}      ,
+                ${MQER_OGTN_GUID}      ,
+                ${MQER_OGTN_PATH_NO}   ,
+                ${MQER_IDEN_KEY}       ,
+                ${MQER_RETRY_CNT}      ,
+                TO_CHAR( CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISS'),
+                ${MQER_MODUSER_ID}     ,
+                TO_CHAR( CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISS'),
+                ${MQER_REGUSER_ID}     
+            )
+        ]]>
+    </statement>
+    
+    
+    <!-- 개설거래 RETRY COUNT -->
+    <statement name="selectQueueErrorRetryCnt">
+        <![CDATA[
+            SELECT
+               MQER_RETRY_CNT,
+               MQER_PRC_STS
+            FROM DEVON.SERL_MQERRLOG_IN_TB
+            WHERE GUID = ${GUID}
+            AND SYS_PATH_NO = ${SYS_PATH_NO}
+        ]]>
+    </statement>
+    
+     <!-- 업데이트 RETRY COUNT -->
+    <statement name="updateQueueErrorState">
+        <![CDATA[
+            UPDATE DEVON.SERL_MQERRLOG_IN_TB
+            SET MQER_PRC_STS = ${MQER_PRC_STS} ,
+                MQER_MOD_DT = TO_CHAR( CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISS'),
+                MQER_MODUSER_ID = ${MQER_MODUSER_ID},
+                MQER_GCA_SETYN = NVL(${MQER_GCA_SETYN},MQER_GCA_SETYN)
+            WHERE GUID = ${GUID}
+            AND SYS_PATH_NO = ${SYS_PATH_NO}
+        ]]>
+    </statement>
+        
+    <statement name="insertQueueErrorInMessage"> 
+        <![CDATA[
+           MERGE INTO DEVON.SERL_MQERRLOG_IN_TB
+           USING DUAL
+           ON( MQER_SITE_CD = ${MQER_SITE_CD} AND GUID=${GUID} AND SYS_PATH_NO=${SYS_PATH_NO} )
+           WHEN NOT MATCHED THEN
+               INSERT (
+                    GUID                ,
+                    SYS_PATH_NO         ,
+                    MQER_SYS_DT         ,
+                    MQER_SYS_TIME       ,
+                    MQER_INTERFACE_ID   ,
+                    MQER_HOST_NM        ,
+                    MQER_INST_NM        ,
+                    MQER_HEDR_CTN       ,
+                    MQER_TMSG_CTN1      ,
+                    MQER_TMSG_CTN2      ,
+                    MQER_TMSG_CTN3      ,
+                    MQER_TMSG_CTN4      ,
+                    MQER_TMSG_CTN5      ,
+                    MQER_IO_SPEC_ID     ,
+                    MQER_ERR_INFO       ,
+                    MQER_SITE_CD        ,
+                    MQER_PRC_STS        ,
+                    MQER_SDRV_DTCD      ,
+                    MQER_OGTN_GUID      ,
+                    MQER_OGTN_PATH_NO   ,
+                    MQER_MOD_DT         ,
+                    MQER_MODUSER_ID     ,
+                    MQER_REG_DT         ,
+                    MQER_REGUSER_ID     ,
+                    SDT_LNKD_OGTN_GID_NO,
+                    MQER_RECV_QUEUE_NM,
+                    MQER_RETRY_CNT
+                ) VALUES(
+                    ${GUID}                ,
+                    ${SYS_PATH_NO}        ,
+                    ${MQER_SYS_DT}         ,
+                    ${MQER_SYS_TIME}       ,
+                    ${MQER_INTERFACE_ID}   ,
+                    ${MQER_HOST_NM}        ,
+                    ${MQER_INST_NM}        ,
+                    ${MQER_HEDR_CTN}       ,
+                    ${MQER_TMSG_CTN1}      ,
+                    ${MQER_TMSG_CTN2}      ,
+                    ${MQER_TMSG_CTN3}      ,
+                    ${MQER_TMSG_CTN4}      ,
+                    ${MQER_TMSG_CTN5}      ,
+                    ${MQER_IO_SPEC_ID}     ,
+                    ${MQER_ERR_INFO}       ,
+                    ${MQER_SITE_CD}        ,
+                    '0'                    ,
+                    ${MQER_SDRV_DTCD}      ,
+                    ${MQER_OGTN_GUID}      ,
+                    ${MQER_OGTN_PATH_NO}   ,
+                    TO_CHAR( CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISS'),
+                    ${MQER_MODUSER_ID}     ,
+                    TO_CHAR( CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISS'),
+                    ${MQER_REGUSER_ID}     ,
+                    ${SDT_LNKD_OGTN_GID_NO},
+                    ${MQER_RECV_QUEUE_NM},
+                    1
+                )
+            WHEN MATCHED THEN
+                UPDATE SET
+                    MQER_RETRY_CNT = MQER_RETRY_CNT+1,
+                    MQER_PRC_STS = '1',
+                    MQER_ERR_INFO = ${MQER_ERR_INFO},
+                    MQER_MOD_DT = TO_CHAR( CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISS'),
+                    MQER_REGUSER_ID = ${MQER_MODUSER_ID}
+        ]]>
+    </statement>
+    
+    <!-- ================================================================================================ 
+        * 설 명 : 암호화 정보 * 관련소스 :
+     ================================================================================================== -->
+      <statement name="cryptoParam">
+        <![CDATA[
+        SELECT
+            CRIF_ID,
+            CRIF_DESC,
+            CRIF_TYPE,
+            CRIF_KEYALIS,
+            CRIF_ENC_CLS,
+            CRIF_ENC_MTH,
+            CRIF_DEC_CLS,
+            CRIF_DEC_MTH,
+            CRIF_SITE_ID,
+            CRIF_ALRM,
+            CRIF_PADDING,         
+            CRIF_INOUT,            
+            CRIF_CHARSET,          
+            CRIF_BEFAFT_EXC,       
+            CRIF_OPER_MODE       
+        FROM DEVON.SGMC_CRYPTOINFO_TB
+        WHERE CRIF_ID=${CRIF_ID}
+        AND CRIF_SITE_ID=${CRIF_SITE_ID}
+        ]]>
+    </statement>
+
+    <statement name="cryptoParamList">
+        <![CDATA[
+        SELECT
+            CRIF_ID,
+            CRIF_DESC,
+            CRIF_TYPE,
+            CRIF_KEYALIS,
+            CRIF_ENC_CLS,
+            CRIF_ENC_MTH,
+            CRIF_DEC_CLS,
+            CRIF_DEC_MTH,
+            CRIF_SITE_ID,
+            CRIF_ALRM,
+            CRIF_PADDING,
+            CRIF_INOUT,
+            CRIF_CHARSET,
+            CRIF_BEFAFT_EXC,
+            CRIF_OPER_MODE
+        FROM DEVON.SGMC_CRYPTOINFO_TB
+        WHERE CRIF_SITE_ID=${CRIF_SITE_ID}
+        ]]>
+    </statement>
+    
+    <!-- ================================================================================================ 
+        * 설 명 : VALIDATION 정보:
+     ================================================================================================== -->
+      <statement name="validationParam">
+        <![CDATA[
+        SELECT
+            VALI_ID,
+            VALI_NM,
+            VALI_DESC,
+            VALI_DIVCD,
+            VALI_DOMAIN,
+            VALI_PATTERN,
+            VALI_UTIL_CLS,
+            VALI_UTIL_MTH,
+            VALI_CPBI_CLS,
+            VALI_CPBI_MTH
+        FROM DEVON.SGMC_VALIDATION_TB
+        WHERE VALI_ID=${VALI_ID}
+        AND VALI_DIVCD = ${VALI_DIVCD}
+        AND VALI_SITE_ID=${VALI_SITE_ID}
+        ]]>
+    </statement>
+
+    <statement name="validationParamList">
+        <![CDATA[
+            SELECT
+                VALI_ID,
+                VALI_NM,
+                VALI_DESC,
+                VALI_DIVCD,
+                VALI_DOMAIN,
+                VALI_PATTERN,
+                VALI_UTIL_CLS,
+                VALI_CPBI_CLS      
+        FROM DEVON.SGMC_VALIDATION_TB
+        WHERE VALI_SITE_ID=${VALI_SITE_ID}
+        ]]>
+    </statement>
+    
+    <!-- ================================================================================================ 
+        * 설 명 : businessCommon * 관련소스 :
+     ================================================================================================== -->
+    <statement name="businessCommonCode">
+        <![CDATA[
+            SELECT  'code1' EXEC_CODE
+                  , 'biz/dmo/cusAccountCommInqEbi/CusMst/retrieveCusMst' EXEC_QUERY
+            FROM    DUAL
+        ]]>
+    </statement>
+
+    <statement name="businessCommonCodeList">
+        <![CDATA[
+            SELECT  'code1' EXEC_CODE
+                  , 'biz/dmo/cusAccountCommInqEbi/CusMst/retrieveCusMst' EXEC_QUERY
+            FROM    DUAL
+            UNION
+             SELECT  'code2' EXEC_CODE
+                  , 'biz/dmo/cusAccountCommInqEbi/CusMst/retrievelockCusMst' EXEC_QUERY
+            FROM    DUAL
+        ]]>
+    </statement>
+    <!-- ================================================================================================
+    * 설    명 : 지연거래 여부 체크
+    *             AND PGRS_NO = ${SYS_PATH_NO}  비동기 송신 진행 번호로 세팅.. 
+    * 관련소스 :
+    ================================================================================================== -->
+    <statement name="selectDelayTran">
+        <![CDATA[
+        SELECT  
+            NVL(COUNT(1),0) TRAN_COUNT
+        FROM    DEVON.SERE_TIMER_TB
+        WHERE   TMR_PROC_STAT_CD = '3'
+        AND     EXTRACT(SECOND FROM CURRENT_TIMESTAMP-TO_TIMESTAMP(TMR_START_DT,'YYYYMMDDHH24MISS')) > TMOT_SEC
+        AND     GLOB_ID= ${GUID}
+        AND     PGRS_NO= TO_NUMBER(${SYS_PATH_NO})
+        AND     SITE_CD=${SITE_CD}
+        ]]>
+    </statement>
+    
+    <!-- ================================================================================================
+    * 설    명 : 저널취소 원거래 이미지 로그 획득 - guid별 DAY_CD 조회용
+    * 관련소스 :
+    * 변경이력 : 20210615 최웅기 Journal 테이블 일자별 관리
+    ================================================================================================== -->
+    <statement name="selectDayCdByGuid">
+    	<![CDATA[
+    	SELECT MAX(A.DAY_CD) DAY_CD 
+    	  FROM DEVON.VW_SERL_JOURNAL_GUID A 
+		 WHERE A.GUID = ${GUID}
+		   AND A.SITE_CD = ${SITE_CD}
+    	]]>
+    </statement>
+    <!-- ================================================================================================
+    * 설    명 : 저널취소 원거래 이미지 로그 획득.
+    * 관련소스 :
+    * 변경이력 : 20210615 최웅기 Journal 테이블 일자별 관리
+    ================================================================================================== -->
+    <statement name="selectOrgTranMessage">
+        <![CDATA[
+        SELECT
+            A.GUID,
+            TO_CLOB(NVL(TMSG_CTNT1,''))||   TO_CLOB(NVL(TMSG_CTNT2,''))||   TO_CLOB(NVL(TMSG_CTNT3,''))||
+            TO_CLOB(NVL(TMSG_CTNT4,''))||   TO_CLOB(NVL(TMSG_CTNT5,''))||   TO_CLOB(NVL(TMSG_CTNT6,''))||
+            TO_CLOB(NVL(TMSG_CTNT7,''))||   TO_CLOB(NVL(TMSG_CTNT8,''))||   TO_CLOB(NVL(TMSG_CTNT9,''))||
+            TO_CLOB(NVL(TMSG_CTNT10,''))||  TO_CLOB(NVL(TMSG_CTNT11,''))||  TO_CLOB(NVL(TMSG_CTNT12,''))||
+            TO_CLOB(NVL(TMSG_CTNT13,''))||  TO_CLOB(NVL(TMSG_CTNT14,''))||  TO_CLOB(NVL(TMSG_CTNT15,''))||
+            TO_CLOB(NVL(TMSG_CTNT16,''))||  TO_CLOB(NVL(TMSG_CTNT17,''))||  TO_CLOB(NVL(TMSG_CTNT18,''))||
+            TO_CLOB(NVL(TMSG_CTNT19,''))||  TO_CLOB(NVL(TMSG_CTNT20,''))||  TO_CLOB(NVL(TMSG_CTNT21,''))||
+            TO_CLOB(NVL(TMSG_CTNT22,''))||  TO_CLOB(NVL(TMSG_CTNT23,''))||  TO_CLOB(NVL(TMSG_CTNT24,''))||
+            TO_CLOB(NVL(TMSG_CTNT25,''))||  TO_CLOB(NVL(TMSG_CTNT26,''))||  TO_CLOB(NVL(TMSG_CTNT27,''))||
+            TO_CLOB(NVL(TMSG_CTNT28,''))||  TO_CLOB(NVL(TMSG_CTNT29,''))||  TO_CLOB(NVL(TMSG_CTNT30,'')) as TMSG_CTNT,
+            (SELECT MAX(CRTION_DATA) 
+               FROM {#1}DEVON.SERL_JOURNAL{/#1} B 
+              WHERE B.DAY_CD= A.DAY_CD
+                AND B.SYS_DT = A.SYS_DT
+                AND B.SITE_CD = A.SITE_CD
+                AND B.SDT_TR_ENTRD_GID_NO = A.GUID||A.SYS_PATH_NO
+            ) CRTION_DATA
+        FROM {#1}DEVON.SERL_JOURNAL{/#1} A
+       WHERE A.SITE_CD=${SITE_CD} AND GUID=${GUID} AND SYS_PATH_NO=${SYS_PATH_NO}
+       ]]>
+        <replace condition="${DAY_CD}.EQ.01" id="#1"><![CDATA[DEVON.SERL_JOURNAL_01]]></replace>
+        <replace condition="${DAY_CD}.EQ.02" id="#1"><![CDATA[DEVON.SERL_JOURNAL_02]]></replace>
+        <replace condition="${DAY_CD}.EQ.03" id="#1"><![CDATA[DEVON.SERL_JOURNAL_03]]></replace>
+        <replace condition="${DAY_CD}.EQ.04" id="#1"><![CDATA[DEVON.SERL_JOURNAL_04]]></replace>
+        <replace condition="${DAY_CD}.EQ.05" id="#1"><![CDATA[DEVON.SERL_JOURNAL_05]]></replace>
+        <replace condition="${DAY_CD}.EQ.06" id="#1"><![CDATA[DEVON.SERL_JOURNAL_06]]></replace>
+        <replace condition="${DAY_CD}.EQ.07" id="#1"><![CDATA[DEVON.SERL_JOURNAL_07]]></replace>
+        <replace condition="${DAY_CD}.EQ.08" id="#1"><![CDATA[DEVON.SERL_JOURNAL_08]]></replace>
+        <replace condition="${DAY_CD}.EQ.09" id="#1"><![CDATA[DEVON.SERL_JOURNAL_09]]></replace>
+        <replace condition="${DAY_CD}.EQ.10" id="#1"><![CDATA[DEVON.SERL_JOURNAL_10]]></replace>
+        <replace condition="${DAY_CD}.EQ.11" id="#1"><![CDATA[DEVON.SERL_JOURNAL_11]]></replace>
+        <replace condition="${DAY_CD}.EQ.12" id="#1"><![CDATA[DEVON.SERL_JOURNAL_12]]></replace>
+        <replace condition="${DAY_CD}.EQ.13" id="#1"><![CDATA[DEVON.SERL_JOURNAL_13]]></replace>
+        <replace condition="${DAY_CD}.EQ.14" id="#1"><![CDATA[DEVON.SERL_JOURNAL_14]]></replace>
+        <replace condition="${DAY_CD}.EQ.15" id="#1"><![CDATA[DEVON.SERL_JOURNAL_15]]></replace>
+        <replace condition="${DAY_CD}.EQ.16" id="#1"><![CDATA[DEVON.SERL_JOURNAL_16]]></replace>
+        <replace condition="${DAY_CD}.EQ.17" id="#1"><![CDATA[DEVON.SERL_JOURNAL_17]]></replace>
+        <replace condition="${DAY_CD}.EQ.18" id="#1"><![CDATA[DEVON.SERL_JOURNAL_18]]></replace>
+        <replace condition="${DAY_CD}.EQ.19" id="#1"><![CDATA[DEVON.SERL_JOURNAL_19]]></replace>
+        <replace condition="${DAY_CD}.EQ.20" id="#1"><![CDATA[DEVON.SERL_JOURNAL_20]]></replace>
+        <replace condition="${DAY_CD}.EQ.21" id="#1"><![CDATA[DEVON.SERL_JOURNAL_21]]></replace>
+        <replace condition="${DAY_CD}.EQ.22" id="#1"><![CDATA[DEVON.SERL_JOURNAL_22]]></replace>
+        <replace condition="${DAY_CD}.EQ.23" id="#1"><![CDATA[DEVON.SERL_JOURNAL_23]]></replace>
+        <replace condition="${DAY_CD}.EQ.24" id="#1"><![CDATA[DEVON.SERL_JOURNAL_24]]></replace>
+        <replace condition="${DAY_CD}.EQ.25" id="#1"><![CDATA[DEVON.SERL_JOURNAL_25]]></replace>
+        <replace condition="${DAY_CD}.EQ.26" id="#1"><![CDATA[DEVON.SERL_JOURNAL_26]]></replace>
+        <replace condition="${DAY_CD}.EQ.27" id="#1"><![CDATA[DEVON.SERL_JOURNAL_27]]></replace>
+        <replace condition="${DAY_CD}.EQ.28" id="#1"><![CDATA[DEVON.SERL_JOURNAL_28]]></replace>
+        <replace condition="${DAY_CD}.EQ.29" id="#1"><![CDATA[DEVON.SERL_JOURNAL_29]]></replace>
+        <replace condition="${DAY_CD}.EQ.30" id="#1"><![CDATA[DEVON.SERL_JOURNAL_30]]></replace>
+        <replace condition="${DAY_CD}.EQ.31" id="#1"><![CDATA[DEVON.SERL_JOURNAL_31]]></replace>
+    </statement>
+    
+    <!-- ================================================================================================
+    * 설    명 : 개별취소 원거래 이미지 로그 획득.
+    * 관련소스 :
+    * 변경이력 : 20210615 최웅기 Journal 테이블 일자별 관리
+    ================================================================================================== -->
+    <statement name="selectThnsInqOrgTranMessage">
+        <![CDATA[
+        WITH TGT_TBL AS (
+            SELECT AA.GUID GUID,
+                   AA.SITE_CD,
+                   AA.CNL_PATH_NO,
+                   MAX(BB.SYS_PATH_NO) SYS_PATH_NO
+              FROM (SELECT A.GUID GUID,
+                           A.SITE_CD,
+                    	   A.CNL_PATH_NO,
+                    	   B.INTERFACE_ID
+                      FROM (SELECT A.GUID GUID,
+                        		   A.SITE_CD,
+                        		   MAX(A.SYS_PATH_NO) CNL_PATH_NO
+                    		  FROM {#1}DEVON.SERL_JOURNAL{/#1} A
+                    	     WHERE A.SITE_CD = ${SITE_CD}
+                    		   AND A.GUID = ${GUID}
+                    		 GROUP BY A.GUID, A.SITE_CD
+                			) A 
+                  		  , {#1}DEVON.SERL_JOURNAL{/#1} B 
+                	  WHERE B.SITE_CD= A.SITE_CD
+                		AND B.GUID = A.GUID
+                		AND B.SYS_PATH_NO =  A.CNL_PATH_NO
+                	) AA
+                  , {#1}DEVON.SERL_JOURNAL{/#1} BB   
+              WHERE BB.SITE_CD= AA.SITE_CD
+                AND BB.GUID = AA.GUID
+                AND BB.INTERFACE_ID = AA.INTERFACE_ID
+                AND BB.SYS_PATH_NO< AA.CNL_PATH_NO
+              GROUP BY AA.GUID, AA.SITE_CD, AA.CNL_PATH_NO
+        )
+        SELECT A.GUID,
+               TO_CLOB(NVL(A.TMSG_CTNT1,''))||   TO_CLOB(NVL(A.TMSG_CTNT2,''))||   TO_CLOB(NVL(A.TMSG_CTNT3,''))||
+               TO_CLOB(NVL(A.TMSG_CTNT4,''))||   TO_CLOB(NVL(A.TMSG_CTNT5,''))||   TO_CLOB(NVL(A.TMSG_CTNT6,''))||
+               TO_CLOB(NVL(A.TMSG_CTNT7,''))||   TO_CLOB(NVL(A.TMSG_CTNT8,''))||   TO_CLOB(NVL(A.TMSG_CTNT9,''))||
+               TO_CLOB(NVL(A.TMSG_CTNT10,''))||  TO_CLOB(NVL(A.TMSG_CTNT11,''))||  TO_CLOB(NVL(A.TMSG_CTNT12,''))||
+               TO_CLOB(NVL(A.TMSG_CTNT13,''))||  TO_CLOB(NVL(A.TMSG_CTNT14,''))||  TO_CLOB(NVL(A.TMSG_CTNT15,''))||
+               TO_CLOB(NVL(A.TMSG_CTNT16,''))||  TO_CLOB(NVL(A.TMSG_CTNT17,''))||  TO_CLOB(NVL(A.TMSG_CTNT18,''))||
+               TO_CLOB(NVL(A.TMSG_CTNT19,''))||  TO_CLOB(NVL(A.TMSG_CTNT20,''))||  TO_CLOB(NVL(A.TMSG_CTNT21,''))||
+               TO_CLOB(NVL(A.TMSG_CTNT22,''))||  TO_CLOB(NVL(A.TMSG_CTNT23,''))||  TO_CLOB(NVL(A.TMSG_CTNT24,''))||
+               TO_CLOB(NVL(A.TMSG_CTNT25,''))||  TO_CLOB(NVL(A.TMSG_CTNT26,''))||  TO_CLOB(NVL(A.TMSG_CTNT27,''))||
+               TO_CLOB(NVL(A.TMSG_CTNT28,''))||  TO_CLOB(NVL(A.TMSG_CTNT29,''))||  TO_CLOB(NVL(A.TMSG_CTNT30,'')) as TMSG_CTNT,
+               B.CRTION_DATA                
+          FROM {#1}DEVON.SERL_JOURNAL{/#1} A
+             , {#1}DEVON.SERL_JOURNAL{/#1} B
+             , TGT_TBL C
+         WHERE A.SITE_CD = C.SITE_CD
+           AND A.GUID= C.GUID
+           AND A.SYS_PATH_NO = C.SYS_PATH_NO
+           AND B.SITE_CD = C.SITE_CD
+           AND B.GUID= C.GUID
+           AND B.SYS_PATH_NO = C.CNL_PATH_NO
+       ]]>
+        <replace condition="${DAY_CD}.EQ.01" id="#1"><![CDATA[DEVON.SERL_JOURNAL_01]]></replace>
+        <replace condition="${DAY_CD}.EQ.02" id="#1"><![CDATA[DEVON.SERL_JOURNAL_02]]></replace>
+        <replace condition="${DAY_CD}.EQ.03" id="#1"><![CDATA[DEVON.SERL_JOURNAL_03]]></replace>
+        <replace condition="${DAY_CD}.EQ.04" id="#1"><![CDATA[DEVON.SERL_JOURNAL_04]]></replace>
+        <replace condition="${DAY_CD}.EQ.05" id="#1"><![CDATA[DEVON.SERL_JOURNAL_05]]></replace>
+        <replace condition="${DAY_CD}.EQ.06" id="#1"><![CDATA[DEVON.SERL_JOURNAL_06]]></replace>
+        <replace condition="${DAY_CD}.EQ.07" id="#1"><![CDATA[DEVON.SERL_JOURNAL_07]]></replace>
+        <replace condition="${DAY_CD}.EQ.08" id="#1"><![CDATA[DEVON.SERL_JOURNAL_08]]></replace>
+        <replace condition="${DAY_CD}.EQ.09" id="#1"><![CDATA[DEVON.SERL_JOURNAL_09]]></replace>
+        <replace condition="${DAY_CD}.EQ.10" id="#1"><![CDATA[DEVON.SERL_JOURNAL_10]]></replace>
+        <replace condition="${DAY_CD}.EQ.11" id="#1"><![CDATA[DEVON.SERL_JOURNAL_11]]></replace>
+        <replace condition="${DAY_CD}.EQ.12" id="#1"><![CDATA[DEVON.SERL_JOURNAL_12]]></replace>
+        <replace condition="${DAY_CD}.EQ.13" id="#1"><![CDATA[DEVON.SERL_JOURNAL_13]]></replace>
+        <replace condition="${DAY_CD}.EQ.14" id="#1"><![CDATA[DEVON.SERL_JOURNAL_14]]></replace>
+        <replace condition="${DAY_CD}.EQ.15" id="#1"><![CDATA[DEVON.SERL_JOURNAL_15]]></replace>
+        <replace condition="${DAY_CD}.EQ.16" id="#1"><![CDATA[DEVON.SERL_JOURNAL_16]]></replace>
+        <replace condition="${DAY_CD}.EQ.17" id="#1"><![CDATA[DEVON.SERL_JOURNAL_17]]></replace>
+        <replace condition="${DAY_CD}.EQ.18" id="#1"><![CDATA[DEVON.SERL_JOURNAL_18]]></replace>
+        <replace condition="${DAY_CD}.EQ.19" id="#1"><![CDATA[DEVON.SERL_JOURNAL_19]]></replace>
+        <replace condition="${DAY_CD}.EQ.20" id="#1"><![CDATA[DEVON.SERL_JOURNAL_20]]></replace>
+        <replace condition="${DAY_CD}.EQ.21" id="#1"><![CDATA[DEVON.SERL_JOURNAL_21]]></replace>
+        <replace condition="${DAY_CD}.EQ.22" id="#1"><![CDATA[DEVON.SERL_JOURNAL_22]]></replace>
+        <replace condition="${DAY_CD}.EQ.23" id="#1"><![CDATA[DEVON.SERL_JOURNAL_23]]></replace>
+        <replace condition="${DAY_CD}.EQ.24" id="#1"><![CDATA[DEVON.SERL_JOURNAL_24]]></replace>
+        <replace condition="${DAY_CD}.EQ.25" id="#1"><![CDATA[DEVON.SERL_JOURNAL_25]]></replace>
+        <replace condition="${DAY_CD}.EQ.26" id="#1"><![CDATA[DEVON.SERL_JOURNAL_26]]></replace>
+        <replace condition="${DAY_CD}.EQ.27" id="#1"><![CDATA[DEVON.SERL_JOURNAL_27]]></replace>
+        <replace condition="${DAY_CD}.EQ.28" id="#1"><![CDATA[DEVON.SERL_JOURNAL_28]]></replace>
+        <replace condition="${DAY_CD}.EQ.29" id="#1"><![CDATA[DEVON.SERL_JOURNAL_29]]></replace>
+        <replace condition="${DAY_CD}.EQ.30" id="#1"><![CDATA[DEVON.SERL_JOURNAL_30]]></replace>
+        <replace condition="${DAY_CD}.EQ.31" id="#1"><![CDATA[DEVON.SERL_JOURNAL_31]]></replace>
+    </statement>
+    
+    <!-- ================================================================================================ 
+        * 설 명 : BID 전송을 위한 MCI정보 획득을 위한 원거래 획득 : TOBO에는 EAI SystemHeader 만 사용. 
+    ================================================================================================== -->
+    <statement name="selectOrgBidForMCIMessage">
+        <![CDATA[
+        SELECT 
+            GLOB_ID GUID,
+            ORI_RQST_HEDR_CTT TMSG_CTNT,
+            CRTION_DATA  
+        FROM DEVON.SERE_TIMER_TB 
+        WHERE GLOB_ID=  ${GUID}
+        AND   PGRS_NO= TO_NUMBER(${SYS_PATH_NO})
+        AND   SITE_CD = ${SITE_CD}
+        ]]>
+    </statement>
+    <!-- ================================================================================================ 
+        * 설 명 : 연동로그 생성 * 관련소스 : AND SYS_PATH_NO = 마이너스 1처리 해야 하는지 확인필
+    ================================================================================================== -->
+    <statement name="selectTranlinklog">
+        <![CDATA[
+            SELECT
+                DAY_CD ,        --파티션일
+                GUID ,          --GUID
+                SYS_PATH_NO,    --전송일련번호
+                REQ_RES_TY ,    --요청응답구분코드
+                FROM_SYS_CD ,   --전송시스템코드(MCI,EAI)
+                TLPR_PATH_NO ,  --연동일련번호
+                TLPR_ID ,       --연동ID
+                TLPR_SITE_ID ,  --SITECODE
+                TLPR_CALLERTRAN_ID  ,   --호출서비스
+                TLPR_CALLEETRAN_ID  ,   --피연동서비스
+                TLPR_CANCELTRAN_ID  ,   --취소서비스ID 아직 미정
+                TLPR_INIOSP_ID  ,       --입력io스펙
+                TLPR_OUTIOSP_ID ,       --출력io스펙
+                TLPR_INCTNT1||TLPR_INCTNT2 TLPR_INCTNT1 ,           --입력데이터
+                --TLPR_INCTNT2 ,            --입력데이터2
+                TLPR_OUTCTNT1||TLPR_OUTCTNT2 TLPR_OUTCTNT1 ,            --출력데이터
+                --TLPR_OUTCTNT2,            --출력데이터2
+                PROCSTRT_DT ,           --처리시작시각
+                PROCEND_DT ,            --처리종료시각
+                USR_ID ,                --사용자ID
+                PROCRSLT_CD,            --처리결과
+                TLPR_CANCEL_YN,         --취소처리여부
+                PROCERR_MSG,            --오류메시지
+                TLPR_DEPT               --연동깊이
+            FROM DEVON.SGMC_TRANLKLOG_TB
+            WHERE GUID =  ${GUID}
+            AND TLPR_SITE_ID=${TLPR_SITE_ID}
+            AND TLPR_PATH_NO=${TLPR_PATH_NO}
+        ]]>
+    </statement>
+
+    <statement name="insertTranlinklog">
+        <![CDATA[
+            INSERT INTO DEVON.SGMC_TRANLKLOG_TB(
+                DAY_CD ,            --파티션일
+                GUID ,          --GUID
+                SYS_PATH_NO, --전송일련번호
+                REQ_RES_TY ,    --요청응답구분코드
+                FROM_SYS_CD , --전송시스템코드(MCI,EAI)
+                TLPR_PATH_NO ,  --연동일련번호
+                TLPR_ID ,   --연동ID
+                TLPR_SITE_ID ,  --SITECODE
+                TLPR_CALLERTRAN_ID  ,   --호출서비스
+                TLPR_CALLEETRAN_ID  ,   --피연동서비스
+                TLPR_CANCELTRAN_ID  ,   --취소서비스ID 아직 미정
+                TLPR_INIOSP_ID  ,   --입력io스펙
+                TLPR_OUTIOSP_ID ,   --출력io스펙
+                TLPR_INCTNT1 ,  --입력데이터
+                TLPR_INCTNT2 ,  --입력데이터2
+                TLPR_OUTCTNT1 , --출력데이터
+                TLPR_OUTCTNT2,  --출력데이터2
+                PROCSTRT_DT ,       --처리시작시각
+                PROCEND_DT ,        --처리종료시각
+                USR_ID ,            --사용자ID
+                PROCRSLT_CD,            --처리결과
+                TLPR_CANCEL_YN, --취소처리여부
+                PROCERR_MSG,     --오류메시지
+                TLPR_DEPT,   --연동깊이
+                PROC_DT,     --연동일자
+                SYNC_TYPE,   --싱크타입
+                TRAN_TYPE    --트랜타입
+            )VALUES(
+                ${DAY_CD},
+                ${GUID},
+                ${SYS_PATH_NO},
+                ${REQ_RES_TY},
+                ${FROM_SYS_CD},
+                ${TLPR_PATH_NO},
+                ${TLPR_ID},
+                ${TLPR_SITE_ID},
+                ${TLPR_CALLERTRAN_ID},
+                ${TLPR_CALLEETRAN_ID},
+                ${TLPR_CANCELTRAN_ID},
+                ${TLPR_INIOSP_ID},
+                ${TLPR_OUTIOSP_ID},
+                ${TLPR_INCTNT1},
+                ${TLPR_INCTNT2},
+                ${TLPR_OUTCTNT1},
+                ${TLPR_OUTCTNT2},
+                ${PROCSTRT_DT},
+                ${PROCEND_DT},
+                ${USR_ID},
+                ${PROCRSLT_CD},
+                ${TLPR_CANCEL_YN},
+                ${PROCERR_MSG},
+                ${TLPR_DEPT},
+                TO_CHAR(SYSDATE,'YYYYMMDD'),
+                ${SYNC_TYPE},
+                ${TRAN_TYPE}
+            )
+        ]]>
+    </statement>
+    
+    <statement name="selectPreTranlinklog">
+        <![CDATA[
+            SELECT 
+                GUID,
+                SYS_PATH_NO,
+                FROM_SYS_CD,
+                REQ_RES_TY,
+                TLPR_PATH_NO,
+                TLPR_CALLERTRAN_ID,
+                TLPR_CALLEETRAN_ID,
+                TLPR_CANCELTRAN_ID,
+                TLPR_INIOSP_ID,
+                TO_CLOB(NVL(TLPR_INCTNT1,'')  || NVL(TLPR_INCTNT2,'') ) TLPR_INCTNT1,
+                TLPR_CANCEL_YN,
+                PROCRSLT_CD,
+                TLPR_DEPT
+            fROM DEVON.SGMC_TRANLKLOG_TB 
+            WHERE GUID = ${GUID}
+            AND TLPR_SITE_ID=${TLPR_SITE_ID}
+            ORDER BY TLPR_PATH_NO
+        ]]>
+    </statement>
+
+
+    <!-- ================================================================================================
+    * 설    명 : Resource
+    * 관련소스 :
+    ================================================================================================== -->
+    <statement name="code">
+        <![CDATA[
+            SELECT  GROUP_CD
+                   ,CD
+                   ,LANG_CD
+                   ,CD_NM
+                   ,APLY_PERIOD
+                   ,APPLY_START_DATE
+                   ,APPLY_END_DATE
+                   ,PRINT_ORD
+            FROM    DEVON.SGRS_CODE
+            WHERE   SITE_CD  = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_CODE WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+            AND     GROUP_CD = ${GROUP_CD}
+        ]]>
+    </statement>
+
+    <statement name="codeList">
+        <![CDATA[
+            SELECT  GROUP_CD
+                   ,CD
+                   ,LANG_CD
+                   ,CD_NM
+                   ,APLY_PERIOD
+                   ,APPLY_START_DATE
+                   ,APPLY_END_DATE
+                   ,PRINT_ORD
+            FROM    DEVON.SGRS_CODE
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_CODE WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+        ]]>
+    </statement>
+
+    <statement name="deviceMachine">
+        <![CDATA[
+            SELECT  DEVICE_MACHINE_ID
+                   ,DEVICE_ID
+                   ,DEVICE_NM
+                   ,MIN_WIDTH
+                   ,MAX_WIDTH
+                   ,DEVICE_ORD
+                   ,MACHINE_ORD
+                   ,DSTG_SNTC
+                   ,OS
+                   ,BROWSER
+            FROM    DEVON.SGRS_DEVICEMACHINE
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_DEVICEMACHINE WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+            AND     DEVICE_MACHINE_ID = ${DEVICE_MACHINE_ID}
+        ]]>
+    </statement>
+
+    <statement name="deviceMachineList">
+        <![CDATA[
+            SELECT  DEVICE_MACHINE_ID
+                   ,DEVICE_ID
+                   ,DEVICE_NM
+                   ,MIN_WIDTH
+                   ,MAX_WIDTH
+                   ,DEVICE_ORD
+                   ,MACHINE_ORD
+                   ,DSTG_SNTC
+                   ,OS
+                   ,BROWSER
+            FROM    DEVON.SGRS_DEVICEMACHINE
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_DEVICEMACHINE WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+        ]]>
+    </statement>
+
+    <statement name="label">
+        <![CDATA[
+            SELECT  LABL_ID
+                   ,LANG_CD
+                   ,LABL_CTNT
+            FROM    DEVON.SGRS_LABEL
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_LABEL WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+            AND     LABL_ID = ${LABL_ID}
+            AND     LANG_CD = ${LANG_CD}
+          ]]>
+    </statement>
+
+    <statement name="labelList">
+        <![CDATA[
+            SELECT  LABL_ID
+                   ,LANG_CD
+                   ,LABL_CTNT
+            FROM    DEVON.SGRS_LABEL
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_LABEL WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+        ]]>
+    </statement>
+
+    <statement name="message">
+        <![CDATA[
+            SELECT  MESG_ID
+                   ,IMPORTANT_YN
+                   ,LANG_CD
+                   ,MESG_CTNT
+            FROM    DEVON.SGRS_MESSAGE
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_MESSAGE WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+            AND     MESG_ID = ${MESG_ID}
+            AND     LANG_CD = ${LANG_CD}
+        ]]>
+    </statement>
+
+    <statement name="messageList">
+        <![CDATA[
+            SELECT  MESG_ID
+                   ,IMPORTANT_YN
+                   ,LANG_CD
+                   ,MESG_CTNT
+            FROM    DEVON.SGRS_MESSAGE
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_MESSAGE WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+        ]]>
+    </statement>
+
+    <statement name="menuAccessControl">
+        <![CDATA[
+            SELECT  MENUACCCTRL_KEY
+                   ,MENU_ID
+                   ,DEVICE_ID
+                   ,ROLE_ID
+                   ,UPPER_MENU_ID
+                   ,MENU_NM
+                   ,MENU_ORD
+                   ,LINK_TY
+                   ,LINK_URL
+                   ,MENU_LEVEL
+                   ,LOW_MENU_YN
+                   ,PARAM
+            FROM    DEVON.SGRS_MENUACCCTRL
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_MENUACCCTRL WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+            AND     ROLE_ID = ${ROLE_ID}
+        ]]>
+    </statement>
+
+    <statement name="menuAccessControlList">
+        <![CDATA[
+            SELECT  MENUACCCTRL_KEY
+                   ,MENU_ID
+                   ,DEVICE_ID
+                   ,ROLE_ID
+                   ,UPPER_MENU_ID
+                   ,MENU_NM
+                   ,MENU_ORD
+                   ,LINK_TY
+                   ,LINK_URL
+                   ,MENU_LEVEL
+                   ,LOW_MENU_YN
+                   ,PARAM
+            FROM    DEVON.SGRS_MENUACCCTRL
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_MENUACCCTRL WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+        ]]>
+    </statement>
+
+    <statement name="nscreen">
+        <![CDATA[
+            SELECT  NSCREEN_KEY
+                   ,SCRIPT_FILE
+                   ,TEMP_ID
+                   ,TEMP_TY
+                   ,TEMP_FILE
+                   ,TEMP_STYLE
+                   ,DEVICE
+                   ,LANG
+                   ,AREA_ID
+                   ,AREA_TY
+                   ,AREA_TARGET_ID
+                   ,AREA_TARGET_RESOURCE
+                   ,AREA_TARGET_STYLE
+            FROM    DEVON.SGRS_NSCREEN
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_NSCREEN WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+            AND     NSCREEN_KEY = ${NSCREEN_KEY}
+          ]]>
+    </statement>
+
+    <statement name="nscreenList">
+        <![CDATA[
+            SELECT  NSCREEN_KEY
+                   ,SCRIPT_FILE
+                   ,TEMP_ID
+                   ,TEMP_TY
+                   ,TEMP_FILE
+                   ,TEMP_STYLE
+                   ,DEVICE
+                   ,LANG
+                   ,AREA_ID
+                   ,AREA_TY
+                   ,AREA_TARGET_ID
+                   ,AREA_TARGET_RESOURCE
+                   ,AREA_TARGET_STYLE
+            FROM    DEVON.SGRS_NSCREEN
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_NSCREEN WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+        ]]>
+    </statement>
+
+    <statement name="screenAccessControl">
+        <![CDATA[
+            SELECT  REFRESH_ST
+                   ,SITE_CD
+                   ,SCREENACCCTRL_KEY
+                   ,ROLE_ID
+                   ,SCREEN_ID
+                   ,SCREEN_NM
+                   ,SCREEN_TY
+                   ,DEVICE_ID
+            FROM    DEVON.SGRS_SCREENACCCTRL
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_SCREENACCCTRL WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+            AND     ROLE_ID = ${ROLE_ID}
+            AND     SCREEN_ID = ${SCREEN_ID}
+        ]]>
+    </statement>
+
+    <statement name="screenAccessControlList">
+        <![CDATA[
+            SELECT  REFRESH_ST
+                   ,SITE_CD
+                   ,SCREENACCCTRL_KEY
+                   ,ROLE_ID
+                   ,SCREEN_ID
+                   ,SCREEN_NM
+                   ,SCREEN_TY
+                   ,DEVICE_ID
+            FROM    DEVON.SGRS_SCREENACCCTRL
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_SCREENACCCTRL WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+        ]]>
+    </statement>
+
+    <statement name="tranAccessControl">
+        <![CDATA[
+            SELECT  TRANACCCTRL_KEY
+                   ,ROLE_ID
+                   ,DEVICE_ID
+                   ,TRAN_ID
+                   ,TRAN_TY
+            FROM    DEVON.SGRS_TRANACCCTRL
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_TRANACCCTRL WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+            AND     TRAN_ID = ${TRAN_ID}
+            AND     ROLE_ID = ${ROLE_ID}
+        ]]>
+    </statement>
+
+    <statement name="tranAccessControlList">
+        <![CDATA[
+            SELECT  TRANACCCTRL_KEY
+                   ,ROLE_ID
+                   ,DEVICE_ID
+                   ,TRAN_ID
+                   ,TRAN_TY
+            FROM    DEVON.SGRS_TRANACCCTRL
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_TRANACCCTRL WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+        ]]>
+    </statement>
+
+    <statement name="tranControl">
+        <![CDATA[
+            SELECT  TRANCTRL_KEY
+                   ,TRAN_CTRL_ID
+                   ,TRAN_ID
+                   ,TRAN_CTRL_TY
+                   ,SCHEDULE_TY
+                   ,APPT_WEEKDAY
+                   ,APPT_MONTH
+                   ,APPT_DATE
+                   ,APPT_HOLYDAY
+                   ,START_DATE
+                   ,END_DATE
+                   ,START_TIME
+                   ,END_TIME
+                   ,DEVICE_ID
+            FROM    DEVON.SGRS_TRANCTRL
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_TRANCTRL WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+            AND     TRAN_ID = ${TRAN_ID}
+        ]]>
+    </statement>
+
+    <statement name="tranControlList">
+        <![CDATA[
+            SELECT  TRANCTRL_KEY
+                   ,TRAN_CTRL_ID
+                   ,TRAN_ID
+                   ,TRAN_CTRL_TY
+                   ,SCHEDULE_TY
+                   ,APPT_WEEKDAY
+                   ,APPT_MONTH
+                   ,APPT_DATE
+                   ,APPT_HOLYDAY
+                   ,START_DATE
+                   ,END_DATE
+                   ,START_TIME
+                   ,END_TIME
+                   ,DEVICE_ID
+            FROM    DEVON.SGRS_TRANCTRL
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_TRANCTRL WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+        ]]>
+    </statement>
+
+    <statement name="tranBizParam">
+        <![CDATA[
+            SELECT  TRAN_ID
+                   ,TRAN_PRAM_ID
+                   ,TRAN_PRAM_VALUE
+            FROM    DEVON.SGRS_TRANBIZPARAM
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_TRANBIZPARAM WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+            AND     TRAN_ID = ${TRAN_ID}
+        ]]>
+    </statement>
+
+    <statement name="tranBizParamList">
+        <![CDATA[
+            SELECT  TRAN_ID
+                   ,TRAN_PRAM_ID
+                   ,TRAN_PRAM_VALUE
+            FROM    DEVON.SGRS_TRANBIZPARAM
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_TRANBIZPARAM WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+        ]]>
+    </statement>
+
+    <statement name="tranExtParam">
+        <![CDATA[
+            SELECT  TRAN_ID
+                   ,TRAN_PRAM_ID
+                   ,NVL(TRAN_PRAM_VALUE,(SELECT TXPR_BASICVALUE_TX 
+                                         FROM   DEVON.SGMC_TRANEXPRAM_TB
+                                         WHERE  TXPR_ID =  TRAN_PRAM_ID)) TRAN_PRAM_VALUE
+            FROM    DEVON.SGRS_TRANEXTPARAM
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_TRANEXTPARAM WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+            AND     TRAN_ID = ${TRAN_ID}
+        ]]>
+    </statement>
+
+    <statement name="tranExtParamList">
+        <![CDATA[
+            SELECT  TRAN_ID
+                   ,TRAN_PRAM_ID
+                   ,NVL(TRAN_PRAM_VALUE,(SELECT TXPR_BASICVALUE_TX 
+                                         FROM   DEVON.SGMC_TRANEXPRAM_TB
+                                         WHERE  TXPR_ID =  TRAN_PRAM_ID)) TRAN_PRAM_VALUE
+            FROM    DEVON.SGRS_TRANEXTPARAM
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_TRANEXTPARAM WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+        ]]>
+    </statement>
+
+    <statement name="tranParameter">
+        <![CDATA[
+            SELECT  TRAN_ID
+                   ,TRAN_TYPE_CD
+                   ,TRAN_CALL_CLASS
+                   ,TRAN_CALL_METHOD
+                   ,TRAN_PRESUR_CLASS
+                   ,TRAN_SPEC_CD
+                   ,TRAN_KIND_CD
+                   ,TRAN_TX_CD
+                   ,TRAN_TIMEOUT_NO
+                   ,TRAN_IMAGE_INLOG_YN
+                   ,TRAN_IMAGE_OUTLOG_YN
+                   ,TRAN_LOG_LEVEL
+                   ,TRAN_TRACE_OPTION
+                   ,TRAN_TRACE_LOG_LEVEL
+                   ,TRAN_VALD_FROMTIME
+                   ,TRAN_VALD_TOTIME
+                   ,TRAN_CTRL_YN
+                   ,TRAN_ABEND_YN
+                   ,TRAN_SIMULATION_YN
+                   ,TRAN_BIZ_TYPE
+                   ,TRAN_INIOSP_ID
+                   ,TRAN_OUTIOSP_ID
+                   ,TRAN_ACCCTRL_YN
+                   ,TRAN_VALIDATE_YN
+                   ,TRAN_SAVEDTOKEN_YN
+            FROM    DEVON.SGRS_TRAN
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_TRAN WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+            AND     TRAN_ID = ${TRAN_ID}
+        ]]>
+    </statement>
+
+    <statement name="tranParameterList">
+        <![CDATA[
+            SELECT  TRAN_ID
+                   ,TRAN_TYPE_CD
+                   ,TRAN_CALL_CLASS
+                   ,TRAN_CALL_METHOD
+                   ,TRAN_PRESUR_CLASS
+                   ,TRAN_SPEC_CD
+                   ,TRAN_KIND_CD
+                   ,TRAN_TX_CD
+                   ,TRAN_TIMEOUT_NO
+                   ,TRAN_IMAGE_INLOG_YN
+                   ,TRAN_IMAGE_OUTLOG_YN
+                   ,TRAN_LOG_LEVEL
+                   ,TRAN_TRACE_OPTION
+                   ,TRAN_TRACE_LOG_LEVEL
+                   ,TRAN_VALD_FROMTIME
+                   ,TRAN_VALD_TOTIME
+                   ,TRAN_CTRL_YN
+                   ,TRAN_ABEND_YN
+                   ,TRAN_SIMULATION_YN
+                   ,TRAN_BIZ_TYPE
+                   ,TRAN_INIOSP_ID
+                   ,TRAN_OUTIOSP_ID
+                   ,TRAN_ACCCTRL_YN
+                   ,TRAN_VALIDATE_YN
+                   ,TRAN_SAVEDTOKEN_YN
+            FROM    DEVON.SGRS_TRAN
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_TRAN WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+        ]]>
+    </statement>
+
+    <statement name="tranValidate">
+        <![CDATA[
+            SELECT  TRAN_ID
+                   ,TREQ_ID
+                   ,TVLD_ID
+                   ,TVLD_VALUE_TX
+                   ,GLBLEXCEPT_YN
+                   ,TVLD_ORDER_NO
+            FROM    DEVON.SGRS_TRANVALD
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_TRANVALD WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+            AND     TRAN_ID = ${TRAN_ID}
+        ]]>
+    </statement>
+
+    <statement name="tranValidateList">
+        <![CDATA[
+            SELECT  TRAN_ID
+                   ,TREQ_ID
+                   ,TVLD_ID
+                   ,TVLD_VALUE_TX
+                   ,GLBLEXCEPT_YN
+                   ,TVLD_ORDER_NO
+            FROM    DEVON.SGRS_TRANVALD
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_TRANVALD WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+        ]]>
+    </statement>
+
+    <statement name="tranWebParameter">
+        <![CDATA[
+            SELECT  TRAN_ID
+                   ,TRAN_SEQ
+                   ,TRAN_RESULT_CD
+                   ,TRAN_SUCCASE_NM
+                   ,TRAN_RETURN_HANDLER_CD
+                   ,TRAN_RETURN_CD
+                   ,TRAN_RETURN_PATH
+            FROM    DEVON.SGRS_TRANWEBPARAM
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_TRANWEBPARAM WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+            AND     TRAN_ID = ${TRAN_ID}
+        ]]>
+    </statement>
+    <statement name="tranWebParameterList">
+        <![CDATA[
+            SELECT  TRAN_ID
+                   ,TRAN_SEQ
+                   ,TRAN_RESULT_CD
+                   ,TRAN_SUCCASE_NM
+                   ,TRAN_RETURN_HANDLER_CD
+                   ,TRAN_RETURN_CD
+                   ,TRAN_RETURN_PATH
+            FROM    DEVON.SGRS_TRANWEBPARAM
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_TRANWEBPARAM WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+        ]]>
+    </statement>
+
+    <statement name="itemSpec">
+        <![CDATA[
+            SELECT  REFRESH_ST
+                   ,SITE_CD
+                   ,SPEC_ID
+                   ,ITEM_ID
+                   ,IOIT_SQ
+                   ,IOIT_DATA_TY
+                   ,IOIT_PARENTPATH_ID
+                   ,IOIT_LENGTH_NO
+                   ,IOIT_MANDATORY_YN
+                   ,IOIT_DEFAULTVAL_NM
+                   ,IOIT_DECIMAL_NO
+                   ,IOIT_DESC_TX
+                   ,IOIT_POINT_YN
+                   ,IOIT_VERSION_NO
+                   ,IOIT_TYPE_CD
+                   ,IOIT_SORT_CD
+                   ,IOIT_REMARK_YN
+                   ,IOIT_SCALE_NO
+                   ,IOIT_FILLER_TX
+                   ,IOIT_VALIDATE_NM
+            FROM    DEVON.SGRS_IOSPECITEM
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_IOSPECITEM WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+            AND     SPEC_ID = ${SPEC_ID}
+        ]]>
+    </statement>
+
+    <statement name="specList">
+        <![CDATA[
+            SELECT  REFRESH_ST
+                   ,SITE_CD
+                   ,SPEC_ID
+                   ,ITEM_ID
+                   ,IOIT_SQ
+                   ,IOIT_DATA_TY
+                   ,IOIT_PARENTPATH_ID
+                   ,IOIT_LENGTH_NO
+                   ,IOIT_MANDATORY_YN
+                   ,IOIT_DEFAULTVAL_NM
+                   ,IOIT_DECIMAL_NO
+                   ,IOIT_DESC_TX
+                   ,IOIT_POINT_YN
+                   ,IOIT_VERSION_NO
+                   ,IOIT_TYPE_CD
+                   ,IOIT_SORT_CD
+                   ,IOIT_REMARK_YN
+                   ,IOIT_SCALE_NO
+                   ,IOIT_FILLER_TX
+                   ,IOIT_VALIDATE_NM
+            FROM    DEVON.SGRS_IOSPECITEM
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_IOSPECITEM WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+        ]]>
+    </statement>
+
+    <!-- ================================================================================================
+    * 설    명 : 전문 IO 암복호화 정보 추가 확장 추가.
+    * 관련소스 :
+    ================================================================================================== -->
+    <statement name="itemSpecExt">
+        <![CDATA[
+            SELECT  REFRESH_ST
+                   ,SITE_CD
+                   ,SPEC_ID
+                   ,ITEM_ID
+                   ,IOIT_SQ
+                   ,IOIT_DATA_TY
+                   ,IOIT_PARENTPATH_ID
+                   ,IOIT_LENGTH_NO
+                   ,IOIT_MANDATORY_YN
+                   ,IOIT_DEFAULTVAL_NM
+                   ,IOIT_DECIMAL_NO
+                   ,IOIT_DESC_TX
+                   ,IOIT_POINT_YN
+                   ,IOIT_VERSION_NO
+                   ,IOIT_TYPE_CD
+                   ,IOIT_SORT_CD
+                   ,IOIT_REMARK_YN
+                   ,IOIT_SCALE_NO
+                   ,IOIT_FILLER_TX
+                   ,IOIT_VALIDATE_NM                 
+                   ,IOIT_IDENTIF_YN
+                   ,IOIT_BT_FLD_VAL_CD
+                   ,IOIT_BT_CHK_FLD_CD
+                   ,IOIT_BT_CHK_FLD_YN
+                   ,IOIT_BT_FLD_TP_CD 
+                   ,IOIT_ENCTP
+                   ,IOIT_ENCF1
+                   ,IOIT_ENCF2
+                   ,IOIT_ENCF3
+                   ,IOIT_ENCF4
+                   ,SIGN_BIT_YN
+                   ,SIGN_BIT_POS
+                   ,TRIM_TY
+                   ,NON_ENC_CN_FM
+                   ,WN_CHAR_OPTION
+            FROM    DEVON.SGRS_IOSPECITEM
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_IOSPECITEM WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+            AND     SPEC_ID = ${SPEC_ID}
+            ORDER BY SITE_CD,SPEC_ID,IOIT_SQ
+        ]]>
+    </statement>
+
+     <statement name="specListExt">
+        <![CDATA[
+            SELECT  REFRESH_ST
+                   ,SITE_CD
+                   ,SPEC_ID
+                   ,ITEM_ID
+                   ,IOIT_SQ
+                   ,IOIT_DATA_TY
+                   ,IOIT_PARENTPATH_ID
+                   ,IOIT_LENGTH_NO
+                   ,IOIT_MANDATORY_YN
+                   ,IOIT_DEFAULTVAL_NM
+                   ,IOIT_DECIMAL_NO
+                   ,IOIT_DESC_TX
+                   ,IOIT_POINT_YN
+                   ,IOIT_VERSION_NO
+                   ,IOIT_TYPE_CD
+                   ,IOIT_SORT_CD
+                   ,IOIT_REMARK_YN
+                   ,IOIT_SCALE_NO
+                   ,IOIT_FILLER_TX
+                   ,IOIT_VALIDATE_NM
+                   ,IOIT_IDENTIF_YN
+                   ,IOIT_BT_FLD_VAL_CD
+                   ,IOIT_BT_CHK_FLD_CD
+                   ,IOIT_BT_CHK_FLD_YN
+                   ,IOIT_BT_FLD_TP_CD 
+                   ,IOIT_ENCTP
+                   ,IOIT_ENCF1
+                   ,IOIT_ENCF2
+                   ,IOIT_ENCF3
+                   ,IOIT_ENCF4
+                   ,SIGN_BIT_YN
+                   ,SIGN_BIT_POS
+                   ,TRIM_TY
+                   ,NON_ENC_CN_FM
+            FROM    DEVON.SGRS_IOSPECITEM
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_IOSPECITEM WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+            ORDER BY SITE_CD,SPEC_ID,IOIT_SQ
+        ]]>
+    </statement>
+    <statement name="linkConnectionParameter">
+        <![CDATA[
+            SELECT  LOGN_CD
+                   ,LNDE_CD
+                   ,LNDE_IP_TX
+                   ,LNDE_PORT_NO
+                   ,LNDE_PROTOCOL_CD
+                   ,LNDE_ADAPTER_CD
+                   ,LNDE_CONNECT_CD
+                   ,LNDE_INCONVERTER_CD
+                   ,LNDE_OUTCONVERTER_CD
+                   ,LNDE_HEADER_NM
+                   ,LNDE_TIMEOUT_NO
+                   ,LNDE_PATH_TX
+                   ,LNDE_POOLSIZE_NO
+                   ,LNDE_ENCODING_NM
+                   ,LNDE_RECOUNT_NO
+            FROM    DEVON.SGRS_LINKINFO
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_LINKINFO WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+            AND     LOGN_CD = ${LOGN_CD}
+            AND     LNDE_CD = ${LNDE_CD}
+        ]]>
+    </statement>
+
+    <statement name="linkConnectionParameterList">
+        <![CDATA[
+            SELECT  LOGN_CD
+                   ,LNDE_CD
+                   ,LNDE_IP_TX
+                   ,LNDE_PORT_NO
+                   ,LNDE_PROTOCOL_CD
+                   ,LNDE_ADAPTER_CD
+                   ,LNDE_CONNECT_CD
+                   ,LNDE_INCONVERTER_CD
+                   ,LNDE_OUTCONVERTER_CD
+                   ,LNDE_HEADER_NM
+                   ,LNDE_TIMEOUT_NO
+                   ,LNDE_PATH_TX
+                   ,LNDE_POOLSIZE_NO
+                   ,LNDE_ENCODING_NM
+                   ,LNDE_RECOUNT_NO
+            FROM    DEVON.SGRS_LINKINFO
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_LINKINFO WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+        ]]>
+    </statement>
+
+    <statement name="linkParameter">
+        <![CDATA[
+            SELECT  LINK_ID
+                   ,LOGN_CD
+                   ,LNDE_CD
+                   ,LTRN_INIOSP_ID
+                   ,LTRN_OUTIOSP_ID
+                   ,LTRN_PATH_TX
+                   ,LTRN_CALLTRAN_ID
+                   ,LTRN_ASYNCRESTRAN_ID
+                   ,LTRN_TIMEOUTTRAN_ID
+                   ,LTRN_ERRORTRAN_ID
+                   ,LTRN_RSRP_CD
+                   ,LTRN_TESTUSE_CD
+                   ,LTRN_INTERFACE_ID
+                   ,LTRN_ORG_CD
+            FROM    DEVON.SGRS_LINKTRAN
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_LINKTRAN WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+            AND     LINK_ID = ${LINK_ID}
+          ]]>
+    </statement>
+
+    <statement name="linkParameterList">
+        <![CDATA[
+            SELECT  LINK_ID
+                   ,LOGN_CD
+                   ,LNDE_CD
+                   ,LTRN_INIOSP_ID
+                   ,LTRN_OUTIOSP_ID
+                   ,LTRN_PATH_TX
+                   ,LTRN_CALLTRAN_ID
+                   ,LTRN_ASYNCRESTRAN_ID
+                   ,LTRN_TIMEOUTTRAN_ID
+                   ,LTRN_ERRORTRAN_ID
+                   ,LTRN_RSRP_CD
+                   ,LTRN_TESTUSE_CD
+                   ,LTRN_INTERFACE_ID
+                   ,LTRN_ORG_CD
+            FROM    DEVON.SGRS_LINKTRAN
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_LINKTRAN WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+        ]]>
+    </statement>
+
+    <!-- ================================================================================================
+    * 설    명 : 추후 확장 연계정보를 위한 항목 추가. 연계 TIMEOUT 정보 추가.
+    * 관련소스 :
+    ================================================================================================== -->
+    <statement name="linkParameterExt">
+        <![CDATA[
+            SELECT  LINK_ID
+                   ,LOGN_CD
+                   ,LNDE_CD
+                   ,LTRN_INIOSP_ID
+                   ,LTRN_OUTIOSP_ID
+                   ,LTRN_PATH_TX
+                   ,LTRN_CALLTRAN_ID
+                   ,LTRN_ASYNCRESTRAN_ID
+                   ,LTRN_TIMEOUTTRAN_ID
+                   ,LTRN_ERRORTRAN_ID
+                   ,LTRN_RSRP_CD
+                   ,LTRN_TESTUSE_CD
+                   ,LTRN_INTERFACE_ID
+                   ,LTRN_ORG_CD
+                   ,LTRN_CALLBACKTRAN_ID
+                   ,LTRN_TIMEOUT
+                   ,LTRN_ERRIOSP_ID
+            FROM    DEVON.SGRS_LINKTRAN
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_LINKTRAN WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+            AND     LINK_ID = ${LINK_ID}
+          ]]>
+    </statement>
+
+    <statement name="linkParameterListExt">
+        <![CDATA[
+            SELECT  LINK_ID
+                   ,LOGN_CD
+                   ,LNDE_CD
+                   ,LTRN_INIOSP_ID
+                   ,LTRN_OUTIOSP_ID
+                   ,LTRN_PATH_TX
+                   ,LTRN_CALLTRAN_ID
+                   ,LTRN_ASYNCRESTRAN_ID
+                   ,LTRN_TIMEOUTTRAN_ID
+                   ,LTRN_ERRORTRAN_ID
+                   ,LTRN_RSRP_CD
+                   ,LTRN_TESTUSE_CD
+                   ,LTRN_INTERFACE_ID
+                   ,LTRN_ORG_CD
+                   ,LTRN_CALLBACKTRAN_ID
+                   ,LTRN_TIMEOUT
+                   ,LTRN_ERRIOSP_ID
+            FROM    DEVON.SGRS_LINKTRAN
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_LINKTRAN WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+        ]]>
+    </statement>
+
+    <statement name="linkInternalParameter">
+        <![CDATA[
+            SELECT  TLPR_ID
+                   ,TLPR_TYPE_CD
+                   ,TLPR_TX_YN
+                   ,TLPR_LOG_YN
+                   ,TLPR_PRESURFIX_YN
+                   ,TLPR_USE_YN
+                   ,TLPR_CALLERTRAN_ID
+                   ,TLPR_CALLEETRAN_ID
+                   ,TLPR_CANCEL_YN
+            FROM    DEVON.SGRS_TRANLNKPARAM
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_TRANLNKPARAM WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+            AND     TLPR_ID = ${TLPR_ID}
+        ]]>
+    </statement>
+
+    <statement name="linkInternalParameterList">
+        <![CDATA[
+            SELECT  TLPR_ID
+                   ,TLPR_TYPE_CD
+                   ,TLPR_TX_YN
+                   ,TLPR_LOG_YN
+                   ,TLPR_PRESURFIX_YN
+                   ,TLPR_USE_YN
+                   ,TLPR_CALLERTRAN_ID
+                   ,TLPR_CALLEETRAN_ID
+                   ,TLPR_CANCEL_YN
+            FROM    DEVON.SGRS_TRANLNKPARAM
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_TRANLNKPARAM WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+        ]]>
+    </statement>
+
+    <statement name="formParameter">
+        <![CDATA[
+            SELECT  REFRESH_ST
+                   ,SITE_CD
+                   ,FORM_ID
+                   ,FORM_NM
+                   ,IO_SPEC_ID
+            FROM    DEVON.SGRS_FORM
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_FORM WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+            AND     FORM_ID = ${FORM_ID}
+        ]]>
+    </statement>
+
+    <statement name="formParameterList">
+        <![CDATA[
+            SELECT  REFRESH_ST
+                   ,SITE_CD
+                   ,FORM_ID
+                   ,FORM_NM
+                   ,IO_SPEC_ID
+            FROM    DEVON.SGRS_FORM
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     REFRESH_ST = (CASE WHEN 'prepare' = ${REFRESH_ST} AND (SELECT COUNT(*) FROM DEVON.SGRS_FORM WHERE SITE_CD = ${SITE_CD} AND REFRESH_ST = 'prepare') > 0 THEN 'prepare' ELSE 'confirm' END)
+        ]]>
+    </statement>
+
+    <statement name="sequenceSpec">
+        <![CDATA[
+            SELECT  *
+            FROM    DEVON.SERE_SEQ_SPEC_TB
+            WHERE   STAT_CD = 'Y'
+            AND     SEQ_SPEC_ID = ${SEQ_SPEC_ID}
+        ]]>
+    </statement>
+
+    <statement name="sequenceSpecList">
+        <![CDATA[
+            SELECT  *
+            FROM    DEVON.SERE_SEQ_SPEC_TB
+            WHERE   STAT_CD = 'Y'
+        ]]>
+    </statement>
+
+    <!-- ================================================================================================
+    * 설    명 : Timer
+    * 관련소스 :
+    ================================================================================================== -->
+    <!-- 대외 Async 요청시 Timer 데이터 등록 -->
+    <statement name="insertTimer">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_TIMER_TB
+            (
+                GLOB_ID
+               ,PGRS_NO
+               ,INST_CD
+               ,TMR_PROC_STAT_CD
+               ,TMOT_SEC
+               ,LINK_ID
+               ,RSPS_SVC_ID
+               ,TMOT_SVC_ID
+               ,EXCP_SVC_ID
+               ,TMR_START_DT
+               ,RSPS_DT
+               ,TMOT_DT
+               ,EXCP_DT
+               ,TMOT_DATA_RESTR_CD
+               ,ORI_RQST_HEDR_CTT
+               ,ORI_RQST_TMSG_CTT
+               ,ORI_RQST_TMSG_CTT2
+               ,ORI_RQST_IO_SPEC_ID
+               ,INTF_RQST_HEDR_CTT
+               ,INTF_RQST_TMSG_CTT
+               ,INTF_RQST_TMSG_CTT2
+               ,INTF_RQST_IO_SPEC_ID
+               ,RESV_FLD1
+               ,RESV_FLD2
+               ,CHNG_USR_ID
+               ,CHNG_DT
+               ,SITE_CD
+               ,SDT_LNKD_OGTN_GID_NO
+            )
+            VALUES
+            (
+                ${GLOB_ID}
+               ,${PGRS_NO}
+               ,${INST_CD}
+               ,${TMR_PROC_STAT_CD}
+               ,${TMOT_SEC}
+               ,${LINK_ID}
+               ,${RSPS_SVC_ID}
+               ,${TMOT_SVC_ID}
+               ,${EXCP_SVC_ID}
+               ,TO_CHAR( CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISS')
+               ,${RSPS_DT}
+               ,${TMOT_DT}
+               ,${EXCP_DT}
+               ,${TMOT_DATA_RESTR_CD}
+               ,${ORI_RQST_HEDR_CTT}
+               ,${ORI_RQST_TMSG_CTT}
+               ,${ORI_RQST_TMSG_CTT2}
+               ,${ORI_RQST_IO_SPEC_ID}
+               ,${INTF_RQST_HEDR_CTT}
+               ,${INTF_RQST_TMSG_CTT}
+               ,${INTF_RQST_TMSG_CTT2}
+               ,${INTF_RQST_IO_SPEC_ID}
+               ,${RESV_FLD1}
+               ,${RESV_FLD2}
+               ,${CHNG_USR_ID}
+               ,TO_CHAR( CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISS')
+               ,${SITE_CD}
+               ,${SDT_LNKD_OGTN_GID_NO}
+            )
+        ]]>
+    </statement>
+
+    <!-- 대외 응답시 상태코드 수정전 조회(LOCK) -->
+    <statement name="retrieveTimerForUpdate">
+        <![CDATA[
+            SELECT  *
+            FROM    DEVON.SERE_TIMER_TB
+            WHERE   GLOB_ID = ${GLOB_ID}
+            AND     PGRS_NO = TO_NUMBER(${PGRS_NO})
+            AND     SITE_CD = ${SITE_CD}
+            FOR UPDATE WAIT 1
+        ]]>
+    </statement>
+
+    <!-- 타임아웃 데이터 상태코드 수정전 조회(LOCK) -->
+    <statement name="retrieveTimeoutDataForUpdate">
+        <![CDATA[
+            SELECT  *
+            FROM    DEVON.SERE_TIMER_TB
+            WHERE   TMR_PROC_STAT_CD = '0'
+            AND     EXTRACT(SECOND FROM CURRENT_TIMESTAMP-TO_TIMESTAMP(TMR_START_DT,'YYYYMMDDHH24MISS')) > TMOT_SEC
+            AND     SITE_CD = ${SITE_CD}
+            FOR UPDATE WAIT 1
+        ]]>
+    </statement>
+
+    <!-- Timer DB 조회 -->
+    <statement name="retrieveTimer">
+        <![CDATA[
+            SELECT  *
+            FROM    DEVON.SERE_TIMER_TB
+            WHERE   GLOB_ID = ${GLOB_ID}
+            AND     PGRS_NO = TO_NUMBER(${PGRS_NO})
+            AND     SITE_CD = ${SITE_CD}
+        ]]>
+    </statement>
+
+    <!-- 대외 응답시 상태코드 수정 -->
+    <statement name="updateTimer">
+        <![CDATA[
+            UPDATE  DEVON.SERE_TIMER_TB
+            SET     TMR_PROC_STAT_CD = ${TMR_PROC_STAT_CD}
+                   ,CHNG_DT = TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISS')
+                   ,CHNG_USR_ID = ${CHNG_USR_ID}
+            WHERE   GLOB_ID = ${GLOB_ID}
+            AND     PGRS_NO = TO_NUMBER(${PGRS_NO})
+            AND     SITE_CD = ${SITE_CD}
+        ]]>
+    </statement>
+    
+    <!-- 지정된 타임아웃 시간을 초과한 데이터 조회(LOCK)  -->
+    <statement name="retrieveTimeoutDataForNotRegisteredOrgCd">
+        <![CDATA[
+          SELECT *
+            FROM DEVON.SERE_TIMER_TB
+           WHERE ROWID IN (
+                 SELECT RW
+                   FROM (
+                         SELECT
+                                ROWID AS RW, ROWNUM AS RN
+                           FROM DEVON.SERE_TIMER_TB
+                          WHERE TMR_PROC_STAT_CD = '0'
+                            AND (SYSDATE - (TO_DATE(TMR_START_DT,'YYYYMMDDHH24MISS') + (TMOT_SEC/86400))) > 0
+                            AND SITE_CD = ${SITE_CD}
+                         )
+                   WHERE RN BETWEEN ${ROWNUM_FROM} AND ${ROWNUM_TO}
+                )
+           FOR UPDATE NOWAIT
+        ]]>
+    </statement>
+    
+    <!-- GUID, 기관코드의 max(경로번호)에 해당하는 예비필드 조회 -->
+    <statement name="retrieveResvFldOfMaxPgrsNo">
+        <![CDATA[
+          SELECT RESV_FLD1
+               , RESV_FLD2
+            FROM DEVON.SERE_TIMER_TB
+           WHERE GLOB_ID = ${GLOB_ID}
+             AND PGRS_NO = (SELECT MAX(PGRS_NO)
+                              FROM DEVON.SERE_TIMER_TB
+                             WHERE GLOB_ID = ${GLOB_ID}
+                             AND   SITE_CD = ${SITE_CD}
+                           )
+             AND SITE_CD = ${SITE_CD}
+        ]]>
+    </statement>    
+    
+    <!-- Timer 전송건수, 응답건수 조회 -->
+    <statement name="retrieveTimerProcCnt">
+    <![CDATA[
+        SELECT 
+               ( SELECT COUNT(*)
+                 FROM   DEVON.SERE_TIMER_TB
+                 WHERE  GLOB_ID = ${GLOB_ID}
+                 AND    SITE_CD = ${SITE_CD}
+               ) TOTAL_SEND_CNT
+              ,( SELECT COUNT(*)
+                 FROM   DEVON.SERE_TIMER_TB
+                 WHERE  GLOB_ID = ${GLOB_ID}
+                 AND    TMR_PROC_STAT_CD <> '0'
+                 AND    SITE_CD = ${SITE_CD}
+               ) TOTAL_RECV_CNT
+        FROM DUAL
+    ]]>
+    </statement>
+
+    <!-- ================================================================================================
+    * 설    명 : loopback
+    * 관련소스 :
+    ================================================================================================== -->
+    <statement name="retrieveSimulData">
+        <![CDATA[
+            SELECT 
+                LTST_TESTDATA_CL
+                ,LTST_DIRECTINPUT_YN
+            FROM DEVON.SGMC_LTRNTEST_TB
+            WHERE LTST_SITE_ID= ${SITE_CD}
+            AND LTST_LTRN_ID= ${INTERFACE_ID}
+        ]]>
+    </statement>
+
+    <!-- ================================================================================================
+    * 설    명 : 복합거래제어
+    * 관련소스 :
+    ================================================================================================== -->
+    <statement name="retrieveCompositeTranCtrl">
+        <![CDATA[
+            SELECT  COUNT(*) CTRL_YN
+                   ,SUM(CASE CTRL_TP WHEN 'P' THEN 1 ELSE 0 END) CTRL_TP
+            FROM    DEVON.SERE_COMP_TRAN_CTRL_TB
+            WHERE   TRAN_ID      IN ('@', ${TRAN_ID})
+            AND     TRAN_BIZ_CD  IN ('@', ${TRAN_BIZ_CD})
+            AND     CHNL_CD      IN ('@', ${CHNL_CD})
+            AND     TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISS') BETWEEN APPL_STRT_DT AND APPL_END_DT
+            AND     STAT_CD = 'Y'
+            AND     SITE_CD = ${SITE_CD}
+        ]]>
+    </statement>
+
+    <statement name="registCompositeTranCtrl">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_COMP_TRAN_CTRL_TB
+            (
+                TRAN_ID
+               ,TRAN_BIZ_CD
+               ,CHNL_CD
+               ,APPL_STRT_DT
+               ,APPL_END_DT
+               ,CTRL_TP
+               ,STAT_CD
+               ,CTRL_RSON
+               ,MOD_USER_ID
+               ,MOD_DT
+               ,REG_USER_ID
+               ,REG_DT
+               ,SITE_CD
+            )
+            VALUES
+            (
+                ${TRAN_ID}
+               ,${TRAN_BIZ_CD}
+               ,${CHNL_CD}
+               ,${APPL_STRT_DT}
+               ,${APPL_END_DT}
+               ,${CTRL_TP}
+               ,${STAT_CD}
+               ,''
+               ,${MOD_USER_ID}
+               ,TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,${REG_USER_ID}
+               ,TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,${SITE_CD}
+            )
+        ]]>
+    </statement>
+
+    <!-- ================================================================================================
+    * 설    명 : 자동거래제어
+    * 관련소스 :
+    ================================================================================================== -->
+    <statement name="selectAbend">
+        <![CDATA[
+            SELECT  TRAN_ID
+                   ,TRAN_BIZ_CD
+                   ,CHNL_CD
+                   ,MSG_CD
+                   ,OCCU_CNT
+                   ,REG_USER_ID
+                   ,REG_DT
+                   ,MOD_USER_ID
+                   ,MOD_DT
+                   ,((TO_DATE(TO_CHAR(SYSDATE,'YYYYMMDDHH24MISS'),'YYYYMMDDHH24MISS')) - TO_DATE(REG_DT,'YYYYMMDDHH24MISS'))*24*60*60 AS MANAGE_SEC_DIFF
+            FROM    DEVON.SERE_AUTO_TRAN_CTRL_TB
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     TRAN_ID = ${TRAN_ID}
+            AND     TRAN_BIZ_CD = ${TRAN_BIZ_CD}
+            AND     CHNL_CD = ${CHNL_CD}
+            AND     MSG_CD = ${MSG_CD}
+        ]]>
+    </statement>
+    <statement name="insertAbend">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_AUTO_TRAN_CTRL_TB
+            (
+                TRAN_ID
+               ,TRAN_BIZ_CD
+               ,CHNL_CD
+               ,MSG_CD
+               ,OCCU_CNT
+               ,REG_USER_ID
+               ,REG_DT
+               ,MOD_USER_ID
+               ,MOD_DT
+               ,SITE_CD
+            )
+            VALUES
+            (
+                ${TRAN_ID}
+               ,${TRAN_BIZ_CD}
+               ,${CHNL_CD}
+               ,${MSG_CD}
+               ,1
+               ,${REG_USER_ID}
+               ,TO_CHAR(SYSDATE,'YYYYMMDDHH24MISS')
+               ,${MOD_USER_ID}
+               ,TO_CHAR(SYSDATE,'YYYYMMDDHH24MISS')
+               ,${SITE_CD}
+
+            )
+        ]]>
+    </statement>
+    <statement name="updateAbend">
+        <![CDATA[
+            UPDATE  DEVON.SERE_AUTO_TRAN_CTRL_TB
+            SET     OCCU_CNT = OCCU_CNT + 1
+                   ,MOD_USER_ID = ${MOD_USER_ID}
+                   ,MOD_DT = TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     TRAN_ID = ${TRAN_ID}
+            AND     TRAN_BIZ_CD = ${TRAN_BIZ_CD}
+            AND     CHNL_CD = ${CHNL_CD}
+            AND     MSG_CD = ${MSG_CD}
+        ]]>
+    </statement>
+    <statement name="deleteAbend">
+        <![CDATA[
+            DELETE
+            FROM    DEVON.SERE_AUTO_TRAN_CTRL_TB
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     TRAN_ID = ${TRAN_ID}
+            AND     TRAN_BIZ_CD = ${TRAN_BIZ_CD}
+            AND     CHNL_CD = ${CHNL_CD}
+            AND     MSG_CD = ${MSG_CD}
+        ]]>
+    </statement>
+    <statement name="insertAbendHistory">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_AUTO_TRAN_CTRL_HST_TB
+            (
+                TRAN_ID
+               ,TRAN_BIZ_CD
+               ,CHNL_CD
+               ,MSG_CD
+               ,SEQ
+               ,OCCU_CNT
+               ,REG_USER_ID
+               ,REG_DT
+               ,MOD_USER_ID
+               ,MOD_DT
+               ,SITE_CD
+            )
+            SELECT  TRAN_ID
+                   ,TRAN_BIZ_CD
+                   ,CHNL_CD
+                   ,MSG_CD
+                   ,(
+                        SELECT  NVL(MAX(SEQ), 0) + 1
+                        FROM    DEVON.SERE_AUTO_TRAN_CTRL_HST_TB
+                        WHERE   SITE_CD = ${SITE_CD}
+                        AND     TRAN_ID = ${TRAN_ID}
+                        AND     TRAN_BIZ_CD = ${TRAN_BIZ_CD}
+                        AND     CHNL_CD = ${CHNL_CD}
+                        AND     MSG_CD = ${MSG_CD}
+                    )
+                   ,OCCU_CNT
+                   ,REG_USER_ID
+                   ,REG_DT
+                   ,MOD_USER_ID
+                   ,MOD_DT
+                   ,SITE_CD
+            FROM    DEVON.SERE_AUTO_TRAN_CTRL_TB
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     TRAN_ID = ${TRAN_ID}
+            AND     TRAN_BIZ_CD = ${TRAN_BIZ_CD}
+            AND     CHNL_CD = ${CHNL_CD}
+            AND     MSG_CD = ${MSG_CD}
+        ]]>
+    </statement>
+
+    <!-- ================================================================================================
+    * 설    명 : 사용자별거래제어
+    * 관련소스 :
+    ================================================================================================== -->
+    <statement name="retrieveUserTranCtrl">
+        <![CDATA[
+            SELECT  COUNT(*) CTRL_YN
+                   ,SUM(CASE CTRL_TP WHEN 'P' THEN 1 ELSE 0 END) CTRL_TP
+            FROM    DEVON.SERE_USER_TRAN_CTRL_TB
+            WHERE   USER_ID      IN ('@', ${user_id})
+            AND     TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISS') BETWEEN APPL_STRT_DT AND APPL_END_DT
+            AND     STAT_CD = 'Y'
+            AND     SITE_CD = ${SITE_CD}
+        ]]>
+    </statement>
+
+    <statement name="registUserTranCtrl">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_USER_TRAN_CTRL_TB
+            (
+                USER_ID
+               ,APPL_STRT_DT
+               ,APPL_END_DT
+               ,CTRL_TP
+               ,STAT_CD
+               ,CTRL_RSON
+               ,MOD_USER_ID
+               ,MOD_DT
+               ,REG_USER_ID
+               ,REG_DT
+               ,SITE_CD
+            )
+            VALUES
+            (
+                ${USER_ID}
+               ,${APPL_STRT_DT}
+               ,${APPL_END_DT}
+               ,${CTRL_TP}
+               ,${STAT_CD}
+               ,''
+               ,${MOD_USER_ID}
+               ,TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,${REG_USER_ID}
+               ,TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,${SITE_CD}
+            )
+        ]]>
+    </statement>
+
+    <!-- ================================================================================================
+    * 설    명 : Journal
+    * 관련소스 : 
+    * 변경이력 : 20210614 최웅기 Journal 테이블 일자별 관리
+    ================================================================================================== -->
+    <statement name="insertJournalData">
+        <![CDATA[
+        	{#1}INSERT INTO DEVON.SERL_JOURNAL{/#1}
+            (
+                DAY_CD
+               ,UUID
+               ,GUID
+               ,SYS_PATH_NO
+               ,TRAN_ID
+               ,SYS_DT
+               ,SYS_TIME
+               ,REQ_RES_TY
+               ,INOUT_TY
+               ,FRST_REQ_SYS_NM
+               ,FROM_SYS_NM
+               ,TO_SYS_NM
+               ,HOST_NM
+               ,INST_NM
+               ,FILE_PATH_NAME
+               ,HEADER_IO_SPEC
+               ,USER_ID
+               ,TMSG_CTNT1
+               ,TMSG_CTNT2
+               ,TMSG_CTNT3
+               ,TMSG_CTNT4
+               ,TMSG_CTNT5
+               ,TMSG_CTNT6
+               ,TMSG_CTNT7
+               ,TMSG_CTNT8
+               ,TMSG_CTNT9
+               ,TMSG_CTNT10
+               ,TMSG_CTNT11
+               ,TMSG_CTNT12
+               ,TMSG_CTNT13
+               ,TMSG_CTNT14
+               ,TMSG_CTNT15
+               ,TMSG_CTNT16
+               ,TMSG_CTNT17
+               ,TMSG_CTNT18
+               ,TMSG_CTNT19
+               ,TMSG_CTNT20
+               ,TMSG_CTNT21
+               ,TMSG_CTNT22
+               ,TMSG_CTNT23
+               ,TMSG_CTNT24
+               ,TMSG_CTNT25
+               ,TMSG_CTNT26
+               ,TMSG_CTNT27
+               ,TMSG_CTNT28
+               ,TMSG_CTNT29
+               ,TMSG_CTNT30
+               ,SITE_CD
+               ,SUCCESS_YN
+               ,INTERFACE_ID
+               ,CRTION_DATA
+               ,BODY_IO_SPEC
+               ,SDT_STD_TLG_LEN
+               ,SDT_TLG_VSNO
+               ,SDT_LANG_DTCD
+               ,SDT_DTPR_ST_STU_VL
+               ,SDT_DAT_SECT_ECY_YN
+               ,SDT_TLG_DMD_DTCD
+               ,SDT_WHL_SCT_TOUT_THRS
+               ,SDT_SYS_OP_EVIRN_DTCD
+               ,SDT_INTF_ID
+               ,SDT_INTF_VSNO
+               ,SDT_CHN_IP
+               ,SDT_FST_TR_DMD_YMS
+               ,SDT_RSP_PRC_RST_DTCD
+               ,SDT_TR_CD
+               ,SDT_RBND_TR_YN
+               ,SDT_CNC_DTCD
+               ,SDT_FST_TRS_SYS_CD
+               ,SDT_TRS_SYS_CD
+               ,SDT_ASYNC_SND_PGR_NO
+               ,SDT_IN_TLG_PT_DTCD
+               ,SDT_OUT_TLG_PT_DTCD
+               ,SDT_IO_MSG_SNO
+               ,SDT_ERR_MSG_CD
+               ,SDT_TRT_MSG_CD
+               ,SDT_CHN_DTCD
+               ,SDT_CHN_DTLS_BWK_DTCD
+               ,SDT_MDA_DTCD
+               ,SDT_TR_BRCD
+               ,SDT_TMNO
+               ,SDT_TR_EMPNO
+               ,SDT_DMD_CHN_SESS_ID
+               ,SDT_MCI_PRC_ISTN_NO
+               ,SDT_SCE_NO
+               ,SDT_CINO
+               ,SDT_RE_PRT_TR_YN
+               ,SDT_CNC_ABL_YN
+               ,SDT_SCRY_SESS_INF
+               ,SDT_LNKD_OGTN_GID_NO
+               ,SDT_TR_ENTRD_GID_NO
+               ,SDT_SYS_HDR_SECT_SPR_ITM
+            ) VALUES (
+                ${DAY_CD}
+               ,${UUID}
+               ,${GUID}
+               ,${SYS_PATH_NO}
+               ,${TRAN_ID}
+               ,${SYS_DT}
+               ,${SYS_TIME}
+               ,${REQ_RES_TY}
+               ,${INOUT_TY}
+               ,${FRST_REQ_SYS_NM}
+               ,${FROM_SYS_NM}
+               ,${TO_SYS_NM}
+               ,${HOST_NM}
+               ,${INST_NM}
+               ,${FILE_PATH_NAME}
+               ,${HEADER_IO_SPEC}
+               ,${USER_ID}
+               ,${TMSG_CTNT1}
+               ,${TMSG_CTNT2}
+               ,${TMSG_CTNT3}
+               ,${TMSG_CTNT4}
+               ,${TMSG_CTNT5}
+               ,${TMSG_CTNT6}
+               ,${TMSG_CTNT7}
+               ,${TMSG_CTNT8}
+               ,${TMSG_CTNT9}
+               ,${TMSG_CTNT10}
+               ,${TMSG_CTNT11}
+               ,${TMSG_CTNT12}
+               ,${TMSG_CTNT13}
+               ,${TMSG_CTNT14}
+               ,${TMSG_CTNT15}
+               ,${TMSG_CTNT16}
+               ,${TMSG_CTNT17}
+               ,${TMSG_CTNT18}
+               ,${TMSG_CTNT19}
+               ,${TMSG_CTNT20}
+               ,${TMSG_CTNT21}
+               ,${TMSG_CTNT22}
+               ,${TMSG_CTNT23}
+               ,${TMSG_CTNT24}
+               ,${TMSG_CTNT25}
+               ,${TMSG_CTNT26}
+               ,${TMSG_CTNT27}
+               ,${TMSG_CTNT28}
+               ,${TMSG_CTNT29}
+               ,${TMSG_CTNT30}
+               ,${SITE_CD}
+               ,${SUCCESS_YN}
+               ,${INTERFACE_ID}
+               ,${CRTION_DATA}
+               ,${BODY_IO_SPEC}
+               ,${SDT_STD_TLG_LEN}
+               ,${SDT_TLG_VSNO}
+               ,${SDT_LANG_DTCD}
+               ,${SDT_DTPR_ST_STU_VL}
+               ,${SDT_DAT_SECT_ECY_YN}
+               ,${SDT_TLG_DMD_DTCD}
+               ,${SDT_WHL_SCT_TOUT_THRS}
+               ,${SDT_SYS_OP_EVIRN_DTCD}
+               ,${SDT_INTF_ID}
+               ,${SDT_INTF_VSNO}
+               ,${SDT_CHN_IP}
+               ,${SDT_FST_TR_DMD_YMS}
+               ,${SDT_RSP_PRC_RST_DTCD}
+               ,${SDT_TR_CD}
+               ,${SDT_RBND_TR_YN}
+               ,${SDT_CNC_DTCD}
+               ,${SDT_FST_TRS_SYS_CD}
+               ,${SDT_TRS_SYS_CD}
+               ,${SDT_ASYNC_SND_PGR_NO}
+               ,${SDT_IN_TLG_PT_DTCD}
+               ,${SDT_OUT_TLG_PT_DTCD}
+               ,${SDT_IO_MSG_SNO}
+               ,${SDT_ERR_MSG_CD}
+               ,${SDT_TRT_MSG_CD}
+               ,${SDT_CHN_DTCD}
+               ,${SDT_CHN_DTLS_BWK_DTCD}
+               ,${SDT_MDA_DTCD}
+               ,${SDT_TR_BRCD}
+               ,${SDT_TMNO}
+               ,${SDT_TR_EMPNO}
+               ,${SDT_DMD_CHN_SESS_ID}
+               ,${SDT_MCI_PRC_ISTN_NO}
+               ,${SDT_SCE_NO}
+               ,${SDT_CINO}
+               ,${SDT_RE_PRT_TR_YN}
+               ,${SDT_CNC_ABL_YN}
+               ,${SDT_SCRY_SESS_INF}
+               ,${SDT_LNKD_OGTN_GID_NO}
+               ,${SDT_TR_ENTRD_GID_NO}
+               ,${SDT_SYS_HDR_SECT_SPR_ITM}
+            )
+        ]]>
+		<replace condition="${DAY_CD}.EQ.01" id="#1"><![CDATA[INSERT INTO DEVON.SERL_JOURNAL_01]]></replace>
+        <replace condition="${DAY_CD}.EQ.02" id="#1"><![CDATA[INSERT INTO DEVON.SERL_JOURNAL_02]]></replace>
+        <replace condition="${DAY_CD}.EQ.03" id="#1"><![CDATA[INSERT INTO DEVON.SERL_JOURNAL_03]]></replace>
+        <replace condition="${DAY_CD}.EQ.04" id="#1"><![CDATA[INSERT INTO DEVON.SERL_JOURNAL_04]]></replace>
+        <replace condition="${DAY_CD}.EQ.05" id="#1"><![CDATA[INSERT INTO DEVON.SERL_JOURNAL_05]]></replace>
+        <replace condition="${DAY_CD}.EQ.06" id="#1"><![CDATA[INSERT INTO DEVON.SERL_JOURNAL_06]]></replace>
+        <replace condition="${DAY_CD}.EQ.07" id="#1"><![CDATA[INSERT INTO DEVON.SERL_JOURNAL_07]]></replace>
+        <replace condition="${DAY_CD}.EQ.08" id="#1"><![CDATA[INSERT INTO DEVON.SERL_JOURNAL_08]]></replace>
+        <replace condition="${DAY_CD}.EQ.09" id="#1"><![CDATA[INSERT INTO DEVON.SERL_JOURNAL_09]]></replace>
+        <replace condition="${DAY_CD}.EQ.10" id="#1"><![CDATA[INSERT INTO DEVON.SERL_JOURNAL_10]]></replace>
+        <replace condition="${DAY_CD}.EQ.11" id="#1"><![CDATA[INSERT INTO DEVON.SERL_JOURNAL_11]]></replace>
+        <replace condition="${DAY_CD}.EQ.12" id="#1"><![CDATA[INSERT INTO DEVON.SERL_JOURNAL_12]]></replace>
+        <replace condition="${DAY_CD}.EQ.13" id="#1"><![CDATA[INSERT INTO DEVON.SERL_JOURNAL_13]]></replace>
+        <replace condition="${DAY_CD}.EQ.14" id="#1"><![CDATA[INSERT INTO DEVON.SERL_JOURNAL_14]]></replace>
+        <replace condition="${DAY_CD}.EQ.15" id="#1"><![CDATA[INSERT INTO DEVON.SERL_JOURNAL_15]]></replace>
+        <replace condition="${DAY_CD}.EQ.16" id="#1"><![CDATA[INSERT INTO DEVON.SERL_JOURNAL_16]]></replace>
+        <replace condition="${DAY_CD}.EQ.17" id="#1"><![CDATA[INSERT INTO DEVON.SERL_JOURNAL_17]]></replace>
+        <replace condition="${DAY_CD}.EQ.18" id="#1"><![CDATA[INSERT INTO DEVON.SERL_JOURNAL_18]]></replace>
+        <replace condition="${DAY_CD}.EQ.19" id="#1"><![CDATA[INSERT INTO DEVON.SERL_JOURNAL_19]]></replace>
+        <replace condition="${DAY_CD}.EQ.20" id="#1"><![CDATA[INSERT INTO DEVON.SERL_JOURNAL_20]]></replace>
+        <replace condition="${DAY_CD}.EQ.21" id="#1"><![CDATA[INSERT INTO DEVON.SERL_JOURNAL_21]]></replace>
+        <replace condition="${DAY_CD}.EQ.22" id="#1"><![CDATA[INSERT INTO DEVON.SERL_JOURNAL_22]]></replace>
+        <replace condition="${DAY_CD}.EQ.23" id="#1"><![CDATA[INSERT INTO DEVON.SERL_JOURNAL_23]]></replace>
+        <replace condition="${DAY_CD}.EQ.24" id="#1"><![CDATA[INSERT INTO DEVON.SERL_JOURNAL_24]]></replace>
+        <replace condition="${DAY_CD}.EQ.25" id="#1"><![CDATA[INSERT INTO DEVON.SERL_JOURNAL_25]]></replace>
+        <replace condition="${DAY_CD}.EQ.26" id="#1"><![CDATA[INSERT INTO DEVON.SERL_JOURNAL_26]]></replace>
+        <replace condition="${DAY_CD}.EQ.27" id="#1"><![CDATA[INSERT INTO DEVON.SERL_JOURNAL_27]]></replace>
+        <replace condition="${DAY_CD}.EQ.28" id="#1"><![CDATA[INSERT INTO DEVON.SERL_JOURNAL_28]]></replace>
+        <replace condition="${DAY_CD}.EQ.29" id="#1"><![CDATA[INSERT INTO DEVON.SERL_JOURNAL_29]]></replace>
+        <replace condition="${DAY_CD}.EQ.30" id="#1"><![CDATA[INSERT INTO DEVON.SERL_JOURNAL_30]]></replace>
+        <replace condition="${DAY_CD}.EQ.31" id="#1"><![CDATA[INSERT INTO DEVON.SERL_JOURNAL_31]]></replace>
+    </statement>
+
+    <!-- ================================================================================================
+    * 설    명 : Sequence
+    * 관련소스 :
+    ================================================================================================== -->
+    <statement name="selectSequenceSpec">
+        <![CDATA[
+            SELECT  *
+            FROM    DEVON.SERE_SEQ_SPEC_TB
+            WHERE   STAT_CD = 'Y'
+            AND     SEQ_SPEC_ID = ${SEQ_SPEC_ID}
+        ]]>
+    </statement>
+    <statement name="selectSequenceSpecList">
+        <![CDATA[
+            SELECT  *
+            FROM    DEVON.SERE_SEQ_SPEC_TB
+            WHERE   STAT_CD = 'Y'
+        ]]>
+    </statement>
+    <statement name="selectSimpleSequence">
+        <![CDATA[
+            SELECT  *
+            FROM    DEVON.SERE_SEQ_SMPL_TB
+            WHERE   SEQ_SPEC_ID = ${SEQ_SPEC_ID}
+        ]]>
+    </statement>
+    <statement name="insertSimpleSequence">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_SEQ_SMPL_TB
+            (
+                SEQ_SPEC_ID
+               ,SEQ_NO
+               ,MOD_DT
+               ,MOD_USER_ID
+               ,REG_USER_ID
+               ,SITE_CD
+            ) VALUES (
+                ${SEQ_SPEC_ID}
+               ,${SEQ_NO}
+               ,TO_CHAR( CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISS')
+               ,TO_CHAR( CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISS')
+               ,${MOD_USER_ID}
+               ,${REG_USER_ID}
+               ,${SITE_CD}
+            )
+        ]]>
+    </statement>
+    <statement name="updateSimpleSequence">
+        <![CDATA[
+            UPDATE  DEVON.SERE_SEQ_SMPL_TB
+               SET  SEQ_SPEC_ID = ${SEQ_SPEC_ID}
+                    SEQ_NO      = ${SEQ_NO}
+                   ,MOD_DT      = TO_CHAR( CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISS')
+                   ,MOD_USER_ID = ${MOD_USER_ID}
+             WHERE  SEQ_SPEC_ID = ${SEQ_SPEC_ID}
+               AND  SEQ_NO      = ${CURRENT_SEQ_NO}
+        ]]>
+    </statement>
+    <statement name="selectCompositeSequence">
+        <![CDATA[
+            SELECT  *
+            FROM    DEVON.SERE_SEQ_COMP_TB
+            WHERE   SEQ_SPEC_ID  = ${SEQ_SPEC_ID}
+            AND     COMP_SEQ_KEY = ${COMP_SEQ_KEY}
+        ]]>
+    </statement>
+    <statement name="insertCompositeSequence">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_SEQ_COMP_TB
+            (
+                SEQ_SPEC_ID
+               ,SEQ_NO
+               ,COMP_SEQ_KEY
+               ,MOD_DT
+               ,REG_DT
+               ,MOD_USER_ID
+               ,REG_USER_ID
+               ,SITE_CD
+            ) VALUES (
+                ${SEQ_SPEC_ID}
+               ,${SEQ_NO}
+               ,${COMP_SEQ_KEY}
+               ,TO_CHAR( CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISS')
+               ,TO_CHAR( CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISS')
+               ,${MOD_USER_ID}
+               ,${REG_USER_ID}
+               ,${SITE_CD}
+            )
+        ]]>
+    </statement>
+    <statement name="updateCompositeSequence">
+        <![CDATA[
+            UPDATE DEVON.SERE_SEQ_COMP_TB
+               SET SEQ_SPEC_ID  = ${SEQ_SPEC_ID}
+                  ,SEQ_NO       = ${SEQ_NO}
+                  ,MOD_DT       = TO_CHAR( CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISS')
+                  ,MOD_USER_ID  = ${MOD_USER_ID}
+             WHERE SEQ_SPEC_ID  = ${SEQ_SPEC_ID}
+               AND COMP_SEQ_KEY = ${COMP_SEQ_KEY}
+               AND SEQ_NO       = ${CURRENT_SEQ_NO}
+        ]]>
+    </statement>
+
+    <!-- ================================================================================================
+    * 설    명 : 대량입/출력
+    * 관련소스 :
+    ================================================================================================== -->
+    <!-- 대량입력 전체 데이터조회 -->
+    <statement name="retrieveBigInputData">
+        <![CDATA[
+            SELECT  BDAT_GLOB_ID
+                   ,BDAT_INOUT_TY
+                   ,BDAT_DATA_TY
+                   ,BDAT_PROC_SQ
+                   ,BDAT_DATA_CL
+                   ,BDAT_PROC_ST
+                   ,BDAT_REG_DT
+            FROM    DEVON.SERE_BIGDATA_TB
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     BDAT_GLOB_ID = ${BDAT_GLOB_ID}
+            AND     BDAT_INOUT_TY = ${BDAT_INOUT_TY}
+            ORDER BY BDAT_PROC_SQ
+        ]]>
+    </statement>
+    <!-- 대량입력 데이터조회 -->
+    <statement name="retrieveBigData">
+        <![CDATA[
+            SELECT  BDAT_GLOB_ID
+                   ,BDAT_INOUT_TY
+                   ,BDAT_DATA_TY
+                   ,BDAT_PROC_SQ
+                   ,BDAT_DATA_CL
+                   ,BDAT_PROC_ST
+                   ,BDAT_REG_DT
+            FROM    DEVON.SERE_BIGDATA_TB
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     BDAT_GLOB_ID = ${BDAT_GLOB_ID}
+            AND     BDAT_INOUT_TY = ${BDAT_INOUT_TY}
+            AND     BDAT_PROC_SQ = ${BDAT_PROC_SQ}
+        ]]>
+    </statement>
+    <!-- 대량입출력 데이터 추가 -->
+    <statement name="insertBigData">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_BIGDATA_TB
+            (
+                BDAT_GLOB_ID
+               ,BDAT_INOUT_TY
+               ,BDAT_DATA_TY
+               ,BDAT_PROC_SQ
+               ,BDAT_DATA_CL
+               ,BDAT_PROC_ST
+               ,BDAT_REG_DT
+               ,SITE_CD
+               ,MOD_DT
+               ,MOD_USER_ID
+            )
+            VALUES
+            (
+                ${BDAT_GLOB_ID}
+               ,${BDAT_INOUT_TY}
+               ,${BDAT_DATA_TY}
+               ,${BDAT_PROC_SQ}
+               ,${BDAT_DATA_CL}
+               ,${BDAT_PROC_ST}
+               ,${BDAT_REG_DT}
+               ,${SITE_CD}
+               ,${MOD_DT}
+               ,${MOD_USER_ID}
+            )
+        ]]>
+    </statement>
+    <!-- 대량입출력 상태변경 -->
+    <statement name="updateStsBigData">
+        <![CDATA[
+            UPDATE  DEVON.SERE_BIGDATA_TB
+            SET     BDAT_PROC_ST = ${BDAT_PROC_ST}
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     BDAT_GLOB_ID = ${BDAT_GLOB_ID}
+            AND     BDAT_INOUT_TY = ${BDAT_INOUT_TY}
+            AND     BDAT_PROC_SQ = ${BDAT_PROC_SQ}
+        ]]>
+    </statement>
+
+
+
+    <!-- ================================================================================================
+        SERE_JOBNODE_TB (작업노드)
+    ================================================================================================== -->
+    <!-- 20210628 최웅기 pod instance 정보 관리를 위한 쿼리 -->
+    <statement name="deleteJobNode">
+        <![CDATA[
+            DELETE FROM DEVON.SERE_JOBNODE_TB
+            WHERE  SITE_CD = ${SITE_CD}
+            AND    ENVR_TY = ${ENVR_TY}
+            AND    NODE_NM = ${NODE_NM}
+            AND    INST_NM = ${INST_NM}
+            AND    TYPE_CD = ${TYPE_CD}
+    	]]>
+    </statement>
+    
+    <statement name="insertJobNode">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_JOBNODE_TB
+            (
+                ENVR_TY
+               ,TYPE_CD
+               ,NODE_NM
+               ,INST_NM
+               ,CC_INST_TY
+               ,INITIAL_CONTEXT_FACTORY
+               ,JNDIURL_NM
+               ,FACTORY_NM
+               ,QUEUE_NM
+               ,QSSESION_NO
+               ,ERRSTAT_TY
+               ,JMXPORT_NO
+               ,USE_YN
+               ,SENT_NO
+               ,SENT_NO_LMT
+               ,MOD_DT
+               ,REG_DT
+               ,MOD_USER_ID
+               ,REG_USER_ID
+               ,SITE_CD
+            ) VALUES (
+                ${ENVR_TY}
+               ,${TYPE_CD}
+               ,${NODE_NM}
+               ,${INST_NM}
+               ,${CC_INST_TY}
+               ,${INITIAL_CONTEXT_FACTORY}
+               ,${JNDIURL_NM}
+               ,${FACTORY_NM}
+               ,${QUEUE_NM}
+               ,${QSSESION_NO}
+               ,${ERRSTAT_TY}
+               ,${JMXPORT_NO}
+               ,${USE_YN}
+               ,${SENT_NO}
+               ,${SENT_NO_LMT}
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,${MOD_USER_ID}
+               ,${REG_USER_ID}
+               ,${SITE_CD}
+            )
+        ]]>
+    </statement>
+    
+    
+    <statement name="retrieveJobNode">
+        <![CDATA[
+            SELECT  ENVR_TY
+                   ,TYPE_CD
+                   ,NODE_NM
+                   ,INST_NM
+                   ,CC_INST_TY
+                   ,INITIAL_CONTEXT_FACTORY
+                   ,JNDIURL_NM
+                   ,FACTORY_NM
+                   ,QUEUE_NM
+                   ,QSSESION_NO
+                   ,ERRSTAT_TY
+                   ,JMXPORT_NO
+                   ,USE_YN
+                   ,SENT_NO
+                   ,SENT_NO_LMT
+                   ,MOD_DT
+                   ,REG_DT
+                   ,MOD_USER_ID
+                   ,REG_USER_ID
+                   ,SITE_CD
+            FROM    DEVON.SERE_JOBNODE_TB
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     NODE_NM = ${NODE_NM}
+            AND     INST_NM = ${INST_NM}
+            AND     ENVR_TY = ${ENVR_TY}
+            AND     TYPE_CD = ${TYPE_CD}
+        ]]>
+    </statement>
+    
+    <statement name="retrieveInstJobNode">
+        <![CDATA[
+            SELECT  ENVR_TY
+                   ,TYPE_CD
+                   ,NODE_NM
+                   ,INST_NM
+                   ,CC_INST_TY
+                   ,INITIAL_CONTEXT_FACTORY
+                   ,JNDIURL_NM
+                   ,FACTORY_NM
+                   ,QUEUE_NM
+                   ,QSSESION_NO
+                   ,ERRSTAT_TY
+                   ,JMXPORT_NO
+                   ,USE_YN
+                   ,SENT_NO
+                   ,SENT_NO_LMT
+                   ,MOD_DT
+                   ,REG_DT
+                   ,MOD_USER_ID
+                   ,REG_USER_ID
+                   ,SITE_CD
+            FROM    DEVON.SERE_JOBNODE_TB
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     INST_NM = ${INST_NM}
+            AND     ENVR_TY = ${ENVR_TY}
+            AND     TYPE_CD = ${TYPE_CD}
+        ]]>
+    </statement>
+
+    <statement name="retrieveAllJobNodeList">
+        <![CDATA[
+            SELECT  ENVR_TY
+                   ,TYPE_CD
+                   ,NODE_NM
+                   ,INST_NM
+                   ,CC_INST_TY
+                   ,INITIAL_CONTEXT_FACTORY
+                   ,JNDIURL_NM
+                   ,FACTORY_NM
+                   ,QUEUE_NM
+                   ,QSSESION_NO
+                   ,ERRSTAT_TY
+                   ,JMXPORT_NO
+                   ,USE_YN
+                   ,SENT_NO
+                   ,SENT_NO_LMT
+                   ,MOD_DT
+                   ,REG_DT
+                   ,MOD_USER_ID
+                   ,REG_USER_ID
+                   ,SITE_CD
+            FROM    DEVON.SERE_JOBNODE_TB
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     ENVR_TY = ${ENVR_TY}
+            AND     TYPE_CD = ${TYPE_CD}
+            ORDER BY NODE_NM, INST_NM
+        ]]>
+    </statement>
+    
+    <statement name="retrieveUniqueJobNodeName">
+        <![CDATA[
+            SELECT  DISTINCT NODE_NM
+            FROM    DEVON.SERE_JOBNODE_TB
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     ENVR_TY = ${ENVR_TY}
+            AND     TYPE_CD = ${TYPE_CD}
+        ]]>
+    </statement>    
+
+    <statement name="retrieveAllHostJobNodeList">
+        <![CDATA[
+            SELECT  ENVR_TY
+                   ,TYPE_CD
+                   ,NODE_NM
+                   ,INST_NM
+                   ,CC_INST_TY
+                   ,INITIAL_CONTEXT_FACTORY
+                   ,JNDIURL_NM
+                   ,FACTORY_NM
+                   ,QUEUE_NM
+                   ,QSSESION_NO
+                   ,ERRSTAT_TY
+                   ,JMXPORT_NO
+                   ,USE_YN
+                   ,SENT_NO
+                   ,SENT_NO_LMT
+                   ,MOD_DT
+                   ,REG_DT
+                   ,MOD_USER_ID
+                   ,REG_USER_ID
+                   ,SITE_CD
+            FROM    DEVON.SERE_JOBNODE_TB
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     NODE_NM = ${NODE_NM}
+            AND     ENVR_TY = ${ENVR_TY}
+            AND     TYPE_CD = ${TYPE_CD}
+            ORDER BY NODE_NM, INST_NM
+        ]]>
+    </statement>
+    
+    <statement name="retrieveAllCCMainManagerInstList">
+        <![CDATA[
+            SELECT  ENVR_TY
+                   ,TYPE_CD
+                   ,NODE_NM
+                   ,INST_NM
+                   ,CC_INST_TY
+                   ,INITIAL_CONTEXT_FACTORY
+                   ,JNDIURL_NM
+                   ,FACTORY_NM
+                   ,QUEUE_NM
+                   ,QSSESION_NO
+                   ,ERRSTAT_TY
+                   ,JMXPORT_NO
+                   ,USE_YN
+                   ,SENT_NO
+                   ,SENT_NO_LMT
+                   ,MOD_DT
+                   ,REG_DT
+                   ,MOD_USER_ID
+                   ,REG_USER_ID
+                   ,SITE_CD
+            FROM    DEVON.SERE_JOBNODE_TB
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     ENVR_TY = ${ENVR_TY}
+            AND     TYPE_CD = ${TYPE_CD}
+            AND     CC_INST_TY = 'M'
+            ORDER BY NODE_NM, INST_NM
+        ]]>
+    </statement>
+    
+    <statement name="retrieveAllCCJobProcessorInstList">
+        <![CDATA[
+            SELECT  ENVR_TY
+                   ,TYPE_CD
+                   ,NODE_NM
+                   ,INST_NM
+                   ,CC_INST_TY
+                   ,INITIAL_CONTEXT_FACTORY
+                   ,JNDIURL_NM
+                   ,FACTORY_NM
+                   ,QUEUE_NM
+                   ,QSSESION_NO
+                   ,ERRSTAT_TY
+                   ,JMXPORT_NO
+                   ,USE_YN
+                   ,SENT_NO
+                   ,SENT_NO_LMT
+                   ,MOD_DT
+                   ,REG_DT
+                   ,MOD_USER_ID
+                   ,REG_USER_ID
+                   ,SITE_CD
+            FROM    DEVON.SERE_JOBNODE_TB
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     ENVR_TY = ${ENVR_TY}
+            AND     TYPE_CD = ${TYPE_CD}
+            AND     CC_INST_TY = 'J'
+            ORDER BY NODE_NM, INST_NM
+        ]]>
+    </statement>
+    
+    <statement name="updateJobNodeStat">
+        <![CDATA[
+            UPDATE  DEVON.SERE_JOBNODE_TB
+            SET     ERRSTAT_TY  = ${ERRSTAT_TY}
+                   ,MOD_USER_ID = ${MOD_USER_ID}
+                   ,MOD_DT      = TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+            WHERE   ENVR_TY = ${ENVR_TY}
+            AND     NODE_NM = ${NODE_NM}
+            AND     INST_NM = ${INST_NM}
+            AND     TYPE_CD = ${TYPE_CD}
+            AND     SITE_CD = ${SITE_CD}
+        ]]>
+    </statement>
+
+    <statement name="updateJobNodeSendCnt">
+        <![CDATA[
+            UPDATE  DEVON.SERE_JOBNODE_TB
+            SET     SENT_NO = ${SENT_NO}
+            WHERE   ENVR_TY = ${ENVR_TY}
+            AND     NODE_NM = ${NODE_NM}
+            AND     INST_NM = ${INST_NM}
+            AND     TYPE_CD = ${TYPE_CD}
+            AND     SITE_CD = ${SITE_CD}
+        ]]>
+    </statement>
+	<!-- 20210516 최웅기 CDC 테이블명 변경  TBGCBHO01	:: TBUBDJ002
+    <statement name="selectHolydayInfo">
+        <![CDATA[
+        SELECT /*+ 차희성::/devon/asis/enterprise/selectHolydayInfo */ 
+               휴일년월일    HOLIDAY
+             , 휴일구분코드  HOLICD
+             , 휴일한글명    HOLIDAY_NAME
+          FROM INSTC.TBGCBHO01
+         WHERE 1=1
+           AND 휴일구분코드 NOT IN ('4', '5')
+        ]]>
+    </statement>
+    -->
+    <statement name="selectHolydayInfo">
+        <![CDATA[
+        SELECT /*+ 차희성::/devon/asis/enterprise/selectHolydayInfo */ 
+               휴일년월일    HOLIDAY
+             , 휴일구분코드  HOLICD
+             , 휴일한글명    HOLIDAY_NAME
+          FROM INSTC.TBUBDJ002
+         WHERE 1=1
+           AND 휴일구분코드 NOT IN ('4', '5')
+        ]]>
+    </statement>
+    <!-- 20210516 최웅기  CDC 테이블명 변경  TBGCEHO01 ::  TBUBDJ002
+    <statement name="selectHolydayInfoEtc">
+        <![CDATA[
+        SELECT /*+ 차희성::/devon/asis/enterprise/selectHolydayInfoEtc */
+               휴일년월일    HOLIDAY
+             , 휴일구분코드  HOLICD
+             , 휴일한글명    HOLIDAY_NAME
+          FROM INSTC.TBGCEHO01
+         WHERE 1=1
+           AND 휴일구분코드 NOT IN ('4', '5')
+        ]]>
+    </statement>
+     -->
+    <statement name="selectHolydayInfoEtc">
+        <![CDATA[
+        SELECT /*+ 차희성::/devon/asis/enterprise/selectHolydayInfoEtc */
+               휴일년월일    HOLIDAY
+             , 휴일구분코드  HOLICD
+             , 휴일한글명    HOLIDAY_NAME
+          FROM INSTC.TBUBDJ002
+         WHERE 1=1
+           AND 휴일구분코드 NOT IN ('4', '5')
+        ]]>
+    </statement>
+    
+    
+    <statement name="selectMbrCryptInfo">
+        <![CDATA[
+        SELECT MCIF_SVC_ALIAS  SVC_ALIAS,
+                  MCIF_SVC_ID     SVC_ID
+        FROM   DEVON.SGMC_MBRCRYPTOINFO_TB
+        ]]>
+    </statement>
+    
+   <!-- ================================================================================================
+    * 설    명 : 전문 IO 암복호화 정보 추가 확장 추가.
+    * 관련소스 :
+    ================================================================================================== -->
+    <!-- 20210516 최웅기 CDC 테이블명 변경  TBGCBER01	:: TBUBDJ001
+    <statement name="errorCodeMessag">
+        <![CDATA[
+            SELECT /*+ 차희성::/devon/asis/enterprise/errorCodeMessag */
+                                 언어구분코드
+                 , 메시지채널구분코드
+                 , 오류메시지코드
+                 , 적용시작년월일
+                 , 적용종료년월일
+                 , 등록년월일
+                 , 채널오류코드
+                 , 오류메시지사용여부
+                 , 센터컷중단구분코드
+                 , 중요오류해당여부
+                 , 책임자승인구분코드
+                 , 책임자사유등급구분코드
+                 , 등록어플리케이션코드
+                 , 오류메시지출력내용
+                 , 시스템최종갱신일시
+                 , 시스템최종갱신식별자
+                 , 시스템최종거래일시   
+              FROM instc.TBGCBER01
+             WHERE 언어구분코드 = 'KOR'
+               AND 메시지채널구분코드 = '01'
+               AND to_char(sysdate, 'yyyymmdd') BETWEEN 적용시작년월일 AND 적용종료년월일
+               AND 오류메시지코드 = ${오류메시지코드}         
+        ]]>
+     </statement>
+	 -->
+	 <statement name="errorCodeMessag">
+        <![CDATA[
+            SELECT /*+ 차희성::/devon/asis/enterprise/errorCodeMessag */
+                                 언어구분코드
+                 , 메시지채널구분코드
+                 , 오류메시지코드
+                 , 적용시작년월일
+                 , 적용종료년월일
+                 , 등록년월일
+                 , 채널오류코드
+                 , 오류메시지사용여부
+                 , 센터컷중단구분코드
+                 , 중요오류해당여부
+                 , 책임자승인구분코드
+                 , 책임자사유등급구분코드
+                 , 등록어플리케이션코드
+                 , 오류메시지출력내용
+                 , 시스템최종갱신일시
+                 , 시스템최종갱신식별자
+                 , 시스템최종거래일시   
+              FROM instc.TBUBDJ001
+             WHERE 언어구분코드 = 'KOR'
+               AND 메시지채널구분코드 = '01'
+               AND to_char(sysdate, 'yyyymmdd') BETWEEN 적용시작년월일 AND 적용종료년월일
+               AND 오류메시지코드 = ${오류메시지코드}         
+        ]]>
+     </statement>
+     <!-- 20210516 최웅기 CDC 테이블명 변경  TBGCBER01	:: TBUBDJ001
+     <statement name="errorCodeMessagList">
+        <![CDATA[
+            SELECT /*+ 차희성::/devon/asis/enterprise/errorCodeMessagList */ 
+                   언어구분코드
+                 , 메시지채널구분코드
+                 , 오류메시지코드
+                 , 적용시작년월일
+                 , 적용종료년월일
+                 , 등록년월일
+                 , 채널오류코드
+                 , 오류메시지사용여부
+                 , 센터컷중단구분코드
+                 , 중요오류해당여부
+                 , 책임자승인구분코드
+                 , 책임자사유등급구분코드
+                 , 등록어플리케이션코드
+                 , 오류메시지출력내용
+                 , 시스템최종갱신일시
+                 , 시스템최종갱신식별자
+                 , 시스템최종거래일시   
+              FROM instc.TBGCBER01
+             WHERE 언어구분코드 = 'KOR'
+               AND 메시지채널구분코드 = '01'
+               AND to_char(sysdate, 'yyyymmdd') BETWEEN 적용시작년월일 AND 적용종료년월일
+        ]]>
+    </statement>
+    -->
+    <statement name="errorCodeMessagList">
+        <![CDATA[
+            SELECT /*+ 차희성::/devon/asis/enterprise/errorCodeMessagList */ 
+                   언어구분코드
+                 , 메시지채널구분코드
+                 , 오류메시지코드
+                 , 적용시작년월일
+                 , 적용종료년월일
+                 , 등록년월일
+                 , 채널오류코드
+                 , 오류메시지사용여부
+                 , 센터컷중단구분코드
+                 , 중요오류해당여부
+                 , 책임자승인구분코드
+                 , 책임자사유등급구분코드
+                 , 등록어플리케이션코드
+                 , 오류메시지출력내용
+                 , 시스템최종갱신일시
+                 , 시스템최종갱신식별자
+                 , 시스템최종거래일시   
+              FROM instc.TBUBDJ001
+             WHERE 언어구분코드 = 'KOR'
+               AND 메시지채널구분코드 = '01'
+               AND to_char(sysdate, 'yyyymmdd') BETWEEN 적용시작년월일 AND 적용종료년월일
+        ]]>
+    </statement>
+    <statement name="insertXmlqueryInfo">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_QUERY_TB
+            (
+                EXEC_DT
+               ,BIZ_CD
+               ,STATEMENT_ID
+               ,STATEMENT_PATH
+               ,FILE_PATH
+               ,MODEL_PATH
+               ,STATEMENT_ORG
+               ,STATEMENT
+               ,QRY_CHNG_DT
+               ,QRY_CHNG_USR_ID
+            ) VALUES (
+                ${EXEC_DT}
+               ,${BIZ_CD}
+               ,${STATEMENT_ID}
+               ,${STATEMENT_PATH}
+               ,${FILE_PATH}
+               ,${MODEL_PATH}
+               ,${STATEMENT_ORG:CLOB}
+               ,${STATEMENT:CLOB}
+               ,${QRY_CHNG_DT}
+               ,${QRY_CHNG_USR_ID}
+            )
+        ]]>
+    </statement>
+    
+    <!-- ================================================================================================
+    * 설    명 : 원장보정관련
+    * 관련소스 :
+    ================================================================================================== -->
+    <statement name="retrieveLedgerPkInfo">
+        <![CDATA[
+            SELECT  B.COLUMN_NAME
+                   ,B.COLUMN_POSITION
+            FROM    ALL_CONSTRAINTS A
+                   ,ALL_IND_COLUMNS B
+            WHERE   A.TABLE_NAME  = UPPER(${TABLE_NM})
+--            AND     A.OWNER       = UPPER({TABLE_OWNER})
+            AND     A.OWNER       = B.TABLE_OWNER
+            AND     A.TABLE_NAME  = B.TABLE_NAME
+            AND     A.INDEX_NAME  = B.INDEX_NAME
+            AND     A.CONSTRAINT_TYPE = 'P'
+            ORDER BY  B.COLUMN_POSITION
+        ]]>
+    </statement>
+    
+    <statement name="updateSGMCLedgerPkInfo">
+        <![CDATA[
+            UPDATE  DEVON.SGMC_LEDGER_TB
+            SET     LEGR_TBLPK_NM   = ${TABLE_PRIMARY_KEY}
+                   ,LEGR_MANAGED_YN = ${MANAGED_YN}
+            WHERE   LEGR_TGTTBL_NM  = ${TABLE_NM}
+            AND     LEGR_SITE_ID    = ${SITE_CD}
+        ]]>
+    </statement>
+    
+    <statement name="updateSGRSLedgerPkInfo">
+        <![CDATA[
+            UPDATE  DEVON.SGRS_LEDGER
+            SET     TABLE_PRIMARY_KEY = ${TABLE_PRIMARY_KEY}
+                   ,MANAGED_YN        = ${MANAGED_YN}
+            WHERE   TABLE_NM          = ${TABLE_NM}
+            AND     SITE_CD           = ${SITE_CD}
+        ]]>
+    </statement>
+    
+    <statement name="retrieveRestoreData">
+        <![CDATA[
+            SELECT    A.DATE_DD
+                     ,A.TABLE_NM
+                     ,B.TABLE_OWNER
+                     ,A.DATE_DAY
+                     ,A.DATE_TIME
+                     ,A.DETAIL
+                     ,A.SEQ
+                     ,A.TRAN_TYPE
+                     ,A.IMAGE_TYPE
+                     ,A.PROC_CD
+                     ,A.RECORD
+                     ,(
+                        SELECT  COUNT(1)
+                        FROM    DEVON.SERE_RESTORE_TB B
+                        WHERE   A.DETAIL = B.DETAIL
+                        AND     A.IMAGE_TYPE = B.IMAGE_TYPE
+                      ) RECORD_CNT
+                     ,A.TABLE_PK
+                     ,A.GUID
+                     ,A.SVC_ID
+                     ,A.LAST_PROC_DATE
+                     ,A.LAST_PROC_TIME
+                     --,A.GROUP_NM
+                     ,A.TX_DT
+                     ,A.INSTANCE_NAME
+                     ,A.STATEMENT
+            FROM      DEVON.SERE_RESTORE_TB A
+                     ,DEVON.SGRS_LEDGER     B
+            WHERE     A.TX_DT = ${TX_DT}
+            AND       A.TRAN_TYPE IN ('I', 'U', 'D')
+            AND       A.IMAGE_TYPE IN ('I', 'UB', 'D')
+            AND       (A.PROC_CD IS NULL OR A.PROC_CD <> '1')
+            --AND       A.FW_ENV <> 'C'
+            AND       A.SEQ = 1
+            AND       A.SITE_CD = ${SITE_CD}
+            AND       A.TABLE_NM = B.TABLE_NM
+            ORDER BY A.DATE_DAY DESC, A.DATE_TIME DESC
+        ]]>
+    </statement>
+    
+    <statement name="updateRestoreData">
+        <![CDATA[
+            UPDATE  DEVON.SERE_RESTORE_TB
+            SET     PROC_CD = ${PROC_CD}  
+                   ,LAST_PROC_DATE = ${LAST_PROC_DATE}
+                   ,LAST_PROC_TIME = ${LAST_PROC_TIME}
+            WHERE   DETAIL = ${DETAIL}
+        ]]>
+    </statement>
+    
+    <statement name="retrieveRestoreRecordList">
+        <![CDATA[
+            SELECT  SEQ
+                   ,RECORD
+            FROM    DEVON.SERE_RESTORE_TB
+            WHERE   TX_DT      = ${TX_DT}
+            AND     DETAIL     = ${DETAIL}
+            AND     IMAGE_TYPE = ${IMAGE_TYPE}
+            ORDER BY SEQ
+        ]]>
+    </statement>
+
+    <statement name="insertRestore">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_RESTORE_TB
+            (
+                DATE_DD
+               ,TABLE_NM
+               ,DATE_DAY
+               ,DATE_TIME
+               ,DETAIL
+               ,SEQ
+               ,TRAN_TYPE
+               ,IMAGE_TYPE
+               ,PROC_CD
+               ,RECORD
+               ,TABLE_PK
+               ,GUID
+               ,SVC_ID
+               ,TX_DT
+               ,INSTANCE_NAME
+               ,STATEMENT
+               ,FW_ENV
+               ,REG_DT
+               ,MOD_DT
+               ,MOD_USER_ID
+               ,REG_USER_ID
+               ,SITE_CD
+            )
+            VALUES
+            (
+                ${DATE_DD}
+               ,${TABLE_NM}
+               ,${DATE_DAY}
+               ,${DATE_TIME}
+               ,${DETAIL}
+               ,${SEQ}
+               ,${TRAN_TYPE}
+               ,${IMAGE_TYPE}
+               ,${PROC_CD}
+               ,${RECORD}
+               ,${TABLE_PK}
+               ,${GUID}
+               ,${SVC_ID}
+               ,${TX_DT}
+               ,${INSTANCE_NAME}
+               ,${STATEMENT}
+               ,${FW_ENV}
+               ,TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,${MOD_USER_ID}
+               ,${REG_USER_ID}
+               ,${SITE_CD}
+            )
+        ]]>
+    </statement>
+    
+    <statement name="userLogLevelParameter">
+        <![CDATA[
+            SELECT  TR_EMPNO
+                   ,TR_CD
+                   ,ITR_UID
+                   ,IPNO
+                   ,TRAN_SYSLOGLEVEL_CD
+                   ,TRAN_TRACEOPTION_CD
+                   ,TRAN_TRACELOGLEVEL_NO
+                   ,STAT_CD
+                   ,APPL_STRT_DT
+                   ,APPL_END_DT
+            FROM    DEVON.SERE_USER_LOG_PARAM
+            WHERE   TR_CD = ${TR_CD}
+--            AND     (TR_EMPNO = {TR_EMPNO} OR ITR_UID = {ITR_UID})
+            AND     STAT_CD = '1'
+            AND     TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS') BETWEEN APPL_STRT_DT AND APPL_END_DT
+        ]]>
+    </statement>
+    
+    <statement name="retrieveSGMC_TRAN_TB">
+        <![CDATA[
+            SELECT * FROM DEVON.SGMC_TRAN_TB ORDER BY TRAN_ID
+        ]]>
+    </statement>
+    
+    <statement name="retrieveSGMC_TRAN_VER_TB">
+        <![CDATA[
+            SELECT * FROM DEVON.SGMC_TRAN_VER_TB ORDER BY LINK_ID
+        ]]>
+    </statement>
+    
+    <statement name="retrieveSERE_BT_JOB_INFO_TB">
+        <![CDATA[
+            SELECT * FROM DEVON.SERE_BT_JOB_INFO_TB ORDER BY JOB_ID
+        ]]>
+    </statement>
+    
+    <statement name="retrieveSERE_BT_STEP_INFO_TB">
+        <![CDATA[
+            SELECT * FROM DEVON.SERE_BT_STEP_INFO_TB ORDER BY JOB_ID
+        ]]>
+    </statement>
+    
+    <statement name="retrieveSERE_BT_FILE_INFO_TB">
+        <![CDATA[
+            SELECT * FROM DEVON.SERE_BT_FILE_INFO_TB ORDER BY JOB_ID, STEP_ID, FILE_SEQ
+        ]]>
+    </statement>
+    
+    <statement name="retrieveSERE_BT_DB_INFO_TB">
+        <![CDATA[
+            SELECT * FROM DEVON.SERE_BT_DB_INFO_TB ORDER BY JOB_ID, STEP_ID
+        ]]>
+    </statement>
+    
+    <statement name="retrieveSERE_DFRDMAIN_TB">
+        <![CDATA[
+            SELECT * FROM DEVON.SERE_DFRDMAIN_TB ORDER BY DFRD_ID
+        ]]>
+    </statement>
+    
+    <statement name="retrieveTranIdByActionName">
+        <![CDATA[
+            SELECT TRAN_ID
+            FROM   DEVON.SGMC_TRAN_TB
+            WHERE  TRAN_DESC_TX = ${actionName}
+        ]]>
+    </statement>
+    
+</statements>

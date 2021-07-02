@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="regtGCB_KbfgiCoEmpBas" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::03.직원정보관리::GCB_KB금융지주회사직원기본Ebi::GCB_KB금융지주회사직원기본Dao::GCB_KB금융지주회사직원기본등록" >
+		<![CDATA[
+			INSERT /*+ 김동현::/gcb/empInfMg/gCB_KbfgiCoEmpBasEbi/TBGCBHR11/regtGCB_KbfgiCoEmpBas */
+			  INTO INSTC.TBGCBHR11        /* GCB_KB금융지주회사직원기본 */
+			(
+			   KB계열회사직원번호
+			 , 한글직원명
+			 , KB계열회사구분코드
+			 , KB계열회사명
+			 , KB계열회사부점코드
+			 , KB계열회사한글부점명
+			 , KB계열회사직급코드
+			 , KB계열회사한글직급명
+			 , KB계열회사직위코드
+			 , KB계열회사한글직위명
+			 , 퇴직년월일
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${KB계열회사직원번호}
+			 ,${한글직원명}
+			 ,${KB계열회사구분코드}
+			 ,${KB계열회사명}
+			 ,${KB계열회사부점코드}
+			 ,${KB계열회사한글부점명}
+			 ,${KB계열회사직급코드}
+			 ,${KB계열회사한글직급명}
+			 ,${KB계열회사직위코드}
+			 ,${KB계열회사한글직위명}
+			 ,${퇴직년월일}
+			 ,SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,${시스템최종거래일시}
+			)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="delGCB_KbfgiCoEmpBas" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::03.직원정보관리::GCB_KB금융지주회사직원기본Ebi::GCB_KB금융지주회사직원기본Dao::GCB_KB금융지주회사직원기본삭제" >
+		<![CDATA[
+			DELETE /*+ 김동현::/gcb/empInfMg/gCB_KbfgiCoEmpBasEbi/TBGCBHR11/delGCB_KbfgiCoEmpBas */
+			  FROM INSTC.TBGCBHR11        /* GCB_KB금융지주회사직원기본 */
+			 WHERE KB계열회사직원번호 = ${KB계열회사직원번호}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="uptGCB_KbfgiCoEmpBas" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::03.직원정보관리::GCB_KB금융지주회사직원기본Ebi::GCB_KB금융지주회사직원기본Dao::GCB_KB금융지주회사직원기본수정" >
+		<![CDATA[
+			UPDATE /*+ 김동현::/gcb/empInfMg/gCB_KbfgiCoEmpBasEbi/TBGCBHR11/uptGCB_KbfgiCoEmpBas */ 
+			       INSTC.TBGCBHR11        /* GCB_KB금융지주회사직원기본 */
+			   SET 한글직원명       = ${한글직원명}
+			     , KB계열회사구분코드  = ${KB계열회사구분코드}
+			     , KB계열회사명     = ${KB계열회사명}
+			     , KB계열회사부점코드  = ${KB계열회사부점코드}
+			     , KB계열회사한글부점명 = ${KB계열회사한글부점명}
+			     , KB계열회사직급코드  = ${KB계열회사직급코드}
+			     , KB계열회사한글직급명 = ${KB계열회사한글직급명}
+			     , KB계열회사직위코드  = ${KB계열회사직위코드}
+			     , KB계열회사한글직위명 = ${KB계열회사한글직위명}
+			     , 퇴직년월일       = ${퇴직년월일}
+			     , 시스템최종갱신일시   = SYSTIMESTAMP
+			     , 시스템최종갱신식별자  = ${시스템최종갱신식별자}
+			     , 시스템최종거래일시   = ${시스템최종거래일시}
+			 WHERE KB계열회사직원번호 = ${KB계열회사직원번호}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvGCB_KbfgiCoEmpBas" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::03.직원정보관리::GCB_KB금융지주회사직원기본Ebi::GCB_KB금융지주회사직원기본Dao::GCB_KB금융지주회사직원기본조회" >
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/empInfMg/gCB_KbfgiCoEmpBasEbi/TBGCBHR11/retvGCB_KbfgiCoEmpBas */ 
+			       A.KB계열회사직원번호
+			     , A.한글직원명
+			     , A.KB계열회사구분코드
+			     , A.KB계열회사명
+			     , A.KB계열회사부점코드
+			     , A.KB계열회사한글부점명
+			     , A.KB계열회사직급코드
+			     , A.KB계열회사한글직급명
+			     , A.KB계열회사직위코드
+			     , A.KB계열회사한글직위명
+			     , A.퇴직년월일
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBHR11 A        /* GCB_KB금융지주회사직원기본 */
+			 WHERE A.KB계열회사직원번호 = ${KB계열회사직원번호}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLckGCB_KbfgiCoEmpBas" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::03.직원정보관리::GCB_KB금융지주회사직원기본Ebi::GCB_KB금융지주회사직원기본Dao::GCB_KB금융지주회사직원기본락조회">
+		<![CDATA[
+			SELECT /*+ 박재훈::/gcb/empInfMg/gCB_KbfgiCoEmpBasEbi/TBGCBHR11/retvLckGCB_KbfgiCoEmpBas */ 
+			       A.KB계열회사직원번호
+			     , A.한글직원명
+			     , A.KB계열회사구분코드
+			     , A.KB계열회사명
+			     , A.KB계열회사부점코드
+			     , A.KB계열회사한글부점명
+			     , A.KB계열회사직급코드
+			     , A.KB계열회사한글직급명
+			     , A.KB계열회사직위코드
+			     , A.KB계열회사한글직위명
+			     , A.퇴직년월일
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBHR11 A        /* GCB_KB금융지주회사직원기본 */
+			 WHERE A.KB계열회사직원번호 = ${KB계열회사직원번호}
+			  FOR UPDATE NOWAIT
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGCB_KbfgiCoEmpBasByVld" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::03.직원정보관리::GCB_KB금융지주회사직원기본Ebi::GCB_KB금융지주회사직원기본Dao::GCB_KB금융지주회사직원기본By유효목록조회">
+		<![CDATA[
+			SELECT /*+ 박재훈::/gcb/empInfMg/gCB_KbfgiCoEmpBasEbi/TBGCBHR11/retvLstGCB_KbfgiCoEmpBasByVld */ 
+			       A.KB계열회사직원번호
+			     , A.한글직원명
+			     , A.KB계열회사구분코드
+			     , A.KB계열회사명
+			     , A.KB계열회사부점코드
+			     , A.KB계열회사한글부점명
+			     , A.KB계열회사직급코드
+			     , A.KB계열회사한글직급명
+			     , A.KB계열회사직위코드
+			     , A.KB계열회사한글직위명
+			     , A.퇴직년월일
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBHR11 A        /* GCB_KB금융지주회사직원기본 */
+			 WHERE ( A.KB계열회사직원번호 = ${KB계열회사직원번호} OR ${KB계열회사직원번호} IS NULL )
+			   AND ( A.한글직원명         = ${한글직원명}         OR ${한글직원명}         IS NULL )
+			   AND ( A.KB계열회사구분코드 = ${KB계열회사구분코드} OR ${KB계열회사구분코드} IS NULL )
+			   AND A.퇴직년월일           > ${기준년월일}
+		]]>
+    </statement>
+</statements>

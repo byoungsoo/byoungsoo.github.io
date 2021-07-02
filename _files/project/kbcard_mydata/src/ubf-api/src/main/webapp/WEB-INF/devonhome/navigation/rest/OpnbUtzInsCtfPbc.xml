@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<navigation>
+    
+    <!-- 토큰 발급 -->
+    <action name="/issueTken">
+         <method>post</method>
+         <command>#restCommonCmd</command>
+         <tran-id>UBF1010101</tran-id> 
+    </action> 
+    
+    <!-- 토큰 조회 -->
+    <action name="/retvTken">
+         <method>post</method>
+         <command>#restCommonCmd</command>
+         <tran-id>UBF1010103</tran-id> 
+    </action> 
+    
+    <!-- 토큰 폐기 처리 -->
+    <action name="/prcTkenDscr">
+         <method>post</method>
+         <command>#restCommonCmd</command>
+         <tran-id>UBF1010102</tran-id> 
+    </action> 
+    
+</navigation>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvGcbShetNoNbr" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::07.채번관리::GCB장표번호채번Ebi::GCB장표번호채번Dao::GCB장표번호채번조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/nbrMg/gcbShetNoNbrEbi/TBGCBCN09/retvGcbShetNoNbr */ 
+			       A.부점코드
+			     , A.장표정리구분코드
+			     , A.장표서식ID
+			     , A.장표번호채번일
+			     , A.장표번호채번일련번호
+			     , A.장표번호채번최종년월일
+			     , A.시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시 
+			  FROM INSTC.TBGCBCN09 A 
+			 WHERE A.부점코드     = ${부점코드}
+			   AND A.장표정리구분코드 = ${장표정리구분코드}
+			   AND A.장표서식ID   = ${장표서식ID}
+			   AND A.장표번호채번일  = ${장표번호채번일}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="regtGcbShetNoNbr" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::07.채번관리::GCB장표번호채번Ebi::GCB장표번호채번Dao::GCB장표번호채번등록">
+		<![CDATA[
+			INSERT /*+ 위상규::/gcb/nbrMg/gcbShetNoNbrEbi/TBGCBCN09/regtGcbShetNoNbr */
+			  INTO INSTC.TBGCBCN09
+			(
+			   부점코드
+			 , 장표정리구분코드
+			 , 장표서식ID
+			 , 장표번호채번일
+			 , 장표번호채번일련번호
+			 , 장표번호채번최종년월일
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${부점코드}
+			 ,${장표정리구분코드}
+			 ,${장표서식ID}
+			 ,${장표번호채번일}
+			 ,${장표번호채번일련번호}
+			 ,${장표번호채번최종년월일}
+			 ,SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,${시스템최종거래일시}
+			)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="uptGcbShetNoNbr" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::07.채번관리::GCB장표번호채번Ebi::GCB장표번호채번Dao::GCB장표번호채번수정">
+		<![CDATA[
+			UPDATE /*+ 위상규::/gcb/nbrMg/gcbShetNoNbrEbi/TBGCBCN09/uptGcbShetNoNbr */ 
+			       INSTC.TBGCBCN09 
+			   SET 장표번호채번일련번호  = ${장표번호채번일련번호}
+			     , 장표번호채번최종년월일 = ${장표번호채번최종년월일}
+			     , 시스템최종갱신일시   = SYSTIMESTAMP
+			     , 시스템최종갱신식별자  = ${시스템최종갱신식별자}
+			     , 시스템최종거래일시   = ${시스템최종거래일시}
+			 WHERE 부점코드     = ${부점코드}
+			   AND 장표정리구분코드 = ${장표정리구분코드}
+			   AND 장표서식ID   = ${장표서식ID}
+			   AND 장표번호채번일  = ${장표번호채번일}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLckGcbShetNoNbr" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::07.채번관리::GCB장표번호채번Ebi::GCB장표번호채번Dao::GCB장표번호채번락조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/nbrMg/gcbShetNoNbrEbi/TBGCBCN09/retvLckGcbShetNoNbr */ 
+			       A.부점코드
+			     , A.장표정리구분코드
+			     , A.장표서식ID
+			     , A.장표번호채번일
+			     , A.장표번호채번일련번호
+			     , A.장표번호채번최종년월일
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBCN09 A        /* GCB장표번호채번 */
+			 WHERE A.부점코드     = ${부점코드}
+			   AND A.장표정리구분코드 = ${장표정리구분코드}
+			   AND A.장표서식ID   = ${장표서식ID}
+			   AND A.장표번호채번일  = ${장표번호채번일}
+			   FOR UPDATE WAIT 3
+		]]>
+    </statement>
+</statements>

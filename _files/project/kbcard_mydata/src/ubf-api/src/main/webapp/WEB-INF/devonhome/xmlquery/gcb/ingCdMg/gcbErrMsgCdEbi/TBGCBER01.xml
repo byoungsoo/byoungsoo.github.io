@@ -1,0 +1,1160 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <!-- 20210516 최웅기 CDC 테이블명 변경  TBGCBER01	:: TBUBDJ001
+    <statement name="retvGcbErrMsgCdInf" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB오류메시지코드정보조회">
+		<![CDATA[
+			SELECT /*+ 송재복::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvGcbErrMsgCdInf */ 
+			       A.언어구분코드
+			     , A.오류메시지코드
+			     , A.등록년월일
+			     , A.채널오류코드
+			     , A.오류메시지사용여부
+			     , A.센터컷중단구분코드
+			     , A.중요오류해당여부
+			     , A.책임자승인구분코드
+			     , A.책임자사유등급구분코드
+			     , A.등록어플리케이션코드
+			     , A.오류메시지출력내용 
+			  FROM INSTC.TBGCBER01 A 
+			 WHERE A.언어구분코드    = ${언어구분코드}
+			   AND A.메시지채널구분코드 = ${메시지채널구분코드}
+			   AND A.오류메시지코드   = ${오류메시지코드}
+			   AND A.적용시작년월일   <= ${적용시작년월일}
+			   AND A.적용종료년월일   >= ${적용종료년월일}
+		]]>
+    </statement>
+    -->
+    <statement name="retvGcbErrMsgCdInf" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB오류메시지코드정보조회">
+		<![CDATA[
+			SELECT /*+ 송재복::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvGcbErrMsgCdInf */ 
+			       A.언어구분코드
+			     , A.오류메시지코드
+			     , A.등록년월일
+			     , A.채널오류코드
+			     , A.오류메시지사용여부
+			     , A.센터컷중단구분코드
+			     , A.중요오류해당여부
+			     , A.책임자승인구분코드
+			     , A.책임자사유등급구분코드
+			     , A.등록어플리케이션코드
+			     , A.오류메시지출력내용 
+			  FROM INSTC.TBUBDJ001 A 
+			 WHERE A.언어구분코드    = ${언어구분코드}
+			   AND A.메시지채널구분코드 = ${메시지채널구분코드}
+			   AND A.오류메시지코드   = ${오류메시지코드}
+			   AND A.적용시작년월일   <= ${적용시작년월일}
+			   AND A.적용종료년월일   >= ${적용종료년월일}
+		]]>
+    </statement>
+
+    <!--  -->
+    <!-- 20210516 최웅기 CDC 테이블명 변경  TBGCBER01	:: TBUBDJ001
+    <statement name="retvLstGcbErrMsgCd" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB오류메시지코드목록조회">
+		<![CDATA[
+			SELECT /*+ 송재복::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvLstGcbErrMsgCd */ 
+			       A.언어구분코드
+			     , A.메시지채널구분코드
+			     , A.오류메시지코드
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , A.등록년월일
+			     , A.채널오류코드
+			     , A.오류메시지사용여부
+			     , A.센터컷중단구분코드
+			     , A.중요오류해당여부
+			     , A.책임자승인구분코드
+			     , A.책임자사유등급구분코드
+			     , A.등록어플리케이션코드
+			     , A.오류메시지출력내용 
+			  FROM INSTC.TBGCBER01 A 
+			 WHERE A.언어구분코드    = ${언어구분코드}
+			   AND A.메시지채널구분코드 = ${메시지채널구분코드}
+			   AND A.오류메시지코드   = ${오류메시지코드}
+			   AND A.적용시작년월일   = ${적용시작년월일}
+		]]>
+    </statement>
+    -->
+    <statement name="retvLstGcbErrMsgCd" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB오류메시지코드목록조회">
+		<![CDATA[
+			SELECT /*+ 송재복::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvLstGcbErrMsgCd */ 
+			       A.언어구분코드
+			     , A.메시지채널구분코드
+			     , A.오류메시지코드
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , A.등록년월일
+			     , A.채널오류코드
+			     , A.오류메시지사용여부
+			     , A.센터컷중단구분코드
+			     , A.중요오류해당여부
+			     , A.책임자승인구분코드
+			     , A.책임자사유등급구분코드
+			     , A.등록어플리케이션코드
+			     , A.오류메시지출력내용 
+			  FROM INSTC.TBUBDJ001 A 
+			 WHERE A.언어구분코드    = ${언어구분코드}
+			   AND A.메시지채널구분코드 = ${메시지채널구분코드}
+			   AND A.오류메시지코드   = ${오류메시지코드}
+			   AND A.적용시작년월일   = ${적용시작년월일}
+		]]>
+    </statement>
+
+    <!--  -->
+    <!-- 20210516 최웅기 CDC 테이블명 변경  TBGCBER01	:: TBUBDJ001
+    <statement name="retvGcbErrMsgCd" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB오류메시지코드조회">
+		<![CDATA[
+			SELECT /*+ 송재복::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvGcbErrMsgCd */ 
+			       A.언어구분코드
+			     , A.메시지채널구분코드
+			     , A.오류메시지코드
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , A.등록년월일
+			     , A.채널오류코드
+			     , A.오류메시지사용여부
+			     , A.센터컷중단구분코드
+			     , A.중요오류해당여부
+			     , A.책임자승인구분코드
+			     , A.책임자사유등급구분코드
+			     , A.등록어플리케이션코드
+			     , A.오류메시지출력내용 
+			  FROM INSTC.TBGCBER01 A 
+			 WHERE A.언어구분코드    = ${언어구분코드}
+			   AND A.메시지채널구분코드 = ${메시지채널구분코드}
+			   AND A.오류메시지코드   = ${오류메시지코드}
+			   AND ${적용시작년월일} BETWEEN A.적용시작년월일 AND A.적용종료년월일
+		]]>
+    </statement>
+    -->
+    <statement name="retvGcbErrMsgCd" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB오류메시지코드조회">
+		<![CDATA[
+			SELECT /*+ 송재복::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvGcbErrMsgCd */ 
+			       A.언어구분코드
+			     , A.메시지채널구분코드
+			     , A.오류메시지코드
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , A.등록년월일
+			     , A.채널오류코드
+			     , A.오류메시지사용여부
+			     , A.센터컷중단구분코드
+			     , A.중요오류해당여부
+			     , A.책임자승인구분코드
+			     , A.책임자사유등급구분코드
+			     , A.등록어플리케이션코드
+			     , A.오류메시지출력내용 
+			  FROM INSTC.TBUBDJ001 A 
+			 WHERE A.언어구분코드    = ${언어구분코드}
+			   AND A.메시지채널구분코드 = ${메시지채널구분코드}
+			   AND A.오류메시지코드   = ${오류메시지코드}
+			   AND ${적용시작년월일} BETWEEN A.적용시작년월일 AND A.적용종료년월일
+		]]>
+    </statement>
+
+    <!--  -->
+    <!-- 20210516 최웅기 CDC 테이블명 변경  TBGCBER01	:: TBUBDJ001
+    <statement name="retvLstGcbSpsrAthMsg" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB책임자승인메시지목록조회">
+		<![CDATA[
+			SELECT /*+ 김민교::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvLstGcbSpsrAthMsg */ 
+			       A.오류메시지코드
+			     , A.메시지채널구분코드
+			     , A.오류메시지사용여부
+			     , A.등록어플리케이션코드
+			     , A.등록년월일
+			     , A.오류메시지출력내용
+			     , A.언어구분코드
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , A.책임자사유등급구분코드
+			     , A.책임자승인구분코드
+			  FROM INSTC.TBGCBER01 A,
+			       (SELECT 언어구분코드
+			             , 오류메시지코드
+			             , 메시지채널구분코드
+			             , MAX(적용시작년월일) B01
+			          FROM INSTC.TBGCBER01
+			         WHERE 언어구분코드 = ${언어구분코드}
+			           AND 메시지채널구분코드 = '01'
+			           AND (오류메시지코드 like 'A88%' OR 오류메시지코드 like 'B88%')
+			           AND 적용시작년월일 <= ${적용시작년월일}
+			           AND ( ( 'CRD' = ${검색조건_V3}
+			                  AND (오류메시지코드 like 'A88%' OR 오류메시지코드 like 'B88%')   )
+			              OR ( 'MSG' = ${검색조건_V3}
+			                  AND 오류메시지코드 >= ${오류메시지코드시작_V8}
+			                  AND 오류메시지코드 <= ${오류메시지코드종료_V8} )
+			              OR ( ( 'WRD' = ${검색조건_V3}
+			                    AND 'AND' = ${논리구분코드_V3}
+			                    AND 오류메시지출력내용 LIKE '%'||${메시지주요단어1_V20}||'%'
+			                    AND 오류메시지출력내용 LIKE '%'||${메시지주요단어2_V20}||'%' )
+			                  OR ( 'WRD' = ${검색조건_V3}
+			                      AND 'OR' = ${논리구분코드_V3}
+			                      AND ( 오류메시지출력내용 LIKE '%'||${메시지주요단어1_V20}||'%'
+			                           OR 오류메시지출력내용 LIKE '%'||${메시지주요단어2_V20}||'%' ) ) 
+			                  ) 
+			                )
+			         GROUP BY 언어구분코드
+			                , 오류메시지코드
+			                , 메시지채널구분코드 ) B
+			 WHERE A.언어구분코드 = B.언어구분코드
+			   AND A.메시지채널구분코드 = B.메시지채널구분코드
+			   AND A.오류메시지코드 = B.오류메시지코드
+			   AND A.적용시작년월일 = B.B01
+		]]>
+    </statement>
+    -->
+	<statement name="retvLstGcbSpsrAthMsg" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB책임자승인메시지목록조회">
+		<![CDATA[
+			SELECT /*+ 김민교::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvLstGcbSpsrAthMsg */ 
+			       A.오류메시지코드
+			     , A.메시지채널구분코드
+			     , A.오류메시지사용여부
+			     , A.등록어플리케이션코드
+			     , A.등록년월일
+			     , A.오류메시지출력내용
+			     , A.언어구분코드
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , A.책임자사유등급구분코드
+			     , A.책임자승인구분코드
+			  FROM INSTC.TBUBDJ001 A,
+			       (SELECT 언어구분코드
+			             , 오류메시지코드
+			             , 메시지채널구분코드
+			             , MAX(적용시작년월일) B01
+			          FROM INSTC.TBUBDJ001
+			         WHERE 언어구분코드 = ${언어구분코드}
+			           AND 메시지채널구분코드 = '01'
+			           AND (오류메시지코드 like 'A88%' OR 오류메시지코드 like 'B88%')
+			           AND 적용시작년월일 <= ${적용시작년월일}
+			           AND ( ( 'CRD' = ${검색조건_V3}
+			                  AND (오류메시지코드 like 'A88%' OR 오류메시지코드 like 'B88%')   )
+			              OR ( 'MSG' = ${검색조건_V3}
+			                  AND 오류메시지코드 >= ${오류메시지코드시작_V8}
+			                  AND 오류메시지코드 <= ${오류메시지코드종료_V8} )
+			              OR ( ( 'WRD' = ${검색조건_V3}
+			                    AND 'AND' = ${논리구분코드_V3}
+			                    AND 오류메시지출력내용 LIKE '%'||${메시지주요단어1_V20}||'%'
+			                    AND 오류메시지출력내용 LIKE '%'||${메시지주요단어2_V20}||'%' )
+			                  OR ( 'WRD' = ${검색조건_V3}
+			                      AND 'OR' = ${논리구분코드_V3}
+			                      AND ( 오류메시지출력내용 LIKE '%'||${메시지주요단어1_V20}||'%'
+			                           OR 오류메시지출력내용 LIKE '%'||${메시지주요단어2_V20}||'%' ) ) 
+			                  ) 
+			                )
+			         GROUP BY 언어구분코드
+			                , 오류메시지코드
+			                , 메시지채널구분코드 ) B
+			 WHERE A.언어구분코드 = B.언어구분코드
+			   AND A.메시지채널구분코드 = B.메시지채널구분코드
+			   AND A.오류메시지코드 = B.오류메시지코드
+			   AND A.적용시작년월일 = B.B01
+		]]>
+    </statement>
+    <!--  -->
+    <!-- 20210516 최웅기 CDC 테이블명 변경  TBGCBER01	:: TBUBDJ001
+    <statement name="retvLstGcbTrmlTrtMsgPup" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB단말조치메시지팝업목록조회">
+		<![CDATA[
+			SELECT /*+ 김민교::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvLstGcbTrmlTrtMsgPup */ 
+			      A.언어구분코드
+			    , A.메시지채널구분코드
+			    , A.오류메시지코드
+			    , A.적용시작년월일
+			    , A.오류메시지출력내용 
+			 FROM INSTC.TBGCBER01 A 
+			 WHERE A.언어구분코드    = ${언어구분코드}
+			  AND A.메시지채널구분코드 = ${메시지채널구분코드}
+			  AND A.오류메시지코드   = ${오류메시지코드}
+			  AND A.적용시작년월일   <= ${적용시작년월일}
+			  AND A.적용종료년월일   >= ${적용종료년월일}
+		]]>
+    </statement>
+    -->
+    <statement name="retvLstGcbTrmlTrtMsgPup" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB단말조치메시지팝업목록조회">
+		<![CDATA[
+			SELECT /*+ 김민교::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvLstGcbTrmlTrtMsgPup */ 
+			      A.언어구분코드
+			    , A.메시지채널구분코드
+			    , A.오류메시지코드
+			    , A.적용시작년월일
+			    , A.오류메시지출력내용 
+			 FROM INSTC.TBUBDJ001 A 
+			 WHERE A.언어구분코드    = ${언어구분코드}
+			  AND A.메시지채널구분코드 = ${메시지채널구분코드}
+			  AND A.오류메시지코드   = ${오류메시지코드}
+			  AND A.적용시작년월일   <= ${적용시작년월일}
+			  AND A.적용종료년월일   >= ${적용종료년월일}
+		]]>
+    </statement>
+
+    <!--  -->
+    <!-- 20210516 최웅기 CDC 테이블명 변경  TBGCBER01	:: TBUBDJ001
+    <statement name="retvGcbErrMsgSamMsgYn" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB오류메시지동일메시지여부조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvGcbErrMsgSamMsgYn */ 
+			       A.언어구분코드
+			     , A.메시지채널구분코드
+			     , A.오류메시지코드
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , A.등록년월일
+			     , A.채널오류코드
+			     , A.오류메시지사용여부
+			     , A.센터컷중단구분코드
+			     , A.중요오류해당여부
+			     , A.책임자승인구분코드
+			     , A.책임자사유등급구분코드
+			     , A.등록어플리케이션코드
+			     , A.오류메시지출력내용
+			  FROM INSTC.TBGCBER01 A 
+			 WHERE 언어구분코드 = ${언어구분코드}
+			   AND 메시지채널구분코드 = ${메시지채널구분코드}
+			   AND 오류메시지코드 LIKE 'T%'
+			   AND (오류메시지코드 <> ${오류메시지코드} 
+			        OR ${오류메시지코드} IS NULL)   
+			   AND 오류메시지출력내용 = ${오류메시지출력내용}
+		]]>
+    </statement>
+	-->
+	<statement name="retvGcbErrMsgSamMsgYn" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB오류메시지동일메시지여부조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvGcbErrMsgSamMsgYn */ 
+			       A.언어구분코드
+			     , A.메시지채널구분코드
+			     , A.오류메시지코드
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , A.등록년월일
+			     , A.채널오류코드
+			     , A.오류메시지사용여부
+			     , A.센터컷중단구분코드
+			     , A.중요오류해당여부
+			     , A.책임자승인구분코드
+			     , A.책임자사유등급구분코드
+			     , A.등록어플리케이션코드
+			     , A.오류메시지출력내용
+			  FROM INSTC.TBUBDJ001 A 
+			 WHERE 언어구분코드 = ${언어구분코드}
+			   AND 메시지채널구분코드 = ${메시지채널구분코드}
+			   AND 오류메시지코드 LIKE 'T%'
+			   AND (오류메시지코드 <> ${오류메시지코드} 
+			        OR ${오류메시지코드} IS NULL)   
+			   AND 오류메시지출력내용 = ${오류메시지출력내용}
+		]]>
+    </statement>
+    <!--  -->
+    <!-- 20210516 최웅기 CDC 테이블명 변경  TBGCBER01	:: TBUBDJ001
+    <statement name="retvGcbErrMsgSamMsgCttNcn" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB오류메시지동일메시지내용건수조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvGcbErrMsgSamMsgCttNcn */ 
+			       COUNT(*) 조회건수_N2
+			  FROM INSTC.TBGCBER01 A 
+			 WHERE 언어구분코드 = ${언어구분코드}
+			   AND 메시지채널구분코드 = ${메시지채널구분코드}
+			   AND 오류메시지코드 LIKE ${오류메시지코드시작_V8}||'%'
+			   AND (오류메시지코드 <> ${오류메시지코드} 
+			       OR ${오류메시지코드} IS NULL)   
+			   AND 오류메시지출력내용 = ${오류메시지출력내용}
+		]]>
+    </statement>
+    -->
+    <statement name="retvGcbErrMsgSamMsgCttNcn" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB오류메시지동일메시지내용건수조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvGcbErrMsgSamMsgCttNcn */ 
+			       COUNT(*) 조회건수_N2
+			  FROM INSTC.TBUBDJ001 A 
+			 WHERE 언어구분코드 = ${언어구분코드}
+			   AND 메시지채널구분코드 = ${메시지채널구분코드}
+			   AND 오류메시지코드 LIKE ${오류메시지코드시작_V8}||'%'
+			   AND (오류메시지코드 <> ${오류메시지코드} 
+			       OR ${오류메시지코드} IS NULL)   
+			   AND 오류메시지출력내용 = ${오류메시지출력내용}
+		]]>
+    </statement>
+
+    <!--  -->
+    <!-- 20210516 최웅기 CDC 테이블명 변경  TBGCBER01	:: TBUBDJ001
+    <statement name="retvGcbErrMsgSamMsgCdNcn" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB오류메시지동일메시지코드건수조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvGcbErrMsgSamMsgCdNcn */ 
+			       COUNT(*) 조회건수_N2 
+			  FROM INSTC.TBGCBER01 A 
+			 WHERE A.언어구분코드    = ${언어구분코드}
+			   AND A.메시지채널구분코드 = ${메시지채널구분코드}
+			   AND A.오류메시지코드   = ${오류메시지코드}
+			   AND A.적용시작년월일   = ${적용시작년월일}
+		]]>
+    </statement>
+	-->
+	<statement name="retvGcbErrMsgSamMsgCdNcn" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB오류메시지동일메시지코드건수조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvGcbErrMsgSamMsgCdNcn */ 
+			       COUNT(*) 조회건수_N2 
+			  FROM INSTC.TBUBDJ001 A 
+			 WHERE A.언어구분코드    = ${언어구분코드}
+			   AND A.메시지채널구분코드 = ${메시지채널구분코드}
+			   AND A.오류메시지코드   = ${오류메시지코드}
+			   AND A.적용시작년월일   = ${적용시작년월일}
+		]]>
+    </statement>
+    <!--  -->
+    <!-- 20210516 최웅기 CDC 테이블명 변경  TBGCBER01	:: TBUBDJ001
+    <statement name="retvGcbTrtMsgCdNbr" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB조치메시지코드채번조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvGcbTrtMsgCdNbr */ 
+			       CASE WHEN C.일련번호구분 = '0' THEN 'T'||${등록어플리케이션코드}||TRIM(TO_CHAR(TO_NUMBER(C.일련번호구분||C.일련번호+1), '0000'))
+			                                      ELSE CASE WHEN C.일련번호 = 999 THEN CASE WHEN C.일련번호구분 = '9' THEN 'T'||${등록어플리케이션코드}||TRIM(CHR(ASCII('A'))||'001') 
+			                                                                                WHEN C.일련번호구분 = 'Z' THEN 'T'||${등록어플리케이션코드}||TRIM(CHR(ASCII('a'))||'001') 
+			                                                                                                          ELSE 'T'||${등록어플리케이션코드}||TRIM(CHR(ASCII(C.일련번호구분)+1)||'001') 
+			                                                                           END
+			                                                                      ELSE 'T'||${등록어플리케이션코드}||C.일련번호구분||TRIM(TO_CHAR(TO_NUMBER(C.일련번호)+1, '000')) 
+			                                           END
+			       END 조치메시지코드
+			  FROM (SELECT SUBSTR(B.최대값, 5, 1) 일련번호구분
+			             , SUBSTR(B.최대값, 6, 3) 일련번호
+			          FROM (SELECT NVL(MAX(A.오류메시지코드), 'T'||${등록어플리케이션코드}||'0000') 최대값
+			                  FROM INSTC.TBGCBER01 A
+			                 WHERE A.오류메시지코드 LIKE 'T'||${등록어플리케이션코드}||'%') B
+			        ) C
+		]]>
+    </statement>
+	-->
+	<statement name="retvGcbTrtMsgCdNbr" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB조치메시지코드채번조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvGcbTrtMsgCdNbr */ 
+			       CASE WHEN C.일련번호구분 = '0' THEN 'T'||${등록어플리케이션코드}||TRIM(TO_CHAR(TO_NUMBER(C.일련번호구분||C.일련번호+1), '0000'))
+			                                      ELSE CASE WHEN C.일련번호 = 999 THEN CASE WHEN C.일련번호구분 = '9' THEN 'T'||${등록어플리케이션코드}||TRIM(CHR(ASCII('A'))||'001') 
+			                                                                                WHEN C.일련번호구분 = 'Z' THEN 'T'||${등록어플리케이션코드}||TRIM(CHR(ASCII('a'))||'001') 
+			                                                                                                          ELSE 'T'||${등록어플리케이션코드}||TRIM(CHR(ASCII(C.일련번호구분)+1)||'001') 
+			                                                                           END
+			                                                                      ELSE 'T'||${등록어플리케이션코드}||C.일련번호구분||TRIM(TO_CHAR(TO_NUMBER(C.일련번호)+1, '000')) 
+			                                           END
+			       END 조치메시지코드
+			  FROM (SELECT SUBSTR(B.최대값, 5, 1) 일련번호구분
+			             , SUBSTR(B.최대값, 6, 3) 일련번호
+			          FROM (SELECT NVL(MAX(A.오류메시지코드), 'T'||${등록어플리케이션코드}||'0000') 최대값
+			                  FROM INSTC.TBUBDJ001 A
+			                 WHERE A.오류메시지코드 LIKE 'T'||${등록어플리케이션코드}||'%') B
+			        ) C
+		]]>
+    </statement>
+	
+    <!--  -->
+    <!-- 20210516 최웅기 CDC 테이블명 변경  TBGCBER01	:: TBUBDJ001
+    <statement name="regtGcbErrMsgCd" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB오류메시지코드등록">
+		<![CDATA[
+			INSERT /*+ 김동현::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/regtGcbErrMsgCd */
+			  INTO INSTC.TBGCBER01
+			(
+			   언어구분코드
+			 , 메시지채널구분코드
+			 , 오류메시지코드
+			 , 적용시작년월일
+			 , 적용종료년월일
+			 , 등록년월일
+			 , 채널오류코드
+			 , 오류메시지사용여부
+			 , 센터컷중단구분코드
+			 , 중요오류해당여부
+			 , 책임자승인구분코드
+			 , 책임자사유등급구분코드
+			 , 등록어플리케이션코드
+			 , 오류메시지출력내용
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${언어구분코드}
+			 ,${메시지채널구분코드}
+			 ,${오류메시지코드}
+			 ,${적용시작년월일}
+			 ,${적용종료년월일}
+			 ,${등록년월일}
+			 ,${채널오류코드}
+			 ,${오류메시지사용여부}
+			 ,${센터컷중단구분코드}
+			 ,${중요오류해당여부}
+			 ,${책임자승인구분코드}
+			 ,${책임자사유등급구분코드}
+			 ,${등록어플리케이션코드}
+			 ,${오류메시지출력내용}
+			 ,SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,${시스템최종거래일시}
+			)
+		]]>
+    </statement>
+	-->
+	<statement name="regtGcbErrMsgCd" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB오류메시지코드등록">
+		<![CDATA[
+			INSERT /*+ 김동현::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/regtGcbErrMsgCd */
+			  INTO INSTC.TBUBDJ001
+			(
+			   언어구분코드
+			 , 메시지채널구분코드
+			 , 오류메시지코드
+			 , 적용시작년월일
+			 , 적용종료년월일
+			 , 등록년월일
+			 , 채널오류코드
+			 , 오류메시지사용여부
+			 , 센터컷중단구분코드
+			 , 중요오류해당여부
+			 , 책임자승인구분코드
+			 , 책임자사유등급구분코드
+			 , 등록어플리케이션코드
+			 , 오류메시지출력내용
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${언어구분코드}
+			 ,${메시지채널구분코드}
+			 ,${오류메시지코드}
+			 ,${적용시작년월일}
+			 ,${적용종료년월일}
+			 ,${등록년월일}
+			 ,${채널오류코드}
+			 ,${오류메시지사용여부}
+			 ,${센터컷중단구분코드}
+			 ,${중요오류해당여부}
+			 ,${책임자승인구분코드}
+			 ,${책임자사유등급구분코드}
+			 ,${등록어플리케이션코드}
+			 ,${오류메시지출력내용}
+			 ,SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,${시스템최종거래일시}
+			)
+		]]>
+    </statement>
+    <!--  -->
+    <!-- 20210516 최웅기 CDC 테이블명 변경  TBGCBER01	:: TBUBDJ001
+    <statement name="uptGcbErrMsgCd" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB오류메시지코드수정">
+		<![CDATA[
+			UPDATE /*+ 김동현::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/uptGcbErrMsgCd */ 
+			       INSTC.TBGCBER01 
+			   SET 적용종료년월일      = ${적용종료년월일}
+			     , 등록년월일        = ${등록년월일}
+			     , 채널오류코드       = ${채널오류코드}
+			     , 오류메시지사용여부    = ${오류메시지사용여부}
+			     , 센터컷중단구분코드    = ${센터컷중단구분코드}
+			     , 중요오류해당여부     = ${중요오류해당여부}
+			     , 책임자승인구분코드    = ${책임자승인구분코드}
+			     , 책임자사유등급구분코드  = ${책임자사유등급구분코드}
+			     , 등록어플리케이션코드   = ${등록어플리케이션코드}
+			     , 오류메시지출력내용    = ${오류메시지출력내용}			     
+			     , 시스템최종갱신일시     = SYSTIMESTAMP
+			     , 시스템최종갱신식별자    = ${시스템최종갱신식별자}
+			     , 시스템최종거래일시     = ${시스템최종거래일시}
+			 WHERE 언어구분코드    = ${언어구분코드}
+			   AND 메시지채널구분코드 = ${메시지채널구분코드}
+			   AND 오류메시지코드   = ${오류메시지코드}
+			   AND 적용시작년월일   = ${적용시작년월일}
+		]]>
+    </statement>
+	-->
+	<statement name="uptGcbErrMsgCd" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB오류메시지코드수정">
+		<![CDATA[
+			UPDATE /*+ 김동현::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/uptGcbErrMsgCd */ 
+			       INSTC.TBUBDJ001 
+			   SET 적용종료년월일      = ${적용종료년월일}
+			     , 등록년월일        = ${등록년월일}
+			     , 채널오류코드       = ${채널오류코드}
+			     , 오류메시지사용여부    = ${오류메시지사용여부}
+			     , 센터컷중단구분코드    = ${센터컷중단구분코드}
+			     , 중요오류해당여부     = ${중요오류해당여부}
+			     , 책임자승인구분코드    = ${책임자승인구분코드}
+			     , 책임자사유등급구분코드  = ${책임자사유등급구분코드}
+			     , 등록어플리케이션코드   = ${등록어플리케이션코드}
+			     , 오류메시지출력내용    = ${오류메시지출력내용}			     
+			     , 시스템최종갱신일시     = SYSTIMESTAMP
+			     , 시스템최종갱신식별자    = ${시스템최종갱신식별자}
+			     , 시스템최종거래일시     = ${시스템최종거래일시}
+			 WHERE 언어구분코드    = ${언어구분코드}
+			   AND 메시지채널구분코드 = ${메시지채널구분코드}
+			   AND 오류메시지코드   = ${오류메시지코드}
+			   AND 적용시작년월일   = ${적용시작년월일}
+		]]>
+    </statement>
+    <!--  -->
+    <!-- 20210516 최웅기 CDC 테이블명 변경  TBGCBER01	:: TBUBDJ001
+    <statement name="retvLckGcbErrMsgCd" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB오류메시지코드락조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvLckGcbErrMsgCd */ 
+			       A.언어구분코드
+			     , A.메시지채널구분코드
+			     , A.오류메시지코드
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , A.등록년월일
+			     , A.채널오류코드
+			     , A.오류메시지사용여부
+			     , A.센터컷중단구분코드
+			     , A.중요오류해당여부
+			     , A.책임자승인구분코드
+			     , A.책임자사유등급구분코드
+			     , A.등록어플리케이션코드
+			     , A.오류메시지출력내용
+			  FROM INSTC.TBGCBER01 A 
+			 WHERE A.언어구분코드    = ${언어구분코드}
+			   AND A.메시지채널구분코드 = ${메시지채널구분코드}
+			   AND A.오류메시지코드   = ${오류메시지코드}
+			   AND A.적용시작년월일   = ${적용시작년월일}
+			FOR UPDATE WAIT 0
+		]]>
+    </statement>
+    -->
+	<statement name="retvLckGcbErrMsgCd" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB오류메시지코드락조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvLckGcbErrMsgCd */ 
+			       A.언어구분코드
+			     , A.메시지채널구분코드
+			     , A.오류메시지코드
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , A.등록년월일
+			     , A.채널오류코드
+			     , A.오류메시지사용여부
+			     , A.센터컷중단구분코드
+			     , A.중요오류해당여부
+			     , A.책임자승인구분코드
+			     , A.책임자사유등급구분코드
+			     , A.등록어플리케이션코드
+			     , A.오류메시지출력내용
+			  FROM INSTC.TBUBDJ001 A 
+			 WHERE A.언어구분코드    = ${언어구분코드}
+			   AND A.메시지채널구분코드 = ${메시지채널구분코드}
+			   AND A.오류메시지코드   = ${오류메시지코드}
+			   AND A.적용시작년월일   = ${적용시작년월일}
+			FOR UPDATE WAIT 0
+		]]>
+    </statement>
+    <!--  -->
+    <!-- 20210516 최웅기 CDC 테이블명 변경  TBGCBER01	:: TBUBDJ001
+    <statement name="delGcbErrMsgCd" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB오류메시지코드삭제" >
+		<![CDATA[
+			DELETE /*+ 김동현::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/delGcbErrMsgCd */
+			  FROM INSTC.TBGCBER01  
+			 WHERE 언어구분코드    = ${언어구분코드}
+			   AND 메시지채널구분코드 = ${메시지채널구분코드}
+			   AND 오류메시지코드   = ${오류메시지코드}
+			   AND 적용시작년월일   = ${적용시작년월일}
+		]]>
+    </statement>
+	-->
+	<statement name="delGcbErrMsgCd" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB오류메시지코드삭제" >
+		<![CDATA[
+			DELETE /*+ 김동현::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/delGcbErrMsgCd */
+			  FROM INSTC.TBUBDJ001  
+			 WHERE 언어구분코드    = ${언어구분코드}
+			   AND 메시지채널구분코드 = ${메시지채널구분코드}
+			   AND 오류메시지코드   = ${오류메시지코드}
+			   AND 적용시작년월일   = ${적용시작년월일}
+		]]>
+    </statement>
+    <!--  -->
+    <!-- 20210516 최웅기 CDC 테이블명 변경  TBGCBER01	:: TBUBDJ001
+    <statement name="retvLstGcbErrMsgPup" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB오류메시지팝업목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvLstGcbErrMsgPup */ 
+			       A.오류메시지코드
+			     , A.센터컷중단구분코드
+			     , A.중요오류해당여부
+			     , A.오류메시지출력내용
+			     , A.언어구분코드
+			     , A.메시지채널구분코드
+			     , A.적용시작년월일 
+			  FROM INSTC.TBGCBER01 A 
+			 WHERE A.언어구분코드    = ${언어구분코드}
+			   AND A.메시지채널구분코드 = ${메시지채널구분코드}
+			   AND (A.오류메시지코드 LIKE 'A%' OR A.오류메시지코드 LIKE 'B%')
+			   AND (A.오류메시지코드 >= ${메시지코드시작_V8}
+			       OR ${메시지코드시작_V8} IS NULL)
+			   AND (A.오류메시지코드 <= ${메시지코드종료_V8}
+			       OR ${메시지코드종료_V8} IS NULL)
+			   AND A.적용시작년월일 <= ${적용시작년월일}
+			   AND A.오류메시지출력내용 LIKE TRIM(${오류메시지출력내용})||'%'
+		]]>
+    </statement>
+	-->
+	<statement name="retvLstGcbErrMsgPup" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB오류메시지팝업목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvLstGcbErrMsgPup */ 
+			       A.오류메시지코드
+			     , A.센터컷중단구분코드
+			     , A.중요오류해당여부
+			     , A.오류메시지출력내용
+			     , A.언어구분코드
+			     , A.메시지채널구분코드
+			     , A.적용시작년월일 
+			  FROM INSTC.TBUBDJ001 A 
+			 WHERE A.언어구분코드    = ${언어구분코드}
+			   AND A.메시지채널구분코드 = ${메시지채널구분코드}
+			   AND (A.오류메시지코드 LIKE 'A%' OR A.오류메시지코드 LIKE 'B%')
+			   AND (A.오류메시지코드 >= ${메시지코드시작_V8}
+			       OR ${메시지코드시작_V8} IS NULL)
+			   AND (A.오류메시지코드 <= ${메시지코드종료_V8}
+			       OR ${메시지코드종료_V8} IS NULL)
+			   AND A.적용시작년월일 <= ${적용시작년월일}
+			   AND A.오류메시지출력내용 LIKE TRIM(${오류메시지출력내용})||'%'
+		]]>
+    </statement>
+    <!--  -->
+    <!-- 20210516 최웅기 CDC 테이블명 변경  TBGCBER01	:: TBUBDJ001
+    <statement name="retvLstGcbTrtMsgPup" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB조치메시지팝업목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvLstGcbTrtMsgPup */ 
+			       A.오류메시지코드
+			     , A.등록어플리케이션코드
+			     , A.오류메시지출력내용
+			     , A.언어구분코드
+			     , A.메시지채널구분코드
+			     , A.적용시작년월일
+			  FROM INSTC.TBGCBER01 A 
+			 WHERE A.언어구분코드    = ${언어구분코드}
+			   AND A.등록어플리케이션코드 LIKE TRIM(${등록어플리케이션코드})||'%'
+			   AND (A.오류메시지코드 LIKE 'U%' OR A.오류메시지코드 LIKE 'T%')
+			   AND (A.오류메시지코드 >= ${메시지코드시작_V8}
+			       OR ${메시지코드시작_V8} IS NULL)
+			   AND (A.오류메시지코드 <= ${메시지코드종료_V8}
+			       OR ${메시지코드종료_V8} IS NULL)
+			   AND A.적용시작년월일 <= ${적용시작년월일}
+			   AND A.오류메시지출력내용 LIKE TRIM(${오류메시지출력내용})||'%'
+		]]>
+    </statement>
+	-->
+	<statement name="retvLstGcbTrtMsgPup" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB조치메시지팝업목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvLstGcbTrtMsgPup */ 
+			       A.오류메시지코드
+			     , A.등록어플리케이션코드
+			     , A.오류메시지출력내용
+			     , A.언어구분코드
+			     , A.메시지채널구분코드
+			     , A.적용시작년월일
+			  FROM INSTC.TBUBDJ001 A 
+			 WHERE A.언어구분코드    = ${언어구분코드}
+			   AND A.등록어플리케이션코드 LIKE TRIM(${등록어플리케이션코드})||'%'
+			   AND (A.오류메시지코드 LIKE 'U%' OR A.오류메시지코드 LIKE 'T%')
+			   AND (A.오류메시지코드 >= ${메시지코드시작_V8}
+			       OR ${메시지코드시작_V8} IS NULL)
+			   AND (A.오류메시지코드 <= ${메시지코드종료_V8}
+			       OR ${메시지코드종료_V8} IS NULL)
+			   AND A.적용시작년월일 <= ${적용시작년월일}
+			   AND A.오류메시지출력내용 LIKE TRIM(${오류메시지출력내용})||'%'
+		]]>
+    </statement>
+    <!--  -->
+    <!-- 20210516 최웅기 CDC 테이블명 변경  TBGCBER01	:: TBUBDJ001
+    <statement name="retvLstGcbSpsrAthRsnMsgPup" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB책임자승인사유메시지팝업목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvLstGcbSpsrAthRsnMsgPup */ 
+			       A.오류메시지코드
+			     , A.오류메시지출력내용
+			     , A.언어구분코드
+			     , A.메시지채널구분코드
+			     , A.적용시작년월일
+			  FROM INSTC.TBGCBER01 A 
+			 WHERE A.언어구분코드    = ${언어구분코드}
+			   AND A.메시지채널구분코드 = '01'
+			   AND (A.오류메시지코드 LIKE 'A88%' OR A.오류메시지코드 LIKE 'B88%')
+			   AND (A.오류메시지코드 >= ${메시지코드시작_V8}
+			       OR ${메시지코드시작_V8} IS NULL)
+			   AND (A.오류메시지코드 <= ${메시지코드종료_V8}
+			       OR ${메시지코드종료_V8} IS NULL)
+			   AND A.적용시작년월일 <= ${적용시작년월일}
+			   AND A.오류메시지출력내용 LIKE TRIM(${오류메시지출력내용})||'%'
+		]]>
+    </statement>
+    -->
+	<statement name="retvLstGcbSpsrAthRsnMsgPup" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB책임자승인사유메시지팝업목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvLstGcbSpsrAthRsnMsgPup */ 
+			       A.오류메시지코드
+			     , A.오류메시지출력내용
+			     , A.언어구분코드
+			     , A.메시지채널구분코드
+			     , A.적용시작년월일
+			  FROM INSTC.TBUBDJ001 A 
+			 WHERE A.언어구분코드    = ${언어구분코드}
+			   AND A.메시지채널구분코드 = '01'
+			   AND (A.오류메시지코드 LIKE 'A88%' OR A.오류메시지코드 LIKE 'B88%')
+			   AND (A.오류메시지코드 >= ${메시지코드시작_V8}
+			       OR ${메시지코드시작_V8} IS NULL)
+			   AND (A.오류메시지코드 <= ${메시지코드종료_V8}
+			       OR ${메시지코드종료_V8} IS NULL)
+			   AND A.적용시작년월일 <= ${적용시작년월일}
+			   AND A.오류메시지출력내용 LIKE TRIM(${오류메시지출력내용})||'%'
+		]]>
+    </statement>
+    <!--  -->
+    <!-- 20210516 최웅기 CDC 테이블명 변경  TBGCBER01	:: TBUBDJ001
+    <statement name="retvGcbSpsrAthMsgCdNbr" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB책임자승인메시지코드채번조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvGcbSpsrAthMsgCdNbr */ 
+			       ${오류메시지코드시작_V8}||
+			       ${책임자승인구분코드}||TRIM(TO_CHAR(NVL(MAX(SUBSTR(A.오류메시지코드, 5, 9)) + 1, 1), '0000')) 책임자승인메시지코드_V8
+			  FROM INSTC.TBGCBER01 A
+			 WHERE A.언어구분코드 = ${언어구분코드}
+			   AND A.메시지채널구분코드 = ${메시지채널구분코드}
+			   AND A.오류메시지코드 >= ${오류메시지코드시작_V8}||
+			                      ${책임자승인구분코드}||'0000'
+			   AND A.오류메시지코드 <= ${오류메시지코드시작_V8}||
+			                      ${책임자승인구분코드}||'9999'
+		]]>
+    </statement>
+	-->
+	<statement name="retvGcbSpsrAthMsgCdNbr" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB책임자승인메시지코드채번조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvGcbSpsrAthMsgCdNbr */ 
+			       ${오류메시지코드시작_V8}||
+			       ${책임자승인구분코드}||TRIM(TO_CHAR(NVL(MAX(SUBSTR(A.오류메시지코드, 5, 9)) + 1, 1), '0000')) 책임자승인메시지코드_V8
+			  FROM INSTC.TBUBDJ001 A
+			 WHERE A.언어구분코드 = ${언어구분코드}
+			   AND A.메시지채널구분코드 = ${메시지채널구분코드}
+			   AND A.오류메시지코드 >= ${오류메시지코드시작_V8}||
+			                      ${책임자승인구분코드}||'0000'
+			   AND A.오류메시지코드 <= ${오류메시지코드시작_V8}||
+			                      ${책임자승인구분코드}||'9999'
+		]]>
+    </statement>
+    <!--  -->
+    <!-- 20210516 최웅기 CDC 테이블명 변경  TBGCBER01	:: TBUBDJ001
+    <statement name="retvGcbErrMsgCdBas" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB오류메시지코드기본조회" >
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvGcbErrMsgCdBas */ 
+			       A.언어구분코드
+			     , A.메시지채널구분코드
+			     , A.오류메시지코드
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , A.등록년월일
+			     , A.채널오류코드
+			     , A.오류메시지사용여부
+			     , A.센터컷중단구분코드
+			     , A.중요오류해당여부
+			     , A.책임자승인구분코드
+			     , A.책임자사유등급구분코드
+			     , A.등록어플리케이션코드
+			     , A.오류메시지출력내용
+			     , TO_CHAR(시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBER01 A 
+			 WHERE A.언어구분코드    = ${언어구분코드}
+			   AND A.메시지채널구분코드 = ${메시지채널구분코드}
+			   AND A.오류메시지코드   = ${오류메시지코드}
+			   AND A.적용시작년월일   = ${적용시작년월일}
+		]]>
+    </statement>
+	-->
+	<statement name="retvGcbErrMsgCdBas" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB오류메시지코드기본조회" >
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvGcbErrMsgCdBas */ 
+			       A.언어구분코드
+			     , A.메시지채널구분코드
+			     , A.오류메시지코드
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , A.등록년월일
+			     , A.채널오류코드
+			     , A.오류메시지사용여부
+			     , A.센터컷중단구분코드
+			     , A.중요오류해당여부
+			     , A.책임자승인구분코드
+			     , A.책임자사유등급구분코드
+			     , A.등록어플리케이션코드
+			     , A.오류메시지출력내용
+			     , TO_CHAR(시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBUBDJ001 A 
+			 WHERE A.언어구분코드    = ${언어구분코드}
+			   AND A.메시지채널구분코드 = ${메시지채널구분코드}
+			   AND A.오류메시지코드   = ${오류메시지코드}
+			   AND A.적용시작년월일   = ${적용시작년월일}
+		]]>
+    </statement>
+    <!--  -->
+    <!-- 20210516 최웅기 CDC 테이블명 변경  TBGCBER01	:: TBUBDJ001
+    <statement name="retvLstGcbErrMsg" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB오류메시지목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvLstGcbErrMsg */ 
+			       A.언어구분코드
+			     , A.메시지채널구분코드
+			     , A.오류메시지코드
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , A.등록년월일
+			     , A.채널오류코드
+			     , A.오류메시지사용여부
+			     , A.센터컷중단구분코드
+			     , A.중요오류해당여부
+			     , A.책임자승인구분코드
+			     , A.책임자사유등급구분코드
+			     , A.등록어플리케이션코드
+			     , A.오류메시지출력내용
+			  FROM INSTC.TBGCBER01 A 
+			     , (SELECT B.언어구분코드
+			             , B.메시지채널구분코드
+			             , B.오류메시지코드
+			             , MAX(B.적용시작년월일) B01
+			          FROM INSTC.TBGCBER01 B
+			         WHERE B.언어구분코드 = ${언어구분코드}
+			           AND (B.메시지채널구분코드 = ${메시지채널구분코드}
+			               OR ${메시지채널구분코드} = '00')
+			           AND B.메시지채널구분코드 IN ('01', '02', '03', '04', '05', '06')
+			           AND ${기준년월일} BETWEEN B.적용시작년월일 AND B.적용종료년월일
+			           AND B.오류메시지코드 LIKE ${오류메시지종류구분코드}
+			                              ||${오류메시지발생유형구분코드}
+			                              ||'%'
+			           AND (B.오류메시지코드 >= ${오류메시지코드시작_V8} 
+			                OR ${오류메시지코드시작_V8} IS NULL)
+			           AND (B.오류메시지코드 <= ${오류메시지코드종료_V8} 
+			                OR ${오류메시지코드종료_V8} IS NULL)
+			           AND B.오류메시지사용여부 LIKE TRIM(${오류메시지사용여부})||'%'
+			           AND (   ( 'AND' = ${논리구분코드_V3}
+			                     AND B.오류메시지출력내용 LIKE '%'||TRIM(${오류메시지주요단어1_V40})||'%'
+			                     AND B.오류메시지출력내용 LIKE '%'||TRIM(${오류메시지주요단어2_V40})||'%' )
+			                OR ( 'OR' = ${논리구분코드_V3}
+			                     AND ( B.오류메시지출력내용 LIKE '%'||TRIM(${오류메시지주요단어1_V40})||'%'
+			                        OR B.오류메시지출력내용 LIKE '%'||TRIM(${오류메시지주요단어2_V40})||'%' ) ) )
+			           AND NOT EXISTS (SELECT 1
+			                             FROM INSTC.TBGCBER01 C
+			                            WHERE C.언어구분코드 = ${언어구분코드}
+			                              AND (C.메시지채널구분코드 = ${메시지채널구분코드}
+			                                  OR ${메시지채널구분코드} = '00')
+			                              AND C.오류메시지코드 LIKE 'A88%'
+			                              AND ${기준년월일} BETWEEN C.적용시작년월일 AND C.적용종료년월일
+			                              AND C.언어구분코드 = B.언어구분코드
+			                              AND C.메시지채널구분코드 = B.메시지채널구분코드
+			                              AND C.오류메시지코드 = B.오류메시지코드
+			                              AND C.적용시작년월일 = B.적용시작년월일)                              
+			        GROUP BY B.언어구분코드, B.메시지채널구분코드, B.오류메시지코드 
+			        ) B
+			 WHERE A. 언어구분코드 = B. 언어구분코드
+			   AND A. 메시지채널구분코드 = B. 메시지채널구분코드
+			   AND A. 오류메시지코드 = B. 오류메시지코드
+			   AND A. 적용시작년월일 = B.B01
+		]]>
+    </statement>
+	-->
+	<statement name="retvLstGcbErrMsg" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB오류메시지목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvLstGcbErrMsg */ 
+			       A.언어구분코드
+			     , A.메시지채널구분코드
+			     , A.오류메시지코드
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , A.등록년월일
+			     , A.채널오류코드
+			     , A.오류메시지사용여부
+			     , A.센터컷중단구분코드
+			     , A.중요오류해당여부
+			     , A.책임자승인구분코드
+			     , A.책임자사유등급구분코드
+			     , A.등록어플리케이션코드
+			     , A.오류메시지출력내용
+			  FROM INSTC.TBUBDJ001 A 
+			     , (SELECT B.언어구분코드
+			             , B.메시지채널구분코드
+			             , B.오류메시지코드
+			             , MAX(B.적용시작년월일) B01
+			          FROM INSTC.TBUBDJ001 B
+			         WHERE B.언어구분코드 = ${언어구분코드}
+			           AND (B.메시지채널구분코드 = ${메시지채널구분코드}
+			               OR ${메시지채널구분코드} = '00')
+			           AND B.메시지채널구분코드 IN ('01', '02', '03', '04', '05', '06')
+			           AND ${기준년월일} BETWEEN B.적용시작년월일 AND B.적용종료년월일
+			           AND B.오류메시지코드 LIKE ${오류메시지종류구분코드}
+			                              ||${오류메시지발생유형구분코드}
+			                              ||'%'
+			           AND (B.오류메시지코드 >= ${오류메시지코드시작_V8} 
+			                OR ${오류메시지코드시작_V8} IS NULL)
+			           AND (B.오류메시지코드 <= ${오류메시지코드종료_V8} 
+			                OR ${오류메시지코드종료_V8} IS NULL)
+			           AND B.오류메시지사용여부 LIKE TRIM(${오류메시지사용여부})||'%'
+			           AND (   ( 'AND' = ${논리구분코드_V3}
+			                     AND B.오류메시지출력내용 LIKE '%'||TRIM(${오류메시지주요단어1_V40})||'%'
+			                     AND B.오류메시지출력내용 LIKE '%'||TRIM(${오류메시지주요단어2_V40})||'%' )
+			                OR ( 'OR' = ${논리구분코드_V3}
+			                     AND ( B.오류메시지출력내용 LIKE '%'||TRIM(${오류메시지주요단어1_V40})||'%'
+			                        OR B.오류메시지출력내용 LIKE '%'||TRIM(${오류메시지주요단어2_V40})||'%' ) ) )
+			           AND NOT EXISTS (SELECT 1
+			                             FROM INSTC.TBUBDJ001 C
+			                            WHERE C.언어구분코드 = ${언어구분코드}
+			                              AND (C.메시지채널구분코드 = ${메시지채널구분코드}
+			                                  OR ${메시지채널구분코드} = '00')
+			                              AND C.오류메시지코드 LIKE 'A88%'
+			                              AND ${기준년월일} BETWEEN C.적용시작년월일 AND C.적용종료년월일
+			                              AND C.언어구분코드 = B.언어구분코드
+			                              AND C.메시지채널구분코드 = B.메시지채널구분코드
+			                              AND C.오류메시지코드 = B.오류메시지코드
+			                              AND C.적용시작년월일 = B.적용시작년월일)                              
+			        GROUP BY B.언어구분코드, B.메시지채널구분코드, B.오류메시지코드 
+			        ) B
+			 WHERE A. 언어구분코드 = B. 언어구분코드
+			   AND A. 메시지채널구분코드 = B. 메시지채널구분코드
+			   AND A. 오류메시지코드 = B. 오류메시지코드
+			   AND A. 적용시작년월일 = B.B01
+		]]>
+    </statement>
+    <!--  -->
+    <!-- 20210516 최웅기 CDC 테이블명 변경  TBGCBER01	:: TBUBDJ001
+    <statement name="retvGcbSpsrAthMsgRsnGrd" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB책임자승인메시지사유등급조회">
+		<![CDATA[
+			SELECT /*+ 송재복::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvGcbSpsrAthMsgRsnGrd */ 
+			       A.오류메시지코드
+			     , A.책임자승인구분코드
+			     , A.책임자사유등급구분코드
+			  FROM INSTC.TBGCBER01 A 
+			 WHERE A.언어구분코드    = ${언어구분코드}
+			   AND A.메시지채널구분코드 = ${메시지채널구분코드}
+			   AND A.오류메시지코드   = ${오류메시지코드}
+			   AND ${적용시작년월일} BETWEEN A.적용시작년월일 AND A.적용종료년월일
+			
+		]]>
+    </statement>
+	-->
+	<statement name="retvGcbSpsrAthMsgRsnGrd" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB책임자승인메시지사유등급조회">
+		<![CDATA[
+			SELECT /*+ 송재복::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvGcbSpsrAthMsgRsnGrd */ 
+			       A.오류메시지코드
+			     , A.책임자승인구분코드
+			     , A.책임자사유등급구분코드
+			  FROM INSTC.TBUBDJ001 A 
+			 WHERE A.언어구분코드    = ${언어구분코드}
+			   AND A.메시지채널구분코드 = ${메시지채널구분코드}
+			   AND A.오류메시지코드   = ${오류메시지코드}
+			   AND ${적용시작년월일} BETWEEN A.적용시작년월일 AND A.적용종료년월일
+			
+		]]>
+    </statement>
+    <!--  -->
+    <!-- 20210516 최웅기 CDC 테이블명 변경  TBGCBER01	:: TBUBDJ001
+    <statement name="retvGcbErrMsgCdNbr" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB오류메시지코드채번조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvGcbErrMsgCdNbr */ 
+			        ${오류메시지종류구분코드}
+			      ||${오류메시지발생유형구분코드}||TRIM(TO_CHAR(NVL(SUBSTR(MAX(A.오류메시지코드), 4) + 1, '00001'), '00000')) 오류메시지코드
+			  FROM INSTC.TBGCBER01 A 
+			 WHERE A.언어구분코드    = ${언어구분코드}
+			   AND A.메시지채널구분코드 = ${메시지채널구분코드}
+			   AND A.오류메시지코드 LIKE ${오류메시지종류구분코드}
+			                      ||${오류메시지발생유형구분코드}||'%'
+			   AND A.오류메시지코드 NOT IN ('A8099998')                     
+			   AND TO_CHAR(SYSDATE, 'yyyyMMdd') BETWEEN A.적용시작년월일 AND A.적용종료년월일
+		]]>
+    </statement>
+	-->
+	<statement name="retvGcbErrMsgCdNbr" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB오류메시지코드채번조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvGcbErrMsgCdNbr */ 
+			        ${오류메시지종류구분코드}
+			      ||${오류메시지발생유형구분코드}||TRIM(TO_CHAR(NVL(SUBSTR(MAX(A.오류메시지코드), 4) + 1, '00001'), '00000')) 오류메시지코드
+			  FROM INSTC.TBUBDJ001 A 
+			 WHERE A.언어구분코드    = ${언어구분코드}
+			   AND A.메시지채널구분코드 = ${메시지채널구분코드}
+			   AND A.오류메시지코드 LIKE ${오류메시지종류구분코드}
+			                      ||${오류메시지발생유형구분코드}||'%'
+			   AND A.오류메시지코드 NOT IN ('A8099998')                     
+			   AND TO_CHAR(SYSDATE, 'yyyyMMdd') BETWEEN A.적용시작년월일 AND A.적용종료년월일
+		]]>
+    </statement>
+    <!--  -->
+    <!-- 20210516 최웅기 CDC 테이블명 변경  TBGCBER01	:: TBUBDJ001
+    <statement name="retvGcbSpsrAthRsnCtt" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB책임자승인사유내용조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvGcbSpsrAthRsnCtt */ 
+			       TRIM(NVL(A.오류메시지출력내용, '')) 오류메시지출력내용
+			  FROM INSTC.TBGCBER01 A 
+			 WHERE A.언어구분코드    IN ('KOR', 'ENG')
+			   AND A.적용종료년월일 = '99991231'
+			   AND A.오류메시지코드 LIKE 'A88%'
+			   AND A.오류메시지코드 = ${오류메시지코드}
+			   AND ROWNUM = 1
+		]]>
+    </statement>
+    -->
+    <statement name="retvGcbSpsrAthRsnCtt" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB책임자승인사유내용조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvGcbSpsrAthRsnCtt */ 
+			       TRIM(NVL(A.오류메시지출력내용, '')) 오류메시지출력내용
+			  FROM INSTC.TBUBDJ001 A 
+			 WHERE A.언어구분코드    IN ('KOR', 'ENG')
+			   AND A.적용종료년월일 = '99991231'
+			   AND A.오류메시지코드 LIKE 'A88%'
+			   AND A.오류메시지코드 = ${오류메시지코드}
+			   AND ROWNUM = 1
+		]]>
+    </statement>
+
+    <!--  -->
+    <!-- 20210516 최웅기 CDC 테이블명 변경  TBGCBER01	:: TBUBDJ001
+    <statement name="retvLstGcbErrMsgCdInf" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB오류메시지코드정보목록조회">
+		<![CDATA[
+			SELECT /*+ 송재복::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvLstGcbErrMsgCdInf */ 
+			       A.언어구분코드
+			     , A.메시지채널구분코드
+			     , A.오류메시지코드
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , A.등록년월일
+			     , A.채널오류코드
+			     , A.오류메시지사용여부
+			     , A.센터컷중단구분코드
+			     , A.중요오류해당여부
+			     , A.책임자승인구분코드
+			     , A.책임자사유등급구분코드
+			     , A.등록어플리케이션코드
+			     , A.오류메시지출력내용
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISSFF6') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBER01 A 
+			 WHERE A.언어구분코드     = ${언어구분코드}
+			   AND A.메시지채널구분코드  BETWEEN ${메시지채널구분코드1} AND ${메시지채널구분코드2}
+			   AND A.오류메시지코드    BETWEEN ${오류메시지코드1} AND ${오류메시지코드2}
+			   AND A.등록어플리케이션코드 BETWEEN ${등록어플리케이션코드1} AND ${등록어플리케이션코드2}
+			   AND A.시스템최종거래일시  BETWEEN ${적용시작년월일} || '000000000000' AND ${적용종료년월일} || '999999999999'
+			   AND ( ${오류메시지출력내용} IS NULL OR A.오류메시지출력내용  LIKE ${오류메시지출력내용} || '%' )
+		]]>
+    </statement>
+    -->
+    <statement name="retvLstGcbErrMsgCdInf" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB오류메시지코드Ebi::GCB오류메시지코드Dao::GCB오류메시지코드정보목록조회">
+		<![CDATA[
+			SELECT /*+ 송재복::/gcb/ingCdMg/gcbErrMsgCdEbi/TBGCBER01/retvLstGcbErrMsgCdInf */ 
+			       A.언어구분코드
+			     , A.메시지채널구분코드
+			     , A.오류메시지코드
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , A.등록년월일
+			     , A.채널오류코드
+			     , A.오류메시지사용여부
+			     , A.센터컷중단구분코드
+			     , A.중요오류해당여부
+			     , A.책임자승인구분코드
+			     , A.책임자사유등급구분코드
+			     , A.등록어플리케이션코드
+			     , A.오류메시지출력내용
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISSFF6') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBUBDJ001 A 
+			 WHERE A.언어구분코드     = ${언어구분코드}
+			   AND A.메시지채널구분코드  BETWEEN ${메시지채널구분코드1} AND ${메시지채널구분코드2}
+			   AND A.오류메시지코드    BETWEEN ${오류메시지코드1} AND ${오류메시지코드2}
+			   AND A.등록어플리케이션코드 BETWEEN ${등록어플리케이션코드1} AND ${등록어플리케이션코드2}
+			   AND A.시스템최종거래일시  BETWEEN ${적용시작년월일} || '000000000000' AND ${적용종료년월일} || '999999999999'
+			   AND ( ${오류메시지출력내용} IS NULL OR A.오류메시지출력내용  LIKE ${오류메시지출력내용} || '%' )
+		]]>
+    </statement>
+</statements>

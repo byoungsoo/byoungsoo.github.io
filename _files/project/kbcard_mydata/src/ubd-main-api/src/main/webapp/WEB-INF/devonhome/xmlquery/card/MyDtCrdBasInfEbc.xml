@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<statements>
+
+    <statement name="selectMyDtApiCrdBasInf">
+		<![CDATA[  
+			SELECT /*+ 박재성::/card/MyDtCrdBasInfEbc/selectMyDtApiCrdBasInf */
+				   A.회원일련번호
+				 , A.카드소유자구분코드 
+			     , D.카드대체번호         
+			     , C.카드번호            
+			     , B.카드식별자          
+			     , B.카드상세일련번호    
+			     , B.상품중분류구분코드
+			     , B.카드등급구분코드 
+			     , B.카드브랜드구분코드
+			     , B.카드브랜드상세구분코드	 
+			     , B.모바일카드종류구분코드 			     
+			     , B.상품코드  
+			     , F.결제기관구분코드    
+			     , F.고객계좌번호     
+			     , B.등록년월일      
+			     , B.카드만료년월일
+			     , B.해지년월일 
+			     , B.CD기기능구분코드
+			     , B.CD상태구분코드
+			     , B.현금카드발급번호
+                 , (SELECT 카드발행년월일
+                      FROM INSTC.TBUBDE001 G
+                     WHERE G.카드식별자    = A.최종카드식별자
+	                   AND G.카드상세일련번호 = A.최종카드상세일련번호) AS 카드발행년월일	    
+			  FROM INSTC.TBUBDE002 A,
+			       INSTC.TBUBDE003 B,
+			       INSTC.TBUBDE004 C, 
+			       INSTC.TBUBDE005 D,
+			       INSTC.TBUBDO002 E,
+			       INSTC.TBUBDF001 F
+			 WHERE A.최종카드식별자 = B.카드식별자 
+			   AND A.최종카드상세일련번호 = B.카드상세일련번호
+			   AND A.카드구분키번호 = B.카드구분키번호
+			   AND B.최종카드여부 = '1'
+			   AND C.카드식별자 = B.카드식별자
+			   AND C.카드식별자 = D.카드식별자
+			   AND A.회원일련번호 = B.회원일련번호 
+			   AND A.청구번호 = E.청구번호
+			   AND A.본인고객식별자 = F.고객식별자
+			   AND A.본인고객관리번호 = F.고객관리번호
+			   AND E.청구일련번호 = F.청구일련번호
+			   AND F.결제계좌업무구분코드 = '1'
+			   AND E.결제단위사용불가여부 <> '1'
+			   AND D.카드대체번호  = ${카드대체번호}
+		]]>
+    </statement>
+    
+    <statement name="selectCrdPdIsuInf">
+		<![CDATA[  
+			SELECT /*+ 박재성::/card/MyDtCrdBasInfEbc/selectCrdPdIsuInf */  
+			       A.상품코드
+			     , A.정보적용시작년월일
+			     , A.정보적용종료년월일
+			     , TRIM(A.카드칩구분코드) AS 카드칩구분코드
+			     , TRIM(A.모바일카드단독발급구분코드) AS 모바일단독발급가능상품여부
+			     , A.복수자재유형구분코드 
+			  FROM INSTC.TBUBDL010 A 
+			 WHERE A.상품코드 = ${상품코드}
+			   AND ${기준년월일} >= A.정보적용시작년월일
+			   AND ${기준년월일} <= A.정보적용종료년월일
+			 ORDER BY DECODE(A.복수자재유형구분코드, ' ', 'X', A.복수자재유형구분코드) ASC
+		]]>
+    </statement>   
+    
+    <statement name="selectPrcPtRceBhCrdDtlImpaHis">
+		<![CDATA[  
+			SELECT /*+ 박재성::/card/MyDtCrdBasInfEbc/selectPrcPtRceBhCrdDtlImpaHis */  
+			       *
+			  FROM ( SELECT A.카드식별자
+			              , A.카드상세일련번호
+			              , A.카드상세중요변경유형구분코드
+			              , A.카드상세중요변경유형일련번호
+			              , A.회원일련번호
+			              , A.카드구분키번호
+			              , A.카드정보변경유형일련번호
+			              , A.처리년월일
+			              , A.처리시각
+			              , A.처리부점코드
+			              , A.처리직원번호
+			              , A.처리승인직원번호
+			              , A.처리단말번호
+			              , A.해제년월일
+			              , A.해제시각
+			              , A.해제부점코드
+			              , A.해제직원번호
+			              , A.해제승인직원번호
+			              , A.해제단말번호
+			              , A.카드수령부점코드
+			              , A.카드정보변경발송업체내용
+			              , A.송증번호
+			              , A.고객계좌번호
+			              , A.회원카드추가구분코드
+			              , A.카드정보변경추가내용1
+			              , A.카드정보변경추가내용2
+			              , A.재발급카드식별자
+			              , A.카드정보변경메모1
+			              , A.카드정보변경메모2
+			           FROM INSTC.TBUBDE006 A 
+			          WHERE A.카드식별자 = ${카드식별자}
+			            AND A.카드상세일련번호 = ${카드상세일련번호}
+			            AND A.카드상세중요변경유형구분코드 = ${카드상세중요변경유형구분코드}
+			            AND (    ${해제구분코드_V1} IS NULL
+			                  OR (     ${해제구분코드_V1} = '1'
+			                       AND A.해제년월일 IS NULL ) 
+			                  OR (     ${해제구분코드_V1} = '2'
+			                       AND A.해제년월일 IS NOT NULL ) )
+			            AND (    ${수령부점생성여부_V1} IS NULL
+			                  OR (     ${수령부점생성여부_V1} = '1'
+			                       AND A.카드수령부점코드 = ${카드수령부점코드} ) )
+			         ORDER BY A.처리년월일 DESC
+			                , A.시스템최종갱신일시 DESC
+			       ) X
+			 WHERE ROWNUM = 1  
+		]]>
+    </statement>       
+    
+    <statement name="selectCrdFuncPtExstVldCfmInf">
+		<![CDATA[  
+			SELECT /*+ 박재성::/card/MyDtCrdBasInfEbc/selectCrdFuncPtExstVldCfmInf */  
+			      A.상품코드
+			    , A.카드기능유형구분코드
+			    , A.정보적용일련번호
+			    , A.정보적용시작년월일
+			    , A.정보적용종료년월일
+			    , B.한글상품명
+				FROM  INSTC.TBUBDL007 A  
+				    , INSTC.TBUBDL008 B  
+				WHERE A.상품코드  = B.상품코드
+				AND A.상품코드    = ${상품코드}
+				AND (${카드기능유형구분코드} IS NULL OR A.카드기능유형구분코드 = ${카드기능유형구분코드})
+				AND A.정보적용시작년월일  <= ${조회기준년월일}
+				AND A.정보적용종료년월일  >= ${조회기준년월일}
+		]]>
+    </statement>     
+    <statement name="selectCrdAnfInfOferInf">
+		<![CDATA[  
+			SELECT /*+ 박재성::/card/MyDtCrdBasInfEbc/selectCrdAnfInfOferInf */
+			       C.상품대분류구분코드
+			     , C.상품중분류구분코드
+			     , C.카드등급그룹코드
+			     , C.상품코드
+			     , C.한글상품명
+			     , C.영문상품명
+			     , C.상품판매시작년월일
+			     , C.상품판매종료년월일
+			     , C.상품등록부점코드
+			     , C.상품개발부점코드
+			     , C.상품관리부점코드 
+			     , C.상품요약내용
+			     , C.상품상태구분코드
+			     , C.BC카드관리구분코드
+			     , C.BC카드제휴코드
+			     , C.카드상품사업단위구분코드
+			     , C.정보적용시작년월일
+			     , C.정보적용종료년월일
+			     , C.상품가입제한최소연령
+			     , C.상품가입제한최대연령
+			     , C.요율적용구분코드
+			     , C.기본연회비적용구분코드
+			     , C.제휴연회비적용구분코드
+			     , C.발급비적용구분코드
+			     , C.즉시발급가능여부
+			     , C.교부부점입력구분코드
+			     , C.가입매체적용여부
+			     , C.권유자적용구분코드 
+			     , C.발급부점적용여부
+			     , C.즉시발급부점적용여부
+			     , C.교부부점적용여부
+			     , C.기업카드가입유형구분코드
+			     , C.가족카드발급가능매수
+			     , C.신분증사용가능여부
+			     , C.전용카드유형구분코드
+			     , C.사진카드구분코드
+			     , C.교부처리구분코드
+			     , C.일시불사용가능여부
+			     , C.할부사용가능여부
+			     , C.할부가능개월수
+			     , C.CA가능여부 -- 현금서비스가능여부
+			     , C.카드결제유형구분코드
+			     , C.가입자격코드제한여부
+			     , C.대표포인트구분코드
+			     , C.판매중지후갱신가능여부
+			     , C.유효기간내갱신가능여부
+			     , C.결제기관적용여부
+			     , C.BIN제한구분코드
+			     , C.개인카드가입유형구분코드
+			     , C.상품액면금액 
+			     , C.카드발급주체구분코드
+			     , C.카드패키지구분코드
+			     , C.시스템최종거래일시   
+			     , C.시스템최종갱신식별자
+			     , C.대표카드상품코드
+			  FROM (
+			        SELECT 
+			               A.상품대분류구분코드
+			             , A.상품중분류구분코드
+			             , A.카드등급그룹코드
+			             , A.상품코드
+			             , A.한글상품명
+			             , A.영문상품명
+			             , A.상품판매시작년월일
+			             , A.상품판매종료년월일
+			             , TRIM(A.상품등록부점코드)         AS 상품등록부점코드
+			             , TRIM(A.상품개발부점코드)         AS 상품개발부점코드 
+			             , TRIM(A.상품관리부점코드)         AS 상품관리부점코드  
+			             , A.상품요약내용
+			             , A.상품상태구분코드    
+			             , TRIM(A.BC카드관리구분코드)       AS BC카드관리구분코드
+			             , TRIM(A.BC카드제휴코드)           AS BC카드제휴코드 
+			             , TRIM(A.카드상품사업단위구분코드) AS 카드상품사업단위구분코드
+			             , B.정보적용시작년월일
+			             , B.정보적용종료년월일
+			             , B.상품가입제한최소연령
+			             , B.상품가입제한최대연령
+			             , TRIM(B.요율적용구분코드)         AS 요율적용구분코드
+			             , TRIM(B.기본연회비적용구분코드)   AS 기본연회비적용구분코드
+			             , TRIM(B.제휴연회비적용구분코드)   AS 제휴연회비적용구분코드
+			             , TRIM(B.발급비적용구분코드)       AS 발급비적용구분코드
+			             , B.즉시발급가능여부
+			             , TRIM(B.교부부점입력구분코드)     AS 교부부점입력구분코드
+			             , B.가입매체적용여부
+			             , TRIM(B.권유자적용구분코드)       AS 권유자적용구분코드 
+			             , B.발급부점적용여부
+			             , B.즉시발급부점적용여부
+			             , B.교부부점적용여부
+			             , TRIM(B.기업카드가입유형구분코드) AS 기업카드가입유형구분코드
+			             , B.가족카드발급가능매수
+			             , B.신분증사용가능여부
+			             , TRIM(B.전용카드유형구분코드)     AS 전용카드유형구분코드
+			             , TRIM(B.사진카드구분코드)         AS 사진카드구분코드
+			             , TRIM(B.교부처리구분코드)         AS 교부처리구분코드
+			             , B.일시불사용가능여부
+			             , B.할부사용가능여부
+			             , B.할부가능개월수
+			             , B.CA가능여부 -- 현금서비스가능여부
+			             , TRIM(B.카드결제유형구분코드)     AS 카드결제유형구분코드
+			             , B.가입자격코드제한여부
+			             , TRIM(B.대표포인트구분코드)       AS 대표포인트구분코드
+			             , B.판매중지후갱신가능여부
+			             , B.유효기간내갱신가능여부
+			             , B.결제기관적용여부
+			             , TRIM(B.BIN제한구분코드)          AS BIN제한구분코드
+			             , TRIM(B.개인카드가입유형구분코드) AS 개인카드가입유형구분코드
+			             , B.상품액면금액 
+			             , TRIM(B.카드발급주체구분코드)     AS 카드발급주체구분코드
+			             , TRIM(B.카드패키지구분코드)       AS 카드패키지구분코드
+			             , B.시스템최종거래일시   
+			             , B.시스템최종갱신식별자
+			             , A.대표카드상품코드
+			          FROM INSTC.TBUBDL008 A  
+			             , INSTC.TBUBDL009 B 
+			         WHERE A.상품코드 = B.상품코드
+			           AND A.상품코드 = ${상품코드}
+			           AND B.정보적용종료년월일 >= B.정보적용시작년월일
+			           AND ( ( ${기준년월일} IS NOT NULL
+			                   AND B.정보적용시작년월일 <= ${기준년월일} 
+			                   AND B.정보적용종료년월일 >= ${기준년월일} )
+			                   OR ${기준년월일} IS NULL)
+			         ORDER BY B.정보적용시작년월일 DESC ) C 
+			 WHERE  ROWNUM = 1
+		]]>
+    </statement>         
+    <statement name="selectLstCrdPdGnrAliAnfInf">
+		<![CDATA[  
+				SELECT  /*+ 박재성::/card/MyDtCrdBasInfEbc/selectLstCrdPdGnrAliAnfInf */
+				       A.상품코드
+				     , A.정보적용시작년월일
+				     , A.정보적용종료년월일
+				     , A.제휴연회비
+				     , A.시스템최종거래일시
+				     , A.시스템최종갱신식별자
+				  FROM INSTC.TBUBDL015 A 
+				 WHERE A.상품코드           = ${상품코드}
+				   AND A.정보적용시작년월일 <= ${기준년월일}
+				   AND A.정보적용종료년월일 >= ${기준년월일}
+				 ORDER BY A.상품코드
+		]]>
+    </statement>       
+    <statement name="selectLstCrdPdPrePlagInf">
+		<![CDATA[  
+			SELECT /*+ 박재성::/card/MyDtCrdBasInfEbc/selectLstCrdPdPrePlagInf */
+			       A.상품코드
+			     , A.카드가격구분코드
+			     , A.정보적용시작년월일
+			     , A.정보적용종료년월일
+			     , TRIM(A.카드등급구분코드) AS 카드등급구분코드 
+			     , TRIM(A.카드브랜드구분코드) AS 카드브랜드구분코드
+			     , A.개인기업구분코드             
+			     , TRIM(A.카드소유자구분코드) AS 카드소유자구분코드
+			     , TRIM(A.재발급종류구분코드) AS 재발급종류구분코드
+			     , A.카드가격설계금액
+			     , A.시스템최종거래일시
+			     , A.시스템최종갱신식별자
+			  FROM INSTC.TBUBDL012 A 
+			 WHERE A.상품코드 = ${상품코드}
+			   AND ( A.카드가격구분코드 = ${카드가격구분코드} OR ${카드가격구분코드} IS NULL ) 
+			   AND A.정보적용시작년월일 <= ${기준년월일}
+			   AND A.정보적용종료년월일 >= ${기준년월일}
+			 ORDER BY A.카드가격구분코드
+			        , A.카드브랜드구분코드
+			        , A.카드등급구분코드
+			        , A.정보적용시작년월일				 
+		]]>
+    </statement>     
+    <statement name="selectBasAnfBseCrdBrdDtcdInf">
+		<![CDATA[  
+			SELECT /*+ 박재성::/card/MyDtCrdBasInfEbc/selectBasAnfBseCrdBrdDtcdInf */
+			       A.카드브랜드구분코드
+			     , A.카드브랜드상세구분코드
+			     , A.카드등급구분코드
+			     , A.정보적용일련번호
+			     , B.정보적용시작년월일
+			     , B.정보적용종료년월일
+			     , A.기본연회비
+			     , A.모바일기본연회비
+			     , B.개인기업구분코드
+			     , B.브랜드시작년월일
+			     , B.브랜드종료년월일
+			 FROM INSTC.TBUBDL004 A
+			     ,INSTC.TBUBDL011 B 
+			 WHERE (A.카드브랜드구분코드     = B.카드브랜드구분코드 OR (A.카드브랜드구분코드 IS NULL AND B.카드브랜드구분코드 = ' '))
+			   AND (A.카드브랜드상세구분코드 = B.카드브랜드상세구분코드 OR (A.카드브랜드상세구분코드 IS NULL AND B.카드브랜드상세구분코드 = ' '))
+			   AND (A.카드등급구분코드       = B.카드등급구분코드 OR (A.카드등급구분코드 IS NULL AND B.카드등급구분코드 = ' ')) 
+			   AND A.기본연회비적용구분코드 = '2'
+			   AND A.카드등급구분코드    <> '1'
+			   AND A.카드등급구분코드    <> '2'
+			   AND A.정보적용시작년월일 <= ${조회기준년월일}
+			   AND A.정보적용종료년월일 >= ${조회기준년월일}
+			   AND B.상품코드 = ${상품코드}
+			   AND B.정보적용시작년월일 <= ${조회기준년월일}
+			   AND B.정보적용종료년월일 >= ${조회기준년월일}
+			ORDER BY A.카드브랜드구분코드, A.카드브랜드상세구분코드, A.카드등급구분코드			 
+		]]>
+    </statement>         
+    <statement name="selectBasAnfBseInqBseYmdInf">
+		<![CDATA[  
+			SELECT /*+ 박재성::/card/MyDtCrdBasInfEbc/selectBasAnfBseInqBseYmdInf */
+			       A.카드브랜드구분코드
+			     , A.카드브랜드상세구분코드
+			     , A.카드등급구분코드
+			     , A.정보적용일련번호
+			     , A.정보적용시작년월일
+			     , A.정보적용종료년월일
+			     , A.기본연회비
+			     , A.모바일기본연회비
+			     , TO_CHAR(A.시스템최초생성일시, 'YYYYMMDDHH24MISS') as 시스템최초생성일시
+			     , A.시스템최초생성식별자
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBUBDL004 A 
+			 WHERE (A.카드브랜드구분코드   = ${카드브랜드구분코드} OR (${카드브랜드구분코드} IS NULL AND A.카드브랜드구분코드 IS NULL))  
+			   AND (A.카드브랜드상세구분코드 = ${카드브랜드상세구분코드} OR (${카드브랜드상세구분코드} IS NULL AND A.카드브랜드상세구분코드 IS NULL))
+			   AND (A.카드등급구분코드    = ${카드등급구분코드} OR (${카드등급구분코드} IS NULL AND A.카드등급구분코드 IS NULL))
+			   AND A.기본연회비적용구분코드 = '6'
+			   AND A.정보적용시작년월일   <= ${조회기준년월일}
+			   AND A.정보적용종료년월일   >= ${조회기준년월일}	 
+		]]>
+    </statement>        
+
+    <statement name="selectLstCrdPdBrdInf">
+		<![CDATA[  
+		SELECT /*+ 박재성::/card/MyDtCrdBasInfEbc/selectLstCrdPdBrdInf */ 
+		       A.상품코드                                                     
+		     , A.개인기업구분코드     
+		     , TRIM(A.카드브랜드구분코드)     AS 카드브랜드구분코드
+		     , TRIM(A.카드등급구분코드)       AS 카드등급구분코드
+		     , A.정보적용시작년월일                                           
+		     , A.정보적용종료년월일                                           
+		     , TRIM(A.MS서비스구분코드)       AS MS서비스구분코드
+		     , A.홀로맥적용여부                                               
+		     , A.하이코적용여부                   
+		     , TRIM(A.카드브랜드상세구분코드) AS 카드브랜드상세구분코드      
+		     , A.브랜드시작년월일
+		     , A.브랜드종료년월일
+		     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') AS 시스템최종갱신일시
+		     , A.시스템최종갱신식별자
+		  FROM INSTC.TBUBDL011 A /* 카드상품브랜드상세VIEW */
+		 WHERE A.상품코드 = ${상품코드}
+		   AND (  A.개인기업구분코드 = ${개인기업구분코드}
+		       OR ${개인기업구분코드} IS NULL )
+		   AND (  A.카드브랜드구분코드 = ${카드브랜드구분코드}
+		       OR ${카드브랜드구분코드} IS NULL )
+		   AND (  A.카드브랜드상세구분코드 = ${카드브랜드상세구분코드}
+		       OR ${카드브랜드상세구분코드} IS NULL )
+		   AND (  A.카드등급구분코드 = ${카드등급구분코드}
+		       OR ${카드등급구분코드} IS NULL )
+		   AND ${기준년월일} >= A.정보적용시작년월일
+		   AND ${기준년월일} <= A.정보적용종료년월일
+		   AND ${기준년월일} >= A.브랜드시작년월일
+		   AND ${기준년월일} <= A.브랜드종료년월일   
+		 ORDER BY A.상품코드
+		        , A.개인기업구분코드
+		        , A.카드브랜드구분코드
+		        , A.카드등급구분코드			
+		]]>
+    </statement>       
+        
+   
+</statements>

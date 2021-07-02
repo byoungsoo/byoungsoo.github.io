@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+
+    <!-- 계좌정보조회 -->
+    <statement name="selectAcnoPrBl">
+		<![CDATA[
+			SELECT /*+ 임헌택::/opnb/opnbPuse/usrSvc/opnbAccInqEbc/selectAcnoPrBl */ 
+			       계좌개설은행코드
+                 , 핀테크이용번호
+                 , 고객계좌번호
+                 , 오픈뱅킹사용자고유번호
+              FROM INSTC.TBUBFS002      /* UBF오픈뱅킹계좌기본 */       
+             WHERE 계좌개설은행코드        = ${계좌개설은행코드}
+               AND 고객계좌번호            = ${고객계좌번호}
+               AND 계좌사용여부            = 'Y'
+               AND ROWNUM = 1
+		]]>
+    </statement>
+
+    <!-- 사용자고유번호보유계좌 for paging -->
+    <statement name="retvLstAcnoPrWhlBl">
+		<![CDATA[
+			SELECT /*+ 임헌택::/opnb/opnbPuse/usrSvc/opnbAccInqEbc/retvLstAcnoPrWhlBl */ 
+			       계좌개설은행코드
+                 , 핀테크이용번호
+                 , 고객계좌번호
+                 , 오픈뱅킹사용자고유번호
+                 , TO_CHAR(계좌등록일시, 'YYYYMMDDHH24MISSFF') 계좌등록일시
+              FROM INSTC.TBUBFS002      /* UBF오픈뱅킹계좌기본 */       
+             WHERE 오픈뱅킹사용자고유번호        = ${오픈뱅킹사용자고유번호}
+               AND 계좌사용여부                  = 'Y'
+		]]>
+    </statement>
+    
+    <!-- 사용자고유번호보유계좌 건수조회 -->
+    <statement name="retvAcnoCntPrWhlBl">
+		<![CDATA[
+			SELECT /*+ 임헌택::/opnb/opnbPuse/usrSvc/opnbAccInqEbc/retvAcnoCntPrWhlBl */ 
+			       COUNT(*) 계좌건수_N3
+              FROM INSTC.TBUBFS002      /* UBF오픈뱅킹계좌기본 */       
+             WHERE 오픈뱅킹사용자고유번호        = ${오픈뱅킹사용자고유번호}
+               AND 계좌사용여부                  = 'Y'
+		]]>
+    </statement>
+    
+      <!-- 오픈뱅킹계좌기본상세조회 -->
+    <statement name="selectOpnbAccBasDtl">
+		<![CDATA[
+			SELECT /*+ 정영훈::/opnb/opnbPuse/usrSvc/opnbAccInqEbc/selectOpnbAccBasDtl */
+                                 핀테크이용번호 
+                 , 오픈뱅킹납부자번호
+                 , 오픈뱅킹계좌종류구분코드 
+                 , 오픈뱅킹계좌명의구분코드 
+                 , 오픈뱅킹계좌상품명 
+                 , 오픈뱅킹이메일주소전문내용 
+                 , 계좌조회동의여부 
+                 , 계좌조회동의등록일시 
+                 , 조회등록채널세부업무구분코드 
+                 , 계좌조회동의갱신일시 
+                 , 조회갱신채널세부업무구분코드 
+                 , 계좌조회동의해제일시 
+                 , 조회해제채널세부업무구분코드 
+                 , 출금동의여부 
+                 , 출금등록채널세부업무구분코드 
+                 , 출금동의갱신일시 
+                 , 출금갱신채널세부업무구분코드 
+                 , 출금동의해제일시 
+                 , 출금해제채널세부업무구분코드 
+                 , 계좌등록일시 
+                 , 계좌사용여부
+              FROM INSTC.TBUBFS002
+             WHERE 고객계좌번호             = ${고객계좌번호} 
+               AND 계좌개설은행코드        = ${계좌개설은행코드}
+               AND 오픈뱅킹이용기관코드   = ${오픈뱅킹이용기관코드}
+               AND 오픈뱅킹사용자고유번호 = ${오픈뱅킹사용자고유번호} 
+		]]>
+    </statement>
+    
+    <!-- 오픈뱅킹계좌사용여부조회 -->
+    <statement name="selectOpnbAccUseYnInq">
+		<![CDATA[
+			SELECT /*+ 정영훈::/opnb/opnbPuse/usrSvc/opnbAccInqEbc/selectOpnbAccUseYnInq */
+                                 오픈뱅킹사용자고유번호 
+                 , 계좌조회동의여부
+                 , 출금동의여부                   
+              FROM INSTC.TBUBFS002
+             WHERE 고객계좌번호             = ${고객계좌번호} 
+               AND 계좌개설은행코드        = ${계좌개설은행코드}
+               AND 오픈뱅킹이용기관코드   = ${오픈뱅킹이용기관코드}
+               AND 계좌사용여부             = ${계좌사용여부}
+		]]>
+    </statement>
+    
+    <!-- 오픈뱅킹계좌일련번호채번조회 -->
+    <statement name="selectOpnbAccSnoBbr">
+		<![CDATA[
+			SELECT /*+ 정영훈::/opnb/opnbPuse/usrSvc/opnbAccInqEbc/selectOpnbAccSnoBbr */
+                   NVL(MAX(오픈뱅킹계좌일련번호),0) + 1  AS 오픈뱅킹계좌일련번호
+              FROM INSTC.TBUBFS002
+             WHERE 오픈뱅킹사용자고유번호 = ${오픈뱅킹사용자고유번호}     
+		]]>
+    </statement>
+    
+      <!-- 오픈뱅킹계좌기본상세조회 -->
+    <statement name="selectOpnbUseAblAcc">
+		<![CDATA[
+			SELECT /*+ 정영훈::/opnb/opnbPuse/usrSvc/opnbAccInqEbc/selectOpnbUseAblAcc */
+			             고객계좌번호
+			     , 계좌개설은행코드
+			     , 오픈뱅킹이용기관코드 
+			     , 오픈뱅킹사용자고유번호
+			     , 핀테크이용번호
+			     , 오픈뱅킹납부자번호
+			     , 오픈뱅킹계좌종류구분코드
+			     , 오픈뱅킹계좌명의구분코드
+			     , 오픈뱅킹계좌상품명
+			     , 오픈뱅킹이메일주소전문내용
+			     , 계좌조회동의여부
+			     , TO_CHAR(계좌조회동의등록일시, 'YYYYMMDDHH24MISS') AS 계좌조회동의등록일시
+			     , 조회등록채널세부업무구분코드
+			     , TO_CHAR(계좌조회동의갱신일시, 'YYYYMMDDHH24MISS') AS 계좌조회동의갱신일시
+			     , 조회갱신채널세부업무구분코드
+			     , TO_CHAR(계좌조회동의해제일시, 'YYYYMMDDHH24MISS') AS 계좌조회동의해제일시 
+			     , 조회해제채널세부업무구분코드
+			     , 출금동의여부 
+			     , 출금등록채널세부업무구분코드
+			     , TO_CHAR(출금동의갱신일시, 'YYYYMMDDHH24MISS') AS 출금동의갱신일시
+			     , 출금갱신채널세부업무구분코드
+			     , TO_CHAR(출금동의해제일시, 'YYYYMMDDHH24MISS') AS 출금동의해제일시
+			     , 출금해제채널세부업무구분코드
+			     , TO_CHAR(계좌등록일시, 'YYYYMMDDHH24MISS') AS 계좌등록일시
+			     , 계좌사용여부 
+			     , 계좌출금동의등록일시
+			     , 계좌납입회차번호 
+              FROM INSTC.TBUBFS002
+             WHERE 오픈뱅킹사용자고유번호 = ${오픈뱅킹사용자고유번호}
+               AND 계좌사용여부              = ${계좌사용여부}
+		]]>
+    </statement>
+  
+
+</statements>

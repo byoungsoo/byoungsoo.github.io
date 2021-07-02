@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="regtGcbSpsrAthTnhsSttmChpPhs" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::14.책임자승인내역관리::GCB책임자승인내역점검내역Ebi::GCB책임자승인내역점검내역Dao::GCB책임자승인거래내역명세표점검이력등록">
+		<![CDATA[
+			INSERT /*+ 김동현::/gcb/spsrAthHisMg/gcbSpsrAthHisChpHisEbi/TBGCBAT03/regtGcbSpsrAthTnhsSttmChpPhs */
+			  INTO INSTC.TBGCBAT03
+			(
+			   부점코드
+			 , 거래년월일
+			 , 승인점검일련번호
+			 , 거래직원번호
+			 , 거래시각
+			 , 승인점검거래명
+			 , 승인점검직원명
+			 , 승인점검단말번호
+			 , 승인점검단말기IP주소
+			 , 승인점검조회출력건수
+			 , 승인점검조회기준년월일
+			 , 승인점검조회부점코드
+			 , 승인직원번호
+			 , 승인점검조작직원번호
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${부점코드}
+			 ,${거래년월일}
+			 ,(SELECT NVL(MAX(A.승인점검일련번호), 0) + 1
+			     FROM INSTC.TBGCBAT03 A
+			    WHERE A.부점코드 = ${부점코드}
+			      AND A.거래년월일 = ${거래년월일})  
+			 ,${거래직원번호}
+			 ,${거래시각}
+			 ,${승인점검거래명}
+			 ,${승인점검직원명}
+			 ,${승인점검단말번호}
+			 ,${승인점검단말기IP주소}
+			 ,${승인점검조회출력건수}
+			 ,${승인점검조회기준년월일}
+			 ,${승인점검조회부점코드}
+			 ,${승인직원번호}
+			 ,${승인점검조작직원번호}
+			 ,SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,${시스템최종거래일시}
+			)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGcbSpsrAthTrChpHis" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::14.책임자승인내역관리::GCB책임자승인내역점검내역Ebi::GCB책임자승인내역점검내역Dao::GCB책임자승인거래점검내역목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/spsrAthHisMg/gcbSpsrAthHisChpHisEbi/TBGCBAT03/retvLstGcbSpsrAthTrChpHis */ 
+			       A.부점코드
+			     , A.거래년월일
+			     , A.승인점검일련번호
+			     , A.거래직원번호
+			     , A.거래시각
+			     , A.승인점검거래명
+			     , A.승인점검직원명
+			     , A.승인점검단말번호
+			     , A.승인점검단말기IP주소
+			     , A.승인점검조회출력건수
+			     , A.승인점검조회기준년월일
+			     , A.승인점검조회부점코드
+			     , A.승인직원번호
+			     , A.승인점검조작직원번호
+			  FROM INSTC.TBGCBAT03 A 
+			 WHERE A.부점코드     = ${부점코드}
+			   AND A.승인점검조회기준년월일    = ${승인점검조회기준년월일}
+			   AND A.거래직원번호 LIKE TRIM(${거래직원번호})||'%'
+		]]>
+    </statement>
+</statements>

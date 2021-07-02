@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!-- 오픈뱅킹금결원API정보조회  -->
+    <statement name="selectOpnbKftcApiInf">
+		<![CDATA[ 
+			SELECT /*+ 김정화::opnb/opnbMg/opnbUseMg/opnbKftcApiMgEbc/selectOpnbKftcApiInf */ 
+      			  A.오픈뱅킹URL일련번호 
+				, A.오픈뱅킹API관리구분코드 
+				, A.오픈뱅킹수수료대상여부 
+				, A.오픈뱅킹API명
+				, A.오픈뱅킹URL내용 
+				, A.오픈API타입구분코드
+				, NVL(B.오픈뱅킹이용기관수수료, 0) 
+              FROM INSTC.TBUBFS014 A  /* UBF오픈뱅킹금융결제원API기본 */      
+		     	 , INSTC.TBUBFS024 B  /* UBF오픈뱅킹API수수료기본 */      
+             WHERE A.오픈뱅킹API관리구분코드 = B.오픈뱅킹API관리구분코드(+)
+               AND NVL(TRIM(${오픈뱅킹URL일련번호}), ' ') != ' '
+               AND A.오픈뱅킹URL일련번호 = ${오픈뱅킹URL일련번호}
+            UNION ALL
+            SELECT 
+			      A.오픈뱅킹URL일련번호 
+				, A.오픈뱅킹API관리구분코드 
+				, A.오픈뱅킹수수료대상여부 
+				, A.오픈뱅킹API명
+				, A.오픈뱅킹URL내용
+				, A.오픈API타입구분코드
+				, NVL(B.오픈뱅킹이용기관수수료, 0)
+              FROM INSTC.TBUBFS014 A  /* UBF오픈뱅킹금융결제원API기본 */      
+		     	 , INSTC.TBUBFS024 B  /* UBF오픈뱅킹API수수료기본 */      
+             WHERE A.오픈뱅킹API관리구분코드 = B.오픈뱅킹API관리구분코드(+)
+               AND NVL(TRIM(${오픈뱅킹URL일련번호}), ' ') = ' '
+		]]>
+    </statement>
+
+</statements>

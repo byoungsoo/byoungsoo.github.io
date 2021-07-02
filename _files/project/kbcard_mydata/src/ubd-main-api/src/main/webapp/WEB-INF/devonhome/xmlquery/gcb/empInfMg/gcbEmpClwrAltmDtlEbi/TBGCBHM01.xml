@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="delGcbEmpClwrAltmDtl" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::03.직원정보관리::GCB직원사무분담상세Ebi::GCB직원사무분담상세Dao::GCB직원사무분담상세삭제" >
+		<![CDATA[
+			DELETE /*+ 김남식::/gcb/empInfMg/gcbEmpClwrAltmDtlEbi/TBGCBHM01/delGcbEmpClwrAltmDtl */
+			  FROM INSTC.TBGCBHM01  
+			 WHERE 부점코드    = ${부점코드}
+			   AND 사무분담코드  = ${사무분담코드}
+			   AND 직원번호    = ${직원번호}
+			   AND 적용시작년월일 = ${적용시작년월일}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="uptGcbEmpClwrAltmDtl" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::03.직원정보관리::GCB직원사무분담상세Ebi::GCB직원사무분담상세Dao::GCB직원사무분담상세수정" >
+		<![CDATA[
+			UPDATE /*+ 김남식::/gcb/empInfMg/gcbEmpClwrAltmDtlEbi/TBGCBHM01/uptGcbEmpClwrAltmDtl */ 
+			       INSTC.TBGCBHM01 
+			   SET 적용종료년월일    = ${적용종료년월일}
+			     , 시스템최종갱신일시  = SYSTIMESTAMP
+			     , 시스템최종갱신식별자 = ${시스템최종갱신식별자}
+			     , 시스템최종거래일시  = ${시스템최종거래일시}
+			 WHERE 부점코드    = ${부점코드}
+			   AND 사무분담코드  = ${사무분담코드}
+			   AND 직원번호    = ${직원번호}
+			   AND 적용시작년월일 = ${적용시작년월일}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvGcbEmpClwrAltmDtl" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::03.직원정보관리::GCB직원사무분담상세Ebi::GCB직원사무분담상세Dao::GCB직원사무분담상세조회" >
+		<![CDATA[
+			SELECT /*+ 김남식::/gcb/empInfMg/gcbEmpClwrAltmDtlEbi/TBGCBHM01/retvGcbEmpClwrAltmDtl */ 
+			       A.부점코드
+			     , A.사무분담코드
+			     , A.직원번호
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , TO_CHAR(시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBHM01 A 
+			 WHERE A.부점코드    = ${부점코드}
+			   AND A.사무분담코드  = ${사무분담코드}
+			   AND A.직원번호    = ${직원번호}
+			   AND A.적용시작년월일 = ${적용시작년월일}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLckGcbEmpClwrAltmDtl" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::03.직원정보관리::GCB직원사무분담상세Ebi::GCB직원사무분담상세Dao::GCB직원사무분담상세락조회">
+		<![CDATA[
+			SELECT /*+ 김남식::/gcb/empInfMg/gcbEmpClwrAltmDtlEbi/TBGCBHM01/retvLckGcbEmpClwrAltmDtl */ 
+			       A.부점코드
+			     , A.사무분담코드
+			     , A.직원번호
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , TO_CHAR(시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBHM01 A 
+			 WHERE A.부점코드    = ${부점코드}
+			   AND A.사무분담코드  = ${사무분담코드}
+			   AND A.직원번호    = ${직원번호}
+			   AND A.적용시작년월일 = ${적용시작년월일}
+			   FOR UPDATE NOWAIT
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="regtGcbEmpClwrAltmDtl" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::03.직원정보관리::GCB직원사무분담상세Ebi::GCB직원사무분담상세Dao::GCB직원사무분담상세등록" >
+		<![CDATA[
+			INSERT /*+ 김남식::/gcb/empInfMg/gcbEmpClwrAltmDtlEbi/TBGCBHM01/regtGcbEmpClwrAltmDtl */
+			  INTO INSTC.TBGCBHM01
+			(
+			   부점코드
+			 , 사무분담코드
+			 , 직원번호
+			 , 적용시작년월일
+			 , 적용종료년월일
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${부점코드}
+			 ,${사무분담코드}
+			 ,${직원번호}
+			 ,${적용시작년월일}
+			 ,${적용종료년월일}
+			 ,SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,${시스템최종거래일시}
+			)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGcbEmpClwrAltmDtl" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::03.직원정보관리::GCB직원사무분담상세Ebi::GCB직원사무분담상세Dao::GCB직원사무분담상세목록조회">
+		<![CDATA[
+			SELECT /*+ 김남식::/gcb/empInfMg/gcbEmpClwrAltmDtlEbi/TBGCBHM01/retvLstGcbEmpClwrAltmDtl */ 
+			       A.부점코드
+			     , A.사무분담코드
+			     , A.직원번호
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , TO_CHAR(시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBHM01 A 
+			 WHERE '1' = ${조회구분코드}
+			   AND A.부점코드    = ${부점코드}
+			   AND ${적용시작년월일} BETWEEN A.적용시작년월일 AND A.적용종료년월일   
+			UNION ALL                                                       
+			SELECT /*+ 김남식::/gcb/empInfMg/gcbEmpClwrAltmDtlEbi/TBGCBHM01/retvLstGcbEmpClwrAltmDtl */ 
+			       A.부점코드
+			     , A.사무분담코드
+			     , A.직원번호
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , TO_CHAR(시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBHM01 A 
+			 WHERE '2'         = ${조회구분코드}
+			   AND A.사무분담코드    = ${사무분담코드}
+			   AND ${적용시작년월일} BETWEEN A.적용시작년월일 AND A.적용종료년월일   
+			UNION ALL                                                       
+			SELECT /*+ 김남식::/gcb/empInfMg/gcbEmpClwrAltmDtlEbi/TBGCBHM01/retvLstGcbEmpClwrAltmDtl */ 
+			       A.부점코드
+			     , A.사무분담코드
+			     , A.직원번호
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , TO_CHAR(시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBHM01 A 
+			 WHERE '3'      = ${조회구분코드}
+			   AND A.직원번호    = ${직원번호}
+			   AND ${적용시작년월일} BETWEEN A.적용시작년월일 AND A.적용종료년월일   
+			UNION ALL                                                       
+			SELECT /*+ 김남식::/gcb/empInfMg/gcbEmpClwrAltmDtlEbi/TBGCBHM01/retvLstGcbEmpClwrAltmDtl */ 
+			       A.부점코드
+			     , A.사무분담코드
+			     , A.직원번호
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , TO_CHAR(시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBHM01 A 
+			 WHERE '4'         = ${조회구분코드}
+			   AND A.부점코드         = ${부점코드}
+			   AND A.사무분담코드    = ${사무분담코드}
+			   AND ${적용시작년월일} BETWEEN A.적용시작년월일 AND A.적용종료년월일   
+			UNION ALL                                                       
+			SELECT /*+ 김남식::/gcb/empInfMg/gcbEmpClwrAltmDtlEbi/TBGCBHM01/retvLstGcbEmpClwrAltmDtl */ 
+			       A.부점코드
+			     , A.사무분담코드
+			     , A.직원번호
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , TO_CHAR(시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBHM01 A 
+			 WHERE '5'         = ${조회구분코드}
+			   AND A.사무분담코드    = ${사무분담코드}
+			   AND A.직원번호         = ${직원번호}
+			   AND ${적용시작년월일} BETWEEN A.적용시작년월일 AND A.적용종료년월일   
+			UNION ALL                                                       
+			SELECT /*+ 김남식::/gcb/empInfMg/gcbEmpClwrAltmDtlEbi/TBGCBHM01/retvLstGcbEmpClwrAltmDtl */ 
+			       A.부점코드
+			     , A.사무분담코드
+			     , A.직원번호
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , TO_CHAR(시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBHM01 A 
+			 WHERE '6'         = ${조회구분코드}
+			   AND A.부점코드         = ${부점코드}
+			   AND A.직원번호         = ${직원번호}
+			   AND ${적용시작년월일} BETWEEN A.적용시작년월일 AND A.적용종료년월일   
+			UNION ALL                                                       
+			SELECT /*+ 김남식::/gcb/empInfMg/gcbEmpClwrAltmDtlEbi/TBGCBHM01/retvLstGcbEmpClwrAltmDtl */ 
+			       A.부점코드
+			     , A.사무분담코드
+			     , A.직원번호
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , TO_CHAR(시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBHM01 A 
+			 WHERE '7'         = ${조회구분코드}
+			   AND A.부점코드         = ${부점코드}
+			   AND A.사무분담코드    = ${사무분담코드}
+			   AND A.직원번호         = ${직원번호}
+			   AND ${적용시작년월일} BETWEEN A.적용시작년월일 AND A.적용종료년월일   
+			UNION ALL                                                       
+			SELECT /*+ 김남식::/gcb/empInfMg/gcbEmpClwrAltmDtlEbi/TBGCBHM01/retvLstGcbEmpClwrAltmDtl */ 
+			       A.부점코드
+			     , A.사무분담코드
+			     , A.직원번호
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , TO_CHAR(시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBHM01 A 
+			 WHERE '9'         = ${조회구분코드}
+			   AND (A.부점코드       = ${부점코드}    OR  ${부점코드}     IS NULL)
+			   AND (A.사무분담코드  = ${사무분담코드} OR  ${사무분담코드}  IS NULL)
+			   AND (A.직원번호       = ${직원번호}    OR  ${직원번호}     IS NULL)
+			   AND ${적용시작년월일} BETWEEN A.적용시작년월일 AND A.적용종료년월일
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGcbEmpClwrAltm" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::03.직원정보관리::GCB직원사무분담상세Ebi::GCB직원사무분담상세Dao::GCB직원사무분담목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/empInfMg/gcbEmpClwrAltmDtlEbi/TBGCBHM01/retvLstGcbEmpClwrAltm */ 
+			       A.부점코드
+			     , A.사무분담코드
+			     , A.직원번호
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBHM01 A 
+			 WHERE A.직원번호    = ${직원번호}
+			   AND ${적용시작년월일} BETWEEN A.적용시작년월일 AND A.적용종료년월일
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGcbEmpClwrAltmDtlInf" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::03.직원정보관리::GCB직원사무분담상세Ebi::GCB직원사무분담상세Dao::GCB직원사무분담상세정보목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/empInfMg/gcbEmpClwrAltmDtlEbi/TBGCBHM01/retvLstGcbEmpClwrAltmDtlInf */ 
+			       A.부점코드
+			     , A.사무분담코드
+			     , A.직원번호
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBHM01 A 
+			 WHERE (A.부점코드    = ${부점코드}
+			        OR ${부점코드} IS NULL) 
+			   AND (A.사무분담코드  = ${사무분담코드}
+			        OR ${사무분담코드} IS NULL)
+			   AND (A.직원번호    = ${직원번호}
+			        OR ${직원번호} IS NULL)
+			   AND A.적용시작년월일 <= ${적용시작년월일}
+			   AND A.적용종료년월일 >= ${적용종료년월일}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="regtGcbEmpClwrAltmDtlInqByClwrAltmInfErtm" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::03.직원정보관리::GCB직원사무분담상세Ebi::GCB직원사무분담상세Dao::GCB직원사무분담상세조회By사무분담정보실시간등록" >
+		<![CDATA[
+			INSERT /*+ 김민교::/gcb/empInfMg/gcbEmpClwrAltmDtlEbi/TBGCBHM01/regtGcbEmpClwrAltmDtlInqByClwrAltmInfErtm */
+			  INTO INSTC.TBGCBHM01        /* GCB직원사무분담상세 */
+			(
+			   부점코드
+			 , 사무분담코드
+			 , 직원번호
+			 , 적용시작년월일
+			 , 적용종료년월일
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			 , 대직여부
+			)
+			VALUES
+			(
+			  ${부점코드}
+			 ,${사무분담코드}
+			 ,${직원번호}
+			 ,${적용시작년월일}
+			 ,${적용종료년월일}
+			 ,SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,${시스템최종거래일시}
+			 ,${대직여부}
+			)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="delGcbEmpClwrAltmDtlInqByClwrAltmInfErtm" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::03.직원정보관리::GCB직원사무분담상세Ebi::GCB직원사무분담상세Dao::GCB직원사무분담상세조회By사무분담정보실시간삭제" >
+		<![CDATA[
+			DELETE /*+ 김민교::/gcb/empInfMg/gcbEmpClwrAltmDtlEbi/TBGCBHM01/delGcbEmpClwrAltmDtlInqByClwrAltmInfErtm */
+			  FROM INSTC.TBGCBHM01        /* GCB직원사무분담상세 */
+			 WHERE 부점코드    = ${부점코드}
+			   AND 사무분담코드  = ${사무분담코드}
+			   AND 직원번호    = ${직원번호}
+			   AND 적용시작년월일 = ${적용시작년월일}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvGcbEmpClwrAltmDtlInqBySpsrAtrVldYn" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::03.직원정보관리::GCB직원사무분담상세Ebi::GCB직원사무분담상세Dao::GCB직원사무분담상세조회By책임자권한유효여부조회">
+		<![CDATA[
+			SELECT /*+ 김민교::/gcb/empInfMg/gcbEmpClwrAltmDtlEbi/TBGCBHM01/retvGcbEmpClwrAltmDtlInqBySpsrAtrVldYn */ 
+			       COUNT(*) 조회건수_N3
+			  FROM INSTC.TBGCBHM01 A        /* GCB직원사무분담상세 */
+			 WHERE A.부점코드    = ${부점코드}
+			   AND A.사무분담코드  = ${사무분담코드}
+			   AND A.직원번호    = ${직원번호}
+			   AND ${적용시작년월일} BETWEEN A.적용시작년월일 AND A.적용종료년월일
+		]]>
+    </statement>
+</statements>

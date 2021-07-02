@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="regtCmnDatRcpDtl" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::01.공통데이터동기화관리::01.공통데이터접수::IQMS수신통합코드정보적재Job::DAO::IQMS수신통합코드정보적재Bdao::공통데이터접수상세등록" >
+		<![CDATA[
+			INSERT /*+ 위상규::/gcb/batch/cmnDatSynchMg/cmnDatRcp/iqmsRcvIngCdInfLdinJob/IqmsRcvIngCdInfLdin/regtCmnDatRcpDtl */
+			  INTO INSTC.TBGCBDM01
+			(
+			   공통데이터테이블명
+			 , 원천시스템식별구분코드
+			 , 작업기준년월일
+			 , 접수작업처리회차
+			 , 접수작업단계구분코드
+			 , 배포파일구분코드
+			 , 접수작업결과구분코드
+			 , 접수대상데이터건수
+			 , 접수작업시작년월일
+			 , 접수작업시작시각
+			 , 접수작업종료년월일
+			 , 접수작업종료시각
+			 , 접수작업오류발생내용
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${공통데이터테이블명}
+			 ,${원천시스템식별구분코드}
+			 ,${작업기준년월일}
+			 ,${접수작업처리회차}
+			 ,${접수작업단계구분코드}
+			 ,${배포파일구분코드}
+			 ,${접수작업결과구분코드}
+			 ,${접수대상데이터건수}
+			 ,${접수작업시작년월일}
+			 ,${접수작업시작시각}
+			 ,${접수작업종료년월일}
+			 ,${접수작업종료시각}
+			 ,${접수작업오류발생내용}
+			 ,SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,${시스템최종거래일시}
+			)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="uptCmnDatRcpDtl" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::01.공통데이터동기화관리::01.공통데이터접수::IQMS수신통합코드정보적재Job::DAO::IQMS수신통합코드정보적재Bdao::공통데이터접수상세수정" >
+		<![CDATA[
+			UPDATE /*+ 위상규::/gcb/batch/cmnDatSynchMg/cmnDatRcp/iqmsRcvIngCdInfLdinJob/IqmsRcvIngCdInfLdin/uptCmnDatRcpDtl */ 
+			       INSTC.TBGCBDM01 
+			   SET 배포파일구분코드   = ${배포파일구분코드}
+			     , 접수작업결과구분코드 = ${접수작업결과구분코드}
+			     , 접수대상데이터건수  = ${접수대상데이터건수}
+			     , 접수작업시작년월일  = ${접수작업시작년월일}
+			     , 접수작업시작시각   = ${접수작업시작시각}
+			     , 접수작업종료년월일  = ${접수작업종료년월일}
+			     , 접수작업종료시각   = ${접수작업종료시각}
+			     , 접수작업오류발생내용 = ${접수작업오류발생내용}
+			     , 시스템최종갱신일시  = SYSTIMESTAMP
+			     , 시스템최종갱신식별자 = ${시스템최종갱신식별자}
+			     , 시스템최종거래일시  = ${시스템최종거래일시}
+			 WHERE 공통데이터테이블명   = ${공통데이터테이블명}
+			   AND 원천시스템식별구분코드 = ${원천시스템식별구분코드}
+			   AND 작업기준년월일     = ${작업기준년월일}
+			   AND 접수작업처리회차    = ${접수작업처리회차}
+			   AND 접수작업단계구분코드  = ${접수작업단계구분코드}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="regtIngCd" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::01.공통데이터동기화관리::01.공통데이터접수::IQMS수신통합코드정보적재Job::DAO::IQMS수신통합코드정보적재Bdao::통합코드등록">
+		<![CDATA[
+			INSERT /*+ 위상규::/gcb/batch/cmnDatSynchMg/cmnDatRcp/iqmsRcvIngCdInfLdinJob/IqmsRcvIngCdInfLdin/regtIngCd */
+			  INTO INSTC.TBGCBUI02
+			(
+			   통합코드명
+			 , 통합코드
+			 , 적용시작년월일
+			 , 적용종료년월일
+			 , 통합코드내용
+			 , 통합코드화면표시순서
+			 , 최초등록일시
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${통합코드명}
+			 ,${통합코드}
+			 ,${적용시작년월일}
+			 ,${적용종료년월일}
+			 ,${통합코드내용}
+			 ,${통합코드화면표시순서}
+			 ,${최초등록일시}
+			 ,SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,${시스템최종거래일시}
+			)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="uptIngCd" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::01.공통데이터동기화관리::01.공통데이터접수::IQMS수신통합코드정보적재Job::DAO::IQMS수신통합코드정보적재Bdao::통합코드수정">
+		<![CDATA[
+			UPDATE /*+ 위상규::/gcb/batch/cmnDatSynchMg/cmnDatRcp/iqmsRcvIngCdInfLdinJob/IqmsRcvIngCdInfLdin/uptIngCd */ 
+			       INSTC.TBGCBUI02 
+			   SET 적용종료년월일    = ${적용종료년월일}
+			     , 통합코드내용     = ${통합코드내용}
+			     , 통합코드화면표시순서 = ${통합코드화면표시순서}
+			     , 최초등록일시     = ${최초등록일시}
+			     , 시스템최종갱신일시  = SYSTIMESTAMP
+			     , 시스템최종갱신식별자 = ${시스템최종갱신식별자}
+			     , 시스템최종거래일시  = ${시스템최종거래일시}
+			 WHERE 통합코드명      = ${통합코드명}
+			   AND 통합코드       = ${통합코드}
+			   AND 적용시작년월일    = ${적용시작년월일}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvIngCd" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::01.공통데이터동기화관리::01.공통데이터접수::IQMS수신통합코드정보적재Job::DAO::IQMS수신통합코드정보적재Bdao::통합코드조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/batch/cmnDatSynchMg/cmnDatRcp/iqmsRcvIngCdInfLdinJob/IqmsRcvIngCdInfLdin/retvIngCd */ 
+			       A.통합코드명
+			     , A.통합코드
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , A.통합코드내용
+			     , A.통합코드화면표시순서
+			     , A.최초등록일시
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBUI02 A 
+			 WHERE A.통합코드명      = ${통합코드명}
+			   AND A.통합코드       = ${통합코드}
+			   AND A.적용시작년월일    = ${적용시작년월일}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstTrCd" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::01.공통데이터동기화관리::01.공통데이터접수::IQMS수신통합코드정보적재Job::DAO::IQMS수신통합코드정보적재Bdao::거래코드목록조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/batch/cmnDatSynchMg/cmnDatRcp/iqmsRcvIngCdInfLdinJob/IqmsRcvIngCdInfLdin/retvLstTrCd */
+			       '거래코드' 통합코드명
+			     , A.거래코드등록번호 통합코드
+			     , A.신규년월일 적용시작년월일
+			     , A.폐기년월일 적용종료년월일
+			     , A.거래코드명 통합코드내용
+			     , '' 통합코드한글약어명
+			     , '' 통합코드영문약어명
+			     , 0 통합코드화면표시순서
+			     , A.신규년월일 || '000000' 최초등록일시
+			  FROM INSTC.VSIQMCO55 A
+			 WHERE A.신규년월일 = DECODE(${적용시작년월일}, '00000000', A.신규년월일, ${적용시작년월일})
+			    OR A.변경년월일 = DECODE(${적용시작년월일}, '00000000', A.변경년월일, ${적용시작년월일})
+			    OR A.폐기년월일 = DECODE(${적용시작년월일}, '00000000', A.폐기년월일, ${적용시작년월일})
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstUppl" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::01.공통데이터동기화관리::01.공통데이터접수::IQMS수신통합코드정보적재Job::DAO::IQMS수신통합코드정보적재Bdao::어플리케이션목록조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/batch/cmnDatSynchMg/cmnDatRcp/iqmsRcvIngCdInfLdinJob/IqmsRcvIngCdInfLdin/retvLstUppl */
+			       '어플리케이션코드' 통합코드명
+			     , A.업무이니셜코드 통합코드
+			     , A.신규년월일 적용시작년월일
+			     , A.폐기년월일 적용종료년월일
+			     , A.업무이니셜명 통합코드내용
+			     , '' 통합코드한글약어명
+			     , '' 통합코드영문약어명
+			     , 0 통합코드화면표시순서
+			     , A.신규년월일 || '000000' 최초등록일시
+			  FROM INSTC.VSIQMCO21 A
+		]]>
+    </statement>
+</statements>

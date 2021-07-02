@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvLstLdgAmdReferTmpStngHisDel" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::06.원장수정::04.원장수정조회통계::원장수정의뢰서임시저장내역삭제Job::DAO::원장수정의뢰서임시저장내역삭제Bdao::원장수정의뢰서임시저장내역삭제목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/batch/ldgAmd/ldgAmdInqSttc/ldgAmdReferTmpStngHisDelJob/LdgAmdReferTmpStngHisDel/retvLstLdgAmdReferTmpStngHisDel */ 
+			       A.원장수정의뢰번호
+			     , A.원장수정의뢰서상태구분코드
+			     , A.원장수정진행단계구분코드
+			     , A.원장수정의뢰서명
+			     , A.원장수정요청년월일
+			     , A.원장수정의뢰서작성시각
+			     , A.원장수정의뢰부점코드
+			     , A.원장수정의뢰부점명
+			     , A.원장수정의뢰직원번호
+			     , A.원장수정의뢰직원명
+			     , A.원장수정주무부점코드
+			     , A.원장수정주무부점명
+			     , A.원장수정주무부점직원번호
+			     , A.원장수정주무부점직원명
+			     , A.원장수정접수IT팀부점코드
+			     , A.원장수정접수IT팀부점명
+			     , A.원장수정접수IT팀구분코드
+			     , A.원장수정접수IT팀명
+			     , A.원장수정희망년월일
+			     , A.원장수정의뢰사유
+			     , A.원장수정의뢰서IT부서작성여부
+			     , A.원장수정의뢰서취소직원번호
+			     , A.원장수정의뢰서취소사유
+			     , A.원장수정첨부파일그룹번호
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBLA11 A 
+			 WHERE A.원장수정의뢰서상태구분코드 = ${원장수정의뢰서상태구분코드}
+			   AND A.원장수정요청년월일 < ${원장수정요청년월일}
+		]]>
+    </statement>
+</statements>

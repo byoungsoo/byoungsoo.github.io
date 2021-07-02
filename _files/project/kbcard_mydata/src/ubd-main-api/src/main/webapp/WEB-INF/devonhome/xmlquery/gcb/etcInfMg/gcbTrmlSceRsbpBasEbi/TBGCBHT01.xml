@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvGcbTrmlSceRsbpBasSceCllgNo" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::16.기타정보관리::GCB단말화면담당자기본Ebi::GCB단말화면담당자기본Dao::GCB단말화면담당자기본화면호출번호조회">
+		<![CDATA[
+			SELECT /*+ 김남식::/gcb/etcInfMg/gcbTrmlSceRsbpBasEbi/TBGCBHT01/retvGcbTrmlSceRsbpBasSceCllgNo */ 
+			       A.화면번호
+			     , A.화면호출번호
+			     , A.화면명
+			     , A.화면전산담당직원번호
+			     , A.화면전산담당자전화번호
+			     , A.화면현업담당직원번호
+			     , A.화면현업담당자전화번호
+			  FROM INSTC.TBGCBHT01 A 
+			 WHERE A.화면호출번호 = ${화면호출번호}
+			   AND ROWNUM < 2
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvGcbTrmlSceRsbpBasSceNo" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::16.기타정보관리::GCB단말화면담당자기본Ebi::GCB단말화면담당자기본Dao::GCB단말화면담당자기본화면번호조회">
+		<![CDATA[
+			SELECT /*+ 김남식::/gcb/etcInfMg/gcbTrmlSceRsbpBasEbi/TBGCBHT01/retvGcbTrmlSceRsbpBasSceNo */ 
+			       A.화면번호
+			     , A.화면호출번호
+			     , A.화면명
+			     , A.화면전산담당직원번호
+			     , A.화면전산담당자전화번호
+			     , A.화면현업담당직원번호
+			     , A.화면현업담당자전화번호 
+			  FROM INSTC.TBGCBHT01 A 
+			 WHERE A.화면번호 = ${화면번호}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvGcbTrmlSceRsbpBas" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::16.기타정보관리::GCB단말화면담당자기본Ebi::GCB단말화면담당자기본Dao::GCB단말화면담당자기본조회" >
+		<![CDATA[
+			SELECT /*+ 이태양::/gcb/etcInfMg/gcbTrmlSceRsbpBasEbi/TBGCBHT01/retvGcbTrmlSceRsbpBas */ 
+			       A.화면번호
+			     , A.화면호출번호
+			     , A.화면명
+			     , A.화면전산담당직원번호
+			     , A.화면전산담당자전화번호
+			     , A.화면현업담당직원번호
+			     , A.화면현업담당자전화번호
+			     , A.등록직원번호
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBHT01 A        /* GCB단말화면담당자기본 */
+			 WHERE A.화면번호 = ${화면번호}
+			
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="regtGcbTrmlSceRsbpBas" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::16.기타정보관리::GCB단말화면담당자기본Ebi::GCB단말화면담당자기본Dao::GCB단말화면담당자기본등록" >
+		<![CDATA[
+			INSERT /*+ 이태양::/gcb/etcInfMg/gcbTrmlSceRsbpBasEbi/TBGCBHT01/regtGcbTrmlSceRsbpBas */
+			  INTO INSTC.TBGCBHT01        /* GCB단말화면담당자기본 */
+			(
+			   화면번호
+			 , 화면호출번호
+			 , 화면명
+			 , 화면전산담당직원번호
+			 , 화면전산담당자전화번호
+			 , 화면현업담당직원번호
+			 , 화면현업담당자전화번호
+			 , 등록직원번호
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${화면번호}
+			 ,${화면호출번호}
+			 ,${화면명}
+			 ,${화면전산담당직원번호}
+			 ,${화면전산담당자전화번호}
+			 ,${화면현업담당직원번호}
+			 ,${화면현업담당자전화번호}
+			 ,${등록직원번호}
+			 ,SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,${시스템최종거래일시}
+			)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="uptGcbTrmlSceRsbpBas" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::16.기타정보관리::GCB단말화면담당자기본Ebi::GCB단말화면담당자기본Dao::GCB단말화면담당자기본수정" >
+		<![CDATA[
+			UPDATE /*+ 이태양::/gcb/etcInfMg/gcbTrmlSceRsbpBasEbi/TBGCBHT01/uptGcbTrmlSceRsbpBas */ 
+			       INSTC.TBGCBHT01        /* GCB단말화면담당자기본 */
+			   SET 화면호출번호      = ${화면호출번호}
+			     , 화면명         = ${화면명}
+			     , 화면전산담당직원번호  = ${화면전산담당직원번호}
+			     , 화면전산담당자전화번호 = ${화면전산담당자전화번호}
+			     , 화면현업담당직원번호  = ${화면현업담당직원번호}
+			     , 화면현업담당자전화번호 = ${화면현업담당자전화번호}
+			     , 등록직원번호      = ${등록직원번호}
+			     , 시스템최종갱신일시   = SYSTIMESTAMP
+			     , 시스템최종갱신식별자  = ${시스템최종갱신식별자}
+			     , 시스템최종거래일시   = ${시스템최종거래일시}
+			 WHERE 화면번호 = ${화면번호}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLckGcbTrmlSceRsbpBas" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::16.기타정보관리::GCB단말화면담당자기본Ebi::GCB단말화면담당자기본Dao::GCB단말화면담당자기본락조회">
+		<![CDATA[
+			SELECT /*+ 이태양::/gcb/etcInfMg/gcbTrmlSceRsbpBasEbi/TBGCBHT01/retvLckGcbTrmlSceRsbpBas */ 
+			       A.화면번호
+			     , A.화면호출번호
+			     , A.화면명
+			     , A.화면전산담당직원번호
+			     , A.화면전산담당자전화번호
+			     , A.화면현업담당직원번호
+			     , A.화면현업담당자전화번호
+			     , A.등록직원번호
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBHT01 A        /* GCB단말화면담당자기본 */
+			 WHERE A.화면번호 = ${화면번호}
+			 FOR UPDATE WAIT 3
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="delGcbTrmlSceRsbpBas" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::16.기타정보관리::GCB단말화면담당자기본Ebi::GCB단말화면담당자기본Dao::GCB단말화면담당자기본삭제" >
+		<![CDATA[
+			DELETE /*+ 이태양::/gcb/etcInfMg/gcbTrmlSceRsbpBasEbi/TBGCBHT01/delGcbTrmlSceRsbpBas */
+			  FROM INSTC.TBGCBHT01        /* GCB단말화면담당자기본 */
+			 WHERE 화면번호 = ${화면번호}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGcbTrmlSceRsbpBas" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::16.기타정보관리::GCB단말화면담당자기본Ebi::GCB단말화면담당자기본Dao::GCB단말화면담당자기본목록조회">
+		<![CDATA[
+			SELECT /*+ 이태양::/gcb/etcInfMg/gcbTrmlSceRsbpBasEbi/TBGCBHT01/retvLstGcbTrmlSceRsbpBas */ 
+			       A.화면번호
+			     , A.화면호출번호
+			     , A.화면명
+			     , A.화면전산담당직원번호
+			     , A.화면전산담당자전화번호
+			     , A.화면현업담당직원번호
+			     , A.화면현업담당자전화번호
+			     , A.등록직원번호
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBHT01 A        /* GCB단말화면담당자기본 */
+			 WHERE (( ${화면번호} IS NULL OR A.화면번호 LIKE '%' || ${화면번호} || '%' ) 
+			   AND ( ${화면호출번호} IS NULL OR A.화면호출번호 LIKE '%' || ${화면호출번호} || '%' )
+			   AND ( ${화면명} IS NULL OR A.화면명 LIKE '%' || ${화면명} || '%' )
+			   AND (('1' = ${조회구분코드} AND  A.화면현업담당직원번호 = ${화면담당직원번호_V7}) 
+			    OR ('2' = ${조회구분코드} AND  A.화면전산담당직원번호 = ${화면담당직원번호_V7})
+			    OR ('3' = ${조회구분코드} AND  A.화면현업담당직원번호 IS NULL )
+			    OR ('4' = ${조회구분코드} AND  A.화면전산담당직원번호 IS NULL )
+			    OR ('9' = ${조회구분코드} AND (( ${화면담당직원번호_V7} IS NULL OR A.화면현업담당직원번호 = ${화면담당직원번호_V7} )
+			                           OR ( ${화면담당직원번호_V7} IS NULL OR A.화면전산담당직원번호 = ${화면담당직원번호_V7} )) )))
+		]]>
+    </statement>
+</statements>

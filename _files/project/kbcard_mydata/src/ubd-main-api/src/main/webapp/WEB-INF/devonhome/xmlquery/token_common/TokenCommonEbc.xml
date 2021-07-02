@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<statements>
+    <statement name="selectTokenIsuHis">
+	<![CDATA[
+		SELECT /*+ 이요한::/token/TokenCommonEbc/selectTokenIsuHis */
+		       A.마이데이터거래고유번호       AS MYDT_TR_UNO
+		     , A.마이데이터거래요청년월일     AS MYDT_TR_DMD_YMD
+		     , A.마이데이터토큰구분코드       AS MYDT_TKEN_DTCD
+		     , A.마이데이터전송대상구분코드   AS MYDT_TRS_TG_DTCD
+		     , A.마이데이터인증구분코드       AS MYDT_CTF_DTCD
+		     , A.마이데이터업권구분코드       AS MYDT_BSZ_DTCD
+		     , A.마이데이터제공기관코드       AS MYDT_OFER_INS_CD
+		     , A.마이데이터사업자기관코드     AS MYDT_BZM_INS_CD
+		     , A.마이데이터클라이언트식별번호 AS MYDT_CLINT_IDI_NO
+		     , A.CI내용                       AS CI_CTT
+		     , A.고객식별자                   AS CST_IDF
+		     , A.고객관리번호                 AS CST_MG_NO
+		     , A.고객최초등록년월일           AS CST_FST_RG_YMD
+		     , A.접근토큰유효기간초수         AS AT_EXPT_SS_CNT
+		     , A.접근토큰만료일시             AS AT_EXY_YMS
+		     , A.마이데이터권한영역내용       AS MYDT_ATR_SCOP_CTT
+		     , A.접근토큰폐기여부             AS AT_DSCR_YN
+		     , A.접근토큰폐기사유구분코드     AS ACCS_TKEN_DSCR_RSN_DTCD
+		     , A.접근토큰폐기일시             AS AT_DSCR_YMS
+		     , A.접근토큰식별번호             AS AT_IDI_NO
+		     , A.마이데이터토큰내용           AS MYDT_TKEN_CTT
+		  FROM INSTC.TBUBDC023 A
+		 WHERE 1=1
+		   AND A.마이데이터토큰내용 = ${token}
+		   AND ROWNUM <= 1
+	]]>   
+    </statement>
+    <statement name="selectQulProf">
+	<![CDATA[
+		SELECT /*+ 이요한::/token/TokenCommonEbc/selectQulProf */
+		       A.자격증명구분코드                  AS QUL_PROF_DTCD
+		     , A.자격증명발급기관코드            AS QUL_PROF_ISU_INS_CD
+		     , A.자격증명수신기관코드            AS QUL_PROF_RCV_INS_CD
+		     , A.자격증명일련번호                 AS QUL_PROF_SNO
+		     , A.오픈API서비스구분코드         AS OPEN_API_SVC_DTCD
+		     , A.마이데이터업권구분코드          AS MYDT_BSZ_DTCD
+		     , A.마이데이터클라이언트식별번호  AS MYDT_CLINT_IDI_NO
+		     , A.클라이언트비밀키내용            AS CLINT_SECRT_KY_CTT
+		     , A.발급일시                           AS ISU_YMS
+		     , A.등록일시                           AS RG_YMS
+		     , A.자격증명등록식별자               AS QUL_PROF_RG_IDF
+		  FROM INSTC.TBUBDC001 A
+		 WHERE ( 자격증명수신기관코드 = ${org_code}
+		       OR 마이데이터클라이언트식별번호 = ${org_code}
+		       )
+		   AND ROWNUM <= 1
+	]]>   
+    </statement>
+    <statement name="selectApiScopId">
+	<![CDATA[
+		SELECT /*+ 이요한::/token/TokenCommonEbc/selectApiScopId */
+		       A.마이데이터권한영역명     AS MYDT_ATR_SCOP_NM
+		  FROM INSTC.TBUBDP104 A
+		 WHERE 오픈API식별번호 = ${apiId}
+		   AND 오픈API서비스구분코드 = '01'
+		   AND ROWNUM <= 1
+	]]>   
+    </statement>
+    <statement name="selectAttInfo">
+	<![CDATA[
+
+		SELECT /*+ 이요한::/token/TokenCommonEbc/selectApiScopId */
+		       A.마이데이터자산내용
+		  FROM INSTC.TBUBDC016 A
+		 WHERE A.마이데이터제공기관코드 = ${mydt_ofer_ins_cd}
+		   AND A.마이데이터업권구분코드 = ${mydt_bsz_dtcd}
+		   AND A.마이데이터사업자기관코드 = ${mydt_bzm_ins_cd}
+		   AND A.마이데이터클라이언트식별번호 = ${mydt_clint_idi_no}
+		   AND A.CI내용 = ${ci_ctt}
+		   AND A.마이데이터자산내용 = ${mydt_ast_ctt}
+	]]>   
+    </statement>
+
+</statements>

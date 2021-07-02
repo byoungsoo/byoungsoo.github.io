@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="3.0"
+    xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <display-name>ubf-api</display-name>
+
+    <context-param>
+        <param-name>devon.home</param-name>
+        <param-value>devonhome</param-value>
+    </context-param>
+    <context-param>
+        <param-name>requisite.home</param-name>
+        <param-value>devonhome/requisite</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>configuration.validation</param-name>
+        <param-value>false</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>navigation.database</param-name>
+        <param-value>false</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>navigation.database.log</param-name>
+        <param-value>false</param-value>
+    </context-param>
+    
+	<listener>
+        <listener-class>devonenterprise.channel.listener.DevOnEnterpriseHomeListener</listener-class>
+    </listener>
+    
+    <listener>
+        <listener-class>requisite.servlet.RequisiteHomeServletContextListener</listener-class>
+    </listener>
+        
+    <listener>
+    	<listener-class>devonenterprise.ext.channel.listener.ApplicationInitListener</listener-class>
+    </listener>
+    
+    <listener>
+        <listener-class>devonenterprise.service.thread.listener.ThreadPoolServletContextListener</listener-class>
+    </listener>
+
+   <!-- #### 문자셋 인코딩 처리 위한 필터 설정 #### -->
+    <filter>
+        <filter-name>CharsetFilter</filter-name>
+        <filter-class>devonenterprise.channel.filter.CharsetEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>CharsetFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- #### 다국어 처리위한 필터 설정 #### -->
+    <filter>
+        <filter-name>ManyLanguagesFilter</filter-name>
+        <filter-class>devonenterprise.channel.filter.ManyLanguagesFilter</filter-class>
+        <init-param>
+            <param-name>useLocale</param-name>
+            <param-value>ko_KR</param-value>
+        </init-param>
+        <init-param>
+            <param-name>useLocaleMaintain</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>userLocaleParamName</param-name>
+            <param-value>useLocale</param-value>
+        </init-param>
+        <init-param>
+            <param-name>userLocaleMaintain</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>ManyLanguagesFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- #### 화면 접근제어 처리위한 필터 설정 #### -->
+    <!-- skipScreenIds :: 화면접근제어 제외할 화면식별자 목록를 설정한다. -->
+    <!-- ex) "comLogin" 화면 제외 : comLogin -->
+    <!-- ex) "comLogin"와 "exp"로 시작되는 화면 제외 : comLogin;exp* -->
+    <!-- ================================================ -->
+    <!-- forwardUrl :: 화면접근이 통제되었을때 포워딩할 경로를 설정한다. -->
+    <!-- 발생된 예외는 요청객체의 속성("javax.servlet.forward.throw_exception")에 들어있다. -->
+    <!-- ex) /webdocs/system/error.jsp -->
+    <filter>
+        <filter-name>ScreenAccCtrlFilter</filter-name>
+        <filter-class>devonenterprise.channel.filter.ScreenAccCtrlFilter</filter-class>
+
+        <!-- 화면접근제어 제외할 화면식별자 목록 -->
+        <init-param>
+            <param-name>skipScreenIds</param-name>
+            <param-value>COMMON_*</param-value>
+        </init-param>
+
+        <!-- 화면접근이 통제되었을때 포워딩할 경로 -->
+        <init-param>
+            <param-name>forwardUrl</param-name>
+            <param-value>/jsp/common/error/error.jsp</param-value>
+        </init-param>
+
+    </filter>
+
+    <!-- #### 화면접근제어 필터 설정 #### -->
+    <filter-mapping>
+        <filter-name>ScreenAccCtrlFilter</filter-name>
+        <url-pattern>*.scp</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
+    <!-- 운영관리 리프레쉬(메타정보 재구성) -->
+    <servlet>
+        <servlet-name>RefreshServlet</servlet-name>
+        <servlet-class>devonenterprise.channel.adaptor.http.RefreshServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>RefreshServlet</servlet-name>
+        <url-pattern>/management/*</url-pattern>
+        <url-pattern>/ubf-api/management/*</url-pattern>
+    </servlet-mapping>
+
+  	<servlet>
+    	<servlet-name>GeneralRestServlet</servlet-name>
+    	<servlet-class>devonenterprise.ext.channel.adaptor.http.sync.impl.GeneralRestServlet</servlet-class>
+  	</servlet>
+  	<servlet-mapping>
+    	<servlet-name>GeneralRestServlet</servlet-name>
+    	<url-pattern>/rest/*</url-pattern>
+  	</servlet-mapping>
+  	
+  	<servlet>
+        <servlet-name>EAIServlet</servlet-name>
+        <servlet-class>com.kbcard.ubd.common.channel.adaptor.http.impl.EAIHttpAdaptor</servlet-class>
+        <!--  <servlet-class>devonenterprise.ext.channel.adaptor.http.sync.impl.EAIHttpAdaptor</servlet-class> -->
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EAIServlet</servlet-name>
+        <url-pattern>*.eai</url-pattern>
+    </servlet-mapping>
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <location>/jsp/common/error/error.jsp</location>
+    </error-page>
+
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <page-encoding>UTF-8</page-encoding>
+        </jsp-property-group>
+    </jsp-config>
+
+</web-app>

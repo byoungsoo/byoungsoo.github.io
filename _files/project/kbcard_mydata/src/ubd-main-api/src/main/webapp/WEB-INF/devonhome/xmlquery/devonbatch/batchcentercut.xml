@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<statements>
+  
+  <statement name="retrieveProctblList">
+    <![CDATA[
+      SELECT 
+            CC_ID, 
+       		PROC_DT, 
+        	CCEXE_NO, 
+        	PROCOP_NO, 
+        	PROC_SQ,
+        	ORGPROC_SQ,  
+        	CUS_NO, 
+        	ACC_NUM, 
+        	TRX_AMT,
+        	PROCSTAT_CD, 
+        	MOD_DT, 
+        	REG_DT, 
+        	MOD_USER_ID, 
+        	REG_USER_ID, 
+        	SITE_CD,        
+        	DO_PARAMETER
+      FROM  
+      		SERE_CCINTER_CAL_TB
+      WHERE PROC_DT = ${proc_dt}
+  	    AND CC_ID = ${cc_id}
+		AND CCEXE_NO = ${ccexe_no}
+		AND PROCOP_NO = ${procop_no}
+      	AND	PROCSTAT_CD IN ('00','02')
+    ]]>
+	</statement>
+	
+	<statement name="execCc.insertProctblId">
+  <![CDATA[
+    INSERT INTO ${proctbl_id:NOT} (
+        CC_ID, 
+        PROC_DT, 
+        CCEXE_NO, 
+        PROCOP_NO, 
+        PROC_SQ,
+        ORGPROC_SQ, 
+        CUS_NO, 
+        ACC_NUM, 
+        TRX_AMT,
+        PROCSTAT_CD, 
+        MOD_DT, 
+        REG_DT, 
+        MOD_USER_ID, 
+        REG_USER_ID, 
+        SITE_CD,        
+        DO_PARAMETER
+    ) VALUES (
+        ${cc_id},
+        ${proc_dt},
+        ${ccexe_no},
+        ${procop_no},
+        ${proc_sq},
+        ${orgproc_sq},
+        ${cus_no},
+        ${acc_num},
+        ${trx_amt},
+        ${procstat_cd},
+        TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3'),
+        TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3'),
+        ${mod_user_id},
+        ${reg_user_id},
+        ${site_cd},
+        ${do_parameter}
+    )
+  ]]>
+  </statement>
+  
+  
+	<statement name="execCc.insertSereCcsvcmgmtTb">
+  <![CDATA[
+    INSERT INTO SERE_CCSVCMGMT_TB (
+        CC_ID, 
+        PROC_DT, 
+        CCEXE_NO, 
+        PROCOP_NO, 
+        PROCSVC_ID, 
+        STRT_SQ, 
+        END_SQ, 
+        PROC_SQ, 
+        PROCSTAT_CD, 
+        MOD_DT, 
+        REG_DT, 
+        MOD_USER_ID, 
+        REG_USER_ID, 
+        SITE_CD, 
+        ALLPROC_NO, 
+        NORMPROC_NO, 
+        ERRPROC_NO, 
+        NOTPROC_NO, 
+        NODE_NM, 
+        INST_NM	
+    ) VALUES (
+        ${cc_id},
+        ${proc_dt},
+        ${ccexe_no},
+        ${procop_no},
+        ${procsvc_id},
+        ${strt_sq},
+        ${end_sq},
+        ${proc_sq},
+        ${procstat_cd},
+        TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3'),
+        TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3'),
+        ${mod_user_id},
+        ${reg_user_id},
+        ${site_cd},
+        ${allproc_no},
+        ${normproc_no},
+        ${errproc_no},
+        ${notproc_no},
+        ${node_nm},
+        ${inst_nm}
+    )
+  ]]>
+  </statement>
+  
+  
+	<statement name="execCc.insertSereCcttzTb">
+  <![CDATA[
+    INSERT INTO SERE_CCTTZ_TB (
+        CC_ID, 
+        PROC_DT, 
+        CCEXE_NO, 
+        PROCOP_NO, 
+        PREPRSTAT_CD, 
+        PROCSTAT_CD, 
+        PSTPRSTAT_CD, 
+        ALLCCOBJ_NO, 
+        MOD_DT, 
+        REG_DT, 
+        MOD_USER_ID, 
+        REG_USER_ID, 
+        SITE_CD, 
+        CCPNPPROC_NO, 
+        NORMPROC_NO, 
+		ERRPROC_NO, 
+		NOTPROC_NO , 
+		STRT_SQ, 
+		END_SQ , 
+		BATCHPROCSTD_DT
+    ) VALUES (
+        ${cc_id},
+        ${proc_dt},
+        ${ccexe_no},
+        ${procop_no},
+        ${preprstat_cd},
+        ${procstat_cd},
+        ${pstprstat_cd},
+        ${allccobj_no},
+        TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3'),
+        TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3'),
+        ${mod_user_id},
+        ${reg_user_id},
+        ${site_cd},
+        ${ccpnpproc_no},
+        ${normproc_no},
+        ${errproc_no},
+        ${notproc_no},
+        ${strt_sq},
+        ${end_sq},
+        ${batchprocstd_dt}
+    )
+  ]]>
+  </statement>
+
+  <statement name="execlog.updateCcnterCalTb">
+	  <![CDATA[
+      UPDATE SERE_CCINTER_CAL_TB
+         SET
+        	 DO_PARAMETER = ${do_parameter}     
+      ]]>
+	</statement>
+ 
+ </statements>  	      

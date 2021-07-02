@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="regtCmnDatRcpDtl" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::01.공통데이터동기화관리::02.공통데이터배포::통합코드취소CMJob::DAO::통합코드취소CMBdao::공통데이터접수상세등록" >
+		<![CDATA[
+			INSERT /*+ 위상규::/gcb/batch/cmnDatSynchMg/cmnDatWdst/ingCdCncCMJob/IngCdCncCM/regtCmnDatRcpDtl */
+			  INTO INSTC.TBGCBDM01        /* GCB공통데이터접수내역 */
+			(
+			   공통데이터테이블명
+			 , 원천시스템식별구분코드
+			 , 작업기준년월일
+			 , 접수작업처리회차
+			 , 접수작업단계구분코드
+			 , 배포파일구분코드
+			 , 접수작업결과구분코드
+			 , 접수대상데이터건수
+			 , 접수작업시작년월일
+			 , 접수작업시작시각
+			 , 접수작업종료년월일
+			 , 접수작업종료시각
+			 , 접수작업오류발생내용
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${공통데이터테이블명}
+			 ,${원천시스템식별구분코드}
+			 ,${작업기준년월일}
+			 ,${접수작업처리회차}
+			 ,${접수작업단계구분코드}
+			 ,${배포파일구분코드}
+			 ,${접수작업결과구분코드}
+			 ,${접수대상데이터건수}
+			 ,${접수작업시작년월일}
+			 ,${접수작업시작시각}
+			 ,${접수작업종료년월일}
+			 ,${접수작업종료시각}
+			 ,${접수작업오류발생내용}
+			 ,SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,${시스템최종거래일시}
+			)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="uptCmnDatRcpDtl" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::01.공통데이터동기화관리::02.공통데이터배포::통합코드취소CMJob::DAO::통합코드취소CMBdao::공통데이터접수상세수정" >
+		<![CDATA[
+			UPDATE /*+ 위상규::/gcb/batch/cmnDatSynchMg/cmnDatWdst/ingCdCncCMJob/IngCdCncCM/uptCmnDatRcpDtl */ 
+			       INSTC.TBGCBDM01        /* GCB공통데이터접수내역 */
+			   SET 배포파일구분코드   = ${배포파일구분코드}
+			     , 접수작업결과구분코드 = ${접수작업결과구분코드}
+			     , 접수대상데이터건수  = ${접수대상데이터건수}
+			     , 접수작업시작년월일  = ${접수작업시작년월일}
+			     , 접수작업시작시각   = ${접수작업시작시각}
+			     , 접수작업종료년월일  = ${접수작업종료년월일}
+			     , 접수작업종료시각   = ${접수작업종료시각}
+			     , 접수작업오류발생내용 = ${접수작업오류발생내용}
+			     , 시스템최종갱신일시  = SYSTIMESTAMP
+			     , 시스템최종갱신식별자 = ${시스템최종갱신식별자}
+			     , 시스템최종거래일시  = ${시스템최종거래일시}
+			 WHERE 공통데이터테이블명   = ${공통데이터테이블명}
+			   AND 원천시스템식별구분코드 = ${원천시스템식별구분코드}
+			   AND 작업기준년월일     = ${작업기준년월일}
+			   AND 접수작업처리회차    = ${접수작업처리회차}
+			   AND 접수작업단계구분코드  = ${접수작업단계구분코드}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvJbNth" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::01.공통데이터동기화관리::02.공통데이터배포::통합코드취소CMJob::DAO::통합코드취소CMBdao::작업회차조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/batch/cmnDatSynchMg/cmnDatWdst/ingCdCncCMJob/IngCdCncCM/retvJbNth */ 
+			       NVL(MAX(A.접수작업처리회차), 0) 접수작업처리회차
+			  FROM INSTC.TBGCBDM01 A 
+			 WHERE A.공통데이터테이블명   = ${공통데이터테이블명}
+			   AND A.원천시스템식별구분코드 = ${원천시스템식별구분코드}
+			   AND A.작업기준년월일     = ${작업기준년월일}
+			   AND A.접수작업처리회차   >= 0
+			   AND A.접수작업처리회차   <= 99999
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="regtIngCd" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::01.공통데이터동기화관리::02.공통데이터배포::통합코드취소CMJob::DAO::통합코드취소CMBdao::통합코드등록" >
+		<![CDATA[
+			INSERT /*+ 위상규::/gcb/batch/cmnDatSynchMg/cmnDatWdst/ingCdCncCMJob/IngCdCncCM/regtIngCd */
+			  INTO INSTC.TBGCBUI01        /* GCB통합코드 */
+			(
+			   통합코드명
+			 , 적용시작년월일
+			 , 적용종료년월일
+			 , 통합코드영문명
+			 , 통합코드길이
+			 , 화면배포대상여부
+			 , 등록어플리케이션코드
+			 , 최초등록일시
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${통합코드명}
+			 ,${적용시작년월일}
+			 ,${적용종료년월일}
+			 ,${통합코드영문명}
+			 ,${통합코드길이}
+			 ,${화면배포대상여부}
+			 ,${등록어플리케이션코드}
+			 ,${최초등록일시}
+			 ,SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,${시스템최종거래일시}
+			)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="delIngCd" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::01.공통데이터동기화관리::02.공통데이터배포::통합코드취소CMJob::DAO::통합코드취소CMBdao::통합코드삭제">
+		<![CDATA[
+			DELETE /*+ 위상규::/gcb/batch/cmnDatSynchMg/cmnDatWdst/ingCdCncCMJob/IngCdCncCM/delIngCd */ 
+			  FROM INSTC.TBGCBUI01        /* GCB통합코드 */
+			 WHERE 통합코드명   = ${통합코드명}
+			   AND 적용시작년월일 = ${적용시작년월일}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="uptIngCd" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::01.공통데이터동기화관리::02.공통데이터배포::통합코드취소CMJob::DAO::통합코드취소CMBdao::통합코드수정" >
+		<![CDATA[
+			UPDATE /*+ 위상규::/gcb/batch/cmnDatSynchMg/cmnDatWdst/ingCdCncCMJob/IngCdCncCM/uptIngCd */ 
+			       INSTC.TBGCBUI01        /* GCB통합코드 */
+			   SET 적용종료년월일    = ${적용종료년월일}
+			     , 통합코드영문명    = ${통합코드영문명}
+			     , 통합코드길이     = ${통합코드길이}
+			     , 화면배포대상여부   = ${화면배포대상여부}
+			     , 등록어플리케이션코드 = ${등록어플리케이션코드}
+			     , 최초등록일시     = ${최초등록일시}
+			     , 시스템최종갱신일시  = SYSTIMESTAMP
+			     , 시스템최종갱신식별자 = ${시스템최종갱신식별자}
+			     , 시스템최종거래일시  = ${시스템최종거래일시}
+			 WHERE 통합코드명   = ${통합코드명}
+			   AND 적용시작년월일 = ${적용시작년월일}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvIngCd" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::01.공통데이터동기화관리::02.공통데이터배포::통합코드취소CMJob::DAO::통합코드취소CMBdao::통합코드조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/batch/cmnDatSynchMg/cmnDatWdst/ingCdCncCMJob/IngCdCncCM/retvIngCd */ 
+			       A.통합코드명
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , A.통합코드영문명
+			     , A.통합코드길이
+			     , A.화면배포대상여부
+			     , A.등록어플리케이션코드
+			     , A.최초등록일시
+			     , A.시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM (SELECT B.통합코드명
+			             , B.적용시작년월일
+			             , B.적용종료년월일
+			             , B.통합코드영문명
+			             , B.통합코드길이
+			             , B.화면배포대상여부
+			             , B.등록어플리케이션코드
+			             , B.최초등록일시
+			             , TO_CHAR(B.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			             , B.시스템최종갱신식별자
+			             , B.시스템최종거래일시
+			            FROM INSTC.TBGCBUI01 B        /* GCB통합코드 */
+			          WHERE B.통합코드명   = ${통합코드명}
+			          ORDER BY B.적용종료년월일 DESC, B.적용시작년월일 DESC) A
+			 WHERE ROWNUM = 1
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="regtIngCdDtl" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::01.공통데이터동기화관리::02.공통데이터배포::통합코드취소CMJob::DAO::통합코드취소CMBdao::통합코드상세등록" >
+		<![CDATA[
+			INSERT /*+ 위상규::/gcb/batch/cmnDatSynchMg/cmnDatWdst/ingCdCncCMJob/IngCdCncCM/regtIngCdDtl */
+			  INTO INSTC.TBGCBUI02        /* GCB통합코드상세 */
+			(
+			   통합코드명
+			 , 통합코드
+			 , 적용시작년월일
+			 , 적용종료년월일
+			 , 통합코드내용
+			 , 통합코드한글약어명
+			 , 통합코드영문약어명
+			 , 통합코드화면표시순서
+			 , 최초등록일시
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${통합코드명}
+			 ,${통합코드}
+			 ,${적용시작년월일}
+			 ,${적용종료년월일}
+			 ,${통합코드내용}
+			 ,${통합코드한글약어명}
+			 ,${통합코드영문약어명}
+			 ,${통합코드화면표시순서}
+			 ,${최초등록일시}
+			 ,SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,${시스템최종거래일시}
+			)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="delIngCdDtl" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::01.공통데이터동기화관리::02.공통데이터배포::통합코드취소CMJob::DAO::통합코드취소CMBdao::통합코드상세삭제">
+		<![CDATA[
+			DELETE /*+ 위상규::/gcb/batch/cmnDatSynchMg/cmnDatWdst/ingCdCncCMJob/IngCdCncCM/delIngCdDtl */ 
+			  FROM INSTC.TBGCBUI02        /* GCB통합코드상세 */
+			 WHERE 통합코드명   = ${통합코드명}
+			   AND 통합코드    = ${통합코드}
+			   AND 적용시작년월일 = ${적용시작년월일}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="uptIngCdDtl" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::01.공통데이터동기화관리::02.공통데이터배포::통합코드취소CMJob::DAO::통합코드취소CMBdao::통합코드상세수정" >
+		<![CDATA[
+			UPDATE /*+ 위상규::/gcb/batch/cmnDatSynchMg/cmnDatWdst/ingCdCncCMJob/IngCdCncCM/uptIngCdDtl */ 
+			       INSTC.TBGCBUI02        /* GCB통합코드상세 */
+			   SET 적용종료년월일    = ${적용종료년월일}
+			     , 통합코드내용     = ${통합코드내용}
+			     , 통합코드한글약어명  = ${통합코드한글약어명}
+			     , 통합코드영문약어명  = ${통합코드영문약어명}
+			     , 통합코드화면표시순서 = ${통합코드화면표시순서}
+			     , 최초등록일시     = ${최초등록일시}
+			     , 시스템최종갱신일시  = SYSTIMESTAMP
+			     , 시스템최종갱신식별자 = ${시스템최종갱신식별자}
+			     , 시스템최종거래일시  = ${시스템최종거래일시}
+			 WHERE 통합코드명   = ${통합코드명}
+			   AND 통합코드    = ${통합코드}
+			   AND 적용시작년월일 = ${적용시작년월일}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvIngCdDtl" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::01.공통데이터동기화관리::02.공통데이터배포::통합코드취소CMJob::DAO::통합코드취소CMBdao::통합코드상세조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/batch/cmnDatSynchMg/cmnDatWdst/ingCdCncCMJob/IngCdCncCM/retvIngCdDtl */ 
+			       A.통합코드명
+			     , A.통합코드
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , A.통합코드내용
+			     , A.통합코드한글약어명
+			     , A.통합코드영문약어명
+			     , A.통합코드화면표시순서
+			     , A.최초등록일시
+			     , A.시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM (SELECT B.통합코드명
+			             , B.통합코드
+			             , B.적용시작년월일
+			             , B.적용종료년월일
+			             , B.통합코드내용
+			             , B.통합코드한글약어명
+			             , B.통합코드영문약어명
+			             , B.통합코드화면표시순서
+			             , B.최초등록일시
+			             , TO_CHAR(B.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			             , B.시스템최종갱신식별자
+			             , B.시스템최종거래일시
+			          FROM INSTC.TBGCBUI02 B        /* GCB통합코드상세 */
+			         WHERE B.통합코드명   = ${통합코드명}
+			           AND B.통합코드    = ${통합코드}
+			         ORDER BY B.적용종료년월일 DESC, B.적용시작년월일 DESC) A
+			 WHERE ROWNUM = 1
+		]]>
+    </statement>
+</statements>

@@ -1,0 +1,1958 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvErrTrMngErrSmmLstInf" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::08.IT장애관리지원::02.오류거래모니터링::오류거래모니터링Dmfreec::DAO::오류거래모니터링Ddao::오류거래모니터링오류집계최종정보조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itObstMgSpt/errTrMng/errTrMngDmfreec/ErrTrMng/retvErrTrMngErrSmmLstInf */ 
+			       NVL(MAX(A.상품처리거래집계시분), 'XXXX') 상품처리거래집계시분
+			  FROM INSTC.TBGCBEM11 A        /* GCB오류거래모니터링정상집계 */
+			 WHERE A.상품처리거래집계구분코드 = ${상품처리거래집계구분코드}
+			   AND A.상품처리거래집계년월일  = ${상품처리거래집계년월일}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvErrTrMngSct" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::08.IT장애관리지원::02.오류거래모니터링::오류거래모니터링Dmfreec::DAO::오류거래모니터링Ddao::오류거래모니터링구간조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itObstMgSpt/errTrMng/errTrMngDmfreec/ErrTrMng/retvErrTrMngSct */ 
+			       TO_CHAR(TO_DATE(${상품처리거래집계년월일} || ${상품처리거래집계시분}, 'YYYYMMDDHH24MI') + (INTERVAL '10' MINUTE), 'YYYYMMDD') 상품처리거래집계년월일1 
+			     , TO_CHAR(TO_DATE(${상품처리거래집계년월일} || ${상품처리거래집계시분}, 'YYYYMMDDHH24MI') + (INTERVAL '10' MINUTE), 'HH24MI') 시작시각_V4
+			     , TO_CHAR(TO_DATE(${상품처리거래집계년월일} || ${상품처리거래집계시분}, 'YYYYMMDDHH24MI') + (INTERVAL '19' MINUTE), 'YYYYMMDD') 상품처리거래집계년월일2
+			     , TO_CHAR(TO_DATE(${상품처리거래집계년월일} || ${상품처리거래집계시분}, 'YYYYMMDDHH24MI') + (INTERVAL '19' MINUTE), 'HH24MI') 종료시각_V4
+			  FROM DUAL A
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstPdPrcTrMndSmm" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::08.IT장애관리지원::02.오류거래모니터링::오류거래모니터링Dmfreec::DAO::오류거래모니터링Ddao::상품처리거래월요일집계목록조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itObstMgSpt/errTrMng/errTrMngDmfreec/ErrTrMng/retvLstPdPrcTrMndSmm */ 
+			       AA.상품처리거래집계년월일
+			     , AA.채널구분코드
+			     , AA.채널세부업무구분코드
+			     , AA.거래코드
+			     , MAX(AA.상품처리정상거래건수) + MAX(AA.상품처리오류거래건수) 상품처리총거래건수
+			     , MAX(AA.상품처리정상거래건수) 상품처리정상거래건수
+			     , MAX(AA.상품처리정상거래소요합계초수) 상품처리정상거래소요합계초수
+			     , MAX(AA.상품처리정상거래소요최소초수) 상품처리정상거래소요최소초수
+			     , MAX(AA.상품처리정상거래소요최대초수) 상품처리정상거래소요최대초수
+			     , MAX(AA.상품처리오류거래건수) 상품처리오류거래건수
+			  FROM (SELECT A.거래기준년월일 상품처리거래집계년월일
+			             , A.채널구분코드
+			             , A.채널세부업무구분코드
+			             , A.거래코드
+			             , 0 총거래건수
+			             , COUNT(*) 상품처리정상거래건수
+			             , SUM(A.정상거래소요시간) 상품처리정상거래소요합계초수
+			             , MIN(A.정상거래소요시간) 상품처리정상거래소요최소초수
+			             , MAX(A.정상거래소요시간) 상품처리정상거래소요최대초수
+			             , 0 상품처리오류거래건수
+			          FROM (SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW01
+			                 WHERE 후처리로그카테고리번호 = '001'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW01
+			                 WHERE 후처리로그카테고리번호 = '002'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW01
+			                 WHERE 후처리로그카테고리번호 = '003'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW01
+			                 WHERE 후처리로그카테고리번호 = '004'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW01
+			                 WHERE 후처리로그카테고리번호 = '005'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW01
+			                 WHERE 후처리로그카테고리번호 = '006'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW01
+			                 WHERE 후처리로그카테고리번호 = '007'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW01
+			                 WHERE 후처리로그카테고리번호 = '008'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW01
+			                 WHERE 후처리로그카테고리번호 = '009'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW01
+			                 WHERE 후처리로그카테고리번호 = '010'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1') A 
+			        GROUP BY A.거래기준년월일
+			            , A.채널구분코드
+			            , A.채널세부업무구분코드
+			            , A.거래코드
+			        UNION ALL
+			        SELECT A.거래기준년월일
+			             , NVL(A.채널구분코드, '00') 채널구분코드
+			             , NVL(A.채널세부업무구분코드, '00') 채널세부업무구분코드
+			             , A.거래코드
+			             , 0 총거래건수
+			             , 0 상품처리정상거래건수
+			             , 0 상품처리정상거래소요합계초수
+			             , 0 상품처리정상거래소요최소초수
+			             , 0 상품처리정상거래소요최대초수
+			             , COUNT(*) 상품처리오류거래건수
+			          FROM INSTC.TBGCCDE01 A
+			         WHERE A.거래기준년월일 = ${상품처리거래집계년월일}
+			           AND A.거래기준시각 >= ${상품처리거래집계시분1} || '00000000'
+			           AND A.거래기준시각 <= ${상품처리거래집계시분2} || '99999999'
+			           AND A.연동거래구분코드 = '1'
+			        GROUP BY A.거래기준년월일
+			            , A.채널구분코드
+			            , A.채널세부업무구분코드
+			            , A.거래코드) AA
+			 GROUP BY AA.상품처리거래집계년월일
+			     , AA.채널구분코드
+			     , AA.채널세부업무구분코드
+			     , AA.거래코드
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstPdPrcTrTueSmm" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::08.IT장애관리지원::02.오류거래모니터링::오류거래모니터링Dmfreec::DAO::오류거래모니터링Ddao::상품처리거래화요일집계목록조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itObstMgSpt/errTrMng/errTrMngDmfreec/ErrTrMng/retvLstPdPrcTrTueSmm */ 
+			       AA.상품처리거래집계년월일
+			     , AA.채널구분코드
+			     , AA.채널세부업무구분코드
+			     , AA.거래코드
+			     , MAX(AA.상품처리정상거래건수) + MAX(AA.상품처리오류거래건수) 상품처리총거래건수
+			     , MAX(AA.상품처리정상거래건수) 상품처리정상거래건수
+			     , MAX(AA.상품처리정상거래소요합계초수) 상품처리정상거래소요합계초수
+			     , MAX(AA.상품처리정상거래소요최소초수) 상품처리정상거래소요최소초수
+			     , MAX(AA.상품처리정상거래소요최대초수) 상품처리정상거래소요최대초수
+			     , MAX(AA.상품처리오류거래건수) 상품처리오류거래건수
+			  FROM (SELECT A.거래기준년월일 상품처리거래집계년월일
+			             , A.채널구분코드
+			             , A.채널세부업무구분코드
+			             , A.거래코드
+			             , 0 총거래건수
+			             , COUNT(*) 상품처리정상거래건수
+			             , SUM(A.정상거래소요시간) 상품처리정상거래소요합계초수
+			             , MIN(A.정상거래소요시간) 상품처리정상거래소요최소초수
+			             , MAX(A.정상거래소요시간) 상품처리정상거래소요최대초수
+			             , 0 상품처리오류거래건수
+			          FROM (SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW02
+			                 WHERE 후처리로그카테고리번호 = '001'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW02
+			                 WHERE 후처리로그카테고리번호 = '002'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW02
+			                 WHERE 후처리로그카테고리번호 = '003'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW02
+			                 WHERE 후처리로그카테고리번호 = '004'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW02
+			                 WHERE 후처리로그카테고리번호 = '005'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW02
+			                 WHERE 후처리로그카테고리번호 = '006'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW02
+			                 WHERE 후처리로그카테고리번호 = '007'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW02
+			                 WHERE 후처리로그카테고리번호 = '008'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW02
+			                 WHERE 후처리로그카테고리번호 = '009'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW02
+			                 WHERE 후처리로그카테고리번호 = '010'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1') A 
+			        GROUP BY A.거래기준년월일
+			            , A.채널구분코드
+			            , A.채널세부업무구분코드
+			            , A.거래코드
+			        UNION ALL
+			        SELECT A.거래기준년월일
+			             , NVL(A.채널구분코드, '00') 채널구분코드
+			             , NVL(A.채널세부업무구분코드, '00') 채널세부업무구분코드
+			             , A.거래코드
+			             , 0 총거래건수
+			             , 0 상품처리정상거래건수
+			             , 0 상품처리정상거래소요합계초수
+			             , 0 상품처리정상거래소요최소초수
+			             , 0 상품처리정상거래소요최대초수
+			             , COUNT(*) 상품처리오류거래건수
+			          FROM INSTC.TBGCCDE02 A
+			         WHERE A.거래기준년월일 = ${상품처리거래집계년월일}
+			           AND A.거래기준시각 >= ${상품처리거래집계시분1} || '00000000'
+			           AND A.거래기준시각 <= ${상품처리거래집계시분2} || '99999999'
+			           AND A.연동거래구분코드 = '1'
+			        GROUP BY A.거래기준년월일
+			            , A.채널구분코드
+			            , A.채널세부업무구분코드
+			            , A.거래코드) AA
+			 GROUP BY AA.상품처리거래집계년월일
+			     , AA.채널구분코드
+			     , AA.채널세부업무구분코드
+			     , AA.거래코드
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstPdPrcTrWedSmm" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::08.IT장애관리지원::02.오류거래모니터링::오류거래모니터링Dmfreec::DAO::오류거래모니터링Ddao::상품처리거래수요일집계목록조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itObstMgSpt/errTrMng/errTrMngDmfreec/ErrTrMng/retvLstPdPrcTrWedSmm */ 
+			       AA.상품처리거래집계년월일
+			     , AA.채널구분코드
+			     , AA.채널세부업무구분코드
+			     , AA.거래코드
+			     , MAX(AA.상품처리정상거래건수) + MAX(AA.상품처리오류거래건수) 상품처리총거래건수
+			     , MAX(AA.상품처리정상거래건수) 상품처리정상거래건수
+			     , MAX(AA.상품처리정상거래소요합계초수) 상품처리정상거래소요합계초수
+			     , MAX(AA.상품처리정상거래소요최소초수) 상품처리정상거래소요최소초수
+			     , MAX(AA.상품처리정상거래소요최대초수) 상품처리정상거래소요최대초수
+			     , MAX(AA.상품처리오류거래건수) 상품처리오류거래건수
+			  FROM (SELECT A.거래기준년월일 상품처리거래집계년월일
+			             , A.채널구분코드
+			             , A.채널세부업무구분코드
+			             , A.거래코드
+			             , 0 총거래건수
+			             , COUNT(*) 상품처리정상거래건수
+			             , SUM(A.정상거래소요시간) 상품처리정상거래소요합계초수
+			             , MIN(A.정상거래소요시간) 상품처리정상거래소요최소초수
+			             , MAX(A.정상거래소요시간) 상품처리정상거래소요최대초수
+			             , 0 상품처리오류거래건수
+			          FROM (SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW03
+			                 WHERE 후처리로그카테고리번호 = '001'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW03
+			                 WHERE 후처리로그카테고리번호 = '002'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW03
+			                 WHERE 후처리로그카테고리번호 = '003'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW03
+			                 WHERE 후처리로그카테고리번호 = '004'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW03
+			                 WHERE 후처리로그카테고리번호 = '005'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW03
+			                 WHERE 후처리로그카테고리번호 = '006'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW03
+			                 WHERE 후처리로그카테고리번호 = '007'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW03
+			                 WHERE 후처리로그카테고리번호 = '008'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW03
+			                 WHERE 후처리로그카테고리번호 = '009'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW03
+			                 WHERE 후처리로그카테고리번호 = '010'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1') A 
+			        GROUP BY A.거래기준년월일
+			            , A.채널구분코드
+			            , A.채널세부업무구분코드
+			            , A.거래코드
+			        UNION ALL
+			        SELECT A.거래기준년월일
+			             , NVL(A.채널구분코드, '00') 채널구분코드
+			             , NVL(A.채널세부업무구분코드, '00') 채널세부업무구분코드
+			             , A.거래코드
+			             , 0 총거래건수
+			             , 0 상품처리정상거래건수
+			             , 0 상품처리정상거래소요합계초수
+			             , 0 상품처리정상거래소요최소초수
+			             , 0 상품처리정상거래소요최대초수
+			             , COUNT(*) 상품처리오류거래건수
+			          FROM INSTC.TBGCCDE03 A
+			         WHERE A.거래기준년월일 = ${상품처리거래집계년월일}
+			           AND A.거래기준시각 >= ${상품처리거래집계시분1} || '00000000'
+			           AND A.거래기준시각 <= ${상품처리거래집계시분2} || '99999999'
+			           AND A.연동거래구분코드 = '1'
+			        GROUP BY A.거래기준년월일
+			            , A.채널구분코드
+			            , A.채널세부업무구분코드
+			            , A.거래코드) AA
+			 GROUP BY AA.상품처리거래집계년월일
+			     , AA.채널구분코드
+			     , AA.채널세부업무구분코드
+			     , AA.거래코드
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstPdPrcTrThrSmm" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::08.IT장애관리지원::02.오류거래모니터링::오류거래모니터링Dmfreec::DAO::오류거래모니터링Ddao::상품처리거래목요일집계목록조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itObstMgSpt/errTrMng/errTrMngDmfreec/ErrTrMng/retvLstPdPrcTrThrSmm */ 
+			       AA.상품처리거래집계년월일
+			     , AA.채널구분코드
+			     , AA.채널세부업무구분코드
+			     , AA.거래코드
+			     , MAX(AA.상품처리정상거래건수) + MAX(AA.상품처리오류거래건수) 상품처리총거래건수
+			     , MAX(AA.상품처리정상거래건수) 상품처리정상거래건수
+			     , MAX(AA.상품처리정상거래소요합계초수) 상품처리정상거래소요합계초수
+			     , MAX(AA.상품처리정상거래소요최소초수) 상품처리정상거래소요최소초수
+			     , MAX(AA.상품처리정상거래소요최대초수) 상품처리정상거래소요최대초수
+			     , MAX(AA.상품처리오류거래건수) 상품처리오류거래건수
+			  FROM (SELECT A.거래기준년월일 상품처리거래집계년월일
+			             , A.채널구분코드
+			             , A.채널세부업무구분코드
+			             , A.거래코드
+			             , 0 총거래건수
+			             , COUNT(*) 상품처리정상거래건수
+			             , SUM(A.정상거래소요시간) 상품처리정상거래소요합계초수
+			             , MIN(A.정상거래소요시간) 상품처리정상거래소요최소초수
+			             , MAX(A.정상거래소요시간) 상품처리정상거래소요최대초수
+			             , 0 상품처리오류거래건수
+			          FROM (SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW04
+			                 WHERE 후처리로그카테고리번호 = '001'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW04
+			                 WHERE 후처리로그카테고리번호 = '002'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW04
+			                 WHERE 후처리로그카테고리번호 = '003'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW04
+			                 WHERE 후처리로그카테고리번호 = '004'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW04
+			                 WHERE 후처리로그카테고리번호 = '005'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW04
+			                 WHERE 후처리로그카테고리번호 = '006'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW04
+			                 WHERE 후처리로그카테고리번호 = '007'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW04
+			                 WHERE 후처리로그카테고리번호 = '008'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW04
+			                 WHERE 후처리로그카테고리번호 = '009'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW04
+			                 WHERE 후처리로그카테고리번호 = '010'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1') A 
+			        GROUP BY A.거래기준년월일
+			            , A.채널구분코드
+			            , A.채널세부업무구분코드
+			            , A.거래코드
+			        UNION ALL
+			        SELECT A.거래기준년월일
+			             , NVL(A.채널구분코드, '00') 채널구분코드
+			             , NVL(A.채널세부업무구분코드, '00') 채널세부업무구분코드
+			             , A.거래코드
+			             , 0 총거래건수
+			             , 0 상품처리정상거래건수
+			             , 0 상품처리정상거래소요합계초수
+			             , 0 상품처리정상거래소요최소초수
+			             , 0 상품처리정상거래소요최대초수
+			             , COUNT(*) 상품처리오류거래건수
+			          FROM INSTC.TBGCCDE04 A
+			         WHERE A.거래기준년월일 = ${상품처리거래집계년월일}
+			           AND A.거래기준시각 >= ${상품처리거래집계시분1} || '00000000'
+			           AND A.거래기준시각 <= ${상품처리거래집계시분2} || '99999999'
+			           AND A.연동거래구분코드 = '1'
+			        GROUP BY A.거래기준년월일
+			            , A.채널구분코드
+			            , A.채널세부업무구분코드
+			            , A.거래코드) AA
+			 GROUP BY AA.상품처리거래집계년월일
+			     , AA.채널구분코드
+			     , AA.채널세부업무구분코드
+			     , AA.거래코드
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstPdPrcTrFriSmm" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::08.IT장애관리지원::02.오류거래모니터링::오류거래모니터링Dmfreec::DAO::오류거래모니터링Ddao::상품처리거래금요일집계목록조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itObstMgSpt/errTrMng/errTrMngDmfreec/ErrTrMng/retvLstPdPrcTrFriSmm */ 
+			       AA.상품처리거래집계년월일
+			     , AA.채널구분코드
+			     , AA.채널세부업무구분코드
+			     , AA.거래코드
+			     , MAX(AA.상품처리정상거래건수) + MAX(AA.상품처리오류거래건수) 상품처리총거래건수
+			     , MAX(AA.상품처리정상거래건수) 상품처리정상거래건수
+			     , MAX(AA.상품처리정상거래소요합계초수) 상품처리정상거래소요합계초수
+			     , MAX(AA.상품처리정상거래소요최소초수) 상품처리정상거래소요최소초수
+			     , MAX(AA.상품처리정상거래소요최대초수) 상품처리정상거래소요최대초수
+			     , MAX(AA.상품처리오류거래건수) 상품처리오류거래건수
+			  FROM (SELECT A.거래기준년월일 상품처리거래집계년월일
+			             , A.채널구분코드
+			             , A.채널세부업무구분코드
+			             , A.거래코드
+			             , 0 총거래건수
+			             , COUNT(*) 상품처리정상거래건수
+			             , SUM(A.정상거래소요시간) 상품처리정상거래소요합계초수
+			             , MIN(A.정상거래소요시간) 상품처리정상거래소요최소초수
+			             , MAX(A.정상거래소요시간) 상품처리정상거래소요최대초수
+			             , 0 상품처리오류거래건수
+			          FROM (SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW05
+			                 WHERE 후처리로그카테고리번호 = '001'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW05
+			                 WHERE 후처리로그카테고리번호 = '002'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW05
+			                 WHERE 후처리로그카테고리번호 = '003'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW05
+			                 WHERE 후처리로그카테고리번호 = '004'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW05
+			                 WHERE 후처리로그카테고리번호 = '005'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW05
+			                 WHERE 후처리로그카테고리번호 = '006'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW05
+			                 WHERE 후처리로그카테고리번호 = '007'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW05
+			                 WHERE 후처리로그카테고리번호 = '008'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW05
+			                 WHERE 후처리로그카테고리번호 = '009'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW05
+			                 WHERE 후처리로그카테고리번호 = '010'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1') A 
+			        GROUP BY A.거래기준년월일
+			            , A.채널구분코드
+			            , A.채널세부업무구분코드
+			            , A.거래코드
+			        UNION ALL
+			        SELECT A.거래기준년월일
+			             , NVL(A.채널구분코드, '00') 채널구분코드
+			             , NVL(A.채널세부업무구분코드, '00') 채널세부업무구분코드
+			             , A.거래코드
+			             , 0 총거래건수
+			             , 0 상품처리정상거래건수
+			             , 0 상품처리정상거래소요합계초수
+			             , 0 상품처리정상거래소요최소초수
+			             , 0 상품처리정상거래소요최대초수
+			             , COUNT(*) 상품처리오류거래건수
+			          FROM INSTC.TBGCCDE05 A
+			         WHERE A.거래기준년월일 = ${상품처리거래집계년월일}
+			           AND A.거래기준시각 >= ${상품처리거래집계시분1} || '00000000'
+			           AND A.거래기준시각 <= ${상품처리거래집계시분2} || '99999999'
+			           AND A.연동거래구분코드 = '1'
+			        GROUP BY A.거래기준년월일
+			            , A.채널구분코드
+			            , A.채널세부업무구분코드
+			            , A.거래코드) AA
+			 GROUP BY AA.상품처리거래집계년월일
+			     , AA.채널구분코드
+			     , AA.채널세부업무구분코드
+			     , AA.거래코드
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstPdPrcTrSatSmm" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::08.IT장애관리지원::02.오류거래모니터링::오류거래모니터링Dmfreec::DAO::오류거래모니터링Ddao::상품처리거래토요일집계목록조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itObstMgSpt/errTrMng/errTrMngDmfreec/ErrTrMng/retvLstPdPrcTrSatSmm */ 
+			       AA.상품처리거래집계년월일
+			     , AA.채널구분코드
+			     , AA.채널세부업무구분코드
+			     , AA.거래코드
+			     , MAX(AA.상품처리정상거래건수) + MAX(AA.상품처리오류거래건수) 상품처리총거래건수
+			     , MAX(AA.상품처리정상거래건수) 상품처리정상거래건수
+			     , MAX(AA.상품처리정상거래소요합계초수) 상품처리정상거래소요합계초수
+			     , MAX(AA.상품처리정상거래소요최소초수) 상품처리정상거래소요최소초수
+			     , MAX(AA.상품처리정상거래소요최대초수) 상품처리정상거래소요최대초수
+			     , MAX(AA.상품처리오류거래건수) 상품처리오류거래건수
+			  FROM (SELECT A.거래기준년월일 상품처리거래집계년월일
+			             , A.채널구분코드
+			             , A.채널세부업무구분코드
+			             , A.거래코드
+			             , 0 총거래건수
+			             , COUNT(*) 상품처리정상거래건수
+			             , SUM(A.정상거래소요시간) 상품처리정상거래소요합계초수
+			             , MIN(A.정상거래소요시간) 상품처리정상거래소요최소초수
+			             , MAX(A.정상거래소요시간) 상품처리정상거래소요최대초수
+			             , 0 상품처리오류거래건수
+			          FROM (SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW06
+			                 WHERE 후처리로그카테고리번호 = '001'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW06
+			                 WHERE 후처리로그카테고리번호 = '002'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW06
+			                 WHERE 후처리로그카테고리번호 = '003'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW06
+			                 WHERE 후처리로그카테고리번호 = '004'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW06
+			                 WHERE 후처리로그카테고리번호 = '005'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW06
+			                 WHERE 후처리로그카테고리번호 = '006'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW06
+			                 WHERE 후처리로그카테고리번호 = '007'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW06
+			                 WHERE 후처리로그카테고리번호 = '008'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW06
+			                 WHERE 후처리로그카테고리번호 = '009'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW06
+			                 WHERE 후처리로그카테고리번호 = '010'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1') A 
+			        GROUP BY A.거래기준년월일
+			            , A.채널구분코드
+			            , A.채널세부업무구분코드
+			            , A.거래코드
+			        UNION ALL
+			        SELECT A.거래기준년월일
+			             , NVL(A.채널구분코드, '00') 채널구분코드
+			             , NVL(A.채널세부업무구분코드, '00') 채널세부업무구분코드
+			             , A.거래코드
+			             , 0 총거래건수
+			             , 0 상품처리정상거래건수
+			             , 0 상품처리정상거래소요합계초수
+			             , 0 상품처리정상거래소요최소초수
+			             , 0 상품처리정상거래소요최대초수
+			             , COUNT(*) 상품처리오류거래건수
+			          FROM INSTC.TBGCCDE06 A
+			         WHERE A.거래기준년월일 = ${상품처리거래집계년월일}
+			           AND A.거래기준시각 >= ${상품처리거래집계시분1} || '00000000'
+			           AND A.거래기준시각 <= ${상품처리거래집계시분2} || '99999999'
+			           AND A.연동거래구분코드 = '1'
+			        GROUP BY A.거래기준년월일
+			            , A.채널구분코드
+			            , A.채널세부업무구분코드
+			            , A.거래코드) AA
+			 GROUP BY AA.상품처리거래집계년월일
+			     , AA.채널구분코드
+			     , AA.채널세부업무구분코드
+			     , AA.거래코드
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstPdPrcTrSunSmm" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::08.IT장애관리지원::02.오류거래모니터링::오류거래모니터링Dmfreec::DAO::오류거래모니터링Ddao::상품처리거래일요일집계목록조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itObstMgSpt/errTrMng/errTrMngDmfreec/ErrTrMng/retvLstPdPrcTrSunSmm */ 
+			       AA.상품처리거래집계년월일
+			     , AA.채널구분코드
+			     , AA.채널세부업무구분코드
+			     , AA.거래코드
+			     , MAX(AA.상품처리정상거래건수) + MAX(AA.상품처리오류거래건수) 상품처리총거래건수
+			     , MAX(AA.상품처리정상거래건수) 상품처리정상거래건수
+			     , MAX(AA.상품처리정상거래소요합계초수) 상품처리정상거래소요합계초수
+			     , MAX(AA.상품처리정상거래소요최소초수) 상품처리정상거래소요최소초수
+			     , MAX(AA.상품처리정상거래소요최대초수) 상품처리정상거래소요최대초수
+			     , MAX(AA.상품처리오류거래건수) 상품처리오류거래건수
+			  FROM (SELECT A.거래기준년월일 상품처리거래집계년월일
+			             , A.채널구분코드
+			             , A.채널세부업무구분코드
+			             , A.거래코드
+			             , 0 총거래건수
+			             , COUNT(*) 상품처리정상거래건수
+			             , SUM(A.정상거래소요시간) 상품처리정상거래소요합계초수
+			             , MIN(A.정상거래소요시간) 상품처리정상거래소요최소초수
+			             , MAX(A.정상거래소요시간) 상품처리정상거래소요최대초수
+			             , 0 상품처리오류거래건수
+			          FROM (SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW07
+			                 WHERE 후처리로그카테고리번호 = '001'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW07
+			                 WHERE 후처리로그카테고리번호 = '002'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW07
+			                 WHERE 후처리로그카테고리번호 = '003'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW07
+			                 WHERE 후처리로그카테고리번호 = '004'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW07
+			                 WHERE 후처리로그카테고리번호 = '005'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW07
+			                 WHERE 후처리로그카테고리번호 = '006'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW07
+			                 WHERE 후처리로그카테고리번호 = '007'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW07
+			                 WHERE 후처리로그카테고리번호 = '008'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW07
+			                 WHERE 후처리로그카테고리번호 = '009'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1'
+			                 UNION ALL
+			                SELECT 거래기준년월일
+			                     , NVL(채널구분코드, '00') 채널구분코드
+			                     , NVL(채널세부업무구분코드, '00') 채널세부업무구분코드
+			                     , 거래코드
+			                     , (EXTRACT(DAY FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 24 * 60 * 60
+			                      + EXTRACT(HOUR FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60 * 60
+			                      + EXTRACT(MINUTE FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6')) * 60
+			                      + EXTRACT(SECOND FROM TO_TIMESTAMP(거래종료일시, 'YYYYMMDDHH24MISSFF6') - TO_TIMESTAMP(거래시작일시, 'YYYYMMDDHH24MISSFF6'))) 정상거래소요시간
+			                  FROM INSTC.TBGCCDW07
+			                 WHERE 후처리로그카테고리번호 = '010'
+			                   AND 거래기준년월일 = ${상품처리거래집계년월일}
+			                   AND 거래시작일시 >= ${상품처리거래집계년월일} || ${상품처리거래집계시분1} || '00000000'
+			                   AND 거래시작일시 <= ${상품처리거래집계년월일} || ${상품처리거래집계시분2} || '99999999'
+			                   AND 연동호출깊이 = '1') A 
+			        GROUP BY A.거래기준년월일
+			            , A.채널구분코드
+			            , A.채널세부업무구분코드
+			            , A.거래코드
+			        UNION ALL
+			        SELECT A.거래기준년월일
+			             , NVL(A.채널구분코드, '00') 채널구분코드
+			             , NVL(A.채널세부업무구분코드, '00') 채널세부업무구분코드
+			             , A.거래코드
+			             , 0 총거래건수
+			             , 0 상품처리정상거래건수
+			             , 0 상품처리정상거래소요합계초수
+			             , 0 상품처리정상거래소요최소초수
+			             , 0 상품처리정상거래소요최대초수
+			             , COUNT(*) 상품처리오류거래건수
+			          FROM INSTC.TBGCCDE07 A
+			         WHERE A.거래기준년월일 = ${상품처리거래집계년월일}
+			           AND A.거래기준시각 >= ${상품처리거래집계시분1} || '00000000'
+			           AND A.거래기준시각 <= ${상품처리거래집계시분2} || '99999999'
+			           AND A.연동거래구분코드 = '1'
+			        GROUP BY A.거래기준년월일
+			            , A.채널구분코드
+			            , A.채널세부업무구분코드
+			            , A.거래코드) AA
+			 GROUP BY AA.상품처리거래집계년월일
+			     , AA.채널구분코드
+			     , AA.채널세부업무구분코드
+			     , AA.거래코드
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="regtPdPrcTrNmlSmm" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::08.IT장애관리지원::02.오류거래모니터링::오류거래모니터링Dmfreec::DAO::오류거래모니터링Ddao::상품처리거래정상집계등록" >
+		<![CDATA[
+			INSERT /*+ 위상규::/gcb/itObstMgSpt/errTrMng/errTrMngDmfreec/ErrTrMng/regtPdPrcTrNmlSmm */
+			  INTO INSTC.TBGCBEM11        /* GCB오류거래모니터링정상집계 */
+			(
+			   상품처리거래집계구분코드
+			 , 상품처리거래집계년월일
+			 , 상품처리거래집계시분
+			 , 채널구분코드
+			 , 채널세부업무구분코드
+			 , 거래코드
+			 , 상품처리총거래건수
+			 , 상품처리정상거래건수
+			 , 상품처리정상거래소요합계초수
+			 , 상품처리정상거래소요최소초수
+			 , 상품처리정상거래소요최대초수
+			 , 상품처리오류거래건수
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${상품처리거래집계구분코드}
+			 ,${상품처리거래집계년월일}
+			 ,${상품처리거래집계시분}
+			 ,${채널구분코드}
+			 ,${채널세부업무구분코드}
+			 ,${거래코드}
+			 ,${상품처리총거래건수}
+			 ,${상품처리정상거래건수}
+			 ,${상품처리정상거래소요합계초수}
+			 ,${상품처리정상거래소요최소초수}
+			 ,${상품처리정상거래소요최대초수}
+			 ,${상품처리오류거래건수}
+			 ,SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,${시스템최종거래일시}
+			)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstPdPrcErrTrMndSmm" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::08.IT장애관리지원::02.오류거래모니터링::오류거래모니터링Dmfreec::DAO::오류거래모니터링Ddao::상품처리오류거래월요일집계목록조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itObstMgSpt/errTrMng/errTrMngDmfreec/ErrTrMng/retvLstPdPrcErrTrMndSmm */ 
+			       A.거래기준년월일 상품처리거래집계년월일
+			     , NVL(A.채널구분코드, '00') 채널구분코드
+			     , NVL(A.채널세부업무구분코드, '00') 채널세부업무구분코드
+			     , A.거래코드
+			     , NVL(A.오류메시지코드, '--------') 오류메시지코드
+			     , NVL(A.조치메시지코드, '--------') 조치메시지코드
+			     , COUNT(1) 상품처리오류거래건수
+			  FROM INSTC.TBGCCDE01 A
+			 WHERE A.거래기준년월일 = ${상품처리거래집계년월일}
+			   AND A.거래기준시각 >= ${상품처리거래집계시분1} || '00000000'
+			   AND A.거래기준시각 <= ${상품처리거래집계시분2} || '99999999'
+			   AND A.연동거래구분코드 = '1'
+			 GROUP BY A.거래기준년월일
+			     , NVL(A.채널구분코드, '00')
+			     , NVL(A.채널세부업무구분코드, '00')
+			     , A.거래코드
+			     , A.오류메시지코드
+			     , A.조치메시지코드
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstPdPrcErrTrTueSmm" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::08.IT장애관리지원::02.오류거래모니터링::오류거래모니터링Dmfreec::DAO::오류거래모니터링Ddao::상품처리오류거래화요일집계목록조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itObstMgSpt/errTrMng/errTrMngDmfreec/ErrTrMng/retvLstPdPrcErrTrTueSmm */ 
+			       A.거래기준년월일 상품처리거래집계년월일
+			     , NVL(A.채널구분코드, '00') 채널구분코드
+			     , NVL(A.채널세부업무구분코드, '00') 채널세부업무구분코드
+			     , A.거래코드
+			     , NVL(A.오류메시지코드, '--------') 오류메시지코드
+			     , NVL(A.조치메시지코드, '--------') 조치메시지코드
+			     , COUNT(1) 상품처리오류거래건수
+			  FROM INSTC.TBGCCDE02 A
+			 WHERE A.거래기준년월일 = ${상품처리거래집계년월일}
+			   AND A.거래기준시각 >= ${상품처리거래집계시분1} || '00000000'
+			   AND A.거래기준시각 <= ${상품처리거래집계시분2} || '99999999'
+			   AND A.연동거래구분코드 = '1'
+			 GROUP BY A.거래기준년월일
+			     , NVL(A.채널구분코드, '00')
+			     , NVL(A.채널세부업무구분코드, '00')
+			     , A.거래코드
+			     , A.오류메시지코드
+			     , A.조치메시지코드
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstPdPrcErrTrWedSmm" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::08.IT장애관리지원::02.오류거래모니터링::오류거래모니터링Dmfreec::DAO::오류거래모니터링Ddao::상품처리오류거래수요일집계목록조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itObstMgSpt/errTrMng/errTrMngDmfreec/ErrTrMng/retvLstPdPrcErrTrWedSmm */ 
+			       A.거래기준년월일 상품처리거래집계년월일
+			     , NVL(A.채널구분코드, '00') 채널구분코드
+			     , NVL(A.채널세부업무구분코드, '00') 채널세부업무구분코드
+			     , A.거래코드
+			     , NVL(A.오류메시지코드, '--------') 오류메시지코드
+			     , NVL(A.조치메시지코드, '--------') 조치메시지코드
+			     , COUNT(1) 상품처리오류거래건수
+			  FROM INSTC.TBGCCDE03 A
+			 WHERE A.거래기준년월일 = ${상품처리거래집계년월일}
+			   AND A.거래기준시각 >= ${상품처리거래집계시분1} || '00000000'
+			   AND A.거래기준시각 <= ${상품처리거래집계시분2} || '99999999'
+			   AND A.연동거래구분코드 = '1'
+			 GROUP BY A.거래기준년월일
+			     , NVL(A.채널구분코드, '00')
+			     , NVL(A.채널세부업무구분코드, '00')
+			     , A.거래코드
+			     , A.오류메시지코드
+			     , A.조치메시지코드
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstPdPrcErrTrThrSmm" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::08.IT장애관리지원::02.오류거래모니터링::오류거래모니터링Dmfreec::DAO::오류거래모니터링Ddao::상품처리오류거래목요일집계목록조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itObstMgSpt/errTrMng/errTrMngDmfreec/ErrTrMng/retvLstPdPrcErrTrThrSmm */ 
+			       A.거래기준년월일 상품처리거래집계년월일
+			     , NVL(A.채널구분코드, '00') 채널구분코드
+			     , NVL(A.채널세부업무구분코드, '00') 채널세부업무구분코드
+			     , A.거래코드
+			     , NVL(A.오류메시지코드, '--------') 오류메시지코드
+			     , NVL(A.조치메시지코드, '--------') 조치메시지코드
+			     , COUNT(1) 상품처리오류거래건수
+			  FROM INSTC.TBGCCDE04 A
+			 WHERE A.거래기준년월일 = ${상품처리거래집계년월일}
+			   AND A.거래기준시각 >= ${상품처리거래집계시분1} || '00000000'
+			   AND A.거래기준시각 <= ${상품처리거래집계시분2} || '99999999'
+			   AND A.연동거래구분코드 = '1'
+			 GROUP BY A.거래기준년월일
+			     , NVL(A.채널구분코드, '00')
+			     , NVL(A.채널세부업무구분코드, '00')
+			     , A.거래코드
+			     , A.오류메시지코드
+			     , A.조치메시지코드
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstPdPrcErrTrFriSmm" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::08.IT장애관리지원::02.오류거래모니터링::오류거래모니터링Dmfreec::DAO::오류거래모니터링Ddao::상품처리오류거래금요일집계목록조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itObstMgSpt/errTrMng/errTrMngDmfreec/ErrTrMng/retvLstPdPrcErrTrFriSmm */ 
+			       A.거래기준년월일 상품처리거래집계년월일
+			     , NVL(A.채널구분코드, '00') 채널구분코드
+			     , NVL(A.채널세부업무구분코드, '00') 채널세부업무구분코드
+			     , A.거래코드
+			     , NVL(A.오류메시지코드, '--------') 오류메시지코드
+			     , NVL(A.조치메시지코드, '--------') 조치메시지코드
+			     , COUNT(1) 상품처리오류거래건수
+			  FROM INSTC.TBGCCDE05 A
+			 WHERE A.거래기준년월일 = ${상품처리거래집계년월일}
+			   AND A.거래기준시각 >= ${상품처리거래집계시분1} || '00000000'
+			   AND A.거래기준시각 <= ${상품처리거래집계시분2} || '99999999'
+			   AND A.연동거래구분코드 = '1'
+			 GROUP BY A.거래기준년월일
+			     , NVL(A.채널구분코드, '00')
+			     , NVL(A.채널세부업무구분코드, '00')
+			     , A.거래코드
+			     , A.오류메시지코드
+			     , A.조치메시지코드
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstPdPrcErrTrSatSmm" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::08.IT장애관리지원::02.오류거래모니터링::오류거래모니터링Dmfreec::DAO::오류거래모니터링Ddao::상품처리오류거래토요일집계목록조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itObstMgSpt/errTrMng/errTrMngDmfreec/ErrTrMng/retvLstPdPrcErrTrSatSmm */ 
+			       A.거래기준년월일 상품처리거래집계년월일
+			     , NVL(A.채널구분코드, '00') 채널구분코드
+			     , NVL(A.채널세부업무구분코드, '00') 채널세부업무구분코드
+			     , A.거래코드
+			     , NVL(A.오류메시지코드, '--------') 오류메시지코드
+			     , NVL(A.조치메시지코드, '--------') 조치메시지코드
+			     , COUNT(1) 상품처리오류거래건수
+			  FROM INSTC.TBGCCDE06 A
+			 WHERE A.거래기준년월일 = ${상품처리거래집계년월일}
+			   AND A.거래기준시각 >= ${상품처리거래집계시분1} || '00000000'
+			   AND A.거래기준시각 <= ${상품처리거래집계시분2} || '99999999'
+			   AND A.연동거래구분코드 = '1'
+			 GROUP BY A.거래기준년월일
+			     , NVL(A.채널구분코드, '00')
+			     , NVL(A.채널세부업무구분코드, '00')
+			     , A.거래코드
+			     , A.오류메시지코드
+			     , A.조치메시지코드
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstPdPrcErrTrSunSmm" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::08.IT장애관리지원::02.오류거래모니터링::오류거래모니터링Dmfreec::DAO::오류거래모니터링Ddao::상품처리오류거래일요일집계목록조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itObstMgSpt/errTrMng/errTrMngDmfreec/ErrTrMng/retvLstPdPrcErrTrSunSmm */ 
+			       A.거래기준년월일 상품처리거래집계년월일
+			     , NVL(A.채널구분코드, '00') 채널구분코드
+			     , NVL(A.채널세부업무구분코드, '00') 채널세부업무구분코드
+			     , A.거래코드
+			     , NVL(A.오류메시지코드, '--------') 오류메시지코드
+			     , NVL(A.조치메시지코드, '--------') 조치메시지코드
+			     , COUNT(1) 상품처리오류거래건수
+			  FROM INSTC.TBGCCDE07 A
+			 WHERE A.거래기준년월일 = ${상품처리거래집계년월일}
+			   AND A.거래기준시각 >= ${상품처리거래집계시분1} || '00000000'
+			   AND A.거래기준시각 <= ${상품처리거래집계시분2} || '99999999'
+			   AND A.연동거래구분코드 = '1'
+			 GROUP BY A.거래기준년월일
+			     , NVL(A.채널구분코드, '00')
+			     , NVL(A.채널세부업무구분코드, '00')
+			     , A.거래코드
+			     , A.오류메시지코드
+			     , A.조치메시지코드
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvPdPrcTrNmlSmm" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::08.IT장애관리지원::02.오류거래모니터링::오류거래모니터링Dmfreec::DAO::오류거래모니터링Ddao::상품처리거래정상집계조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itObstMgSpt/errTrMng/errTrMngDmfreec/ErrTrMng/retvPdPrcTrNmlSmm */ 
+			       A.상품처리거래집계구분코드
+			     , A.상품처리거래집계년월일
+			     , A.상품처리거래집계시분
+			     , NVL(A.채널구분코드, '00') 채널구분코드
+			     , NVL(A.채널세부업무구분코드, '00') 채널세부업무구분코드
+			     , A.거래코드
+			     , A.상품처리총거래건수
+			     , A.상품처리정상거래건수
+			     , A.상품처리정상거래소요합계초수
+			     , A.상품처리정상거래소요최소초수
+			     , A.상품처리정상거래소요최대초수
+			     , A.상품처리오류거래건수
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBEM11 A        /* GCB오류거래모니터링정상집계 */
+			 WHERE A.상품처리거래집계구분코드 = ${상품처리거래집계구분코드}
+			   AND A.상품처리거래집계년월일  = ${상품처리거래집계년월일}
+			   AND A.상품처리거래집계시분   = ${상품처리거래집계시분}
+			   AND NVL(A.채널구분코드, '00') = ${채널구분코드}
+			   AND NVL(A.채널세부업무구분코드, '00') = ${채널세부업무구분코드}
+			   AND A.거래코드 = ${거래코드}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="regtPdPrcTrErrSmm" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::08.IT장애관리지원::02.오류거래모니터링::오류거래모니터링Dmfreec::DAO::오류거래모니터링Ddao::상품처리거래오류집계등록" >
+		<![CDATA[
+			INSERT /*+ 위상규::/gcb/itObstMgSpt/errTrMng/errTrMngDmfreec/ErrTrMng/regtPdPrcTrErrSmm */
+			  INTO INSTC.TBGCBEM12        /* GCB오류거래모니터링오류집계 */
+			(
+			   상품처리거래집계구분코드
+			 , 상품처리거래집계년월일
+			 , 상품처리거래집계시분
+			 , 채널구분코드
+			 , 채널세부업무구분코드
+			 , 거래코드
+			 , 오류메시지코드
+			 , 조치메시지코드
+			 , 상품처리정상거래건수
+			 , 상품처리오류거래건수
+			 , 상품처리오류거래비율
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${상품처리거래집계구분코드}
+			 ,${상품처리거래집계년월일}
+			 ,${상품처리거래집계시분}
+			 ,${채널구분코드}
+			 ,${채널세부업무구분코드}
+			 ,${거래코드}
+			 ,${오류메시지코드}
+			 ,${조치메시지코드}
+			 ,${상품처리정상거래건수}
+			 ,${상품처리오류거래건수}
+			 ,${상품처리오류거래비율}
+			 ,SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,${시스템최종거래일시}
+			)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstPdPrcErrTr" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::08.IT장애관리지원::02.오류거래모니터링::오류거래모니터링Dmfreec::DAO::오류거래모니터링Ddao::상품처리오류거래목록조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itObstMgSpt/errTrMng/errTrMngDmfreec/ErrTrMng/retvLstPdPrcErrTr */ 
+			       A.상품처리거래집계구분코드
+			     , A.상품처리거래집계년월일
+			     , A.상품처리거래집계시분
+			     , A.채널구분코드
+			     , A.채널세부업무구분코드
+			     , A.거래코드
+			     , A.오류메시지코드
+			     , A.조치메시지코드
+			     , A.상품처리정상거래건수
+			     , A.상품처리오류거래건수
+			     , A.상품처리오류거래비율
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBEM12 A        /* GCB오류거래모니터링오류집계 */
+			 WHERE A.상품처리거래집계구분코드 = ${상품처리거래집계구분코드}
+			   AND A.상품처리거래집계년월일  = ${상품처리거래집계년월일}
+			   AND A.상품처리거래집계시분   = ${상품처리거래집계시분}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstPdPrcErrTrEcpBse" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::08.IT장애관리지원::02.오류거래모니터링::오류거래모니터링Dmfreec::DAO::오류거래모니터링Ddao::상품처리오류거래예외기준목록조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itObstMgSpt/errTrMng/errTrMngDmfreec/ErrTrMng/retvLstPdPrcErrTrEcpBse */ 
+			       A.채널구분코드
+			     , A.채널세부업무구분코드
+			     , A.거래코드
+			     , A.상품처리거래검증일련번호
+			     , A.상품처리거래검증기준구분코드
+			     , A.상품처리거래검증오차허용범위율
+			     , A.상품처리거래검증제외여부
+			     , A.상품처리거래검증대상구분코드
+			     , A.오류메시지코드
+			     , A.조치메시지코드
+			     , A.IT운영SMS일련번호
+			     , A.IT운영SMS부가일련번호
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBEM14 A        /* GCB오류거래모니터링예외기준 */
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvPdPrcErrTrEcpPrcTg" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::08.IT장애관리지원::02.오류거래모니터링::오류거래모니터링Dmfreec::DAO::오류거래모니터링Ddao::상품처리오류거래예외처리대상조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itObstMgSpt/errTrMng/errTrMngDmfreec/ErrTrMng/retvPdPrcErrTrEcpPrcTg */ 
+			       COUNT(1) 발생건수_N9
+			     , MAX(A.상품처리오류거래건수) 최대건수_N9
+			     , AVG(A.상품처리오류거래건수) 평균건수_N9_2
+			  FROM INSTC.TBGCBEM12 A        /* GCB오류거래모니터링오류집계 */
+			 WHERE A.상품처리거래집계구분코드 = ${상품처리거래집계구분코드}
+			   AND A.상품처리거래집계년월일  >= TO_CHAR(ADD_MONTHS(TO_DATE(${상품처리거래집계년월일}, 'YYYYMMDD'), -1), 'YYYYMMDD')
+			   AND A.상품처리거래집계년월일  < TO_CHAR(SYSDATE, 'YYYYMMDD')
+			   AND A.상품처리거래집계시분 = ${상품처리거래집계시분}
+			   AND A.채널구분코드       = ${채널구분코드}
+			   AND A.채널세부업무구분코드   = ${채널세부업무구분코드}
+			   AND A.거래코드         = ${거래코드}
+			   AND '01' = ${상품처리거래검증대상구분코드}
+			   AND A.상품처리오류거래건수 >= ${상품처리오류거래건수}
+			 GROUP BY A.상품처리거래집계구분코드
+			     , A.상품처리거래집계시분
+			     , A.채널구분코드
+			     , A.채널세부업무구분코드
+			     , A.거래코드
+			 UNION ALL
+			SELECT COUNT(1) 발생건수_N9
+			     , MAX(A.상품처리오류거래건수) 최대건수_N9
+			     , AVG(A.상품처리오류거래건수) 평균건수_N9_2
+			  FROM INSTC.TBGCBEM12 A        /* GCB오류거래모니터링오류집계 */
+			 WHERE A.상품처리거래집계구분코드 = ${상품처리거래집계구분코드}
+			   AND A.상품처리거래집계년월일  >= TO_CHAR(ADD_MONTHS(TO_DATE(${상품처리거래집계년월일}, 'YYYYMMDD'), -1), 'YYYYMMDD')
+			   AND A.상품처리거래집계년월일  < TO_CHAR(SYSDATE, 'YYYYMMDD')
+			   AND A.상품처리거래집계시분 = ${상품처리거래집계시분}
+			   AND A.채널구분코드       = ${채널구분코드}
+			   AND A.채널세부업무구분코드   = ${채널세부업무구분코드}
+			   AND A.거래코드 = ${거래코드}
+			   AND A.오류메시지코드 = ${오류메시지코드}
+			   AND '02' = ${상품처리거래검증대상구분코드}
+			   AND A.상품처리오류거래건수 >= ${상품처리오류거래건수}
+			 GROUP BY A.상품처리거래집계구분코드
+			     , A.상품처리거래집계시분
+			     , A.채널구분코드
+			     , A.채널세부업무구분코드
+			     , A.거래코드
+			     , A.오류메시지코드
+			 UNION ALL
+			SELECT COUNT(1) 발생건수_N9
+			     , MAX(A.상품처리오류거래건수) 최대건수_N9
+			     , AVG(A.상품처리오류거래건수) 평균건수_N9_2
+			  FROM INSTC.TBGCBEM12 A        /* GCB오류거래모니터링오류집계 */
+			 WHERE A.상품처리거래집계구분코드 = ${상품처리거래집계구분코드}
+			   AND A.상품처리거래집계년월일  >= TO_CHAR(ADD_MONTHS(TO_DATE(${상품처리거래집계년월일}, 'YYYYMMDD'), -1), 'YYYYMMDD')
+			   AND A.상품처리거래집계년월일  < TO_CHAR(SYSDATE, 'YYYYMMDD')
+			   AND A.상품처리거래집계시분 = ${상품처리거래집계시분}
+			   AND A.채널구분코드       = ${채널구분코드}
+			   AND A.채널세부업무구분코드   = ${채널세부업무구분코드}
+			   AND A.거래코드 = ${거래코드}
+			   AND A.조치메시지코드 = ${조치메시지코드}
+			   AND '03' = ${상품처리거래검증대상구분코드}
+			   AND A.상품처리오류거래건수 >= ${상품처리오류거래건수}
+			 GROUP BY A.상품처리거래집계구분코드
+			     , A.상품처리거래집계시분
+			     , A.채널구분코드
+			     , A.채널세부업무구분코드
+			     , A.거래코드
+			     , A.조치메시지코드
+			 UNION ALL
+			SELECT COUNT(1) 발생건수_N9
+			     , MAX(A.상품처리오류거래건수) 최대건수_N9
+			     , AVG(A.상품처리오류거래건수) 평균건수_N9_2
+			  FROM INSTC.TBGCBEM12 A        /* GCB오류거래모니터링오류집계 */
+			 WHERE A.상품처리거래집계구분코드 = ${상품처리거래집계구분코드}
+			   AND A.상품처리거래집계년월일  >= TO_CHAR(ADD_MONTHS(TO_DATE(${상품처리거래집계년월일}, 'YYYYMMDD'), -1), 'YYYYMMDD')
+			   AND A.상품처리거래집계년월일  < TO_CHAR(SYSDATE, 'YYYYMMDD')
+			   AND A.상품처리거래집계시분 = ${상품처리거래집계시분}
+			   AND A.채널구분코드       = ${채널구분코드}
+			   AND A.채널세부업무구분코드   = ${채널세부업무구분코드}
+			   AND A.거래코드 = ${거래코드}
+			   AND A.오류메시지코드 = ${오류메시지코드}
+			   AND A.조치메시지코드 = ${조치메시지코드}
+			   AND '04' = ${상품처리거래검증대상구분코드}
+			   AND A.상품처리오류거래건수 >= ${상품처리오류거래건수}
+			 GROUP BY A.상품처리거래집계구분코드
+			     , A.상품처리거래집계시분
+			     , A.채널구분코드
+			     , A.채널세부업무구분코드
+			     , A.거래코드
+			     , A.오류메시지코드
+			     , A.조치메시지코드
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="regtPdPrcErrTrVlnHis" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::08.IT장애관리지원::02.오류거래모니터링::오류거래모니터링Dmfreec::DAO::오류거래모니터링Ddao::상품처리오류거래검증내역등록" >
+		<![CDATA[
+			INSERT /*+ 위상규::/gcb/itObstMgSpt/errTrMng/errTrMngDmfreec/ErrTrMng/regtPdPrcErrTrVlnHis */
+			  INTO INSTC.TBGCBEM13        /* GCB오류거래모니터링검증내역 */
+			(
+			   상품처리거래집계구분코드
+			 , 상품처리거래집계년월일
+			 , 상품처리거래집계시분
+			 , 채널구분코드
+			 , 채널세부업무구분코드
+			 , 거래코드
+			 , 오류메시지코드
+			 , 조치메시지코드
+			 , 상품처리거래검증일련번호
+			 , 상품처리정상거래건수
+			 , 상품처리오류거래건수
+			 , 상품처리오류거래비율
+			 , IT운영SMS전송여부
+			 , IT운영SMS전송일시
+			 , IT운영SMS일련번호
+			 , IT운영SMS부가일련번호
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${상품처리거래집계구분코드}
+			 ,${상품처리거래집계년월일}
+			 ,${상품처리거래집계시분}
+			 ,${채널구분코드}
+			 ,${채널세부업무구분코드}
+			 ,${거래코드}
+			 ,${오류메시지코드}
+			 ,${조치메시지코드}
+			 ,${상품처리거래검증일련번호}
+			 ,${상품처리정상거래건수}
+			 ,${상품처리오류거래건수}
+			 ,${상품처리오류거래비율}
+			 ,${IT운영SMS전송여부}
+			 ,${IT운영SMS전송일시}
+			 ,${IT운영SMS일련번호}
+			 ,${IT운영SMS부가일련번호}
+			 ,SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,${시스템최종거래일시}
+			)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstPdPrcErrTrCdPr" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::08.IT장애관리지원::02.오류거래모니터링::오류거래모니터링Dmfreec::DAO::오류거래모니터링Ddao::상품처리오류거래코드별목록조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itObstMgSpt/errTrMng/errTrMngDmfreec/ErrTrMng/retvLstPdPrcErrTrCdPr */ 
+			       A.상품처리거래집계구분코드
+			     , A.상품처리거래집계년월일
+			     , A.상품처리거래집계시분
+			     , A.채널구분코드
+			     , A.채널세부업무구분코드
+			     , A.거래코드
+			     , MAX(A.오류메시지코드) KEEP(DENSE_RANK FIRST ORDER BY A.상품처리오류거래건수 DESC) 오류메시지코드
+			     , MAX(A.조치메시지코드) KEEP(DENSE_RANK FIRST ORDER BY A.상품처리오류거래건수 DESC) 조치메시지코드
+			     , MAX(A.상품처리정상거래건수) 상품처리정상거래건수
+			     , SUM(A.상품처리오류거래건수) 상품처리오류거래건수
+			  FROM INSTC.TBGCBEM12 A        /* GCB오류거래모니터링오류집계 */
+			 WHERE A.상품처리거래집계구분코드 = ${상품처리거래집계구분코드}
+			   AND A.상품처리거래집계년월일  = ${상품처리거래집계년월일}
+			   AND A.상품처리거래집계시분   = ${상품처리거래집계시분}
+			 GROUP BY A.상품처리거래집계구분코드
+			     , A.상품처리거래집계년월일
+			     , A.상품처리거래집계시분
+			     , A.채널구분코드
+			     , A.채널세부업무구분코드
+			     , A.거래코드
+		]]>
+    </statement>
+</statements>

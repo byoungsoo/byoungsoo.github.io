@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<navigation>        
+    <!-- 사용자고유번호조회 -->
+    <action name="/retvUsrUno">
+         <method>post</method>
+         <command>#restCommonCmd</command>
+         <tran-id>UBF0100341</tran-id>
+    </action>
+    
+    <!-- 등록채널목록조회 -->
+    <action name="/retvRgChnCtg">
+         <method>post</method>
+         <command>#restCommonCmd</command>
+         <tran-id>UBF0100342</tran-id>
+    </action>
+    
+    <!-- 오픈뱅킹등록여부조회 -->
+    <action name="/retvRgYn">
+         <method>post</method>
+         <command>#restCommonCmd</command>
+         <tran-id>UBF0100340</tran-id> 
+    </action>
+    
+    <!-- 사용자정보 조회 -->
+    <action name="/retvUsrInf">
+         <method>post</method>
+         <command>#restCommonCmd</command>
+         <tran-id>UBF0100343</tran-id> 
+    </action> 
+        
+    <!-- 사용자탈퇴 처리 -->
+    <action name="/prcUsrScsn">
+         <method>post</method>
+         <command>#restCommonCmd</command>
+         <tran-id>UBF0300330</tran-id> 
+    </action>
+    
+</navigation>

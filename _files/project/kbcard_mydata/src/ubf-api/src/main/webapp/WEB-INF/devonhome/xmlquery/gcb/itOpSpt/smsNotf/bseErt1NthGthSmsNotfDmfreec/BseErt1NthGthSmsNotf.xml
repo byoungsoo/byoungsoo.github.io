@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <!-- 20210516 최웅기 CDC 테이블명 변경  TBGCBKB01	:: TBUBDJ003
+    <statement name="retvKbcdItOpDteBse" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::05.IT운영지원::02.SMS통보::기준환율1회차수보SMS통보Dmfreec::DAO::기준환율1회차수보SMS통보Ddao::KB카드IT운영일자기준조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itOpSpt/smsNotf/bseErt1NthGthSmsNotfDmfreec/BseErt1NthGthSmsNotf/retvKbcdItOpDteBse */ 
+			       A.KB정보키번호
+			     , A.거래기준년월일
+			     , A.전전영업년월일
+			     , A.전영업년월일
+			     , A.금영업년월일
+			     , A.익영업년월일
+			     , A.N2영업년월일
+			     , A.N3영업년월일
+			     , A.N4영업년월일
+			     , A.N5영업년월일
+			     , A.음력거래기준년월일
+			     , A.음력영업년월일
+			     , A.영업일구분코드
+			     , A.요일구분코드
+			     , A.센터컷처리완료여부
+			     , A.사고접수등록완료여부
+			     , A.거래통제여부
+			     , A.거래통제변경년월일
+			     , A.거래통제변경시각
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBKB01 A 
+			 WHERE A.KB정보키번호 = ${KB정보키번호}
+		]]>
+    </statement>
+    -->
+	<statement name="retvKbcdItOpDteBse" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::05.IT운영지원::02.SMS통보::기준환율1회차수보SMS통보Dmfreec::DAO::기준환율1회차수보SMS통보Ddao::KB카드IT운영일자기준조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itOpSpt/smsNotf/bseErt1NthGthSmsNotfDmfreec/BseErt1NthGthSmsNotf/retvKbcdItOpDteBse */ 
+			       A.KB정보키번호
+			     , A.거래기준년월일
+			     , A.전전영업년월일
+			     , A.전영업년월일
+			     , A.금영업년월일
+			     , A.익영업년월일
+			     , A.N2영업년월일
+			     , A.N3영업년월일
+			     , A.N4영업년월일
+			     , A.N5영업년월일
+			     , A.음력거래기준년월일
+			     , A.음력영업년월일
+			     , A.영업일구분코드
+			     , A.요일구분코드
+			     , A.센터컷처리완료여부
+			     , A.사고접수등록완료여부
+			     , A.거래통제여부
+			     , A.거래통제변경년월일
+			     , A.거래통제변경시각
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBUBDJ003 A 
+			 WHERE A.KB정보키번호 = ${KB정보키번호}
+		]]>
+    </statement>
+    <!--  -->
+    <statement name="retvErtBse" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::10.데몬잡컴포넌트::05.IT운영지원::02.SMS통보::기준환율1회차수보SMS통보Dmfreec::DAO::기준환율1회차수보SMS통보Ddao::환율기준조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itOpSpt/smsNotf/bseErt1NthGthSmsNotfDmfreec/BseErt1NthGthSmsNotf/retvErtBse */ 
+			       A.통화코드
+			     , A.기준년월일
+			     , A.환율적용회차
+			     , A.환율등록완료여부
+			     , A.환율등록시작시각
+			     , A.환율등록완료시각
+			     , A.교차환율
+			     , A.매매기준율
+			     , A.대미환산율
+			     , A.전신환매입률
+			     , A.전신환매도율
+			     , A.현찰매입률
+			     , A.현찰매도율
+			     , A.TC매도율
+			     , A.ISO통화코드
+			     , A.ISO국가코드
+			     , A.한글ISO국가명
+			     , A.N100단위통화여부
+			     , A.한글통화코드명
+			     , A.영문통화코드명
+			     , A.통화코드일련번호
+			     , A.통화코드조회순서
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBEX04 A 
+			 WHERE A.통화코드   = ${통화코드}
+			   AND A.기준년월일  = ${기준년월일}
+			   AND A.환율적용회차 = ${환율적용회차}
+		]]>
+    </statement>
+</statements>

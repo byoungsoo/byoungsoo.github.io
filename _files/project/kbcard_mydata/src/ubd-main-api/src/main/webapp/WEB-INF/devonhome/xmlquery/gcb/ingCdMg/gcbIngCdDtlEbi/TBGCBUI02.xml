@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvGcbIngCdCtt" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB통합코드상세Ebi::GCB통합코드상세Dao::GCB통합코드내용조회">
+		<![CDATA[
+			SELECT /*+ 송재복::/gcb/ingCdMg/gcbIngCdDtlEbi/TBGCBUI02/retvGcbIngCdCtt */ 
+			       A.통합코드
+			     , A.통합코드내용
+			     , A.통합코드한글약어명
+			     , A.통합코드영문약어명      
+			  FROM INSTC.TBGCBUI02 A 
+			 WHERE A.통합코드명   = ${통합코드명}
+			   AND A.통합코드    = ${통합코드}
+			   AND ${적용시작년월일} BETWEEN A.적용시작년월일 AND A.적용종료년월일
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvGcbIngCdDtlCtt" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB통합코드상세Ebi::GCB통합코드상세Dao::GCB통합코드상세내용조회">
+		<![CDATA[
+			SELECT /*+ 송재복::/gcb/ingCdMg/gcbIngCdDtlEbi/TBGCBUI02/retvGcbIngCdDtlCtt */ 
+			       A.통합코드
+			     , A.통합코드내용
+			     , A.통합코드한글약어명
+			     , A.통합코드영문약어명            
+			     , (CASE WHEN A.적용종료년월일 < ${적용시작년월일} THEN '0' ELSE '1' END) 사용여부
+			  FROM (
+			        SELECT B.통합코드
+			             , B.통합코드내용 
+			             , B.적용종료년월일
+			             , B.통합코드한글약어명
+			             , B.통합코드영문약어명            
+			          FROM INSTC.TBGCBUI02 B 
+			         WHERE B.통합코드명   = ${통합코드명}
+			           AND B.통합코드    = ${통합코드}
+			         ORDER BY B.적용시작년월일 DESC
+			       ) A
+			 WHERE ROWNUM = 1
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvGcbIngCdExstYn" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB통합코드상세Ebi::GCB통합코드상세Dao::GCB통합코드존재여부조회">
+		<![CDATA[
+			SELECT /*+ 송재복::/gcb/ingCdMg/gcbIngCdDtlEbi/TBGCBUI02/retvGcbIngCdExstYn */ 
+			       1 존재여부_V1
+			  FROM INSTC.TBGCBUI02 A 
+			 WHERE A.통합코드명   = ${통합코드명}
+			   AND A.통합코드    = ${통합코드}
+			   AND ${적용시작년월일} BETWEEN A.적용시작년월일 AND A.적용종료년월일
+			
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvGcbIngCdDtlExstYn" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB통합코드상세Ebi::GCB통합코드상세Dao::GCB통합코드상세존재여부조회">
+		<![CDATA[
+			SELECT /*+ 송재복::/gcb/ingCdMg/gcbIngCdDtlEbi/TBGCBUI02/retvGcbIngCdDtlExstYn */ 
+			       (CASE WHEN A.적용종료년월일 < ${적용시작년월일} THEN '0' ELSE '1' END) 사용여부
+			  FROM (
+			        SELECT  B.적용종료년월일
+			          FROM INSTC.TBGCBUI02 B 
+			         WHERE B.통합코드명   = ${통합코드명}
+			           AND B.통합코드    = ${통합코드}
+			         ORDER BY B.적용시작년월일 DESC
+			       ) A
+			 WHERE ROWNUM = 1
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGcbIngCdCtt" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB통합코드상세Ebi::GCB통합코드상세Dao::GCB통합코드내용목록조회">
+		<![CDATA[
+			SELECT /*+ 송재복::/gcb/ingCdMg/gcbIngCdDtlEbi/TBGCBUI02/retvLstGcbIngCdCtt */ 
+			       A.통합코드
+			     , A.통합코드내용 
+			     , A.통합코드한글약어명
+			     , A.통합코드영문약어명            
+			  FROM INSTC.TBGCBUI02 A 
+			 WHERE A.통합코드명   = ${통합코드명}
+			   AND (${통합코드} IS NULL OR A.통합코드  >= ${통합코드}) 
+			   AND ${적용시작년월일} BETWEEN A.적용시작년월일 AND A.적용종료년월일 
+			ORDER BY 통합코드
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGcbIngCdDtlCtt" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB통합코드상세Ebi::GCB통합코드상세Dao::GCB통합코드상세내용목록조회">
+		<![CDATA[
+			SELECT /*+ 송재복::/gcb/ingCdMg/gcbIngCdDtlEbi/TBGCBUI02/retvLstGcbIngCdDtlCtt */ 
+			       A.통합코드
+			     , A.통합코드내용 
+			     , A.통합코드한글약어명
+			     , A.통합코드영문약어명            
+			     , (CASE WHEN A.적용종료년월일 < ${적용시작년월일} THEN '0' ELSE '1' END) 사용여부
+			  FROM INSTC.TBGCBUI02 A 
+			 WHERE A.통합코드명   = ${통합코드명}
+			   AND (A.통합코드 , A.적용시작년월일 ) IN
+			       (SELECT B.통합코드
+			             , MAX(B.적용시작년월일) 
+			          FROM INSTC.TBGCBUI02 B 
+			         WHERE B.통합코드명   = ${통합코드명}
+			           AND (${통합코드} IS NULL OR B.통합코드  >= ${통합코드})
+			         GROUP BY B.통합코드
+			       )
+			 ORDER BY A.통합코드
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="delGcbIngCdDtl" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::02.통합코드관리::GCB통합코드상세Ebi::GCB통합코드상세Dao::GCB통합코드상세삭제" >
+		<![CDATA[
+			DELETE /*+ 송재복::/gcb/ingCdMg/gcbIngCdDtlEbi/TBGCBUI02/delGcbIngCdDtl */
+			  FROM INSTC.TBGCBUI02  
+			 WHERE 통합코드명 = ${통합코드명}
+			   AND 통합코드  = ${통합코드}
+		]]>
+    </statement>
+</statements>

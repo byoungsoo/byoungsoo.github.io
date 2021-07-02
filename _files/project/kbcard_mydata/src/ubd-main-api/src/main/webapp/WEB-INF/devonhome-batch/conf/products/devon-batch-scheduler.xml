@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="euc-kr"?>
+<batch-scheduler>
+	
+	<!--  scheduler를 사용여부(TRUE, FALSE) -->
+	<scheduler-enable>TRUE</scheduler-enable>
+	
+	<view>
+		<!--  scheduler화면에서 에서 날짜를 다룰 때 사용하는 형식 -->
+		<ui-date-format>yyyy-MM-dd</ui-date-format>
+		
+		<!-- 작업 스케줄(특정 시각)의 날짜 표현 형식 -->
+		<schedule-date-format>yyyy-MM-dd hh:mm:ss</schedule-date-format>
+		
+		<!-- 실행 이력 조회  -->
+		<exec-log-view>
+			<!-- 실행 이력 조회 화면의 갱신 주기(ms)
+				 예: 3000 = 3초마다 한번씩 화면 갱신 -->
+			<update-interval>3000</update-interval>
+		</exec-log-view>
+	</view>
+	
+	<!-- Batch 실행자를 구성하는 XML
+		해당 실행자의 설정(devon_batch_scheduler.xml/id/name)된 id명과 
+		이곳의 내/외부 실행자 id는 일치해야 한다. -->
+	<executors>
+		<location-list>
+			<embedded>
+				<enabled>true</enabled>
+				<alias>내부 실행</alias>
+			</embedded>			
+	  	</location-list>
+	</executors>	
+</batch-scheduler>

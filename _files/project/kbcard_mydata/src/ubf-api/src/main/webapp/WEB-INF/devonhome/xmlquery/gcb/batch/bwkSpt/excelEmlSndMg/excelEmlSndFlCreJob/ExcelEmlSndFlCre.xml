@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvLstUmsExcelEmlSndDmdHis" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::03.업무지원::06.엑셀이메일발송관리::엑셀이메일발송파일생성Job::DAO::엑셀이메일발송파일생성Bdao::UMS엑셀이메일발송요청내역목록조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/batch/bwkSpt/excelEmlSndMg/excelEmlSndFlCreJob/ExcelEmlSndFlCre/retvLstUmsExcelEmlSndDmdHis */ 
+			       A.이메일발송요청등록일시
+			     , A.고객식별자
+			     , A.고객관리번호
+			     , A.엑셀서식식별번호
+			     , A.고객명
+			     , A.고객이메일주소
+			     , A.암호화보안이메일비밀번호내용
+			     , A.발송부점코드
+			     , A.발송직원번호
+			     , A.엑셀서식점검일련번호
+			     , A.UMS중계처리상태구분코드
+			     , A.UMS전송파일생성일시
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBUM01 A        /* GCB_UMS엑셀이메일발송요청내역 */
+			 WHERE A.이메일발송요청등록일시 >= TO_CHAR(SYSDATE - 1, 'YYYYMMDD') || '000000000000'
+			   AND A.UMS중계처리상태구분코드 = '1'
+			 ORDER BY A.이메일발송요청등록일시
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstUmsExcelEmlSndDatHis" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::03.업무지원::06.엑셀이메일발송관리::엑셀이메일발송파일생성Job::DAO::엑셀이메일발송파일생성Bdao::UMS엑셀이메일발송데이터내역목록조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/batch/bwkSpt/excelEmlSndMg/excelEmlSndFlCreJob/ExcelEmlSndFlCre/retvLstUmsExcelEmlSndDatHis */ 
+			       A.이메일발송요청등록일시
+			     , A.고객식별자
+			     , A.고객관리번호
+			     , A.엑셀서식식별번호
+			     , A.엑셀서식일련번호
+			     , A.엑셀서식출력구분코드
+			     , A.엑셀서식출력내용
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBUM02 A        /* GCB_UMS엑셀이메일발송데이터내역 */
+			 WHERE A.이메일발송요청등록일시 = ${이메일발송요청등록일시}
+			   AND A.고객식별자       = ${고객식별자}
+			   AND A.고객관리번호      = ${고객관리번호}
+			   AND A.엑셀서식식별번호    = ${엑셀서식식별번호}
+			 ORDER BY A.이메일발송요청등록일시
+			     , A.고객식별자
+			     , A.고객관리번호
+			     , A.엑셀서식식별번호
+			     , A.엑셀서식일련번호
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="uptUmsExcelEmlSndDmdHis" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::03.업무지원::06.엑셀이메일발송관리::엑셀이메일발송파일생성Job::DAO::엑셀이메일발송파일생성Bdao::UMS엑셀이메일발송요청내역수정">
+		<![CDATA[
+			UPDATE /*+ 위상규::/gcb/batch/bwkSpt/excelEmlSndMg/excelEmlSndFlCreJob/ExcelEmlSndFlCre/uptUmsExcelEmlSndDmdHis */ 
+			       INSTC.TBGCBUM01        /* GCB_UMS엑셀이메일발송요청내역 */
+			   SET UMS중계처리상태구분코드  = '2'
+			     , UMS전송파일생성일시    = TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
+			     , 시스템최종갱신일시      = SYSTIMESTAMP
+			     , 시스템최종갱신식별자     = ${시스템최종갱신식별자}
+			     , 시스템최종거래일시      = ${시스템최종거래일시}
+			 WHERE 이메일발송요청등록일시 = ${이메일발송요청등록일시}
+			   AND 고객식별자       = ${고객식별자}
+			   AND 고객관리번호      = ${고객관리번호}
+			   AND 엑셀서식식별번호    = ${엑셀서식식별번호}
+		]]>
+    </statement>
+</statements>

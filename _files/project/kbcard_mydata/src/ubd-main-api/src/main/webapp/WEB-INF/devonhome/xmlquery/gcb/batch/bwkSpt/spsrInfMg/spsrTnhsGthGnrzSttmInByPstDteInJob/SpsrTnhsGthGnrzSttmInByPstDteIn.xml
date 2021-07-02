@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="delGcbSpsrAthHisChpSmmByPstDteBseHis" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::03.업무지원::01.책임자정보관리::책임자거래내역수보총괄명세표입력By현재일자입력Job::DAO::책임자거래내역수보총괄명세표입력By현재일자입력Bdao::GCB책임자승인내역점검집계By현재일자기준내역삭제">
+		<![CDATA[
+			DELETE /*+ 김동현::/gcb/batch/bwkSpt/spsrInfMg/spsrTnhsGthGnrzSttmInByPstDteInJob/SpsrTnhsGthGnrzSttmInByPstDteIn/delGcbSpsrAthHisChpSmmByPstDteBseHis */
+			  FROM INSTC.TBGCBAT02  
+			 WHERE 영업년월일  = TO_CHAR(SYSDATE, 'yyyyMMdd')
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGcbSpsrAthHisChpSmmByPstDteRgTg" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::03.업무지원::01.책임자정보관리::책임자거래내역수보총괄명세표입력By현재일자입력Job::DAO::책임자거래내역수보총괄명세표입력By현재일자입력Bdao::GCB책임자승인내역점검집계By현재일자등록대상목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/batch/bwkSpt/spsrInfMg/spsrTnhsGthGnrzSttmInByPstDteInJob/SpsrTnhsGthGnrzSttmInByPstDteIn/retvLstGcbSpsrAthHisChpSmmByPstDteRgTg */ 
+			       A.거래기준년월일
+			     , A.부점코드
+			     , A.승인직원번호
+			     , SUM(A.처리건수) 처리건수_N5
+			     , SUM(A.점검건수) 점검건수_N5
+			     , MAX(A.점검일자) 점검일자_V8
+			     , MAX(A.점검시각) 점검시각_V6
+			     , CASE WHEN SUM(A.마이스타승인건수) = 0  THEN '1' /*할부리스승인건만 있을경우 해제여부 '1' 세팅*/
+			            ELSE (CASE WHEN SUBSTR(MAX(A.해제여부), 13, 10) IN ('GCB0331332', 'GCB0331331') AND SUBSTR(MAX(A.해제여부), 23, 3) != '999' THEN '1' ELSE '0' END)
+			       END 해제여부_V1
+			     , (SELECT 한글직원명 FROM INSTC.TBGCBHR01 B WHERE B.직원번호  = A.승인직원번호) 한글직원명
+			  FROM (SELECT A.거래기준년월일, A.부점코드, A.승인직원번호
+			             , COUNT(*) 처리건수
+			             , SUM(CASE A.책임자승인점검여부 WHEN '1' THEN 1 ELSE 0 END) 점검건수
+			             , SUBSTR(MAX(A.책임자승인점검년월일||A.책임자승인점검시각), 1, 8) 점검일자
+			             , SUBSTR(MAX(A.책임자승인점검년월일||A.책임자승인점검시각), 9, 6) 점검시각
+			             , ' ' 해제여부
+			             , SUM(CASE WHEN A.거래코드 != 'KIW0302800' THEN 1 ELSE 0 END) 마이스타승인건수
+			             , SUM(CASE WHEN A.거래코드 = 'KIW0302800'  THEN 1 ELSE 0 END) 할부리스승인건수
+			          FROM INSTC.TBGCBAT01 A
+			         WHERE A.거래기준년월일 = TO_CHAR(SYSDATE,'yyyyMMdd')
+			           AND A.책임자승인구분코드 IN ('1', '2', '3', '4', '5')
+			           AND TRIM(A.부점코드) IS NOT NULL 
+			        GROUP BY A.부점코드, A.승인직원번호, A.거래기준년월일
+			        UNION ALL
+			        SELECT A.거래기준년월일, A.부점코드, A.승인직원번호
+			             , 0 처리건수
+			             , 0 점검건수
+			             , '' 점검일자
+			             , '' 점검시각
+			             , MAX(A.거래기준시각||A.거래코드||A.단말번호) 해제여부 /*거래기준시각(12)||거래코드(10)||단말번호(3)*/
+			             , 0 마이스타승인건수
+			             , 0 할부리스승인건수
+			          FROM INSTC.TBGCBAT01 A
+			         WHERE A.거래기준년월일 = TO_CHAR(SYSDATE,'yyyyMMdd')
+			           AND NVL(A.책임자승인구분코드, '0') = '0'
+			           AND TRIM(A.부점코드) IS NOT NULL
+			        GROUP BY A.부점코드, A.승인직원번호, A.거래기준년월일
+			        ) A
+			GROUP BY A.거래기준년월일, A.부점코드, A.승인직원번호
+			HAVING SUM(A.처리건수) > 0
+		]]>
+    </statement>
+</statements>

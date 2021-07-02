@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvLstGCB_ItOpSmsTrsCtroBseWhl" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::12.IT운영SMS관리::GCB_IT운영SMS전송제어기준Ebi::GCB_IT운영SMS전송제어기준Dao::GCB_IT운영SMS전송제어기준전체목록조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itOpSmsMg/gCB_ItOpSmsTrsCtroBseEbi/TBGCBSM01/retvLstGCB_ItOpSmsTrsCtroBseWhl */ 
+			       A.시스템운영환경구분코드
+			     , A.거래유형구분코드
+			     , A.IT운영SMS종류명
+			     , A.사용여부
+			     , A.IT운영SMS제어내용
+			     , A.SMS전송통제시작일시
+			     , A.SMS전송통제종료일시
+			     , A.IT운영SMS비고
+			     , A.등록직원번호
+			     , A.등록년월일
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBSM01 A
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="regtGCB_ItOpSmsTrsCtroBse" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::12.IT운영SMS관리::GCB_IT운영SMS전송제어기준Ebi::GCB_IT운영SMS전송제어기준Dao::GCB_IT운영SMS전송제어기준등록" >
+		<![CDATA[
+			INSERT /*+ 위상규::/gcb/itOpSmsMg/gCB_ItOpSmsTrsCtroBseEbi/TBGCBSM01/regtGCB_ItOpSmsTrsCtroBse */
+			  INTO INSTC.TBGCBSM01
+			(
+			   시스템운영환경구분코드
+			 , 거래유형구분코드
+			 , IT운영SMS종류명
+			 , 사용여부
+			 , IT운영SMS제어내용
+			 , SMS전송통제시작일시
+			 , SMS전송통제종료일시
+			 , IT운영SMS비고
+			 , 등록직원번호
+			 , 등록년월일
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${시스템운영환경구분코드}
+			 ,${거래유형구분코드}
+			 ,${IT운영SMS종류명}
+			 ,${사용여부}
+			 ,${IT운영SMS제어내용}
+			 ,${SMS전송통제시작일시}
+			 ,${SMS전송통제종료일시}
+			 ,${IT운영SMS비고}
+			 ,${등록직원번호}
+			 ,${등록년월일}
+			 ,SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,${시스템최종거래일시}
+			)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvGCB_ItOpSmsTrsCtroBse" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::12.IT운영SMS관리::GCB_IT운영SMS전송제어기준Ebi::GCB_IT운영SMS전송제어기준Dao::GCB_IT운영SMS전송제어기준조회" >
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/itOpSmsMg/gCB_ItOpSmsTrsCtroBseEbi/TBGCBSM01/retvGCB_ItOpSmsTrsCtroBse */ 
+			       A.시스템운영환경구분코드
+			     , A.거래유형구분코드
+			     , A.IT운영SMS종류명
+			     , A.사용여부
+			     , A.IT운영SMS제어내용
+			     , A.SMS전송통제시작일시
+			     , A.SMS전송통제종료일시
+			     , A.IT운영SMS비고
+			     , A.등록직원번호
+			     , A.등록년월일
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBSM01 A 
+			 WHERE A.시스템운영환경구분코드 = ${시스템운영환경구분코드}
+			   AND A.거래유형구분코드    = ${거래유형구분코드}
+			   AND A.IT운영SMS종류명  = ${IT운영SMS종류명}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="uptGCB_ItOpSmsTrsCtroBse" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::12.IT운영SMS관리::GCB_IT운영SMS전송제어기준Ebi::GCB_IT운영SMS전송제어기준Dao::GCB_IT운영SMS전송제어기준수정" >
+		<![CDATA[
+			UPDATE /*+ 위상규::/gcb/itOpSmsMg/gCB_ItOpSmsTrsCtroBseEbi/TBGCBSM01/uptGCB_ItOpSmsTrsCtroBse */ 
+			       INSTC.TBGCBSM01 
+			   SET 사용여부        = ${사용여부}
+			     , IT운영SMS제어내용 = ${IT운영SMS제어내용}
+			     , SMS전송통제시작일시 = ${SMS전송통제시작일시}
+			     , SMS전송통제종료일시 = ${SMS전송통제종료일시}
+			     , IT운영SMS비고   = ${IT운영SMS비고}
+			     , 등록직원번호      = ${등록직원번호}
+			     , 등록년월일       = ${등록년월일}
+			     , 시스템최종갱신일시   = SYSTIMESTAMP
+			     , 시스템최종갱신식별자  = ${시스템최종갱신식별자}
+			     , 시스템최종거래일시   = ${시스템최종거래일시}
+			 WHERE 시스템운영환경구분코드 = ${시스템운영환경구분코드}
+			   AND 거래유형구분코드    = ${거래유형구분코드}
+			   AND IT운영SMS종류명  = ${IT운영SMS종류명}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="delGCB_ItOpSmsTrsCtroBse" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::12.IT운영SMS관리::GCB_IT운영SMS전송제어기준Ebi::GCB_IT운영SMS전송제어기준Dao::GCB_IT운영SMS전송제어기준삭제" >
+		<![CDATA[
+			DELETE /*+ 위상규::/gcb/itOpSmsMg/gCB_ItOpSmsTrsCtroBseEbi/TBGCBSM01/delGCB_ItOpSmsTrsCtroBse */
+			  FROM INSTC.TBGCBSM01  
+			 WHERE 시스템운영환경구분코드 = ${시스템운영환경구분코드}
+			   AND 거래유형구분코드    = ${거래유형구분코드}
+			   AND IT운영SMS종류명  = ${IT운영SMS종류명}
+		]]>
+    </statement>
+</statements>

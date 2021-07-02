@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvLstItOpSmsMsgBse" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::05.IT운영지원::02.SMS통보::IT운영SMS메시지데이터전환Job::DAO::IT운영SMS메시지데이터전환Bdao::IT운영SMS메시지기준목록조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/batch/itOpSpt/smsNotf/itOpSmsMsgDatCnvJob/ItOpSmsMsgDatCnv/retvLstItOpSmsMsgBse */ 
+			       A.어플리케이션코드
+			     , A.IT운영SMS일련번호
+			     , A.IT운영SMS부가일련번호
+			     , A.등록직원번호
+			     , A.등록년월일
+			     , A.사용여부
+			     , A.IT운영SMS제어내용
+			     , A.SMS전송통제시작일시
+			     , A.SMS전송통제종료일시
+			     , A.IT운영SMS일전송허용건수
+			     , A.IT운영SMS일전송허용간격수
+			     , A.IT운영SMS메시지분류구분코드
+			     , A.IT운영SMS메시지내용
+			     , A.IT운영SMS메시지용도내용
+			     , A.IT운영SMS전송대상자식별내용01
+			     , A.IT운영SMS전송대상자식별내용02
+			     , A.IT운영SMS전송대상자식별내용03
+			     , A.IT운영SMS전송대상자식별내용04
+			     , A.IT운영SMS전송대상자식별내용05
+			     , A.IT운영SMS전송대상자식별내용06
+			     , A.IT운영SMS전송대상자식별내용07
+			     , A.IT운영SMS전송대상자식별내용08
+			     , A.IT운영SMS전송대상자식별내용09
+			     , A.IT운영SMS전송대상자식별내용10
+			     , A.IT운영SMS전송대상자식별내용11
+			     , A.IT운영SMS전송대상자식별내용12
+			     , A.IT운영SMS전송대상자식별내용13
+			     , A.IT운영SMS전송대상자식별내용14
+			     , A.IT운영SMS전송대상자식별내용15
+			     , A.IT운영SMS전송대상자식별내용16
+			     , A.IT운영SMS전송대상자식별내용17
+			     , A.IT운영SMS전송대상자식별내용18
+			     , A.IT운영SMS전송대상자식별내용19
+			     , A.IT운영SMS전송대상자식별내용20
+			     , A.최종SMS전송일시
+			     , A.최종일자SMS전송건수
+			     , A.최종SMS전송거래유형구분코드
+			     , A.최종SMS전송거래코드
+			     , A.최종SMS전송배치작업명
+			     , A.최종SMS전송프로그램명
+			     , A.최종SMS전송메시지내용
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBSM02 A        /* GCB_IT운영SMS메시지기준 */
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="regtItOpSmsMsgCnvBse" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::05.IT운영지원::02.SMS통보::IT운영SMS메시지데이터전환Job::DAO::IT운영SMS메시지데이터전환Bdao::IT운영SMS메시지전환기준등록" >
+		<![CDATA[
+			INSERT /*+ 위상규::/gcb/batch/itOpSpt/smsNotf/itOpSmsMsgDatCnvJob/ItOpSmsMsgDatCnv/regtItOpSmsMsgCnvBse */
+			  INTO INSTC.TBGCBSM03        /* GCB_IT운영SMS메시지전환기준 */
+			(
+			   어플리케이션코드
+			 , IT운영SMS일련번호
+			 , IT운영SMS부가일련번호
+			 , 등록직원번호
+			 , 등록년월일
+			 , 사용여부
+			 , IT운영SMS제어내용
+			 , SMS전송통제시작일시
+			 , SMS전송통제종료일시
+			 , IT운영SMS일전송허용건수
+			 , IT운영SMS일전송허용간격수
+			 , IT운영SMS메시지분류구분코드
+			 , IT운영SMS메시지내용
+			 , IT운영SMS메시지용도내용
+			 , IT운영SMS전송대상그룹식별내용
+			 , 최종SMS전송일시
+			 , 최종일자SMS전송건수
+			 , 최종SMS전송거래유형구분코드
+			 , 최종SMS전송거래코드
+			 , 최종SMS전송배치작업명
+			 , 최종SMS전송프로그램명
+			 , 최종SMS전송메시지내용
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${어플리케이션코드}
+			 ,${IT운영SMS일련번호}
+			 ,${IT운영SMS부가일련번호}
+			 ,${등록직원번호}
+			 ,${등록년월일}
+			 ,${사용여부}
+			 ,${IT운영SMS제어내용}
+			 ,${SMS전송통제시작일시}
+			 ,${SMS전송통제종료일시}
+			 ,${IT운영SMS일전송허용건수}
+			 ,${IT운영SMS일전송허용간격수}
+			 ,${IT운영SMS메시지분류구분코드}
+			 ,${IT운영SMS메시지내용}
+			 ,${IT운영SMS메시지용도내용}
+			 ,${IT운영SMS전송대상그룹식별내용}
+			 ,${최종SMS전송일시}
+			 ,${최종일자SMS전송건수}
+			 ,${최종SMS전송거래유형구분코드}
+			 ,${최종SMS전송거래코드}
+			 ,${최종SMS전송배치작업명}
+			 ,${최종SMS전송프로그램명}
+			 ,${최종SMS전송메시지내용}
+			 ,SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,${시스템최종거래일시}
+			)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="uptItOpSmsMsgCnvBse" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::05.IT운영지원::02.SMS통보::IT운영SMS메시지데이터전환Job::DAO::IT운영SMS메시지데이터전환Bdao::IT운영SMS메시지전환기준수정" >
+		<![CDATA[
+			UPDATE /*+ 위상규::/gcb/batch/itOpSpt/smsNotf/itOpSmsMsgDatCnvJob/ItOpSmsMsgDatCnv/uptItOpSmsMsgCnvBse */ 
+			       INSTC.TBGCBSM03        /* GCB_IT운영SMS메시지전환기준 */
+			   SET 등록직원번호            = ${등록직원번호}
+			     , 등록년월일             = ${등록년월일}
+			     , 사용여부              = ${사용여부}
+			     , IT운영SMS제어내용       = ${IT운영SMS제어내용}
+			     , SMS전송통제시작일시       = ${SMS전송통제시작일시}
+			     , SMS전송통제종료일시       = ${SMS전송통제종료일시}
+			     , IT운영SMS일전송허용건수    = ${IT운영SMS일전송허용건수}
+			     , IT운영SMS일전송허용간격수   = ${IT운영SMS일전송허용간격수}
+			     , IT운영SMS메시지분류구분코드  = ${IT운영SMS메시지분류구분코드}
+			     , IT운영SMS메시지내용      = ${IT운영SMS메시지내용}
+			     , IT운영SMS메시지용도내용    = ${IT운영SMS메시지용도내용}
+			     , IT운영SMS전송대상그룹식별내용 = ${IT운영SMS전송대상그룹식별내용}
+			     , 최종SMS전송일시         = ${최종SMS전송일시}
+			     , 최종일자SMS전송건수       = ${최종일자SMS전송건수}
+			     , 최종SMS전송거래유형구분코드   = ${최종SMS전송거래유형구분코드}
+			     , 최종SMS전송거래코드       = ${최종SMS전송거래코드}
+			     , 최종SMS전송배치작업명      = ${최종SMS전송배치작업명}
+			     , 최종SMS전송프로그램명      = ${최종SMS전송프로그램명}
+			     , 최종SMS전송메시지내용      = ${최종SMS전송메시지내용}
+			     , 시스템최종갱신일시         = SYSTIMESTAMP
+			     , 시스템최종갱신식별자        = ${시스템최종갱신식별자}
+			     , 시스템최종거래일시         = ${시스템최종거래일시}
+			 WHERE 어플리케이션코드      = ${어플리케이션코드}
+			   AND IT운영SMS일련번호   = ${IT운영SMS일련번호}
+			   AND IT운영SMS부가일련번호 = ${IT운영SMS부가일련번호}
+		]]>
+    </statement>
+</statements>

@@ -1,0 +1,3159 @@
+<?xml version="1.0" encoding="euc-kr"?>
+<statements>
+    <!-- ================================================================================================
+        SERE_CCMAIN_TB (메인)
+    ================================================================================================== -->
+        <statement name="retrieveCCMAINByPk">
+        <![CDATA[
+            SELECT  CC_ID
+                   ,CC_NM
+                   ,TRAN_ID
+                   ,SCHDCLSS_TY
+                   ,PROCSVC_NO
+                   ,PROCTBL_ID
+                   ,EXECFBDSTR_TM
+                   ,EXECFBDEND_TM
+                   ,ERRSTOP_YN
+                   ,PREPRTRAN_ID
+                   ,PSTPRTRAN_ID
+                   ,PREPREXEC_YN
+                   ,PSTPREXEC_YN
+                   ,ERR_STP_YN
+                   ,FNS_PTIM_RE_EXE_YN
+                   ,BWK_ERR_STS_ED_YN
+                   ,LST_LDIN_NTH_CLLG_YN
+                   ,TR_BRCD
+                   ,TR_EMPNO
+                   ,GROUP_CNT
+                   ,MOD_DT
+                   ,REG_DT
+                   ,MOD_USER_ID
+                   ,REG_USER_ID
+                   ,SITE_CD
+            FROM    DEVON.SERE_CCMAIN_TB
+            WHERE   CC_ID   = ${CC_ID}
+            AND     SITE_CD = ${SITE_CD}
+        ]]>
+    </statement>
+    
+    <statement name="insertCCMAIN">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_CCMAIN_TB
+            (
+                CC_ID
+               ,CC_NM
+               ,TRAN_ID
+               ,SCHDCLSS_TY
+               ,PROCSVC_NO
+               ,PROCTBL_ID
+               ,EXECFBDSTR_TM
+               ,EXECFBDEND_TM
+               ,ERRSTOP_YN
+               ,PREPRTRAN_ID
+               ,PSTPRTRAN_ID
+               ,PREPREXEC_YN
+               ,PSTPREXEC_YN
+               ,ERR_STP_YN
+               ,FNS_PTIM_RE_EXE_YN
+               ,BWK_ERR_STS_ED_YN
+               ,LST_LDIN_NTH_CLLG_YN
+               ,TR_BRCD
+               ,TR_EMPNO
+               ,GROUP_CNT
+               ,MOD_DT
+               ,REG_DT
+               ,MOD_USER_ID
+               ,REG_USER_ID
+               ,SITE_CD
+            ) VALUES (
+                ${CC_ID}
+               ,${CC_NM}
+               ,${TRAN_ID}
+               ,${SCHDCLSS_TY}
+               ,${PROCSVC_NO}
+               ,${PROCTBL_ID}
+               ,${EXECFBDSTR_TM}
+               ,${EXECFBDEND_TM}
+               ,${ERRSTOP_YN}
+               ,${PREPRTRAN_ID}
+               ,${PSTPRTRAN_ID}
+               ,${PREPREXEC_YN}
+               ,${PSTPREXEC_YN}
+               ,${ERR_STP_YN}
+               ,${FNS_PTIM_RE_EXE_YN}
+               ,${BWK_ERR_STS_ED_YN}
+               ,${LST_LDIN_NTH_CLLG_YN}
+               ,${TR_BRCD}
+               ,${TR_EMPNO}
+               ,${GROUP_CNT}
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,${MOD_USER_ID}
+               ,${REG_USER_ID}
+               ,${SITE_CD}
+            )
+        ]]>
+    </statement>
+    <statement name="updateCCMAINByPk">
+        <![CDATA[
+            UPDATE  DEVON.SERE_CCMAIN_TB
+            SET     CC_NM                = ${CC_NM}
+                   ,TRAN_ID              = ${TRAN_ID}
+                   ,SCHDCLSS_TY          = ${SCHDCLSS_TY}
+                   ,PROCSVC_NO           = ${PROCSVC_NO}
+                   ,PROCTBL_ID           = ${PROCTBL_ID}
+                   ,EXECFBDSTR_TM        = ${EXECFBDSTR_TM}
+                   ,EXECFBDEND_TM        = ${EXECFBDEND_TM}
+                   ,ERRSTOP_YN           = ${ERRSTOP_YN}
+                   ,PREPRTRAN_ID         = ${PREPRTRAN_ID}
+                   ,PSTPRTRAN_ID         = ${PSTPRTRAN_ID}
+                   ,PREPREXEC_YN         = ${PREPREXEC_YN}
+                   ,PSTPREXEC_YN         = ${PSTPREXEC_YN}
+                   ,ERR_STP_YN           = ${ERR_STP_YN}
+                   ,FNS_PTIM_RE_EXE_YN   = ${FNS_PTIM_RE_EXE_YN}
+                   ,BWK_ERR_STS_ED_YN    = ${BWK_ERR_STS_ED_YN}
+                   ,LST_LDIN_NTH_CLLG_YN = ${LST_LDIN_NTH_CLLG_YN}
+                   ,TR_BRCD              = ${TR_BRCD}
+                   ,TR_EMPNO             = ${TR_EMPNO}
+                   ,GROUP_CNT            = ${GROUP_CNT}
+                   ,MOD_DT               = TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+                   ,MOD_USER_ID          = ${MOD_USER_ID}
+            WHERE   CC_ID   = ${CC_ID}
+            AND     SITE_CD = ${SITE_CD}
+        ]]>
+    </statement>
+    
+    <statement name="deleteCCMAINByPk">
+        <![CDATA[
+            DELETE FROM DEVON.SERE_CCMAIN_TB
+            WHERE   CC_ID   = ${CC_ID}
+            AND     SITE_CD = ${SITE_CD}
+        ]]>
+    </statement>
+    
+    
+    <!-- ================================================================================================
+        SERE_CCREQ_TB (요청)
+    ================================================================================================== -->
+    <statement name="retrieveCCREQByPk">
+        <![CDATA[
+            SELECT  DAY_CD
+                   ,CC_ID
+                   ,CC_PRC_YMD
+                   ,CC_INS_CD
+                   ,CC_LDIN_NTH
+                   ,CC_PRC_SNO
+                   ,DATA_GB
+                   ,CC_GRPN_DAT
+                   ,CC_GRPN_LNP_DAT
+                   ,HEADER_DATA
+                   ,CC_RECR_KY_VL
+                   ,CC_PRC_TG_AMT
+                   ,ORG_GUID
+                   ,DATA1
+                   ,DATA2
+                   ,DATA3
+                   ,DATA4
+                   ,DATA5
+                   ,PROCSTAT_CD
+                   ,MOD_DT
+                   ,REG_DT
+                   ,MOD_USER_ID
+                   ,REG_USER_ID
+                   ,SITE_CD
+            FROM    DEVON.SERE_CCREQ_TB
+            WHERE   DAY_CD      = ${DAY_CD}
+            AND     CC_ID       = ${CC_ID}
+            AND     CC_PRC_YMD  = ${CC_PRC_YMD}
+            AND     CC_INS_CD   = ${CC_INS_CD}
+            AND     CC_LDIN_NTH = ${CC_LDIN_NTH}
+            AND     CC_PRC_SNO  = ${CC_PRC_SNO}
+            AND     SITE_CD     = ${SITE_CD}
+        ]]>
+    </statement>
+    
+    <statement name="insertCCREQ">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_CCREQ_TB
+            (
+                DAY_CD
+               ,CC_ID
+               ,CC_PRC_YMD
+               ,CC_INS_CD
+               ,CC_LDIN_NTH
+               ,CC_PRC_SNO
+               ,DATA_GB
+               ,CC_GRPN_DAT
+               ,CC_GRPN_LNP_DAT
+               ,HEADER_DATA
+               ,CC_RECR_KY_VL
+               ,CC_PRC_TG_AMT
+               ,ORG_GUID
+               ,DATA1
+               ,DATA2
+               ,DATA3
+               ,DATA4
+               ,DATA5
+               ,PROCSTAT_CD
+               ,MOD_DT
+               ,REG_DT
+               ,MOD_USER_ID
+               ,REG_USER_ID
+               ,SITE_CD
+            ) VALUES (
+                ${DAY_CD}
+               ,${CC_ID}
+               ,${CC_PRC_YMD}
+               ,${CC_INS_CD}
+               ,${CC_LDIN_NTH}
+               ,DEVON.SERE_CCREQ_TB_SEQ.NEXTVAL
+               ,${DATA_GB}
+               ,${CC_GRPN_DAT}
+               ,${CC_GRPN_LNP_DAT}
+               ,${HEADER_DATA}
+               ,${CC_RECR_KY_VL}
+               ,${CC_PRC_TG_AMT}
+               ,${ORG_GUID}
+               ,${DATA1}
+               ,${DATA2}
+               ,${DATA3}
+               ,${DATA4}
+               ,${DATA5}
+               ,${PROCSTAT_CD}
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,${MOD_USER_ID}
+               ,${REG_USER_ID}
+               ,${SITE_CD}
+            )
+        ]]>
+    </statement>
+    
+	<statement name="insertCCREQ1">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_CCREQ_TB
+            (
+                DAY_CD
+               ,CC_ID
+               ,CC_PRC_YMD
+               ,CC_INS_CD
+               ,CC_LDIN_NTH
+               ,CC_PRC_SNO
+               ,DATA_GB
+               ,CC_GRPN_DAT
+               ,CC_GRPN_LNP_DAT
+               ,HEADER_DATA
+               ,CC_RECR_KY_VL
+               ,CC_PRC_TG_AMT
+               ,ORG_GUID
+               ,DATA1
+               ,DATA2
+               ,DATA3
+               ,DATA4
+               ,DATA5
+               ,PROCSTAT_CD
+               ,MOD_DT
+               ,REG_DT
+               ,MOD_USER_ID
+               ,REG_USER_ID
+               ,SITE_CD
+            ) VALUES (
+                ${DAY_CD}
+               ,${CC_ID}
+               ,${CC_PRC_YMD}
+               ,${CC_INS_CD}
+               ,${CC_LDIN_NTH}
+               ,DEVON.SERE_CCREQ_TB_SEQ1.NEXTVAL
+               ,${DATA_GB}
+               ,${CC_GRPN_DAT}
+               ,${CC_GRPN_LNP_DAT}
+               ,${HEADER_DATA}
+               ,${CC_RECR_KY_VL}
+               ,${CC_PRC_TG_AMT}
+               ,${ORG_GUID}
+               ,${DATA1}
+               ,${DATA2}
+               ,${DATA3}
+               ,${DATA4}
+               ,${DATA5}
+               ,${PROCSTAT_CD}
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,${MOD_USER_ID}
+               ,${REG_USER_ID}
+               ,${SITE_CD}
+            )
+        ]]>
+    </statement>
+  
+	<statement name="insertCCREQ2">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_CCREQ_TB
+            (
+                DAY_CD
+               ,CC_ID
+               ,CC_PRC_YMD
+               ,CC_INS_CD
+               ,CC_LDIN_NTH
+               ,CC_PRC_SNO
+               ,DATA_GB
+               ,CC_GRPN_DAT
+               ,CC_GRPN_LNP_DAT
+               ,HEADER_DATA
+               ,CC_RECR_KY_VL
+               ,CC_PRC_TG_AMT
+               ,ORG_GUID
+               ,DATA1
+               ,DATA2
+               ,DATA3
+               ,DATA4
+               ,DATA5
+               ,PROCSTAT_CD
+               ,MOD_DT
+               ,REG_DT
+               ,MOD_USER_ID
+               ,REG_USER_ID
+               ,SITE_CD
+            ) VALUES (
+                ${DAY_CD}
+               ,${CC_ID}
+               ,${CC_PRC_YMD}
+               ,${CC_INS_CD}
+               ,${CC_LDIN_NTH}
+               ,DEVON.SERE_CCREQ_TB_SEQ2.NEXTVAL
+               ,${DATA_GB}
+               ,${CC_GRPN_DAT}
+               ,${CC_GRPN_LNP_DAT}
+               ,${HEADER_DATA}
+               ,${CC_RECR_KY_VL}
+               ,${CC_PRC_TG_AMT}
+               ,${ORG_GUID}
+               ,${DATA1}
+               ,${DATA2}
+               ,${DATA3}
+               ,${DATA4}
+               ,${DATA5}
+               ,${PROCSTAT_CD}
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,${MOD_USER_ID}
+               ,${REG_USER_ID}
+               ,${SITE_CD}
+            )
+        ]]>
+    </statement>
+
+	<statement name="insertCCREQ3">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_CCREQ_TB
+            (
+                DAY_CD
+               ,CC_ID
+               ,CC_PRC_YMD
+               ,CC_INS_CD
+               ,CC_LDIN_NTH
+               ,CC_PRC_SNO
+               ,DATA_GB
+               ,CC_GRPN_DAT
+               ,CC_GRPN_LNP_DAT
+               ,HEADER_DATA
+               ,CC_RECR_KY_VL
+               ,CC_PRC_TG_AMT
+               ,ORG_GUID
+               ,DATA1
+               ,DATA2
+               ,DATA3
+               ,DATA4
+               ,DATA5
+               ,PROCSTAT_CD
+               ,MOD_DT
+               ,REG_DT
+               ,MOD_USER_ID
+               ,REG_USER_ID
+               ,SITE_CD
+            ) VALUES (
+                ${DAY_CD}
+               ,${CC_ID}
+               ,${CC_PRC_YMD}
+               ,${CC_INS_CD}
+               ,${CC_LDIN_NTH}
+               ,DEVON.SERE_CCREQ_TB_SEQ3.NEXTVAL
+               ,${DATA_GB}
+               ,${CC_GRPN_DAT}
+               ,${CC_GRPN_LNP_DAT}
+               ,${HEADER_DATA}
+               ,${CC_RECR_KY_VL}
+               ,${CC_PRC_TG_AMT}
+               ,${ORG_GUID}
+               ,${DATA1}
+               ,${DATA2}
+               ,${DATA3}
+               ,${DATA4}
+               ,${DATA5}
+               ,${PROCSTAT_CD}
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,${MOD_USER_ID}
+               ,${REG_USER_ID}
+               ,${SITE_CD}
+            )
+        ]]>
+    </statement>
+
+    <statement name="insertCCREQ4">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_CCREQ_TB
+            (
+                DAY_CD
+               ,CC_ID
+               ,CC_PRC_YMD
+               ,CC_INS_CD
+               ,CC_LDIN_NTH
+               ,CC_PRC_SNO
+               ,DATA_GB
+               ,CC_GRPN_DAT
+               ,CC_GRPN_LNP_DAT
+               ,HEADER_DATA
+               ,CC_RECR_KY_VL
+               ,CC_PRC_TG_AMT
+               ,ORG_GUID
+               ,DATA1
+               ,DATA2
+               ,DATA3
+               ,DATA4
+               ,DATA5
+               ,PROCSTAT_CD
+               ,MOD_DT
+               ,REG_DT
+               ,MOD_USER_ID
+               ,REG_USER_ID
+               ,SITE_CD
+            ) VALUES (
+                ${DAY_CD}
+               ,${CC_ID}
+               ,${CC_PRC_YMD}
+               ,${CC_INS_CD}
+               ,${CC_LDIN_NTH}
+               ,DEVON.SERE_CCREQ_TB_SEQ4.NEXTVAL
+               ,${DATA_GB}
+               ,${CC_GRPN_DAT}
+               ,${CC_GRPN_LNP_DAT}
+               ,${HEADER_DATA}
+               ,${CC_RECR_KY_VL}
+               ,${CC_PRC_TG_AMT}
+               ,${ORG_GUID}
+               ,${DATA1}
+               ,${DATA2}
+               ,${DATA3}
+               ,${DATA4}
+               ,${DATA5}
+               ,${PROCSTAT_CD}
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,${MOD_USER_ID}
+               ,${REG_USER_ID}
+               ,${SITE_CD}
+            )
+        ]]>
+    </statement>
+
+    <statement name="insertCCREQ5">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_CCREQ_TB
+            (
+                DAY_CD
+               ,CC_ID
+               ,CC_PRC_YMD
+               ,CC_INS_CD
+               ,CC_LDIN_NTH
+               ,CC_PRC_SNO
+               ,DATA_GB
+               ,CC_GRPN_DAT
+               ,CC_GRPN_LNP_DAT
+               ,HEADER_DATA
+               ,CC_RECR_KY_VL
+               ,CC_PRC_TG_AMT
+               ,ORG_GUID
+               ,DATA1
+               ,DATA2
+               ,DATA3
+               ,DATA4
+               ,DATA5
+               ,PROCSTAT_CD
+               ,MOD_DT
+               ,REG_DT
+               ,MOD_USER_ID
+               ,REG_USER_ID
+               ,SITE_CD
+            ) VALUES (
+                ${DAY_CD}
+               ,${CC_ID}
+               ,${CC_PRC_YMD}
+               ,${CC_INS_CD}
+               ,${CC_LDIN_NTH}
+               ,DEVON.SERE_CCREQ_TB_SEQ5.NEXTVAL
+               ,${DATA_GB}
+               ,${CC_GRPN_DAT}
+               ,${CC_GRPN_LNP_DAT}
+               ,${HEADER_DATA}
+               ,${CC_RECR_KY_VL}
+               ,${CC_PRC_TG_AMT}
+               ,${ORG_GUID}
+               ,${DATA1}
+               ,${DATA2}
+               ,${DATA3}
+               ,${DATA4}
+               ,${DATA5}
+               ,${PROCSTAT_CD}
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,${MOD_USER_ID}
+               ,${REG_USER_ID}
+               ,${SITE_CD}
+            )
+        ]]>
+    </statement>
+
+    <statement name="insertCCREQ6">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_CCREQ_TB
+            (
+                DAY_CD
+               ,CC_ID
+               ,CC_PRC_YMD
+               ,CC_INS_CD
+               ,CC_LDIN_NTH
+               ,CC_PRC_SNO
+               ,DATA_GB
+               ,CC_GRPN_DAT
+               ,CC_GRPN_LNP_DAT
+               ,HEADER_DATA
+               ,CC_RECR_KY_VL
+               ,CC_PRC_TG_AMT
+               ,ORG_GUID
+               ,DATA1
+               ,DATA2
+               ,DATA3
+               ,DATA4
+               ,DATA5
+               ,PROCSTAT_CD
+               ,MOD_DT
+               ,REG_DT
+               ,MOD_USER_ID
+               ,REG_USER_ID
+               ,SITE_CD
+            ) VALUES (
+                ${DAY_CD}
+               ,${CC_ID}
+               ,${CC_PRC_YMD}
+               ,${CC_INS_CD}
+               ,${CC_LDIN_NTH}
+               ,DEVON.SERE_CCREQ_TB_SEQ6.NEXTVAL
+               ,${DATA_GB}
+               ,${CC_GRPN_DAT}
+               ,${CC_GRPN_LNP_DAT}
+               ,${HEADER_DATA}
+               ,${CC_RECR_KY_VL}
+               ,${CC_PRC_TG_AMT}
+               ,${ORG_GUID}
+               ,${DATA1}
+               ,${DATA2}
+               ,${DATA3}
+               ,${DATA4}
+               ,${DATA5}
+               ,${PROCSTAT_CD}
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,${MOD_USER_ID}
+               ,${REG_USER_ID}
+               ,${SITE_CD}
+            )
+        ]]>
+    </statement>
+
+    <statement name="insertCCREQ7">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_CCREQ_TB
+            (
+                DAY_CD
+               ,CC_ID
+               ,CC_PRC_YMD
+               ,CC_INS_CD
+               ,CC_LDIN_NTH
+               ,CC_PRC_SNO
+               ,DATA_GB
+               ,CC_GRPN_DAT
+               ,CC_GRPN_LNP_DAT
+               ,HEADER_DATA
+               ,CC_RECR_KY_VL
+               ,CC_PRC_TG_AMT
+               ,ORG_GUID
+               ,DATA1
+               ,DATA2
+               ,DATA3
+               ,DATA4
+               ,DATA5
+               ,PROCSTAT_CD
+               ,MOD_DT
+               ,REG_DT
+               ,MOD_USER_ID
+               ,REG_USER_ID
+               ,SITE_CD
+            ) VALUES (
+                ${DAY_CD}
+               ,${CC_ID}
+               ,${CC_PRC_YMD}
+               ,${CC_INS_CD}
+               ,${CC_LDIN_NTH}
+               ,DEVON.SERE_CCREQ_TB_SEQ7.NEXTVAL
+               ,${DATA_GB}
+               ,${CC_GRPN_DAT}
+               ,${CC_GRPN_LNP_DAT}
+               ,${HEADER_DATA}
+               ,${CC_RECR_KY_VL}
+               ,${CC_PRC_TG_AMT}
+               ,${ORG_GUID}
+               ,${DATA1}
+               ,${DATA2}
+               ,${DATA3}
+               ,${DATA4}
+               ,${DATA5}
+               ,${PROCSTAT_CD}
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,${MOD_USER_ID}
+               ,${REG_USER_ID}
+               ,${SITE_CD}
+            )
+        ]]>
+    </statement>
+
+    <statement name="updateCCREQByPk">
+        <![CDATA[
+            UPDATE  DEVON.SERE_CCREQ_TB
+            SET     DATA_GB         = ${DATA_GB}
+                   ,CC_GRPN_DAT     = ${CC_GRPN_DAT}
+                   ,CC_GRPN_LNP_DAT = ${CC_GRPN_LNP_DAT}
+                   ,HEADER_DATA     = ${HEADER_DATA}
+                   ,CC_RECR_KY_VL   = ${CC_RECR_KY_VL}
+                   ,CC_PRC_TG_AMT   = ${CC_PRC_TG_AMT}
+                   ,ORG_GUID        = ${ORG_GUID}
+                   ,DATA1           = ${DATA1}
+                   ,DATA2           = ${DATA2}
+                   ,DATA3           = ${DATA3}
+                   ,DATA4           = ${DATA4}
+                   ,DATA5           = ${DATA5}
+                   ,PROCSTAT_CD     = ${PROCSTAT_CD}
+                   ,MOD_DT          = TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+                   ,MOD_USER_ID     = ${MOD_USER_ID}
+            WHERE   DAY_CD      = ${DAY_CD}
+            AND     CC_ID       = ${CC_ID}
+            AND     CC_PRC_YMD  = ${CC_PRC_YMD}
+            AND     CC_INS_CD   = ${CC_INS_CD}
+            AND     CC_LDIN_NTH = ${CC_LDIN_NTH}
+            AND     CC_PRC_SNO  = ${CC_PRC_SNO}
+            AND     SITE_CD     = ${SITE_CD}
+        ]]>
+    </statement>
+    
+    <statement name="deleteCCREQByPk">
+        <![CDATA[
+            DELETE  FROM DEVON.SERE_CCREQ_TB
+            WHERE   DAY_CD      = ${DAY_CD}
+            AND     CC_ID       = ${CC_ID}
+            AND     CC_PRC_YMD  = ${CC_PRC_YMD}
+            AND     CC_INS_CD   = ${CC_INS_CD}
+            AND     CC_LDIN_NTH = ${CC_LDIN_NTH}
+            AND     CC_PRC_SNO  = ${CC_PRC_SNO}
+            AND     SITE_CD     = ${SITE_CD}
+        ]]>
+    </statement>
+    
+    <statement name="retrieveCCREQCntAmtSum">
+        <![CDATA[
+            SELECT  COUNT(*)            CNT
+                   ,SUM(CC_PRC_TG_AMT)  AMT
+            FROM    DEVON.SERE_CCREQ_TB
+            WHERE   DAY_CD      = ${DAY_CD}
+            AND     CC_ID       = ${CC_ID}
+            AND     CC_PRC_YMD  = ${CC_PRC_YMD}
+            AND     CC_INS_CD   = ${CC_INS_CD}
+            AND     CC_LDIN_NTH = ${CC_LDIN_NTH}
+            AND     REG_USER_ID = ${REG_USER_ID}
+            AND     SITE_CD     = ${SITE_CD}
+        ]]>
+    </statement>
+    
+    <!-- ================================================================================================
+        SERE_CCLOADJOB_TB (요청이력)
+    ================================================================================================== -->
+    <statement name="retrieveCCLOADJOBByPk">
+        <![CDATA[
+            SELECT  CC_ID
+                   ,CC_PRC_YMD
+                   ,CC_INS_CD
+                   ,CC_LDIN_NTH
+                   ,JOB_ID
+                   ,JAS_ID
+                   ,EXEC_COUNT
+                   ,PROC_SEQ
+                   ,CAUSE_STATUS_CODE
+                   ,STATUS_CODE
+                   ,CC_PRC_TG_AMT
+                   ,TOTAL_CNT
+                   ,SUCC_CNT
+                   ,ERR_CNT
+                   ,SKIP_CNT
+                   ,REG_DT
+                   ,MOD_DT
+                   ,REG_USER_ID
+                   ,MOD_USER_ID
+                   ,SITE_CD
+            FROM    DEVON.SERE_CCLOADJOB_TB
+            WHERE   CC_ID       = ${CC_ID}
+            AND     CC_PRC_YMD  = ${CC_PRC_YMD}
+            AND     CC_INS_CD   = ${CC_INS_CD}
+            AND     CC_LDIN_NTH = ${CC_LDIN_NTH}
+            AND     JOB_ID      = ${JOB_ID}
+            AND     JAS_ID      = ${JAS_ID}
+            AND     SITE_CD     = ${SITE_CD}
+        ]]>
+    </statement>
+    
+    <statement name="retrieveCCLOADJOBList">
+        <![CDATA[
+            SELECT  CC_ID
+                   ,CC_PRC_YMD
+                   ,CC_INS_CD
+                   ,CC_LDIN_NTH
+                   ,JOB_ID
+                   ,JAS_ID
+                   ,EXEC_COUNT
+                   ,PROC_SEQ
+                   ,CAUSE_STATUS_CODE
+                   ,STATUS_CODE
+                   ,CC_PRC_TG_AMT
+                   ,TOTAL_CNT
+                   ,SUCC_CNT
+                   ,ERR_CNT
+                   ,SKIP_CNT
+                   ,REG_DT
+                   ,MOD_DT
+                   ,REG_USER_ID
+                   ,MOD_USER_ID
+                   ,SITE_CD
+            FROM    DEVON.SERE_CCLOADJOB_TB
+            WHERE   CC_ID       = ${CC_ID}
+            AND     CC_PRC_YMD  = ${CC_PRC_YMD}
+            AND     CC_INS_CD   = ${CC_INS_CD}
+            AND     CC_LDIN_NTH = ${CC_LDIN_NTH}
+            AND     SITE_CD     = ${SITE_CD}
+        ]]>
+    </statement>
+    
+    <statement name="insertCCLOADJOB">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_CCLOADJOB_TB
+            (
+                CC_ID
+               ,CC_PRC_YMD
+               ,CC_INS_CD
+               ,CC_LDIN_NTH
+               ,JOB_ID
+               ,JAS_ID
+               ,EXEC_COUNT
+               ,PROC_SEQ
+               ,CAUSE_STATUS_CODE
+               ,STATUS_CODE
+               ,CC_PRC_TG_AMT
+               ,TOTAL_CNT
+               ,SUCC_CNT
+               ,ERR_CNT
+               ,SKIP_CNT
+               ,REG_DT
+               ,MOD_DT
+               ,REG_USER_ID
+               ,MOD_USER_ID
+               ,SITE_CD
+            ) VALUES (
+                ${CC_ID}
+               ,${CC_PRC_YMD}
+               ,${CC_INS_CD}
+               ,${CC_LDIN_NTH}
+               ,${JOB_ID}
+               ,${JAS_ID}
+               ,${EXEC_COUNT}
+               ,${PROC_SEQ}
+               ,${CAUSE_STATUS_CODE}
+               ,${STATUS_CODE}
+               ,${CC_PRC_TG_AMT}
+               ,${TOTAL_CNT}
+               ,${SUCC_CNT}
+               ,${ERR_CNT}
+               ,${SKIP_CNT}
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,${REG_USER_ID}
+               ,${MOD_USER_ID}
+               ,${SITE_CD}
+            )
+        ]]>
+    </statement>
+    
+    <statement name="updateCCLOADJOBByPk">
+        <![CDATA[
+            UPDATE  DEVON.SERE_CCLOADJOB_TB
+            SET     EXEC_COUNT          = ${EXEC_COUNT}
+                   ,PROC_SEQ            = ${PROC_SEQ}
+                   ,CAUSE_STATUS_CODE   = ${CAUSE_STATUS_CODE}
+                   ,STATUS_CODE         = ${STATUS_CODE}
+                   ,CC_PRC_TG_AMT       = ${CC_PRC_TG_AMT}
+                   ,TOTAL_CNT           = ${TOTAL_CNT}
+                   ,SUCC_CNT            = ${SUCC_CNT}
+                   ,ERR_CNT             = ${ERR_CNT}
+                   ,SKIP_CNT            = ${SKIP_CNT}
+                   ,MOD_DT              = TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+                   ,MOD_USER_ID         = ${MOD_USER_ID}
+            WHERE   CC_ID       = ${CC_ID}
+            AND     CC_PRC_YMD  = ${CC_PRC_YMD}
+            AND     CC_INS_CD   = ${CC_INS_CD}
+            AND     CC_LDIN_NTH = ${CC_LDIN_NTH}
+            AND     JOB_ID      = ${JOB_ID}
+            AND     JAS_ID      = ${JAS_ID}
+            AND     SITE_CD     = ${SITE_CD}
+        ]]>
+    </statement>
+    
+    <statement name="deleteCCLOADJOBByPk">
+        <![CDATA[
+            DELETE FROM DEVON.SERE_CCLOADJOB_TB
+            WHERE   CC_ID       = ${CC_ID}
+            AND     CC_PRC_YMD  = ${CC_PRC_YMD}
+            AND     CC_INS_CD   = ${CC_INS_CD}
+            AND     CC_LDIN_NTH = ${CC_LDIN_NTH}
+            AND     JOB_ID      = ${JOB_ID}
+            AND     JAS_ID      = ${JAS_ID}
+            AND     SITE_CD     = ${SITE_CD}
+        ]]>
+    </statement>
+    
+    <!-- ================================================================================================
+        SERE_CCGRP_TB (그룹핑)
+    ================================================================================================== -->
+    <statement name="retrieveCCGRPByPk">
+        <![CDATA[
+            SELECT  CC_ID
+                   ,CC_PRC_YMD
+                   ,CC_INS_CD
+                   ,CC_LDIN_NTH
+                   ,CC_GRPN_DAT
+                   ,CNT
+                   ,CC_PRC_TG_AMT
+                   ,STRT_SQ
+                   ,END_SQ
+                   ,MOD_DT
+                   ,REG_DT
+                   ,MOD_USER_ID
+                   ,REG_USER_ID
+                   ,SITE_CD
+            FROM    DEVON.SERE_CCGRP_TB
+            WHERE   CC_ID       = ${CC_ID}
+            AND     CC_PRC_YMD  = ${CC_PRC_YMD}
+            AND     CC_INS_CD   = ${CC_INS_CD}
+            AND     CC_LDIN_NTH = ${CC_LDIN_NTH}
+            AND     CC_GRPN_DAT = ${CC_GRPN_DAT}
+            AND     SITE_CD     = ${SITE_CD}
+        ]]>
+    </statement>
+    
+    <statement name="retrieveCCGRPList" data-cut="false" limit-count="1000000">
+        <![CDATA[
+            SELECT  CC_ID
+                   ,CC_PRC_YMD
+                   ,CC_INS_CD
+                   ,CC_LDIN_NTH
+                   ,CC_GRPN_DAT
+                   ,CNT
+                   ,CC_PRC_TG_AMT
+                   ,STRT_SQ
+                   ,END_SQ
+                   ,MOD_DT
+                   ,REG_DT
+                   ,MOD_USER_ID
+                   ,REG_USER_ID
+                   ,SITE_CD
+            FROM    DEVON.SERE_CCGRP_TB
+            WHERE   CC_ID       = ${CC_ID}
+            AND     CC_PRC_YMD  = ${CC_PRC_YMD}
+            AND     CC_INS_CD   = ${CC_INS_CD}
+            AND     CC_LDIN_NTH = ${CC_LDIN_NTH}
+            AND     SITE_CD     = ${SITE_CD}
+            ORDER BY STRT_SQ
+        ]]>
+    </statement>
+    
+    <statement name="insertCCGRP">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_CCGRP_TB
+            (
+                CC_ID
+               ,CC_PRC_YMD
+               ,CC_INS_CD
+               ,CC_LDIN_NTH
+               ,CC_GRPN_DAT
+               ,CNT
+               ,CC_PRC_TG_AMT
+               ,STRT_SQ
+               ,END_SQ
+               ,MOD_DT
+               ,REG_DT
+               ,MOD_USER_ID
+               ,REG_USER_ID
+               ,SITE_CD
+            ) VALUES (
+                ${CC_ID}
+               ,${CC_PRC_YMD}
+               ,${CC_INS_CD}
+               ,${CC_LDIN_NTH}
+               ,${CC_GRPN_DAT}
+               ,${CNT}
+               ,${CC_PRC_TG_AMT}
+               ,${STRT_SQ}
+               ,${END_SQ}
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,${MOD_USER_ID}
+               ,${REG_USER_ID}
+               ,${SITE_CD}
+            )
+        ]]>
+    </statement>
+    
+    <statement name="updateCCGRPByPk">
+        <![CDATA[
+            UPDATE  DEVON.SERE_CCGRP_TB
+            SET     CNT             = ${CNT}
+                   ,CC_PRC_TG_AMT   = ${CC_PRC_TG_AMT}
+                   ,STRT_SQ         = ${STRT_SQ}
+                   ,END_SQ          = ${END_SQ}
+                   ,MOD_DT          = TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+                   ,MOD_USER_ID     = ${MOD_USER_ID}
+            WHERE   CC_ID       = ${CC_ID}
+            AND     CC_PRC_YMD  = ${CC_PRC_YMD}
+            AND     CC_INS_CD   = ${CC_INS_CD}
+            AND     CC_LDIN_NTH = ${CC_LDIN_NTH}
+            AND     CC_GRPN_DAT = ${CC_GRPN_DAT}
+            AND     SITE_CD     = ${SITE_CD}
+        ]]>
+    </statement>
+    
+    <statement name="deleteCCGRPByPk">
+        <![CDATA[
+            DELETE FROM DEVON.SERE_CCGRP_TB
+            WHERE   CC_ID       = ${CC_ID}
+            AND     CC_PRC_YMD  = ${CC_PRC_YMD}
+            AND     CC_INS_CD   = ${CC_INS_CD}
+            AND     CC_LDIN_NTH = ${CC_LDIN_NTH}
+            AND     CC_GRPN_DAT = ${CC_GRPN_DAT}
+            AND     SITE_CD     = ${SITE_CD}
+        ]]>
+    </statement>
+    
+    <statement name="selectInsertCCGRP">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_CCGRP_TB
+            (
+                SELECT  /*+ FULL(A) */
+                        ${CC_ID}
+                       ,${CC_PRC_YMD}
+                       ,${CC_INS_CD}
+                       ,${CC_LDIN_NTH}
+                       ,CC_GRPN_DAT
+                       ,COUNT(*)
+                       ,SUM(CC_PRC_TG_AMT)
+                       ,0
+                       ,0
+                       ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3') AS MOD_DT
+                       ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3') AS REG_DT
+                       ,${MOD_USER_ID}
+                       ,${REG_USER_ID}
+                       ,${SITE_CD}
+                FROM    DEVON.SERE_CCREQ_TB A
+                WHERE   DAY_CD      = SUBSTR(${CC_PRC_YMD}, 7, 2)
+                AND     CC_ID       = ${CC_ID}
+                AND     CC_PRC_YMD  = ${CC_PRC_YMD}
+                AND     CC_INS_CD   = ${CC_INS_CD}
+                AND     CC_LDIN_NTH = ${CC_LDIN_NTH}
+                AND     SITE_CD     = ${SITE_CD}
+                GROUP BY CC_GRPN_DAT
+            )
+        ]]>
+    </statement>
+    
+    <statement name="updateMergeCCGRP">
+        <![CDATA[
+            MERGE INTO DEVON.SERE_CCGRP_TB A
+            USING (
+                SELECT  /*+ FULL(A) */
+                        A.CC_ID
+                       ,A.CC_PRC_YMD
+                       ,A.CC_INS_CD
+                       ,A.CC_LDIN_NTH
+                       ,A.SITE_CD
+                       ,A.CC_GRPN_DAT
+                       ,MIN(CC_PRC_SNO) STRT_SQ
+                       ,MAX(CC_PRC_SNO) END_SQ
+                FROM    DEVON.SERE_CCINP_TB A
+                WHERE   A.DAY_CD      = ${DAY_CD}
+                AND     A.CC_ID       = ${CC_ID}
+                AND     A.CC_PRC_YMD  = ${CC_PRC_YMD}
+                AND     A.CC_INS_CD   = ${CC_INS_CD}
+                AND     A.CC_LDIN_NTH = ${CC_LDIN_NTH}
+                AND     A.SITE_CD     = ${SITE_CD}
+                GROUP BY A.CC_ID, A.CC_PRC_YMD, A.CC_INS_CD, A.CC_LDIN_NTH, A.SITE_CD, A.CC_GRPN_DAT 
+            ) B
+            ON ( A.CC_ID = B.CC_ID
+                 AND A.CC_PRC_YMD  = B.CC_PRC_YMD 
+                 AND A.CC_INS_CD   = B.CC_INS_CD
+                 AND A.CC_LDIN_NTH = B.CC_LDIN_NTH
+                 AND A.SITE_CD     = B.SITE_CD
+                 AND A.CC_GRPN_DAT = B.CC_GRPN_DAT
+            )
+            WHEN MATCHED THEN
+            UPDATE SET A.STRT_SQ = B.STRT_SQ
+                      ,A.END_SQ  = B.END_SQ
+        ]]>
+    </statement>
+    
+    <!-- ================================================================================================
+        SERE_CCTTZ_TB (집계)
+    ================================================================================================== -->
+    <statement name="retrieveCCTTZByPk">
+        <![CDATA[
+            SELECT  CC_ID
+                   ,CC_PRC_YMD
+                   ,CC_INS_CD
+                   ,CC_LDIN_NTH
+                   ,CC_EXE_NTH
+                   ,GUID
+                   ,PROCSTAT_CD
+                   ,PREPRSTAT_CD
+                   ,PSTPRSTAT_CD
+                   ,PROC_TX
+                   ,PROCSTRT_DT
+                   ,REPROCSTRT_DT
+                   ,PROCEND_DT
+                   ,DATCVRSSTRT_DT
+                   ,DATCVRSEND_DT
+                   ,DATCVRS_NO
+                   ,DATCVRSAMT_NO
+                   ,ALLCCOBJ_NO
+                   ,ALLCCOBJAMT_NO
+                   ,BATCHPROCSTD_DT
+                   ,NORMPROC_NO
+                   ,NOTPROC_NO
+                   ,ERRPROC_NO
+                   ,REREGPROC_NO
+                   ,CCPNPPROC_NO
+                   ,CHK_DT
+                   ,ERRPROC_TX
+                   ,CC_PRC_TG_AMT
+                   ,CC_PRC_AMT
+                   ,CC_PRC_FAL_AMT
+                   ,CC_PTL_PRC_AMT
+                   ,NODE_NM
+                   ,INST_NM
+                   ,PROC_TM
+                   ,PROCTBL_ID
+                   ,MOD_DT
+                   ,REG_DT
+                   ,MOD_USER_ID
+                   ,REG_USER_ID
+                   ,SITE_CD
+            FROM    DEVON.SERE_CCTTZ_TB
+            WHERE   CC_ID       = ${CC_ID}
+            AND     CC_PRC_YMD  = ${CC_PRC_YMD}
+            AND     CC_INS_CD   = ${CC_INS_CD}
+            AND     CC_LDIN_NTH = ${CC_LDIN_NTH}
+            AND     SITE_CD     = ${SITE_CD}
+        ]]>
+    </statement>
+
+    <statement name="retrieveCCTTZByPkForUpdate">
+        <![CDATA[
+            SELECT  CC_ID
+                   ,CC_PRC_YMD
+                   ,CC_INS_CD
+                   ,CC_LDIN_NTH
+                   ,CC_EXE_NTH
+                   ,GUID
+                   ,PROCSTAT_CD
+                   ,PREPRSTAT_CD
+                   ,PSTPRSTAT_CD
+                   ,PROC_TX
+                   ,PROCSTRT_DT
+                   ,REPROCSTRT_DT
+                   ,PROCEND_DT
+                   ,DATCVRSSTRT_DT
+                   ,DATCVRSEND_DT
+                   ,DATCVRS_NO
+                   ,DATCVRSAMT_NO
+                   ,ALLCCOBJ_NO
+                   ,ALLCCOBJAMT_NO
+                   ,BATCHPROCSTD_DT
+                   ,NORMPROC_NO
+                   ,NOTPROC_NO
+                   ,ERRPROC_NO
+                   ,REREGPROC_NO
+                   ,CCPNPPROC_NO
+                   ,CHK_DT
+                   ,ERRPROC_TX
+                   ,CC_PRC_TG_AMT
+                   ,CC_PRC_AMT
+                   ,CC_PRC_FAL_AMT
+                   ,CC_PTL_PRC_AMT
+                   ,NODE_NM
+                   ,INST_NM
+                   ,PROC_TM
+                   ,PROCTBL_ID
+                   ,MOD_DT
+                   ,REG_DT
+                   ,MOD_USER_ID
+                   ,REG_USER_ID
+                   ,SITE_CD
+            FROM    DEVON.SERE_CCTTZ_TB
+            WHERE   CC_ID       = ${CC_ID}
+            AND     CC_PRC_YMD  = ${CC_PRC_YMD}
+            AND     CC_INS_CD   = ${CC_INS_CD}
+            AND     CC_LDIN_NTH = ${CC_LDIN_NTH}
+            AND     SITE_CD     = ${SITE_CD}
+            FOR UPDATE WAIT 5
+        ]]>
+    </statement>
+    
+    <statement name="insertCCTTZ">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_CCTTZ_TB
+            (
+                CC_ID
+               ,CC_PRC_YMD
+               ,CC_INS_CD
+               ,CC_LDIN_NTH
+               ,CC_EXE_NTH
+               ,GUID
+               ,PROCSTAT_CD
+               ,PREPRSTAT_CD
+               ,PSTPRSTAT_CD
+               ,PROC_TX
+               ,PROCSTRT_DT
+               ,REPROCSTRT_DT
+               ,PROCEND_DT
+               ,DATCVRSSTRT_DT
+               ,DATCVRSEND_DT
+               ,DATCVRS_NO
+               ,DATCVRSAMT_NO
+               ,ALLCCOBJ_NO
+               ,ALLCCOBJAMT_NO
+               ,BATCHPROCSTD_DT
+               ,NORMPROC_NO
+               ,NOTPROC_NO
+               ,ERRPROC_NO
+               ,REREGPROC_NO
+               ,CCPNPPROC_NO
+               ,CHK_DT
+               ,ERRPROC_TX
+               ,CC_PRC_TG_AMT
+               ,CC_PRC_AMT
+               ,CC_PRC_FAL_AMT
+               ,CC_PTL_PRC_AMT
+               ,NODE_NM
+               ,INST_NM
+               ,PROC_TM
+               ,PROCTBL_ID
+               ,MOD_DT
+               ,REG_DT
+               ,MOD_USER_ID
+               ,REG_USER_ID
+               ,SITE_CD
+            ) VALUES (
+                ${CC_ID}
+               ,${CC_PRC_YMD}
+               ,${CC_INS_CD}
+               ,${CC_LDIN_NTH}
+               ,${CC_EXE_NTH}
+               ,${GUID}
+               ,${PROCSTAT_CD}
+               ,${PREPRSTAT_CD}
+               ,${PSTPRSTAT_CD}
+               ,${PROC_TX}
+               ,${PROCSTRT_DT}
+               ,${REPROCSTRT_DT}
+               ,${PROCEND_DT}
+               ,${DATCVRSSTRT_DT}
+               ,${DATCVRSEND_DT}
+               ,${DATCVRS_NO}
+               ,${DATCVRSAMT_NO}
+               ,${ALLCCOBJ_NO}
+               ,${ALLCCOBJAMT_NO}
+               ,${BATCHPROCSTD_DT}
+               ,${NORMPROC_NO}
+               ,${NOTPROC_NO}
+               ,${ERRPROC_NO}
+               ,${REREGPROC_NO}
+               ,${CCPNPPROC_NO}
+               ,${CHK_DT}
+               ,${ERRPROC_TX}
+               ,${CC_PRC_TG_AMT}
+               ,${CC_PRC_AMT}
+               ,${CC_PRC_FAL_AMT}
+               ,${CC_PTL_PRC_AMT}
+               ,${NODE_NM}
+               ,${INST_NM}
+               ,${PROC_TM}
+               ,${PROCTBL_ID}
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,${MOD_USER_ID}
+               ,${REG_USER_ID}
+               ,${SITE_CD}
+            )
+        ]]>
+    </statement>
+    
+    <statement name="updateCCTTZByPk">
+        <![CDATA[
+            UPDATE  DEVON.SERE_CCTTZ_TB
+            SET     CC_EXE_NTH      = ${CC_EXE_NTH}
+                   ,GUID            = ${GUID}
+                   ,PROCSTAT_CD     = ${PROCSTAT_CD}
+                   ,PREPRSTAT_CD    = ${PREPRSTAT_CD}
+                   ,PSTPRSTAT_CD    = ${PSTPRSTAT_CD}
+                   ,PROC_TX         = ${PROC_TX}
+                   ,PROCSTRT_DT     = ${PROCSTRT_DT}
+                   ,REPROCSTRT_DT   = ${REPROCSTRT_DT}
+                   ,PROCEND_DT      = ${PROCEND_DT}
+                   ,DATCVRSSTRT_DT  = ${DATCVRSSTRT_DT}
+                   ,DATCVRSEND_DT   = ${DATCVRSEND_DT}
+                   ,DATCVRS_NO      = ${DATCVRS_NO}
+                   ,DATCVRSAMT_NO   = ${DATCVRSAMT_NO}
+                   ,ALLCCOBJ_NO     = ${ALLCCOBJ_NO}
+                   ,ALLCCOBJAMT_NO  = ${ALLCCOBJAMT_NO}
+                   ,BATCHPROCSTD_DT = ${BATCHPROCSTD_DT}
+                   ,NORMPROC_NO     = ${NORMPROC_NO}
+                   ,NOTPROC_NO      = ${NOTPROC_NO}
+                   ,ERRPROC_NO      = ${ERRPROC_NO}
+                   ,REREGPROC_NO    = ${REREGPROC_NO}
+                   ,CCPNPPROC_NO    = ${CCPNPPROC_NO}
+                   ,CHK_DT          = ${CHK_DT}
+                   ,ERRPROC_TX      = ${ERRPROC_TX}
+                   ,CC_PRC_TG_AMT   = ${CC_PRC_TG_AMT}
+                   ,CC_PRC_AMT      = ${CC_PRC_AMT}
+                   ,CC_PRC_FAL_AMT  = ${CC_PRC_FAL_AMT}
+                   ,CC_PTL_PRC_AMT  = ${CC_PTL_PRC_AMT}
+                   ,NODE_NM         = ${NODE_NM}
+                   ,INST_NM         = ${INST_NM}
+                   ,PROC_TM         = ${PROC_TM}
+                   ,PROCTBL_ID      = ${PROCTBL_ID}
+                   ,MOD_DT          = TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+                   ,MOD_USER_ID     = ${MOD_USER_ID}
+            WHERE   CC_ID       = ${CC_ID}
+            AND     CC_PRC_YMD  = ${CC_PRC_YMD}
+            AND     CC_INS_CD   = ${CC_INS_CD}
+            AND     CC_LDIN_NTH = ${CC_LDIN_NTH}
+            AND     SITE_CD     = ${SITE_CD}
+        ]]>
+    </statement>
+    
+    <statement name="deleteCCTTZByPk">
+        <![CDATA[
+            DELETE FROM DEVON.SERE_CCTTZ_TB
+            WHERE   CC_ID       = ${CC_ID}
+            AND     CC_PRC_YMD  = ${CC_PRC_YMD}
+            AND     CC_INS_CD   = ${CC_INS_CD}
+            AND     CC_LDIN_NTH = ${CC_LDIN_NTH}
+            AND     SITE_CD     = ${SITE_CD}
+        ]]>
+    </statement>
+    
+    <statement name="getLastLdinNth">
+        <![CDATA[
+            SELECT  NVL(MAX(CC_LDIN_NTH), 0 ) AS CC_LDIN_NTH
+            FROM    DEVON.SERE_CCTTZ_TB
+            WHERE   CC_ID      = ${CC_ID}
+            AND     CC_PRC_YMD = ${CC_PRC_YMD}
+            AND     CC_INS_CD  = ${CC_INS_CD}
+            AND     SITE_CD    = ${SITE_CD}
+        ]]>
+    </statement>
+    
+    <!-- ================================================================================================
+        SERE_CCSVCMGMT_TB (서비스관리)
+    ================================================================================================== -->
+    <statement name="retrieveCCSVCMGMTByPk">
+        <![CDATA[
+            SELECT  CC_ID
+                   ,CC_PRC_YMD
+                   ,CC_INS_CD
+                   ,CC_LDIN_NTH
+                   ,CC_EXE_NTH
+                   ,PROCSVC_ID
+                   ,GUID
+                   ,STRT_SQ
+                   ,END_SQ
+                   ,CC_PRC_SNO
+                   ,PROCSTAT_CD
+                   ,PROCSTRT_DT
+                   ,PROCEND_DT
+                   ,ALLPROC_NO
+                   ,NORMPROC_NO
+                   ,NOTPROC_NO
+                   ,ERRPROC_NO
+                   ,CC_PRC_AMT
+                   ,CC_PRC_FAL_AMT
+                   ,CC_PRC_TG_AMT
+                   ,CC_PTL_PRC_AMT
+                   ,PROC_TM
+                   ,NODE_NM
+                   ,INST_NM
+                   ,MOD_DT
+                   ,REG_DT
+                   ,MOD_USER_ID
+                   ,REG_USER_ID
+                   ,SITE_CD
+            FROM    DEVON.SERE_CCSVCMGMT_TB
+            WHERE   CC_ID       = ${CC_ID}
+            AND     CC_PRC_YMD  = ${CC_PRC_YMD}
+            AND     CC_INS_CD   = ${CC_INS_CD}
+            AND     CC_LDIN_NTH = ${CC_LDIN_NTH}
+            AND     PROCSVC_ID  = ${PROCSVC_ID}
+            AND     SITE_CD     = ${SITE_CD}
+        ]]>
+    </statement>
+    
+    <statement name="retrieveCCSVCMGMTSum">
+        <![CDATA[
+            SELECT  SUM(ALLPROC_NO)     AS ALLPROC_NO
+                   ,SUM(NORMPROC_NO)    AS NORMPROC_NO
+                   ,SUM(NOTPROC_NO)     AS NOTPROC_NO
+                   ,SUM(ERRPROC_NO)     AS ERRPROC_NO
+                   ,SUM(CC_PRC_AMT)     AS CC_PRC_AMT
+                   ,SUM(CC_PRC_FAL_AMT) AS CC_PRC_FAL_AMT
+                   ,SUM(CC_PRC_TG_AMT)  AS CC_PRC_TG_AMT
+                   ,SUM(CC_PTL_PRC_AMT) AS CC_PTL_PRC_AMT
+            FROM    DEVON.SERE_CCSVCMGMT_TB
+            WHERE   CC_ID       = ${CC_ID}
+            AND     CC_PRC_YMD  = ${CC_PRC_YMD}
+            AND     CC_INS_CD   = ${CC_INS_CD}
+            AND     CC_LDIN_NTH = ${CC_LDIN_NTH}
+            AND     SITE_CD     = ${SITE_CD}
+        ]]>
+    </statement>
+    
+    <statement name="retrieveCCSVCMGMTList" limit-count="-1">
+        <![CDATA[
+            SELECT  CC_ID
+                   ,CC_PRC_YMD
+                   ,CC_INS_CD
+                   ,CC_LDIN_NTH
+                   ,CC_EXE_NTH
+                   ,PROCSVC_ID
+                   ,GUID
+                   ,STRT_SQ
+                   ,END_SQ
+                   ,CC_PRC_SNO
+                   ,PROCSTAT_CD
+                   ,PROCSTRT_DT
+                   ,PROCEND_DT
+                   ,ALLPROC_NO
+                   ,NORMPROC_NO
+                   ,NOTPROC_NO
+                   ,ERRPROC_NO
+                   ,CC_PRC_AMT
+                   ,CC_PRC_FAL_AMT
+                   ,CC_PRC_TG_AMT
+                   ,CC_PTL_PRC_AMT
+                   ,PROC_TM
+                   ,NODE_NM
+                   ,INST_NM
+                   ,MOD_DT
+                   ,REG_DT
+                   ,MOD_USER_ID
+                   ,REG_USER_ID
+                   ,SITE_CD
+            FROM    DEVON.SERE_CCSVCMGMT_TB
+            WHERE   CC_ID       = ${CC_ID}
+            AND     CC_PRC_YMD  = ${CC_PRC_YMD}
+            AND     CC_INS_CD   = ${CC_INS_CD}
+            AND     CC_LDIN_NTH = ${CC_LDIN_NTH}
+            AND     SITE_CD     = ${SITE_CD}
+            ORDER BY PROCSVC_ID
+        ]]>
+    </statement>
+    
+    <statement name="insertCCSVCMGMT">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_CCSVCMGMT_TB
+            (
+                CC_ID
+               ,CC_PRC_YMD
+               ,CC_INS_CD
+               ,CC_LDIN_NTH
+               ,CC_EXE_NTH
+               ,PROCSVC_ID
+               ,GUID
+               ,STRT_SQ
+               ,END_SQ
+               ,CC_PRC_SNO
+               ,PROCSTAT_CD
+               ,PROCSTRT_DT
+               ,PROCEND_DT
+               ,ALLPROC_NO
+               ,NORMPROC_NO
+               ,NOTPROC_NO
+               ,ERRPROC_NO
+               ,CC_PRC_AMT
+               ,CC_PRC_FAL_AMT
+               ,CC_PRC_TG_AMT
+               ,CC_PTL_PRC_AMT
+               ,PROC_TM
+               ,NODE_NM
+               ,INST_NM
+               ,MOD_DT
+               ,REG_DT
+               ,MOD_USER_ID
+               ,REG_USER_ID
+               ,SITE_CD
+            ) VALUES (
+                ${CC_ID}
+               ,${CC_PRC_YMD}
+               ,${CC_INS_CD}
+               ,${CC_LDIN_NTH}
+               ,${CC_EXE_NTH}
+               ,${PROCSVC_ID}
+               ,${GUID}
+               ,${STRT_SQ}
+               ,${END_SQ}
+               ,${CC_PRC_SNO}
+               ,${PROCSTAT_CD}
+               ,${PROCSTRT_DT}
+               ,${PROCEND_DT}
+               ,${ALLPROC_NO}
+               ,${NORMPROC_NO}
+               ,${NOTPROC_NO}
+               ,${ERRPROC_NO}
+               ,${CC_PRC_AMT}
+               ,${CC_PRC_FAL_AMT}
+               ,${CC_PRC_TG_AMT}
+               ,${CC_PTL_PRC_AMT}
+               ,${PROC_TM}
+               ,${NODE_NM}
+               ,${INST_NM}
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,${MOD_USER_ID}
+               ,${REG_USER_ID}
+               ,${SITE_CD}
+            )
+        ]]>
+    </statement>
+    
+    <statement name="updateCCSVCMGMTByPk">
+        <![CDATA[
+            UPDATE  DEVON.SERE_CCSVCMGMT_TB
+            SET     CC_EXE_NTH      = ${CC_EXE_NTH}
+                   ,GUID            = ${GUID}
+                   ,STRT_SQ         = ${STRT_SQ}
+                   ,END_SQ          = ${END_SQ}
+                   ,CC_PRC_SNO      = ${CC_PRC_SNO}
+                   ,PROCSTAT_CD     = ${PROCSTAT_CD}
+                   ,PROCSTRT_DT     = ${PROCSTRT_DT}
+                   ,PROCEND_DT      = ${PROCEND_DT}
+                   ,ALLPROC_NO      = ${ALLPROC_NO}
+                   ,NORMPROC_NO     = ${NORMPROC_NO}
+                   ,NOTPROC_NO      = ${NOTPROC_NO}
+                   ,ERRPROC_NO      = ${ERRPROC_NO}
+                   ,CC_PRC_AMT      = ${CC_PRC_AMT}
+                   ,CC_PRC_FAL_AMT  = ${CC_PRC_FAL_AMT}
+                   ,CC_PRC_TG_AMT   = ${CC_PRC_TG_AMT}
+                   ,CC_PTL_PRC_AMT  = ${CC_PTL_PRC_AMT}
+                   ,PROC_TM         = ${PROC_TM}
+                   ,NODE_NM         = ${NODE_NM}
+                   ,INST_NM         = ${INST_NM}
+                   ,MOD_DT          = TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+                   ,MOD_USER_ID     = ${MOD_USER_ID}
+            WHERE   CC_ID       = ${CC_ID}
+            AND     CC_PRC_YMD  = ${CC_PRC_YMD}
+            AND     CC_INS_CD   = ${CC_INS_CD}
+            AND     CC_LDIN_NTH = ${CC_LDIN_NTH}
+            AND     PROCSVC_ID  = ${PROCSVC_ID}
+            AND     SITE_CD     = ${SITE_CD}
+        ]]>
+    </statement>
+    
+    <statement name="deleteCCSVCMGMTByPk">
+        <![CDATA[
+            DELETE FROM DEVON.SERE_CCSVCMGMT_TB
+            WHERE   CC_ID       = ${CC_ID}
+            AND     CC_PRC_YMD  = ${CC_PRC_YMD}
+            AND     CC_INS_CD   = ${CC_INS_CD}
+            AND     CC_LDIN_NTH = ${CC_LDIN_NTH}
+            AND     PROCSVC_ID  = ${PROCSVC_ID}
+            AND     SITE_CD     = ${SITE_CD}
+        ]]>
+    </statement>
+    <!-- ================================================================================================
+        SERE_CCINP_TB (입력)
+    ================================================================================================== -->
+    <statement name="retrieveCCINPByPk">
+        <![CDATA[
+            SELECT  DAY_CD
+                   ,CC_ID
+                   ,CC_PRC_YMD
+                   ,CC_INS_CD
+                   ,CC_LDIN_NTH
+                   ,CC_PRC_SNO
+                   ,CC_REQ_PRC_SNO
+                   ,ORGPROC_SQ
+                   ,DATA_GB
+                   ,CC_GRPN_DAT
+                   ,HEADER_DATA
+                   ,CC_RECR_KY_VL
+                   ,CC_PRC_TG_AMT
+                   ,ORG_GUID
+                   ,GUID
+                   ,DATA1
+                   ,DATA2
+                   ,DATA3
+                   ,DATA4
+                   ,DATA5
+                   ,PROCSTAT_CD
+                   ,STRT_DT
+                   ,END_DT
+                   ,PROC_TM
+                   ,SUCS_EXE_NTH
+                   ,CC_PRC_AMT
+                   ,CC_PRC_FAL_AMT
+                   ,CC_PTL_PRC_AMT
+                   ,MOD_DT
+                   ,REG_DT
+                   ,MOD_USER_ID
+                   ,REG_USER_ID
+                   ,SITE_CD
+            FROM    DEVON.SERE_CCINP_TB
+            WHERE   DAY_CD      = ${DAY_CD}
+            AND     CC_ID       = ${CC_ID}
+            AND     CC_PRC_YMD  = ${CC_PRC_YMD}
+            AND     CC_INS_CD   = ${CC_INS_CD}
+            AND     CC_LDIN_NTH = ${CC_LDIN_NTH}
+            AND     CC_PRC_SNO  = ${CC_PRC_SNO}
+            AND     SITE_CD     = ${SITE_CD}
+        ]]>
+    </statement>
+    
+    <statement name="retrieveCcInputData">
+        <![CDATA[
+            SELECT  DAY_CD
+                   ,CC_ID
+                   ,CC_PRC_YMD
+                   ,CC_INS_CD
+                   ,CC_LDIN_NTH
+                   ,CC_PRC_SNO
+                   ,CC_REQ_PRC_SNO
+                   ,ORGPROC_SQ
+                   ,DATA_GB
+                   ,CC_GRPN_DAT
+                   ,HEADER_DATA
+                   ,CC_RECR_KY_VL
+                   ,CC_PRC_TG_AMT
+                   ,ORG_GUID
+                   ,GUID
+                   ,DATA1
+                   ,DATA2
+                   ,DATA3
+                   ,DATA4
+                   ,DATA5
+                   ,PROCSTAT_CD
+                   ,STRT_DT
+                   ,END_DT
+                   ,PROC_TM
+                   ,SUCS_EXE_NTH
+                   ,CC_PRC_AMT
+                   ,CC_PRC_FAL_AMT
+                   ,CC_PTL_PRC_AMT
+                   ,MOD_DT
+                   ,REG_DT
+                   ,MOD_USER_ID
+                   ,REG_USER_ID
+                   ,SITE_CD
+              FROM  (
+                    SELECT  DAY_CD
+                           ,CC_ID
+                           ,CC_PRC_YMD
+                           ,CC_INS_CD
+                           ,CC_LDIN_NTH
+                           ,CC_PRC_SNO
+                           ,CC_REQ_PRC_SNO
+                           ,ORGPROC_SQ
+                           ,DATA_GB
+                           ,CC_GRPN_DAT
+                           ,HEADER_DATA
+                           ,CC_RECR_KY_VL
+                           ,CC_PRC_TG_AMT
+                           ,ORG_GUID
+                           ,GUID
+                           ,DATA1
+                           ,DATA2
+                           ,DATA3
+                           ,DATA4
+                           ,DATA5
+                           ,PROCSTAT_CD
+                           ,STRT_DT
+                           ,END_DT
+                           ,PROC_TM
+                           ,SUCS_EXE_NTH
+                           ,CC_PRC_AMT
+                           ,CC_PRC_FAL_AMT
+                           ,CC_PTL_PRC_AMT
+                           ,MOD_DT
+                           ,REG_DT
+                           ,MOD_USER_ID
+                           ,REG_USER_ID
+                           ,SITE_CD
+                      FROM  DEVON.SERE_CCINP_TB
+                     WHERE  DAY_CD      = ${DAY_CD}
+                       AND  CC_ID       = ${CC_ID}
+                       AND  CC_PRC_YMD  = ${CC_PRC_YMD}
+                       AND  CC_INS_CD   = ${CC_INS_CD}
+                       AND  CC_LDIN_NTH = ${CC_LDIN_NTH}
+                       AND  CC_PRC_SNO  > ${CC_PRC_SNO}
+                       AND  CC_PRC_SNO  <= ${END_SQ}
+                       AND  PROCSTAT_CD <> '03' 
+                       AND  SITE_CD     = ${SITE_CD}
+                    ORDER BY CC_PRC_SNO
+                    )
+             WHERE  ROWNUM = 1
+        ]]>
+    </statement>
+    
+    <statement name="retrieveCCINPListByUserData">
+        <![CDATA[
+            SELECT  CC_ID              AS 센터컷ID
+                   ,CC_PRC_YMD         AS 센터컷처리년월일
+                   ,CC_INS_CD          AS 센터컷기관코드
+                   ,CC_LDIN_NTH        AS 센터컷적재회차
+                   ,CC_PRC_SNO         AS 센터컷처리일련번호
+                   ,SUCS_EXE_NTH       AS 센터컷실행회차
+                   ,DATA1              AS 센터컷업무데이터내용
+                   ,HEADER_DATA        AS 센터컷요청전문헤더내용
+                   ,CC_PRC_TG_AMT      AS 센터컷처리대상금액
+                   ,CC_PRC_AMT         AS 센터컷처리금액
+                   ,CC_PRC_FAL_AMT     AS 센터컷처리오류금액
+                   ,CC_PTL_PRC_AMT     AS 센터컷부분처리금액
+                   ,CC_RECR_KY_VL      AS 센터컷레코드키값
+                   ,PROCSTAT_CD        AS 처리상태구분코드
+                   ,STRT_DT            AS 거래시작일시
+                   ,END_DT             AS 거래종료일시
+                   ,GUID               AS GUID번호
+                   ,ORG_GUID           AS 원거래GUID번호
+            FROM    DEVON.SERE_CCINP_TB
+            WHERE   DAY_CD         = ${DAY_CD}
+            AND     CC_ID          = ${CC_ID}
+            AND     CC_PRC_YMD     = ${CC_PRC_YMD}
+            AND     CC_INS_CD      = ${CC_INS_CD}
+            AND     CC_LDIN_NTH    = ${CC_LDIN_NTH}
+            AND     CC_RECR_KY_VL  = ${CC_RECR_KY_VL}
+            AND     SITE_CD        = ${SITE_CD}
+        ]]>
+    </statement>
+    
+    <statement name="retrieveCCINPListIncludeOutAndErr">
+        <![CDATA[
+            SELECT  INP.CC_ID              AS 센터컷ID
+                   ,INP.CC_PRC_YMD         AS 센터컷처리년월일
+                   ,INP.CC_INS_CD          AS 센터컷기관코드
+                   ,INP.CC_LDIN_NTH        AS 센터컷적재회차
+                   ,INP.CC_PRC_SNO         AS 센터컷처리일련번호
+                   ,INP.SUCS_EXE_NTH       AS 센터컷실행회차
+                   ,INP.DATA1              AS 센터컷업무데이터내용
+                   ,INP.HEADER_DATA        AS 센터컷요청전문헤더내용
+                   ,INP.CC_PRC_TG_AMT      AS 센터컷처리대상금액
+                   ,INP.CC_PRC_AMT         AS 센터컷처리금액
+                   ,INP.CC_PRC_FAL_AMT     AS 센터컷처리오류금액
+                   ,INP.CC_PTL_PRC_AMT     AS 센터컷부분처리금액
+                   ,INP.CC_RECR_KY_VL      AS 센터컷레코드키값
+                   ,INP.PROCSTAT_CD        AS 처리상태구분코드
+                   ,INP.STRT_DT            AS 거래시작일시
+                   ,INP.END_DT             AS 거래종료일시
+                   ,ERR.ERR_CD             AS 오류메시지코드
+                   ,ERR.ERR_MESSAGE        AS 오류메시지출력내용
+                   ,SUBSTR(ERR.ERR_PGM_NM, INSTR(ERR.ERR_PGM_NM, '.', -1) + 1) AS 오류발생프로그램명
+                   ,ERR.ERR_MTH_NM         AS 오류발생함수명
+                   ,ERR.ERR_LINE_NO        AS 오류발생라인번호
+                   ,OUT.OUT_DATA1          AS 센터컷출력데이터내용
+                   ,INP.GUID               AS GUID번호
+                   ,INP.ORG_GUID           AS 원거래GUID번호
+                   ,ERR.TRT_CD             AS 조치메시지코드
+                   ,ERR.TRT_MESSAGE        AS 조치메시지출력내용
+            FROM    DEVON.SERE_CCINP_TB INP
+                   ,DEVON.SERE_CCOUT_TB OUT
+                   ,DEVON.SERE_CCERR_TB ERR
+            WHERE   INP.DAY_CD      = ${DAY_CD}
+            AND     INP.CC_ID       = ${CC_ID}
+            AND     INP.CC_PRC_YMD  = ${CC_PRC_YMD}
+            AND     INP.CC_INS_CD   = ${CC_INS_CD}
+            AND     INP.CC_LDIN_NTH = ${CC_LDIN_NTH}
+            AND     INP.SITE_CD     = ${SITE_CD}
+            
+            AND     INP.DAY_CD       = OUT.DAY_CD(+)
+            AND     INP.CC_ID        = OUT.CC_ID(+)
+            AND     INP.CC_PRC_YMD   = OUT.CC_PRC_YMD(+)
+            AND     INP.CC_INS_CD    = OUT.CC_INS_CD(+)
+            AND     INP.CC_LDIN_NTH  = OUT.CC_LDIN_NTH(+)
+            AND     INP.CC_PRC_SNO   = OUT.CC_PRC_SNO(+)
+            AND     INP.SUCS_EXE_NTH = OUT.CC_EXE_NTH(+)
+            AND     INP.SITE_CD      = OUT.SITE_CD(+)
+            
+            AND     INP.DAY_CD       = ERR.DAY_CD(+)
+            AND     INP.CC_ID        = ERR.CC_ID(+)
+            AND     INP.CC_PRC_YMD   = ERR.CC_PRC_YMD(+)
+            AND     INP.CC_INS_CD    = ERR.CC_INS_CD(+)
+            AND     INP.CC_LDIN_NTH  = ERR.CC_LDIN_NTH(+)
+            AND     INP.CC_PRC_SNO   = ERR.CC_PRC_SNO(+)
+            AND     INP.SUCS_EXE_NTH = ERR.CC_EXE_NTH(+)
+            AND     INP.SITE_CD      = ERR.SITE_CD(+)
+        ]]>
+    </statement>
+    
+        <statement name="retrieveCCINPListIncludeOutAndErrByProcStatCd">
+        <![CDATA[
+            SELECT  INP.CC_ID              AS 센터컷ID
+                   ,INP.CC_PRC_YMD         AS 센터컷처리년월일
+                   ,INP.CC_INS_CD          AS 센터컷기관코드
+                   ,INP.CC_LDIN_NTH        AS 센터컷적재회차
+                   ,INP.CC_PRC_SNO         AS 센터컷처리일련번호
+                   ,INP.SUCS_EXE_NTH       AS 센터컷실행회차
+                   ,INP.DATA1              AS 센터컷업무데이터내용
+                   ,INP.HEADER_DATA        AS 센터컷요청전문헤더내용
+                   ,INP.CC_PRC_TG_AMT      AS 센터컷처리대상금액
+                   ,INP.CC_PRC_AMT         AS 센터컷처리금액
+                   ,INP.CC_PRC_FAL_AMT     AS 센터컷처리오류금액
+                   ,INP.CC_PTL_PRC_AMT     AS 센터컷부분처리금액
+                   ,INP.CC_RECR_KY_VL      AS 센터컷레코드키값
+                   ,INP.PROCSTAT_CD        AS 처리상태구분코드
+                   ,INP.STRT_DT            AS 거래시작일시
+                   ,INP.END_DT             AS 거래종료일시
+                   ,ERR.ERR_CD             AS 오류메시지코드
+                   ,ERR.ERR_MESSAGE        AS 오류메시지출력내용
+                   ,SUBSTR(ERR.ERR_PGM_NM, INSTR(ERR.ERR_PGM_NM, '.', -1) + 1) AS 오류발생프로그램명
+                   ,ERR.ERR_MTH_NM         AS 오류발생함수명
+                   ,ERR.ERR_LINE_NO        AS 오류발생라인번호
+                   ,OUT.OUT_DATA1          AS 센터컷출력데이터내용
+                   ,INP.GUID               AS GUID번호
+                   ,INP.ORG_GUID           AS 원거래GUID번호
+                   ,ERR.TRT_CD             AS 조치메시지코드
+                   ,ERR.TRT_MESSAGE        AS 조치메시지출력내용
+            FROM    DEVON.SERE_CCINP_TB INP
+                   ,DEVON.SERE_CCOUT_TB OUT
+                   ,DEVON.SERE_CCERR_TB ERR
+            WHERE   INP.DAY_CD      = ${DAY_CD}
+            AND     INP.CC_ID       = ${CC_ID}
+            AND     INP.CC_PRC_YMD  = ${CC_PRC_YMD}
+            AND     INP.CC_INS_CD   = ${CC_INS_CD}
+            AND     INP.CC_LDIN_NTH = ${CC_LDIN_NTH}
+            AND     INP.PROCSTAT_CD = ${PROCSTAT_CD}
+            AND     INP.SITE_CD     = ${SITE_CD}
+            
+            AND     INP.DAY_CD       = OUT.DAY_CD(+)
+            AND     INP.CC_ID        = OUT.CC_ID(+)
+            AND     INP.CC_PRC_YMD   = OUT.CC_PRC_YMD(+)
+            AND     INP.CC_INS_CD    = OUT.CC_INS_CD(+)
+            AND     INP.CC_LDIN_NTH  = OUT.CC_LDIN_NTH(+)
+            AND     INP.CC_PRC_SNO   = OUT.CC_PRC_SNO(+)
+            AND     INP.SUCS_EXE_NTH = OUT.CC_EXE_NTH(+)
+            AND     INP.SITE_CD      = OUT.SITE_CD(+)
+            
+            AND     INP.DAY_CD       = ERR.DAY_CD(+)
+            AND     INP.CC_PRC_YMD   = ERR.CC_PRC_YMD(+)
+            AND     INP.CC_INS_CD    = ERR.CC_INS_CD(+)
+            AND     INP.CC_LDIN_NTH  = ERR.CC_LDIN_NTH(+)
+            AND     INP.CC_PRC_SNO   = ERR.CC_PRC_SNO(+)
+            AND     INP.SUCS_EXE_NTH = ERR.CC_EXE_NTH(+)
+            AND     INP.SITE_CD      = ERR.SITE_CD(+)
+
+        ]]>
+    </statement>
+    
+    <statement name="isCcErrDataExist">
+        <![CDATA[
+            SELECT  PROCSTAT_CD
+            FROM    DEVON.SERE_CCINP_TB
+            WHERE   DAY_CD      = ${DAY_CD}
+            AND     CC_ID       = ${CC_ID}
+            AND     CC_PRC_YMD  = ${CC_PRC_YMD}
+            AND     CC_INS_CD   = ${CC_INS_CD}
+            AND     CC_LDIN_NTH = ${CC_LDIN_NTH}
+            AND     SITE_CD     = ${SITE_CD}
+            AND     PROCSTAT_CD = '09'
+            AND     ROWNUM = 1
+        ]]>
+    </statement>
+    
+    <statement name="insertCCINP">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_CCINP_TB
+            (
+                DAY_CD
+               ,CC_ID
+               ,CC_PRC_YMD
+               ,CC_INS_CD
+               ,CC_LDIN_NTH
+               ,CC_PRC_SNO
+               ,CC_REQ_PRC_SNO
+               ,ORGPROC_SQ
+               ,DATA_GB
+               ,CC_GRPN_DAT
+               ,HEADER_DATA
+               ,CC_RECR_KY_VL
+               ,CC_PRC_TG_AMT
+               ,ORG_GUID
+               ,GUID
+               ,DATA1
+               ,DATA2
+               ,DATA3
+               ,DATA4
+               ,DATA5
+               ,PROCSTAT_CD
+               ,STRT_DT
+               ,END_DT
+               ,PROC_TM
+               ,SUCS_EXE_NTH
+               ,CC_PRC_AMT
+               ,CC_PRC_FAL_AMT
+               ,CC_PTL_PRC_AMT
+               ,MOD_DT
+               ,REG_DT
+               ,MOD_USER_ID
+               ,REG_USER_ID
+               ,SITE_CD
+            ) VALUES (
+                ${DAY_CD}
+               ,${CC_ID}
+               ,${CC_PRC_YMD}
+               ,${CC_INS_CD}
+               ,${CC_LDIN_NTH}
+               ,${CC_PRC_SNO}
+               ,${CC_REQ_PRC_SNO}
+               ,${ORGPROC_SQ}
+               ,${DATA_GB}
+               ,${CC_GRPN_DAT}
+               ,${HEADER_DATA}
+               ,${CC_RECR_KY_VL}
+               ,${CC_PRC_TG_AMT}
+               ,${ORG_GUID}
+               ,${GUID}
+               ,${DATA1}
+               ,${DATA2}
+               ,${DATA3}
+               ,${DATA4}
+               ,${DATA5}
+               ,${PROCSTAT_CD}
+               ,${STRT_DT}
+               ,${END_DT}
+               ,${PROC_TM}
+               ,${SUCS_EXE_NTH}
+               ,${CC_PRC_AMT}
+               ,${CC_PRC_FAL_AMT}
+               ,${CC_PTL_PRC_AMT}
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,${MOD_USER_ID}
+               ,${REG_USER_ID}
+               ,${SITE_CD}
+            )
+        ]]>
+    </statement>
+    
+    <statement name="updateCCINPByPk">
+        <![CDATA[
+            UPDATE  DEVON.SERE_CCINP_TB
+            SET     CC_REQ_PRC_SNO  = ${CC_REQ_PRC_SNO}
+                   ,ORGPROC_SQ      = ${ORGPROC_SQ}
+                   ,DATA_GB         = ${DATA_GB}
+                   ,CC_GRPN_DAT     = ${CC_GRPN_DAT}
+                   ,HEADER_DATA     = ${HEADER_DATA}
+                   ,CC_RECR_KY_VL   = ${CC_RECR_KY_VL}
+                   ,CC_PRC_TG_AMT   = ${CC_PRC_TG_AMT}
+                   ,ORG_GUID        = ${ORG_GUID}
+                   ,GUID            = ${GUID}
+                   ,DATA1           = ${DATA1}
+                   ,DATA2           = ${DATA2}
+                   ,DATA3           = ${DATA3}
+                   ,DATA4           = ${DATA4}
+                   ,DATA5           = ${DATA5}
+                   ,PROCSTAT_CD     = ${PROCSTAT_CD}
+                   ,STRT_DT         = ${STRT_DT}
+                   ,END_DT          = ${END_DT}
+                   ,PROC_TM         = ${PROC_TM}
+                   ,SUCS_EXE_NTH    = ${SUCS_EXE_NTH}
+                   ,CC_PRC_AMT      = ${CC_PRC_AMT}
+                   ,CC_PRC_FAL_AMT  = ${CC_PRC_FAL_AMT}
+                   ,CC_PTL_PRC_AMT  = ${CC_PTL_PRC_AMT}
+                   ,MOD_DT          = TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+                   ,MOD_USER_ID     = ${MOD_USER_ID}
+                   ,SITE_CD         = ${SITE_CD}
+                   ,NODE_NM         = ${NODE_NM}
+                   ,INST_NM         = ${INST_NM}
+            WHERE   DAY_CD      = ${DAY_CD}
+            AND     CC_ID       = ${CC_ID}
+            AND     CC_PRC_YMD  = ${CC_PRC_YMD}
+            AND     CC_INS_CD   = ${CC_INS_CD}
+            AND     CC_LDIN_NTH = ${CC_LDIN_NTH}
+            AND     CC_PRC_SNO  = ${CC_PRC_SNO}
+            AND     SITE_CD     = ${SITE_CD}
+        ]]>
+    </statement>
+    
+    <statement name="deleteCCINPByPk">
+        <![CDATA[
+            DELETE FROM DEVON.SERE_CCINP_TB
+            WHERE   DAY_CD      = ${DAY_CD}
+            AND     CC_ID       = ${CC_ID}
+            AND     CC_PRC_YMD  = ${CC_PRC_YMD}
+            AND     CC_INS_CD   = ${CC_INS_CD}
+            AND     CC_LDIN_NTH = ${CC_LDIN_NTH}
+            AND     CC_PRC_SNO  = ${CC_PRC_SNO}
+            AND     SITE_CD     = ${SITE_CD}
+        ]]>
+    </statement>
+    
+    <statement name="selectInsertCCINP">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_CCINP_TB
+            (
+            SELECT  DAY_CD
+                   ,CC_ID
+                   ,CC_PRC_YMD
+                   ,CC_INS_CD
+                   ,CC_LDIN_NTH
+                   ,ROWNUM
+                   ,REQ_PROC_SQ     -- CC_REQ_PRC_SNO
+                   ,0
+                   ,DATA_GB
+                   ,CC_GRPN_DAT
+                   ,HEADER_DATA
+                   ,CC_RECR_KY_VL
+                   ,CC_PRC_TG_AMT
+                   ,ORG_GUID
+                   ,''              -- GUID
+                   ,DATA1
+                   ,DATA2
+                   ,DATA3
+                   ,DATA4
+                   ,DATA5
+                   ,'01'            -- PROCSTAT_CD
+                   ,''              -- STRT_DT
+                   ,''              -- END_DT
+                   ,''              -- PROC_TM
+                   ,0               -- SUCS_EXE_NTH
+                   ,0               -- CC_PRC_AMT
+                   ,0               -- CC_PRC_FAL_AMT
+                   ,0               -- CC_PTL_PRC_AMT
+                   ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+                   ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+                   ,${MOD_USER_ID}
+                   ,${REG_USER_ID}
+                   ,${SITE_CD}
+                   ,''
+                   ,''
+            FROM   (
+                    SELECT  /*+ USE_HASH(A B) FULL(A) FULL(B) */
+                            A.DAY_CD
+                           ,A.CC_ID
+                           ,A.CC_PRC_YMD
+                           ,A.CC_INS_CD
+                           ,A.CC_LDIN_NTH
+                           ,A.CC_PRC_SNO      AS REQ_PROC_SQ
+                           ,A.CC_GRPN_DAT
+                           ,A.DATA_GB
+                           ,B.CNT
+                           ,A.CC_PRC_TG_AMT
+                           ,A.PROCSTAT_CD
+                           ,A.DATA1
+                           ,A.DATA2
+                           ,A.DATA3
+                           ,A.DATA4
+                           ,A.DATA5
+                           ,A.CC_RECR_KY_VL
+                           ,A.HEADER_DATA
+                           ,A.ORG_GUID
+                    FROM    DEVON.SERE_CCREQ_TB  A
+                           ,DEVON.SERE_CCGRP_TB  B
+                    WHERE   A.DAY_CD      = ${DAY_CD}
+                    AND     A.CC_ID       = ${CC_ID}
+                    AND     A.CC_PRC_YMD  = ${CC_PRC_YMD}
+                    AND     A.CC_INS_CD   = ${CC_INS_CD}
+                    AND     A.CC_LDIN_NTH = ${CC_LDIN_NTH}
+                    AND     A.SITE_CD     = ${SITE_CD}
+                    AND     A.CC_ID       = B.CC_ID
+                    AND     A.CC_PRC_YMD  = B.CC_PRC_YMD
+                    AND     A.CC_INS_CD   = B.CC_INS_CD
+                    AND     A.CC_LDIN_NTH = B.CC_LDIN_NTH
+                    AND     A.SITE_CD     = B.SITE_CD
+                    AND     A.CC_GRPN_DAT = B.CC_GRPN_DAT
+                    ORDER BY A.DATA_GB, B.CNT DESC, B.CC_GRPN_DAT, A.CC_GRPN_LNP_DAT, A.CC_PRC_SNO
+                    )
+                )
+        ]]>
+    </statement>
+
+    <statement name="selectInsertCCINPByIdx">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_CCINP_TB
+            (
+            SELECT  DAY_CD
+                   ,CC_ID
+                   ,CC_PRC_YMD
+                   ,CC_INS_CD
+                   ,CC_LDIN_NTH
+                   ,ROWNUM
+                   ,REQ_PROC_SQ     -- CC_REQ_PRC_SNO
+                   ,0
+                   ,DATA_GB
+                   ,CC_GRPN_DAT
+                   ,HEADER_DATA
+                   ,CC_RECR_KY_VL
+                   ,CC_PRC_TG_AMT
+                   ,ORG_GUID
+                   ,''              -- GUID
+                   ,DATA1
+                   ,DATA2
+                   ,DATA3
+                   ,DATA4
+                   ,DATA5
+                   ,'01'            -- PROCSTAT_CD
+                   ,''              -- STRT_DT
+                   ,''              -- END_DT
+                   ,''              -- PROC_TM
+                   ,0               -- SUCS_EXE_NTH
+                   ,0               -- CC_PRC_AMT
+                   ,0               -- CC_PRC_FAL_AMT
+                   ,0               -- CC_PTL_PRC_AMT
+                   ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+                   ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+                   ,${MOD_USER_ID}
+                   ,${REG_USER_ID}
+                   ,${SITE_CD}
+                   ,''
+                   ,''
+            FROM   (
+                    SELECT  /*+ USE_HASH(A B) INDEX(A SERE_CCREQ_TB_PK) INDEX(B SERE_CCGRP_TB_PK) */
+                            A.DAY_CD
+                           ,A.CC_ID
+                           ,A.CC_PRC_YMD
+                           ,A.CC_INS_CD
+                           ,A.CC_LDIN_NTH
+                           ,A.CC_PRC_SNO      AS REQ_PROC_SQ
+                           ,A.CC_GRPN_DAT
+                           ,A.DATA_GB
+                           ,B.CNT
+                           ,A.CC_PRC_TG_AMT
+                           ,A.PROCSTAT_CD
+                           ,A.DATA1
+                           ,A.DATA2
+                           ,A.DATA3
+                           ,A.DATA4
+                           ,A.DATA5
+                           ,A.CC_RECR_KY_VL
+                           ,A.HEADER_DATA
+                           ,A.ORG_GUID
+                    FROM    DEVON.SERE_CCREQ_TB  A
+                           ,DEVON.SERE_CCGRP_TB  B
+                    WHERE   A.DAY_CD      = ${DAY_CD}
+                    AND     A.CC_ID       = ${CC_ID}
+                    AND     A.CC_PRC_YMD  = ${CC_PRC_YMD}
+                    AND     A.CC_INS_CD   = ${CC_INS_CD}
+                    AND     A.CC_LDIN_NTH = ${CC_LDIN_NTH}
+                    AND     A.SITE_CD     = ${SITE_CD}
+                    AND     A.CC_ID       = B.CC_ID
+                    AND     A.CC_PRC_YMD  = B.CC_PRC_YMD
+                    AND     A.CC_INS_CD   = B.CC_INS_CD
+                    AND     A.CC_LDIN_NTH = B.CC_LDIN_NTH
+                    AND     A.SITE_CD     = B.SITE_CD
+                    AND     A.CC_GRPN_DAT = B.CC_GRPN_DAT
+                    ORDER BY A.DATA_GB, B.CNT DESC, B.CC_GRPN_DAT, A.CC_GRPN_LNP_DAT, A.CC_PRC_SNO
+                    )
+                )
+        ]]>
+    </statement>
+    <!-- ================================================================================================
+        SERE_CCOUT_TB (출력)
+    ================================================================================================== -->
+    <statement name="retrieveCCOUTByPk">
+        <![CDATA[
+            SELECT  DAY_CD
+                   ,CC_ID
+                   ,CC_PRC_YMD
+                   ,CC_INS_CD
+                   ,CC_LDIN_NTH
+                   ,CC_EXE_NTH
+                   ,CC_PRC_SNO
+                   ,OUT_DATA1
+                   ,OUT_DATA2
+                   ,OUT_DATA3
+                   ,OUT_DATA4
+                   ,OUT_DATA5
+                   ,MOD_DT
+                   ,REG_DT
+                   ,MOD_USER_ID
+                   ,REG_USER_ID
+                   ,SITE_CD
+            FROM    DEVON.SERE_CCOUT_TB
+            WHERE   DAY_CD      = ${DAY_CD}
+            AND     CC_ID       = ${CC_ID}
+            AND     CC_PRC_YMD  = ${CC_PRC_YMD}
+            AND     CC_INS_CD   = ${CC_INS_CD}
+            AND     CC_LDIN_NTH = ${CC_LDIN_NTH}
+            AND     CC_PRC_SNO  = ${CC_PRC_SNO}
+            AND     CC_EXE_NTH  = ${CC_EXE_NTH}
+            AND     SITE_CD     = ${SITE_CD}
+        ]]>
+    </statement>
+    
+    <statement name="retrieveCCOUTList">
+        <![CDATA[
+            SELECT  DAY_CD
+                   ,CC_ID
+                   ,CC_PRC_YMD
+                   ,CC_INS_CD
+                   ,CC_LDIN_NTH
+                   ,CC_EXE_NTH
+                   ,CC_PRC_SNO
+                   ,OUT_DATA1
+                   ,OUT_DATA2
+                   ,OUT_DATA3
+                   ,OUT_DATA4
+                   ,OUT_DATA5
+                   ,MOD_DT
+                   ,REG_DT
+                   ,MOD_USER_ID
+                   ,REG_USER_ID
+                   ,SITE_CD
+            FROM    DEVON.SERE_CCOUT_TB
+            WHERE   DAY_CD      = ${DAY_CD}
+            AND     CC_ID       = ${CC_ID}
+            AND     CC_PRC_YMD  = ${CC_PRC_YMD}
+            AND     CC_INS_CD   = ${CC_INS_CD}
+            AND     CC_LDIN_NTH = ${CC_LDIN_NTH}
+            AND     SITE_CD     = ${SITE_CD}
+        ]]>
+    </statement>
+    
+    <statement name="insertCCOUT">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_CCOUT_TB
+            (
+                DAY_CD
+               ,CC_ID
+               ,CC_PRC_YMD
+               ,CC_INS_CD
+               ,CC_LDIN_NTH
+               ,CC_EXE_NTH
+               ,CC_PRC_SNO
+               ,OUT_DATA1
+               ,OUT_DATA2
+               ,OUT_DATA3
+               ,OUT_DATA4
+               ,OUT_DATA5
+               ,MOD_DT
+               ,REG_DT
+               ,MOD_USER_ID
+               ,REG_USER_ID
+               ,SITE_CD
+            ) VALUES (
+                ${DAY_CD}
+               ,${CC_ID}
+               ,${CC_PRC_YMD}
+               ,${CC_INS_CD}
+               ,${CC_LDIN_NTH}
+               ,${CC_EXE_NTH}
+               ,${CC_PRC_SNO}
+               ,${OUT_DATA1}
+               ,${OUT_DATA2}
+               ,${OUT_DATA3}
+               ,${OUT_DATA4}
+               ,${OUT_DATA5}
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,${MOD_USER_ID}
+               ,${REG_USER_ID}
+               ,${SITE_CD}
+            )
+        ]]>
+    </statement>
+    
+    <statement name="updateCCOUTByPk">
+        <![CDATA[
+            UPDATE  DEVON.SERE_CCOUT_TB
+            SET     OUT_DATA1   = ${OUT_DATA1}
+                   ,OUT_DATA2   = ${OUT_DATA2}
+                   ,OUT_DATA3   = ${OUT_DATA3}
+                   ,OUT_DATA4   = ${OUT_DATA4}
+                   ,OUT_DATA5   = ${OUT_DATA5}
+                   ,MOD_DT      = TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+                   ,MOD_USER_ID = ${MOD_USER_ID}
+            WHERE   DAY_CD      = ${DAY_CD}
+            AND     CC_ID       = ${CC_ID}
+            AND     CC_PRC_YMD  = ${CC_PRC_YMD}
+            AND     CC_INS_CD   = ${CC_INS_CD}
+            AND     CC_LDIN_NTH = ${CC_LDIN_NTH}
+            AND     CC_PRC_SNO  = ${CC_PRC_SNO}
+            AND     CC_EXE_NTH  = ${CC_EXE_NTH}
+            AND     SITE_CD     = ${SITE_CD}
+        ]]>
+    </statement>
+    
+    <statement name="deleteCCOUTByPk">
+        <![CDATA[
+            DELETE FROM DEVON.SERE_CCOUT_TB
+            WHERE   DAY_CD      = ${DAY_CD}
+            AND     CC_ID       = ${CC_ID}
+            AND     CC_PRC_YMD  = ${CC_PRC_YMD}
+            AND     CC_INS_CD   = ${CC_INS_CD}
+            AND     CC_LDIN_NTH = ${CC_LDIN_NTH}
+            AND     CC_PRC_SNO  = ${CC_PRC_SNO}
+            AND     CC_EXE_NTH  = ${CC_EXE_NTH}
+            AND     SITE_CD     = ${SITE_CD}
+        ]]>
+    </statement>
+    <!-- ================================================================================================
+        SERE_CCERR_TB (오류)
+    ================================================================================================== -->
+    <statement name="retrieveCCERRByPk">
+        <![CDATA[
+            SELECT  DAY_CD
+                   ,CC_ID
+                   ,CC_PRC_YMD
+                   ,CC_INS_CD
+                   ,CC_LDIN_NTH
+                   ,CC_PRC_SNO
+                   ,CC_EXE_NTH
+                   ,ERR_CD
+                   ,ERR_MESSAGE
+                   ,ERR_STACKTRACE
+                   ,ERR_STACKTRACE_CL
+                   ,ERR_PGM_NM
+                   ,ERR_MTH_NM
+                   ,ERR_LINE_NO
+                   ,TRT_MESSAGE
+                   ,TRT_CD
+                   ,MOD_DT
+                   ,REG_DT
+                   ,MOD_USER_ID
+                   ,REG_USER_ID
+                   ,SITE_CD
+            FROM    DEVON.SERE_CCERR_TB
+            WHERE   DAY_CD      = ${DAY_CD}
+            AND     CC_ID       = ${CC_ID}
+            AND     CC_PRC_YMD  = ${CC_PRC_YMD}
+            AND     CC_INS_CD   = ${CC_INS_CD}
+            AND     CC_LDIN_NTH = ${CC_LDIN_NTH}
+            AND     CC_PRC_SNO  = ${CC_PRC_SNO}
+            AND     CC_EXE_NTH  = ${CC_EXE_NTH}
+            AND     SITE_CD     = ${SITE_CD}
+        ]]>
+    </statement>
+    
+    <statement name="retrieveCCERRListByUserData">
+        <![CDATA[
+            SELECT  INP.CC_ID          AS 센터컷ID
+                   ,INP.CC_PRC_YMD     AS 센터컷처리년월일
+                   ,INP.CC_INS_CD      AS 센터컷기관코드
+                   ,INP.CC_LDIN_NTH    AS 센터컷적재회차
+                   ,INP.CC_PRC_SNO     AS 센터컷처리일련번호
+                   ,ERR.CC_EXE_NTH     AS 센터컷실행회차
+                   ,INP.DATA1          AS 센터컷업무데이터내용
+                   ,INP.HEADER_DATA    AS 센터컷요청전문헤더내용
+                   ,INP.CC_PRC_TG_AMT  AS 센터컷처리대상금액
+                   ,INP.CC_RECR_KY_VL  AS 센터컷레코드키값
+                   ,ERR.TRT_CD         AS 조치메시지코드
+                   ,ERR.TRT_MESSAGE    AS 조치메시지출력내용
+                   ,ERR.ERR_CD         AS 오류메시지코드
+                   ,ERR.ERR_MESSAGE    AS 오류메시지출력내용
+                   ,SUBSTR(ERR.ERR_PGM_NM, INSTR(ERR.ERR_PGM_NM, '.', -1) + 1) AS 오류발생프로그램명
+                   ,ERR.ERR_MTH_NM     AS 오류발생함수명
+                   ,ERR.ERR_LINE_NO    AS 오류발생라인번호
+                   ,INP.GUID           AS GUID번호
+                   ,INP.ORG_GUID       AS 원거래GUID번호
+            FROM    DEVON.SERE_CCINP_TB INP
+                   ,DEVON.SERE_CCERR_TB ERR
+            WHERE   INP.DAY_CD         = ${DAY_CD}
+            AND     INP.CC_ID          = ${CC_ID}
+            AND     INP.CC_PRC_YMD     = ${CC_PRC_YMD}
+            AND     INP.CC_INS_CD      = ${CC_INS_CD}
+            AND     INP.CC_LDIN_NTH    = ${CC_LDIN_NTH}
+            AND     INP.CC_RECR_KY_VL  = ${CC_RECR_KY_VL}
+            AND     INP.SITE_CD        = ${SITE_CD}
+            
+            AND     INP.DAY_CD         = ERR.DAY_CD
+            AND     INP.CC_ID          = ERR.CC_ID
+            AND     INP.CC_PRC_YMD     = ERR.CC_PRC_YMD
+            AND     INP.CC_INS_CD      = ERR.CC_INS_CD
+            AND     INP.CC_LDIN_NTH    = ERR.CC_LDIN_NTH
+            AND     INP.CC_PRC_SNO     = ERR.CC_PRC_SNO
+            AND     INP.SITE_CD        = ERR.SITE_CD
+        ]]>
+    </statement>
+    
+    <statement name="insertCCERR">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_CCERR_TB
+            (
+                DAY_CD
+               ,CC_ID
+               ,CC_PRC_YMD
+               ,CC_INS_CD
+               ,CC_LDIN_NTH
+               ,CC_PRC_SNO
+               ,CC_EXE_NTH
+               ,ERR_CD
+               ,ERR_MESSAGE
+               ,ERR_STACKTRACE
+               ,ERR_STACKTRACE_CL
+               ,ERR_PGM_NM
+               ,ERR_MTH_NM
+               ,ERR_LINE_NO
+               ,TRT_MESSAGE
+               ,TRT_CD
+               ,MOD_DT
+               ,REG_DT
+               ,MOD_USER_ID
+               ,REG_USER_ID
+               ,SITE_CD
+            ) VALUES (
+                ${DAY_CD}
+               ,${CC_ID}
+               ,${CC_PRC_YMD}
+               ,${CC_INS_CD}
+               ,${CC_LDIN_NTH}
+               ,${CC_PRC_SNO}
+               ,${CC_EXE_NTH}
+               ,${ERR_CD}
+               ,${ERR_MESSAGE}
+               ,${ERR_STACKTRACE}
+               ,${ERR_STACKTRACE_CL}
+               ,${ERR_PGM_NM}
+               ,${ERR_MTH_NM}
+               ,${ERR_LINE_NO}
+               ,${TRT_MESSAGE}
+               ,${TRT_CD}
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,${MOD_USER_ID}
+               ,${REG_USER_ID}
+               ,${SITE_CD}
+            )
+        ]]>
+    </statement>
+    
+    <statement name="updateCCERRByPk">
+        <![CDATA[
+            UPDATE  DEVON.SERE_CCERR_TB
+            SET     ERR_CD              = ${ERR_CD}
+                   ,ERR_MESSAGE         = ${ERR_MESSAGE}
+                   ,ERR_STACKTRACE      = ${ERR_STACKTRACE}
+                   ,ERR_STACKTRACE_CL   = ${ERR_STACKTRACE_CL}
+                   ,ERR_PGM_NM          = ${ERR_PGM_NM}
+                   ,ERR_MTH_NM          = ${ERR_MTH_NM}
+                   ,ERR_LINE_NO         = ${ERR_LINE_NO}
+                   ,TRT_MESSAGE         = ${TRT_MESSAGE}
+                   ,TRT_CD              = ${TRT_CD}
+                   ,MOD_DT              = TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+                   ,MOD_USER_ID         = ${MOD_USER_ID}
+            WHERE   DAY_CD      = ${DAY_CD}
+            AND     CC_ID       = ${CC_ID}
+            AND     CC_PRC_YMD  = ${CC_PRC_YMD}
+            AND     CC_INS_CD   = ${CC_INS_CD}
+            AND     CC_LDIN_NTH = ${CC_LDIN_NTH}
+            AND     CC_PRC_SNO  = ${CC_PRC_SNO}
+            AND     CC_EXE_NTH  = ${CC_EXE_NTH}
+            AND     SITE_CD     = ${SITE_CD}
+        ]]>
+    </statement>
+    
+    <statement name="deleteCCERRByPk">
+        <![CDATA[
+            DELETE  FROM DEVON.SERE_CCERR_TB
+            WHERE   DAY_CD      = ${DAY_CD}
+            AND     CC_ID       = ${CC_ID}
+            AND     CC_PRC_YMD  = ${CC_PRC_YMD}
+            AND     CC_INS_CD   = ${CC_INS_CD}
+            AND     CC_LDIN_NTH = ${CC_LDIN_NTH}
+            AND     CC_PRC_SNO  = ${CC_PRC_SNO}
+            AND     CC_EXE_NTH  = ${CC_EXE_NTH}
+            AND     SITE_CD     = ${SITE_CD}
+        ]]>
+    </statement>
+    
+    <statement name="retrieveCCTimeout">
+        <![CDATA[
+            SELECT  TRAN_ID, TIMEOUT
+            FROM (
+                    SELECT  TRAN_ID, TIMEOUT
+                    FROM    DEVON.SGMC_TRAN_VER_TB
+                    WHERE   TRAN_ID = ${TRAN_ID}
+                    AND     SITE_CD = ${SITE_CD}
+                    ORDER BY LINK_ID DESC, LINK_VER DESC
+                   )
+            WHERE   ROWNUM = 1;
+        ]]>
+    </statement>
+
+    <!-- ================================================================================================
+        TEST_CARD_NO
+    ================================================================================================== -->
+    <statement name="retrievePreBatchSample">
+        <![CDATA[
+            SELECT  SEQ
+                   ,CARD_NO
+                   ,AMT
+                   ,USE_TYPE
+            FROM DEVON.TEST_CARD_NO
+            WHERE ROWNUM <= 500
+            ORDER BY SEQ
+        ]]>
+    </statement>
+    
+    <statement name="insertPreBatchSample">
+        <![CDATA[
+            INSERT INTO DEVON.TEST_CARD_NO_RESULT
+            (
+                CC_ID
+               ,CC_PRC_YMD
+               ,CC_INS_CD
+               ,CC_LDIN_NTH
+               ,CC_EXE_NTH
+               ,PROC_SVC_ID
+               ,CC_PRC_SNO
+               ,SEQ
+               ,CARD_NO
+               ,AMT
+               ,NODE_NM
+               ,INST_NM
+            ) VALUES (
+                ${CC_ID}
+               ,${CC_PRC_YMD}
+               ,${CC_INS_CD}
+               ,${CC_LDIN_NTH}
+               ,${CC_EXE_NTH}
+               ,${PROC_SVC_ID}
+               ,${CC_PRC_SNO}
+               ,${SEQ}
+               ,${CARD_NO}
+               ,${AMT}
+               ,${NODE_NM}
+               ,${INST_NM}
+           )
+        ]]>
+    </statement>
+    <!--
+    <statement name="retrieveCcProcCntFor10Min">
+        <![CDATA[
+            SELECT  SUM(NORMPROC_NO + ERRPROC_NO)                             "CNT"
+                   ,TO_CHAR(SYSDATE-(10/(24*60)), 'YYYYMMDDHH24')
+                    || TRUNC(TO_CHAR(SYSDATE-(10/(24*60)), 'MI') / 10) || '0' "SRCH_STRT_DT"
+                   ,TO_CHAR(SYSDATE, 'YYYYMMDDHH24')
+                    || TRUNC(TO_CHAR(SYSDATE, 'MI') / 10) || '0'              "SRCH_END_DT"
+            FROM    DEVON.SERE_CCSVCMGMT_TB
+            WHERE   CC_PRC_YMD = ${CC_PRC_YMD}
+            AND     PROCEND_DT > TO_CHAR(SYSDATE-(10/(24*60)), 'YYYYMMDDHH24')
+                                 || TRUNC(TO_CHAR(SYSDATE-(10/(24*60)), 'MI') / 10) || '0'
+            AND     PROCEND_DT < TO_CHAR(SYSDATE, 'YYYYMMDDHH24')
+                                 || TRUNC(TO_CHAR(SYSDATE, 'MI') / 10) || '0'
+        ]]>
+    </statement>
+    -->
+    
+    <statement name="retrieveCcProcCnt">
+        <![CDATA[
+            SELECT  TO_CHAR(TO_DATE(${CC_PRC_YMD} || ${STRT_TM}, 'YYYY-MM-DD HH24:MI:SS'), 'YYYY-MM-DD HH24:MI:SS')
+                    || '#|@'|| NVL(SUM(NORMPROC_NO + ERRPROC_NO),0) || '#|@' || ${GUBUN} AS "LINE"
+            FROM    DEVON.SERE_CCSVCMGMT_TB
+            WHERE   PROCEND_DT > ${CC_PRC_YMD} || ${STRT_TM} || '000'
+            AND     PROCEND_DT < ${CC_PRC_YMD} || ${END_TM}  || '000'
+        ]]>
+    </statement>
+
+    <statement name="retrieveCcProcCntForDay">
+        <![CDATA[
+            SELECT  TO_CHAR(TO_DATE(${CC_PRC_YMD}, 'YYYY-MM-DD'), 'YYYY-MM-DD')
+                    || '#|@'|| NVL(SUM(NORMPROC_NO + ERRPROC_NO),0) || '#|@' || ${GUBUN} AS "LINE"
+            FROM    DEVON.SERE_CCTTZ_TB
+            WHERE   SUBSTR(PROCSTRT_DT, 1, 8) = ${CC_PRC_YMD}
+        ]]>
+    </statement>
+
+    <statement name="retrieveCcProcMaxDay">
+        <![CDATA[
+            SELECT  SUBSTR(PROCSTRT_DT, 1, 8)             CC_PRC_YMD
+                   ,NVL(SUM(NORMPROC_NO + ERRPROC_NO), 0) CNT
+            FROM    DEVON.SERE_CCTTZ_TB
+            WHERE SUBSTR(PROCSTRT_DT, 1, 8) >='20190916' 
+            GROUP BY SUBSTR(PROCSTRT_DT, 1, 8)
+            ORDER BY CNT DESC
+        ]]>
+    </statement>
+<!--
+    <statement name="retrieveCcProcCntFor1Hour">
+        <![CDATA[
+            SELECT  SUM(NORMPROC_NO + ERRPROC_NO)                   "CNT"
+                   ,TO_CHAR(SYSDATE-(1/24), 'YYYYMMDDHH24') || '00' "SRCH_STRT_DT"
+                   ,TO_CHAR(SYSDATE, 'YYYYMMDDHH24')        || '00' "SRCH_END_DT"
+            FROM    DEVON.SERE_CCSVCMGMT_TB
+            WHERE   CC_PRC_YMD = ${CC_PRC_YMD}
+            AND     PROCEND_DT > TO_CHAR(SYSDATE-(1/24), 'YYYYMMDDHH24') || '0000000'
+            AND     PROCEND_DT < TO_CHAR(SYSDATE,        'YYYYMMDDHH24') || '0000000'
+        ]]>
+    </statement>
+    
+    <statement name="retrieveCcProcCntFor1Day">
+        <![CDATA[
+            SELECT  SUM(NORMPROC_NO + ERRPROC_NO) "CNT"
+                   ,${CC_PRC_YMD} || '000000000'  "SRCH_STRT_DT"
+                   ,${CC_PRC_YMD} || '235959999'  "SRCH_END_DT"
+            FROM    DEVON.SERE_CCTTZ_TB
+            WHERE   CC_PRC_YMD = ${CC_PRC_YMD}
+        ]]>
+    </statement>
+-->
+    <statement name="insertCcProc">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_CCPROC_TB
+            (
+                DAY_CD
+               ,CC_PRC_YMD
+               ,SRCH_TYPE
+               ,SRCH_STRT_DT
+               ,SRCH_END_DT
+               ,CNT
+               ,MOD_DT
+               ,REG_DT
+               ,MOD_USER_ID
+               ,REG_USER_ID
+            ) VALUES
+            (
+                SUBSTR(${CC_PRC_YMD}, 7, 2)
+               ,${CC_PRC_YMD}
+               ,${SRCH_TYPE}
+               ,${SRCH_STRT_DT}
+               ,${SRCH_END_DT}
+               ,${CNT}
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,${MOD_USER_ID}
+               ,${REG_USER_ID}
+            )
+        ]]>
+    </statement>
+        <statement name="updateLimitedMaxThreadCnt">
+        <![CDATA[
+             UPDATE DEVON.SERE_JOBNODE_TB 
+                SET SENT_NO_LMT = ${SENT_NO_LMT}/12,
+                        MOD_DT      = TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3') 
+            WHERE CC_INST_TY = 'J'
+        ]]>
+    </statement>
+
+    <!--
+    ================================================================================================
+    *** =============================<<<<< 센터컷 유량제어용 쿼리 >>>>>=============================
+    ================================================================================================
+    -->
+    <!--
+    ================================================================================================
+    *** SERE_FWCONFIG_TB : 센터컷 유량제어 상태 갱신 (VALUE='Y' OR 'N')
+    ================================================================================================
+    -->
+    <statement name="updateFWCONFIGByPk">
+		<![CDATA[
+			UPDATE  DEVON.SERE_FWCONFIG_TB
+			   SET  VALUE   = ${VALUE}
+			     ,  MOD_DT  = TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+			     ,  MODUSER_ID = ${MODUSER_ID}
+			 WHERE  KEY     = ${KEY}
+			   AND  SITE_CD = ${SITE_CD}
+		]]>
+    </statement>
+
+    <!--
+    ================================================================================================
+    *** SERE_FWCONFIG_TB : 센터컷 유량제어 상태 검색 (KEY='CC_FLOWCONTROL_YN')
+    ================================================================================================
+    -->
+    <statement name="selectFWCONFIGByPk">
+        <![CDATA[
+            SELECT  VALUE
+                 ,  MOD_DT
+              FROM  DEVON.SERE_FWCONFIG_TB
+             WHERE  KEY     = ${KEY}
+               AND  SITE_CD = ${SITE_CD}
+        ]]>
+    </statement>
+
+    <!--
+    ================================================================================================
+    *** SERE_CCMAIN_TB -> SERE_CCMAIN_TB_CTL : 센터컷 기본정보 메인테이블에서 _CTL로 백업
+    ================================================================================================
+    -->
+    <statement name="insertUpdateMergeCCMAINCTL">
+        <![CDATA[
+            MERGE    INTO  DEVON.SERE_CCMAIN_TB_CTL C
+                    USING  DEVON.SERE_CCMAIN_TB O
+                       ON (O.CC_ID      = C.CC_ID)
+             WHEN  MATCHED THEN
+                   UPDATE
+                      SET  C.PROCSVC_NO = CASE WHEN ((SELECT  VALUE
+                                                        FROM  DEVON.SERE_FWCONFIG_TB
+                                                       WHERE  KEY     = 'CC_FLOWCONTROL_YN'
+                                                         AND  SITE_CD = 'kbcard_szc') = 'Y')
+                                               THEN C.PROCSVC_NO /*유량제어 진행*/
+                                               ELSE O.PROCSVC_NO /*유량제어 완료*/
+                                          END  
+                        ,  C.MOD_DT     = TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+             WHEN  NOT MATCHED THEN
+                   INSERT (C.CC_ID
+                        ,  C.CC_NM
+                        ,  C.TRAN_ID
+                        ,  C.SCHDCLSS_TY
+                        ,  C.PROCSVC_NO
+                        ,  C.PROCTBL_ID
+                        ,  C.EXECFBDSTR_TM
+                        ,  C.EXECFBDEND_TM
+                        ,  C.ERRSTOP_YN
+                        ,  C.PREPRTRAN_ID
+                        ,  C.PSTPRTRAN_ID
+                        ,  C.PREPREXEC_YN
+                        ,  C.PSTPREXEC_YN
+                        ,  C.ERR_STP_YN
+                        ,  C.FNS_PTIM_RE_EXE_YN
+                        ,  C.BWK_ERR_STS_ED_YN
+                        ,  C.LST_LDIN_NTH_CLLG_YN
+                        ,  C.TR_BRCD
+                        ,  C.TR_EMPNO
+                        ,  C.GROUP_CNT
+                        ,  C.MOD_DT
+                        ,  C.REG_DT
+                        ,  C.MOD_USER_ID
+                        ,  C.REG_USER_ID
+                        ,  C.SITE_CD)
+                   VALUES (O.CC_ID
+                        ,  O.CC_NM
+                        ,  O.TRAN_ID
+                        ,  O.SCHDCLSS_TY
+                        ,  O.PROCSVC_NO
+                        ,  O.PROCTBL_ID
+                        ,  O.EXECFBDSTR_TM
+                        ,  O.EXECFBDEND_TM
+                        ,  O.ERRSTOP_YN
+                        ,  O.PREPRTRAN_ID
+                        ,  O.PSTPRTRAN_ID
+                        ,  O.PREPREXEC_YN
+                        ,  O.PSTPREXEC_YN
+                        ,  O.ERR_STP_YN
+                        ,  O.FNS_PTIM_RE_EXE_YN
+                        ,  O.BWK_ERR_STS_ED_YN
+                        ,  O.LST_LDIN_NTH_CLLG_YN
+                        ,  O.TR_BRCD
+                        ,  O.TR_EMPNO
+                        ,  O.GROUP_CNT
+                        ,  TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+                        ,  O.REG_DT
+                        ,  O.MOD_USER_ID
+                        ,  O.REG_USER_ID
+                        ,  O.SITE_CD)
+        ]]>
+    </statement>
+
+    <!--
+    ================================================================================================
+    *** SERE_CCMAIN_TB : 센터컷 기본정보 프로세스 1로 갱신
+    *** ("${COND}.EQ,NOTIN") : 제어 센터컷ID 제외한 나머지 전체 1로 세트
+    *** ("${COND}.EQ,EQUIN") : 제어 센터컷ID 1로 세트
+    *** ("${COND}.EQ,NONE")  : 전체 센터컷ID 프로세스 1로 세트
+    ================================================================================================
+    -->
+    <statement name="updateCCMAINByCondCCID">
+        <![CDATA[
+            UPDATE  DEVON.SERE_CCMAIN_TB T
+               SET  PROCSVC_NO = 1
+             WHERE  1 = 1 
+            {#AND}
+        ]]>
+        <append where="false" condition="${COND}.EQ,NOTIN" id="#AND">
+            <![CDATA[
+                AND  CC_ID NOT IN(${CC_ID})
+                AND  EXISTS (SELECT  1
+                               FROM  DEVON.SERE_CCMAIN_TB_CTL
+                              WHERE  CC_ID = T.CC_ID)
+            ]]>
+        </append>
+        <append where="false" condition="${COND}.EQ,EQUIN" id="#AND">
+            <![CDATA[
+                AND  EXISTS (SELECT  1
+                               FROM  DEVON.SERE_CCMAIN_TB_CTL
+                              WHERE  CC_ID = T.CC_ID)
+            ]]>
+        </append>
+        <append where="false" condition="${COND}.EQ,NONE"  id="#AND">
+            <![CDATA[ /* 조건없음 */
+            ]]>
+        </append>
+        <append where="false" condition="${COND}.NE,NOTIN&amp;${COND}.NE,EQUIN&amp;${COND}.NE,NONE"  id="#AND">
+            <![CDATA[ {COND} error /* 오류발행 */ ${COND}
+            ]]>
+        </append>
+                
+    </statement>
+
+    <!--
+    ================================================================================================
+    *** SERE_CCMAIN_TB_CTL -> SERE_CCMAIN_TB : 센터컷 기본정보 프로세스를 백업정보로 부터 해당 센터컷ID만 복원
+    *** (센터컷 유량제어 상태라면 해당 건만 원복, 백업에서 센터컷 기본정보 복원 (CCMAIN_TB_CTL -> CCMAIN_TB))
+    ================================================================================================
+    -->
+    <statement name="updateCCMAINByEquCCID">
+        <![CDATA[
+            UPDATE  DEVON.SERE_CCMAIN_TB
+               SET  PROCSVC_NO = (SELECT  PROCSVC_NO
+                                    FROM  DEVON.SERE_CCMAIN_TB_CTL B
+                                   WHERE  B.CC_ID = ${CC_ID})
+             WHERE  CC_ID = ${CC_ID}
+        ]]>
+    </statement>
+
+    <!--
+    ================================================================================================
+    *** SERE_CCMAIN_TB : 센터컷 유량제어가 전체 끝나면 백업에서 센터컷 기본정보 전체 복원 (CCMAIN_TB_CTL -> CCMAIN_TB)
+    ================================================================================================
+    -->
+    <statement name="updateCCMAINByExistCtl">
+        <![CDATA[
+            UPDATE  DEVON.SERE_CCMAIN_TB O
+               SET  PROCSVC_NO = CASE WHEN ((SELECT  VALUE
+                                               FROM  DEVON.SERE_FWCONFIG_TB
+                                               WHERE  KEY     = 'CC_FLOWCONTROL_YN'
+                                                 AND  SITE_CD = 'kbcard_szc') = 'Y'
+                                                 AND (SELECT  PROCSVC_NO
+                                                        FROM  DEVON.SERE_CCMAIN_TB_CTL
+                                                       WHERE  CC_ID = O.CC_ID) > 1)
+                                      THEN  (SELECT  PROCSVC_NO
+                                               FROM  DEVON.SERE_CCMAIN_TB_CTL
+                                              WHERE  CC_ID = O.CC_ID)
+                                      ELSE   PROCSVC_NO
+                                 END
+             WHERE  EXISTS (SELECT  1
+                              FROM  DEVON.SERE_CCMAIN_TB_CTL
+                             WHERE  CC_ID = O.CC_ID)
+        ]]>
+    </statement>
+
+    <!--
+    ================================================================================================
+    *** SERE_CCMAIN_TB,SERE_CCMAIN_TB_CTL : 센터컷 기본정보,백업정보 정보 검색
+    ================================================================================================
+    -->
+    <statement name="selectCCMAINByAll">
+        <![CDATA[
+            SELECT  TRIM('{#TBLNM}') AS TBL_NM
+                 ,  ROWNUM           AS ROW_NO
+                 ,  T.*
+              FROM (SELECT  CC_ID
+                   ,TRIM(CC_NM)
+                   ,TRAN_ID
+                   ,SCHDCLSS_TY
+                   ,PROCSVC_NO
+                   ,PROCTBL_ID
+                   ,EXECFBDSTR_TM
+                   ,EXECFBDEND_TM
+                   ,ERRSTOP_YN
+                   ,PREPRTRAN_ID
+                   ,PSTPRTRAN_ID
+                   ,PREPREXEC_YN
+                   ,PSTPREXEC_YN
+                   ,ERR_STP_YN
+                   ,FNS_PTIM_RE_EXE_YN
+                   ,BWK_ERR_STS_ED_YN
+                   ,LST_LDIN_NTH_CLLG_YN
+                   ,TR_BRCD
+                   ,TR_EMPNO
+                   ,GROUP_CNT
+                   ,MOD_DT
+                   ,REG_DT
+                   ,MOD_USER_ID
+                   ,REG_USER_ID
+                   ,SITE_CD
+              FROM {#TBLNM}
+             ORDER  BY CC_ID) T
+        ]]>
+        <append where="false" condition="${TBLNM}.EQ.SERE_CCMAIN_TB"     id="#TBLNM"><![CDATA[ DEVON.SERE_CCMAIN_TB ]]></append>
+        <append where="false" condition="${TBLNM}.EQ.SERE_CCMAIN_TB_CTL" id="#TBLNM"><![CDATA[ DEVON.SERE_CCMAIN_TB_CTL ]]></append>
+    </statement>
+
+    <!--
+    ================================================================================================
+    *** SERE_CCMAIN_TB,SERE_CCMAIN_TB_CTL : 센터컷 기본정보,백업정보 변경일시 최대값 검색
+    ================================================================================================
+    -->
+    <statement name="selectMaxModDtCCMAINByAll">
+        <![CDATA[
+            SELECT  TRIM('{#TBLNM}')                       AS TBL_NM
+                 ,  NVL(MAX(T.MOD_DT),'00010101000000000') AS MAX_MOD_DT
+              FROM (SELECT  MOD_DT
+                      FROM {#TBLNM}
+                     ORDER  BY CC_ID) T
+        ]]>
+        <append where="false" condition="${TBLNM}.EQ.SERE_CCMAIN_TB"     id="#TBLNM"><![CDATA[ DEVON.SERE_CCMAIN_TB ]]></append>
+        <append where="false" condition="${TBLNM}.EQ.SERE_CCMAIN_TB_CTL" id="#TBLNM"><![CDATA[ DEVON.SERE_CCMAIN_TB_CTL ]]></append>
+    </statement>
+
+    <!--
+    ================================================================================================
+    *** SERE_CCSVCMGMT_TB : 센터컷 유량제어 진입여부 완료 확인 (NO_PROC_CNT가 0이 되면 진입완료)
+    *** PROCSTAT_CD : CCConstants.java CCSVCMGMT_STCD_* 참조
+    ================================================================================================
+    -->
+    <statement name="selectCCSVCMGMTByGroupSTATCD">
+        <![CDATA[
+            SELECT  NVL(SUM(요청상태),0)                         AS NO_PROC_CNT
+                 ,  NVL(SUM(요청제외),0)                         AS PROC_CNT
+                 , (NVL(SUM(요청상태),0) + NVL(SUM(요청제외),0)) AS TOTAL_CNT
+              FROM (SELECT  CASE WHEN (PROCSTAT_CD IS     NULL   OR PROCSTAT_CD  = '01')
+                                 THEN  1
+                                 ELSE  0
+                             END AS 요청상태,
+                            CASE WHEN (PROCSTAT_CD IS NOT NULL  AND PROCSTAT_CD <> '01')
+                                 THEN  1
+                                 ELSE  0
+                             END AS 요청제외
+                      FROM  DEVON.SERE_CCSVCMGMT_TB
+                     WHERE  CC_ID      = ${CC_ID}
+                       AND  CC_PRC_YMD = ${CC_PRC_YMD}
+                       AND  SITE_CD    = ${SITE_CD})
+        ]]>
+    </statement>
+
+    <!--
+    ================================================================================================
+    *** SERE_JOBNODE_TB : 센터컷 쓰레드 정보 검색
+    ================================================================================================
+    -->
+    <statement name="selectUseAndMaxThreadCnt">
+        <![CDATA[
+            SELECT  NVL(SUM(SENT_NO_LMT),0)              AS SUM_SENT_NO_LMT
+                 ,  NVL(SUM(SENT_NO),0)                  AS SUM_SENT_NO
+                 ,  NVL(COUNT(1),0)                      AS INSTANCE_COUNT
+                 ,  NVL(MAX(MOD_DT),'00010101000000000') AS MAX_MOD_DT
+              FROM  DEVON.SERE_JOBNODE_TB
+             WHERE  SITE_CD    = ${SITE_CD}
+               AND  ENVR_TY    = ${ENVR_TY}
+               AND  TYPE_CD    = ${TYPE_CD}
+               AND  CC_INST_TY = 'J'
+        ]]>
+    </statement>
+
+    <!--
+    ================================================================================================
+    *** SERE_JOBNODE_TB : 센터컷 총쓰레드 정보 변경
+    ================================================================================================
+    -->
+    <statement name="updateLimitedMaxThreadByCCidx">
+        <![CDATA[
+             UPDATE DEVON.SERE_JOBNODE_TB T 
+                SET SENT_NO_LMT = ${SENT_NO_LMT} / (SELECT  COUNT(1)
+                                                      FROM  DEVON.SERE_JOBNODE_TB
+                                                     WHERE  SITE_CD    = T.SITE_CD
+                                                       AND  ENVR_TY    = T.ENVR_TY
+                                                       AND  TYPE_CD    = T.TYPE_CD
+                                                       AND  CC_INST_TY = T.CC_INST_TY)
+                 ,       MOD_DT = TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+             WHERE  SITE_CD     = ${SITE_CD}
+               AND  ENVR_TY     = ${ENVR_TY}
+               AND  TYPE_CD     = ${TYPE_CD}
+               AND  CC_INST_TY  = 'J'
+        ]]>
+    </statement>
+
+    <!--
+    ================================================================================================
+    *** SERE_CCREQ_TB_SEQ1~7 : 센터컷 시퀀스값 검색
+    ================================================================================================
+    -->
+    <statement name="selectCCREQNextval">
+        <![CDATA[
+            SELECT  TRIM('{#SEQNM}') AS SEQ_NM
+                 ,  {#SEQNM}.NEXTVAL AS SEQ_VAL
+              FROM  DUAL
+        ]]>
+        <append where="false" condition="${요일}.EQ.1"  id="#SEQNM"><![CDATA[ DEVON.SERE_CCREQ_TB_SEQ1]]></append>
+        <append where="false" condition="${요일}.EQ.2"  id="#SEQNM"><![CDATA[ DEVON.SERE_CCREQ_TB_SEQ2]]></append>
+        <append where="false" condition="${요일}.EQ.3"  id="#SEQNM"><![CDATA[ DEVON.SERE_CCREQ_TB_SEQ3]]></append>
+        <append where="false" condition="${요일}.EQ.4"  id="#SEQNM"><![CDATA[ DEVON.SERE_CCREQ_TB_SEQ4]]></append>
+        <append where="false" condition="${요일}.EQ.5"  id="#SEQNM"><![CDATA[ DEVON.SERE_CCREQ_TB_SEQ5]]></append>
+        <append where="false" condition="${요일}.EQ.6"  id="#SEQNM"><![CDATA[ DEVON.SERE_CCREQ_TB_SEQ6]]></append>
+        <append where="false" condition="${요일}.EQ.7"  id="#SEQNM"><![CDATA[ DEVON.SERE_CCREQ_TB_SEQ7]]></append>
+    </statement>
+
+    <!--
+    ================================================================================================
+    *** 센터컷 업무별 처리 현황 조회
+    ================================================================================================
+    -->
+    <statement name="retrieveCCPrcStatByAppId">
+        <![CDATA[
+            SELECT  Y.BIZ_CODE AS 어플리케이션코드,
+                    Z.CTGR_NM AS 어플리케이션코드명_V200,
+                    DECODE(Y.MIN_STRT_DT,'99991231000000000',' ',Y.MIN_STRT_DT) AS 센터컷작업시작일시,
+                    DECODE(Y.MAX_END_DT,'99991231000000000',' ',Y.MAX_END_DT) AS 센터컷작업종료일시,
+                    Y.TOT AS 센터컷처리대상건수,
+                    Y.ERR AS 센터컷오류처리건수,
+                    Y.SUC AS 센터컷정상처리건수,
+                    Y.NOC AS 센터컷미처리건수,
+                    Y.SUC + Y.ERR + Y.NOC AS 센터컷처리완료건수_N12,
+                    ROUND((((Y.SUC + Y.ERR + Y.NOC) / CASE WHEN Y.TOT = 0 THEN 1 ELSE Y.TOT END) * 100), 3) AS 센터컷처리율_N10_3
+              FROM (SELECT  SUBSTR(A.CC_ID, 2 , 3) AS BIZ_CODE,
+                            MIN(DECODE(TRIM(B.PROCSTRT_DT),null,'99991231000000000',B.PROCSTRT_DT)) AS MIN_STRT_DT,
+                            MAX(DECODE(TRIM(B.PROCEND_DT),null,'99991231000000000',B.PROCEND_DT)) AS MAX_END_DT,
+                            SUM(B.ALLPROC_NO) AS TOT,
+                            SUM(B.ERRPROC_NO) AS ERR,
+                            SUM(B.NORMPROC_NO) AS SUC,
+                            SUM(B.NOTPROC_NO) AS NOC
+                      FROM  DEVON.SERE_CCTTZ_TB A ,
+                            DEVON.SERE_CCSVCMGMT_TB B
+                     WHERE  A.CC_PRC_YMD = ${기준년월일}
+                       AND  A.CC_ID = B.CC_ID
+                       AND  A.CC_PRC_YMD = B.CC_PRC_YMD
+                       AND  A.CC_INS_CD = B.CC_INS_CD
+                       AND  A.CC_LDIN_NTH = B.CC_LDIN_NTH
+                     GROUP  BY SUBSTR( A.CC_ID , 2 , 3) ) Y,
+                    DEVON.SGMC_CATEGORY_TB Z
+             WHERE  Y.BIZ_CODE = Z.CTGR_ENG_NM
+        ]]>
+    </statement>
+
+    <!--
+    ================================================================================================
+    *** 센터컷ID별 처리 현황 조회
+    ================================================================================================
+    -->
+    <statement name="retrieveCCPrcStateByCCId">
+        <![CDATA[
+            SELECT  Y.센터컷ID,
+                    Y.기관코드,
+                    Y.적재회차,
+                    Z.CC_NM AS 센터컷명_V1000,
+                    DECODE(Y.MIN_STRT_DT,'99991231000000000',' ',Y.MIN_STRT_DT) AS 센터컷작업시작일시,
+                    DECODE(Y.MAX_END_DT,'99991231000000000',' ',Y.MAX_END_DT) AS 센터컷작업종료일시,
+                    Y.센터컷처리대상건수,
+                    Y.센터컷오류처리건수,
+                    Y.센터컷정상처리건수,
+                    Y.센터컷미처리건수,
+                    ROUND(DECODE(Y.PRC_END_TOT_SEC,0,0,(Y.PRC_END_TOT_REC/Y.PRC_END_TOT_SEC)),3) AS 센터컷초당처리건수_N10_3,
+                    Y.센터컷처리율_N10_3,
+                    Y.센터컷처리완료건수_N12,
+                    Y.센터컷처리상태코드_V2,
+                    Y.센터컷처리상태내용_V30
+              FROM( SELECT  /*+ INDEX(A SERE_CCTTZ_TB_PK) */
+                            A.CC_ID AS 센터컷ID,
+                            A.CC_INS_CD AS 기관코드,
+                            TO_CHAR(A.CC_LDIN_NTH) AS 적재회차,
+                            MIN(DECODE(TRIM(B.PROCSTRT_DT),null,'99991231000000000',B.PROCSTRT_DT)) AS MIN_STRT_DT,
+                            MAX(DECODE(TRIM(B.PROCEND_DT),null,'99991231000000000',B.PROCEND_DT)) AS MAX_END_DT,
+                            SUM(B.ALLPROC_NO) AS 센터컷처리대상건수,
+                            SUM(B.ERRPROC_NO) AS 센터컷오류처리건수,
+                            SUM(B.NORMPROC_NO) AS 센터컷정상처리건수,
+                            SUM(B.NOTPROC_NO) AS 센터컷미처리건수,
+                            SUM(CASE B.PROCSTAT_CD
+                                     WHEN '03' THEN ROUND((TO_DATE(SUBSTR(B.PROCEND_DT, 0, 14), 'YYYYMMDDHH24MISS') -
+                                                           TO_DATE(SUBSTR(B.PROCSTRT_DT, 0, 14), 'YYYYMMDDHH24MISS')) * 24 * 60 * 60)
+                                     WHEN '02' THEN ROUND((TO_DATE(TO_CHAR(SYSDATE,'YYYYMMDDHH24MISS'),'YYYYMMDDHH24MISS') -
+                                                           TO_DATE(SUBSTR(B.PROCSTRT_DT, 0, 14), 'YYYYMMDDHH24MISS')) * 24 * 60 * 60)
+                                               ELSE 0
+                                END) AS PRC_END_TOT_SEC,
+                            SUM(CASE B.PROCSTAT_CD
+                                     WHEN '03' THEN (B.ALLPROC_NO)
+                                     WHEN '02' THEN (B.ERRPROC_NO + B.NORMPROC_NO + B.NOTPROC_NO)
+                                               ELSE 0
+                                END) AS PRC_END_TOT_REC,
+                            ROUND((((SUM(B.NORMPROC_NO) + SUM(B.NOTPROC_NO) + SUM(B.ERRPROC_NO)) /
+                              CASE WHEN SUM(B.ALLPROC_NO) = 0 THEN 1 ELSE SUM(B.ALLPROC_NO) END) * 100),3) AS 센터컷처리율_N10_3,
+                            SUM(B.ERRPROC_NO + B.NORMPROC_NO + B.NOTPROC_NO) AS 센터컷처리완료건수_N12,
+                            A.PROCSTAT_CD AS 센터컷처리상태코드_V2,
+                            (CASE A.PROCSTAT_CD
+                                  WHEN '00' THEN '적재완료'
+                                  WHEN '01' THEN '미처리'
+                                  WHEN '02' THEN '처리중'
+                                  WHEN '03' THEN '완료'
+                                  WHEN '07' THEN '일시정지'
+                                  WHEN '08' THEN '중지'
+                                  WHEN '09' THEN '오류'
+                                  WHEN '10' THEN '대기'
+                                  WHEN '81' THEN '그룹핑중'
+                                  WHEN '91' THEN '적재중,적재완료'
+                                  WHEN '98' THEN '적재오류발생'
+                                  WHEN '99' THEN '적재실패'
+                                            ELSE A.PROCSTAT_CD
+                             END) AS 센터컷처리상태내용_V30
+                      FROM  DEVON.SERE_CCTTZ_TB A,
+                            DEVON.SERE_CCSVCMGMT_TB B
+                     WHERE  A.CC_ID = B.CC_ID
+                       AND  A.CC_PRC_YMD = B.CC_PRC_YMD
+                       AND  A.CC_PRC_YMD = {#CC_PRC_YMD}
+                       AND  A.CC_INS_CD = B.CC_INS_CD
+                       AND  A.CC_LDIN_NTH = B.CC_LDIN_NTH
+                       AND  {#CC_APPL_COND}
+                     GROUP  BY
+                            A.CC_ID,
+                            A.CC_PRC_YMD,
+                            A.CC_INS_CD,
+                            A.CC_LDIN_NTH,
+                            A.PROCSTAT_CD) Y,
+                    DEVON.SERE_CCMAIN_TB Z
+             WHERE  Y.센터컷ID = Z.CC_ID
+        ]]>
+        <append where="false" condition="${기준년월일}.NONE"    id="#CC_PRC_YMD"><![CDATA[ TO_CHAR(SYSDATE,'YYYYMMDD') ]]></append>
+        <append where="false" condition="${기준년월일}.NOTNONE" id="#CC_PRC_YMD"><![CDATA[ ${기준년월일} ]]></append>
+        <append where="false" condition="${어플리케이션코드}.NONE"    id="#CC_APPL_COND"><![CDATA[ 1 = 1 ]]></append>
+        <append where="false" condition="${어플리케이션코드}.NOTNONE" id="#CC_APPL_COND"><![CDATA[ SUBSTR(A.CC_ID,2,3) = ${어플리케이션코드} ]]></append>
+    </statement>
+
+    <!--
+    ================================================================================================
+    *** 센터컷 종료 예상 시간 조회
+    NULL    : null 인 경우
+    NOTNULL : null 이 아닌 경우
+    NONE    : null 이거나 빈 스트링인 경우
+    NOTNONE : null 이 아니고 빈 스트링이 아닌 경우
+    ================================================================================================
+    -->
+    <statement name="retrieveCCEndExpTm">
+        <![CDATA[
+            SELECT  Y.처리년월일,
+                    Y.센터컷ID,
+                    Y.기관코드,
+                    Y.적재회차,
+                    Z.CC_NM AS 센터컷명_V1000,
+                    Y.PRC_SVC_GRP_CNT AS 센터컷처리스레드개수_N12,
+                    Y.TOT AS 센터컷처리대상건수,
+                    Y.SUC AS 센터컷정상처리건수,
+                    Y.ALL_END_REC_CNT AS 센터컷처리완료건수_N12,
+                    Y.ERR AS 센터컷오류처리건수,
+                    Y.NOC AS 센터컷미처리건수,
+                    ROUND(((Y.ALL_END_REC_CNT / DECODE(Y.TOT,0,1,Y.TOT)) * 100),3) AS 센터컷처리율_N10_3,
+                    Y.CC_PRC_TG_AMT AS 센터컷처리대상금액,
+                    Y.CC_PRC_AMT AS 센터컷처리금액,
+                    Y.CC_PTL_PRC_AMT AS 센터컷부분처리금액,
+                    Y.CC_PRC_FAL_AMT AS 센터컷처리오류금액,
+                    DECODE(Y.MIN_STRT_DT,'99991231000000000',' ',Y.MIN_STRT_DT) AS 센터컷작업시작일시,
+                    DECODE(Y.PRC_SVC_GRP_CNT,0,' ',DECODE(Y.PRC_END_REC_CNT,0,' ',DECODE(Y.PRC_END_TOT_SEC,0,' ',
+                      TO_CHAR((CURRENT_TIMESTAMP + 
+                      (DECODE(Y.ALL_END_REC_CNT,0,0, (Y.ALL_REM_REC_CNT /
+                            ((Y.PRC_END_REC_CNT / Y.PRC_END_TOT_SEC) * Y.PRC_SVC_GRP_CNT))) / (24*60*60))) ,'YYYYMMDDHH24MISS') || '000'))) AS 센터컷종료예상시간_V17,
+                    TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3') AS 조회기준일시,
+                    DECODE(Y.PRC_SVC_GRP_CNT,0,0,DECODE(Y.PRC_END_REC_CNT,0,0,DECODE(Y.PRC_END_TOT_SEC,0,0,
+                      ROUND(DECODE(Y.ALL_END_REC_CNT,0,0,(Y.ALL_REM_REC_CNT / ((Y.PRC_END_REC_CNT / Y.PRC_END_TOT_SEC) * Y.PRC_SVC_GRP_CNT))))))) AS 예상소요시간,
+                    DECODE(Y.PRC_END_REC_CNT,0,0,DECODE(Y.PRC_END_REC_CNT,0,0,DECODE(Y.PRC_END_TOT_SEC,0,0,
+                      ROUND(DECODE(Y.ALL_END_REC_CNT,0,0,(Y.PRC_END_REC_CNT / Y.PRC_END_TOT_SEC)),3)))) AS 초당처리건수
+              FROM  (SELECT  /*+ INDEX(A SERE_CCTTZ_TB_PK) */
+                             A.CC_PRC_YMD AS 처리년월일,
+                             A.CC_ID AS 센터컷ID,
+                             A.CC_INS_CD AS 기관코드,
+                             TO_CHAR(A.CC_LDIN_NTH) AS 적재회차,
+                             MIN(DECODE(TRIM(B.PROCSTRT_DT),null,'99991231000000000',B.PROCSTRT_DT)) AS MIN_STRT_DT,
+                             MAX(DECODE(TRIM(B.PROCEND_DT),null,'99991231000000000',B.PROCEND_DT)) AS MAX_END_DT,
+                             SUM(B.ALLPROC_NO) AS TOT,
+                             SUM(B.NORMPROC_NO) AS SUC,
+                             SUM(B.ERRPROC_NO) AS ERR,
+                             SUM(B.NOTPROC_NO) AS NOC,
+                             SUM(B.NORMPROC_NO+B.ERRPROC_NO+B.NOTPROC_NO) AS ALL_END_REC_CNT,
+                             SUM(B.ALLPROC_NO-B.NORMPROC_NO-B.ERRPROC_NO-B.NOTPROC_NO) AS ALL_REM_REC_CNT,
+                             SUM(B.CC_PRC_TG_AMT) AS CC_PRC_TG_AMT,
+                             SUM(B.CC_PRC_AMT) AS CC_PRC_AMT,
+                             SUM(B.CC_PTL_PRC_AMT) AS CC_PTL_PRC_AMT,
+                             SUM(B.CC_PRC_FAL_AMT) AS CC_PRC_FAL_AMT,
+                             SUM(CASE B.PROCSTAT_CD
+                                      WHEN '03' THEN ROUND((TO_DATE(SUBSTR(B.PROCEND_DT, 0, 14), 'YYYYMMDDHH24MISS') -
+                                                            TO_DATE(SUBSTR(B.PROCSTRT_DT, 0, 14), 'YYYYMMDDHH24MISS')) * 24 * 60 * 60)
+                                      WHEN '02' THEN DECODE(SUBSTR(B.PROCSTRT_DT,0,8),TO_CHAR(SYSDATE,'YYYYMMDD'),ROUND((TO_DATE(TO_CHAR(SYSDATE,'YYYYMMDDHH24MISS'),'YYYYMMDDHH24MISS') -
+                                                                                                                         TO_DATE(SUBSTR(B.PROCSTRT_DT, 0, 14), 'YYYYMMDDHH24MISS')) * 24 * 60 * 60),0)
+                                                ELSE 0
+                                 END) AS PRC_END_TOT_SEC,
+                             SUM(CASE WHEN B.PROCSTAT_CD IN('03') THEN (B.NORMPROC_NO + B.ERRPROC_NO + B.NOTPROC_NO)
+                                      WHEN B.PROCSTAT_CD IN('02') THEN DECODE(SUBSTR(B.PROCSTRT_DT,0,8),TO_CHAR(SYSDATE,'YYYYMMDD'),(B.NORMPROC_NO + B.ERRPROC_NO + B.NOTPROC_NO),0)
+                                                                  ELSE 0
+                                 END) AS PRC_END_REC_CNT,
+                             COUNT(1) AS PRC_TOT_GRP_CNT,
+                             SUM(DECODE(B.PROCSTAT_CD,'03',1,0)) AS PRC_END_GRP_CNT,
+                             SUM(DECODE(B.PROCSTAT_CD,'02',1,0)) AS PRC_SVC_GRP_CNT
+                       FROM  DEVON.SERE_CCTTZ_TB A ,
+                             DEVON.SERE_CCSVCMGMT_TB B
+                      WHERE  {#CC_PRC_YMD_COND}
+                        AND  {#CC_APPL_COND}
+                        AND  A.CC_ID = {#CC_ID}
+                        AND  A.CC_PRC_YMD = B.CC_PRC_YMD
+                        AND  A.CC_INS_CD = B.CC_INS_CD
+                        AND  A.CC_LDIN_NTH = B.CC_LDIN_NTH
+                        AND  A.PROCSTAT_CD NOT IN('03')
+                      GROUP  BY
+                             A.CC_ID,
+                             A.CC_PRC_YMD,
+                             A.CC_INS_CD,
+                             A.CC_LDIN_NTH,
+                             A.PROCSTAT_CD) Y,
+                    DEVON.SERE_CCMAIN_TB Z
+             WHERE  Y.센터컷ID = Z.CC_ID
+        ]]>
+        <append where="false" condition="${센터컷ID}.NONE"    id="#CC_ID"><![CDATA[ B.CC_ID  ]]></append>
+        <append where="false" condition="${센터컷ID}.NOTNONE" id="#CC_ID"><![CDATA[ ${센터컷ID} ]]></append>
+        <append where="false" condition="${기준년월일}.NONE"    id="#CC_PRC_YMD_COND"><![CDATA[ A.CC_PRC_YMD BETWEEN TO_CHAR(SYSDATE-3,'YYYYMMDD') AND TO_CHAR(SYSDATE,'YYYYMMDD') ]]></append>
+        <append where="false" condition="${기준년월일}.NOTNONE" id="#CC_PRC_YMD_COND"><![CDATA[ A.CC_PRC_YMD = ${기준년월일} ]]></append>
+        <append where="false" condition="${어플리케이션코드}.NONE"    id="#CC_APPL_COND"><![CDATA[ 1 = 1 ]]></append>
+        <append where="false" condition="${어플리케이션코드}.NOTNONE" id="#CC_APPL_COND"><![CDATA[ SUBSTR(A.CC_ID,2,3) = ${어플리케이션코드} ]]></append>
+    </statement>
+
+    <!--
+    ================================================================================================
+    *** 센터컷 자동 재기동 인스턴스  목록
+    ================================================================================================
+    -->
+    <statement name="retrieveCcRestartInstNmList">
+        <![CDATA[
+            SELECT  NODE_NM
+                 ,  INST_NM
+                 ,  CC_INST_TY
+                 ,  ERRSTAT_TY
+                 ,  SENT_NO
+                 ,  SENT_NO_LMT
+                 ,  TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3') AS CURRENT_DT
+              FROM  DEVON.SERE_JOBNODE_TB
+             WHERE  SITE_CD    = ${SITE_CD}
+               AND  ENVR_TY    = ${ENVR_TY}
+               AND  TYPE_CD    = ${TYPE_CD}
+            /* AND  CC_INST_TY = 'J' */
+               AND  NOT EXISTS(SELECT 'RUNNING' AS STS
+                                 FROM  DEVON.SERE_CCTTZ_TB
+                                WHERE  CC_PRC_YMD BETWEEN TO_CHAR(TO_DATE(${CC_PRC_YMD})-3,'YYYYMMDD') 
+                                                      AND TO_CHAR(TO_DATE(${CC_PRC_YMD}),'YYYYMMDD')
+                                  AND  PROCSTAT_CD IN ('02','10')  /* '02':처리중,'10':대기 */
+                                  AND  ROWNUM = 1
+                                UNION  ALL
+                               SELECT 'RUNNING' AS STS
+                                 FROM  DEVON.SERE_JOBNODE_TB
+                                WHERE  SITE_CD    = ${SITE_CD}
+                                  AND  ENVR_TY    = ${ENVR_TY}
+                                  AND  TYPE_CD    = ${TYPE_CD}
+                                  AND  CC_INST_TY = 'J'
+                                  AND  SENT_NO    >  0
+                                  AND  ROWNUM = 1)
+             ORDER  BY NODE_NM,INST_NM
+        ]]>
+    </statement>
+</statements>

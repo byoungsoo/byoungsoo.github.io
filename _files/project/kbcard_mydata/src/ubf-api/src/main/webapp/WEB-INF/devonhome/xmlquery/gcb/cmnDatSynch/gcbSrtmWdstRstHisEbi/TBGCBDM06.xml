@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="regtGcbSrtmWdstRstHis" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::11.공통데이터동기화::GCB준실시간배포결과내역Ebi::GCB준실시간배포결과내역Dao::GCB준실시간배포결과내역등록" >
+		<![CDATA[
+			INSERT /*+ 위상규::/gcb/cmnDatSynch/gcbSrtmWdstRstHisEbi/TBGCBDM06/regtGcbSrtmWdstRstHis */
+			  INTO INSTC.TBGCBDM06
+			(
+			   작업기준년월일
+			 , 공통데이터테이블명
+			 , 배포작업처리회차
+			 , 배포작업시스템식별구분코드
+			 , 배포작업결과구분코드
+			 , 배포재처리횟수
+			 , 배포데이터송신년월일
+			 , 배포데이터송신시각
+			 , 배포결과수신년월일
+			 , 배포작업종료시각
+			 , 배포작업오류발생내용
+			 , 배포시장애담당자통지일시
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${작업기준년월일}
+			 ,${공통데이터테이블명}
+			 ,${배포작업처리회차}
+			 ,${배포작업시스템식별구분코드}
+			 ,${배포작업결과구분코드}
+			 ,${배포재처리횟수}
+			 ,${배포데이터송신년월일}
+			 ,${배포데이터송신시각}
+			 ,${배포결과수신년월일}
+			 ,${배포작업종료시각}
+			 ,${배포작업오류발생내용}
+			 ,${배포시장애담당자통지일시}
+			 ,SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,${시스템최종거래일시}
+			)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvGcbSrtmWdstRstHis" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::11.공통데이터동기화::GCB준실시간배포결과내역Ebi::GCB준실시간배포결과내역Dao::GCB준실시간배포결과내역조회" >
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/cmnDatSynch/gcbSrtmWdstRstHisEbi/TBGCBDM06/retvGcbSrtmWdstRstHis */ 
+			       A.작업기준년월일
+			     , A.공통데이터테이블명
+			     , A.배포작업처리회차
+			     , A.배포작업시스템식별구분코드
+			     , A.배포작업결과구분코드
+			     , A.배포재처리횟수
+			     , A.배포데이터송신년월일
+			     , A.배포데이터송신시각
+			     , A.배포결과수신년월일
+			     , A.배포작업종료시각
+			     , A.배포작업오류발생내용
+			     , A.배포시장애담당자통지일시
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBDM06 A 
+			 WHERE A.작업기준년월일       = ${작업기준년월일}
+			   AND A.공통데이터테이블명     = ${공통데이터테이블명}
+			   AND A.배포작업처리회차      = ${배포작업처리회차}
+			   AND A.배포작업시스템식별구분코드 = ${배포작업시스템식별구분코드}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="uptGcbSrtmWdstRstHis" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::11.공통데이터동기화::GCB준실시간배포결과내역Ebi::GCB준실시간배포결과내역Dao::GCB준실시간배포결과내역수정" >
+		<![CDATA[
+			UPDATE /*+ 위상규::/gcb/cmnDatSynch/gcbSrtmWdstRstHisEbi/TBGCBDM06/uptGcbSrtmWdstRstHis */ 
+			       INSTC.TBGCBDM06 
+			   SET 배포작업결과구분코드   = ${배포작업결과구분코드}
+			     , 배포재처리횟수      = ${배포재처리횟수}
+			     , 배포데이터송신년월일   = ${배포데이터송신년월일}
+			     , 배포데이터송신시각    = ${배포데이터송신시각}
+			     , 배포결과수신년월일    = ${배포결과수신년월일}
+			     , 배포작업종료시각     = ${배포작업종료시각}
+			     , 배포작업오류발생내용   = ${배포작업오류발생내용}
+			     , 배포시장애담당자통지일시 = ${배포시장애담당자통지일시}
+			     , 시스템최종갱신일시    = SYSTIMESTAMP
+			     , 시스템최종갱신식별자   = ${시스템최종갱신식별자}
+			     , 시스템최종거래일시    = ${시스템최종거래일시}
+			 WHERE 작업기준년월일       = ${작업기준년월일}
+			   AND 공통데이터테이블명     = ${공통데이터테이블명}
+			   AND 배포작업처리회차      = ${배포작업처리회차}
+			   AND 배포작업시스템식별구분코드 = ${배포작업시스템식별구분코드}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGcbSrtmWdstRstHisByTbl" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::11.공통데이터동기화::GCB준실시간배포결과내역Ebi::GCB준실시간배포결과내역Dao::GCB준실시간배포결과내역By테이블조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/cmnDatSynch/gcbSrtmWdstRstHisEbi/TBGCBDM06/retvLstGcbSrtmWdstRstHisByTbl */ 
+			       A.공통데이터테이블명
+			     , SUM(A.배포대상건수) 배포대상건수_N7
+			     , SUM(A.배포송신건수) 배포송신건수_N7
+			     , SUM(A.배포송신오류건수) 배포송신오류건수_N7
+			     , SUM(A.배포적재건수) 배포적재건수_N7
+			     , SUM(A.배포적재오류건수) 배포적재오류건수_N7
+			  FROM (SELECT B.공통데이터테이블명
+			             , B.배포작업결과구분코드
+			             , COUNT(DISTINCT B.공통데이터테이블명) 배포대상건수
+			             , CASE B.배포작업결과구분코드 WHEN '01' THEN COUNT(B.배포작업결과구분코드)
+			                                  ELSE 0 END 배포송신건수
+			             , CASE B.배포작업결과구분코드 WHEN '02' THEN COUNT(B.배포작업결과구분코드)
+			                                  ELSE 0 END 배포송신오류건수
+			             , CASE B.배포작업결과구분코드 WHEN '03' THEN COUNT(B.배포작업결과구분코드)
+			                                  ELSE 0 END 배포적재건수
+			             , CASE B.배포작업결과구분코드 WHEN '04' THEN COUNT(B.배포작업결과구분코드)
+			                                  ELSE 0 END 배포적재오류건수
+			          FROM INSTC.TBGCBDM06 B
+			         WHERE B.작업기준년월일 = ${작업기준년월일}
+			         GROUP BY B.공통데이터테이블명
+			             , B.배포작업결과구분코드) A
+			 GROUP BY A.공통데이터테이블명
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGcbSrtmWdstRstHisBySys" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::11.공통데이터동기화::GCB준실시간배포결과내역Ebi::GCB준실시간배포결과내역Dao::GCB준실시간배포결과내역By시스템목록조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/cmnDatSynch/gcbSrtmWdstRstHisEbi/TBGCBDM06/retvLstGcbSrtmWdstRstHisBySys */ 
+			       A.배포작업시스템식별구분코드
+			     , SUM(A.배포대상건수) 배포대상건수_N7
+			     , SUM(A.배포송신건수) 배포송신건수_N7
+			     , SUM(A.배포송신오류건수) 배포송신오류건수_N7
+			     , SUM(A.배포적재건수) 배포적재건수_N7
+			     , SUM(A.배포적재오류건수) 배포적재오류건수_N7
+			  FROM (SELECT B.배포작업시스템식별구분코드
+			             , B.배포작업결과구분코드
+			             , COUNT(DISTINCT B.배포작업시스템식별구분코드) 배포대상건수
+			             , CASE B.배포작업결과구분코드 WHEN '01' THEN COUNT(B.배포작업결과구분코드)
+			                                  ELSE 0 END 배포송신건수
+			             , CASE B.배포작업결과구분코드 WHEN '02' THEN COUNT(B.배포작업결과구분코드)
+			                                  ELSE 0 END 배포송신오류건수
+			             , CASE B.배포작업결과구분코드 WHEN '03' THEN COUNT(B.배포작업결과구분코드)
+			                                  ELSE 0 END 배포적재건수
+			             , CASE B.배포작업결과구분코드 WHEN '04' THEN COUNT(B.배포작업결과구분코드)
+			                                  ELSE 0 END 배포적재오류건수
+			          FROM INSTC.TBGCBDM06 B
+			         WHERE B.작업기준년월일 = ${작업기준년월일}
+			         GROUP BY B.배포작업시스템식별구분코드
+			             , B.배포작업결과구분코드) A
+			 GROUP BY A.배포작업시스템식별구분코드
+		]]>
+    </statement>
+</statements>

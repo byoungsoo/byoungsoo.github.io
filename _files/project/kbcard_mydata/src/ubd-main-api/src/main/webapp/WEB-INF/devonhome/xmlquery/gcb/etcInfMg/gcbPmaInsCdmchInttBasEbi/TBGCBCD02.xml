@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvLstGcbPmaInsCdmchInf" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::16.기타정보관리::GCB결제기관CD기설치기본Ebi::GCB결제기관CD기설치기본Dao::GCB결제기관CD기정보목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/etcInfMg/gcbPmaInsCdmchInttBasEbi/TBGCBCD02/retvLstGcbPmaInsCdmchInf */ 
+			       A.카드결제기관구분코드
+			     , A.CD기관리부점코드
+			     , A.CD기번호
+			     , A.변경일련번호
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , A.CD기관리부점명
+			     , A.CD기운영부점코드
+			     , A.CD기설치년월일
+			     , A.CD기철수년월일
+			     , A.카메라설치여부
+			     , A.CD기용역관리여부
+			     , A.CD기설치장소명
+			     , A.CD기설치장소우편번호
+			     , A.CD기설치장소전체주소
+			     , A.CD기설치장소전화국가번호
+			     , A.CD기설치장소전화지역번호
+			     , A.CD기설치장소전화국번호
+			     , A.CD기설치장소전화개별번호
+			     , A.CD기등록단말번호
+			     , A.등록직원번호
+			     , A.등록승인직원번호
+			     , A.주소표시구분코드
+			     , A.CD기설치도로명우편번호
+			     , A.CD기설치도로명우편보조번호
+			     , A.CD기설치도로명구역번호
+			     , A.CD기설치도로명건물본번호
+			     , A.CD기설치도로명건물부번호
+			     , A.CD기설치도로명건물관리번호
+			     , A.CD기설치도로명우편읍면번호
+			     , A.CD기설치도로명지하구분코드
+			  FROM INSTC.TBGCBCD02 A 
+			 WHERE A.카드결제기관구분코드 = ${카드결제기관구분코드}
+			   AND (A.CD기관리부점코드  = ${CD기관리부점코드}
+			        OR ${CD기관리부점코드} IS NULL)
+			   AND (A.CD기번호 = ${CD기번호}
+			        OR ${CD기번호} IS NULL)
+			   AND A.적용시작년월일 <= ${적용시작년월일}
+			   AND A.적용종료년월일 >= ${적용종료년월일}
+		]]>
+    </statement>
+</statements>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<statements>
+    <statement name="retrieveTranList">
+        <![CDATA[
+        SELECT TRAN_ID 				AS "거래아이디"
+             , TRAN_TYPE_CD			AS "거래유형코드"
+             , TRAN_NM				AS "거래명"
+             , TRAN_DESC_TX			AS "비고"
+             , TRAN_REQCLASS_TX 	AS "요청클래스"
+             , TRAN_REQMETHOD_TX	AS "요청메소드"
+             , TRAN_REQSPEC_CD 		AS "요청스펙코드"
+		FROM   DEVON.SGMC_TRAN_TB
+		WHERE  TRAN_ID LIKE ${거래아이디}||'%'
+        ]]>
+    </statement>
+
+</statements>

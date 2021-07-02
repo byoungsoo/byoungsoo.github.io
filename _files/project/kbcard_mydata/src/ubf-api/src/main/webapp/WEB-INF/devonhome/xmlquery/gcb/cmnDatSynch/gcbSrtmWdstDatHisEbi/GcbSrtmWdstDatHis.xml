@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvGcbSrtmWdstDatHisByWdstDat" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::11.공통데이터동기화::GCB준실시간배포데이터내역Ebi::GCB준실시간배포데이터내역Jdao::GCB준실시간배포데이터내역By배포데이터조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/cmnDatSynch/gcbSrtmWdstDatHisEbi/GcbSrtmWdstDatHis/retvGcbSrtmWdstDatHisByWdstDat */ 
+			       A.작업기준년월일
+			     , A.공통데이터테이블명
+			     , A.배포작업처리회차
+			     , A.배포처리구분코드
+			     , A.배포데이터내용
+			     , B.배포작업시스템식별구분코드
+			     , B.배포작업결과구분코드
+			  FROM INSTC.TBGCBDM05 A
+			     , INSTC.TBGCBDM06 B 
+			 WHERE A.작업기준년월일 = B.작업기준년월일
+			   AND A.공통데이터테이블명 = B.공통데이터테이블명
+			   AND A.작업기준년월일 = ${작업기준년월일}
+			   AND A.공통데이터테이블명 = ${공통데이터테이블명}
+			   AND A.배포작업처리회차 = ${배포작업처리회차}
+			   AND B.배포작업시스템식별구분코드 LIKE ${배포작업시스템식별구분코드} || '%'
+			   AND B.배포작업결과구분코드 <> ${배포작업결과구분코드}
+			   AND ROWNUM = 1
+			 ORDER BY B.공통데이터테이블명
+			     , B.작업기준년월일
+			     , B.배포작업처리회차
+			     , B.배포작업시스템식별구분코드
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGcbSrtmWdstDatHisByWdstDat" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::11.공통데이터동기화::GCB준실시간배포데이터내역Ebi::GCB준실시간배포데이터내역Jdao::GCB준실시간배포데이터내역By배포데이터목록조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/cmnDatSynch/gcbSrtmWdstDatHisEbi/GcbSrtmWdstDatHis/retvLstGcbSrtmWdstDatHisByWdstDat */ 
+			       A.작업기준년월일
+			     , A.공통데이터테이블명
+			     , A.배포작업처리회차
+			     , A.거래코드
+			     , A.거래직원번호
+			     , A.배포처리구분코드
+			     , A.배포데이터생성시각
+			     , A.배포데이터내용
+			     , B.원천테이블명
+			  FROM INSTC.TBGCBDM05 A
+			     , (SELECT C.공통데이터테이블명
+			             , C.적용시작년월일
+			             , C.원천테이블명
+			          FROM INSTC.TBGCBDM03 C
+			             , (SELECT MAX(E.적용시작년월일) 적용시작년월일
+			                     , E.공통데이터테이블명
+			                  FROM INSTC.TBGCBDM03 E
+			                 GROUP BY E.공통데이터테이블명) D
+			         WHERE C.공통데이터테이블명 = D.공통데이터테이블명
+			           AND C.적용시작년월일 = D.적용시작년월일) B
+			 WHERE A.공통데이터테이블명 = B.공통데이터테이블명
+			   AND A.배포데이터생성시각 >= NVL(${배포데이터생성시각1}, '000000')
+			   AND A.배포데이터생성시각 <= NVL(${배포데이터생성시각2}, '235959')
+			   AND A.작업기준년월일 = ${작업기준년월일}
+			   AND A.공통데이터테이블명 LIKE ${공통데이터테이블명} || '%'
+			   AND A.배포작업처리회차 = DECODE(${배포작업처리회차}, 0, A.배포작업처리회차, ${배포작업처리회차})
+		]]>
+    </statement>
+</statements>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvLstDelTgSpsrAthHis" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::03.업무지원::01.책임자정보관리::책임자승인거래내역과거이력삭제 Job::DAO::책임자승인거래내역과거이력삭제Bdao::삭제대상책임자승인내역목록조회">
+		<![CDATA[
+			SELECT /*+ 박재훈::/gcb/batch/bwkSpt/spsrInfMg/spsrAthTnhsPstPhsDelJob/SpsrAthTnhsPstPhsDel/retvLstDelTgSpsrAthHis */ 
+			       A.거래기준년월일
+			     , A.부점코드
+			     , A.승인직원번호
+			     , A.책임자승인일련번호
+			     , A.취급부점코드
+			     , A.거래기준시각
+			     , A.거래직원번호
+			     , A.거래코드
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBAT01 A        /* GCB책임자승인거래내역 */
+			 WHERE A.거래기준년월일 <= ${작업기준년월일}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="delSpsrAthTnhs" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::03.업무지원::01.책임자정보관리::책임자승인거래내역과거이력삭제 Job::DAO::책임자승인거래내역과거이력삭제Bdao::책임자승인거래내역삭제" >
+		<![CDATA[
+			DELETE /*+ 박재훈::/gcb/batch/bwkSpt/spsrInfMg/spsrAthTnhsPstPhsDelJob/SpsrAthTnhsPstPhsDel/delSpsrAthTnhs */
+			  FROM INSTC.TBGCBAT01        /* GCB책임자승인거래내역 */
+			 WHERE 거래기준년월일   = ${거래기준년월일}
+			   AND 부점코드      = ${부점코드}
+			   AND 승인직원번호    = ${승인직원번호}
+			   AND 책임자승인일련번호 = ${책임자승인일련번호}
+		]]>
+    </statement>
+</statements>

@@ -1,0 +1,3796 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  후행 데이터 분배를 위한 조회용 Query  -->
+   <statement name="retrieveDfrdDataForProc01">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                   ,DFRD_BIZ_ID
+                   ,INST_NO
+                   ,NODE_NO
+                   ,DFRD_SEQ
+                   ,GUID
+                   ,PATH_NO
+                   ,TRAN_ID
+                   ,TRAN_DT
+                   ,TRAN_HEADER
+                   ,IN_DATA1
+                   ,IN_DATA2
+                   ,IN_DATA3
+                   ,IN_DATA4
+                   ,IN_DATA5
+                   ,IN_DATA6
+                   ,IN_DATA7
+                   ,IN_DATA8
+                   ,IN_DATA9
+                   ,IN_DATA10
+            FROM    DEVON.SERL_APPLOG_ER01
+            WHERE   DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     TRAN_DT = ${TRAN_DT}
+            AND     NODE_NO = ${NODE_NO}
+            AND     INST_NO = ${INST_NO}
+           -- ORDER BY DFRD_SEQ
+        ]]>
+   </statement>
+   <statement name="retrieveDfrdDataForProc02">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                   ,DFRD_BIZ_ID
+                   ,INST_NO
+                   ,NODE_NO
+                   ,DFRD_SEQ
+                   ,GUID
+                   ,PATH_NO
+                   ,TRAN_ID
+                   ,TRAN_DT
+                   ,TRAN_HEADER
+                   ,IN_DATA1
+                   ,IN_DATA2
+                   ,IN_DATA3
+                   ,IN_DATA4
+                   ,IN_DATA5
+                   ,IN_DATA6
+                   ,IN_DATA7
+                   ,IN_DATA8
+                   ,IN_DATA9
+                   ,IN_DATA10
+            FROM    DEVON.SERL_APPLOG_ER02
+            WHERE   DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     TRAN_DT = ${TRAN_DT}
+            AND     NODE_NO = ${NODE_NO}
+            AND     INST_NO = ${INST_NO}
+            --ORDER BY DFRD_SEQ
+        ]]>
+   </statement>
+  <statement name="retrieveDfrdDataForProc03">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                   ,DFRD_BIZ_ID
+                   ,INST_NO
+                   ,NODE_NO
+                   ,DFRD_SEQ
+                   ,GUID
+                   ,PATH_NO
+                   ,TRAN_ID
+                   ,TRAN_DT
+                   ,TRAN_HEADER
+                   ,IN_DATA1
+                   ,IN_DATA2
+                   ,IN_DATA3
+                   ,IN_DATA4
+                   ,IN_DATA5
+                   ,IN_DATA6
+                   ,IN_DATA7
+                   ,IN_DATA8
+                   ,IN_DATA9
+                   ,IN_DATA10
+            FROM    DEVON.SERL_APPLOG_ER03
+            WHERE   DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     TRAN_DT = ${TRAN_DT}
+            AND     NODE_NO = ${NODE_NO}
+            AND     INST_NO = ${INST_NO}
+            --ORDER BY DFRD_SEQ
+        ]]>
+   </statement>
+   <statement name="retrieveDfrdDataForProc04">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                   ,DFRD_BIZ_ID
+                   ,INST_NO
+                   ,NODE_NO
+                   ,DFRD_SEQ
+                   ,GUID
+                   ,PATH_NO
+                   ,TRAN_ID
+                   ,TRAN_DT
+                   ,TRAN_HEADER
+                   ,IN_DATA1
+                   ,IN_DATA2
+                   ,IN_DATA3
+                   ,IN_DATA4
+                   ,IN_DATA5
+                   ,IN_DATA6
+                   ,IN_DATA7
+                   ,IN_DATA8
+                   ,IN_DATA9
+                   ,IN_DATA10
+            FROM    DEVON.SERL_APPLOG_ER04
+            WHERE   DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     TRAN_DT = ${TRAN_DT}
+            AND     NODE_NO = ${NODE_NO}
+            AND     INST_NO = ${INST_NO}
+            --ORDER BY DFRD_SEQ
+        ]]>
+    </statement>
+   <statement name="retrieveDfrdDataForProc05">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                   ,DFRD_BIZ_ID
+                   ,INST_NO
+                   ,NODE_NO
+                   ,DFRD_SEQ
+                   ,GUID
+                   ,PATH_NO
+                   ,TRAN_ID
+                   ,TRAN_DT
+                   ,TRAN_HEADER
+                   ,IN_DATA1
+                   ,IN_DATA2
+                   ,IN_DATA3
+                   ,IN_DATA4
+                   ,IN_DATA5
+                   ,IN_DATA6
+                   ,IN_DATA7
+                   ,IN_DATA8
+                   ,IN_DATA9
+                   ,IN_DATA10
+            FROM    DEVON.SERL_APPLOG_ER05
+            WHERE   DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     TRAN_DT = ${TRAN_DT}
+            AND     NODE_NO = ${NODE_NO}
+            AND     INST_NO = ${INST_NO}
+            --ORDER BY DFRD_SEQ
+        ]]>
+    </statement>
+   <statement name="retrieveDfrdDataForProc06">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                   ,DFRD_BIZ_ID
+                   ,INST_NO
+                   ,NODE_NO
+                   ,DFRD_SEQ
+                   ,GUID
+                   ,PATH_NO
+                   ,TRAN_ID
+                   ,TRAN_DT
+                   ,TRAN_HEADER
+                   ,IN_DATA1
+                   ,IN_DATA2
+                   ,IN_DATA3
+                   ,IN_DATA4
+                   ,IN_DATA5
+                   ,IN_DATA6
+                   ,IN_DATA7
+                   ,IN_DATA8
+                   ,IN_DATA9
+                   ,IN_DATA10
+            FROM    DEVON.SERL_APPLOG_ER06
+            WHERE   DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     TRAN_DT = ${TRAN_DT}
+            AND     NODE_NO = ${NODE_NO}
+            AND     INST_NO = ${INST_NO}
+            --ORDER BY DFRD_SEQ
+        ]]>
+   </statement>
+   <statement name="retrieveDfrdDataForProc07">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                   ,DFRD_BIZ_ID
+                   ,INST_NO
+                   ,NODE_NO
+                   ,DFRD_SEQ
+                   ,GUID
+                   ,PATH_NO
+                   ,TRAN_ID
+                   ,TRAN_DT
+                   ,TRAN_HEADER
+                   ,IN_DATA1
+                   ,IN_DATA2
+                   ,IN_DATA3
+                   ,IN_DATA4
+                   ,IN_DATA5
+                   ,IN_DATA6
+                   ,IN_DATA7
+                   ,IN_DATA8
+                   ,IN_DATA9
+                   ,IN_DATA10
+            FROM    DEVON.SERL_APPLOG_ER07
+            WHERE   DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     TRAN_DT = ${TRAN_DT}
+            AND     NODE_NO = ${NODE_NO}
+            AND     INST_NO = ${INST_NO}
+            --ORDER BY DFRD_SEQ
+        ]]>
+   </statement>
+   <statement name="retrieveDfrdDataForProc08">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                   ,DFRD_BIZ_ID
+                   ,INST_NO
+                   ,NODE_NO
+                   ,DFRD_SEQ
+                   ,GUID
+                   ,PATH_NO
+                   ,TRAN_ID
+                   ,TRAN_DT
+                   ,TRAN_HEADER
+                   ,IN_DATA1
+                   ,IN_DATA2
+                   ,IN_DATA3
+                   ,IN_DATA4
+                   ,IN_DATA5
+                   ,IN_DATA6
+                   ,IN_DATA7
+                   ,IN_DATA8
+                   ,IN_DATA9
+                   ,IN_DATA10
+            FROM    DEVON.SERL_APPLOG_ER08
+            WHERE   DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     TRAN_DT = ${TRAN_DT}
+            AND     NODE_NO = ${NODE_NO}
+            AND     INST_NO = ${INST_NO}
+            --ORDER BY DFRD_SEQ
+        ]]>
+   </statement>
+   <statement name="retrieveDfrdDataForProc09">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                   ,DFRD_BIZ_ID
+                   ,INST_NO
+                   ,NODE_NO
+                   ,DFRD_SEQ
+                   ,GUID
+                   ,PATH_NO
+                   ,TRAN_ID
+                   ,TRAN_DT
+                   ,TRAN_HEADER
+                   ,IN_DATA1
+                   ,IN_DATA2
+                   ,IN_DATA3
+                   ,IN_DATA4
+                   ,IN_DATA5
+                   ,IN_DATA6
+                   ,IN_DATA7
+                   ,IN_DATA8
+                   ,IN_DATA9
+                   ,IN_DATA10
+            FROM    DEVON.SERL_APPLOG_ER09
+            WHERE   DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     TRAN_DT = ${TRAN_DT}
+            AND     NODE_NO = ${NODE_NO}
+            AND     INST_NO = ${INST_NO}
+            --ORDER BY DFRD_SEQ
+        ]]>
+   </statement>
+   <statement name="retrieveDfrdDataForProc10">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                   ,DFRD_BIZ_ID
+                   ,INST_NO
+                   ,NODE_NO
+                   ,DFRD_SEQ
+                   ,GUID
+                   ,PATH_NO
+                   ,TRAN_ID
+                   ,TRAN_DT
+                   ,TRAN_HEADER
+                   ,IN_DATA1
+                   ,IN_DATA2
+                   ,IN_DATA3
+                   ,IN_DATA4
+                   ,IN_DATA5
+                   ,IN_DATA6
+                   ,IN_DATA7
+                   ,IN_DATA8
+                   ,IN_DATA9
+                   ,IN_DATA10
+            FROM    DEVON.SERL_APPLOG_ER10
+            WHERE   DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     TRAN_DT = ${TRAN_DT}
+            AND     NODE_NO = ${NODE_NO}
+            AND     INST_NO = ${INST_NO}
+            --ORDER BY DFRD_SEQ
+        ]]>
+   </statement>
+   <statement name="retrieveDfrdDataForProc11">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                   ,DFRD_BIZ_ID
+                   ,INST_NO
+                   ,NODE_NO
+                   ,DFRD_SEQ
+                   ,GUID
+                   ,PATH_NO
+                   ,TRAN_ID
+                   ,TRAN_DT
+                   ,TRAN_HEADER
+                   ,IN_DATA1
+                   ,IN_DATA2
+                   ,IN_DATA3
+                   ,IN_DATA4
+                   ,IN_DATA5
+                   ,IN_DATA6
+                   ,IN_DATA7
+                   ,IN_DATA8
+                   ,IN_DATA9
+                   ,IN_DATA10
+            FROM    DEVON.SERL_APPLOG_ER11
+            WHERE   DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     TRAN_DT = ${TRAN_DT}
+            AND     NODE_NO = ${NODE_NO}
+            AND     INST_NO = ${INST_NO}
+            --ORDER BY DFRD_SEQ
+        ]]>
+   </statement>
+   <statement name="retrieveDfrdDataForProc12">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                   ,DFRD_BIZ_ID
+                   ,INST_NO
+                   ,NODE_NO
+                   ,DFRD_SEQ
+                   ,GUID
+                   ,PATH_NO
+                   ,TRAN_ID
+                   ,TRAN_DT
+                   ,TRAN_HEADER
+                   ,IN_DATA1
+                   ,IN_DATA2
+                   ,IN_DATA3
+                   ,IN_DATA4
+                   ,IN_DATA5
+                   ,IN_DATA6
+                   ,IN_DATA7
+                   ,IN_DATA8
+                   ,IN_DATA9
+                   ,IN_DATA10
+            FROM    DEVON.SERL_APPLOG_ER12
+            WHERE   DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     TRAN_DT = ${TRAN_DT}
+            AND     NODE_NO = ${NODE_NO}
+            AND     INST_NO = ${INST_NO}
+            --ORDER BY DFRD_SEQ
+        ]]>
+    </statement>
+   <statement name="retrieveDfrdDataForProc13">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                   ,DFRD_BIZ_ID
+                   ,INST_NO
+                   ,NODE_NO
+                   ,DFRD_SEQ
+                   ,GUID
+                   ,PATH_NO
+                   ,TRAN_ID
+                   ,TRAN_DT
+                   ,TRAN_HEADER
+                   ,IN_DATA1
+                   ,IN_DATA2
+                   ,IN_DATA3
+                   ,IN_DATA4
+                   ,IN_DATA5
+                   ,IN_DATA6
+                   ,IN_DATA7
+                   ,IN_DATA8
+                   ,IN_DATA9
+                   ,IN_DATA10
+            FROM    DEVON.SERL_APPLOG_ER13
+            WHERE   DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     TRAN_DT = ${TRAN_DT}
+            AND     NODE_NO = ${NODE_NO}
+            AND     INST_NO = ${INST_NO}
+            --ORDER BY DFRD_SEQ
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForProc14">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                   ,DFRD_BIZ_ID
+                   ,INST_NO
+                   ,NODE_NO
+                   ,DFRD_SEQ
+                   ,GUID
+                   ,PATH_NO
+                   ,TRAN_ID
+                   ,TRAN_DT
+                   ,TRAN_HEADER
+                   ,IN_DATA1
+                   ,IN_DATA2
+                   ,IN_DATA3
+                   ,IN_DATA4
+                   ,IN_DATA5
+                   ,IN_DATA6
+                   ,IN_DATA7
+                   ,IN_DATA8
+                   ,IN_DATA9
+                   ,IN_DATA10
+            FROM    DEVON.SERL_APPLOG_ER14
+            WHERE   DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     TRAN_DT = ${TRAN_DT}
+            AND     NODE_NO = ${NODE_NO}
+            AND     INST_NO = ${INST_NO}
+            --ORDER BY DFRD_SEQ
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForProc15">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                   ,DFRD_BIZ_ID
+                   ,INST_NO
+                   ,NODE_NO
+                   ,DFRD_SEQ
+                   ,GUID
+                   ,PATH_NO
+                   ,TRAN_ID
+                   ,TRAN_DT
+                   ,TRAN_HEADER
+                   ,IN_DATA1
+                   ,IN_DATA2
+                   ,IN_DATA3
+                   ,IN_DATA4
+                   ,IN_DATA5
+                   ,IN_DATA6
+                   ,IN_DATA7
+                   ,IN_DATA8
+                   ,IN_DATA9
+                   ,IN_DATA10
+            FROM    DEVON.SERL_APPLOG_ER15
+            WHERE   DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     TRAN_DT = ${TRAN_DT}
+            AND     NODE_NO = ${NODE_NO}
+            AND     INST_NO = ${INST_NO}
+            --ORDER BY DFRD_SEQ
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForProc16">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                   ,DFRD_BIZ_ID
+                   ,INST_NO
+                   ,NODE_NO
+                   ,DFRD_SEQ
+                   ,GUID
+                   ,PATH_NO
+                   ,TRAN_ID
+                   ,TRAN_DT
+                   ,TRAN_HEADER
+                   ,IN_DATA1
+                   ,IN_DATA2
+                   ,IN_DATA3
+                   ,IN_DATA4
+                   ,IN_DATA5
+                   ,IN_DATA6
+                   ,IN_DATA7
+                   ,IN_DATA8
+                   ,IN_DATA9
+                   ,IN_DATA10
+            FROM    DEVON.SERL_APPLOG_ER16
+            WHERE   DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     TRAN_DT = ${TRAN_DT}
+            AND     NODE_NO = ${NODE_NO}
+            AND     INST_NO = ${INST_NO}
+            --ORDER BY DFRD_SEQ
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForProc17">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                   ,DFRD_BIZ_ID
+                   ,INST_NO
+                   ,NODE_NO
+                   ,DFRD_SEQ
+                   ,GUID
+                   ,PATH_NO
+                   ,TRAN_ID
+                   ,TRAN_DT
+                   ,TRAN_HEADER
+                   ,IN_DATA1
+                   ,IN_DATA2
+                   ,IN_DATA3
+                   ,IN_DATA4
+                   ,IN_DATA5
+                   ,IN_DATA6
+                   ,IN_DATA7
+                   ,IN_DATA8
+                   ,IN_DATA9
+                   ,IN_DATA10
+            FROM    DEVON.SERL_APPLOG_ER17
+            WHERE   DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     TRAN_DT = ${TRAN_DT}
+            AND     NODE_NO = ${NODE_NO}
+            AND     INST_NO = ${INST_NO}
+            --ORDER BY DFRD_SEQ
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForProc18">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                   ,DFRD_BIZ_ID
+                   ,INST_NO
+                   ,NODE_NO
+                   ,DFRD_SEQ
+                   ,GUID
+                   ,PATH_NO
+                   ,TRAN_ID
+                   ,TRAN_DT
+                   ,TRAN_HEADER
+                   ,IN_DATA1
+                   ,IN_DATA2
+                   ,IN_DATA3
+                   ,IN_DATA4
+                   ,IN_DATA5
+                   ,IN_DATA6
+                   ,IN_DATA7
+                   ,IN_DATA8
+                   ,IN_DATA9
+                   ,IN_DATA10
+            FROM    DEVON.SERL_APPLOG_ER18
+            WHERE   DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     TRAN_DT = ${TRAN_DT}
+            AND     NODE_NO = ${NODE_NO}
+            AND     INST_NO = ${INST_NO}
+            --ORDER BY DFRD_SEQ
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForProc19">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                   ,DFRD_BIZ_ID
+                   ,INST_NO
+                   ,NODE_NO
+                   ,DFRD_SEQ
+                   ,GUID
+                   ,PATH_NO
+                   ,TRAN_ID
+                   ,TRAN_DT
+                   ,TRAN_HEADER
+                   ,IN_DATA1
+                   ,IN_DATA2
+                   ,IN_DATA3
+                   ,IN_DATA4
+                   ,IN_DATA5
+                   ,IN_DATA6
+                   ,IN_DATA7
+                   ,IN_DATA8
+                   ,IN_DATA9
+                   ,IN_DATA10
+            FROM    DEVON.SERL_APPLOG_ER19
+            WHERE   DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     TRAN_DT = ${TRAN_DT}
+            AND     NODE_NO = ${NODE_NO}
+            AND     INST_NO = ${INST_NO}
+            --ORDER BY DFRD_SEQ
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForProc20">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                   ,DFRD_BIZ_ID
+                   ,INST_NO
+                   ,NODE_NO
+                   ,DFRD_SEQ
+                   ,GUID
+                   ,PATH_NO
+                   ,TRAN_ID
+                   ,TRAN_DT
+                   ,TRAN_HEADER
+                   ,IN_DATA1
+                   ,IN_DATA2
+                   ,IN_DATA3
+                   ,IN_DATA4
+                   ,IN_DATA5
+                   ,IN_DATA6
+                   ,IN_DATA7
+                   ,IN_DATA8
+                   ,IN_DATA9
+                   ,IN_DATA10
+            FROM    DEVON.SERL_APPLOG_ER20
+            WHERE   DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     TRAN_DT = ${TRAN_DT}
+            AND     NODE_NO = ${NODE_NO}
+            AND     INST_NO = ${INST_NO}
+            --ORDER BY DFRD_SEQ
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForProc21">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                   ,DFRD_BIZ_ID
+                   ,INST_NO
+                   ,NODE_NO
+                   ,DFRD_SEQ
+                   ,GUID
+                   ,PATH_NO
+                   ,TRAN_ID
+                   ,TRAN_DT
+                   ,TRAN_HEADER
+                   ,IN_DATA1
+                   ,IN_DATA2
+                   ,IN_DATA3
+                   ,IN_DATA4
+                   ,IN_DATA5
+                   ,IN_DATA6
+                   ,IN_DATA7
+                   ,IN_DATA8
+                   ,IN_DATA9
+                   ,IN_DATA10
+            FROM    DEVON.SERL_APPLOG_ER21
+            WHERE   DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     TRAN_DT = ${TRAN_DT}
+            AND     NODE_NO = ${NODE_NO}
+            AND     INST_NO = ${INST_NO}
+            --ORDER BY DFRD_SEQ
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForProc22">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                   ,DFRD_BIZ_ID
+                   ,INST_NO
+                   ,NODE_NO
+                   ,DFRD_SEQ
+                   ,GUID
+                   ,PATH_NO
+                   ,TRAN_ID
+                   ,TRAN_DT
+                   ,TRAN_HEADER
+                   ,IN_DATA1
+                   ,IN_DATA2
+                   ,IN_DATA3
+                   ,IN_DATA4
+                   ,IN_DATA5
+                   ,IN_DATA6
+                   ,IN_DATA7
+                   ,IN_DATA8
+                   ,IN_DATA9
+                   ,IN_DATA10
+            FROM    DEVON.SERL_APPLOG_ER22
+            WHERE   DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     TRAN_DT = ${TRAN_DT}
+            AND     NODE_NO = ${NODE_NO}
+            AND     INST_NO = ${INST_NO}
+            --ORDER BY DFRD_SEQ
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForProc23">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                   ,DFRD_BIZ_ID
+                   ,INST_NO
+                   ,NODE_NO
+                   ,DFRD_SEQ
+                   ,GUID
+                   ,PATH_NO
+                   ,TRAN_ID
+                   ,TRAN_DT
+                   ,TRAN_HEADER
+                   ,IN_DATA1
+                   ,IN_DATA2
+                   ,IN_DATA3
+                   ,IN_DATA4
+                   ,IN_DATA5
+                   ,IN_DATA6
+                   ,IN_DATA7
+                   ,IN_DATA8
+                   ,IN_DATA9
+                   ,IN_DATA10
+            FROM    DEVON.SERL_APPLOG_ER23
+            WHERE   DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     TRAN_DT = ${TRAN_DT}
+            AND     NODE_NO = ${NODE_NO}
+            AND     INST_NO = ${INST_NO}
+            --ORDER BY DFRD_SEQ
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForProc24">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                   ,DFRD_BIZ_ID
+                   ,INST_NO
+                   ,NODE_NO
+                   ,DFRD_SEQ
+                   ,GUID
+                   ,PATH_NO
+                   ,TRAN_ID
+                   ,TRAN_DT
+                   ,TRAN_HEADER
+                   ,IN_DATA1
+                   ,IN_DATA2
+                   ,IN_DATA3
+                   ,IN_DATA4
+                   ,IN_DATA5
+                   ,IN_DATA6
+                   ,IN_DATA7
+                   ,IN_DATA8
+                   ,IN_DATA9
+                   ,IN_DATA10
+            FROM    DEVON.SERL_APPLOG_ER24
+            WHERE   DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     TRAN_DT = ${TRAN_DT}
+            AND     NODE_NO = ${NODE_NO}
+            AND     INST_NO = ${INST_NO}
+            --ORDER BY DFRD_SEQ
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForProc25">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                   ,DFRD_BIZ_ID
+                   ,INST_NO
+                   ,NODE_NO
+                   ,DFRD_SEQ
+                   ,GUID
+                   ,PATH_NO
+                   ,TRAN_ID
+                   ,TRAN_DT
+                   ,TRAN_HEADER
+                   ,IN_DATA1
+                   ,IN_DATA2
+                   ,IN_DATA3
+                   ,IN_DATA4
+                   ,IN_DATA5
+                   ,IN_DATA6
+                   ,IN_DATA7
+                   ,IN_DATA8
+                   ,IN_DATA9
+                   ,IN_DATA10
+            FROM    DEVON.SERL_APPLOG_ER25
+            WHERE   DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     TRAN_DT = ${TRAN_DT}
+            AND     NODE_NO = ${NODE_NO}
+            AND     INST_NO = ${INST_NO}
+            --ORDER BY DFRD_SEQ
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForProc26">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                   ,DFRD_BIZ_ID
+                   ,INST_NO
+                   ,NODE_NO
+                   ,DFRD_SEQ
+                   ,GUID
+                   ,PATH_NO
+                   ,TRAN_ID
+                   ,TRAN_DT
+                   ,TRAN_HEADER
+                   ,IN_DATA1
+                   ,IN_DATA2
+                   ,IN_DATA3
+                   ,IN_DATA4
+                   ,IN_DATA5
+                   ,IN_DATA6
+                   ,IN_DATA7
+                   ,IN_DATA8
+                   ,IN_DATA9
+                   ,IN_DATA10
+            FROM    DEVON.SERL_APPLOG_ER26
+            WHERE   DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     TRAN_DT = ${TRAN_DT}
+            AND     NODE_NO = ${NODE_NO}
+            AND     INST_NO = ${INST_NO}
+            --ORDER BY DFRD_SEQ
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForProc27">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                   ,DFRD_BIZ_ID
+                   ,INST_NO
+                   ,NODE_NO
+                   ,DFRD_SEQ
+                   ,GUID
+                   ,PATH_NO
+                   ,TRAN_ID
+                   ,TRAN_DT
+                   ,TRAN_HEADER
+                   ,IN_DATA1
+                   ,IN_DATA2
+                   ,IN_DATA3
+                   ,IN_DATA4
+                   ,IN_DATA5
+                   ,IN_DATA6
+                   ,IN_DATA7
+                   ,IN_DATA8
+                   ,IN_DATA9
+                   ,IN_DATA10
+            FROM    DEVON.SERL_APPLOG_ER27
+            WHERE   DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     TRAN_DT = ${TRAN_DT}
+            AND     NODE_NO = ${NODE_NO}
+            AND     INST_NO = ${INST_NO}
+            --ORDER BY DFRD_SEQ
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForProc28">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                   ,DFRD_BIZ_ID
+                   ,INST_NO
+                   ,NODE_NO
+                   ,DFRD_SEQ
+                   ,GUID
+                   ,PATH_NO
+                   ,TRAN_ID
+                   ,TRAN_DT
+                   ,TRAN_HEADER
+                   ,IN_DATA1
+                   ,IN_DATA2
+                   ,IN_DATA3
+                   ,IN_DATA4
+                   ,IN_DATA5
+                   ,IN_DATA6
+                   ,IN_DATA7
+                   ,IN_DATA8
+                   ,IN_DATA9
+                   ,IN_DATA10
+            FROM    DEVON.SERL_APPLOG_ER28
+            WHERE   DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     TRAN_DT = ${TRAN_DT}
+            AND     NODE_NO = ${NODE_NO}
+            AND     INST_NO = ${INST_NO}
+            --ORDER BY DFRD_SEQ
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForProc29">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                   ,DFRD_BIZ_ID
+                   ,INST_NO
+                   ,NODE_NO
+                   ,DFRD_SEQ
+                   ,GUID
+                   ,PATH_NO
+                   ,TRAN_ID
+                   ,TRAN_DT
+                   ,TRAN_HEADER
+                   ,IN_DATA1
+                   ,IN_DATA2
+                   ,IN_DATA3
+                   ,IN_DATA4
+                   ,IN_DATA5
+                   ,IN_DATA6
+                   ,IN_DATA7
+                   ,IN_DATA8
+                   ,IN_DATA9
+                   ,IN_DATA10
+            FROM    DEVON.SERL_APPLOG_ER29
+            WHERE   DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     TRAN_DT = ${TRAN_DT}
+            AND     NODE_NO = ${NODE_NO}
+            AND     INST_NO = ${INST_NO}
+            --ORDER BY DFRD_SEQ
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForProc30">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                   ,DFRD_BIZ_ID
+                   ,INST_NO
+                   ,NODE_NO
+                   ,DFRD_SEQ
+                   ,GUID
+                   ,PATH_NO
+                   ,TRAN_ID
+                   ,TRAN_DT
+                   ,TRAN_HEADER
+                   ,IN_DATA1
+                   ,IN_DATA2
+                   ,IN_DATA3
+                   ,IN_DATA4
+                   ,IN_DATA5
+                   ,IN_DATA6
+                   ,IN_DATA7
+                   ,IN_DATA8
+                   ,IN_DATA9
+                   ,IN_DATA10
+            FROM    DEVON.SERL_APPLOG_ER30
+            WHERE   DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     TRAN_DT = ${TRAN_DT}
+            AND     NODE_NO = ${NODE_NO}
+            AND     INST_NO = ${INST_NO}
+            --ORDER BY DFRD_SEQ
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForProc31">
+        <![CDATA[
+            SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                   ,DFRD_BIZ_ID
+                   ,INST_NO
+                   ,NODE_NO
+                   ,DFRD_SEQ
+                   ,GUID
+                   ,PATH_NO
+                   ,TRAN_ID
+                   ,TRAN_DT
+                   ,TRAN_HEADER
+                   ,IN_DATA1
+                   ,IN_DATA2
+                   ,IN_DATA3
+                   ,IN_DATA4
+                   ,IN_DATA5
+                   ,IN_DATA6
+                   ,IN_DATA7
+                   ,IN_DATA8
+                   ,IN_DATA9
+                   ,IN_DATA10
+            FROM    DEVON.SERL_APPLOG_ER31
+            WHERE   DFRD_SEQ BETWEEN ${STRT_DFRD_SEQ} AND ${END_DFRD_SEQ}
+            AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+            AND     TRAN_DT = ${TRAN_DT}
+            AND     NODE_NO = ${NODE_NO}
+            AND     INST_NO = ${INST_NO}
+            --ORDER BY DFRD_SEQ
+        ]]>
+    </statement>
+
+   <!--  업무 서비스에서 후행 데이터 저장하기 위한 Query -->
+   <statement name="insertDfrdData01">
+        <![CDATA[
+            INSERT INTO DEVON.SERL_APPLOG_ER01
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+               ,IN_DATA3
+               ,IN_DATA4
+               ,IN_DATA5
+               ,IN_DATA6
+               ,IN_DATA7
+               ,IN_DATA8
+               ,IN_DATA9
+               ,IN_DATA10
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+               ,${IN_DATA3}
+               ,${IN_DATA4}
+               ,${IN_DATA5}
+               ,${IN_DATA6}
+               ,${IN_DATA7}
+               ,${IN_DATA8}
+               ,${IN_DATA9}
+               ,${IN_DATA10}
+            )
+        ]]>
+    </statement>
+   <statement name="insertDfrdData02">
+        <![CDATA[
+            INSERT INTO DEVON.SERL_APPLOG_ER02
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+               ,IN_DATA3
+               ,IN_DATA4
+               ,IN_DATA5
+               ,IN_DATA6
+               ,IN_DATA7
+               ,IN_DATA8
+               ,IN_DATA9
+               ,IN_DATA10
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+               ,${IN_DATA3}
+               ,${IN_DATA4}
+               ,${IN_DATA5}
+               ,${IN_DATA6}
+               ,${IN_DATA7}
+               ,${IN_DATA8}
+               ,${IN_DATA9}
+               ,${IN_DATA10}
+            )
+        ]]>
+    </statement>
+   <statement name="insertDfrdData03">
+        <![CDATA[
+            INSERT INTO DEVON.SERL_APPLOG_ER03
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+               ,IN_DATA3
+               ,IN_DATA4
+               ,IN_DATA5
+               ,IN_DATA6
+               ,IN_DATA7
+               ,IN_DATA8
+               ,IN_DATA9
+               ,IN_DATA10
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+               ,${IN_DATA3}
+               ,${IN_DATA4}
+               ,${IN_DATA5}
+               ,${IN_DATA6}
+               ,${IN_DATA7}
+               ,${IN_DATA8}
+               ,${IN_DATA9}
+               ,${IN_DATA10}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData04">
+        <![CDATA[
+            INSERT INTO DEVON.SERL_APPLOG_ER04
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+               ,IN_DATA3
+               ,IN_DATA4
+               ,IN_DATA5
+               ,IN_DATA6
+               ,IN_DATA7
+               ,IN_DATA8
+               ,IN_DATA9
+               ,IN_DATA10
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+               ,${IN_DATA3}
+               ,${IN_DATA4}
+               ,${IN_DATA5}
+               ,${IN_DATA6}
+               ,${IN_DATA7}
+               ,${IN_DATA8}
+               ,${IN_DATA9}
+               ,${IN_DATA10}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData05">
+        <![CDATA[
+            INSERT INTO DEVON.SERL_APPLOG_ER05
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+               ,IN_DATA3
+               ,IN_DATA4
+               ,IN_DATA5
+               ,IN_DATA6
+               ,IN_DATA7
+               ,IN_DATA8
+               ,IN_DATA9
+               ,IN_DATA10
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+               ,${IN_DATA3}
+               ,${IN_DATA4}
+               ,${IN_DATA5}
+               ,${IN_DATA6}
+               ,${IN_DATA7}
+               ,${IN_DATA8}
+               ,${IN_DATA9}
+               ,${IN_DATA10}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData06">
+        <![CDATA[
+            INSERT INTO DEVON.SERL_APPLOG_ER06
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+               ,IN_DATA3
+               ,IN_DATA4
+               ,IN_DATA5
+               ,IN_DATA6
+               ,IN_DATA7
+               ,IN_DATA8
+               ,IN_DATA9
+               ,IN_DATA10
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+               ,${IN_DATA3}
+               ,${IN_DATA4}
+               ,${IN_DATA5}
+               ,${IN_DATA6}
+               ,${IN_DATA7}
+               ,${IN_DATA8}
+               ,${IN_DATA9}
+               ,${IN_DATA10}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData07">
+        <![CDATA[
+            INSERT INTO DEVON.SERL_APPLOG_ER07
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+               ,IN_DATA3
+               ,IN_DATA4
+               ,IN_DATA5
+               ,IN_DATA6
+               ,IN_DATA7
+               ,IN_DATA8
+               ,IN_DATA9
+               ,IN_DATA10
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+               ,${IN_DATA3}
+               ,${IN_DATA4}
+               ,${IN_DATA5}
+               ,${IN_DATA6}
+               ,${IN_DATA7}
+               ,${IN_DATA8}
+               ,${IN_DATA9}
+               ,${IN_DATA10}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData08">
+        <![CDATA[
+            INSERT INTO DEVON.SERL_APPLOG_ER08
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+               ,IN_DATA3
+               ,IN_DATA4
+               ,IN_DATA5
+               ,IN_DATA6
+               ,IN_DATA7
+               ,IN_DATA8
+               ,IN_DATA9
+               ,IN_DATA10
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+               ,${IN_DATA3}
+               ,${IN_DATA4}
+               ,${IN_DATA5}
+               ,${IN_DATA6}
+               ,${IN_DATA7}
+               ,${IN_DATA8}
+               ,${IN_DATA9}
+               ,${IN_DATA10}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData09">
+        <![CDATA[
+            INSERT INTO DEVON.SERL_APPLOG_ER09
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+               ,IN_DATA3
+               ,IN_DATA4
+               ,IN_DATA5
+               ,IN_DATA6
+               ,IN_DATA7
+               ,IN_DATA8
+               ,IN_DATA9
+               ,IN_DATA10
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+               ,${IN_DATA3}
+               ,${IN_DATA4}
+               ,${IN_DATA5}
+               ,${IN_DATA6}
+               ,${IN_DATA7}
+               ,${IN_DATA8}
+               ,${IN_DATA9}
+               ,${IN_DATA10}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData10">
+        <![CDATA[
+            INSERT INTO DEVON.SERL_APPLOG_ER10
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+               ,IN_DATA3
+               ,IN_DATA4
+               ,IN_DATA5
+               ,IN_DATA6
+               ,IN_DATA7
+               ,IN_DATA8
+               ,IN_DATA9
+               ,IN_DATA10
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+               ,${IN_DATA3}
+               ,${IN_DATA4}
+               ,${IN_DATA5}
+               ,${IN_DATA6}
+               ,${IN_DATA7}
+               ,${IN_DATA8}
+               ,${IN_DATA9}
+               ,${IN_DATA10}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData11">
+        <![CDATA[
+            INSERT INTO DEVON.SERL_APPLOG_ER11
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+               ,IN_DATA3
+               ,IN_DATA4
+               ,IN_DATA5
+               ,IN_DATA6
+               ,IN_DATA7
+               ,IN_DATA8
+               ,IN_DATA9
+               ,IN_DATA10
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+               ,${IN_DATA3}
+               ,${IN_DATA4}
+               ,${IN_DATA5}
+               ,${IN_DATA6}
+               ,${IN_DATA7}
+               ,${IN_DATA8}
+               ,${IN_DATA9}
+               ,${IN_DATA10}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData12">
+        <![CDATA[
+            INSERT INTO DEVON.SERL_APPLOG_ER12
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+               ,IN_DATA3
+               ,IN_DATA4
+               ,IN_DATA5
+               ,IN_DATA6
+               ,IN_DATA7
+               ,IN_DATA8
+               ,IN_DATA9
+               ,IN_DATA10
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+               ,${IN_DATA3}
+               ,${IN_DATA4}
+               ,${IN_DATA5}
+               ,${IN_DATA6}
+               ,${IN_DATA7}
+               ,${IN_DATA8}
+               ,${IN_DATA9}
+               ,${IN_DATA10}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData13">
+        <![CDATA[
+            INSERT INTO DEVON.SERL_APPLOG_ER13
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+               ,IN_DATA3
+               ,IN_DATA4
+               ,IN_DATA5
+               ,IN_DATA6
+               ,IN_DATA7
+               ,IN_DATA8
+               ,IN_DATA9
+               ,IN_DATA10
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+               ,${IN_DATA3}
+               ,${IN_DATA4}
+               ,${IN_DATA5}
+               ,${IN_DATA6}
+               ,${IN_DATA7}
+               ,${IN_DATA8}
+               ,${IN_DATA9}
+               ,${IN_DATA10}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData14">
+        <![CDATA[
+            INSERT INTO DEVON.SERL_APPLOG_ER14
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+               ,IN_DATA3
+               ,IN_DATA4
+               ,IN_DATA5
+               ,IN_DATA6
+               ,IN_DATA7
+               ,IN_DATA8
+               ,IN_DATA9
+               ,IN_DATA10
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+               ,${IN_DATA3}
+               ,${IN_DATA4}
+               ,${IN_DATA5}
+               ,${IN_DATA6}
+               ,${IN_DATA7}
+               ,${IN_DATA8}
+               ,${IN_DATA9}
+               ,${IN_DATA10}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData15">
+        <![CDATA[
+            INSERT INTO DEVON.SERL_APPLOG_ER15
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+               ,IN_DATA3
+               ,IN_DATA4
+               ,IN_DATA5
+               ,IN_DATA6
+               ,IN_DATA7
+               ,IN_DATA8
+               ,IN_DATA9
+               ,IN_DATA10
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+               ,${IN_DATA3}
+               ,${IN_DATA4}
+               ,${IN_DATA5}
+               ,${IN_DATA6}
+               ,${IN_DATA7}
+               ,${IN_DATA8}
+               ,${IN_DATA9}
+               ,${IN_DATA10}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData16">
+        <![CDATA[
+            INSERT INTO DEVON.SERL_APPLOG_ER16
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+               ,IN_DATA3
+               ,IN_DATA4
+               ,IN_DATA5
+               ,IN_DATA6
+               ,IN_DATA7
+               ,IN_DATA8
+               ,IN_DATA9
+               ,IN_DATA10
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+               ,${IN_DATA3}
+               ,${IN_DATA4}
+               ,${IN_DATA5}
+               ,${IN_DATA6}
+               ,${IN_DATA7}
+               ,${IN_DATA8}
+               ,${IN_DATA9}
+               ,${IN_DATA10}
+            )
+        ]]>
+    </statement>
+  <statement name="insertDfrdData17">
+        <![CDATA[
+            INSERT INTO DEVON.SERL_APPLOG_ER17
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+               ,IN_DATA3
+               ,IN_DATA4
+               ,IN_DATA5
+               ,IN_DATA6
+               ,IN_DATA7
+               ,IN_DATA8
+               ,IN_DATA9
+               ,IN_DATA10
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+               ,${IN_DATA3}
+               ,${IN_DATA4}
+               ,${IN_DATA5}
+               ,${IN_DATA6}
+               ,${IN_DATA7}
+               ,${IN_DATA8}
+               ,${IN_DATA9}
+               ,${IN_DATA10}
+            )
+        ]]>
+    </statement>
+  <statement name="insertDfrdData18">
+        <![CDATA[
+            INSERT INTO DEVON.SERL_APPLOG_ER18
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+               ,IN_DATA3
+               ,IN_DATA4
+               ,IN_DATA5
+               ,IN_DATA6
+               ,IN_DATA7
+               ,IN_DATA8
+               ,IN_DATA9
+               ,IN_DATA10
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+               ,${IN_DATA3}
+               ,${IN_DATA4}
+               ,${IN_DATA5}
+               ,${IN_DATA6}
+               ,${IN_DATA7}
+               ,${IN_DATA8}
+               ,${IN_DATA9}
+               ,${IN_DATA10}
+            )
+        ]]>
+    </statement>
+   <statement name="insertDfrdData19">
+        <![CDATA[
+            INSERT INTO DEVON.SERL_APPLOG_ER19
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+               ,IN_DATA3
+               ,IN_DATA4
+               ,IN_DATA5
+               ,IN_DATA6
+               ,IN_DATA7
+               ,IN_DATA8
+               ,IN_DATA9
+               ,IN_DATA10
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+               ,${IN_DATA3}
+               ,${IN_DATA4}
+               ,${IN_DATA5}
+               ,${IN_DATA6}
+               ,${IN_DATA7}
+               ,${IN_DATA8}
+               ,${IN_DATA9}
+               ,${IN_DATA10}
+            )
+        ]]>
+    </statement>
+
+   <statement name="insertDfrdData20">
+        <![CDATA[
+            INSERT INTO DEVON.SERL_APPLOG_ER20
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+               ,IN_DATA3
+               ,IN_DATA4
+               ,IN_DATA5
+               ,IN_DATA6
+               ,IN_DATA7
+               ,IN_DATA8
+               ,IN_DATA9
+               ,IN_DATA10
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+               ,${IN_DATA3}
+               ,${IN_DATA4}
+               ,${IN_DATA5}
+               ,${IN_DATA6}
+               ,${IN_DATA7}
+               ,${IN_DATA8}
+               ,${IN_DATA9}
+               ,${IN_DATA10}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData21">
+        <![CDATA[
+            INSERT INTO DEVON.SERL_APPLOG_ER21
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+               ,IN_DATA3
+               ,IN_DATA4
+               ,IN_DATA5
+               ,IN_DATA6
+               ,IN_DATA7
+               ,IN_DATA8
+               ,IN_DATA9
+               ,IN_DATA10
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+               ,${IN_DATA3}
+               ,${IN_DATA4}
+               ,${IN_DATA5}
+               ,${IN_DATA6}
+               ,${IN_DATA7}
+               ,${IN_DATA8}
+               ,${IN_DATA9}
+               ,${IN_DATA10}
+            )
+        ]]>
+    </statement>
+     <statement name="insertDfrdData22">
+        <![CDATA[
+            INSERT INTO DEVON.SERL_APPLOG_ER22
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+               ,IN_DATA3
+               ,IN_DATA4
+               ,IN_DATA5
+               ,IN_DATA6
+               ,IN_DATA7
+               ,IN_DATA8
+               ,IN_DATA9
+               ,IN_DATA10
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+               ,${IN_DATA3}
+               ,${IN_DATA4}
+               ,${IN_DATA5}
+               ,${IN_DATA6}
+               ,${IN_DATA7}
+               ,${IN_DATA8}
+               ,${IN_DATA9}
+               ,${IN_DATA10}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData23">
+        <![CDATA[
+            INSERT INTO DEVON.SERL_APPLOG_ER23
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+               ,IN_DATA3
+               ,IN_DATA4
+               ,IN_DATA5
+               ,IN_DATA6
+               ,IN_DATA7
+               ,IN_DATA8
+               ,IN_DATA9
+               ,IN_DATA10
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+               ,${IN_DATA3}
+               ,${IN_DATA4}
+               ,${IN_DATA5}
+               ,${IN_DATA6}
+               ,${IN_DATA7}
+               ,${IN_DATA8}
+               ,${IN_DATA9}
+               ,${IN_DATA10}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData24">
+        <![CDATA[
+            INSERT INTO DEVON.SERL_APPLOG_ER24
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+               ,IN_DATA3
+               ,IN_DATA4
+               ,IN_DATA5
+               ,IN_DATA6
+               ,IN_DATA7
+               ,IN_DATA8
+               ,IN_DATA9
+               ,IN_DATA10
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+               ,${IN_DATA3}
+               ,${IN_DATA4}
+               ,${IN_DATA5}
+               ,${IN_DATA6}
+               ,${IN_DATA7}
+               ,${IN_DATA8}
+               ,${IN_DATA9}
+               ,${IN_DATA10}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData25">
+        <![CDATA[
+            INSERT INTO DEVON.SERL_APPLOG_ER25
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+               ,IN_DATA3
+               ,IN_DATA4
+               ,IN_DATA5
+               ,IN_DATA6
+               ,IN_DATA7
+               ,IN_DATA8
+               ,IN_DATA9
+               ,IN_DATA10
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+               ,${IN_DATA3}
+               ,${IN_DATA4}
+               ,${IN_DATA5}
+               ,${IN_DATA6}
+               ,${IN_DATA7}
+               ,${IN_DATA8}
+               ,${IN_DATA9}
+               ,${IN_DATA10}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData26">
+        <![CDATA[
+            INSERT INTO DEVON.SERL_APPLOG_ER26
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+               ,IN_DATA3
+               ,IN_DATA4
+               ,IN_DATA5
+               ,IN_DATA6
+               ,IN_DATA7
+               ,IN_DATA8
+               ,IN_DATA9
+               ,IN_DATA10
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+               ,${IN_DATA3}
+               ,${IN_DATA4}
+               ,${IN_DATA5}
+               ,${IN_DATA6}
+               ,${IN_DATA7}
+               ,${IN_DATA8}
+               ,${IN_DATA9}
+               ,${IN_DATA10}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData27">
+        <![CDATA[
+            INSERT INTO DEVON.SERL_APPLOG_ER27
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+               ,IN_DATA3
+               ,IN_DATA4
+               ,IN_DATA5
+               ,IN_DATA6
+               ,IN_DATA7
+               ,IN_DATA8
+               ,IN_DATA9
+               ,IN_DATA10
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+               ,${IN_DATA3}
+               ,${IN_DATA4}
+               ,${IN_DATA5}
+               ,${IN_DATA6}
+               ,${IN_DATA7}
+               ,${IN_DATA8}
+               ,${IN_DATA9}
+               ,${IN_DATA10}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData28">
+        <![CDATA[
+            INSERT INTO DEVON.SERL_APPLOG_ER28
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+               ,IN_DATA3
+               ,IN_DATA4
+               ,IN_DATA5
+               ,IN_DATA6
+               ,IN_DATA7
+               ,IN_DATA8
+               ,IN_DATA9
+               ,IN_DATA10
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+               ,${IN_DATA3}
+               ,${IN_DATA4}
+               ,${IN_DATA5}
+               ,${IN_DATA6}
+               ,${IN_DATA7}
+               ,${IN_DATA8}
+               ,${IN_DATA9}
+               ,${IN_DATA10}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData29">
+        <![CDATA[
+            INSERT INTO DEVON.SERL_APPLOG_ER29
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+               ,IN_DATA3
+               ,IN_DATA4
+               ,IN_DATA5
+               ,IN_DATA6
+               ,IN_DATA7
+               ,IN_DATA8
+               ,IN_DATA9
+               ,IN_DATA10
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+               ,${IN_DATA3}
+               ,${IN_DATA4}
+               ,${IN_DATA5}
+               ,${IN_DATA6}
+               ,${IN_DATA7}
+               ,${IN_DATA8}
+               ,${IN_DATA9}
+               ,${IN_DATA10}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData30">
+        <![CDATA[
+            INSERT INTO DEVON.SERL_APPLOG_ER30
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+               ,IN_DATA3
+               ,IN_DATA4
+               ,IN_DATA5
+               ,IN_DATA6
+               ,IN_DATA7
+               ,IN_DATA8
+               ,IN_DATA9
+               ,IN_DATA10
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+               ,${IN_DATA3}
+               ,${IN_DATA4}
+               ,${IN_DATA5}
+               ,${IN_DATA6}
+               ,${IN_DATA7}
+               ,${IN_DATA8}
+               ,${IN_DATA9}
+               ,${IN_DATA10}
+            )
+        ]]>
+    </statement>
+    <statement name="insertDfrdData31">
+        <![CDATA[
+            INSERT INTO DEVON.SERL_APPLOG_ER31
+            (
+                TRAN_DT
+               ,DFRD_BIZ_ID
+               ,NODE_NO
+               ,DFRD_SEQ
+               ,GUID
+               ,PATH_NO
+               ,TRAN_ID
+               ,TRAN_TM
+               ,PROC_TM
+               ,SYS_DT
+               ,TRAN_HEADER
+               ,IN_DATA1
+               ,IN_DATA2
+               ,IN_DATA3
+               ,IN_DATA4
+               ,IN_DATA5
+               ,IN_DATA6
+               ,IN_DATA7
+               ,IN_DATA8
+               ,IN_DATA9
+               ,IN_DATA10
+            )
+            VALUES
+            (
+                ${TRAN_DT}
+               ,${DFRD_BIZ_ID}
+               ,${NODE_NO}
+               ,${DFRD_SEQ}
+               ,${GUID}
+               ,${PATH_NO}
+               ,${TRAN_ID}
+               ,${TRAN_TM}
+               ,${PROC_TM}
+               ,${SYS_DT}
+               ,${TRAN_HEADER}
+               ,${IN_DATA1}
+               ,${IN_DATA2}
+               ,${IN_DATA3}
+               ,${IN_DATA4}
+               ,${IN_DATA5}
+               ,${IN_DATA6}
+               ,${IN_DATA7}
+               ,${IN_DATA8}
+               ,${IN_DATA9}
+               ,${IN_DATA10}
+            )
+        ]]>
+    </statement>
+
+    <!--  Numbering을 위한 조회 Query -->
+    <statement name="retrieveDfrdDataForNumber01">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       ,PROC_TM
+                FROM    DEVON.SERL_APPLOG_ER01
+                WHERE   DFRD_SEQ = 0
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber02">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       ,PROC_TM
+                FROM    DEVON.SERL_APPLOG_ER02
+                WHERE   DFRD_SEQ = 0
+
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber03">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       ,PROC_TM
+                FROM    DEVON.SERL_APPLOG_ER03
+                WHERE   DFRD_SEQ = 0
+
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber04">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       ,PROC_TM
+                FROM    DEVON.SERL_APPLOG_ER04
+                WHERE   DFRD_SEQ = 0
+
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber05">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       ,PROC_TM
+                FROM    DEVON.SERL_APPLOG_ER05
+                WHERE   DFRD_SEQ = 0
+
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber06">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       ,PROC_TM
+                FROM    DEVON.SERL_APPLOG_ER06
+                WHERE   DFRD_SEQ = 0
+
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber07">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       ,PROC_TM
+                FROM    DEVON.SERL_APPLOG_ER07
+                WHERE   DFRD_SEQ = 0
+
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber08">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       ,PROC_TM
+                FROM    DEVON.SERL_APPLOG_ER08
+                WHERE   DFRD_SEQ = 0
+
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber09">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       ,PROC_TM
+                FROM    DEVON.SERL_APPLOG_ER09
+                WHERE   DFRD_SEQ = 0
+
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber10">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       ,PROC_TM
+                FROM    DEVON.SERL_APPLOG_ER10
+                WHERE   DFRD_SEQ = 0
+
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber11">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       ,PROC_TM
+                FROM    DEVON.SERL_APPLOG_ER11
+                WHERE   DFRD_SEQ = 0
+
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber12">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       ,PROC_TM
+                FROM    DEVON.SERL_APPLOG_ER12
+                WHERE   DFRD_SEQ = 0
+
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber13">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       ,PROC_TM
+                FROM    DEVON.SERL_APPLOG_ER13
+                WHERE   DFRD_SEQ = 0
+
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber14">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       ,PROC_TM
+                FROM    DEVON.SERL_APPLOG_ER14
+                WHERE   DFRD_SEQ = 0
+
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber15">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       ,PROC_TM
+                FROM    DEVON.SERL_APPLOG_ER15
+                WHERE   DFRD_SEQ = 0
+
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+     <statement name="retrieveDfrdDataForNumber16">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       ,PROC_TM
+                FROM    DEVON.SERL_APPLOG_ER16
+                WHERE   DFRD_SEQ = 0
+
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber17">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       ,PROC_TM
+                FROM    DEVON.SERL_APPLOG_ER17
+                WHERE   DFRD_SEQ = 0
+
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber18">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       ,PROC_TM
+                FROM    DEVON.SERL_APPLOG_ER18
+                WHERE   DFRD_SEQ = 0
+
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber19">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       ,PROC_TM
+                FROM    DEVON.SERL_APPLOG_ER19
+                WHERE   DFRD_SEQ = 0
+
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber20">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       ,PROC_TM
+                FROM    DEVON.SERL_APPLOG_ER20
+                WHERE   DFRD_SEQ = 0
+
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber21">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       ,PROC_TM
+                FROM    DEVON.SERL_APPLOG_ER21
+                WHERE   DFRD_SEQ = 0
+
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber22">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       ,PROC_TM
+                FROM    DEVON.SERL_APPLOG_ER22
+                WHERE   DFRD_SEQ = 0
+
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber23">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       ,PROC_TM
+                FROM    DEVON.SERL_APPLOG_ER23
+                WHERE   DFRD_SEQ = 0
+
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber24">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       ,PROC_TM
+                FROM    DEVON.SERL_APPLOG_ER24
+                WHERE   DFRD_SEQ = 0
+
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber25">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       ,PROC_TM
+                FROM    DEVON.SERL_APPLOG_ER25
+                WHERE   DFRD_SEQ = 0
+
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber26">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       ,PROC_TM
+                FROM    DEVON.SERL_APPLOG_ER26
+                WHERE   DFRD_SEQ = 0
+
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber27">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       ,PROC_TM
+                FROM    DEVON.SERL_APPLOG_ER27
+                WHERE   DFRD_SEQ = 0
+
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+     <statement name="retrieveDfrdDataForNumber28">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       ,PROC_TM
+                FROM    DEVON.SERL_APPLOG_ER28
+                WHERE   DFRD_SEQ = 0
+
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber29">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       ,PROC_TM
+                FROM    DEVON.SERL_APPLOG_ER29
+                WHERE   DFRD_SEQ = 0
+
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataForNumber30">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       ,PROC_TM
+                FROM    DEVON.SERL_APPLOG_ER30
+                WHERE   DFRD_SEQ = 0
+
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+     <statement name="retrieveDfrdDataForNumber31">
+        <![CDATA[
+            SELECT ROWNUM
+                  ,A.*
+            FROM (
+                SELECT  ROWIDTOCHAR( ROWID ) DATA_ROW_ID
+                       ,PROC_TM
+                FROM    DEVON.SERL_APPLOG_ER31
+                WHERE   DFRD_SEQ = 0
+
+                AND     TRAN_DT = ${TRAN_DT}
+                AND     DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+                AND     INST_NO = ${INST_NO}
+                AND     NODE_NO = ${NODE_NO}
+                --ORDER BY PROC_TM
+                ) A
+            WHERE ROWNUM <= ${ROW_CNT}
+        ]]>
+    </statement>
+
+    <!--  Numbering된 Max Seq를 조회하기 위한 Query -->
+    <statement name="retrieveDfrdDataMaxSeq01">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERL_APPLOG_ER01
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq02">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERL_APPLOG_ER02
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq03">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERL_APPLOG_ER03
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq04">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERL_APPLOG_ER04
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq05">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERL_APPLOG_ER05
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq06">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERL_APPLOG_ER06
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq07">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERL_APPLOG_ER07
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq08">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERL_APPLOG_ER08
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq09">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERL_APPLOG_ER09
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq10">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERL_APPLOG_ER10
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq11">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERL_APPLOG_ER11
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq12">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERL_APPLOG_ER12
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq13">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERL_APPLOG_ER13
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq14">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERL_APPLOG_ER14
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq15">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERL_APPLOG_ER15
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq16">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERL_APPLOG_ER16
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq17">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERL_APPLOG_ER17
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq18">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERL_APPLOG_ER18
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq19">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERL_APPLOG_ER19
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq20">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERL_APPLOG_ER20
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq21">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERL_APPLOG_ER21
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq22">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERL_APPLOG_ER22
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq23">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERL_APPLOG_ER23
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq24">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERL_APPLOG_ER24
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq25">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERL_APPLOG_ER25
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq26">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERL_APPLOG_ER26
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq27">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERL_APPLOG_ER27
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq28">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERL_APPLOG_ER28
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq29">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERL_APPLOG_ER29
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq30">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERL_APPLOG_ER30
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+    <statement name="retrieveDfrdDataMaxSeq31">
+        <![CDATA[
+            SELECT NVL(MAX(DFRD_SEQ), 0 ) DFRD_SEQ
+            FROM DEVON.SERL_APPLOG_ER31
+            WHERE TRAN_DT = ${TRAN_DT}
+            AND   DFRD_BIZ_ID = ${DFRD_BIZ_ID}
+        ]]>
+    </statement>
+
+    <!--  후행 데이터 Numbering Update Query -->
+    <statement name="updateDfrdDataForNumber01">
+        <![CDATA[
+            UPDATE DEVON.SERL_APPLOG_ER01
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber02">
+        <![CDATA[
+            UPDATE DEVON.SERL_APPLOG_ER02
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber03">
+        <![CDATA[
+            UPDATE DEVON.SERL_APPLOG_ER03
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber04">
+        <![CDATA[
+            UPDATE DEVON.SERL_APPLOG_ER04
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber05">
+        <![CDATA[
+            UPDATE DEVON.SERL_APPLOG_ER05
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber06">
+        <![CDATA[
+            UPDATE DEVON.SERL_APPLOG_ER06
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber07">
+        <![CDATA[
+            UPDATE DEVON.SERL_APPLOG_ER07
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber08">
+        <![CDATA[
+            UPDATE DEVON.SERL_APPLOG_ER08
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber09">
+        <![CDATA[
+            UPDATE DEVON.SERL_APPLOG_ER09
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber10">
+        <![CDATA[
+            UPDATE DEVON.SERL_APPLOG_ER10
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber11">
+        <![CDATA[
+            UPDATE DEVON.SERL_APPLOG_ER11
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber12">
+        <![CDATA[
+            UPDATE DEVON.SERL_APPLOG_ER12
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+     <statement name="updateDfrdDataForNumber13">
+        <![CDATA[
+            UPDATE DEVON.SERL_APPLOG_ER13
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber14">
+        <![CDATA[
+            UPDATE DEVON.SERL_APPLOG_ER14
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber15">
+        <![CDATA[
+            UPDATE DEVON.SERL_APPLOG_ER15
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber16">
+        <![CDATA[
+            UPDATE DEVON.SERL_APPLOG_ER16
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber17">
+        <![CDATA[
+            UPDATE DEVON.SERL_APPLOG_ER17
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber18">
+        <![CDATA[
+            UPDATE DEVON.SERL_APPLOG_ER18
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber19">
+        <![CDATA[
+            UPDATE DEVON.SERL_APPLOG_ER19
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber20">
+        <![CDATA[
+            UPDATE DEVON.SERL_APPLOG_ER20
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+   <statement name="updateDfrdDataForNumber21">
+        <![CDATA[
+            UPDATE DEVON.SERL_APPLOG_ER21
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+   <statement name="updateDfrdDataForNumber22">
+        <![CDATA[
+            UPDATE DEVON.SERL_APPLOG_ER22
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber23">
+        <![CDATA[
+            UPDATE DEVON.SERL_APPLOG_ER23
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber24">
+        <![CDATA[
+            UPDATE DEVON.SERL_APPLOG_ER24
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber25">
+        <![CDATA[
+            UPDATE DEVON.SERL_APPLOG_ER25
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber26">
+        <![CDATA[
+            UPDATE DEVON.SERL_APPLOG_ER26
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber27">
+        <![CDATA[
+            UPDATE DEVON.SERL_APPLOG_ER27
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber28">
+        <![CDATA[
+            UPDATE DEVON.SERL_APPLOG_ER28
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber29">
+        <![CDATA[
+            UPDATE DEVON.SERL_APPLOG_ER29
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber30">
+        <![CDATA[
+            UPDATE DEVON.SERL_APPLOG_ER30
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="updateDfrdDataForNumber31">
+        <![CDATA[
+            UPDATE DEVON.SERL_APPLOG_ER31
+               SET DFRD_SEQ = ${DFRD_SEQ}
+            WHERE ROWID = CHARTOROWID( ${DATA_ROW_ID} )
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData01">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERL_APPLOG_ER01
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData02">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERL_APPLOG_ER02
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData03">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERL_APPLOG_ER03
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData04">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERL_APPLOG_ER04
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData05">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERL_APPLOG_ER05
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData06">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERL_APPLOG_ER06
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData07">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERL_APPLOG_ER07
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData08">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERL_APPLOG_ER08
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData09">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERL_APPLOG_ER09
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData10">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERL_APPLOG_ER10
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData11">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERL_APPLOG_ER11
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData12">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERL_APPLOG_ER12
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData13">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERL_APPLOG_ER13
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData14">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERL_APPLOG_ER14
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData15">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERL_APPLOG_ER15
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData16">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERL_APPLOG_ER16
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData17">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERL_APPLOG_ER17
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData18">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERL_APPLOG_ER18
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData19">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERL_APPLOG_ER19
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData20">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERL_APPLOG_ER21
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData21">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERL_APPLOG_ER21
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData22">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERL_APPLOG_ER22
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData23">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERL_APPLOG_ER23
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData24">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERL_APPLOG_ER24
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData25">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERL_APPLOG_ER25
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData26">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERL_APPLOG_ER26
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData27">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERL_APPLOG_ER27
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData28">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERL_APPLOG_ER28
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData29">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERL_APPLOG_ER29
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData30">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERL_APPLOG_ER30
+        ]]>
+    </statement>
+    <statement name="deleteDfrdData31">
+        <![CDATA[
+        TRUNCATE TABLE DEVON.SERL_APPLOG_ER31
+        ]]>
+    </statement>
+
+</statements>

@@ -1,0 +1,1040 @@
+<?xml version="1.0" encoding="euc-kr"?>
+
+<statements>
+    <statement name="selectChannelOccuRate">
+    <![CDATA[
+        WITH CALCREPORT AS(
+            SELECT /*+ PARALLEL(8) */ 
+                TRAN_DT
+                ,채널구분코드
+                , COUNT(*) cnt
+            FROM(
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_LG01 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_LG02 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_LG03 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_LG04 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_LG05 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_LG06 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_LG07 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_LG08 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_LG09 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_LG10 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_LG11 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_LG12 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_LG13 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_LG14 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_LG15 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_LG16 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_LG17 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_LG18 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_LG19 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_LG20 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_LG21 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_LG22 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_LG23 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_LG24 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_LG25 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_LG26 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_LG27 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_LG28 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_LG29 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_LG30 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_LG31 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_ER01 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_ER02 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_ER03 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_ER04 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_ER05 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_ER06 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_ER07 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_ER08 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_ER09 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_ER10 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_ER11 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_ER12 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_ER13 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_ER14 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_ER15 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_ER16 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_ER17 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_ER18 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_ER19 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_ER20 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_ER21 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_ER22 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_ER23 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_ER24 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_ER25 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_ER26 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_ER27 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_ER28 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_ER29 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_ER30 WHERE TRAN_DT = ${작업일자} UNION ALL
+                SELECT TRAN_DT, 채널구분코드  FROM DEVON.SERL_APPLOG_ER31 WHERE TRAN_DT = ${작업일자} 
+            )
+            GROUP BY TRAN_DT,채널구분코드
+        )
+        SELECT 
+            NVL(A.TRAN_DT,${작업일자}) 거래일자,
+            ${모드} 모드,
+            B.채널구분코드 구분코드,
+            B.NM 채널구분코드명,
+            NVL(ROUND(cnt/ (SELECT SUM(V.CNT) FROM CALCREPORT V) * 100 ,2),0) 결과
+        FROM CALCREPORT A, 
+        (SELECT '00' 채널구분코드 , '해당없음' NM  FROM DUAL UNION
+         SELECT '01' , '단말' NM FROM DUAL UNION
+         SELECT '02' , '자동화기기' NM FROM DUAL UNION
+         SELECT '03' , '인터넷뱅킹' NM FROM DUAL UNION
+         SELECT '04' , '콜센터' NM FROM DUAL UNION
+         SELECT '05' , '센터컷' NM FROM DUAL UNION
+         SELECT '06' , '대외망' NM FROM DUAL) B
+         WHERE A.채널구분코드(+) = B.채널구분코드
+    ]]>
+    </statement>
+    
+    
+    <statement name="selectChannelCount">
+    <![CDATA[
+       SELECT 
+            NVL(A.TRAN_DT,${작업일자}) 거래일자,
+            ${모드} 모드,
+            B.채널구분코드 구분코드,
+            B.NM 채널구분코드명,
+            NVL(count(A.cnt),0) 결과  /*거래건수*/
+        FROM ( 
+          SELECT 
+              TRAN_DT, GUID,채널구분코드, 1 CNT 
+          {#1}
+          WHERE TRAN_DT=${작업일자}
+          GROUP BY TRAN_DT, GUID,채널구분코드
+          UNION ALL
+          SELECT 
+              TRAN_DT, GUID,채널구분코드, 1 CNT 
+          {#2}
+          WHERE TRAN_DT=${작업일자}
+          GROUP BY TRAN_DT, GUID,채널구분코드
+        )  A, 
+        (SELECT '00' 채널구분코드 , '해당없음' NM  FROM DUAL UNION
+         SELECT '01' , '단말' NM FROM DUAL UNION
+         SELECT '02' , '자동화기기' NM FROM DUAL UNION
+         SELECT '03' , '인터넷뱅킹' NM FROM DUAL UNION
+         SELECT '04' , '콜센터' NM FROM DUAL UNION
+         SELECT '05' , '센터컷' NM FROM DUAL UNION
+         SELECT '06' , '대외망' NM FROM DUAL) B
+         WHERE  A.채널구분코드(+) = B.채널구분코드
+         GROUP BY A.TRAN_DT,B.채널구분코드,B.NM
+    ]]>
+    <append where="false" condition="${일자}.EQ.01" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG01]]></append>
+    <append where="false" condition="${일자}.EQ.02" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG02]]></append>
+    <append where="false" condition="${일자}.EQ.03" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG03]]></append>
+    <append where="false" condition="${일자}.EQ.04" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG04]]></append>
+    <append where="false" condition="${일자}.EQ.05" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG05]]></append>
+    <append where="false" condition="${일자}.EQ.06" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG06]]></append>
+    <append where="false" condition="${일자}.EQ.07" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG07]]></append>
+    <append where="false" condition="${일자}.EQ.08" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG08]]></append>
+    <append where="false" condition="${일자}.EQ.09" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG09]]></append>
+    <append where="false" condition="${일자}.EQ.10" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG10]]></append>
+    <append where="false" condition="${일자}.EQ.11" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG11]]></append>
+    <append where="false" condition="${일자}.EQ.12" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG12]]></append>
+    <append where="false" condition="${일자}.EQ.13" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG13]]></append>
+    <append where="false" condition="${일자}.EQ.14" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG14]]></append>
+    <append where="false" condition="${일자}.EQ.15" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG15]]></append>
+    <append where="false" condition="${일자}.EQ.16" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG16]]></append>
+    <append where="false" condition="${일자}.EQ.17" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG17]]></append>
+    <append where="false" condition="${일자}.EQ.18" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG18]]></append>
+    <append where="false" condition="${일자}.EQ.19" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG19]]></append>
+    <append where="false" condition="${일자}.EQ.20" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG20]]></append>
+    <append where="false" condition="${일자}.EQ.21" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG21]]></append>
+    <append where="false" condition="${일자}.EQ.22" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG22]]></append>
+    <append where="false" condition="${일자}.EQ.23" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG23]]></append>
+    <append where="false" condition="${일자}.EQ.24" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG24]]></append>
+    <append where="false" condition="${일자}.EQ.25" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG25]]></append>
+    <append where="false" condition="${일자}.EQ.26" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG26]]></append>
+    <append where="false" condition="${일자}.EQ.27" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG27]]></append>
+    <append where="false" condition="${일자}.EQ.28" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG28]]></append>
+    <append where="false" condition="${일자}.EQ.29" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG29]]></append>
+    <append where="false" condition="${일자}.EQ.30" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG30]]></append>
+    <append where="false" condition="${일자}.EQ.31" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG31]]></append>
+    <append where="false" condition="${일자}.EQ.01" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER01]]></append>
+    <append where="false" condition="${일자}.EQ.02" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER02]]></append>
+    <append where="false" condition="${일자}.EQ.03" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER03]]></append>
+    <append where="false" condition="${일자}.EQ.04" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER04]]></append>
+    <append where="false" condition="${일자}.EQ.05" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER05]]></append>
+    <append where="false" condition="${일자}.EQ.06" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER06]]></append>
+    <append where="false" condition="${일자}.EQ.07" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER07]]></append>
+    <append where="false" condition="${일자}.EQ.08" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER08]]></append>
+    <append where="false" condition="${일자}.EQ.09" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER09]]></append>
+    <append where="false" condition="${일자}.EQ.10" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER10]]></append>
+    <append where="false" condition="${일자}.EQ.11" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER11]]></append>
+    <append where="false" condition="${일자}.EQ.12" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER12]]></append>
+    <append where="false" condition="${일자}.EQ.13" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER13]]></append>
+    <append where="false" condition="${일자}.EQ.14" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER14]]></append>
+    <append where="false" condition="${일자}.EQ.15" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER15]]></append>
+    <append where="false" condition="${일자}.EQ.16" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER16]]></append>
+    <append where="false" condition="${일자}.EQ.17" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER17]]></append>
+    <append where="false" condition="${일자}.EQ.18" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER18]]></append>
+    <append where="false" condition="${일자}.EQ.19" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER19]]></append>
+    <append where="false" condition="${일자}.EQ.20" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER20]]></append>
+    <append where="false" condition="${일자}.EQ.21" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER21]]></append>
+    <append where="false" condition="${일자}.EQ.22" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER22]]></append>
+    <append where="false" condition="${일자}.EQ.23" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER23]]></append>
+    <append where="false" condition="${일자}.EQ.24" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER24]]></append>
+    <append where="false" condition="${일자}.EQ.25" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER25]]></append>
+    <append where="false" condition="${일자}.EQ.26" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER26]]></append>
+    <append where="false" condition="${일자}.EQ.27" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER27]]></append>
+    <append where="false" condition="${일자}.EQ.28" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER28]]></append>
+    <append where="false" condition="${일자}.EQ.29" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER29]]></append>
+    <append where="false" condition="${일자}.EQ.30" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER30]]></append>
+    <append where="false" condition="${일자}.EQ.31" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER31]]></append>
+    
+    </statement>
+    
+    
+    <!-- 15페이지 월별 온라인 처리 최대일 분석 센터컷 -->
+    <statement name="selectPeakDateCCDayCount">
+    <![CDATA[
+        SELECT
+            TRAN_DT 거래일자, MAX(전체건수) 전체건수, ROUND(AVG(일분평균건수),2) 일분평균건수 , ROUND(AVG(십분평균건수),2) 십분평균건수, ROUND(AVG(평균응답시간),2) 평균응답시간
+        FROM(
+        SELECT
+            TRAN_DT,
+            COUNT(CNT) OVER(PARTITION BY TRAN_DT) "전체건수",
+            COUNT(CNT) OVER(PARTITION BY TRAN_DT, SUBSTR(TRAN_TM,0,4)  ) "일분평균건수",
+            COUNT(CNT) OVER(PARTITION BY TRAN_DT,SUBSTR(TRAN_TM,0,2) || TRUNC(SUBSTR(TRAN_TM,3,2)/10) ) "십분평균건수",
+            AVG(ETIME) OVER(PARTITION BY TRAN_DT) "평균응답시간"
+        FROM (
+        
+        SELECT 
+            TRAN_DT,
+            GUID,
+            MIN(TRAN_TM) TRAN_TM,
+            1 CNT,
+            CASE WHEN MIN(TRAN_TM) > MAX(PROC_TM) THEN 0 ELSE MAX(PROC_TM) - MIN(TRAN_TM) END ETIME   /*MS*/
+        FROM 
+        (
+            SELECT TRAN_DT, GUID,TRAN_TM, PROC_TM {#1} WHERE TRAN_DT = ${작업일자} AND 채널구분코드='05' UNION ALL            
+            SELECT TRAN_DT, GUID,TRAN_TM, PROC_TM {#2} WHERE TRAN_DT = ${작업일자} AND 채널구분코드='05'
+        ) A
+        GROUP BY TRAN_DT,GUID
+        ))
+        GROUP BY TRAN_DT
+    ]]>
+    <append where="false" condition="${일자}.EQ.01" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG01]]></append>
+    <append where="false" condition="${일자}.EQ.02" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG02]]></append>
+    <append where="false" condition="${일자}.EQ.03" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG03]]></append>
+    <append where="false" condition="${일자}.EQ.04" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG04]]></append>
+    <append where="false" condition="${일자}.EQ.05" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG05]]></append>
+    <append where="false" condition="${일자}.EQ.06" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG06]]></append>
+    <append where="false" condition="${일자}.EQ.07" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG07]]></append>
+    <append where="false" condition="${일자}.EQ.08" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG08]]></append>
+    <append where="false" condition="${일자}.EQ.09" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG09]]></append>
+    <append where="false" condition="${일자}.EQ.10" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG10]]></append>
+    <append where="false" condition="${일자}.EQ.11" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG11]]></append>
+    <append where="false" condition="${일자}.EQ.12" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG12]]></append>
+    <append where="false" condition="${일자}.EQ.13" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG13]]></append>
+    <append where="false" condition="${일자}.EQ.14" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG14]]></append>
+    <append where="false" condition="${일자}.EQ.15" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG15]]></append>
+    <append where="false" condition="${일자}.EQ.16" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG16]]></append>
+    <append where="false" condition="${일자}.EQ.17" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG17]]></append>
+    <append where="false" condition="${일자}.EQ.18" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG18]]></append>
+    <append where="false" condition="${일자}.EQ.19" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG19]]></append>
+    <append where="false" condition="${일자}.EQ.20" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG20]]></append>
+    <append where="false" condition="${일자}.EQ.21" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG21]]></append>
+    <append where="false" condition="${일자}.EQ.22" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG22]]></append>
+    <append where="false" condition="${일자}.EQ.23" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG23]]></append>
+    <append where="false" condition="${일자}.EQ.24" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG24]]></append>
+    <append where="false" condition="${일자}.EQ.25" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG25]]></append>
+    <append where="false" condition="${일자}.EQ.26" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG26]]></append>
+    <append where="false" condition="${일자}.EQ.27" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG27]]></append>
+    <append where="false" condition="${일자}.EQ.28" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG28]]></append>
+    <append where="false" condition="${일자}.EQ.29" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG29]]></append>
+    <append where="false" condition="${일자}.EQ.30" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG30]]></append>
+    <append where="false" condition="${일자}.EQ.31" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG31]]></append>
+    <append where="false" condition="${일자}.EQ.01" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER01]]></append>
+    <append where="false" condition="${일자}.EQ.02" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER02]]></append>
+    <append where="false" condition="${일자}.EQ.03" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER03]]></append>
+    <append where="false" condition="${일자}.EQ.04" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER04]]></append>
+    <append where="false" condition="${일자}.EQ.05" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER05]]></append>
+    <append where="false" condition="${일자}.EQ.06" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER06]]></append>
+    <append where="false" condition="${일자}.EQ.07" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER07]]></append>
+    <append where="false" condition="${일자}.EQ.08" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER08]]></append>
+    <append where="false" condition="${일자}.EQ.09" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER09]]></append>
+    <append where="false" condition="${일자}.EQ.10" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER10]]></append>
+    <append where="false" condition="${일자}.EQ.11" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER11]]></append>
+    <append where="false" condition="${일자}.EQ.12" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER12]]></append>
+    <append where="false" condition="${일자}.EQ.13" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER13]]></append>
+    <append where="false" condition="${일자}.EQ.14" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER14]]></append>
+    <append where="false" condition="${일자}.EQ.15" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER15]]></append>
+    <append where="false" condition="${일자}.EQ.16" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER16]]></append>
+    <append where="false" condition="${일자}.EQ.17" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER17]]></append>
+    <append where="false" condition="${일자}.EQ.18" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER18]]></append>
+    <append where="false" condition="${일자}.EQ.19" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER19]]></append>
+    <append where="false" condition="${일자}.EQ.20" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER20]]></append>
+    <append where="false" condition="${일자}.EQ.21" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER21]]></append>
+    <append where="false" condition="${일자}.EQ.22" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER22]]></append>
+    <append where="false" condition="${일자}.EQ.23" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER23]]></append>
+    <append where="false" condition="${일자}.EQ.24" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER24]]></append>
+    <append where="false" condition="${일자}.EQ.25" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER25]]></append>
+    <append where="false" condition="${일자}.EQ.26" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER26]]></append>
+    <append where="false" condition="${일자}.EQ.27" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER27]]></append>
+    <append where="false" condition="${일자}.EQ.28" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER28]]></append>
+    <append where="false" condition="${일자}.EQ.29" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER29]]></append>
+    <append where="false" condition="${일자}.EQ.30" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER30]]></append>
+    <append where="false" condition="${일자}.EQ.31" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER31]]></append>
+    </statement>
+    
+    
+    <statement name="selectPeakDateOnlineDayCount">
+    <![CDATA[
+        SELECT
+            ${작업일자} 거래일자,
+            ${모드} 모드,
+            '0' 구분코드, /*온라인총건수*/
+            SUM(CNT) 결과
+        FROM (
+            SELECT GUID, 1 CNT FROM(
+            SELECT GUID,TRAN_TM {#1} WHERE TRAN_DT = ${작업일자} AND 채널구분코드 != '05' UNION ALL
+            SELECT GUID,TRAN_TM {#2} WHERE TRAN_DT = ${작업일자} AND 채널구분코드 != '05'
+            ) GROUP BY GUID
+        )   
+        UNION
+        SELECT
+            ${작업일자} 거래일자,
+            ${모드} 모드,
+            '4' 구분코드, /*센터컷총건수*/ 
+            SUM(CNT) 결과
+        FROM (
+            SELECT GUID, 1 CNT FROM(
+            SELECT GUID,TRAN_TM {#1} WHERE TRAN_DT = ${작업일자} AND 채널구분코드 = '05' UNION ALL
+            SELECT GUID,TRAN_TM {#2} WHERE TRAN_DT = ${작업일자} AND 채널구분코드 = '05'
+            ) GROUP BY GUID
+        )   
+        UNION
+        SELECT 
+            ${작업일자} 거래일자,
+            ${모드} 모드,
+            '1' 구분코드, /*분당처리건수*/
+            CASE WHEN MAX(거래건수) > 0 THEN  ROUND(MAX(거래건수)/60)
+            ELSE 0 END 결과
+        FROM(
+        SELECT    
+            MINT 수집시분초,
+            nvl(SUM(CNT),0) 거래건수
+        FROM 
+        (SELECT A.VAL||B.VAL MINT FROM
+        (SELECT  LPAD(rownum-1,2,'0') VAL
+        FROM DUAL CONNECT BY rownum < 25) A,
+        (SELECT LPAD(rownum-1,2,'0') VAL
+        FROM DUAL CONNECT BY rownum < 61) B) A,
+        (
+            SELECT
+                GUID, SUBSTR(MAX(TRAN_TM),0,4) TRAN_TM, 1 CNT
+            FROM(
+            SELECT GUID,TRAN_TM {#1} WHERE TRAN_DT = ${작업일자} AND 채널구분코드 != '05' UNION ALL
+            SELECT GUID,TRAN_TM {#2} WHERE TRAN_DT = ${작업일자} AND 채널구분코드 != '05'
+            ) GROUP BY GUID
+        ) B
+        WHERE A.MINT = B.TRAN_TM(+)
+        GROUP BY MINT 
+        )
+        UNION
+        SELECT 
+            ${작업일자} 거래일자,
+            ${모드} 모드,
+            '2' 구분코드, /*십분당처리건수'*/
+            CASE WHEN MAX(거래건수) > 0 THEN  ROUND(MAX(거래건수)/600)
+            ELSE 0 END 결과
+        FROM(
+        SELECT    
+            MINT 십분단위,
+            nvl(SUM(CNT),0) 거래건수
+        FROM 
+        (
+        SELECT A.VAL||B.VAL MINT FROM
+        (SELECT  LPAD(rownum-1,2,'0') VAL
+        FROM DUAL CONNECT BY rownum < 25) A,
+        (SELECT (rownum-1) VAL
+        FROM DUAL CONNECT BY rownum < 7)  B ) A,
+        (
+            SELECT
+                GUID, SUBSTR(MAX(TRAN_TM),0,3) TRAN_TM, 1 CNT
+            FROM(
+            SELECT GUID,TRAN_TM {#1} WHERE TRAN_DT = ${작업일자} AND 채널구분코드 != '05' UNION ALL            
+            SELECT GUID,TRAN_TM {#2} WHERE TRAN_DT = ${작업일자} AND 채널구분코드 != '05'
+            ) GROUP BY GUID
+        ) B
+        WHERE A.MINT = B.TRAN_TM(+)
+        GROUP BY MINT
+        )
+        UNION
+        SELECT 
+            ${작업일자} 거래일자,
+            ${모드} 모드,
+            '3' 구분코드, /*평균응답시간*/
+           CASE WHEN AVG(ELST) >0 THEN TRUNC(AVG(ELST)/1000,3)
+           ELSE 0 END 결과
+        FROM(
+            SELECT
+                GUID,  MAX(PROC_TM) - MIN(TRAN_TM) ELST
+            FROM(
+            SELECT GUID,TRAN_TM, CASE WHEN TRAN_TM<PROC_TM THEN PROC_TM ELSE TRAN_TM END PROC_TM {#1} WHERE TRAN_DT = ${작업일자} AND 채널구분코드 != '05' UNION ALL            
+            SELECT GUID,TRAN_TM, CASE WHEN TRAN_TM<PROC_TM THEN PROC_TM ELSE TRAN_TM END PROC_TM {#2} WHERE TRAN_DT = ${작업일자} AND 채널구분코드 != '05'
+            ) GROUP BY GUID
+        )
+    ]]>
+    <append where="false" condition="${일자}.EQ.01" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG01]]></append>
+    <append where="false" condition="${일자}.EQ.02" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG02]]></append>
+    <append where="false" condition="${일자}.EQ.03" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG03]]></append>
+    <append where="false" condition="${일자}.EQ.04" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG04]]></append>
+    <append where="false" condition="${일자}.EQ.05" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG05]]></append>
+    <append where="false" condition="${일자}.EQ.06" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG06]]></append>
+    <append where="false" condition="${일자}.EQ.07" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG07]]></append>
+    <append where="false" condition="${일자}.EQ.08" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG08]]></append>
+    <append where="false" condition="${일자}.EQ.09" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG09]]></append>
+    <append where="false" condition="${일자}.EQ.10" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG10]]></append>
+    <append where="false" condition="${일자}.EQ.11" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG11]]></append>
+    <append where="false" condition="${일자}.EQ.12" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG12]]></append>
+    <append where="false" condition="${일자}.EQ.13" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG13]]></append>
+    <append where="false" condition="${일자}.EQ.14" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG14]]></append>
+    <append where="false" condition="${일자}.EQ.15" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG15]]></append>
+    <append where="false" condition="${일자}.EQ.16" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG16]]></append>
+    <append where="false" condition="${일자}.EQ.17" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG17]]></append>
+    <append where="false" condition="${일자}.EQ.18" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG18]]></append>
+    <append where="false" condition="${일자}.EQ.19" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG19]]></append>
+    <append where="false" condition="${일자}.EQ.20" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG20]]></append>
+    <append where="false" condition="${일자}.EQ.21" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG21]]></append>
+    <append where="false" condition="${일자}.EQ.22" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG22]]></append>
+    <append where="false" condition="${일자}.EQ.23" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG23]]></append>
+    <append where="false" condition="${일자}.EQ.24" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG24]]></append>
+    <append where="false" condition="${일자}.EQ.25" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG25]]></append>
+    <append where="false" condition="${일자}.EQ.26" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG26]]></append>
+    <append where="false" condition="${일자}.EQ.27" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG27]]></append>
+    <append where="false" condition="${일자}.EQ.28" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG28]]></append>
+    <append where="false" condition="${일자}.EQ.29" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG29]]></append>
+    <append where="false" condition="${일자}.EQ.30" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG30]]></append>
+    <append where="false" condition="${일자}.EQ.31" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG31]]></append>
+    <append where="false" condition="${일자}.EQ.01" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER01]]></append>
+    <append where="false" condition="${일자}.EQ.02" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER02]]></append>
+    <append where="false" condition="${일자}.EQ.03" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER03]]></append>
+    <append where="false" condition="${일자}.EQ.04" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER04]]></append>
+    <append where="false" condition="${일자}.EQ.05" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER05]]></append>
+    <append where="false" condition="${일자}.EQ.06" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER06]]></append>
+    <append where="false" condition="${일자}.EQ.07" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER07]]></append>
+    <append where="false" condition="${일자}.EQ.08" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER08]]></append>
+    <append where="false" condition="${일자}.EQ.09" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER09]]></append>
+    <append where="false" condition="${일자}.EQ.10" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER10]]></append>
+    <append where="false" condition="${일자}.EQ.11" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER11]]></append>
+    <append where="false" condition="${일자}.EQ.12" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER12]]></append>
+    <append where="false" condition="${일자}.EQ.13" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER13]]></append>
+    <append where="false" condition="${일자}.EQ.14" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER14]]></append>
+    <append where="false" condition="${일자}.EQ.15" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER15]]></append>
+    <append where="false" condition="${일자}.EQ.16" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER16]]></append>
+    <append where="false" condition="${일자}.EQ.17" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER17]]></append>
+    <append where="false" condition="${일자}.EQ.18" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER18]]></append>
+    <append where="false" condition="${일자}.EQ.19" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER19]]></append>
+    <append where="false" condition="${일자}.EQ.20" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER20]]></append>
+    <append where="false" condition="${일자}.EQ.21" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER21]]></append>
+    <append where="false" condition="${일자}.EQ.22" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER22]]></append>
+    <append where="false" condition="${일자}.EQ.23" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER23]]></append>
+    <append where="false" condition="${일자}.EQ.24" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER24]]></append>
+    <append where="false" condition="${일자}.EQ.25" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER25]]></append>
+    <append where="false" condition="${일자}.EQ.26" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER26]]></append>
+    <append where="false" condition="${일자}.EQ.27" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER27]]></append>
+    <append where="false" condition="${일자}.EQ.28" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER28]]></append>
+    <append where="false" condition="${일자}.EQ.29" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER29]]></append>
+    <append where="false" condition="${일자}.EQ.30" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER30]]></append>
+    <append where="false" condition="${일자}.EQ.31" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER31]]></append>
+    </statement>
+    
+    
+    <statement name="selectChannelTranRank">
+    <![CDATA[
+        SELECT
+            거래일자,
+            거래아이디,
+            ${모드}||${정렬모드} 모드,
+            건수,
+            RANK 순위
+        FROM(
+            SELECT
+                    TRAN_DT 거래일자,
+                    TRAN_ID 거래아이디,
+                    COUNT(CNT) 건수,
+                    CASE WHEN ${정렬모드}='D' THEN dense_RANK() OVER(PARTITION BY TRAN_DT ORDER BY COUNT(CNT) DESC ) 
+                    ELSE RANK() OVER(PARTITION BY TRAN_DT ORDER BY COUNT(CNT) )  
+                    END RANK 
+            FROM (
+                SELECT /*+ PARALLEL(2) */
+                    TRAN_DT,
+                    TRAN_ID,
+                    GUID,
+                    COUNT(1) CNT
+                FROM(
+                    SELECT TRAN_DT, GUID, TRAN_ID {#1}  WHERE 채널구분코드=${채널구분코드} AND TRAN_DT =  ${작업일자} UNION ALL
+                    SELECT TRAN_DT, GUID, TRAN_ID {#2}  WHERE 채널구분코드=${채널구분코드} AND TRAN_DT =  ${작업일자} 
+                ) GROUP BY TRAN_DT, GUID, GUID, TRAN_ID
+            )  GROUP BY TRAN_DT, TRAN_ID
+        )
+        WHERE RANK < 11  AND ROWNUM <20
+    ]]>
+    <append where="false" condition="${일자}.EQ.01" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG01]]></append>
+    <append where="false" condition="${일자}.EQ.02" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG02]]></append>
+    <append where="false" condition="${일자}.EQ.03" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG03]]></append>
+    <append where="false" condition="${일자}.EQ.04" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG04]]></append>
+    <append where="false" condition="${일자}.EQ.05" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG05]]></append>
+    <append where="false" condition="${일자}.EQ.06" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG06]]></append>
+    <append where="false" condition="${일자}.EQ.07" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG07]]></append>
+    <append where="false" condition="${일자}.EQ.08" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG08]]></append>
+    <append where="false" condition="${일자}.EQ.09" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG09]]></append>
+    <append where="false" condition="${일자}.EQ.10" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG10]]></append>
+    <append where="false" condition="${일자}.EQ.11" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG11]]></append>
+    <append where="false" condition="${일자}.EQ.12" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG12]]></append>
+    <append where="false" condition="${일자}.EQ.13" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG13]]></append>
+    <append where="false" condition="${일자}.EQ.14" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG14]]></append>
+    <append where="false" condition="${일자}.EQ.15" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG15]]></append>
+    <append where="false" condition="${일자}.EQ.16" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG16]]></append>
+    <append where="false" condition="${일자}.EQ.17" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG17]]></append>
+    <append where="false" condition="${일자}.EQ.18" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG18]]></append>
+    <append where="false" condition="${일자}.EQ.19" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG19]]></append>
+    <append where="false" condition="${일자}.EQ.20" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG20]]></append>
+    <append where="false" condition="${일자}.EQ.21" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG21]]></append>
+    <append where="false" condition="${일자}.EQ.22" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG22]]></append>
+    <append where="false" condition="${일자}.EQ.23" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG23]]></append>
+    <append where="false" condition="${일자}.EQ.24" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG24]]></append>
+    <append where="false" condition="${일자}.EQ.25" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG25]]></append>
+    <append where="false" condition="${일자}.EQ.26" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG26]]></append>
+    <append where="false" condition="${일자}.EQ.27" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG27]]></append>
+    <append where="false" condition="${일자}.EQ.28" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG28]]></append>
+    <append where="false" condition="${일자}.EQ.29" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG29]]></append>
+    <append where="false" condition="${일자}.EQ.30" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG30]]></append>
+    <append where="false" condition="${일자}.EQ.31" id="#1"><![CDATA[ FROM DEVON.SERL_APPLOG_LG31]]></append>
+    <append where="false" condition="${일자}.EQ.01" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER01]]></append>
+    <append where="false" condition="${일자}.EQ.02" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER02]]></append>
+    <append where="false" condition="${일자}.EQ.03" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER03]]></append>
+    <append where="false" condition="${일자}.EQ.04" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER04]]></append>
+    <append where="false" condition="${일자}.EQ.05" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER05]]></append>
+    <append where="false" condition="${일자}.EQ.06" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER06]]></append>
+    <append where="false" condition="${일자}.EQ.07" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER07]]></append>
+    <append where="false" condition="${일자}.EQ.08" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER08]]></append>
+    <append where="false" condition="${일자}.EQ.09" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER09]]></append>
+    <append where="false" condition="${일자}.EQ.10" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER10]]></append>
+    <append where="false" condition="${일자}.EQ.11" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER11]]></append>
+    <append where="false" condition="${일자}.EQ.12" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER12]]></append>
+    <append where="false" condition="${일자}.EQ.13" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER13]]></append>
+    <append where="false" condition="${일자}.EQ.14" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER14]]></append>
+    <append where="false" condition="${일자}.EQ.15" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER15]]></append>
+    <append where="false" condition="${일자}.EQ.16" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER16]]></append>
+    <append where="false" condition="${일자}.EQ.17" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER17]]></append>
+    <append where="false" condition="${일자}.EQ.18" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER18]]></append>
+    <append where="false" condition="${일자}.EQ.19" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER19]]></append>
+    <append where="false" condition="${일자}.EQ.20" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER20]]></append>
+    <append where="false" condition="${일자}.EQ.21" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER21]]></append>
+    <append where="false" condition="${일자}.EQ.22" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER22]]></append>
+    <append where="false" condition="${일자}.EQ.23" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER23]]></append>
+    <append where="false" condition="${일자}.EQ.24" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER24]]></append>
+    <append where="false" condition="${일자}.EQ.25" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER25]]></append>
+    <append where="false" condition="${일자}.EQ.26" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER26]]></append>
+    <append where="false" condition="${일자}.EQ.27" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER27]]></append>
+    <append where="false" condition="${일자}.EQ.28" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER28]]></append>
+    <append where="false" condition="${일자}.EQ.29" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER29]]></append>
+    <append where="false" condition="${일자}.EQ.30" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER30]]></append>
+    <append where="false" condition="${일자}.EQ.31" id="#2"><![CDATA[ FROM DEVON.SERL_APPLOG_ER31]]></append>
+    <append where="false" condition="${정렬모드}.EQ.D" id="#3"><![CDATA[ dense_RANK() OVER(PARTITION BY TRAN_DT ORDER BY COUNT(CNT) DESC ) RANK   ]]></append>
+    <append where="false" condition="${정렬모드}.EQ.A" id="#3"><![CDATA[ dense_RANK() OVER(PARTITION BY TRAN_DT ORDER BY COUNT(CNT) ) RANK   ]]></append>
+    </statement>
+      
+    <statement name="insertSTC_CHL_OCCU_INFO">
+    <![CDATA[
+        INSERT INTO DEVON.STC_CHL_OCCU_INFO(
+             거래일자
+            ,모드
+            ,구분코드
+            ,결과
+        )VALUES(
+             ${거래일자}
+            ,${모드}
+            ,${구분코드}
+            ,${결과}
+        )
+    ]]>
+    </statement>
+    
+    <statement name="insertSTC_TRAN_INFO">
+    <![CDATA[
+        INSERT INTO DEVON.STC_TRAN_INFO(
+             거래일자
+            ,모드
+            ,거래아이디
+            ,건수
+            ,순위
+        )VALUES(
+             ${거래일자}
+            ,${모드}
+            ,${거래아이디}
+            ,${건수}
+            ,${순위}
+        )
+    ]]>
+    </statement>
+    
+    
+    
+   <!--####################### 월별 리포트 #########################-->
+    <statement name="selectSTC_DATA_PROCSTS_REPORT">
+    <![CDATA[
+       WITH PMTH AS(
+            SELECT 
+                'P' 전월구분,
+                구분코드 채널코드,
+                sum(결과) 건수
+            FROM DEVON.STC_CHL_OCCU_INFO 
+            WHERE 거래일자 LIKE ${작업전월}||'%' AND 모드='1' 
+            GROUP BY 구분코드
+        ),
+        CMTH AS(
+            SELECT 
+                'C' 전월구분,
+                구분코드 채널코드,
+                sum(결과) 건수
+            FROM DEVON.STC_CHL_OCCU_INFO 
+            WHERE 거래일자 LIKE ${작업년월}||'%' AND 모드='1'
+            GROUP BY 구분코드
+        ),
+        PSUM AS(
+            SELECT  
+                sum(결과) 건수
+            FROM DEVON.STC_CHL_OCCU_INFO 
+            WHERE 거래일자 LIKE  ${작업전월}||'%' AND 모드='1' 
+        ),
+        CSUM AS(
+            SELECT 
+                sum(결과) 건수
+            FROM DEVON.STC_CHL_OCCU_INFO 
+            WHERE 거래일자 LIKE ${작업년월}||'%' AND 모드='1'
+        ), CHLNM AS(
+            SELECT '00' 채널코드 , '해당없음' 채널명  FROM DUAL UNION
+            SELECT '01' , '단말' 채널명 FROM DUAL UNION
+            SELECT '02' , '자동화기기' 채널명 FROM DUAL UNION
+            SELECT '03' , '인터넷뱅킹' 채널명 FROM DUAL UNION
+            SELECT '04' , '콜센터' 채널명 FROM DUAL UNION
+            SELECT '05' , '센터컷' 채널명 FROM DUAL UNION
+            SELECT '06' , '대외망' 채널명 FROM DUAL
+        ) 
+        SELECT
+            ${작업년월} 작업년월,
+            A.채널코드,
+            (SELECT 채널명 FROM CHLNM T WHERE T.채널코드 = A.채널코드) 채널코드명,
+            SUM(A.건수) 전월건수, 
+            ROUND(SUM(A.건수)/ ( SELECT 건수 FROM PSUM) * 100 ,2) 전월비율,    
+            SUM(B.건수) 금월건수, 
+           ROUND(SUM(B.건수)/ ( SELECT 건수 FROM CSUM) * 100 ,2) 금월비율,
+           ROUND(SUM(B.건수)/ ( SELECT 건수 FROM CSUM) * 100 ,2) - ROUND(SUM(A.건수)/ ( SELECT 건수 FROM PSUM) * 100 ,2) 증감률
+        FROM PMTH A, CMTH B
+        WHERE A.채널코드 = B.채널코드
+        AND A.채널코드 NOT IN ('05','06')
+        GROUP BY A.채널코드
+        UNION
+        SELECT
+            ${작업년월} 작업년월,
+            A.채널코드,
+            (SELECT 채널명 FROM CHLNM T WHERE T.채널코드 = A.채널코드) 채널코드명,
+            SUM(A.건수) 전건수, 
+            ROUND(SUM(A.건수)/ ( SELECT 건수 FROM PSUM) * 100 ,2) 전점유비율,    
+            SUM(B.건수) 금건수, 
+           ROUND(SUM(B.건수)/ ( SELECT 건수 FROM CSUM) * 100 ,2) 금점유비율,
+           ROUND(SUM(B.건수)/ ( SELECT 건수 FROM CSUM) * 100 ,2) - ROUND(SUM(A.건수)/ ( SELECT 건수 FROM PSUM) * 100 ,2) 증감율
+        FROM PMTH A, CMTH B
+        WHERE A.채널코드 = B.채널코드
+        AND A.채널코드 = '06'
+        GROUP BY A.채널코드
+        UNION
+        SELECT
+            ${작업년월} 작업년월,
+            A.채널코드,
+            (SELECT 채널명 FROM CHLNM T WHERE T.채널코드 = A.채널코드) 채널코드명,
+            SUM(A.건수) 전건수, 
+            ROUND(SUM(A.건수)/ ( SELECT 건수 FROM PSUM) * 100 ,2) 전점유비율,    
+            SUM(B.건수) 금건수, 
+           ROUND(SUM(B.건수)/ ( SELECT 건수 FROM CSUM) * 100 ,2) 금점유비율,
+           ROUND(SUM(B.건수)/ ( SELECT 건수 FROM CSUM) * 100 ,2) - ROUND(SUM(A.건수)/ ( SELECT 건수 FROM PSUM) * 100 ,2) 증감율
+        FROM PMTH A, CMTH B
+        WHERE A.채널코드 = B.채널코드
+        AND A.채널코드 = '05'
+        GROUP BY A.채널코드
+    ]]>
+    </statement>
+    
+    <statement name="insertSTC_DATA_PROCSTS_REPORT">
+    <![CDATA[
+        INSERT INTO DEVON.STC_DATA_PROCSTS_REPORT(
+             작업년월
+            ,채널코드
+            ,채널코드명
+            ,전월건수
+            ,전월비율
+            ,금월건수
+            ,금월비율
+            ,증감률
+        )VALUES(
+            ${작업년월}
+            ,${채널코드}
+            ,${채널코드명}
+            ,${전월건수}
+            ,${전월비율}
+            ,${금월건수}
+            ,${금월비율}
+            ,${증감률}
+        )
+    ]]>
+    </statement>
+        
+    <!--####################### 월별 PEAK일 매체별 처리현황 리포트 #########################-->
+    <statement name="selectSTC_MEDIA_PROCSTS_REPORT">
+    <![CDATA[
+       SELECT
+            ${작업년월} 작업년월,
+            거래일자,
+            SUM(DECODE(구분코드,'00',결과,0)) 해당없음,
+            SUM(DECODE(구분코드,'01',결과,0)) 단말,
+            SUM(DECODE(구분코드,'02',결과,0)) 자동화기기,
+            SUM(DECODE(구분코드,'03',결과,0)) 인터넷뱅킹,
+            SUM(DECODE(구분코드,'04',결과,0)) 콜센터,
+            SUM(DECODE(구분코드,'05',결과,0)) 센터컷,
+            SUM(DECODE(구분코드,'06',결과,0)) 대외망
+        FROM (
+            SELECT 
+                *
+            FROM DEVON.STC_CHL_OCCU_INFO A
+            WHERE A.모드='1' AND A.거래일자 =(
+            SELECT
+               MAX(거래일자) KEEP (DENSE_RANK FIRST ORDER BY TO_NUMBER(결과) DESC) 
+            FROM DEVON.STC_CHL_OCCU_INFO 
+            WHERE 모드='2' AND 구분코드 ='0' AND 거래일자 like ${작업전월}||'%')
+            UNION ALL
+            SELECT 
+                *
+            FROM DEVON.STC_CHL_OCCU_INFO A
+            WHERE A.모드='1' AND A.거래일자 =(
+            SELECT
+               MAX(거래일자) KEEP (DENSE_RANK FIRST ORDER BY TO_NUMBER(결과) DESC) 
+            FROM DEVON.STC_CHL_OCCU_INFO 
+            WHERE 모드='2' AND 구분코드 ='0' AND 거래일자 like ${작업년월}||'%')
+        )
+        GROUP BY 거래일자
+    ]]>
+    </statement>
+    
+    <statement name="insertSTC_MEDIA_PROCSTS_REPORT">
+    <![CDATA[
+        INSERT INTO DEVON.STC_MEDIA_PROCSTS_REPORT(
+             작업년월
+            ,거래일자
+            ,해당없음
+            ,단말
+            ,자동화기기
+            ,인터넷뱅킹
+            ,콜센터
+            ,센터컷
+            ,대외망
+        )VALUES(
+             ${작업년월}
+            ,${거래일자}
+            ,${해당없음}
+            ,${단말}
+            ,${자동화기기}
+            ,${인터넷뱅킹}
+            ,${콜센터}
+            ,${센터컷}
+            ,${대외망}
+        )
+    ]]>
+    </statement>
+    
+    <!-- 월별 온라인 처리 최대일 분석 ######################-->
+    
+    
+    <!--####################### 온라인 거래 상위/하위 점유현황 #########################-->
+    <statement name="selectSTC_ONLINE_OCCU_REPORT">
+    <![CDATA[
+       SELECT 
+            ${작업년월} 작업년월,
+            SD.거래년월,
+            SD.RO 순번,
+            ${채널구분코드} 채널구분코드,
+            SD.거래아이디 상위거래아이디,
+            SD.거래아이디 상위거래명,
+            SD.건수 상위거래건수,
+            ROUND(SD.건수 / TT.총건수 * 100 ,2) 상위거래비율,
+            SD.RANK 상위순서,
+            SA.거래아이디 하위거래아이디,
+            SA.거래아이디 하위거래명,
+            SA.건수 하위거래건수,
+            ROUND(SA.건수 / TT.총건수 * 100 ,2) 하위거래비율,
+            SA.RANK 하위순서    
+        FROM 
+        (
+        SELECT 
+            ROWNUM RO,
+            거래년월,
+            거래아이디,
+            건수, RANK
+        FROM(
+            SELECT 
+               SUBSTR(거래일자,0,6) 거래년월, 거래아이디, SUM(건수) 건수, 
+               RANK() OVER(PARTITION BY SUBSTR(거래일자,0,6) ORDER BY SUM(건수) DESC ) RANK
+            FROM DEVON.STC_TRAN_INFO
+            WHERE 거래일자 LIKE ${작업년월}||'%' AND 모드= ${처리모드}||'D' /*'3D' */
+            GROUP BY SUBSTR(거래일자,0,6) , 거래아이디
+        )
+        WHERE RANK <101 AND ROWNUM <101
+        ) SD,
+        (
+        SELECT 
+            ROWNUM RO,
+            거래년월,
+            거래아이디,
+            건수, RANK
+        FROM(
+            SELECT 
+               SUBSTR(거래일자,0,6) 거래년월, 거래아이디, SUM(건수) 건수, 
+               RANK() OVER(PARTITION BY SUBSTR(거래일자,0,6) ORDER BY SUM(건수) ) RANK
+            FROM DEVON.STC_TRAN_INFO
+            WHERE 거래일자 LIKE ${작업년월}||'%' AND 모드= ${처리모드}||'A' /*'3A' */
+            GROUP BY SUBSTR(거래일자,0,6) , 거래아이디
+        )
+        WHERE RANK <101 AND ROWNUM <101
+        ) SA,
+        (SELECT NVL(SUM(결과),0) 총건수 FROM DEVON.STC_CHL_OCCU_INFO WHERE 거래일자 LIKE ${작업년월}||'%' AND 모드='1' AND 구분코드 =${채널구분코드} ) TT
+        WHERE SD.거래년월 = SA.거래년월 AND SD.RO = SA.RO
+    ]]>
+    </statement>
+    
+    <statement name="insertSTC_ONLINE_OCCU_REPORT">
+    <![CDATA[
+        INSERT INTO DEVON.STC_ONLINE_OCCU_REPORT(
+             작업년월
+            ,거래년월
+            ,순번
+            ,채널구분코드
+            ,상위거래아이디
+            ,상위거래명
+            ,상위거래건수
+            ,상위거래비율
+            ,상위순서
+            ,하위거래아이디
+            ,하위거래명
+            ,하위거래건수
+            ,하위거래비율
+            ,하위순서
+        )VALUES(
+             ${작업년월}
+            ,${거래년월}
+            ,${순번}
+            ,${채널구분코드}
+            ,${상위거래아이디}
+            ,${상위거래명}
+            ,${상위거래건수}
+            ,${상위거래비율}
+            ,${상위순서}
+            ,${하위거래아이디}
+            ,${하위거래명}
+            ,${하위거래건수}
+            ,${하위거래비율}
+            ,${하위순서}
+        )
+    ]]>
+    </statement>
+    
+    <!--####################### 온라인 거래 상위/하위 점유현황 #########################-->
+    <statement name="selectSTC_DAYPROC_REPORT">
+    <![CDATA[
+      SELECT
+           ${작업년월} 작업년월,
+           'D' 구분코드,
+           거래일자 제목,
+           SUM(DECODE(구분코드,'00',결과,0)) 해당없음,
+           SUM(DECODE(구분코드,'01',결과,0)) 단말,
+           SUM(DECODE(구분코드,'02',결과,0)) 자동화기기,
+           SUM(DECODE(구분코드,'03',결과,0)) 인터넷뱅킹,
+           SUM(DECODE(구분코드,'04',결과,0)) 콜센터,
+           SUM(DECODE(구분코드,'05',결과,0)) 센터컷,
+           SUM(DECODE(구분코드,'06',결과,0)) 대외망      
+         FROM DEVON.STC_CHL_OCCU_INFO A
+           WHERE A.모드='1' AND 거래일자 LIKE ${작업년월}||'%'
+       GROUP BY 거래일자
+    ]]>
+    </statement>
+    
+    <statement name="selectSTC_SUMDAYPROC_REPORT">
+    <![CDATA[
+       SELECT
+            ${작업년월} 작업년월,
+            'A' 구분코드,
+            '총합계' 제목,
+            SUM(DECODE(구분코드,'00',결과,0)) 해당없음,
+            SUM(DECODE(구분코드,'01',결과,0)) 단말,
+            SUM(DECODE(구분코드,'02',결과,0)) 자동화기기,
+            SUM(DECODE(구분코드,'03',결과,0)) 인터넷뱅킹,
+            SUM(DECODE(구분코드,'04',결과,0)) 콜센터,
+            SUM(DECODE(구분코드,'05',결과,0)) 센터컷,
+            SUM(DECODE(구분코드,'06',결과,0)) 대외망
+        FROM DEVON.STC_CHL_OCCU_INFO A
+        WHERE A.모드='1' AND 거래일자 LIKE ${작업년월}||'%'
+        UNION ALL
+        SELECT
+            ${작업년월} 작업년월,
+            'A' 구분코드,
+            '일평균' 제목,
+            ROUND(AVG(DECODE(구분코드,'00',결과,0)),0) 해당없음,
+            ROUND(AVG(DECODE(구분코드,'01',결과,0)),0) 단말,
+            ROUND(AVG(DECODE(구분코드,'02',결과,0)),0) 자동화기기,
+            ROUND(AVG(DECODE(구분코드,'03',결과,0)),0) 인터넷뱅킹,
+            ROUND(AVG(DECODE(구분코드,'04',결과,0)),0) 콜센터,
+            ROUND(AVG(DECODE(구분코드,'05',결과,0)),0) 센터컷,
+            ROUND(AVG(DECODE(구분코드,'06',결과,0)),0) 대외망
+        FROM DEVON.STC_CHL_OCCU_INFO A
+        WHERE A.모드='1' AND 거래일자 LIKE ${작업년월}||'%'
+    ]]>
+    </statement>
+    
+    <statement name="insertSTC_DAYPROC_REPORT">
+    <![CDATA[
+        INSERT INTO DEVON.STC_DAYPROC_REPORT(
+             작업년월
+            ,구분코드
+            ,제목
+            ,해당없음
+            ,단말
+            ,자동화기기
+            ,인터넷뱅킹
+            ,콜센터
+            ,센터컷
+            ,대외망
+        )VALUES(
+             ${작업년월}
+            ,${구분코드}
+            ,${제목}
+            ,${해당없음}
+            ,${단말}
+            ,${자동화기기}
+            ,${인터넷뱅킹}
+            ,${콜센터}
+            ,${센터컷}
+            ,${대외망}
+        )
+    ]]>
+    </statement>
+    
+    <statement name="insertSTC_ONLINE_MAX_REPORT">
+    <![CDATA[
+        INSERT INTO DEVON.STC_ONLINE_MAX_REPORT(
+             작업년월
+            ,온라인PEAK일자
+            ,일분당처리건수
+            ,십분당처리건수
+            ,평균응답시간
+            ,CCPEAK일자
+            ,센터컷건수
+        )VALUES(
+             ${작업년월}
+            ,${온라인PEAK일자}
+            ,${일분당처리건수}
+            ,${십분당처리건수}
+            ,${평균응답시간}
+            ,${CCPEAK일자}
+            ,${센터컷건수}
+        )
+    ]]>
+    </statement>
+    
+    <statement name="selectSTC_ONLINE_MAX_REPORT">
+    <![CDATA[
+      SELECT
+          A.작업년월,
+          A.온라인PEAK일자,
+          A.일분당처리건수,
+          A.십분당처리건수,
+          A.평균응답시간,
+          B.CCPEAK일자,
+          B.센터컷건수
+      FROM 
+        (
+        SELECT 
+            ${작업년월} 작업년월,
+            A.거래일자 온라인PEAK일자,
+            MAX(DECODE(구분코드,'1',결과,0))  일분당처리건수,
+            MAX(DECODE(구분코드,'2',결과,0))  십분당처리건수,
+            MAX(DECODE(구분코드,'3',결과,0))  평균응답시간
+        FROM DEVON.STC_CHL_OCCU_INFO A
+        WHERE A.모드='2' AND A.거래일자 =(
+            SELECT 
+                MAX(거래일자) KEEP (DENSE_RANK FIRST ORDER BY TO_NUMBER(nvl(결과,0)) DESC) 
+            FROM DEVON.STC_CHL_OCCU_INFO WHERE 모드='2' AND 구분코드 ='0' AND 거래일자 LIKE ${작업년월}||'%'
+        )
+        GROUP BY A.거래일자) A,(
+        SELECT 
+            ${작업년월} 작업년월,
+            A.거래일자 CCPEAK일자,
+            MAX(DECODE(구분코드,'4',결과,0)) 센터컷건수
+        FROM DEVON.STC_CHL_OCCU_INFO A
+        WHERE A.모드='2' AND A.거래일자 =(
+            SELECT 
+                MAX(거래일자) KEEP (DENSE_RANK FIRST ORDER BY TO_NUMBER(nvl(결과,0)) DESC) 
+            FROM DEVON.STC_CHL_OCCU_INFO WHERE 모드='2' AND 구분코드 ='4' AND 거래일자 LIKE ${작업년월}||'%'
+        )
+        GROUP BY A.거래일자
+        ) B
+        WHERE A.작업년월 = B.작업년월
+    ]]>
+    </statement>
+       
+    <statement name="deleteSTC_TRAN_INFO">
+    <![CDATA[
+        DELETE FROM DEVON.STC_TRAN_INFO 
+        WHERE 거래일자 =${작업일자} AND 모드 =${모드}||NVL(${정렬모드},'')
+    ]]>
+    </statement>
+    
+    <statement name="deleteSTC_CHL_OCCU_INFO">
+    <![CDATA[
+        DELETE FROM DEVON.STC_CHL_OCCU_INFO 
+        WHERE 거래일자 =${작업일자} AND 모드 =${모드}
+    ]]>
+    </statement>
+    
+    <statement name="deleteSTC_DATA_PROCSTS_REPORT">
+    <![CDATA[
+        DELETE FROM DEVON.STC_DATA_PROCSTS_REPORT 
+        WHERE 작업년월 =${작업년월}
+    ]]>
+    </statement>
+    
+    <statement name="deleteSTC_MEDIA_PROCSTS_REPORT">
+    <![CDATA[
+        DELETE FROM DEVON.STC_MEDIA_PROCSTS_REPORT 
+        WHERE 작업년월 =${작업년월}
+    ]]>
+    </statement>
+    
+    <statement name="deleteSTC_ONLINE_OCCU_REPORT">
+    <![CDATA[
+        DELETE FROM DEVON.STC_ONLINE_OCCU_REPORT 
+        WHERE 작업년월 =${작업년월} AND 채널구분코드=${채널구분코드}
+    ]]>
+    </statement>
+    
+    <statement name="deleteSTC_DAYPROC_REPORT">
+    <![CDATA[
+        DELETE FROM DEVON.STC_DAYPROC_REPORT 
+        WHERE 작업년월 =${작업년월}
+    ]]>
+    </statement>
+    
+    <statement name="deleteSTC_ONLINE_MAX_REPORT">
+    <![CDATA[
+        DELETE FROM DEVON.STC_ONLINE_MAX_REPORT 
+        WHERE 작업년월 =${작업년월}
+    ]]>
+    </statement>
+    
+</statements>

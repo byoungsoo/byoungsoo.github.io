@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<interface>
+    
+    <wmq>
+        <transport>client</transport> <!-- 기본모드 bind, client -->
+        <channel_property>SYSTEM.DEF.SVRCONN</channel_property>
+        
+        <!-- Queue 매니저 정보 -->
+        <queuemanagers>
+            <!-- instanceName(-DHOST_NAME) : 적용 컨테이너
+                 bindname(큐메니저명) : BIND 모드인경우 접속 큐메니저명
+                 clientnode(연계노드정보): 장애시 참조할 연계노드명 
+                 매니저명 획득 방법 instanceName검색
+                    순위1. 완전한 인스턴스명
+                    순위2. 인스턴스명 앞자리(_구분맨앞[호스트명])
+                    순위3. 사용불가
+                 receivenodes : 클라이언트모드인 경우 선언한 노드들의 consumer로 등록한다.
+                 transport: 해당패턴의 매니저 연결모드 없으면 기본모드의 client
+                 sendnodes : 클라이언트 모드의 경우 전송처리시에 사용할 노드 정보들 세팅이 되어 있지 않으면 receivenodes정보를 세팅 
+                            receivenodes 노드 정보도 없으면 clientnode 가 세팅 된다.
+             -->
+            <!-- 개발서버 -->
+            <queuemanager instanceName="szca01_mqm01_dev" bindname="NMCD1" clientnode="MQ_NMCD1"/>
+            <queuemanager instanceName="szca01_mqm02_dev" bindname="NMCD2" clientnode="MQ_NMCD2"/>
+            <queuemanager instanceName="szca01" bindname="NMCD1" clientnode="MQ_NMCD1"/>
+            <queuemanager instanceName="szcbat" bindname="NMCD1" clientnode="MQ_NMCD1"/>
+            
+            <queuemanager instanceName="szca01_mqm11_dev"  bindname="NMCD1" clientnode="MQ_NMCD2" receivenodes="MQ_NMCD1,MQ_NMCD2" sendnodes="MQ_NMCD2,MQ_NMCD1"/>
+             <!-- bindname="NMCD1" clientnode="MQ_NMCD1"/> -->
+             <!-- <queuemanager instanceName="szca01_mqm11_dev" bindname="NMCD1" clientnode="MQ_NMCD2"/> -->
+             
+            <!--  테스트서버 
+            <queuemanager instanceName="szca01" bindname="NMCT1" clientnode="MQ_NMCT1"/>
+            <queuemanager instanceName="szca02" bindname="NMCT2" clientnode="MQ_NMCT2"/>
+            <queuemanager instanceName="szca03" bindname="NMCT3" clientnode="MQ_NMCT3"/>
+            <queuemanager instanceName="szca04" bindname="NMCT4" clientnode="MQ_NMCT4"/>-->
+        </queuemanagers>
+        
+        <!-- Queue consumer 정보 
+            queue name : 큐명칭
+            listener-cnt : Consumer (동시 처리 THREAD) 갯수
+            use : 사용여부 
+            추가할것: QMN(큐메니저명), 초기바인딩할 instanceName(인스턴스명)
+            use-instanceName 수신처리할 인스턴스들
+        -->
+        <receive>
+            <use-instanceName>
+                szca01_mqm01_dev,szca01_mqm02_dev,
+                szca01_mqm01,szca01_mqm02,szca02_mqm01,szca02_mqm02,
+                szca03_mqm01,szca03_mqm02,szca04_mqm01,szca04_mqm02,szca01_mqm11_dev
+            </use-instanceName>
+            <use-retry>false</use-retry> <!-- 재처리 여부 -->
+            <queueInfos>
+                <queue name="LOCALTEST.LQ" appcode="GAC" desc="승인_기타사항등록자료전송" listener-cnt="3" use="true" retry-cnt="3"/> 
+                <!-- <queue name="PAC101.CQ" appcode="GAC" desc="승인_기타사항등록자료전송" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PAD101.CQ" appcode="GAD" desc="승인_거래정지내역 전송" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PAH101.CQ" appcode="GAH" desc="승인_본부부서자료전송" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBH101.CQ" appcode="GBH" desc="승인_선처리자료전송(신용)" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBH102.CQ" appcode="GBH" desc="승인_선처리자료전송(신용)" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBH103.CQ" appcode="GBH" desc="승인_선처리자료전송(신용)" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBH104.CQ" appcode="GBH" desc="승인_선처리자료전송(신용)" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBH105.CQ" appcode="GBH" desc="승인_선처리자료전송(신용)" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBH106.CQ" appcode="GBH" desc="승인_선처리자료전송(신용)" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBH107.CQ" appcode="GBH" desc="승인_선처리자료전송(신용)" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBH108.CQ" appcode="GBH" desc="승인_선처리자료전송(신용)" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBH109.CQ" appcode="GBH" desc="승인_선처리자료전송(신용)" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBH110.CQ" appcode="GBH" desc="승인_선처리자료전송(신용)" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBH201.CQ" appcode="GBH" desc="승인_선처리자료전송(체크)" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBH202.CQ" appcode="GBH" desc="승인_선처리자료전송(체크)" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBH203.CQ" appcode="GBH" desc="승인_선처리자료전송(체크)" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBH204.CQ" appcode="GBH" desc="승인_선처리자료전송(체크)" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBH205.CQ" appcode="GBH" desc="승인_선처리자료전송(체크)" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBH206.CQ" appcode="GBH" desc="승인_선처리자료전송(체크)" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBH207.CQ" appcode="GBH" desc="승인_선처리자료전송(체크)" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBH208.CQ" appcode="GBH" desc="승인_선처리자료전송(체크)" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBH209.CQ" appcode="GBH" desc="승인_선처리자료전송(체크)" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBH210.CQ" appcode="GBH" desc="승인_선처리자료전송(체크)" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBH301.CQ" appcode="GBH" desc="승인_선처리자료전송(선불)" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBH401.CQ" appcode="GBH" desc="승인_일괄승인선처리자료전송" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBH402.CQ" appcode="GBH" desc="승인_일괄승인선처리자료전송" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBH403.CQ" appcode="GBH" desc="승인_일괄승인선처리자료전송" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBH404.CQ" appcode="GBH" desc="승인_일괄승인선처리자료전송" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBH405.CQ" appcode="GBH" desc="승인_일괄승인선처리자료전송" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBH501.CQ" appcode="GBH" desc="승인_제휴승인선처리자료전송" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBH502.CQ" appcode="GBH" desc="승인_제휴승인선처리자료전송" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBH503.CQ" appcode="GBH" desc="승인_제휴승인선처리자료전송" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBH504.CQ" appcode="GBH" desc="승인_제휴승인선처리자료전송" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBH505.CQ" appcode="GBH" desc="승인_제휴승인선처리자료전송" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBH601.CQ" appcode="GBH" desc="승인_SK러브유카드선처리자료전송" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBH701.CQ" appcode="GBH" desc="승인_체크카드계리반영전송" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBH702.CQ" appcode="GBH" desc="승인_체크카드계리반영전송" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBH703.CQ" appcode="GBH" desc="승인_체크카드계리반영전송" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBH704.CQ" appcode="GBH" desc="승인_체크카드계리반영전송" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBH705.CQ" appcode="GBH" desc="승인_체크카드계리반영전송" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBI801.CQ" appcode="GBI" desc="승인_해외승인선처리자료전송" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBI901.CQ" appcode="GBI" desc="승인_해외회원승인선처리자료전송" listener-cnt="2" use="true" retry-cnt="8"/>
+                <queue name="PBI101.CQ" appcode="GBI" desc="승인_화물승인선처리자료전송" listener-cnt="2" use="true" retry-cnt="8"/> -->
+            </queueInfos>
+        </receive>
+        
+        <!-- Queue Sender 정보 
+             queue name : dimms 에서넘어 오는 queue명
+             use: 사용여부
+             alias: 실제 사용하는 큐명들
+        -->
+        <send>
+            <queueInfos>
+                <queue name="LOC1" appcode="LOC" desc="카드고객_고객기본정보 반영" use="true" alias="LOCALTEST.LQ"/>
+                <queue name="GAA1" appcode="GAA" desc="카드고객_고객기본정보 반영" use="true" alias="GAA101.CQ"/>
+                <queue name="GAA2" appcode="GAA" desc="카드고객_고객기타정보 반영" use="true" alias="GAA201.CQ"/>
+                <queue name="GAC1" appcode="GAC" desc="카드회원_개인회원정보" use="true" alias="GAC101.CQ"/>
+                <queue name="GAC2" appcode="GAC" desc="카드회원_회원추가정보" use="true" alias="GAC201.CQ,GAC202.CQ"/>
+                <queue name="GAC3" appcode="GAC" desc="카드회원_회원추가정보(앱)" use="true" alias="GAC301.CQ,GAC302.CQ"/>
+                <queue name="GAC4" appcode="GAC" desc="카드회원_결제정보(이원화)" use="true" alias="GAC401.CQ"/>
+                <queue name="GAC5" appcode="GAC" desc="카드회원_구매카드이용가맹점" use="true" alias="GAC501.CQ"/>
+                <queue name="GAC6" appcode="GAC" desc="카드회원_한도" use="true" alias="GAC601.CQ"/>
+                <queue name="GAD1" appcode="GAD" desc="카드회원_거래정지" use="true" alias="GAD101.CQ"/>
+                <queue name="GAF1" appcode="GAF" desc="심사(회원신규,카드정보)" use="true" alias="GAF101.CQ"/>
+                <queue name="GAG1" appcode="GAG" desc="발급(카드발급,카드교부/반송,카드관련전출입정보,MS/IC재기록,카드발급정보변경,체크카드한도)" 
+                    use="true" alias="GAG101.RQ"/>
+                <queue name="GBA1" appcode="GBA" desc="카드가맹점_매입" use="true" 
+                    alias="GBA101.RQ,GBA102.RQ,GBA103.RQ,GBA104.RQ,GBA105.RQ,GBA106.RQ,GBA107.RQ,GBA108.RQ,GBA109.CQ,GBA110.RQ"/>
+                <queue name="GBA2" appcode="GBA" desc="카드가맹점_매입(온라인)" use="true" alias="GBA201.RQ"/>
+                <queue name="GBA3" appcode="GBA" desc="카드가맹점_매입(체크카드)" use="true" alias="GBA301.RQ,GBA302.RQ,GBA303.RQ,GBA304.RQ,GBA305.RQ"/>
+                <queue name="GBA4" appcode="GBA" desc="카드가맹점_일괄매입" use="true" alias="GBA401.RQ,GBA402.RQ,GBA403.RQ,GBA404.RQ,GBA405.RQ"/>
+                <queue name="GBA5" appcode="GBA" desc="카드가맹점_매입(전표취소)" use="true" alias="GBA501.RQ"/>
+                <queue name="GBA6" appcode="GBA" desc="카드가맹점_매입(선불카드)" use="true" alias="GBA601.RQ"/>
+                <queue name="GBC1" appcode="GBC" desc="카드결제관리_회수(온라인)" use="true" alias="GBC101.RQ"/>
+                <queue name="GBC2" appcode="GBC" desc="카드결제관리_회수" use="true" alias="GBC201.RQ,GBC202.RQ,GBC203.RQ,GBC204.RQ,GBC205.RQ"/>
+                <queue name="GBC3" appcode="GBC" desc="카드결제관리_기업카드회수" use="true" alias="GBC301.RQ,GBC302.RQ,GBC303.RQ"/>
+                <queue name="GBC4" appcode="GBC" desc="카드결제관리_기업카드회수(온라인)" use="true" alias="GBC401.RQ"/>
+                <queue name="GBF1" appcode="GBF" desc="국제정산_해외매입" use="true" alias="GBF101.RQ"/>
+                <queue name="GBF2" appcode="GBF" desc="국제정산_해외체크매입" use="true" alias="GBF201.RQ"/>
+                <queue name="GBH1" appcode="GBH" desc="카드이용_대환현금" use="true" alias="GBH101.CQ"/>
+                <queue name="GCB1" appcode="GCB" desc="공통_환율" use="true" alias="GCB101.CQ"/>
+                <queue name="GDB1" appcode="GDB" desc="카드가맹점_가맹점부가정보(특약)" use="true" alias="GDB101.CQ"/>
+                <queue name="GDB2" appcode="GDB" desc="카드가맹점_가맹점한도정보" use="true" alias="GDB201.CQ"/>
+                <queue name="GDB3" appcode="GDB" desc="카드가맹점_가맹점기본정보" use="true" alias="GDB301.CQ"/>
+                <queue name="GEA1" appcode="GEA" desc="카드론정보반영(카드론연체원금반영,쉬프트론반영)" use="true" alias="GEA101.CQ"/>
+                <queue name="GEB1" appcode="GEB" desc="선불카드(선불카드발급,선불카드인자)" use="true" alias="GEB101.CQ"/>
+            </queueInfos>
+        </send>
+        
+       <!--  <listener-cnt>30</listener-cnt>
+        <isconcurrent>true</isconcurrent>
+        큐명,사용여부,리스너갯수,병렬여부,바인딩로컬모드,
+        <queueInfos>
+           <queueInfo name="TEST.LQ" use="true" lsncnt="5" concurrent="false" isClient="true"/>
+           <queueInfo name="" use="true" lsncnt="5" concurrent="false" isClient="true"/>
+        </queueInfos> -->
+        <!-- 잡 노드 TABLE 사용 -->
+    </wmq>
+    
+    <!-- MCI 인스턴스아이디 대비 사용연계아이디 정의 
+    PUSH 
+        linkids : push 거래 전송시 사용할 연계ID(MCI인스턴스별로 존재)
+    BID 
+        instance name : MCI인스턴스번호  
+        bid-linkid : 비드처리 인터페이스아이디.
+    -->
+    <mci>
+        <instanceinfo>
+            <push>
+                <linkids>FWR_1PUSHA00001,FWR_1PUSHA00002</linkids>
+            </push>
+            <!-- BID 정보  -->
+            <instance name="0101" use="true">
+                <bid-linkid>FWR_1_MCIA00001</bid-linkid>
+           </instance>
+            <instance name="0102" use="true">
+                <bid-linkid>FWR_1_MCIA00002</bid-linkid>
+            </instance>
+        </instanceinfo>
+    </mci>
+    
+    <eai>
+        <envType>D</envType> <!-- 환경구분코드 -D옵션이 우선 -->
+        <confPath>#home\..\D_EAI_AD.PROP</confPath> <!-- 프로퍼티위치 -D옵션이 우선 -->
+    </eai>
+    
+    <!-- kb메신저 -->
+    <kbMessenger>
+        <use>false</use>
+        <serverCode>WBTD01</serverCode>
+        <sendurl>http://172.17.31.103:8081/HMemoService</sendurl> <!-- 스테이징 -->
+        <!-- <url>http://172.17.179.45/HMemoService</url> --> <!-- 운영 -->
+    </kbMessenger>
+    
+    <!-- batch 연계가능 인터페이스ID -->
+    <batch-link-control>
+        <use>true</use>
+        <interfaceids>
+            GCB_2_BCAA00001, GCB_2_BCAA00002
+        </interfaceids>
+    </batch-link-control>
+</interface>

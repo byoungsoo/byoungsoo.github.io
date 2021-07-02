@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<statements>
+    <statement name="selectCdcCstInf">
+		<![CDATA[
+			SELECT /*+ 박재성::/card/cards/CdcSptFntEbc/selectCdcCstInf */
+				   A.고객식별자 AS 고객식별자
+			     , A.고객고유번호
+			     ,( SELECT  NVL(D.고객관리번호 ,'00000')   
+			          FROM  INSTC.TBUBDA001    C , 
+			                INSTC.TBUBDA002    D   
+			         WHERE C.고객고유번호 = A.고객고유번호
+			           AND C.고객식별자   = D.고객식별자
+			           AND A.고객유형분류구분코드  = '1' ) 고객관리번호
+			     , A.고객명
+			     , A.CI내용
+			     , A.CI최종처리일시 as CI최종처리일시_V20
+			  FROM INSTC.TBUBDA001 A 
+			WHERE A.CI내용 = ${CI내용}
+			  AND A.CI내용 > ' '
+			  AND A.고객식별자 < '6000000000'
+			  AND (A.고객상태구분코드  NOT IN ('3','5') OR 1=0)    /* (해지고객 ,처리정지고객) */
+			  AND ROWNUM <= 1
+		]]>
+    </statement>
+
+
+    <statement name="selectCdcCrdIdf">
+		<![CDATA[
+			SELECT /*+ 박재성::/card/cards/CdcSptFntEbc/"selectCdcCrdIdf" */
+				   A.회원일련번호
+				 , A.카드소유자구분코드 
+			     , D.카드대체번호         
+			     , C.카드번호            
+			     , B.카드식별자          
+			     , B.카드상세일련번호    
+			  FROM INSTC.TBUBDE002 A,
+			       INSTC.TBUBDE003 B,
+			       INSTC.TBUBDE004 C, 
+			       INSTC.TBUBDE005 D,
+			 WHERE A.최종카드식별자 = B.카드식별자 
+			   AND A.최종카드상세일련번호 = B.카드상세일련번호
+			   AND A.카드구분키번호 = B.카드구분키번호
+			   AND B.최종카드여부 = '1'
+			   AND C.카드식별자 = B.카드식별자
+			   AND C.카드식별자 = D.카드식별자
+			   AND A.회원일련번호 = B.회원일련번호 
+			   AND D.카드대체번호  = ${카드대체번호}
+		]]>
+    </statement>
+
+    <statement name="chkCdcCrdLstExstYn">
+		<![CDATA[
+			SELECT /*+ 박재성::/card/cards/CdcSptFntEbc/chkCdcCrdLstExstYn */
+				   'Y' as 존재여부    
+			  FROM INSTC.TBUBDE002 A,
+			       INSTC.TBUBDE003 B,
+			       INSTC.TBUBDE004 C,
+			       INSTC.TBUBDE005 D
+			 WHERE A.최종카드식별자       = B.카드식별자
+			   AND A.최종카드상세일련번호 = B.카드상세일련번호
+			   AND C.카드식별자           = B.카드식별자
+			   AND B.카드식별자           = D.카드식별자
+               AND B.카드상세일련번호     = D.카드상세일련번호
+			   AND A.소유자고객식별자     = ${고객식별자}
+			   AND A.카드소유자구분코드 IN ('1','2')
+			   AND A.카드만료년월일 >= ${기준년월일}
+			   AND B.해지년월일         IS NULL
+		]]>
+    </statement>
+</statements>

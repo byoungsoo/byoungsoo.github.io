@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<statements>
+    <statement name="insertTranLog">
+        <![CDATA[
+		INSERT /*+ 이요한::/idv/IdvCtfEbc/insertTranLog */
+		       INTO INSTC.TBUBDC100
+		     ( 마이데이터거래고유번호
+		     , 마이데이터거래요청년월일
+		     , 오픈API게이트웨이식별번호
+		     , 마이데이터거래요청시각
+		     , 마이데이터API식별번호
+		     , 오픈API생성주체구분코드
+		     , 마이데이터거래요청기관코드
+		     , 마이데이터거래응답기관코드
+		     , 마이데이터전문요청내용
+		     , 마이데이터거래응답일시
+		     , 마이데이터전문응답내용
+		     , 마이데이터응답코드
+		     , 마이데이터응답메시지내용
+		     , 마이데이터오류코드명
+		     , 마이데이터오류메시지내용
+		     , 시스템최종갱신일시
+		     , 시스템최종갱신식별자
+		     , 시스템최종거래일시
+		     )
+		VALUES
+		     ( ${mydt_tr_uno}
+		     , ${mydt_tr_dmd_ymd}
+		     , ${open_api_gt_idi_no}
+		     , ${mydt_tr_dmd_hms}
+		     , ${mydt_api_idi_no}
+		     , ${open_api_cre_mnag_dtcd}
+		     , ${mydt_tr_dmd_ins_cd}
+		     , ${mydt_tr_rsp_ins_cd}
+		     , ${mydt_tlg_dmd_ctt}
+		     , ${mydt_tr_rsp_yms}
+		     , ${mydt_tlg_rsp_ctt}
+		     , ${mydt_rsp_cd}
+		     , ${mydt_rsp_msg_ctt}
+		     , ${mydt_err_cd_nm}
+		     , ${mydt_err_msg_ctt}
+			 , SYSTIMESTAMP
+			 , ${시스템최종갱신식별자}
+			 , TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF6')
+		     )
+        ]]>
+    </statement>
+    
+    <statement name="isClientId">
+		<![CDATA[  
+		SELECT /*+ 이요한::/idv/IdvCtfEbc/isClientId */
+		       A.마이데이터기관코드              AS MYDT_INS_CD
+		     , A.마이데이터서비스명              AS MYDT_SVC_NM
+		     , A.마이데이터클라이언트식별번호    AS MYDT_CLINT_IDI_NO
+		     , A.클라이언트비밀키내용            AS CLINT_SECRT_KY_CTT
+		     , A.마이데이터콜백URL수             AS MYDT_CLBC_URL_CNT
+		     , A.마이데이터콜백URL내용           AS MYDT_CLBC_URL_CTT
+		     , A.마이데이터앱URL스킴수           AS MYDT_AP_US_CNT
+		     , A.마이데이터앱URL스킴내용         AS MYDT_AP_US_CTT
+             , B.마이데이터업권구분코드          AS MYDT_BSZ_DTCD
+		  FROM INSTC.TBUBDC009 A
+             , INSTC.TBUBDC007 B
+         WHERE A.마이데이터기관코드 = B.마이데이터기관코드(+)
+		   AND A.마이데이터클라이언트식별번호 = ${client_id}
+		   AND ROWNUM <= 1
+		]]>
+    </statement>
+    
+    <statement name="insertCnfCdDmd">
+        <![CDATA[
+		INSERT /*+ 이요한::/idv/IdvCtfEbc/insertCnfCdDmd */
+		       INTO INSTC.TBUBDC012
+		     ( 마이데이터거래고유번호
+		     , 마이데이터거래요청년월일
+		     , CI내용
+		     , 마이데이터업권구분코드
+		     , 마이데이터제공기관코드
+		     , 마이데이터사업자기관코드
+		     , 마이데이터서비스명
+		     , 인가코드응답타입명
+		     , 마이데이터클라이언트식별번호
+		     , 마이데이터콜백URL주소
+		     , 마이데이터앱URL스킴명
+		     , 마이데이터세션상태값
+		     , 인가코드처리여부
+		     , 인가코드내용
+		     , 인가코드발급일시
+		     , 마이데이터오류코드명
+		     , 마이데이터오류메시지내용
+		     , 시스템최종갱신일시
+		     , 시스템최종갱신식별자
+		     , 시스템최종거래일시
+		     )     
+		VALUES
+		     ( ${mydt_tr_uno}
+		     , ${mydt_tr_dmd_ymd}
+		     , ${ci_ctt}
+		     , ${mydt_bsz_dtcd}
+		     , ${mydt_ofer_ins_cd}
+		     , ${mydt_bzm_ins_cd}
+		     , ${mydt_svc_nm}
+		     , ${cnf_cd_rsp_typ_nm}
+		     , ${mydt_clint_idi_no}
+		     , ${mydt_clbc_url_adr}
+		     , ${mydt_ap_us_nm}
+		     , ${mydt_sess_sts_vl}
+		     , 'N'
+		     , ${cnf_cd_ctt}
+			 , ${cnf_cd_isu_yms}
+			 , ${mydt_err_cd_nm}
+			 , ${mydt_err_msg_ctt}
+			 , SYSTIMESTAMP
+			 , ${시스템최종갱신식별자}
+			 , TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF6')
+		     )
+        ]]>
+    </statement>
+    <statement name="updateCnfCdDmd">
+		UPDATE /*+ 이요한::/idv/IdvCtfEbc/updateCnfCdDmd */
+		       INSTC.TBUBDC012
+		   SET 시스템최종갱신일시 = SYSTIMESTAMP
+		     , 시스템최종갱신식별자 = ${시스템최종갱신식별자}
+		     , 시스템최종거래일시 = TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF6')
+		     , 인가코드처리여부 = ${cnf_cd_prc_yn}
+		     , 인가코드발급일시 = TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
+		 WHERE 1 =1 
+		   AND 마이데이터거래고유번호 = ${mydt_tr_uno}
+		   AND 마이데이터거래요청년월일 = ${mydt_tr_dmd_ymd}
+    </statement>
+    <statement name="updateCnfCdDmdError">
+		UPDATE /*+ 이요한::/idv/IdvCtfEbc/updateCnfCdDmdError */
+		       INSTC.TBUBDC012
+		   SET 시스템최종갱신일시 = SYSTIMESTAMP
+		     , 시스템최종갱신식별자 = ${시스템최종갱신식별자}
+		     , 시스템최종거래일시 = TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF6')
+		     , 인가코드처리여부 = 'N'
+		     , 마이데이터오류코드명 = TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
+		     , 마이데이터오류메시지내용 = TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
+		 WHERE 1 =1 
+		   AND 인가코드내용 = ${xati}
+    </statement>
+    <statement name="selectCnfCdDmdHis">
+		SELECT /*+ 이요한::/idv/IdvCtfEbc/selectCnfCdDmdHis */
+		       A.마이데이터거래고유번호          AS MYDT_TR_UNO
+		     , A.마이데이터거래요청년월일        AS MYDT_TR_DMD_YMD
+		     , A.CI내용                          AS CI_CTT
+		     , A.마이데이터업권구분코드          AS MYDT_BSZ_DTCD
+		     , A.마이데이터제공기관코드          AS MYDT_OFER_INS_CD
+		     , A.마이데이터사업자기관코드        AS MYDT_BZM_INS_CD
+		     , A.마이데이터서비스명              AS MYDT_SVC_NM
+		     , A.인가코드응답타입명              AS CNF_CD_RSP_TYP_NM
+		     , A.마이데이터클라이언트식별번호    AS MYDT_CLINT_IDI_NO
+		     , A.마이데이터콜백URL주소           AS MYDT_CLBC_URL_ADR
+		     , A.마이데이터앱URL스킴명           AS MYDT_AP_US_NM
+		     , A.마이데이터세션상태값            AS MYDT_SESS_STS_VL
+		     , A.인가코드처리여부                AS CNF_CD_PRC_YN
+		     , A.인가코드내용                    AS CNF_CD_CTT
+		     , A.인가코드발급일시                AS CNF_CD_ISU_YMS
+		     , A.마이데이터오류코드명            AS MYDT_ERR_CD_NM
+		     , A.마이데이터오류메시지내용        AS MYDT_ERR_MSG_CTT
+		     , CASE WHEN A.마이데이터오류코드명 IS NOT NULL
+		            THEN 'Y'
+		            ELSE 'N'
+		        END AS CNF_CD_ERR_YN
+		  FROM INSTC.TBUBDC012 A
+		 WHERE A.인가코드내용 = ${xati}
+    </statement>
+    <statement name="isTranId">
+
+		SELECT /*+ 이요한::/idv/IdvCtfEbc/isTranId */
+		       A.마이데이터거래고유번호       AS MYDT_TR_UNO
+		     , A.마이데이터거래요청년월일     AS MYDT_TR_DMD_YMD
+		     , A.CI내용                       AS CI_CTT
+		     , A.마이데이터업권구분코드       AS MYDT_BSZ_DTCD
+		     , A.마이데이터제공기관코드       AS MYDT_OFER_INS_CD
+		     , A.마이데이터사업자기관코드     AS MYDT_BZM_INS_CD
+		     , A.마이데이터서비스명           AS MYDT_SVC_NM
+		     , A.인가코드응답타입명           AS CNF_CD_RSP_TYP_NM
+		     , A.마이데이터클라이언트식별번호 AS MYDT_CLINT_IDI_NO
+		     , A.마이데이터콜백URL주소        AS MYDT_CLBC_URL_ADR
+		     , A.마이데이터앱URL스킴명        AS MYDT_AP_US_NM
+		     , A.마이데이터세션상태값         AS MYDT_SESS_STS_VL
+		     , A.인가코드처리여부             AS CNF_CD_PRC_YN
+		     , A.인가코드내용                 AS CNF_CD_CTT
+		     , A.인가코드발급일시             AS CNF_CD_ISU_YMS
+		     , A.마이데이터오류코드명         AS MYDT_ERR_CD_NM
+		     , A.마이데이터오류메시지내용     AS MYDT_ERR_MSG_CTT
+		  FROM INSTC.TBUBDC012 A
+		 WHERE 1=1
+		   AND A.마이데이터거래고유번호 = ${mydt_tr_uno}
+		   AND A.마이데이터거래요청년월일 = ${mydt_tr_dmd_ymd}
+    </statement>
+
+    <statement name="selectAtrScopCtt">
+		<![CDATA[
+		SELECT /*+ 이요한::/idv/IdvCtfEbc/selectAtrScopCtt */
+		       A01.마이데이터업권구분코드      AS MYDT_BSZ_DTCD
+		     , A01.마이데이터권한영역명        AS MYDT_ATR_SCOP_NM
+		     , A01.마이데이터권한영역한글명    AS MYDT_ATR_SCOP_HGL_NM
+		     , NVL(A01.마이데이터권한영역전송항목내용, '') AS MYDT_ATR_SCOP_TRS_ITM_CTT
+		  FROM INSTC.TBUBDP050 A01
+		     , ( SELECT DISTINCT A02.마이데이터업권구분코드
+		              , A02.마이데이터권한영역명
+		           FROM INSTC.TBUBDP051 A02
+		          WHERE A02.마이데이터업권구분코드 = UPPER(${mydt_bsz_dtcd})
+		       ) A12
+		 WHERE A01.마이데이터업권구분코드 = A12.마이데이터업권구분코드
+		   AND A01.마이데이터권한영역명 = A12.마이데이터권한영역명
+		]]>
+    </statement>
+    <statement name="insertTrsRqst">
+        <![CDATA[
+		INSERT /*+ 이요한::/idv/IdvCtfEbc/insertTrsRqst */
+		       INTO INSTC.TBUBDC014
+		     ( 마이데이터제공기관코드
+		     , 마이데이터업권구분코드
+		     , 마이데이터사업자기관코드
+		     , 마이데이터클라이언트식별번호
+		     , CI내용
+		     , 마이데이터전송대상구분코드
+		     , 고객식별자
+		     , 고객관리번호
+		     , 마이데이터전송요구일시
+		     , 마이데이터정기전송여부
+		     , 기본정보정기전송주기구분코드
+		     , 기본정보정기전송주기값
+		     , 추가정보정기전송주기구분코드
+		     , 추가정보정기전송주기값
+		     , 마이데이터전송요구종료시점값
+		     , 마이데이터전송요구종료일시
+		     , 마이데이터전송요구목적내용
+		     , 마이데이터보유가능일시
+		     , 보유가능기간개월수
+		     , 시스템최종갱신일시
+		     , 시스템최종갱신식별자
+		     , 시스템최종거래일시
+		     )
+		VALUES
+		     ( ${mydt_ofer_ins_cd}
+		     , ${mydt_bsz_dtcd}
+		     , ${mydt_bzm_ins_cd}
+		     , ${mydt_clint_idi_no}
+		     , ${ci_ctt}
+		     , ${mydt_trs_tg_dtcd}
+		     , ${cst_idf}
+		     , ${cst_mg_no}
+		     , ${mydt_trs_rqst_yms}
+		     , ${mydt_rtvl_trs_yn}
+		     , ${bas_inf_rtvl_trs_cyc_dtcd}
+		     , ${bas_inf_rtvl_trs_cyc_vl}
+		     , ${spp_inf_rtvl_trs_cyc_dtcd}
+		     , ${spp_inf_rtvl_trs_cyc_vl}
+		     , ${mydt_trs_rqst_ed_pit_vl}
+		     , ${mydt_trs_rqst_ed_yms}
+		     , ${mydt_trs_rqst_obj_ctt}
+		     , ${mydt_hld_abl_yms}
+		     , ${hld_abl_trm_mncn}
+		     , SYSTIMESTAMP
+		     , ${시스템최종갱신식별자}
+		     , TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF6')
+		     )
+        ]]>
+    </statement>
+    <statement name="insertTrsRqstHis">
+        <![CDATA[
+		INSERT /*+ 이요한::/idv/IdvCtfEbc/insertTrsRqstHis */
+		       INTO INSTC.TBUBDC114
+		     ( 마이데이터거래고유번호
+		     , 마이데이터거래요청년월일
+		     , 마이데이터API식별번호
+		     , 마이데이터전송대상구분코드
+		     , 마이데이터인증구분코드
+		     , 마이데이터업권구분코드
+		     , 마이데이터제공기관코드
+		     , 마이데이터사업자기관코드
+		     , 마이데이터클라이언트식별번호
+		     , CI내용
+		     , 고객식별자
+		     , 고객관리번호
+		     , 마이데이터전송요구일시
+		     , 마이데이터정기전송여부
+		     , 기본정보정기전송주기구분코드
+		     , 기본정보정기전송주기값
+		     , 추가정보정기전송주기구분코드
+		     , 추가정보정기전송주기값
+		     , 마이데이터전송요구종료시점값
+		     , 마이데이터전송요구종료일시
+		     , 마이데이터전송요구목적내용
+		     , 마이데이터보유가능일시
+		     , 마이데이터전송철회여부
+		     , 마이데이터전송철회일시
+		     , 보유가능기간개월수
+		     , 시스템최종갱신일시
+		     , 시스템최종갱신식별자
+		     , 시스템최종거래일시
+		     )
+		VALUES
+		     ( ${mydt_tr_uno}
+		     , ${mydt_tr_dmd_ymd}
+		     , ${mydt_api_idi_no}
+		     , ${mydt_trs_tg_dtcd}
+		     , ${mydt_ctf_dtcd}
+		     , ${mydt_bsz_dtcd}
+		     , ${mydt_ofer_ins_cd}
+		     , ${mydt_bzm_ins_cd}
+		     , ${mydt_clint_idi_no}
+		     , ${ci_ctt}
+		     , ${cst_idf}
+		     , ${cst_mg_no}
+		     , ${mydt_trs_rqst_yms}
+		     , ${mydt_rtvl_trs_yn}
+		     , ${bas_inf_rtvl_trs_cyc_dtcd}
+		     , ${bas_inf_rtvl_trs_cyc_vl}
+		     , ${spp_inf_rtvl_trs_cyc_dtcd}
+		     , ${spp_inf_rtvl_trs_cyc_vl}
+		     , ${mydt_trs_rqst_ed_pit_vl}
+		     , ${mydt_trs_rqst_ed_yms}
+		     , ${mydt_trs_rqst_obj_ctt}
+		     , ${mydt_hld_abl_yms}
+		     , ${mydt_trs_rcl_yn}
+		     , ${mydt_trs_rcl_yms}
+		     , ${hld_abl_trm_mncn}
+		     , SYSTIMESTAMP
+		     , ${시스템최종갱신식별자}
+		     , TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF6')
+		     )
+        ]]>
+    </statement>
+    <statement name="insertScope">
+        <![CDATA[
+
+		INSERT /*+ 이요한::/idv/IdvCtfEbc/insertScope */
+		       INTO INSTC.TBUBDC015
+		     ( 마이데이터제공기관코드
+		     , 마이데이터업권구분코드
+		     , 마이데이터사업자기관코드
+		     , 마이데이터클라이언트식별번호
+		     , CI내용
+		     , 마이데이터권한영역내용
+		     , 시스템최종갱신일시
+		     , 시스템최종갱신식별자
+		     , 시스템최종거래일시
+		     )
+		VALUES
+		     ( ${mydt_ofer_ins_cd}
+		     , ${mydt_bsz_dtcd}
+		     , ${mydt_bzm_ins_cd}
+		     , ${mydt_clint_idi_no}
+		     , ${ci_ctt}
+		     , ${mydt_atr_scop_ctt}
+			 , SYSTIMESTAMP
+			 , ${시스템최종갱신식별자}
+			 , TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF6')
+		     )
+        ]]>
+    </statement>
+    <statement name="insertScopeHis">
+        <![CDATA[
+
+		INSERT /*+ 이요한::/idv/IdvCtfEbc/insertScopeHis */
+		       INTO INSTC.TBUBDC115
+		     ( 마이데이터거래고유번호
+		     , 마이데이터거래요청년월일
+		     , 마이데이터업권구분코드
+		     , 마이데이터권한영역내용
+		     , 시스템최종갱신일시
+		     , 시스템최종갱신식별자
+		     , 시스템최종거래일시
+		     )
+		VALUES
+		     ( ${mydt_tr_uno}
+		     , ${mydt_tr_dmd_ymd}
+		     , ${mydt_bsz_dtcd}
+		     , ${mydt_atr_scop_ctt}
+			 , SYSTIMESTAMP
+			 , ${시스템최종갱신식별자}
+			 , TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF6')
+		     )
+        ]]>
+    </statement>
+    <statement name="insertAstCtt">
+        <![CDATA[
+
+		INSERT /*+ 이요한::/idv/IdvCtfEbc/insertAstCtt */
+		       INTO INSTC.TBUBDC016
+		     ( 마이데이터제공기관코드
+		     , 마이데이터업권구분코드
+		     , 마이데이터사업자기관코드
+		     , 마이데이터클라이언트식별번호
+		     , CI내용
+		     , 마이데이터자산내용
+		     , 시스템최종갱신일시
+		     , 시스템최종갱신식별자
+		     , 시스템최종거래일시
+		     )
+		VALUES
+		     ( ${mydt_ofer_ins_cd}
+		     , ${mydt_bsz_dtcd}
+		     , ${mydt_bzm_ins_cd}
+		     , ${mydt_clint_idi_no}
+		     , ${ci_ctt}
+		     , ${mydt_ast_ctt}
+			 , SYSTIMESTAMP
+			 , ${시스템최종갱신식별자}
+			 , TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF6')
+		     )
+        ]]>
+    </statement>
+    <statement name="insertAstCttHis">
+        <![CDATA[
+
+		INSERT /*+ 이요한::/idv/IdvCtfEbc/insertAstCttHis */
+		       INTO INSTC.TBUBDC116
+		     ( 마이데이터거래고유번호
+		     , 마이데이터거래요청년월일
+		     , 마이데이터업권구분코드
+		     , 마이데이터자산내용
+		     , 시스템최종갱신일시
+		     , 시스템최종갱신식별자
+		     , 시스템최종거래일시
+		     )
+		VALUES
+		     ( ${mydt_tr_uno}
+		     , ${mydt_tr_dmd_ymd}
+		     , ${mydt_bsz_dtcd}
+		     , ${mydt_ast_ctt}
+			 , SYSTIMESTAMP
+			 , ${시스템최종갱신식별자}
+			 , TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF6')
+		     )
+        ]]>
+    </statement>
+
+</statements>

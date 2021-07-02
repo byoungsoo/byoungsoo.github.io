@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="regtGcbEcyDcrpDatInqDmdHis" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::16.기타정보관리::GCB암복호화데이터조회요청내역Ebi::GCB암복호화데이터조회요청내역Dao::GCB암복호화데이터조회요청내역등록" >
+		<![CDATA[
+			INSERT /*+ 이태양::/gcb/etcInfMg/gcbEcyDcrpDatInqDmdHisEbi/TBGCBDC01/regtGcbEcyDcrpDatInqDmdHis */
+			  INTO INSTC.TBGCBDC01        /* GCB암복호화데이터조회요청내역 */
+			(
+			   거래기준년월일
+			 , 거래기준시각
+			 , 부점코드
+			 , 거래직원번호
+			 , 암호화유형구분코드
+			 , 암호화데이터유형구분코드
+			 , 조회데이터내용
+			 , 조회요청직원번호
+			 , 승인직원번호
+			 , 거래사유
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${거래기준년월일}
+			 ,${거래기준시각}
+			 ,${부점코드}
+			 ,${거래직원번호}
+			 ,${암호화유형구분코드}
+			 ,${암호화데이터유형구분코드}
+			 ,${조회데이터내용}
+			 ,${조회요청직원번호}
+			 ,${승인직원번호}
+			 ,${거래사유}
+			 ,SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,${시스템최종거래일시}
+			)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGcbEcyDcrpDatInqDmdHis" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::16.기타정보관리::GCB암복호화데이터조회요청내역Ebi::GCB암복호화데이터조회요청내역Dao::GCB암복호화데이터조회요청내역목록조회">
+		<![CDATA[
+			SELECT /*+ 이태양::/gcb/etcInfMg/gcbEcyDcrpDatInqDmdHisEbi/TBGCBDC01/retvLstGcbEcyDcrpDatInqDmdHis */ 
+			       A.거래기준년월일
+			     , A.거래기준시각
+			     , A.부점코드
+			     , A.거래직원번호
+			     , A.암호화유형구분코드
+			     , A.암호화데이터유형구분코드
+			     , A.조회데이터내용
+			     , A.조회요청직원번호
+			     , A.승인직원번호
+			     , A.거래사유
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBDC01 A        /* GCB암복호화데이터조회요청내역 */
+			 WHERE A.거래기준년월일 BETWEEN ${조회시작년월일} AND ${조회종료년월일}
+			   AND A.거래기준년월일 || A.거래기준시각  BETWEEN ${조회시작년월일} || ${거래시작시각} AND ${조회종료년월일} || ${거래종료시각}
+			   AND (${부점코드} IS NULL OR A.부점코드 = ${부점코드})
+			   AND (${거래직원번호} IS NULL OR A.거래직원번호 = ${거래직원번호})
+		]]>
+    </statement>
+</statements>

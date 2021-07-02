@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<navigation>
+
+    <action name="/tokenisu">
+    	<method>post</method>
+    	<command>#restCommonCmd</command>
+    	<tran-id>UBD9000310</tran-id>
+    	<attribute>body</attribute>
+    </action>
+    
+    <action name="/tokenvln">
+    	<method>post</method>
+    	<command>#restCommonCmd</command>
+    	<tran-id>UBD9000320</tran-id>
+    	<attribute>body</attribute>
+    </action>
+    
+    <action name="/idvctf">
+    	<method>post</method>
+    	<command>#restCommonCmd</command>
+    	<tran-id>UBD9000330</tran-id>
+    	<attribute>body</attribute>
+    </action>
+    
+    <action name="/cardidvctf">
+    	<method>post</method>
+    	<command>#restCommonCmd</command>
+    	<tran-id>UBD9000340</tran-id>
+    	<attribute>body</attribute>
+    </action>                
+
+    <action name="/ctfprc">
+    	<method>get</method>
+    	<command>#restCommonCmd</command>
+    	<tran-id>UBD1000940</tran-id>
+    	<attribute>body</attribute>
+    </action>
+    
+</navigation>

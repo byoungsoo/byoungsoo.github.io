@@ -1,0 +1,595 @@
+<?xml version="1.0" encoding="utf-8"?>
+<framework>
+    <!--
+    ################################################################################################################
+    ######                                                                                                     #####
+    ######                                       Front Configuration                                           #####
+    ######                                                                                                     #####
+    ################################################################################################################
+    -->
+    <front>
+        <!-- ================================================================================================
+        * 설    명 : navigation xml 파싱모듈, rest는 navigation spec의 type이 rest일 때 사용
+        * 관련소스 : devonframework.front.channel.LNavigation
+        ================================================================================================== -->
+        <saxhandler>
+            <class>devonframework.front.channel.LNavigationSaxHandler</class>
+            <class name="rest">devonframework.front.channel.LRestNavigationSaxHandler</class>
+        </saxhandler>
+        
+        <!-- ================================================================================================
+        * 설    명 : 
+        * 관련소스 : devonframework.front.channel.LNavigationMapper
+        ================================================================================================== -->
+        <content-type-class>devonframework.front.channel.rest.contenttype.LDefaultContentTypePolicy</content-type-class>
+        
+        <!-- ================================================================================================
+        * 설    명 : LConfiguration가 변경되었을때 자동으로 호출될 것이다.
+                     LNavigation에서는 refresh를 수행한다.
+        * 관련소스 : devonframework.front.channel.LNavigation.update
+        ================================================================================================== -->
+        <update-class>devonframework.front.channel.update.LDefaultUpdater</update-class><!-- LDefaultUpdater, LNoneUpdater -->
+
+        <!-- ================================================================================================
+        * 설    명 : 
+        * 관련소스 : 
+        ================================================================================================== -->
+        <navigation name="dev">
+            <directory>#home/navigation/dev</directory>
+            <default-handler>null</default-handler>
+        </navigation>
+            
+        <navigation name="form">
+            <encoding-type>UTF-8</encoding-type>
+            <default-handler>forward</default-handler>
+            <global>
+                <error return="validator">devon.core.exception.EnterpriseException</error>
+                <return name="validator">ERROR</return>
+                <error return="unknown">java.lang.Throwable</error>
+                <return name="unknown">ERROR</return>
+            </global>
+        </navigation>
+
+        <navigation name="ajax">
+            <directory>#home/navigation/ajax</directory>
+            <encoding-type>UTF-8</encoding-type>
+            <default-handler>null</default-handler>
+            <global>
+                <error return="validator">devon.core.exception.LTranValidatorException</error>
+                <return name="validator">/TODO</return>
+                <error return="unknown">java.lang.Throwable</error>
+                <return name="unknown">ERROR</return>
+            </global>
+        </navigation>
+
+        <navigation name="rest">
+            <directory>#home/navigation/rest</directory>
+            <type>rest</type>
+            <encoding-type>UTF-8</encoding-type>
+            <default-handler>json</default-handler>
+            <!--  <default-handler>jsonext</default-handler> -->
+        </navigation>        
+        <!-- ================================================================================================
+        * 설    명 : 
+        * 관련소스 : 
+        ================================================================================================== -->
+        <navigation-handlers>
+            <handler name="forward">devonframework.front.channel.handler.LForwardHandler</handler>
+            <handler name="alertAndBack">devonframework.front.channel.handler.LAlertAndBackHandler</handler>
+            <handler name="alertAndGoUrl">devonframework.front.channel.handler.LAlertAndGoUrlHandler</handler>
+            <handler name="historyBack">devonframework.front.channel.handler.LHistoryBackHandler</handler>
+            <handler name="null">devonframework.front.channel.handler.LNullHandler</handler>
+            <handler name="redirect">devonframework.front.channel.handler.LRedirectHandler</handler>
+            <handler name="redirectPost">devonframework.front.channel.handler.LPostRedirectHandler</handler>
+            <handler name="alertAndPost">devonframework.front.channel.handler.LAlertAndPostRedirectHandler</handler>
+            <handler name="xml">devonframework.front.channel.handler.LXmlHandler</handler>
+            <!--  <handler name="json">devonframework.front.channel.handler.LJsonHandler</handler> --> 
+            <handler name="json">devonenterprise.ext.channel.handler.ExtJsonHandler</handler>
+            <handler name="jsonext">devonenterprise.ext.channel.handler.ExtJsonHandler</handler>
+            <handler name="simpleHtml">devonframework.front.channel.handler.LSimpleHtmlHandler</handler>
+        </navigation-handlers>
+        <!-- navigation의 action에서 return url이 없어도 오류가 나지 않는 handler 목록 -->
+        <navigation-null-handlers>null,json,xml,simpleHtml,jsonext</navigation-null-handlers>
+        <!-- ================================================================================================
+        * 설    명 : Navigationd의 action 설정에 interceptor stack을 지정할 수 있다.
+                     지정하지 않는경우 LFileUploadInterceptor, LConverterInterceptor,
+                     LCommandInterceptor를 기본으로 실행한다.
+        * 관련소스 : devonframework.front.channel.LAbstractServlet.process()
+                     devonframework.front.channel.LNavigationMapper.getInterceptors()
+        ================================================================================================== -->
+        <interceptors>      
+            <interceptor name="converter">devonframework.front.channel.interceptor.LConverterInterceptor</interceptor>
+            <interceptor name="fileUpload">devonframework.front.channel.interceptor.LFileUploadInterceptor</interceptor>
+            <interceptor name="authorization">devonframework.front.channel.interceptor.LAuthorizationInterceptor</interceptor>
+            <interceptor name="authentication">devonframework.front.channel.interceptor.LAuthenticationInterceptor</interceptor>                 
+            <interceptor name="command">devonframework.front.channel.interceptor.LCommandInterceptor</interceptor>
+            <interceptor name="security">devonframework.front.channel.interceptor.LSecurityInterceptor</interceptor>
+            <interceptor name="requisite">devonframework.front.channel.interceptor.LRequisiteInterceptor</interceptor>
+            <interceptor name="savedToken">devonframework.front.channel.interceptor.LSavedTokenInterceptor</interceptor>
+            <interceptor name="restConverter">devonframework.front.channel.interceptor.LRestConverterInterceptor</interceptor>
+            <interceptor name="extCommand">devonenterprise.ext.channel.interceptor.ExtCommandInterceptor</interceptor>
+            <interceptor name="tlsAuth">com.kbcard.ubd.common.interceptor.TlsAuthInterceptor</interceptor>
+            
+            <!-- 동적로딩 agent용 stack -->
+            <interceptor-stack name="dynamicloadingStack">
+                <interceptor-ref name="fileUpload">
+                    <param name="config">dynamicloading</param>
+                    <param name="createFile">true</param>
+                </interceptor-ref>
+                <interceptor-ref name="converter" />
+                <interceptor-ref name="command" />
+            </interceptor-stack>
+            
+            <!-- hotdeploy agent용 stack -->
+            <interceptor-stack name="hotdeployStack">
+                <interceptor-ref name="fileUpload">
+                    <param name="config">hotdeploy</param>
+                    <param name="createFile">true</param>
+                </interceptor-ref>
+                <interceptor-ref name="converter" />
+                <interceptor-ref name="command" />
+            </interceptor-stack>
+            
+            <!-- 테스트 이관처리용 stack -->
+            <interceptor-stack name="devStack">
+                <interceptor-ref name="converter" />
+                <interceptor-ref name="command" />
+            </interceptor-stack>
+            
+            <!--  Restful Service를 수행하는 기본 stack -->
+            <interceptor-stack name="restStack">
+            	<interceptor-ref name="converter"/>
+            	<!-- <interceptor-ref name="tlsAuth"/> -->
+            	<interceptor-ref name="extCommand">
+            		<param name="defaultCmd">com.kbcard.ubd.common.channel.controller.RestInboundController</param>
+            		<param name="restCommonCmd">devonenterprise.ext.front.command.RestInboundCommand</param>
+            	</interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+
+        <!-- ================================================================================================
+        * 설    명 : 
+        * 관련소스 : devonframework.front.filedownload.LFileDownload
+        ================================================================================================== -->
+        <download name="default">
+            <header-encoding>UTF-8</header-encoding>
+            <allow>*.xls;*.txt;*.xml;*.zip;*.jpg;*.png;*.gif;*.apk;*.ipa;</allow>
+            <deny>*</deny>
+        </download>
+        <!-- ================================================================================================
+        * 설    명 : 
+        * 관련소스 : devonframework.front.fileupload.LMultipartRequest
+                     devonframework.front.fileupload.policy.LPolicyFactory
+                     devonframework.front.fileupload.policy.LFileUploadPolicyIF
+        ================================================================================================== -->
+        <upload>
+            <header-encoding>UTF-8</header-encoding>
+            <class>devonframework.front.fileupload.policy.strategy.LPerfectPolicy</class>
+            <size-threshold>1024</size-threshold>
+            <target-directory>#home/upload</target-directory>
+            <temporary-directory>#home/upload/temp</temporary-directory>
+            
+            <policy name="default">
+                <header-encoding>UTF-8</header-encoding>
+                <allow>*</allow>
+                <deny>*.jsp;*.class;*.java</deny>
+                <filename-pattern>{prefix}{date:yyyyMMddHHmmssSSS}.{ext}</filename-pattern>
+                <!-- 파일명 중복시 sequece로 구분할지 여부 -->
+                <seq-allow>false</seq-allow>
+                <maxsize>-1</maxsize>
+                <zero-allow>false</zero-allow>
+            </policy>
+            <policy name="dynamicloading">
+                <allow>*.class</allow>
+                <deny>*</deny>
+                <filename-pattern>{prefix}.{ext}</filename-pattern>
+                <seq-allow>false</seq-allow>
+                <target-directory>#home/upload</target-directory>
+                <maxsize>-1</maxsize>
+                <zero-allow>true</zero-allow>
+                <header-encoding>UTF-8</header-encoding>
+            </policy>
+            <policy name="hotdeploy">
+                <allow>*.jar</allow>
+                <deny>*</deny>
+                <filename-pattern>{prefix}.{ext}</filename-pattern>
+                <seq-allow>false</seq-allow>
+                <target-directory>#home/upload</target-directory>
+                <maxsize>-1</maxsize>
+                <zero-allow>true</zero-allow>
+                <header-encoding>UTF-8</header-encoding>
+            </policy>
+            <policy name="uploadquery">
+                <header-encoding>UTF-8</header-encoding>
+                <allow>*</allow>
+                <deny>*.jsp;*.class;*.java</deny>
+                <filename-pattern>{prefix}{date:yyyyMMddHHmmssSSS}.{ext}</filename-pattern>
+                <seq-allow>false</seq-allow>
+                <target-directory>#home/xmlquery</target-directory>
+            </policy>
+        </upload>
+    </front>
+    
+    <!--
+    ################################################################################################################
+    ######                                                                                                     #####
+    ######                                       Business Configuration                                        #####
+    ######                                                                                                     #####
+    ################################################################################################################
+    -->
+    <business>
+        <!-- ================================================================================================
+        * 설    명 : 트랜잭션매니저 설정
+        * 관련소스 : devonframework.business.transaction.LTransactionManagerFactory.createTransactionManager
+        ================================================================================================== -->
+        <transaction>
+            <manager name="jdbc">
+                    <class>devonframework.business.transaction.jdbc.LJDBCTransactionManager</class>
+            </manager>
+            <manager name="jta">
+                <class>devonframework.business.transaction.jta.LJTATransactionManager</class>
+                <was-type>weblogic</was-type>
+                <transaction-factory>weblogic.transaction.TransactionHelper</transaction-factory>
+            </manager>
+            <manager name="external">
+                <class>devonframework.business.transaction.external.LExternalTransactionManager</class>
+            </manager>
+            <manager name="nested">
+                <class>devonframework.business.transaction.nested.LNestedTransactionManager</class>
+                <default-type>jdbc</default-type> <!-- jdbc, jta -->
+            </manager>
+        </transaction>
+        
+        <!-- ================================================================================================
+        * 설    명 : 
+        * 관련소스 : devonenterprise.business.sm.command.ServiceProxy.getProxy
+        ================================================================================================== -->
+        <service-proxy>
+            <!-- ================================================================================================
+            * 설    명 : 거래파라미터의 거래트랜잭션유형에 따라 트랜잭션매니저가 결정된다.
+                         No Transaction(noTx), Transaction(tx), XA Transaction(xaTx), User Define Transaction(userDefineTx)
+            * 관련소스 : devonenterprise.business.sm.command.ServiceCommand
+                         devonenterprise.business.sm.command.ServiceProxy
+                         devonenterprise.business.sm.ServiceManager.executeWithTransaction
+                         devonenterprise.business.transaction.TransactionHelper.createTransactionManager
+            ================================================================================================== -->
+            <spec name="noTx">
+                <transaction-enabled>false</transaction-enabled>
+            </spec>
+            <spec name="tx">
+                <transaction-enabled>true</transaction-enabled>
+                <transaction-manager-ref>jdbc</transaction-manager-ref>
+            </spec>
+            <spec name="xaTx">
+                <transaction-enabled>true</transaction-enabled>
+                <transaction-manager-ref>jta</transaction-manager-ref>
+            </spec>
+            <spec name="userDefineTx">
+                <transaction-enabled>false</transaction-enabled>
+            </spec>
+            
+            <!-- ================================================================================================
+            * 설    명 : 시스템선후처리
+            * 관련소스 : devonenterprise.business.interceptor.InterceptorManager
+                         devonenterprise.business.sm.ServiceManager.serviceCall
+            ================================================================================================== -->
+            <system-interceptor>devonenterprise.ext.business.interceptor.SystemInterceptor</system-interceptor>
+            
+            <!-- ================================================================================================
+            * 설    명 : 
+            * 관련소스 : devonenterprise.business.sm.command.ServiceProxy.createNewProxyClass
+                         devonframework.business.sd.LServiceDelegator
+            ================================================================================================== -->
+            <sc-mediator>
+                <!-- enterprise 버전에서 true 여야 함 -->
+                <enabled>true</enabled>
+                <mediator>
+                    <class-name>devonenterprise.business.mediator.sc.ServiceMediator</class-name>
+                </mediator>
+            </sc-mediator>
+            
+            <!-- ================================================================================================
+            * 설    명 : 
+            * 관련소스 : devonenterprise.business.sm.command.ServiceProxy.createNewProxyClass
+            ================================================================================================== -->
+            <service-class-loader>
+                <loader>devonenterprise.core.dl.HistoricalClassLoader</loader>
+                <path>#home/upload</path>
+                <run-path>#home/../classes</run-path>
+            </service-class-loader>
+        </service-proxy>
+    </business>
+    
+    <!--
+    ################################################################################################################
+    ######                                                                                                     #####
+    ######                                       persistent Configuration                                      #####
+    ######                                                                                                     #####
+    ################################################################################################################
+    -->
+    <persistent>
+        <!-- ================================================================================================
+        * 설    명 : dbtrace 가 true일 경우만 logger가 동작한다. 반드시 true로 설정필요.
+                     enterprise 버전에서는 dbwrap은 false로 설정. 거래파라미터 로그설정으로 제어한다.
+        * 관련소스 : devonframework.persistent.connection.LJdbcDataSource
+        ================================================================================================== -->
+        <db-trace>true</db-trace>
+        
+        <datasources>
+            <!-- ================================================================================================
+            * 설    명 : datasource가 JDBC타입인 경우 pool설정
+            * 관련소스 : devonframework.persistent.connection.LJdbcDataSource
+            ================================================================================================== -->
+            <jdbc-pool name="default">
+                <max-active-connections>50</max-active-connections>
+                <max-idle-connections>5</max-idle-connections>
+                <max-checkout-time>20000</max-checkout-time>
+                <wait-time>15000</wait-time>
+                <ping-query>No Ping QUERY SET</ping-query>
+                <ping-enabled>false</ping-enabled>
+                <ping-connection-time>0</ping-connection-time>
+                <ping-connections-notused>0
+                </ping-connections-notused>
+                <quiet-mode>true</quiet-mode>
+            </jdbc-pool>
+                        
+            <datasource name="default">
+                <jndi-name>java:comp/env/UBDA_APP_DS</jndi-name>
+                <!-- 2019.09.30 HashMap.find()에서 RUNNABLE로 머물러 있는 문제에 대해 임시조치 - 시작 -->
+                <!-- <connection-interceptor>devonenterprise.ext.persistent.connection.ConnectionInterceptor</connection-interceptor> -->
+                <!-- 2019.09.30 HashMap.find()에서 RUNNABLE로 머물러 있는 문제에 대해 임시조치 - 끝 --> 
+                <interceptors>
+                    <interceptor>devonenterprise.ext.persistent.dao.interceptor.LAutoDaoInterceptor</interceptor>
+                    <interceptor>devonenterprise.ext.service.planedshutdown.interceptor.PlanedShutDownInterceptor</interceptor>
+                </interceptors>
+                <threadlocal-use-yn>N</threadlocal-use-yn>
+            </datasource> 
+            <datasource name="bill">
+                <jndi-name>java:comp/env/UBD1_APP_DS</jndi-name>
+                <interceptors>
+                    <interceptor>devonenterprise.ext.persistent.dao.interceptor.LAutoDaoInterceptor</interceptor>
+                    <interceptor>devonenterprise.ext.service.planedshutdown.interceptor.PlanedShutDownInterceptor</interceptor>
+                    <interceptor>devonenterprise.service.preservation.interceptor.PreservationInterceptor</interceptor>
+                </interceptors>
+                <threadlocal-use-yn>N</threadlocal-use-yn>
+            </datasource>
+            <datasource name="appr">
+                <jndi-name>java:comp/env/UBD2_APP_DS</jndi-name>
+                <interceptors>
+                    <interceptor>devonenterprise.ext.persistent.dao.interceptor.LAutoDaoInterceptor</interceptor>
+                    <interceptor>devonenterprise.ext.service.planedshutdown.interceptor.PlanedShutDownInterceptor</interceptor>
+                    <interceptor>devonenterprise.service.preservation.interceptor.PreservationInterceptor</interceptor>
+                </interceptors>
+                <threadlocal-use-yn>N</threadlocal-use-yn>
+            </datasource>   
+        </datasources>
+        <!-- ================================================================================================
+        * 설    명 : 컬럼명에 대한 Naming 정책 (Camel, Lower, AsIs)
+        * 관련소스 : devonframework.persistent.util.LResultSetConverter
+        ================================================================================================== -->
+        <resultset-converter>
+            <naming>devonframework.persistent.util.AsIsNaming</naming>
+            <metadata>false</metadata>
+            <date-to-timestamp-enabled>false</date-to-timestamp-enabled>
+        </resultset-converter>
+        
+        <auto-dao>
+            <default-transaction-manager>jdbc</default-transaction-manager>
+            <query-type>dynamic</query-type>
+            <sql-pattern>INSERT|SELECT|UPDATE|DELETE|CREATE|DROP|WITH|CALL|EXECUTE|ALTER</sql-pattern>
+            <lob-mapping>true</lob-mapping>
+            <transaction-enabled>true</transaction-enabled>
+            <sql-exception-translator>
+                <class>devonenterprise.ext.core.exception.LSqlStateSQLExceptionTranslator</class>
+                <!-- LSqlStateSQLExceptionTranslator -->
+                <!-- Oracle -->
+                <selectforupdate-nowait-code>54</selectforupdate-nowait-code>
+                <selectforupdate-wait-code>30006</selectforupdate-wait-code>
+                <duplicate-code>1</duplicate-code>
+                <timeout-cancel-code>1013</timeout-cancel-code>
+                <cannot-insert-null-code>1400</cannot-insert-null-code>
+            </sql-exception-translator>
+        </auto-dao>
+        
+        <query name="default">
+            <directory>#home/query</directory>
+        </query>
+        
+        <dynamic-query>
+            <directory>#home/xmlquery</directory>
+            <sql-injection>
+                <sieve>'";:#\/*</sieve>
+            </sql-injection>
+            <update-class>devonframework.persistent.query.update.LDefaultUpdater</update-class>
+            <class>devonframework.persistent.query.type.LQueryXmlType</class>
+        </dynamic-query>
+
+        <rowcount-limit>
+            <limit-count>10000</limit-count>
+            <data-cut>false</data-cut> <!-- false시 Exception 발생 -->
+        </rowcount-limit>
+    </persistent>
+
+    <!--
+    ################################################################################################################
+    ######                                                                                                     #####
+    ######                                       Service Configuration                                         #####
+    ######                                                                                                     #####
+    ################################################################################################################
+    -->
+    <!-- ================================================================================================
+    * 설    명 : 페이징처리 설정
+    * 관련소스 : devonframework.service.paging.LPagingHelper
+                 devonframework.service.paging.LPagingUI
+                 devonframework.service.paging.util.LPagingUtility
+                 devonframework.front.taglib.paging.LPagingAddHiddenParamTag
+                 devonframework.front.taglib.paging.LPagingOutTag
+                 devonframework.front.taglib.paging.LPagingSortTag
+    ================================================================================================== -->
+    <paging>
+        <db-type name="default">
+            <count-query></count-query>
+            <index-query></index-query>
+            <single-query-enabled>false</single-query-enabled>
+            <total-count-alias-name>totalpagingcnt</total-count-alias-name>
+        </db-type>
+        
+        <ui name="default">
+            <!-- LPagingUIIF 를 implements 한 class 설정 -->
+            <class>devonframework.service.paging.LPagingUI</class>
+            <order-by-asc><![CDATA[▲]]></order-by-asc>
+            <order-by-desc><![CDATA[▼]]></order-by-desc>
+            <order-by-none></order-by-none>
+            <!-- Image Path or Image 설정 -->
+            <move-first-page>../../images/pc/btn_pager_firstpage.gif</move-first-page>
+            <move-end-page>../../images/pc/btn_pager_lastpage.gif</move-end-page>
+            <move-before-page>../../images/pc/btn_pager_prepage.gif</move-before-page>
+            <move-next-page>../../images/pc/btn_pager_nextpage.gif</move-next-page>
+            <move-before-index>../../images/pc/btn_pager_preblockpage.gif</move-before-index>
+            <move-next-index>../../images/pc/btn_pager_nextblockpage.gif</move-next-index>
+            <!--
+            <move-first-page>◁</move-first-page>
+            <move-end-page>▷</move-end-page>
+            <move-before-page>◀</move-before-page>
+            <move-next-page>▶</move-next-page>
+            <move-before-index>◀◀</move-before-index>
+            <move-next-index>▶▶</move-next-index>
+            -->
+            <index-separator><![CDATA[&nbsp;]]></index-separator>
+            <selected-index-font>font-weight:bold; color:#2d89ef;</selected-index-font>
+            <index-font></index-font>
+        </ui>
+
+        <spec name="default">
+            <row-size>10</row-size>
+            <page-size>10</page-size>
+        </spec>
+        <spec name="ajax">
+            <row-size>10</row-size>
+            <page-size>10</page-size>
+        </spec>
+        <spec name="bizlog">
+            <row-size>30</row-size>
+            <page-size>30</page-size>
+        </spec>
+        
+    </paging>
+    
+    <!-- ================================================================================================
+    * 설    명 : 채번서비스 설정
+    * 관련소스 : devonframework.service.idgenerator.LIDGeneratorManager
+                 devonframework.service.idgenerator.policy.LIDGeneratorPolicyIF
+                 devonframework.service.idgenerator.formatter.LIDGeneratorFormatterIF
+    ================================================================================================== -->
+    <id-generator>
+        <!-- 기본제공 채번서비스 -->
+        <!-- DB Sequence 에서 채번 -->
+        <policy name="sequence">
+            <class>devonframework.service.idgenerator.policy.LDBSequencePolicy</class>
+            <formatter-ref>default</formatter-ref>
+            <query>SELECT SEQUENCE.NEXTVAL FROM DUAL</query>
+            <datasource-ref>default</datasource-ref>
+            <decimal-enabled>true</decimal-enabled>
+        </policy>
+        
+        <!-- 기본제공 채번서비스 -->
+        <!-- Table 에서 채번 -->
+        <policy name="table">
+            <class>devonframework.service.idgenerator.policy.LTableIDPolicy</class>
+            <formatter-ref>default</formatter-ref>
+            <id-table>테이블명</id-table>
+            <key-column>키컬럼명</key-column>
+            <sequence-column>채번컬럼명</sequence-column>
+            <key-value>키값</key-value>
+            <lock-select>true</lock-select>
+            <lock-wait>0</lock-wait>
+            <datasource-ref>default</datasource-ref>
+            <decimal-enabled>false</decimal-enabled>
+            <transaction-enabled>true</transaction-enabled>
+            <retry-count>5</retry-count>
+        </policy>
+        
+        <policy name="guid">
+            <class>devonenterprise.ext.service.idgenerator.policy.GUIDGeneratorPolicy</class>
+            <formatter-ref>guid</formatter-ref>
+        </policy>
+        
+        <policy name="bankguid">
+            <class>devonenterprise.ext.service.idgenerator.policy.GUIDGeneratorPolicy</class>
+            <formatter-ref>bankguid</formatter-ref>
+        </policy>
+        
+         <policy name="batguid">
+            <class>devonenterprise.ext.service.idgenerator.policy.BatchGUIDGeneratorPolicy</class>
+            <formatter-ref>batguid</formatter-ref>
+        </policy>
+        
+        <policy name="bizlog">
+            <class>devonenterprise.ext.service.idgenerator.policy.BizLogIDGeneratorPolicy</class>
+            <formatter-ref>bizlog</formatter-ref>
+        </policy>
+        
+        <!-- Formatter -->
+        <formatter name="default">
+            <class>devonframework.service.idgenerator.formatter.LDefaultIDGeneratorFormatter</class>
+            <seperator></seperator>
+            <sequence-size></sequence-size>
+            <fill-char></fill-char>
+            <prefix></prefix>
+        </formatter>
+
+        <formatter name="guid">
+            <class>devonenterprise.ext.service.idgenerator.formatter.GUIDGeneratorFormatter</class>
+        </formatter>
+        
+        <formatter name="bankguid">
+            <class>devonenterprise.ext.service.idgenerator.formatter.GUIDGeneratorFormatter</class>
+        </formatter>
+        
+        <formatter name="bizlog">
+            <class>devonenterprise.ext.service.idgenerator.formatter.BizLogIDGeneratorFormatter</class>
+        </formatter>
+        
+        <formatter name="batguid">
+            <class>devonenterprise.ext.service.idgenerator.formatter.BatchGUIDGeneratorFormatter</class>
+        </formatter>
+        
+    </id-generator>
+
+    <!-- ================================================================================================
+    * 설    명 : 메세지 설정
+    * 관련소스 : devonframework.service.message.LMessage
+    ================================================================================================== -->
+    <message>
+        <spec name="default">
+            <resource-type>devonframework.service.message.LMessageDB</resource-type>
+            <resource-name>SGRV_MESSAGE</resource-name>
+            <dbspec>default</dbspec>
+            <preload>false</preload>
+            <capital-small-letter>true</capital-small-letter>
+            <column>
+                <code-column>MESG_ID</code-column>
+                <message-column>MESG_CTNT</message-column>
+                <locale-column>LANG_CD</locale-column>
+                <important-column>IMPORTANT_YN</important-column>
+                <table-manage>
+                    <single-manage>true</single-manage>
+                </table-manage>
+            </column>
+            <validation>false</validation>
+        </spec>
+    </message>
+
+    <!-- ================================================================================================
+    * 설    명 : webPath Tag Library에서 사용한다.
+                 예) <LTag:webPath kind="css"/>
+    * 관련소스 : devonframework.front.taglib.path.LWebPathTag
+    ================================================================================================== -->
+    <content-path>
+        <path name="root">/</path>
+        <path name="css">/css</path>
+        <path name="img">/images</path>
+        <path name="scripts">/scripts</path>
+        <path name="smartui">/smartui</path>
+    </content-path>
+</framework>

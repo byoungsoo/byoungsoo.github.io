@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<statements>
+
+    <statement name="selectMydtApiRspCdMapping">
+		<![CDATA[
+			SELECT /*+ 임용택::/cmn/MdulSptFntEbc/selectMydtApiRspCdMapping */ 
+			       A.오픈API응답코드
+			     , A.오픈API응답메시지내용
+			  FROM INSTC.TBUBDS902 A        /* UBD오픈API매핑응답코드 */
+			 WHERE A.오픈API언어구분코드 	= ${오픈API언어구분코드}
+			   AND A.오픈API업무구분코드 	= ${오픈API업무구분코드}
+			   AND A.언어구분코드      		= ${언어구분코드}
+			   AND A.메시지채널구분코드   	= ${메시지채널구분코드}
+			   AND A.오류메시지코드     	= ${오류메시지코드}
+		]]>
+    </statement>
+    
+    
+</statements>

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvLstSpsrAthByCrdcoTgp" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::14.책임자승인내역관리::GCB책임자승인권한상세Ebi::GCB책임자승인권한상세Jdao::책임자승인By카드사대상자목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/spsrAthHisMg/gcbSpsrAthAtrDtlEbi/GcbSpsrAthAtrDtl/retvLstSpsrAthByCrdcoTgp */
+			       A.직원번호
+			     , A.사용자유형구분코드
+			     , A.사용자업무부점코드
+			     , A.단말사용자인증IP주소
+			  FROM INSTC.TBGCBHR01 A
+			     , (SELECT C.부점코드
+			          FROM INSTC.TBGCBBR01 C
+			         WHERE C.부점코드 = ${사용자업무부점코드}
+			           AND C.적용시작년월일 <= ${거래년월일_V8}
+			           AND C.적용종료년월일 >= ${거래년월일_V8}
+			        UNION
+			        SELECT C.부점코드
+			          FROM INSTC.TBGCBBR01 C
+			         WHERE C.출장소모점부점코드 = ${사용자업무부점코드}
+			           AND C.적용시작년월일 <= ${거래년월일_V8}
+			           AND C.적용종료년월일 >= ${거래년월일_V8}
+			        UNION
+			        SELECT C.부점코드
+			          FROM INSTC.TBGCBBR01 C
+			         WHERE C.부점코드 = ${출장소모점부점코드}
+			           AND C.적용시작년월일 <= ${거래년월일_V8}
+			           AND C.적용종료년월일 >= ${거래년월일_V8}
+			        UNION
+			        SELECT C.부점코드
+			          FROM INSTC.TBGCBBR01 C
+			         WHERE C.출장소모점부점코드 = ${출장소모점부점코드}
+			           AND C.적용시작년월일 <= ${거래년월일_V8}
+			           AND C.적용종료년월일 >= ${거래년월일_V8}
+			        ) B
+			     , INSTC.TBGCBAT05 D
+			     , INSTC.TBGCBAT04 E
+			 WHERE A.사용자업무부점코드 = B.부점코드
+			   AND A.직원번호 = D.직원번호
+			   AND A.직원번호 = E.직원번호(+)   
+			   AND A.소속부점코드 = E.소속부점코드(+)
+			   AND A.직원번호 <> ${직원번호}
+			   AND A.퇴직년월일 > ${거래년월일_V8}
+			   AND A.지주회사구분코드 = '02'
+			   AND A.사용자유형구분코드 IN ('01', '02', '03') /*01-부점장, 02-내부통제자, 03-후선책임자*/
+			   AND A.단말사용자인증년월일 IS NOT NULL /*로그인 상태*/
+			   AND A.단말사용자인증시각 IS NOT NULL /*로그인 상태*/   
+			   AND D.등록해제구분코드 = '1' /*1-등록, 2-해제*/
+			   AND NVL(E.사용자권한구분코드, '1') = DECODE(A.사용자유형구분코드, '03', '1', NVL(E.사용자권한구분코드, '1')) /*1-책임자승인, 2-회계처리가능여부*/
+			   AND NVL(E.사용자권한유효여부, '1') = DECODE(A.사용자유형구분코드, '03', '1', NVL(E.사용자권한유효여부, '1'))
+			   AND ${거래년월일_V8} BETWEEN DECODE(A.사용자유형구분코드, '03', E.적용시작년월일, ${거래년월일_V8}) 
+			                         AND DECODE(A.사용자유형구분코드, '03', E.적용종료년월일, ${거래년월일_V8})
+			ORDER BY A.사용자유형구분코드 ASC, A.사용자업무부점코드 ASC, A.직원번호 ASC
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstSpsrAthByBkTgp" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::14.책임자승인내역관리::GCB책임자승인권한상세Ebi::GCB책임자승인권한상세Jdao::책임자승인By은행대상자목록조회">
+		<![CDATA[
+			SELECT /*+ 김동현::/gcb/spsrAthHisMg/gcbSpsrAthAtrDtlEbi/GcbSpsrAthAtrDtl/retvLstSpsrAthByBkTgp */  
+			       A.직원번호
+			     , A.사용자유형구분코드
+			     , A.사용자업무부점코드
+			     , A.단말사용자인증IP주소
+			  FROM INSTC.TBGCBHR01 A
+			     , (SELECT C.부점코드
+			          FROM INSTC.TBGCBBR01 C
+			         WHERE C.부점코드 = ${사용자업무부점코드}
+			           AND C.적용시작년월일 <= ${거래년월일_V8}
+			           AND C.적용종료년월일 >= ${거래년월일_V8}
+			        UNION
+			        SELECT C.부점코드
+			          FROM INSTC.TBGCBBR01 C
+			         WHERE C.부점코드 = ${출장소모점부점코드}
+			           AND C.적용시작년월일 <= ${거래년월일_V8}
+			           AND C.적용종료년월일 >= ${거래년월일_V8}
+			        ) B
+			     , INSTC.TBGCBAT05 D
+			 WHERE A.사용자업무부점코드 = B.부점코드
+			   AND A.직원번호 = D.직원번호
+			   AND A.직원번호 <> ${직원번호}
+			   AND A.퇴직년월일 > ${거래년월일_V8}
+			   AND A.지주회사구분코드 = '01'
+			   AND A.사용자유형구분코드 IN ('01', '02', '03', '04', '06') /*01-부점장, 02-내부통제자, 03-후선책임자, 04-창구책임자, 06-모출납(책임자)*/
+			   AND A.단말사용자인증년월일 IS NOT NULL /*로그인 상태*/
+			   AND A.단말사용자인증시각 IS NOT NULL /*로그인 상태*/
+			   AND D.등록해제구분코드 = '1' /*1-등록, 2-해제*/
+			   AND D.등록년월일 = ${거래년월일_V8}
+			ORDER BY A.사용자유형구분코드 ASC, A.사용자업무부점코드 ASC, A.직원번호 ASC
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstSpsrPlAthBy2ndTgp" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::14.책임자승인내역관리::GCB책임자승인권한상세Ebi::GCB책임자승인권한상세Jdao::책임자복수승인By2차대상자목록조회">
+		<![CDATA[
+			SELECT /*+ 김민교::/gcb/spsrAthHisMg/gcbSpsrAthAtrDtlEbi/GcbSpsrAthAtrDtl/retvLstSpsrPlAthBy2ndTgp */ 
+			       A.직원번호
+			     , A.사용자유형구분코드
+			     , A.사용자업무부점코드
+			     , A.단말사용자인증IP주소
+			     , E.대직여부
+			  FROM INSTC.TBGCBHR01 A
+			     , (SELECT C.부점코드
+			          FROM INSTC.TBGCBBR01 C
+			         WHERE C.부점코드 = ${사용자업무부점코드}
+			           AND C.적용시작년월일 <= ${거래년월일_V8}
+			           AND C.적용종료년월일 >= ${거래년월일_V8}
+			        UNION
+			        SELECT C.부점코드
+			          FROM INSTC.TBGCBBR01 C
+			         WHERE C.출장소모점부점코드 = ${사용자업무부점코드}
+			           AND C.적용시작년월일 <= ${거래년월일_V8}
+			           AND C.적용종료년월일 >= ${거래년월일_V8}
+			        UNION
+			        SELECT C.부점코드
+			          FROM INSTC.TBGCBBR01 C
+			         WHERE C.부점코드 = ${출장소모점부점코드}
+			           AND C.적용시작년월일 <= ${거래년월일_V8}
+			           AND C.적용종료년월일 >= ${거래년월일_V8}
+			        UNION
+			        SELECT C.부점코드
+			          FROM INSTC.TBGCBBR01 C
+			         WHERE C.출장소모점부점코드 = ${출장소모점부점코드}
+			           AND C.적용시작년월일 <= ${거래년월일_V8}
+			           AND C.적용종료년월일 >= ${거래년월일_V8}
+			        ) B
+			     , INSTC.TBGCBAT05 D
+			     , INSTC.TBGCBHM01 E
+			 WHERE A.사용자업무부점코드 = B.부점코드
+			   AND A.직원번호 = D.직원번호
+			   AND A.직원번호 = E.직원번호
+			   AND A.직원번호 <> ${직원번호}
+			   AND A.퇴직년월일 > ${거래년월일_V8}
+			   AND A.지주회사구분코드 = '02'
+			   AND A.단말사용자인증년월일 IS NOT NULL /*로그인 상태*/
+			   AND A.단말사용자인증시각 IS NOT NULL /*로그인 상태*/   
+			   AND D.등록해제구분코드 = '1' /*1-등록, 2-해제*/
+			   AND E.사무분담코드 = 'ZZ000036' /*ZZ000036-업무총괄*/
+			ORDER BY A.사용자유형구분코드 ASC, A.사용자업무부점코드 ASC, A.직원번호 ASC
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstSpsrPlAthBy1stTgp" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::14.책임자승인내역관리::GCB책임자승인권한상세Ebi::GCB책임자승인권한상세Jdao::책임자복수승인By1차대상자목록조회">
+		<![CDATA[
+			SELECT /*+ 김민교::/gcb/spsrAthHisMg/gcbSpsrAthAtrDtlEbi/GcbSpsrAthAtrDtl/retvLstSpsrPlAthBy1stTgp */ 
+			       A.직원번호
+			     , A.사용자유형구분코드
+			     , A.사용자업무부점코드
+			     , A.단말사용자인증IP주소
+			  FROM INSTC.TBGCBHR01 A
+			     , (SELECT C.부점코드
+			          FROM INSTC.TBGCBBR01 C
+			         WHERE C.부점코드 = ${사용자업무부점코드}
+			           AND C.적용시작년월일 <= ${거래년월일_V8}
+			           AND C.적용종료년월일 >= ${거래년월일_V8}
+			        UNION
+			        SELECT C.부점코드
+			          FROM INSTC.TBGCBBR01 C
+			         WHERE C.출장소모점부점코드 = ${사용자업무부점코드}
+			           AND C.적용시작년월일 <= ${거래년월일_V8}
+			           AND C.적용종료년월일 >= ${거래년월일_V8}
+			        UNION
+			        SELECT C.부점코드
+			          FROM INSTC.TBGCBBR01 C
+			         WHERE C.부점코드 = ${출장소모점부점코드}
+			           AND C.적용시작년월일 <= ${거래년월일_V8}
+			           AND C.적용종료년월일 >= ${거래년월일_V8}
+			        UNION
+			        SELECT C.부점코드
+			          FROM INSTC.TBGCBBR01 C
+			         WHERE C.출장소모점부점코드 = ${출장소모점부점코드}
+			           AND C.적용시작년월일 <= ${거래년월일_V8}
+			           AND C.적용종료년월일 >= ${거래년월일_V8}
+			        ) B
+			     , INSTC.TBGCBAT05 D
+			     , INSTC.TBGCBAT04 E
+			 WHERE A.사용자업무부점코드 = B.부점코드
+			   AND A.직원번호 = D.직원번호
+			   AND A.직원번호 = E.직원번호(+)
+			   AND A.소속부점코드 = E.소속부점코드(+)
+			   AND A.직원번호 <> ${직원번호}
+			   AND A.퇴직년월일 > ${거래년월일_V8}
+			   AND A.지주회사구분코드 = '02'
+			   AND A.사용자유형구분코드 IN ('02', '03') /*02-내부통제자, 03-후선책임자*/
+			   AND A.단말사용자인증년월일 IS NOT NULL /*로그인 상태*/
+			   AND A.단말사용자인증시각 IS NOT NULL /*로그인 상태*/   
+			   AND D.등록해제구분코드 = '1' /*1-등록, 2-해제*/
+			   AND NVL(E.사용자권한구분코드, '1') = DECODE(A.사용자유형구분코드, '03', '1', NVL(E.사용자권한구분코드, '1')) /*1-책임자승인, 2-회계처리가능여부*/
+			   AND NVL(E.사용자권한유효여부, '1') = DECODE(A.사용자유형구분코드, '03', '1', NVL(E.사용자권한유효여부, '1'))
+			   AND ${거래년월일_V8} BETWEEN DECODE(A.사용자유형구분코드, '03', E.적용시작년월일, ${거래년월일_V8}) 
+			                         AND DECODE(A.사용자유형구분코드, '03', E.적용종료년월일, ${거래년월일_V8})
+			   AND A.직원번호 NOT IN (SELECT F.직원번호
+			                         FROM INSTC.TBGCBHM01 F
+			                        WHERE F.부점코드 = B.부점코드
+			                          AND F.사무분담코드 = 'ZZ000036' /*ZZ000036-업무총괄*/
+			                       )
+			ORDER BY A.사용자유형구분코드 ASC, A.사용자업무부점코드 ASC, A.직원번호 ASC
+		]]>
+    </statement>
+</statements>

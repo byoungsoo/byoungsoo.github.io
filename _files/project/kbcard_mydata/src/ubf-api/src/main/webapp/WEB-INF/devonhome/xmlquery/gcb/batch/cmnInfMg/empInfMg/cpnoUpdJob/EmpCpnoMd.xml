@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvBhBas" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::02.공통정보관리::02.직원정보관리::휴대폰번호갱신Job::DAO::직원휴대폰번호변경Bdao::부점기본조회">
+		<![CDATA[
+			SELECT /*+ 김남식::/gcb/batch/cmnInfMg/empInfMg/cpnoUpdJob/EmpCpnoMd/retvBhBas */ 
+			       A.부점코드
+			     , A.적용종료년월일
+			     , A.내부통제자직원번호
+			     , A.내부통제자휴대폰번호
+			     , A.부점장직원번호
+			     , A.부점장휴대폰번호
+			  FROM INSTC.TBGCBBR01 A 
+			 WHERE A.부점코드    = ${부점코드}
+			   AND A.적용시작년월일 <= ${거래기준년월일}
+			   AND A.적용종료년월일 >= ${거래기준년월일}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="regtBmgrCpno" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::02.공통정보관리::02.직원정보관리::휴대폰번호갱신Job::DAO::직원휴대폰번호변경Bdao::부점장휴대폰번호등록">
+		<![CDATA[
+			UPDATE /*+ 김남식::/gcb/batch/cmnInfMg/empInfMg/cpnoUpdJob/EmpCpnoMd/regtBmgrCpno */ 
+			       INSTC.TBGCBBR01 
+			   SET 부점장직원번호          = ${부점장직원번호}
+			     , 부점장휴대폰번호       = ${부점장휴대폰번호}
+			     , 시스템최종갱신일시     = SYSTIMESTAMP
+			     , 시스템최종갱신식별자   = ${시스템최종갱신식별자}
+			     , 시스템최종거래일시      = ${시스템최종거래일시}
+			 WHERE 부점코드         = ${부점코드}
+			   AND 적용종료년월일 = ${적용종료년월일}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="regtInnCtrpCpno" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::02.공통정보관리::02.직원정보관리::휴대폰번호갱신Job::DAO::직원휴대폰번호변경Bdao::내부통제자휴대폰번호등록">
+		<![CDATA[
+			UPDATE /*+ 김남식::/gcb/batch/cmnInfMg/empInfMg/cpnoUpdJob/EmpCpnoMd/regtInnCtrpCpno */ 
+			       INSTC.TBGCBBR01 
+			   SET 내부통제자직원번호     = ${내부통제자직원번호}
+			     , 내부통제자휴대폰번호  = ${내부통제자휴대폰번호}
+			     , 시스템최종갱신일시     = SYSTIMESTAMP
+			     , 시스템최종갱신식별자  = ${시스템최종갱신식별자}
+			     , 시스템최종거래일시     = ${시스템최종거래일시}
+			 WHERE 부점코드         = ${부점코드}
+			   AND 적용종료년월일 = ${적용종료년월일}
+		]]>
+    </statement>
+</statements>

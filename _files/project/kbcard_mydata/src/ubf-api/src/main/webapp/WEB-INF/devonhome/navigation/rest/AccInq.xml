@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<navigation>
+    <action name="/employee/{querynum}">
+    	<method>get</method>
+    	<command>com.kbcard.frw.cmd.RetrieveEmployeeCmd</command>
+    </action>
+    
+    <action name="/tranList/{tranId}">
+    	<method>get</method>
+    	<command>com.kbcard.frw.cmd.TranListCmd</command>
+    </action>
+    
+    <action name="/CmmNtrkRcvCmd">
+         <method>get</method>
+         <!--  <command>com.kbcard.ube.cmd.CmmNtrkRcvCmd</command> -->
+    </action>
+    <!--  
+    <action name="/CmmNtrkDmdCmd">
+         <method>post</method>
+         <command>com.kbcard.ube.cmd.CmmNtrkDmdCmd</command>
+    </action>
+    -->
+    
+    <action name="/CmmNtrkDmdCmd">
+         <method>post</method>
+         <command>#RestCommonCmd</command>
+    </action>
+    
+   
+    <action name="/AccInqCmd">
+         <method>post</method>
+         <command>#RestCommonCmd</command>
+    </action> 
+</navigation>

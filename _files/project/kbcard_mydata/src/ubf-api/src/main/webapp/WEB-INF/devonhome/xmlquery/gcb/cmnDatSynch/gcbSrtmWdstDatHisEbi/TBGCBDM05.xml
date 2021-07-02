@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvGcbSrtmWdstDatHisInqByNth" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::11.공통데이터동기화::GCB준실시간배포데이터내역Ebi::GCB준실시간배포데이터내역Dao::GCB준실시간배포데이터내역조회By회차조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/cmnDatSynch/gcbSrtmWdstDatHisEbi/TBGCBDM05/retvGcbSrtmWdstDatHisInqByNth */ 
+			       NVL(MAX(A.배포작업처리회차), 0) 배포작업처리회차
+			  FROM INSTC.TBGCBDM05 A 
+			 WHERE A.작업기준년월일   = ${작업기준년월일}
+			   AND A.공통데이터테이블명 = ${공통데이터테이블명}
+			   AND ROWNUM = 1
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="regtGcbSrtmWdstDatHis" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::11.공통데이터동기화::GCB준실시간배포데이터내역Ebi::GCB준실시간배포데이터내역Dao::GCB준실시간배포데이터내역등록" >
+		<![CDATA[
+			INSERT /*+ 위상규::/gcb/cmnDatSynch/gcbSrtmWdstDatHisEbi/TBGCBDM05/regtGcbSrtmWdstDatHis */
+			  INTO INSTC.TBGCBDM05
+			(
+			   작업기준년월일
+			 , 공통데이터테이블명
+			 , 배포작업처리회차
+			 , 거래코드
+			 , 거래직원번호
+			 , 배포처리구분코드
+			 , 배포데이터생성시각
+			 , 배포데이터내용
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${작업기준년월일}
+			 ,${공통데이터테이블명}
+			 ,${배포작업처리회차}
+			 ,${거래코드}
+			 ,${거래직원번호}
+			 ,${배포처리구분코드}
+			 ,${배포데이터생성시각}
+			 ,${배포데이터내용}
+			 ,SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,${시스템최종거래일시}
+			)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGcbSrtmWdstDatHisInqByClmn" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::11.공통데이터동기화::GCB준실시간배포데이터내역Ebi::GCB준실시간배포데이터내역Dao::GCB준실시간배포데이터내역조회By컬럼목록조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/cmnDatSynch/gcbSrtmWdstDatHisEbi/TBGCBDM05/retvLstGcbSrtmWdstDatHisInqByClmn */ 
+			       A.COLUMN_NAME 공통데이터테이블컬럼명_V128
+			     , A.DATA_TYPE 공통데이터테이블컬럼타입_V128
+			     , A.DATA_LENGTH 공통데이터테이블컬럼길이_N5
+			     , A.DATA_SCALE 공통데이터테이블컬럼소수점길이_N5
+			     , A.COLUMN_ID 공통데이터테이블컬럼ID_N5
+			  FROM (SELECT COLUMN_NAME
+			             , CASE WHEN DATA_TYPE = 'TIMESTAMP(6)' THEN 'VARCHAR2'
+			                    ELSE DATA_TYPE
+			                END DATA_TYPE
+			             , CASE WHEN DATA_TYPE = 'NUMBER' THEN DATA_PRECISION
+			                    WHEN DATA_TYPE = 'TIMESTAMP(6)' THEN 20
+			                    ELSE DATA_LENGTH
+			                END DATA_LENGTH
+			             , CASE WHEN DATA_TYPE = 'TIMESTAMP(6)' THEN NULL
+			                    ELSE DATA_SCALE
+			                END DATA_SCALE
+			             , COLUMN_ID
+			          FROM SYS.ALL_TAB_COLS
+			         WHERE 1 = 1
+			           AND OWNER = 'INSTC'
+			           AND TABLE_NAME = ${공통데이터테이블명}
+			         ORDER BY COLUMN_ID) A
+			 ORDER BY A.COLUMN_ID
+		]]>
+    </statement>
+</statements>

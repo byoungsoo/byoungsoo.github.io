@@ -1,0 +1,629 @@
+<?xml version="1.0" encoding="euc-kr"?>
+<statements>
+
+    <statement name="retrieveDeferredMainInfo">
+        <![CDATA[
+            SELECT  A.DFRD_ID
+                   ,A.DFRD_NM
+                   --,A.NODE_SQ
+                   --,A.INST_SQ
+                   ,A.TGTINST_NM
+                   ,A.EXECLASS_NM
+                   ,A.AUTOEXE_YN
+                   ,A.POOLTIME_NO
+                   ,A.ERRSTOP_YN
+                   ,A.REPEXE_YN
+                   ,A.PARAM_NM
+                   --,A.LASTSVC_ID
+                   ,A.LASTEXE_DT
+                   ,A.PROCSVC_NO
+                   ,A.STOPSTRT_DT
+                   ,A.STOPEND_DT
+                   ,A.EXEPOOLTIME_NO
+                   --,A.SYSLOGLEVEL_CD
+                   --,A.TRACEOPTION_CD
+                   --,A.TRACELOGLEVEL_NO
+                   ,A.TRAN_TX_CD
+                   ,A.ALL_TX_USE_YN
+                   ,A.TRAN_BIZ_TYPE
+                   --,A.MOD_DT
+                   --,A.REG_DT
+                   --,A.MOD_USER_ID
+                   --,A.REG_USER_ID
+                   ,A.SITE_CD
+                   ,A.USE_YN
+                   ,B.TRAN_SYSLOGLEVEL_CD   AS SYSLOGLEVEL_CD
+                   ,B.TRAN_TRACELOGLEVEL_NO AS TRACELOGLEVEL_NO
+                   ,B.TRAN_TRACEOPTION_CD   AS TRACEOPTION_CD
+            FROM    DEVON.SERE_DFRDMAIN_TB A
+                   ,DEVON.SGMC_TRAN_TB     B
+            WHERE   A.DFRD_ID = ${DFRD_ID}
+            AND     A.SITE_CD = ${SITE_CD}
+            AND     A.DFRD_ID = B.TRAN_ID
+            AND     A.SITE_CD = B.TRAN_SITE_ID
+        ]]>
+    </statement>
+
+    <statement name="retrieveDeferredMainInfoList">
+        <![CDATA[
+            SELECT  A.DFRD_ID
+                   ,A.DFRD_NM
+                   --,A.NODE_SQ
+                   --,A.INST_SQ
+                   ,A.TGTINST_NM
+                   ,A.EXECLASS_NM
+                   ,A.AUTOEXE_YN
+                   ,A.POOLTIME_NO
+                   ,A.ERRSTOP_YN
+                   ,A.REPEXE_YN
+                   ,A.PARAM_NM
+                   --,A.LASTSVC_ID
+                   ,A.LASTEXE_DT
+                   ,A.PROCSVC_NO
+                   ,A.STOPSTRT_DT
+                   ,A.STOPEND_DT
+                   ,A.EXEPOOLTIME_NO
+                   --,A.SYSLOGLEVEL_CD
+                   --,A.TRACEOPTION_CD
+                   --,A.TRACELOGLEVEL_NO
+                   ,A.TRAN_TX_CD
+                   ,A.ALL_TX_USE_YN
+                   ,A.TRAN_BIZ_TYPE
+                   ,A.SITE_CD
+                   ,A.USE_YN
+                   ,B.TRAN_SYSLOGLEVEL_CD   AS SYSLOGLEVEL_CD
+                   ,B.TRAN_TRACELOGLEVEL_NO AS TRACELOGLEVEL_NO
+                   ,B.TRAN_TRACEOPTION_CD   AS TRACEOPTION_CD
+            FROM    DEVON.SERE_DFRDMAIN_TB A
+                   ,DEVON.SGMC_TRAN_TB     B
+            WHERE   A.SITE_CD = ${SITE_CD}
+            AND     A.DFRD_ID = B.TRAN_ID
+            AND     A.SITE_CD = B.TRAN_SITE_ID
+            ORDER BY A.DFRD_ID
+        ]]>
+    </statement>
+    
+    <statement name="retrieveDeferredMainDistributeJobInfoList">
+        <![CDATA[
+            SELECT  DFRD_ID
+                   ,DFRD_NM
+                   ,TGTINST_NM
+            FROM    DEVON.SERE_DFRDMAIN_TB
+            WHERE   SITE_CD = ${SITE_CD}
+            AND     DFRD_ID LIKE 'M%0'
+            ORDER BY DFRD_ID
+        ]]>
+    </statement>   
+    
+        <statement name="retrieveDeferredJobInfoForUpdate">
+        <![CDATA[
+            SELECT  A.DFRD_ID
+                   ,B.STAT_TY
+                   ,C.ENVR_TY
+                   ,C.TYPE_CD
+                   ,C.NODE_NM
+                   ,C.INST_NM
+                   ,C.JNDIURL_NM
+                   ,C.FACTORY_NM
+                   ,C.QUEUE_NM
+                   ,C.QSSESION_NO
+                   ,C.ERRSTAT_TY
+                   ,C.JMXPORT_NO
+                   ,C.INITIAL_CONTEXT_FACTORY
+            FROM    DEVON.SERE_DFRDMAIN_TB A,
+                    DEVON.SERE_DFRDSVC_TB B,
+                    DEVON.SERE_JOBNODE_TB C  
+            WHERE   A.DFRD_ID = B.DFRD_ID
+            AND     B.STAT_TY IN ('01', '04', '05' )
+            AND     A.SITE_CD = B.SITE_CD
+            AND     C.SITE_CD = B.SITE_CD
+            AND     B.EXEINST_NM = C.INST_NM
+            AND     A.SITE_CD = ${SITE_CD}
+            AND     C.INST_NM = ${INST_NM}
+            AND     C.ENVR_TY = ${ENVR_TY}
+            AND     C.TYPE_CD = ${TYPE_CD}     
+            AND     A.DFRD_ID = ${DFRD_ID}
+            FOR UPDATE NOWAIT
+        ]]>
+    </statement>   
+    
+    <statement name="retrieveProcDeferredAllJobStatus">
+        <![CDATA[
+            SELECT  A.DFRD_ID
+                   ,B.STAT_TY
+                   ,C.ENVR_TY
+                   ,C.TYPE_CD
+                   ,C.NODE_NM
+                   ,C.INST_NM
+                   ,C.JNDIURL_NM
+                   ,C.FACTORY_NM
+                   ,C.QUEUE_NM
+                   ,C.QSSESION_NO
+                   ,C.ERRSTAT_TY
+                   ,C.JMXPORT_NO
+                   ,C.INITIAL_CONTEXT_FACTORY
+            FROM    DEVON.SERE_DFRDMAIN_TB A,
+                    DEVON.SERE_DFRDSVC_TB B,
+                    DEVON.SERE_JOBNODE_TB C  
+            WHERE   A.DFRD_ID = B.DFRD_ID
+            AND     B.STAT_TY IN ('01', '04', '05' )
+            AND     A.SITE_CD = B.SITE_CD
+            AND     C.SITE_CD = B.SITE_CD
+            AND     B.EXEINST_NM = C.INST_NM
+            AND     A.SITE_CD = ${SITE_CD}
+            AND     C.INST_NM = ${INST_NM}
+            AND     C.ENVR_TY = ${ENVR_TY}
+            AND     C.TYPE_CD = ${TYPE_CD}     
+            -- AND     A.DFRD_ID NOT LIKE 'M%0'
+            AND     A.DFRD_ID LIKE 'M%!_%'ESCAPE'!'
+        ]]>
+    </statement>    
+    
+    <statement name="retrieveDeferredAllJobStatus">
+        <![CDATA[
+            SELECT  A.DFRD_ID
+                   ,B.STAT_TY
+                   ,C.ENVR_TY
+                   ,C.TYPE_CD
+                   ,C.NODE_NM
+                   ,C.INST_NM
+                   ,C.JNDIURL_NM
+                   ,C.FACTORY_NM
+                   ,C.QUEUE_NM
+                   ,C.QSSESION_NO
+                   ,C.ERRSTAT_TY
+                   ,C.JMXPORT_NO
+                   ,C.INITIAL_CONTEXT_FACTORY
+            FROM    DEVON.SERE_DFRDMAIN_TB A,
+                    DEVON.SERE_DFRDSVC_TB B,
+                    DEVON.SERE_JOBNODE_TB C  
+            WHERE   A.DFRD_ID = B.DFRD_ID
+            AND     B.STAT_TY IN ('01', '04', '05' )
+            AND     A.SITE_CD = B.SITE_CD
+            AND     C.SITE_CD = B.SITE_CD
+            AND     B.EXEINST_NM = C.INST_NM
+            AND     A.SITE_CD = ${SITE_CD}
+            AND     C.INST_NM = ${INST_NM}
+            AND     C.ENVR_TY = ${ENVR_TY}
+            AND     C.TYPE_CD = ${TYPE_CD}   
+        ]]>
+    </statement>     
+    
+    <statement name="retrieveDeferredAbnormalAllJobStatus">
+        <![CDATA[
+            SELECT  A.DFRD_ID
+                   ,B.STAT_TY
+                   ,C.ENVR_TY
+                   ,C.TYPE_CD
+                   ,C.NODE_NM
+                   ,C.INST_NM
+                   ,C.JNDIURL_NM
+                   ,C.FACTORY_NM
+                   ,C.QUEUE_NM
+                   ,C.QSSESION_NO
+                   ,C.ERRSTAT_TY
+                   ,C.JMXPORT_NO
+                   ,C.INITIAL_CONTEXT_FACTORY
+            FROM    DEVON.SERE_DFRDMAIN_TB A,
+                    DEVON.SERE_DFRDSVC_TB B,
+                    DEVON.SERE_JOBNODE_TB C  
+            WHERE   A.DFRD_ID = B.DFRD_ID
+            AND     B.STAT_TY IN ('11')
+            AND     A.SITE_CD = B.SITE_CD
+            AND     C.SITE_CD = B.SITE_CD
+            AND     B.EXEINST_NM = C.INST_NM
+            AND     A.SITE_CD = ${SITE_CD}
+            AND     C.INST_NM = ${INST_NM}
+            AND     C.ENVR_TY = ${ENVR_TY}
+            AND     C.TYPE_CD = ${TYPE_CD}     
+        ]]>
+    </statement>       
+    
+        <statement name="retrieveDaemonJobSingleInstance">
+        <![CDATA[
+            SELECT  A.DFRD_ID
+                   ,B.STAT_TY
+                   ,C.ENVR_TY
+                   ,C.TYPE_CD
+                   ,C.NODE_NM
+                   ,C.INST_NM
+                   ,C.JNDIURL_NM
+                   ,C.FACTORY_NM
+                   ,C.QUEUE_NM
+                   ,C.QSSESION_NO
+                   ,C.ERRSTAT_TY
+                   ,C.JMXPORT_NO
+                   ,C.INITIAL_CONTEXT_FACTORY
+            FROM    DEVON.SERE_DFRDMAIN_TB A,
+                    DEVON.SERE_DFRDSVC_TB B,
+                    DEVON.SERE_JOBNODE_TB C  
+            WHERE   A.DFRD_ID = B.DFRD_ID
+            AND     A.SITE_CD = B.SITE_CD
+            AND     C.SITE_CD = B.SITE_CD
+            AND     B.EXEINST_NM = A.TGTINST_NM
+            AND     B.EXEINST_NM = C.INST_NM
+            AND     A.SITE_CD = ${SITE_CD}
+            AND     C.INST_NM = ${INST_NM}
+            AND     C.ENVR_TY = ${ENVR_TY}
+            AND     C.TYPE_CD = ${TYPE_CD}     
+        ]]>
+    </statement>    
+    
+    <statement name="retrieveDeferredSvcAllJobStatus">
+        <![CDATA[
+            SELECT  A.DFRD_ID
+                   ,B.STAT_TY
+                   ,C.ENVR_TY
+                   ,C.TYPE_CD
+                   ,C.NODE_NM
+                   ,C.INST_NM
+                   ,C.JNDIURL_NM
+                   ,C.FACTORY_NM
+                   ,C.QUEUE_NM
+                   ,C.QSSESION_NO
+                   ,C.ERRSTAT_TY
+                   ,C.JMXPORT_NO
+                   ,C.INITIAL_CONTEXT_FACTORY
+            FROM    DEVON.SERE_DFRDMAIN_TB A,
+                    DEVON.SERE_DFRDSVC_TB B,
+                    DEVON.SERE_JOBNODE_TB C  
+            WHERE   A.DFRD_ID = B.DFRD_ID
+            AND     A.SITE_CD = B.SITE_CD
+            AND     C.SITE_CD = B.SITE_CD
+            AND     B.EXEINST_NM = C.INST_NM
+            AND     A.SITE_CD = ${SITE_CD}
+            AND     B.DFRD_ID = ${DFRD_ID}
+            AND     C.ENVR_TY = ${ENVR_TY}
+            AND     C.TYPE_CD = ${TYPE_CD}   
+        ]]>
+    </statement>
+    
+        <statement name="retrieveDeferredSvcAllJobStatusForUpdate">
+        <![CDATA[
+            SELECT  A.DFRD_ID
+                   ,B.STAT_TY
+                   ,C.ENVR_TY
+                   ,C.TYPE_CD
+                   ,C.NODE_NM
+                   ,C.INST_NM
+                   ,C.JNDIURL_NM
+                   ,C.FACTORY_NM
+                   ,C.QUEUE_NM
+                   ,C.QSSESION_NO
+                   ,C.ERRSTAT_TY
+                   ,C.JMXPORT_NO
+                   ,C.INITIAL_CONTEXT_FACTORY
+            FROM    DEVON.SERE_DFRDMAIN_TB A,
+                    DEVON.SERE_DFRDSVC_TB B,
+                    DEVON.SERE_JOBNODE_TB C  
+            WHERE   A.DFRD_ID = B.DFRD_ID
+            AND     A.SITE_CD = B.SITE_CD
+            AND     C.SITE_CD = B.SITE_CD
+            AND     B.EXEINST_NM = C.INST_NM
+            AND     A.SITE_CD = ${SITE_CD}
+            AND     B.DFRD_ID = ${DFRD_ID}
+            AND     C.ENVR_TY = ${ENVR_TY}
+            AND     C.TYPE_CD = ${TYPE_CD}   
+            FOR UPDATE NOWAIT  
+        ]]>
+    </statement>  
+
+    <statement name="retrieveDeferredSvcLock">
+        <![CDATA[
+            SELECT  A.DFRD_ID
+                   ,A.DFRD_ST
+                   ,A.INST_NM
+                   ,A.MOD_DT
+                   ,B.POOLTIME_NO
+                    -
+                    (
+                        (
+                            TO_NUMBER(TO_DATE( TO_CHAR(SYSDATE, 'YYYYMMDD'), 'YYYYMMDD') - TO_DATE(SUBSTR(A.MOD_DT, 1,8), 'YYYYMMDD')) * 24*60*60*1000
+                        )
+                        +
+                        (
+                            TO_NUMBER(SUBSTR(TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3'), 9,2))  * 60*60*1000
+                          + TO_NUMBER(SUBSTR(TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3'), 11,2)) * 60*1000
+                          + TO_NUMBER(SUBSTR(TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3'), 13,2)) * 1000
+                          + TO_NUMBER(SUBSTR(TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3'), 15,3))
+                        )
+                        -
+                        (
+                            TO_NUMBER(SUBSTR(A.MOD_DT, 9,2))  * 60*60*1000
+                          + TO_NUMBER(SUBSTR(A.MOD_DT, 11,2)) * 60*1000
+                          + TO_NUMBER(SUBSTR(A.MOD_DT, 13,2)) * 1000
+                          + TO_NUMBER(SUBSTR(A.MOD_DT, 15,3))
+                        )
+                    ) POOL_TIME
+            FROM    DEVON.SERE_DFRDSVCLOCK_TB A
+                   ,DEVON.SERE_DFRDMAIN_TB    B
+            WHERE   A.DFRD_ID = ${DFRD_ID}
+            AND     A.SITE_CD = ${SITE_CD}
+            AND     A.ENVR_TY = ${ENVR_TY}
+            AND     A.DFRD_ID = B.DFRD_ID
+            AND     A.SITE_CD = B.SITE_CD
+
+
+        ]]>
+    </statement>
+
+    <statement name="retrieveAllDeferredSvcLock">
+        <![CDATA[
+            SELECT  DFRD_ID
+                   ,DFRD_ST
+                   ,INST_NM
+                   ,MOD_DT
+            FROM    DEVON.SERE_DFRDSVCLOCK_TB
+            WHERE   ENVR_TY = ${ENVR_TY}
+            AND     SITE_CD = ${SITE_CD}
+            AND     DFRD_ST LIKE '%' || ${DFRD_ST} || '%'
+        ]]>
+    </statement>
+
+    <statement name="retrieveDeferredSvcLockForUpdate">
+        <![CDATA[
+            SELECT  A.DFRD_ID
+                   ,A.DFRD_ST
+                   ,A.INST_NM
+                   ,A.MOD_DT
+                   ,B.POOLTIME_NO
+                    -
+                    (
+                        (
+                            TO_NUMBER(TO_DATE( TO_CHAR(SYSDATE, 'YYYYMMDD'), 'YYYYMMDD') - TO_DATE(SUBSTR(A.MOD_DT, 1,8), 'YYYYMMDD')) * 24*60*60*1000
+                        )
+                        +
+                        (
+                            TO_NUMBER(SUBSTR(TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3'), 9,2))  * 60*60*1000
+                          + TO_NUMBER(SUBSTR(TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3'), 11,2)) * 60*1000
+                          + TO_NUMBER(SUBSTR(TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3'), 13,2)) * 1000
+                          + TO_NUMBER(SUBSTR(TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3'), 15,3))
+                        )
+                        -
+                        (
+                            TO_NUMBER(SUBSTR(A.MOD_DT, 9,2))  * 60*60*1000
+                          + TO_NUMBER(SUBSTR(A.MOD_DT, 11,2)) * 60*1000
+                          + TO_NUMBER(SUBSTR(A.MOD_DT, 13,2)) * 1000
+                          + TO_NUMBER(SUBSTR(A.MOD_DT, 15,3))
+                        )
+                    ) POOL_TIME
+            FROM    DEVON.SERE_DFRDSVCLOCK_TB A
+                   ,DEVON.SERE_DFRDMAIN_TB    B
+            WHERE   A.DFRD_ID = ${DFRD_ID}
+            AND     A.SITE_CD = ${SITE_CD}
+            AND     A.ENVR_TY = ${ENVR_TY}
+            AND     A.DFRD_ID = B.DFRD_ID
+            AND     A.SITE_CD = B.SITE_CD
+            FOR UPDATE NOWAIT
+        ]]>
+    </statement>
+
+    <statement name="updateDeferredSvcLock">
+        <![CDATA[
+            UPDATE  DEVON.SERE_DFRDSVCLOCK_TB
+            SET     DFRD_ST = ${DFRD_ST}
+                   ,INST_NM = ${INST_NM}
+                   ,MOD_DT  = TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+            WHERE   DFRD_ID = ${DFRD_ID}
+            AND     SITE_CD = ${SITE_CD}
+            AND     ENVR_TY = ${ENVR_TY}
+        ]]>
+    </statement>
+
+    <statement name="insertDeferredSvcLock">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_DFRDSVCLOCK_TB
+            (
+                DFRD_ID
+               ,ENVR_TY
+               ,DFRD_ST
+               ,MOD_DT
+               ,REG_DT
+               ,MOD_USER_ID
+               ,REG_USER_ID
+               ,SITE_CD
+            )
+            VALUES
+            (
+                ${DFRD_ID}
+               ,${ENVR_TY}
+               ,'00'
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,${MOD_USER_ID}
+               ,${REG_USER_ID}
+               ,${SITE_CD}
+            )
+        ]]>
+    </statement>
+
+    <statement name="insertDeferredSvcMgmt">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_DFRDSVC_TB
+            (
+                DFRD_ID
+               ,SVC_ID
+               ,STAT_TY
+               ,STRT_DT
+               ,EXESVR_NM
+               ,EXEINST_NM
+               ,ENVR_TY
+               ,REG_USER_ID
+               ,REG_DT
+               ,SITE_CD
+            )
+            VALUES
+            (
+                ${DFRD_ID}
+               ,${SVC_ID}
+               ,${STAT_TY}
+               ,TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,${EXESVR_NM}
+               ,${EXEINST_NM}
+               ,${ENVR_TY}
+               ,${REG_USER_ID}
+               ,TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+               ,${SITE_CD}
+            )
+        ]]>
+    </statement>
+
+    <statement name="deleteDeferredSvcMgmt">
+        <![CDATA[
+            DELETE
+            FROM    DEVON.SERE_DFRDSVC_TB
+            WHERE   DFRD_ID    = ${DFRD_ID}
+            AND     SITE_CD    = ${SITE_CD}
+            AND     EXEINST_NM = ${EXEINST_NM}
+            AND     ENVR_TY    = ${ENVR_TY}
+        ]]>
+    </statement>
+
+    <statement name="retrieveDeferredSvcMgmt">
+        <![CDATA[
+            SELECT  DFRD_ID
+                   ,SVC_ID
+                   ,NVL(STAT_TY, '00') STAT_TY
+                   ,STRT_DT
+                   ,END_DT
+                   ,ALLPROC_NO
+                   ,NORMPROC_NO
+                   ,ERRPROC_NO
+                   --,AVGPROC_NO
+                   ,CHK_DT
+                   ,EXESVR_NM
+            FROM    DEVON.SERE_DFRDSVC_TB
+            WHERE   DFRD_ID    = ${DFRD_ID}
+            AND     SITE_CD    = ${SITE_CD}
+            AND     EXEINST_NM = ${EXEINST_NM}
+            AND     ENVR_TY    = ${ENVR_TY}
+        ]]>
+    </statement>
+
+    <statement name="retrieveDeferredRestartSvcMgmt">
+        <![CDATA[
+            SELECT  B.DFRD_ID
+                   ,B.SVC_ID
+                   ,B.STAT_TY
+                   ,B.STRT_DT
+                   ,B.END_DT
+                   ,B.ALLPROC_NO
+                   ,B.NORMPROC_NO
+                   ,B.ERRPROC_NO
+                   ,B.CHK_DT
+            FROM    DEVON.SERE_DFRDMAIN_TB A
+                   ,DEVON.SERE_DFRDSVC_TB  B
+            WHERE   A.DFRD_ID    = B.DFRD_ID
+            AND     A.SITE_CD    = ${SITE_CD}
+            AND     A.SITE_CD    = B.SITE_CD
+            AND     B.EXEINST_NM = ${EXEINST_NM}
+            AND     B.ENVR_TY    = ${ENVR_TY}
+            AND     B.STAT_TY    = ${STAT_TY}
+        ]]>
+    </statement>
+
+    <statement name="insertDeferredSvcMgmtHis">
+        <![CDATA[
+            INSERT INTO DEVON.SERE_DFRDSVCHIS_TB
+            SELECT *
+              FROM DEVON.SERE_DFRDSVC_TB
+             WHERE DFRD_ID    = ${DFRD_ID}
+               AND SITE_CD    = ${SITE_CD}
+               AND EXEINST_NM = ${EXEINST_NM}
+               AND ENVR_TY    = ${ENVR_TY}
+        ]]>
+    </statement>
+
+    <statement name="updateDeferredSvcEndReq">
+        <![CDATA[
+            UPDATE  DEVON.SERE_DFRDSVC_TB
+               SET  STAT_TY     = ${STAT_TY}
+                   ,END_DT      = TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+                   ,MOD_USER_ID = ${MOD_USER_ID}
+             WHERE  DFRD_ID     = ${DFRD_ID}
+               AND  SITE_CD     = ${SITE_CD}
+               AND  EXEINST_NM  = ${EXEINST_NM}
+               AND  ENVR_TY     = ${ENVR_TY}
+        ]]>
+    </statement>
+
+    <statement name="updateDeferredSvcEnd">
+        <![CDATA[
+            UPDATE  DEVON.SERE_DFRDSVC_TB
+               SET  STAT_TY    = ${STAT_TY}
+                   ,END_DT     = TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+             WHERE  DFRD_ID    = ${DFRD_ID}
+               AND  SITE_CD    = ${SITE_CD}
+               AND  EXEINST_NM = ${EXEINST_NM}
+               AND  ENVR_TY    = ${ENVR_TY}
+        ]]>
+    </statement>
+    
+    <statement name="updateDeferredSvcStat">
+        <![CDATA[
+            UPDATE  DEVON.SERE_DFRDSVC_TB
+               SET  STAT_TY    = ${STAT_TY}
+                   ,MOD_USER_ID = ${MOD_USER_ID}
+             WHERE  DFRD_ID    = ${DFRD_ID}
+               AND  SITE_CD    = ${SITE_CD}
+               AND  EXEINST_NM = ${EXEINST_NM}
+               AND  ENVR_TY    = ${ENVR_TY}
+        ]]>
+    </statement>
+    
+    <statement name="updateDeferredSvcMgmtChkDt">
+        <![CDATA[
+            UPDATE  DEVON.SERE_DFRDSVC_TB
+               SET  CHK_DT     = TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF3')
+             WHERE  DFRD_ID    = ${DFRD_ID}
+               AND  SITE_CD    = ${SITE_CD}
+               AND  EXEINST_NM = ${EXEINST_NM}
+               AND  ENVR_TY    = ${ENVR_TY}
+        ]]>
+    </statement>
+
+    <statement name="updateDeferredSvcResult">
+        <![CDATA[
+            UPDATE  DEVON.SERE_DFRDSVC_TB
+               SET  ALLPROC_NO  = ALLPROC_NO  + ${ALLPROC_NO:integer}
+                   ,NORMPROC_NO = NORMPROC_NO + ${NORMPROC_NO:integer}
+                   ,NOTPROC_NO  = NOTPROC_NO  + ${NOTPROC_NO:integer}
+                   ,ERRPROC_NO  = ERRPROC_NO  + ${ERRPROC_NO:integer}
+             WHERE  DFRD_ID    = ${DFRD_ID}
+               AND  SITE_CD    = ${SITE_CD}
+               AND  EXEINST_NM = ${EXEINST_NM}
+               AND  ENVR_TY    = ${ENVR_TY}
+        ]]>
+    </statement>
+    
+    <!--  후행 데이터 블럭 진행 상태를 비정상으로 Update -->    
+    <statement name="updateAbnormalDfrdDataBlock">
+        <![CDATA[
+            UPDATE DEVON.SERE_DFRDDATBLCK_TB
+               SET PROC_ST = '91'
+             WHERE TRAN_DT = ${TRAN_DT}
+               AND PROC_DFRD_ID = ${PROC_DFRD_ID}
+               AND DFRD_BLOCK_SEQ = ${DFRD_BLOCK_SEQ}
+ 
+        ]]>
+    </statement>
+    
+    <!--  후행 처리 데이터 불럭 처리중 상태 조회 -->       
+    <statement name="retrieveProcBlockStatusLock">
+        <![CDATA[
+             SELECT TRAN_DT
+                   ,DFRD_PROC_ID
+                   ,DFRD_BLOCK_SEQ
+                   ,PROC_ST
+                   ,PROC_INST_NM
+                   ,PROC_DFRD_ID
+                   ,PROC_THREAD_ID
+               FROM DEVON.SERE_DFRDDATBLCK_TB
+	          WHERE TRAN_DT = ${TRAN_DT}
+	            AND PROC_DFRD_ID = ${PROC_DFRD_ID}
+                AND PROC_ST = '10'
+                FOR UPDATE NOWAIT
+        ]]>
+    </statement>     
+
+</statements>

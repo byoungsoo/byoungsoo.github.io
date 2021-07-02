@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvLstSlpNoInitzTg" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::05.IT운영지원::10.공통테이블운영관리::전표번호초기화Job::DAO::전표번호초기화Bdao::전표번호초기화대상목록조회">
+		<![CDATA[
+			SELECT /*+ 송재복::/gcb/batch/itOpSpt/cmnTblOpMg/slpNoInitzJob/SlpNoInitz/retvLstSlpNoInitzTg */ 
+			       A.부점코드
+			     , A.거래직원번호
+			     , A.일계영업일
+			     , A.유전표채번일련번호
+			     , A.유전표무인자채번일련번호
+			     , A.무전표채번일련번호
+			     , A.최종전표일련번호채번월
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBCN02 A 
+			 WHERE A.일계영업일 >= '01'
+			   AND A.최종전표일련번호채번월 = ${최종전표일련번호채번월}
+			   AND A.거래직원번호 <> 'C200000'   
+			   AND A.시스템최종거래일시 < ${거래기준일시_V20}
+			   AND A.부점코드 IN (SELECT B.사용자업무부점코드
+			                     FROM INSTC.TBGCBHR01 B
+			                    WHERE B.직원번호  = A.거래직원번호
+			                )
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="uptSlpNoInitz" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::05.IT운영지원::10.공통테이블운영관리::전표번호초기화Job::DAO::전표번호초기화Bdao::전표번호초기화수정">
+		<![CDATA[
+			UPDATE /*+ 송재복::/gcb/batch/itOpSpt/cmnTblOpMg/slpNoInitzJob/SlpNoInitz/uptSlpNoInitz */ 
+			       INSTC.TBGCBCN02 
+			   SET 유전표채번일련번호    = 0
+			     , 유전표무인자채번일련번호 = 0
+			     , 무전표채번일련번호    = 0
+			     , 시스템최종갱신일시    = SYSTIMESTAMP
+			     , 시스템최종갱신식별자   = ${시스템최종갱신식별자}
+			     , 시스템최종거래일시    = ${시스템최종거래일시}
+			 WHERE 일계영업일 = ${일계영업일}
+			   AND 최종전표일련번호채번월 = ${최종전표일련번호채번월}
+			   AND 거래직원번호 <> 'C200000'   
+			   AND 시스템최종거래일시 < ${거래기준일시_V20}
+			   AND 부점코드 IN (SELECT B.사용자업무부점코드
+			                   FROM INSTC.TBGCBHR01 B
+			                  WHERE B.직원번호  = 거래직원번호
+			                )
+		]]>
+    </statement>
+</statements>

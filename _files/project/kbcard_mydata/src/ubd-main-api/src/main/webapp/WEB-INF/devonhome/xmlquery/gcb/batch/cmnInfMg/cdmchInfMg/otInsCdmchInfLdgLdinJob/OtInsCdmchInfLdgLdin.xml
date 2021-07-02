@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvNcdInsCdmchInttBas" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::02.공통정보관리::10.CD기정보관리::타기관CD기정보원장적재Job::DAO::타기관CD기정보원장적재Bdao::CD기관CD기설치기본조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/batch/cmnInfMg/cdmchInfMg/otInsCdmchInfLdgLdinJob/OtInsCdmchInfLdgLdin/retvNcdInsCdmchInttBas */ 
+			       A.CD기관구분코드
+			     , A.CD기번호
+			     , A.변경일련번호
+			     , A.적용시작년월일
+			     , A.적용종료년월일
+			     , A.CD기설치년월일
+			     , A.CD종류구분코드
+			     , A.부점외부설치여부
+			     , A.카메라설치여부
+			     , A.CD기설치장소명
+			     , A.CD기설치장소우편번호
+			     , A.CD기설치장소전체주소
+			     , A.CD기설치장소전화국가번호
+			     , A.CD기설치장소전화지역번호
+			     , A.CD기설치장소전화국번호
+			     , A.CD기설치장소전화개별번호
+			     , A.카드거래매체구분코드
+			     , A.등록부점코드
+			     , A.등록직원번호
+			     , A.CD기등록단말번호
+			     , A.주소표시구분코드
+			     , A.CD기설치도로명우편번호
+			     , A.CD기설치도로명우편보조번호
+			     , A.CD기설치도로명구역번호
+			     , A.CD기설치도로명건물본번호
+			     , A.CD기설치도로명건물부번호
+			     , A.CD기설치도로명건물관리번호
+			     , A.CD기설치도로명우편읍면번호
+			     , A.CD기설치도로명지하구분코드
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBCD01 A 
+			 WHERE A.CD기관구분코드 = ${CD기관구분코드}
+			   AND A.CD기번호    = ${CD기번호}
+			   AND A.적용시작년월일   <= ${적용시작년월일}
+			   AND A.적용종료년월일   >= ${적용종료년월일}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="uptNcdInsCdmchInttBas" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::02.공통정보관리::10.CD기정보관리::타기관CD기정보원장적재Job::DAO::타기관CD기정보원장적재Bdao::CD기관CD기설치기본수정" >
+		<![CDATA[
+			UPDATE /*+ 위상규::/gcb/batch/cmnInfMg/cdmchInfMg/otInsCdmchInfLdgLdinJob/OtInsCdmchInfLdgLdin/uptNcdInsCdmchInttBas */ 
+			       INSTC.TBGCBCD01 
+			   SET 적용시작년월일        = ${적용시작년월일}
+			     , 적용종료년월일        = ${적용종료년월일}
+			     , CD기설치년월일       = ${CD기설치년월일}
+			     , CD종류구분코드       = ${CD종류구분코드}
+			     , 부점외부설치여부       = ${부점외부설치여부}
+			     , 카메라설치여부        = ${카메라설치여부}
+			     , CD기설치장소명       = ${CD기설치장소명}
+			     , CD기설치장소우편번호    = ${CD기설치장소우편번호}
+			     , CD기설치장소전체주소    = ${CD기설치장소전체주소}
+			     , CD기설치장소전화국가번호  = ${CD기설치장소전화국가번호}
+			     , CD기설치장소전화지역번호  = ${CD기설치장소전화지역번호}
+			     , CD기설치장소전화국번호   = ${CD기설치장소전화국번호}
+			     , CD기설치장소전화개별번호  = ${CD기설치장소전화개별번호}
+			     , 카드거래매체구분코드     = ${카드거래매체구분코드}
+			     , 등록부점코드         = ${등록부점코드}
+			     , 등록직원번호         = ${등록직원번호}
+			     , CD기등록단말번호      = ${CD기등록단말번호}
+			     , 주소표시구분코드       = ${주소표시구분코드}
+			     , CD기설치도로명우편번호   = ${CD기설치도로명우편번호}
+			     , CD기설치도로명우편보조번호 = ${CD기설치도로명우편보조번호}
+			     , CD기설치도로명구역번호   = ${CD기설치도로명구역번호}
+			     , CD기설치도로명건물본번호  = ${CD기설치도로명건물본번호}
+			     , CD기설치도로명건물부번호  = ${CD기설치도로명건물부번호}
+			     , CD기설치도로명건물관리번호 = ${CD기설치도로명건물관리번호}
+			     , CD기설치도로명우편읍면번호 = ${CD기설치도로명우편읍면번호}
+			     , CD기설치도로명지하구분코드 = ${CD기설치도로명지하구분코드}
+			     , 시스템최종갱신일시      = SYSTIMESTAMP
+			     , 시스템최종갱신식별자     = ${시스템최종갱신식별자}
+			     , 시스템최종거래일시      = ${시스템최종거래일시}
+			 WHERE CD기관구분코드 = ${CD기관구분코드}
+			   AND CD기번호    = ${CD기번호}
+			   AND 변경일련번호   = ${변경일련번호}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="regtNcdInsCdmchInttBas" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::02.공통정보관리::10.CD기정보관리::타기관CD기정보원장적재Job::DAO::타기관CD기정보원장적재Bdao::CD기관CD기설치기본등록" >
+		<![CDATA[
+			INSERT /*+ 위상규::/gcb/batch/cmnInfMg/cdmchInfMg/otInsCdmchInfLdgLdinJob/OtInsCdmchInfLdgLdin/regtNcdInsCdmchInttBas */
+			  INTO INSTC.TBGCBCD01
+			(
+			   CD기관구분코드
+			 , CD기번호
+			 , 변경일련번호
+			 , 적용시작년월일
+			 , 적용종료년월일
+			 , CD기설치년월일
+			 , CD종류구분코드
+			 , 부점외부설치여부
+			 , 카메라설치여부
+			 , CD기설치장소명
+			 , CD기설치장소우편번호
+			 , CD기설치장소전체주소
+			 , CD기설치장소전화국가번호
+			 , CD기설치장소전화지역번호
+			 , CD기설치장소전화국번호
+			 , CD기설치장소전화개별번호
+			 , 카드거래매체구분코드
+			 , 등록부점코드
+			 , 등록직원번호
+			 , CD기등록단말번호
+			 , 주소표시구분코드
+			 , CD기설치도로명우편번호
+			 , CD기설치도로명우편보조번호
+			 , CD기설치도로명구역번호
+			 , CD기설치도로명건물본번호
+			 , CD기설치도로명건물부번호
+			 , CD기설치도로명건물관리번호
+			 , CD기설치도로명우편읍면번호
+			 , CD기설치도로명지하구분코드
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${CD기관구분코드}
+			 ,${CD기번호}
+			 ,${변경일련번호}
+			 ,${적용시작년월일}
+			 ,${적용종료년월일}
+			 ,${CD기설치년월일}
+			 ,${CD종류구분코드}
+			 ,${부점외부설치여부}
+			 ,${카메라설치여부}
+			 ,${CD기설치장소명}
+			 ,${CD기설치장소우편번호}
+			 ,${CD기설치장소전체주소}
+			 ,${CD기설치장소전화국가번호}
+			 ,${CD기설치장소전화지역번호}
+			 ,${CD기설치장소전화국번호}
+			 ,${CD기설치장소전화개별번호}
+			 ,${카드거래매체구분코드}
+			 ,${등록부점코드}
+			 ,${등록직원번호}
+			 ,${CD기등록단말번호}
+			 ,${주소표시구분코드}
+			 ,${CD기설치도로명우편번호}
+			 ,${CD기설치도로명우편보조번호}
+			 ,${CD기설치도로명구역번호}
+			 ,${CD기설치도로명건물본번호}
+			 ,${CD기설치도로명건물부번호}
+			 ,${CD기설치도로명건물관리번호}
+			 ,${CD기설치도로명우편읍면번호}
+			 ,${CD기설치도로명지하구분코드}
+			 ,SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,${시스템최종거래일시}
+			)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvNcdInsCdmchInttBasMxSno" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::02.공통정보관리::10.CD기정보관리::타기관CD기정보원장적재Job::DAO::타기관CD기정보원장적재Bdao::CD기관CD기설치기본최대일련번호조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/batch/cmnInfMg/cdmchInfMg/otInsCdmchInfLdgLdinJob/OtInsCdmchInfLdgLdin/retvNcdInsCdmchInttBasMxSno */ 
+			       NVL(MAX(A.변경일련번호), 0) 변경일련번호
+			  FROM INSTC.TBGCBCD01 A 
+			 WHERE A.CD기관구분코드 = ${CD기관구분코드}
+			   AND A.CD기번호    = ${CD기번호}
+		]]>
+    </statement>
+</statements>

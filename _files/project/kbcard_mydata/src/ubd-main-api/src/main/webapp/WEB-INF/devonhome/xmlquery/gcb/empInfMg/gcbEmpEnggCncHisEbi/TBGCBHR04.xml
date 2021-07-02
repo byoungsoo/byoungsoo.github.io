@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvLckGcbEmpEnggCncHis" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::03.직원정보관리::GCB직원채용취소내역Ebi::GCB직원채용취소내역Dao::GCB직원채용취소내역락조회">
+		<![CDATA[
+			SELECT /*+ 김남식::/gcb/empInfMg/gcbEmpEnggCncHisEbi/TBGCBHR04/retvLckGcbEmpEnggCncHis */ 
+			       A.직원번호
+			     , A.한글직원명
+			     , A.직원채용취소년월일
+			     , A.직원채용취소근기내용
+			     , TO_CHAR(시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBHR04 A 
+			 WHERE A.직원번호 = ${직원번호}
+			 FOR UPDATE NOWAIT
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="delGcbEmpEnggCncHis" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::03.직원정보관리::GCB직원채용취소내역Ebi::GCB직원채용취소내역Dao::GCB직원채용취소내역삭제" >
+		<![CDATA[
+			DELETE /*+ 김남식::/gcb/empInfMg/gcbEmpEnggCncHisEbi/TBGCBHR04/delGcbEmpEnggCncHis */
+			  FROM INSTC.TBGCBHR04  
+			 WHERE 직원번호 = ${직원번호}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="regtGcbEmpEnggCncHis" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::03.직원정보관리::GCB직원채용취소내역Ebi::GCB직원채용취소내역Dao::GCB직원채용취소내역등록" >
+		<![CDATA[
+			INSERT /*+ 김남식::/gcb/empInfMg/gcbEmpEnggCncHisEbi/TBGCBHR04/regtGcbEmpEnggCncHis */
+			  INTO INSTC.TBGCBHR04
+			(
+			   직원번호
+			 , 한글직원명
+			 , 직원채용취소년월일
+			 , 직원채용취소근기내용
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${직원번호}
+			 ,${한글직원명}
+			 ,${직원채용취소년월일}
+			 ,${직원채용취소근기내용}
+			 ,SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,${시스템최종거래일시}
+			)
+		]]>
+    </statement>
+</statements>

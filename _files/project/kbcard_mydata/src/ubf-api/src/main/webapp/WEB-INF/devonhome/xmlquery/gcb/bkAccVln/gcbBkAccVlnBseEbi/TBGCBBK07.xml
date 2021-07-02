@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvGcbBkAccVlnInf" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::09.은행계좌검증::GCB은행계좌검증기준Ebi::GCB은행계좌검증기준Dao::GCB은행계좌검증정보조회">
+		<![CDATA[
+			SELECT /*+ 송재복::/gcb/bkAccVln/gcbBkAccVlnBseEbi/TBGCBBK07/retvGcbBkAccVlnInf */ 
+			       A.은행코드
+			     , A.계좌코드
+			     , A.계좌체계검증구분코드
+			     , A.계좌과목코드위치값
+			     , A.계좌과목코드길이
+			     , A.계좌부점코드위치값
+			     , A.계좌부점코드길이
+			     , A.모듈러스값
+			     , A.가중치코드
+			     , A.가중치계산계좌길이
+			     , A.체크디지트위치값
+			     , NVL(B.은행계좌과목코드        ,'') 은행계좌과목코드
+			     , NVL(B.은행계좌과목명           ,'') 은행계좌과목명
+			     , NVL(B.체크디지트검증구분코드,'') 체크디지트검증구분코드
+			  FROM INSTC.TBGCBBK07 A
+			     , INSTC.TBGCBBK08 B 
+			 WHERE A.은행코드     = ${은행코드}
+			   AND A.계좌코드     = ${계좌코드}  
+			   AND B.은행코드(+)      = A.은행코드
+			   AND B.계좌코드(+)      = A.계좌코드 
+			   AND B.은행계좌과목코드(+) = CASE A.계좌과목코드위치값  
+			                       WHEN 0 THEN ''
+			                       ELSE SUBSTR(${계좌번호_V20},A.계좌과목코드위치값,A.계좌과목코드길이)
+			                       END
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstGcbBkAccVlnInf" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::09.은행계좌검증::GCB은행계좌검증기준Ebi::GCB은행계좌검증기준Dao::GCB은행계좌검증정보목록조회" >
+		<![CDATA[
+			SELECT /*+ 송재복::/gcb/bkAccVln/gcbBkAccVlnBseEbi/TBGCBBK07/retvLstGcbBkAccVlnInf */ 
+			       A.은행코드
+			     , A.계좌코드
+			     , A.계좌체계검증구분코드
+			     , A.계좌과목코드위치값
+			     , A.계좌과목코드길이
+			     , A.계좌부점코드위치값
+			     , A.계좌부점코드길이
+			     , A.모듈러스값
+			     , A.가중치코드
+			     , A.가중치계산계좌길이
+			     , A.체크디지트위치값
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBBK07 A 
+			 WHERE A.은행코드 = ${은행코드}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="regtGcbBkAccVlnBse" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::09.은행계좌검증::GCB은행계좌검증기준Ebi::GCB은행계좌검증기준Dao::GCB은행계좌검증기준등록" >
+		<![CDATA[
+			INSERT /*+ 송재복::/gcb/bkAccVln/gcbBkAccVlnBseEbi/TBGCBBK07/regtGcbBkAccVlnBse */
+			  INTO INSTC.TBGCBBK07
+			(
+			   은행코드
+			 , 계좌코드
+			 , 계좌체계검증구분코드
+			 , 계좌과목코드위치값
+			 , 계좌과목코드길이
+			 , 계좌부점코드위치값
+			 , 계좌부점코드길이
+			 , 모듈러스값
+			 , 가중치코드
+			 , 가중치계산계좌길이
+			 , 체크디지트위치값
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${은행코드}
+			 ,${계좌코드}
+			 ,${계좌체계검증구분코드}
+			 ,${계좌과목코드위치값}
+			 ,${계좌과목코드길이}
+			 ,${계좌부점코드위치값}
+			 ,${계좌부점코드길이}
+			 ,${모듈러스값}
+			 ,${가중치코드}
+			 ,${가중치계산계좌길이}
+			 ,${체크디지트위치값}
+			 ,SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,${시스템최종거래일시}
+			)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLckGcbBkAccVlnBse" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::09.은행계좌검증::GCB은행계좌검증기준Ebi::GCB은행계좌검증기준Dao::GCB은행계좌검증기준락조회">
+		<![CDATA[
+			SELECT /*+ 송재복::/gcb/bkAccVln/gcbBkAccVlnBseEbi/TBGCBBK07/retvLckGcbBkAccVlnBse */ 
+			       A.은행코드
+			     , A.계좌코드
+			     , A.계좌체계검증구분코드
+			     , A.계좌과목코드위치값
+			     , A.계좌과목코드길이
+			     , A.계좌부점코드위치값
+			     , A.계좌부점코드길이
+			     , A.모듈러스값
+			     , A.가중치코드
+			     , A.가중치계산계좌길이
+			     , A.체크디지트위치값
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBBK07 A 
+			 WHERE (${은행코드} = A.은행코드 OR ${은행코드} IS NULL)
+			   AND (${계좌코드} = A.계좌코드 OR ${계좌코드} IS NULL) 
+			   FOR UPDATE NOWAIT
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="uptGcbBkAccVlnBse" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::09.은행계좌검증::GCB은행계좌검증기준Ebi::GCB은행계좌검증기준Dao::GCB은행계좌검증기준수정" >
+		<![CDATA[
+			UPDATE /*+ 송재복::/gcb/bkAccVln/gcbBkAccVlnBseEbi/TBGCBBK07/uptGcbBkAccVlnBse */ 
+			       INSTC.TBGCBBK07 
+			   SET 계좌체계검증구분코드 = ${계좌체계검증구분코드}
+			     , 계좌과목코드위치값  = ${계좌과목코드위치값}
+			     , 계좌과목코드길이   = ${계좌과목코드길이}
+			     , 계좌부점코드위치값  = ${계좌부점코드위치값}
+			     , 계좌부점코드길이   = ${계좌부점코드길이}
+			     , 모듈러스값      = ${모듈러스값}
+			     , 가중치코드      = ${가중치코드}
+			     , 가중치계산계좌길이  = ${가중치계산계좌길이}
+			     , 체크디지트위치값   = ${체크디지트위치값}
+			     , 시스템최종갱신일시  = SYSTIMESTAMP
+			     , 시스템최종갱신식별자 = ${시스템최종갱신식별자}
+			     , 시스템최종거래일시  = ${시스템최종거래일시}
+			 WHERE 은행코드 = ${은행코드}
+			   AND 계좌코드 = ${계좌코드}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="delGcbBkAccVlnBse" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::09.은행계좌검증::GCB은행계좌검증기준Ebi::GCB은행계좌검증기준Dao::GCB은행계좌검증기준삭제" >
+		<![CDATA[
+			DELETE /*+ 송재복::/gcb/bkAccVln/gcbBkAccVlnBseEbi/TBGCBBK07/delGcbBkAccVlnBse */
+			  FROM INSTC.TBGCBBK07  
+			 WHERE 은행코드 = ${은행코드}
+			   AND 계좌코드 = ${계좌코드}
+		]]>
+    </statement>
+</statements>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<navigation>
+    <action name="/2.0/token">
+    	<method>post</method>
+    	<command>com.kbcard.ubd.cmd.ctf.CtfTokenCmd</command>
+    </action>
+    <action name="/2.0/revoke">
+    	<method>post</method>
+    	<command>com.kbcard.ubd.cmd.ctf.TokenRevokeCmd</command>
+    </action>
+    
+    <action name="/2.0/authorize">
+    	<method>get</method>
+    	<command>com.kbcard.ubd.cmd.ctf.IdvCtfCmd</command>
+    </action>
+    <action name="/mydt/scope">
+    	<method>get</method>
+    	<command>com.kbcard.ubd.cmd.ctf.ApiTranIdVlnCmd</command>
+    </action>
+    <action name="/mydt/cnfcd">
+    	<method>post</method>
+    	<command>com.kbcard.ubd.cmd.ctf.CnfCdIsuCmd</command>
+    </action>
+</navigation>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvGcbLdgAmdApvAgentBas" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::10.원장수정관리::GCB원장수정결재대행자기본Ebi::GCB원장수정결재대행자기본Dao::GCB원장수정결재대행자기본조회" >
+		<![CDATA[
+			SELECT /*+ 김학복::/gcb/ldgAmdMg/gcbLdgAmdApvAgentBasEbi/TBGCBLA10/retvGcbLdgAmdApvAgentBas */ 
+			       A.직원번호1
+			     , A.부점코드
+			     , A.결재대행시작년월일
+			     , A.결재대행종료년월일
+			     , A.결재대행직원명
+			     , A.직원번호2
+			     , A.결재대행권한부여직원명
+			     , A.직급구분코드
+			     , A.직급구분명
+			     , A.소속부점코드
+			     , A.소속IT팀구분코드
+			     , A.원장수정역할구분코드
+			     , A.원장수정사유구분코드
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBLA10 A        /* GCB원장수정결재대행자기본 */
+			 WHERE A.직원번호1     = ${직원번호1}
+			   AND A.부점코드      = ${부점코드}
+			   AND A.결재대행시작년월일 = ${결재대행시작년월일}
+			
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLckGcbLdgAmdApvAgentBas" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::10.원장수정관리::GCB원장수정결재대행자기본Ebi::GCB원장수정결재대행자기본Dao::GCB원장수정결재대행자기본락조회">
+		<![CDATA[
+			SELECT /*+ 김학복::/gcb/ldgAmdMg/gcbLdgAmdApvAgentBasEbi/TBGCBLA10/retvLckGcbLdgAmdApvAgentBas */ 
+			       A.직원번호1
+			     , A.부점코드
+			     , A.결재대행시작년월일
+			     , A.결재대행종료년월일
+			     , A.결재대행직원명
+			     , A.직원번호2
+			     , A.결재대행권한부여직원명
+			     , A.직급구분코드
+			     , A.직급구분명
+			     , A.소속부점코드
+			     , A.소속IT팀구분코드
+			     , A.원장수정역할구분코드
+			     , A.원장수정사유구분코드
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBLA10 A        /* GCB원장수정결재대행자기본 */
+			 WHERE A.직원번호1     = ${직원번호1}
+			   AND A.부점코드      = ${부점코드}
+			   AND A.결재대행시작년월일 = ${결재대행시작년월일}
+			   FOR UPDATE NOWAIT
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="regtGcbLdgAmdApvAgentBas" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::10.원장수정관리::GCB원장수정결재대행자기본Ebi::GCB원장수정결재대행자기본Dao::GCB원장수정결재대행자기본등록" >
+		<![CDATA[
+			INSERT /*+ 김학복::/gcb/ldgAmdMg/gcbLdgAmdApvAgentBasEbi/TBGCBLA10/regtGcbLdgAmdApvAgentBas */
+			  INTO INSTC.TBGCBLA10        /* GCB원장수정결재대행자기본 */
+			(
+			   직원번호1
+			 , 부점코드
+			 , 결재대행시작년월일
+			 , 결재대행종료년월일
+			 , 결재대행직원명
+			 , 직원번호2
+			 , 결재대행권한부여직원명
+			 , 직급구분코드
+			 , 직급구분명
+			 , 소속부점코드
+			 , 소속IT팀구분코드
+			 , 원장수정역할구분코드
+			 , 원장수정사유구분코드
+			 , 시스템최종갱신일시
+			 , 시스템최종갱신식별자
+			 , 시스템최종거래일시
+			)
+			VALUES
+			(
+			  ${직원번호1}
+			 ,${부점코드}
+			 ,${결재대행시작년월일}
+			 ,${결재대행종료년월일}
+			 ,${결재대행직원명}
+			 ,${직원번호2}
+			 ,${결재대행권한부여직원명}
+			 ,${직급구분코드}
+			 ,${직급구분명}
+			 ,${소속부점코드}
+			 ,${소속IT팀구분코드}
+			 ,${원장수정역할구분코드}
+			 ,${원장수정사유구분코드}
+			 ,SYSTIMESTAMP
+			 ,${시스템최종갱신식별자}
+			 ,${시스템최종거래일시}
+			)
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="uptGcbLdgAmdApvAgentBas" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::10.원장수정관리::GCB원장수정결재대행자기본Ebi::GCB원장수정결재대행자기본Dao::GCB원장수정결재대행자기본수정" >
+		<![CDATA[
+			UPDATE /*+ 김학복::/gcb/ldgAmdMg/gcbLdgAmdApvAgentBasEbi/TBGCBLA10/uptGcbLdgAmdApvAgentBas */ 
+			       INSTC.TBGCBLA10        /* GCB원장수정결재대행자기본 */
+			   SET 결재대행종료년월일   = ${결재대행종료년월일}
+			     , 결재대행직원명     = ${결재대행직원명}
+			     , 직원번호2       = ${직원번호2}
+			     , 결재대행권한부여직원명 = ${결재대행권한부여직원명}
+			     , 직급구분코드      = ${직급구분코드}
+			     , 직급구분명       = ${직급구분명}
+			     , 소속부점코드      = ${소속부점코드}
+			     , 소속IT팀구분코드   = ${소속IT팀구분코드}
+			     , 원장수정역할구분코드  = ${원장수정역할구분코드}
+			     , 원장수정사유구분코드  = ${원장수정사유구분코드}
+			     , 시스템최종갱신일시   = SYSTIMESTAMP
+			     , 시스템최종갱신식별자  = ${시스템최종갱신식별자}
+			     , 시스템최종거래일시   = ${시스템최종거래일시}
+			 WHERE 직원번호1     = ${직원번호1}
+			   AND 부점코드      = ${부점코드}
+			   AND 결재대행시작년월일 = ${결재대행시작년월일}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="delGcbLdgAmdApvAgentBas" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::10.원장수정관리::GCB원장수정결재대행자기본Ebi::GCB원장수정결재대행자기본Dao::GCB원장수정결재대행자기본삭제" >
+		<![CDATA[
+			DELETE /*+ 김학복::/gcb/ldgAmdMg/gcbLdgAmdApvAgentBasEbi/TBGCBLA10/delGcbLdgAmdApvAgentBas */
+			  FROM INSTC.TBGCBLA10        /* GCB원장수정결재대행자기본 */
+			 WHERE 직원번호1     = ${직원번호1}
+			   AND 부점코드      = ${부점코드}
+			   AND 결재대행시작년월일 = ${결재대행시작년월일}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvGcbLdgAmdApvAgentBasByRegNcn" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::10.원장수정관리::GCB원장수정결재대행자기본Ebi::GCB원장수정결재대행자기본Dao::GCB원장수정결재대행자기본BY등록건수조회">
+		<![CDATA[
+			SELECT /*+ 김학복::/gcb/ldgAmdMg/gcbLdgAmdApvAgentBasEbi/TBGCBLA10/retvGcbLdgAmdApvAgentBasByRegNcn */ 
+			       COUNT(*) 조회건수_N2
+			  FROM INSTC.TBGCBLA10 A        /* GCB원장수정결재대행자기본 */
+			 WHERE A.부점코드 = ${부점코드}
+		]]>
+    </statement>
+</statements>

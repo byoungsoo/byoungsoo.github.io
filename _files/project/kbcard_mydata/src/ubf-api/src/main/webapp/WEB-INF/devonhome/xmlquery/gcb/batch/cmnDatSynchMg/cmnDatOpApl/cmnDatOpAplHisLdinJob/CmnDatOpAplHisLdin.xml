@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvLstCmnDatOpAplHisDelTg" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::01.공통데이터동기화관리::04.공통데이터운영적용::공통데이터운영적용내역적재Job::DAO::공통데이터운영적용내역적재Bdao::공통데이터운영적용내역삭제대상목록조회" >
+		<![CDATA[
+			SELECT /*+ 송재복::/gcb/batch/cmnDatSynchMg/cmnDatOpApl/cmnDatOpAplHisLdinJob/CmnDatOpAplHisLdin/retvLstCmnDatOpAplHisDelTg */ 
+			       A.공통데이터테이블명
+			     , A.공통데이터적용키식별내용
+			     , A.적용시작년월일
+			  FROM INSTC.TBGCBDM12 A 
+			 WHERE A.공통데이터테이블명 = ${공통데이터테이블명}
+		]]>
+    </statement>
+</statements>

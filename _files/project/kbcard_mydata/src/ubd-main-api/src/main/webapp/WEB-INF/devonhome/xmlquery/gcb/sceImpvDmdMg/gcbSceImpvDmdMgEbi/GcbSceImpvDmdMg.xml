@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvGcbSceRsbpInf" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::19.화면개선요청관리::GCB화면개선요청관리Ebi::GCB화면개선요청관리Jdao::GCB화면담당자정보조회">
+		<![CDATA[
+			SELECT /*+ 박혜림::/gcb/sceImpvDmdMg/gcbSceImpvDmdMgEbi/GcbSceImpvDmdMg/retvGcbSceRsbpInf */ 
+			       A.화면번호
+			     , A.화면호출번호
+			     , A.화면명
+			     , A.화면현업담당직원번호
+			     , B.한글직원명
+			     , B.소속부점코드
+			     , B.퇴직년월일
+			     , C.적용시작년월일
+			     , C.적용종료년월일
+			     , C.부점폐쇄년월일
+			     , C.한글부점명
+			  FROM INSTC.TBGCBHT01 A        /* GCB단말화면담당자기본 */
+			     , INSTC.TBGCBHR01 B        /* GCB직원기본 */
+			     , INSTC.TBGCBBR01 C        /* GCB부점기본 */
+			 WHERE A.화면번호       = ${화면번호}
+			   AND A.화면현업담당직원번호   =  B.직원번호 
+			   AND B.소속부점코드     =  C.부점코드
+			   AND B.퇴직년월일   > ${거래년월일}
+			   AND C.적용시작년월일   <= ${거래년월일} 
+			   AND C.적용종료년월일   >= ${거래년월일}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvGcbSceImpvDmdOpiRgEmp" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::19.화면개선요청관리::GCB화면개선요청관리Ebi::GCB화면개선요청관리Jdao::GCB화면개선요청의견등록직원조회">
+		<![CDATA[
+			SELECT /*+ 박혜림::/gcb/sceImpvDmdMg/gcbSceImpvDmdMgEbi/GcbSceImpvDmdMg/retvGcbSceImpvDmdOpiRgEmp */ 
+			      A.등록일시
+			    , A.화면번호
+			    , A.등록직원번호
+			    , A.등록부점코드
+			    , A.개선요청상태구분코드
+			    , A.개선요청등록구분코드
+			    , A.화면호출번호
+			    , A.화면명
+			    , A.화면개선요청제목
+			    , A.화면불편사항
+			    , A.화면개선요청사항
+			    , A.화면개선요청접수일시
+			    , A.화면개선요청접수직원번호
+			    , A.화면개선요청검토완료일시
+			    , A.화면개선요청검토완료직원번호
+			    , A.화면개선첨부파일그룹번호
+			    , B.화면개선요청이관이력일련번호
+			    , B.화면개선요청이관여부
+			    , B.화면현업담당직원번호
+			    , B.화면현업담당자부점코드
+			    , B.화면개선요청검토의견
+			    , C.지주회사구분코드
+			 FROM INSTC.TBGCBHT02 A        /* GCB화면개선요청의견 */
+			    , INSTC.TBGCBHT03 B        /* GCB화면개선검토의견 */
+			    , INSTC.TBGCBHR01 C        /* GCB직원기본 */
+			WHERE (A.등록부점코드     = ${등록부점코드} OR ${등록부점코드} IS NULL)
+			  AND (A.등록직원번호     = ${등록직원번호} OR  ${등록직원번호} IS NULL)
+			  AND ((A.화면번호  LIKE '%' || ${화면명} || '%' OR ${화면명} IS NULL)
+			   OR (A.화면호출번호   LIKE '%' || ${화면명} || '%' OR ${화면명} IS NULL) 
+			   OR (A.화면명            LIKE '%' || ${화면명} || '%' OR  ${화면명} IS NULL))
+			  AND (A.개선요청상태구분코드 = ${개선요청상태구분코드} OR ${개선요청상태구분코드} IS NULL)
+			  AND (A.개선요청등록구분코드 = ${개선요청등록구분코드} OR ${개선요청등록구분코드} IS NULL)
+			  AND (A.등록일시  BETWEEN ${시작년월일} || '000000' AND ${종료년월일} || '235999')
+			  AND (C.지주회사구분코드 = ${지주회사구분코드} OR ${지주회사구분코드} IS NULL) 
+			  AND A.등록일시   =  B.등록일시
+			  AND A.화면번호   =  B.화면번호
+			  AND A.등록직원번호   =  B.등록직원번호
+			  AND A.등록직원번호 =  C.직원번호
+			  AND B.화면개선요청이관여부 = 'N'
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvGcbSceImpvDmdOpiRsmp" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::19.화면개선요청관리::GCB화면개선요청관리Ebi::GCB화면개선요청관리Jdao::GCB화면개선요청의견담당직원조회">
+		<![CDATA[
+			SELECT /*+ 박혜림::/gcb/sceImpvDmdMg/gcbSceImpvDmdMgEbi/GcbSceImpvDmdMg/retvGcbSceImpvDmdOpiRsmp */ 
+			       A.등록일시
+			     , A.화면번호
+			     , A.등록직원번호
+			     , A.등록부점코드
+			     , A.개선요청상태구분코드
+			     , A.개선요청등록구분코드
+			     , A.화면호출번호
+			     , A.화면명
+			     , A.화면개선요청제목
+			     , A.화면불편사항
+			     , A.화면개선요청사항
+			     , A.화면개선요청접수일시
+			     , A.화면개선요청접수직원번호
+			     , A.화면개선요청검토완료일시
+			     , A.화면개선요청검토완료직원번호
+			     , A.화면개선첨부파일그룹번호
+			     , B.화면개선요청이관이력일련번호
+			     , B.화면개선요청이관여부
+			     , B.화면현업담당직원번호
+			     , B.화면현업담당자부점코드
+			     , B.화면개선요청검토의견
+			     , C.지주회사구분코드
+			  FROM INSTC.TBGCBHT02 A        /* GCB화면개선요청의견 */
+			     , INSTC.TBGCBHT03 B        /* GCB화면개선검토의견 */
+			     , INSTC.TBGCBHR01 C        /* GCB직원기본 */
+			 WHERE B.화면현업담당자부점코드     = ${화면현업담당자부점코드}
+			   AND (B.화면현업담당직원번호      = ${화면현업담당직원번호} OR  ${화면현업담당직원번호} IS NULL)
+			   AND ((A.화면번호  LIKE '%' || ${화면명} || '%' OR ${화면명} IS NULL)
+			    OR (A.화면호출번호   LIKE '%' || ${화면명} || '%' OR ${화면명} IS NULL) 
+			    OR (A.화면명            LIKE '%' || ${화면명} || '%' OR  ${화면명} IS NULL))
+			   AND (A.개선요청상태구분코드 = ${개선요청상태구분코드} OR ${개선요청상태구분코드} IS NULL)
+			   AND (A.개선요청등록구분코드 = ${개선요청등록구분코드} OR ${개선요청등록구분코드} IS NULL)
+			   AND (A.등록일시  BETWEEN ${시작년월일} || '000000' AND ${종료년월일} || '235999')
+			   AND A.등록일시   =  B.등록일시
+			   AND A.화면번호   =  B.화면번호
+			   AND A.등록직원번호   =  B.등록직원번호
+			   AND A.등록직원번호   =  C.직원번호 
+			   AND B.화면개선요청이관여부 = 'N'
+		]]>
+    </statement>
+</statements>

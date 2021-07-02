@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvLstItOpSmsMsgCnvBse" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::01.공통데이터동기화관리::01.공통데이터접수::IT운영SMS대상직원검증Job::DAO::IT운영SMS대상직원검증Bdao::IT운영SMS메시지전환기준목록조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/batch/cmnDatSynchMg/cmnDatRcp/itOpSmsTgEmpVlnJob/ItOpSmsTgEmpVln/retvLstItOpSmsMsgCnvBse */ 
+			       A.어플리케이션코드
+			     , A.IT운영SMS일련번호
+			     , A.IT운영SMS부가일련번호
+			     , A.등록직원번호
+			     , A.등록년월일
+			     , A.사용여부
+			     , A.IT운영SMS제어내용
+			     , A.SMS전송통제시작일시
+			     , A.SMS전송통제종료일시
+			     , A.IT운영SMS일전송허용건수
+			     , A.IT운영SMS일전송허용간격수
+			     , A.IT운영SMS메시지분류구분코드
+			     , A.IT운영SMS메시지내용
+			     , A.IT운영SMS메시지용도내용
+			     , A.IT운영SMS전송대상그룹식별내용
+			     , A.최종SMS전송일시
+			     , A.최종일자SMS전송건수
+			     , A.최종SMS전송거래유형구분코드
+			     , A.최종SMS전송거래코드
+			     , A.최종SMS전송배치작업명
+			     , A.최종SMS전송프로그램명
+			     , A.최종SMS전송메시지내용
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBSM03 A        /* GCB_IT운영SMS메시지전환기준 */
+			 WHERE A.어플리케이션코드 NOT LIKE 'K%'
+			 ORDER BY A.어플리케이션코드
+			     , A.IT운영SMS일련번호
+			     , A.IT운영SMS부가일련번호
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvLstItOpSmsTgBizErrBse" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::01.공통데이터동기화관리::01.공통데이터접수::IT운영SMS대상직원검증Job::DAO::IT운영SMS대상직원검증Bdao::IT운영SMS대상비즈오류기준목록조회">
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/batch/cmnDatSynchMg/cmnDatRcp/itOpSmsTgEmpVlnJob/ItOpSmsTgEmpVln/retvLstItOpSmsTgBizErrBse */ 
+			       A.IT운영SMS대상오류식별내용
+			     , A.거래유형구분코드
+			     , A.중계인터페이스구분코드
+			     , A.채널구분코드
+			     , A.전송가능요일구분코드
+			     , A.IT운영SMS대상부가식별내용
+			     , A.등록직원번호
+			     , A.사용여부
+			     , A.전송제어구분코드
+			     , A.IT운영SMS전송시작발생건수
+			     , A.IT운영SMS전송종료발생건수
+			     , A.IT운영SMS전송종료전송건수
+			     , A.IT운영SMS전송가능간격분수
+			     , A.IT운영SMS전송가능시작시분
+			     , A.IT운영SMS전송가능종료시분
+			     , A.SMS전송통제시작일시
+			     , A.SMS전송통제종료일시
+			     , A.IT운영SMS거래담당자전송여부
+			     , A.IT운영SMS전송대상자식별내용01
+			     , A.IT운영SMS전송대상자식별내용02
+			     , A.IT운영SMS전송대상자식별내용03
+			     , A.IT운영SMS전송대상자식별내용04
+			     , A.IT운영SMS전송대상자식별내용05
+			     , A.IT운영SMS전송대상자식별내용06
+			     , A.IT운영SMS전송대상자식별내용07
+			     , A.IT운영SMS전송대상자식별내용08
+			     , A.IT운영SMS전송대상자식별내용09
+			     , A.IT운영SMS전송대상자식별내용10
+			     , A.IT운영SMS비고
+			     , A.최종SMS대상발생일시
+			     , A.최종SMS대상발생건수
+			     , A.최종SMS전송일시
+			     , A.최종SMS대상전송건수
+			     , A.최종SMS전송메시지내용
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBSM11 A        /* GCB_IT운영SMS대상비즈오류기준 */
+			 ORDER BY A.IT운영SMS대상오류식별내용
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="retvItOpSmsMsgCnvBse" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::06.배치컴포넌트::01.공통데이터동기화관리::01.공통데이터접수::IT운영SMS대상직원검증Job::DAO::IT운영SMS대상직원검증Bdao::IT운영SMS메시지전환기준조회" >
+		<![CDATA[
+			SELECT /*+ 위상규::/gcb/batch/cmnDatSynchMg/cmnDatRcp/itOpSmsTgEmpVlnJob/ItOpSmsTgEmpVln/retvItOpSmsMsgCnvBse */ 
+			       A.어플리케이션코드
+			     , A.IT운영SMS일련번호
+			     , A.IT운영SMS부가일련번호
+			     , A.등록직원번호
+			     , A.등록년월일
+			     , A.사용여부
+			     , A.IT운영SMS제어내용
+			     , A.SMS전송통제시작일시
+			     , A.SMS전송통제종료일시
+			     , A.IT운영SMS일전송허용건수
+			     , A.IT운영SMS일전송허용간격수
+			     , A.IT운영SMS메시지분류구분코드
+			     , A.IT운영SMS메시지내용
+			     , A.IT운영SMS메시지용도내용
+			     , A.IT운영SMS전송대상그룹식별내용
+			     , A.최종SMS전송일시
+			     , A.최종일자SMS전송건수
+			     , A.최종SMS전송거래유형구분코드
+			     , A.최종SMS전송거래코드
+			     , A.최종SMS전송배치작업명
+			     , A.최종SMS전송프로그램명
+			     , A.최종SMS전송메시지내용
+			     , TO_CHAR(A.시스템최종갱신일시, 'YYYYMMDDHH24MISS') as 시스템최종갱신일시
+			     , A.시스템최종갱신식별자
+			     , A.시스템최종거래일시
+			  FROM INSTC.TBGCBSM03 A        /* GCB_IT운영SMS메시지전환기준 */
+			 WHERE A.어플리케이션코드      = ${어플리케이션코드}
+			   AND A.IT운영SMS일련번호   = ${IT운영SMS일련번호}
+			   AND A.IT운영SMS부가일련번호 = ${IT운영SMS부가일련번호}
+		]]>
+    </statement>
+</statements>

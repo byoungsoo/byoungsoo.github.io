@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="selectFee">
+		<![CDATA[
+			SELECT /*+ 김상현::/opnb/opnbMg/opnbUseMg/OpnbUseInqEbc/selectFee */ 
+			            오픈뱅킹전문거래년월일
+                 , 오픈뱅킹API관리구분코드
+                 , 오픈뱅킹이용기관수수료
+                 , 오픈뱅킹처리대행비용
+                 , 오픈뱅킹API거래고유번호
+              FROM INSTC.TBUBFS017      /* UBF오픈뱅킹수수료조회내역 */       
+             WHERE 오픈뱅킹전문거래년월일         = ${오픈뱅킹전문거래년월일}
+		]]>
+    </statement>
+
+    <!--  -->
+    <statement name="selectSmm">
+		<![CDATA[
+			SELECT /*+ 김상현::/opnb/opnbMg/opnbUseMg/OpnbUseInqEbc/selectSmm */ 
+			            오픈뱅킹전문거래년월일
+				 , 오픈뱅킹API관리구분코드
+				 , 오픈뱅킹API정상건수
+				 , 오픈뱅킹API정상이체합계금액
+				 , 오픈뱅킹API거래고유번호
+              FROM INSTC.TBUBFS018      /* UBF오픈뱅킹집계조회내역 */       
+             WHERE 오픈뱅킹전문거래년월일         = ${오픈뱅킹전문거래년월일}
+		]]>
+    </statement>
+
+</statements>

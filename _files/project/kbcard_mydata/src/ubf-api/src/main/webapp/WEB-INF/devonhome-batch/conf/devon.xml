@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="euc-kr"?>
+
+<devon>
+  <core>
+      <src>#home/conf/devon-core.xml</src>
+  </core>
+  <framework>
+      <src>#home/conf/products/devon-framework.xml</src>
+  </framework>    
+ 
+  <enterprise>
+      <src>#home/../devonhome/conf/products/devon-enterprise.xml</src>
+  </enterprise>
+  
+  <extension>
+      <src>#home/../devonhome/conf/products/devon-enterprise-extension.xml</src>
+  </extension>  
+  
+  <interface>
+	<src>#home/../devonhome/conf/products/devon-interface.xml</src>
+  </interface>
+
+<!-- DevOn Batch용 설정 -->
+  <batch>
+	  <src>#home/conf/products/devon-batch.xml</src>
+  </batch>
+  <batch-scheduler>
+	  <src>#home/conf/products/devon-batch-scheduler.xml</src>
+  </batch-scheduler> 
+
+
+</devon>

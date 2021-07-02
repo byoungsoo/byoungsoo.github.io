@@ -1,0 +1,4868 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<extension>
+    <controller> 
+        <!-- cpbi테스트 및 거래테스트 허용여부 -->
+        <permit-test>true</permit-test> 
+        <!--입력해더 체크여부 -->
+        <message>
+            <validation>true</validation> 
+        </message>
+        <!-- 인터페이스 버전 체크 여부 true:버전체크, false:버전미체크-->
+        <interface-version>
+            <use>true</use>
+        </interface-version>
+        <!-- 타입아웃 사용여부 true:사용, false:미사용 -->
+        <timeout>
+            <use>true</use>
+            <default-tran-sec>20</default-tran-sec> <!-- 거래 DEFAULT TIMEOUT -->
+            <default-link-sec>0</default-link-sec>  <!-- 연계 Time -->
+        </timeout>
+    </controller>
+    
+    <!-- 업무 영역 -->
+    <business>
+        <!-- 기본 트랜젝션 인터셉터 정의 -->
+        <transaction-interceptor>devonenterprise.ext.business.interceptor.TransactionInterceptor</transaction-interceptor>
+    
+        <!-- 거래 선후 처리 호출 모듈
+            use :사용여부
+            cls:클래스 
+            mth:메소드 
+            ctype:S(성공시), F(실패시), A(모두) 호출
+            runcpbi: cpbi거래테스트시 구동여부
+        -->
+        <biz-invoke-list> 
+            <use>false</use>
+            <biz-pre-modules isexception="true">
+                <module use="false"  cls="com.kbcard.gcb.cpbi.bfafprc.trBfAprc.trBfAprcCpbi.TrBfAprcCpbc" mth="prcTrBf" runcpbi="true"/>
+                <module use="false"  cls="com.kbcard.gbg.cpbi.actgSlpMg.jnzPrc.actgAtoSlpRgCpbi.ActgAtoSlpRgCpbc" mth="prcActgSlpTrBf" runcpbi="true"/> <!-- 회계업무전처리 -->
+            </biz-pre-modules>
+            <biz-post-modules isexception="true">
+                <module use="false"  cls="com.kbcard.gbg.cpbi.actgSlpMg.jnzPrc.actgAtoSlpRgCpbi.ActgAtoSlpRgCpbc" mth="postActgSlp" ctype="S"/>  <!-- 회계업무후처리1 -->
+                <module use="false"  cls="com.kbcard.gbg.cpbi.actgSlpMg.jnzPrc.actgAtoSlpRgCpbi.ActgAtoSlpRgCpbc" mth="prcActgSlpTrAf" ctype="S"/> <!-- 회계업무후처리2 -->
+                <module use="false"  cls="com.kbcard.gcb.cpbi.bfafprc.trBfAprc.trBfAprcCpbi.TrBfAprcCpbc" mth="prcTrAfCmnOutCtro" ctype="S"/> <!-- 전표출력영역세팅 -->
+                <module use="false"  cls="com.kbcard.gcb.cpbi.bfafprc.trBfAprc.trBfAprcCpbi.TrBfAprcCpbc" mth="prcTrAf" ctype="A" runcpbi="true"/> <!-- 입력파라미터: 오류메시지코드,조치메시지코드 -->
+            </biz-post-modules>
+            <biz-aftran-modules isexception="true">
+                <module use="false"  cls="com.kbcard.gca.cpbi.trAprc.hndErrReprc.lnkdTrReprcCmnCpbi.LnkdTrReprcCmnCpbc" mth="prcHndTrErrLter" ctype="F"/> <!-- 인터페이스공통 -->
+                <module use="false"  cls="com.kbcard.gca.cpbi.trAprc.hndErrReprc.hndOpeMqNtpcTlgAprcCpbi.HndOpeMqNtpcTlgAprcCpbc" mth="prcHndMqNtpcTlga" ctype="F"/> <!--MQ오류취급호출 -->
+                <module use="false"  cls="com.kbcard.gca.cpbi.trAprc.hndErrReprc.hndOpeMqNtpcTlgAprcCpbi.HndOpeMqNtpcTlgAprcCpbc" mth="prcOpeMqNtpcTlga" ctype="F"/> <!--MQ오류개설호출 -->
+            </biz-aftran-modules>
+        </biz-invoke-list>
+        
+        <!-- PBI 선후 처리 호출 모듈  -->
+        <pbi-invoke-list> 
+            <use>false</use>
+            <pbi-pre-modules isexception="true">  
+                <module use="false"  cls="com.kbcard.gcb.cpbi.bfafprc.bwkBfafPrc.bwkBfafPrcCpbi.BwkBfafPrcCpbc" mth="prcBwkCllgBf" runcpbi="true"/>
+            </pbi-pre-modules>
+            <pbi-post-modules isexception="true">
+                <module use="false"  cls="com.kbcard.gcb.cpbi.bfafprc.bwkBfafPrc.bwkBfafPrcCpbi.BwkBfafPrcCpbc" mth="prcBwkCllgAf" ctype="S" runcpbi="true"/>
+            </pbi-post-modules>
+        </pbi-invoke-list>
+        
+        <!-- 연동로그 -->    
+        <tranlinklog>
+            <use>false</use>
+            <datasource-ref>default</datasource-ref>
+            <use-outputdata>false</use-outputdata>
+            <query-path name="insertTranlinklog">insertTranlinklog</query-path>
+            <query-path name="selectTranlinklog">selectTranlinklog</query-path>
+            <query-path name="selectPreTranlinklog">selectPreTranlinklog</query-path>
+        </tranlinklog>
+        
+        <service name="label">
+            <class>devonenterprise.service.cache.service.LabelService</class>
+            <cache-use-yn>true</cache-use-yn>
+            <preload>false</preload>
+            <refresh>
+                <class>devonenterprise.service.cache.refresher.LabelRefresher</class>
+            </refresh>
+            <loader>
+                <db>
+                    <class>devonenterprise.service.cache.loader.db.LabelDBLoader</class>
+                    <datasource-ref>default</datasource-ref>
+                    <query-path name="label">label</query-path>
+                    <query-path name="labelList">labelList</query-path>
+                </db>
+                <file>
+                    <resource-name>label.xml</resource-name>
+                    <class>devonenterprise.service.cache.loader.file.LabelFileLoader</class>
+                    <query>
+                        <param name="label">
+                            <![CDATA[
+                                label/row[site_cd = '${site_cd}' and labl_id = '${labl_id}' and lang_cd = '${lang_cd}']
+                            ]]>
+                        </param>
+                        <param name="labelList">
+                            <![CDATA[
+                                label/row[site_cd = '${site_cd}']
+                            ]]>
+                        </param>
+                    </query>
+                </file>
+            </loader>
+        </service>
+        
+        <business-class-name>devon.scp.site.service.calendar.CalendarDateCreate</business-class-name>
+        <!-- Calendar 영업일 -->
+        <businessName name="Calendar">
+            <datasource-ref>default</datasource-ref>
+        </businessName>
+
+        <!-- businessDate 영업일 -->
+        <businessName name="BusinessDate">
+            <datasource-ref>default</datasource-ref>
+        </businessName>
+
+        <business-day-code>
+            <fields>
+                <!-- 요청응답구분코드 -->
+                <field name="prev_bizdate">
+                    <desc>영업일</desc>
+                    <value>AA</value>
+                    <check-with-holiday-cd>Y</check-with-holiday-cd>
+                </field>
+                <!-- Sync구분코드 -->
+                <field name="prev_holiday">
+                    <desc>공휴일</desc>
+                    <value>BB</value>
+                    <check-with-holiday-cd>N</check-with-holiday-cd>
+                </field>
+                <field name="prev_bank_holiday">
+                    <desc>은행휴일</desc>
+                    <value>CC</value>
+                    <check-with-holiday-cd>N</check-with-holiday-cd>
+                </field>
+                <!-- 표준전문버전 -->
+                <field name="prev_month_end_date">
+                    <desc>월말</desc>
+                    <value>EE</value>
+                    <check-with-holiday-cd>Y</check-with-holiday-cd>
+                </field>
+                <!-- 예비필드 -->
+                <field name="prev_kyulsan_bizdate">
+                    <desc>결산일_영업일</desc>
+                    <value>FF</value>
+                    <check-with-holiday-cd>Y</check-with-holiday-cd>
+                </field>
+                <field name="prev_month_end_holiday">
+                    <desc>월말_휴일</desc>
+                    <value>EH</value>
+                    <check-with-holiday-cd>N</check-with-holiday-cd>
+                </field>
+                <field name="prev_kyulsan_holiday">
+                    <desc>결산일_공휴일</desc>
+                    <value>FH</value>
+                    <check-with-holiday-cd>N</check-with-holiday-cd>
+                </field>
+                <field name="bizdate">
+                    <desc>영업일</desc>
+                    <value>01</value>
+                    <check-with-holiday-cd>Y</check-with-holiday-cd>
+                </field>
+                <field name="holiday">
+                    <desc>공휴일</desc>
+                    <value>02</value>
+                    <check-with-holiday-cd>N</check-with-holiday-cd>
+                </field>
+                <field name="bank_holiday">
+                    <desc>은행휴일</desc>
+                    <value>03</value>
+                    <check-with-holiday-cd>N</check-with-holiday-cd>
+                </field>
+                <field name="month_end_date">
+                    <desc>월말</desc>
+                    <value>05</value>
+                    <check-with-holiday-cd>Y</check-with-holiday-cd>
+                </field>
+                <field name="kyulsan_bizdate">
+                    <desc>결산일 영업일</desc>
+                    <value>06</value>
+                    <check-with-holiday-cd>Y</check-with-holiday-cd>
+                </field>
+                <field name="month_end_holiday">
+                    <desc>월말 휴일</desc>
+                    <value>25</value>
+                    <check-with-holiday-cd>N</check-with-holiday-cd>
+                </field>
+                <field name="kyulsan_holiday">
+                    <desc>결산일 공휴일</desc>
+                    <value>26</value>
+                    <check-with-holiday-cd>N</check-with-holiday-cd>
+                </field>
+                <field name="kyulsan_month_end_date_bizdate">
+                    <desc>결산일 월말 영업일</desc>
+                    <value>46</value>
+                    <check-with-holiday-cd>Y</check-with-holiday-cd>
+                </field>
+            </fields>
+        </business-day-code>
+        
+        <!-- 취소 등에서 이전 데이터를 획득 -->
+        <tran-original-gain>
+            <use>true</use>
+            <dbconfig>
+                <datasource-ref>default</datasource-ref>
+                <query-path name="selectOrgTranMessage">selectOrgTranMessage</query-path>  <!-- 취소시이전거래획득 -->
+                <query-path name="selectOrgBidForMCIMessage">selectOrgBidForMCIMessage</query-path> <!-- BID를 위한 원거래조회 -->
+                <query-path name="selectDelayTran">selectDelayTran</query-path>  <!-- 지연거래확인여부 -->
+            </dbconfig>
+        </tran-original-gain>
+        
+        <!-- queue 오류 로그 저장 -->
+        <queue-log>
+            <use>true</use>
+            <dbconfig>
+                <datasource-ref>default</datasource-ref>
+                <query-path name="insertQueueErrorOutMessage">insertQueueErrorOutMessage</query-path> <!-- 송신용 -->
+                <query-path name="insertQueueErrorInMessage">insertQueueErrorInMessage</query-path> <!-- 수신용 -->
+                <query-path name="selectQueueErrorOutMessage">selectQueueErrorOutMessage</query-path> <!-- 오류송신거래조회 -->
+                <query-path name="selectQueueErrorInMessage">selectQueueErrorInMessage</query-path> <!-- 오류수신거래조회 -->
+                <query-path name="selectQueueErrorRetryCnt">selectQueueErrorRetryCnt</query-path> <!-- 수신재송신 횟수 -->
+                <query-path name="updateQueueErrorState">updateQueueErrorState</query-path> <!-- 수신재송신 횟수 업데이트-->
+            </dbconfig>
+        </queue-log>
+        
+        <!-- 업무로그 -->
+        <applog>
+            <use-yn>N</use-yn>
+            <module>
+                <success>
+                    <class-name>com.kbcard.gcc.cpbi.logCre.bwkLogRg.pdPrcdpBwkLogCpbi.PdPrcdpBwkLogPrcCpbc</class-name>
+                    <method-name>prcPdPrcdpBwkLog</method-name>
+                </success>
+                <exception>
+                    <class-name>com.kbcard.gcc.cpbi.logCre.bwkLogRg.bwkAprcErrLogCpbi.BwkAprcErrLogRgCpbc</class-name>
+                    <method-name>regtBwkAprcErrLog</method-name>
+                    <edw>
+                        <class-name>com.kbcard.gcc.cpbi.logCre.bwkLogRg.errLogEdwCreCpbi.ErrLogEdwCreCpbc</class-name>
+                        <method-name>crtErrLogEdw</method-name>
+                    </edw>
+                </exception>
+            </module>
+        </applog>
+        
+        <!-- KB 일자모듈 -->
+        <bizdate>
+            <class-name>com.kbcard.gcb.cpbi.cmnUtil.trCtro.trCtroInfOferCpbi.TrCtroInfOferCpbc</class-name>
+            <method-name>retvKbBseInf</method-name>
+        </bizdate>
+        
+    </business>
+    <persistent> <!-- Mapper 로그 출력여부 -->
+        <mapper-islog>false</mapper-islog> 
+        <mapper-isoriginal>false</mapper-isoriginal> <!-- true:이전매퍼, false 확장매퍼 -->
+    </persistent>
+    
+    <!--  배치 연계 정보 정의 -->
+    <batch>
+    	<batch-svr-div-cd>AP</batch-svr-div-cd> <!-- AP : 상품처리계, BA : 배치서버 -->
+
+        <interface>
+            <init>
+                <use>true</use>
+                <class>devonenterprise.ext.batch.support.EnvironmentSupport</class>
+                <method>batchInit</method>
+                <params> <!-- -d옵션 미사용시 EAI설정 -->
+                    <adt.type>API</adt.type>
+                    <sysid>GGG_E1</sysid>
+                    <hub.emsurl>tcp://10.210.125.34:7310</hub.emsurl>
+                    <eai.local.loglevel>2</eai.local.loglevel>
+                    <HostName>cszcapd1</HostName>
+                </params>
+            </init>
+        </interface>
+        
+        <!-- 배치메세지 조회 (업무공토모듈사용) -->
+        <message>
+            <class-name>com.kbcard.gcb.cpbi.cmnUtil.infSpt.cmnInfOferCpbi.CmnInfOferCpbc</class-name>
+            <error-method-name>retvMsgCdInf</error-method-name>
+        </message>
+        
+        <!-- 배치 일자정보 설정 (업무공토모듈사용) -->
+        <common-date-info>
+            <class-name>com.kbcard.gcb.util.CommonUtil</class-name>
+            <error-method-name>setBatchDateInfo</error-method-name>
+            <datecalc-method-name>cmptOneSideEpnDte</datecalc-method-name>
+        </common-date-info>
+        
+        <!-- 온라인배치 SMS전송 (업무공토모듈사용) -->
+        <sms-send-info>
+            <class-name>com.kbcard.gcb.cpbi.itOpSpt.smsMg.smsInfOferCpbi.SmsInfOferCpbc</class-name>
+            <send-method-name>prcSmsMsgTrs</send-method-name>
+        </sms-send-info>
+        
+    </batch>
+    
+    <!-- 암복화 외부 UTIL 설정 파일 경로 -->
+    <crypto-external-util>
+        <!-- Penta -->
+        <discernMode>1</discernMode> <!-- 이중암호화모드 0.NO / 1.YES -->
+        <scp-ini-path>/fsutil/scp/ba_scp/scpdb_agent.ini</scp-ini-path>
+        <!-- 파일암호화 설정 -->
+        <file-crypto>
+            <output-file-is-crypto>true</output-file-is-crypto> <!-- OUTPUT 파일 암호화 여부 -->
+            <output-normal-file-is-delete>false</output-normal-file-is-delete> <!-- OUTPUT 평문파일 삭제여부 -->
+            <input-normal-file-is-delete>false</input-normal-file-is-delete> <!-- 복호화 처리한 INPUT 평문파일 삭제여부 -->
+        </file-crypto>
+        
+        <!-- 키조회가능 거래ID -->
+        <trcd>GCB03R1301</trcd>
+        
+        <!-- 거래키 정보 -->
+        <normal-server-key>KC0UBE00011</normal-server-key>
+        <normal-file-key>KC0UBE00012</normal-file-key>
+    </crypto-external-util>
+    
+    <!-- 이노룰 배치 참조 정보 -->
+    <innorules>
+        <home>C:/KBCARD_DEV/DOMA/workspace/KBCARD_SZC/innorules-home</home>
+        <!-- <home>/fsrule/innorules/innorules-home</home> -->
+        <system>DEV</system>
+        <init-class>com.innorules.configurator.initializer.UnifiedXmlInitializer</init-class>
+        <manual-config>DEV_BATCH</manual-config>
+    </innorules>
+    
+    <!-- rClipse -->
+    <rclipse>
+        <context-root>RclipsOnlineServlet</context-root>
+        <port>12401</port>
+        <timeout>10000</timeout>
+        <server-list>
+            <server>10.210.168.35</server>
+        </server-list>
+    </rclipse>
+    
+    <!-- R2wkbm -->
+    <R2wkbm>
+        <config-file>#home\..\r2ware\R2wkbm.config</config-file>
+        <log-file-path>#home\logs</log-file-path>
+        <log-file-name>r2wkbm.log</log-file-name>
+    </R2wkbm>
+    
+    <!-- R2wprc -->
+    <R2wprc>
+        <config-file>#home\..\r2ware\R2wprc.config</config-file>
+        <log-file-path>#home\logs</log-file-path>
+        <log-file-name>r2wprc.log</log-file-name>
+    </R2wprc>
+    
+    <!-- 재인자전문처리 -->
+    <reprint>
+         <use>true</use>
+         <dbconfig>
+             <datasource-ref>default</datasource-ref>
+             <query-path name="selectIospecItemCntHty">selectIospecItemCntHty</query-path>  <!-- 버전존재여부 -->
+             <query-path name="selectIospecItem">selectIospecItem</query-path> <!-- 대상전문조회 -->
+             <query-path name="insertIospecItemHty">insertIospecItemHty</query-path>  <!-- 미존재시등록 -->
+         </dbconfig>
+    </reprint>
+    
+    <!-- 온라인 배치 환경 설정 -->
+    <ondemand-batch>
+        <jas-url>http://10.210.168.49:17401/jw/operdoc/ondemand/ctrl/ondemand.sp</jas-url> <!-- 개발 -->
+        <server name="window">          
+            <directory>C:\KBCARD_DEV\DOMA\workspace\KBCARD_SZC\shl</directory>
+                <controller>cmd.exe</controller>
+                <shell>exeBatJob.cmd</shell>
+                <option>/c</option>
+            </server>
+        <server name="server">
+            <directory>/fsbatch/batch-config/exe</directory>
+            <controller>/usr/bin/sh</controller>
+            <shell>exeOndJob.sh</shell>
+            <option></option>
+        </server>       
+    </ondemand-batch>
+    
+    <!-- 계획정지, 일자전환  -->
+	<tx-control-info>
+	    <class-name>devonenterprise.ext.service.svcctrl.TxControl</class-name>
+	    <date-conv-method-name>isBusinessDateChngTxStop</date-conv-method-name>
+	    <date-conv-check-time>
+            <start-time>234000</start-time>
+            <end-time>002000</end-time>
+        </date-conv-check-time>
+	    <date-conv-except-batch-id-list>BWBT,BGCB</date-conv-except-batch-id-list>
+	    
+	    <planned-shutdown-method-name>isPlanedShutdownTxConlYn</planned-shutdown-method-name>
+	    <planned-shutdown-check-time>
+            <start-time>234000</start-time>
+            <end-time>002000</end-time>
+        </planned-shutdown-check-time>
+	    
+	    <batch-pause-method-name>isBatchPauseYn</batch-pause-method-name>
+	    <batch-pause-check-time>
+	        <start-time>234000</start-time>
+	        <end-time>002000</end-time>
+	    </batch-pause-check-time>
+	</tx-control-info>
+    
+   	<!-- Control-M Condition 발행설정 -->
+    <controlm-info>
+ 		<directory>/fsctm/ctmagent/ctm/exe</directory>           
+        <controller>/usr/bin/sh</controller>
+        <shell>ctmcontb</shell>
+ 	</controlm-info>
+    
+    <!-- 유효한 날짜포맷 정의 -->
+    <date-util>
+        <valid-format>
+            yyyy,MM,dd,yyyyMM,yyyyMMdd,HH,mm,ss,HHmm,HHmmss,mmss,HHmmssSSS,yyyyMMddHH,yyyyMMddHHmm,yyyyMMddHHmmss,yyyyMMddHHmmssSSS,yyyyMMddHHmmssSSS000
+        </valid-format>
+    </date-util>
+    
+    <!-- 확장 저널로그 -->
+    <journal>
+        <deffered-module-tranids>DGCC0000,DGCC0010,DGCC0020</deffered-module-tranids> <!-- 후행모듈방식 거래아이디 -->
+        <output-check-use>true</output-check-use> <!-- 출력로깅 check 여부 -->
+    </journal>
+    
+    <!-- itsm 연계 -->
+    <itsm>
+        <!-- cwisapo1 -->
+        <ip>10.210.168.48</ip>
+        <port>9998</port>
+        <code name="I9900000">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>미정의된 시스템오류 발생</message>
+        </code>
+        <code name="I9900001">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>미정의된 시스템오류 발생</message>
+        </code>
+        <code name="I9990001">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:시스템헤더 정보 미존재</message>
+        </code>
+        <code name="I9900002">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:입력전문길이가 시스템헤더길이보다 작음</message>
+        </code>
+        <code name="I9900003">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:입력전문 해더추출 오류</message>
+        </code>
+        <code name="I9900004">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:GUID미존재</message>
+        </code>
+        <code name="I9900005">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:시스템환경구분코드 정합성오류</message>
+        </code>
+        <code name="I9900006">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:최초전송시스템일자 미입력오류</message>
+        </code>
+        <code name="I9900007">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:최초전송시스템코드 미입력오류</message>
+        </code>
+        <code name="I9900008">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:인터페이스아이디 미입력오류</message>
+        </code>
+        <code name="I9900009">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:인터페이스버전 미존재</message>
+        </code>
+        <code name="I9900010">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:인터페이스버전 정합성오류</message>
+        </code>
+        <code name="I9900011">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:시뮬레이션거래 운영구동불가</message>
+        </code>
+        <code name="I9900012">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:총괄타임아웃시간 초과</message>
+        </code>
+        <code name="I9900013">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:취소거래 원거래GUID 미존재</message>
+        </code>
+        <code name="I9900015">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>온라인 거래제어 통제되었습니다</message>
+        </code>
+        <code name="I9900016">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>온라인 거래제어 적재 준비 실패. 저장소 로딩 실패</message>
+        </code>
+        <code name="I9900017">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>온라인 거래제어 적재 준비 실패.사유:초기화 오류</message>
+        </code>
+        <code name="I9900018">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>온라인 거래제어 적재 준비 실패. 스펙 적재확정 실패</message>
+        </code>
+        <code name="I9900019">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>온라인 거래제어 적재 준비 실패. 오브젝트 생성 실패</message>
+        </code>
+        <code name="I9900020">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>온라인 거래제어 적재 준비 실패. 환경설정 로드 실패</message>
+        </code>
+        <code name="I9900021">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:출력전문 필드길이 초과오류</message>
+        </code>
+        <code name="I9900022">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:해더부 표준전문해더길이와 실수신길이 오류</message>
+        </code>
+        <code name="I9900023">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:거래ID 등록여부나 상태확인</message>
+        </code>
+        <code name="I9900026">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:BID 원거래 로그 미 존재</message>
+        </code>
+        <code name="I9900027">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:전문조립중 암복호화 오류발생</message>
+        </code>
+        <code name="I9900028">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:입력문자 변환오류</message>
+        </code>
+        <code name="I9900029">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:전문 항목 길이 오류</message>
+        </code>
+        <code name="I9900030">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:다음키 필수항목 미입력</message>
+        </code>
+        <code name="I9900031">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:[|NK_] 필수항목 미존재</message>
+        </code>
+        <code name="I9900032">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:등록 폼갯수[20건] 초과</message>
+        </code>
+        <code name="I9900033">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유: MQ전송매니저 미존재</message>
+        </code>
+        <code name="I9900034">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:Rule 필수항목 미입력</message>
+        </code>
+        <code name="I9900035">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:Rule 실행 오류</message>
+        </code>
+        <code name="I9900036">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:책임자승인 제한건수[10건]초과</message>
+        </code>
+        <code name="I9900037">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:전문 그룹항목 반복건수 미존재</message>
+        </code>
+        <code name="I9900038">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:Map to String 변환오류</message>
+        </code>
+        <code name="I9900039">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:존재하지 않는 메소드 호출</message>
+        </code>
+        <code name="I9900040">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:메소드 호출 오류</message>
+        </code>
+        <code name="I9900041">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:Elemet to String 변환오류</message>
+        </code>
+        <code name="I9900043">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:서비스 구현 메소드 미존재</message>
+        </code>
+        <code name="I9900044">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:서비스 실행 오류</message>
+        </code>
+        <code name="I9900045">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:LData 항목 boolean 변환오류</message>
+        </code>
+        <code name="I9900046">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:LData 항목 boolean 타입오류</message>
+        </code>
+        <code name="I9900047">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:LData 항목 int 변환오류</message>
+        </code>
+        <code name="I9900048">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:LData 항목 int 타입오류</message>
+        </code>
+        <code name="I9900049">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:LData 항목 double 변환오류</message>
+        </code>
+        <code name="I9900050">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:LData 항목 double 타입오류</message>
+        </code>
+        <code name="I9900051">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:LData 항목 float 변환오류</message>
+        </code>
+        <code name="I9900052">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:LData 항목 float 타입오류</message>
+        </code>
+        <code name="I9900053">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:LData 항목 long 변환오류</message>
+        </code>
+        <code name="I9900054">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:LData 항목 long 타입오류</message>
+        </code>
+        <code name="I9900055">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:LData 항목 short 변환오류</message>
+        </code>
+        <code name="I9900056">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:LData 항목 short 타입오류</message>
+        </code>
+        <code name="I9900057">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:LData 항목 BigDecimal 변환오류</message>
+        </code>
+        <code name="I9900058">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:LData 항목 BigDecimal 타입오류</message>
+        </code>
+        <code name="I9900059">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:LData 미존재 항목</message>
+        </code>
+        <code name="I9900060">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:LData 접근 불가능한Key Index</message>
+        </code>
+        <code name="I9900061">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:LMultiData 항목 미존재 수정불가</message>
+        </code>
+        <code name="I9900062">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:LMultiData 미존재 항목</message>
+        </code>
+        <code name="I9900063">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:LMultiData 항목 boolean 변환오류</message>
+        </code>
+        <code name="I9900064">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:LMultiData 항목 boolean 타입오류</message>
+        </code>
+        <code name="I9900065">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:LMultiData 항목 int 변환오류</message>
+        </code>
+        <code name="I9900066">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:LMultiData 항목 int 타입오류</message>
+        </code>
+        <code name="I9900067">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:LMultiData 항목 double 변환오류</message>
+        </code>
+        <code name="I9900068">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:LMultiData 항목 double 타입오류</message>
+        </code>
+        <code name="I9900069">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:LMultiData 항목 float 변환오류</message>
+        </code>
+        <code name="I9900070">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:LMultiData 항목 float 타입오류</message>
+        </code>
+        <code name="I9900071">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:LMultiData 항목 long 변환오류</message>
+        </code>
+        <code name="I9900072">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:LMultiData 항목 long 타입오류</message>
+        </code>
+        <code name="I9900073">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:LMultiData 항목 short 변환오류</message>
+        </code>
+        <code name="I9900074">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:LMultiData 항목 short 타입오류</message>
+        </code>
+        <code name="I9900075">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:LMultiData 항목 BigDecimal 변환오류</message>
+        </code>
+        <code name="I9900076">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:LMultiData 항목 BigDecimal 타입오류</message>
+        </code>
+        <code name="I9900077">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:처리대상 Class 미존재</message>
+        </code>
+        <code name="I9900078">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:처리대상 Class Access 불가</message>
+        </code>
+        <code name="I9900079">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:처리대상 Class Instantiate 불가</message>
+        </code>
+        <code name="I9900080">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:처리대상 class 생성자 미존재</message>
+        </code>
+        <code name="I9900081">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:처리대상 class 생성 불가</message>
+        </code>
+        <code name="I9900082">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:converting String to money type.</message>
+        </code>
+        <code name="I9900083">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:LData to entity class : Object is null.</message>
+        </code>
+        <code name="I9900084">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:LData to entity class 변환불가.</message>
+        </code>
+        <code name="I9900085">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>Object is null.</message>
+        </code>
+        <code name="I9900086">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:LMultiData to ArrayList of entity class.</message>
+        </code>
+        <code name="I9900087">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:LData to String : LData is null.</message>
+        </code>
+        <code name="I9900088">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:entity class to LData.</message>
+        </code>
+        <code name="I9900089">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>(String, String) to LData : String(key) is null.</message>
+        </code>
+        <code name="I9900090">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>String, String) to LData : String(value) is null.</message>
+        </code>
+        <code name="I9900091">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>The size of key and value is not match.</message>
+        </code>
+        <code name="I9900092">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:List of entity class to LMultiData.</message>
+        </code>
+        <code name="I9900093">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>to LMultiData : String(key) is null.</message>
+        </code>
+        <code name="I9900094">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>to LMultiData: String(value) is null.</message>
+        </code>
+        <code name="I9900095">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:LMultiData to String : LMultiData is null.</message>
+        </code>
+        <code name="I9900096">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>delimiters must be different from each other.</message>
+        </code>
+        <code name="I9900097">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:MapMessage to LData.</message>
+        </code>
+        <code name="I9900098">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>Message is not an instance of MapMessage.</message>
+        </code>
+        <code name="I9900099">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:LData to MapMessage.</message>
+        </code>
+        <code name="I9900100">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:IO Exception has occurred.</message>
+        </code>
+        <code name="I9900101">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Class Not Found Exception has occurred.</message>
+        </code>
+        <code name="I9900102">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>Both allowed &amp; denied tag cannot be '*'.</message>
+        </code>
+        <code name="I9900103">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>Either allowed or denied tag should be '*'.</message>
+        </code>
+        <code name="I9900104">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Invalid sql</message>
+        </code>
+        <code name="I9900105">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Invalid tag</message>
+        </code>
+        <code name="I9900106">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Name not found for current class loader</message>
+        </code>
+        <code name="I9900107">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:지원 불가능한 타입.</message>
+        </code>
+        <code name="I9900108">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Object[] to MessageString 변환불가</message>
+        </code>
+        <code name="I9900109">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유: MessageString to LData 변환불가</message>
+        </code>
+        <code name="I9900110">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:MessageString to LMultiData 변환불가</message>
+        </code>
+        <code name="I9900111">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:MessageString to Object[] 변환불가</message>
+        </code>
+        <code name="I9900112">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:JSONObject to LData 변환불가</message>
+        </code>
+        <code name="I9900113">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:JSONArray to LMultiData 변환불가</message>
+        </code>
+        <code name="I9900114">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:LData to MessageString 변환불가</message>
+        </code>
+        <code name="I9900115">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:LMultiData to MessageString 변환불가</message>
+        </code>
+        <code name="I9900116">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>The 'order' should be ORDER_ASC or ORDER_DESC.</message>
+        </code>
+        <code name="I9900117">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:There's no key in 'target' LMultiData.</message>
+        </code>
+        <code name="I9900118">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:'target' LMultiData should contain the 'key'</message>
+        </code>
+        <code name="I9900119">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>from' index should be smaller than 'to' index.</message>
+        </code>
+        <code name="I9900120">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>from' index should be bigger than 0.</message>
+        </code>
+        <code name="I9900121">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>to' index should be smaller than 'size'.</message>
+        </code>
+        <code name="I9900122">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>유틸리티 인덱스 오류</message>
+        </code>
+        <code name="I9900123">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>target' object should be mutually comparable.</message>
+        </code>
+        <code name="I9900124">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>유틸리티 인덱스 오류</message>
+        </code>
+        <code name="I9900125">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>유틸리티 인덱스 오류</message>
+        </code>
+        <code name="I9900126">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>유틸리티 오류</message>
+        </code>
+        <code name="I9900127">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>The start number is bigger than the end number .</message>
+        </code>
+        <code name="I9900128">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:The start char is bigger than the end char .</message>
+        </code>
+        <code name="I9900129">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:The start date is later than the end date .</message>
+        </code>
+        <code name="I9900130">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:input parameter must be bigger than 0.</message>
+        </code>
+        <code name="I9900131">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Maxlength should be greater than minlength.</message>
+        </code>
+        <code name="I9900132">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>유틸리티 오류</message>
+        </code>
+        <code name="I9900133">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:클래스 미존재</message>
+        </code>
+        <code name="I9900134">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:XML's structure is invalid.</message>
+        </code>
+        <code name="I9900135">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Node can not be found.</message>
+        </code>
+        <code name="I9900136">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Can not find a matching node type.</message>
+        </code>
+        <code name="I9900137">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:XML is not LData type.</message>
+        </code>
+        <code name="I9900138">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:XML is not LMultiData type.</message>
+        </code>
+        <code name="I9900139">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:XML is not LDataProtocol type.</message>
+        </code>
+        <code name="I9900140">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>Cannot covert MessageString to LDataProtocol.</message>
+        </code>
+        <code name="I9900141">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>유틸리티 오류</message>
+        </code>
+        <code name="I9900146">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>유틸리티 오류</message>
+        </code>
+        <code name="I9900147">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:The character[] is not number format.</message>
+        </code>
+        <code name="I9900148">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:서비스 Component 실행 오류.</message>
+        </code>
+        <code name="I9900149">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:서비스 Component 생성 오류.</message>
+        </code>
+        <code name="I9900150">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Does not exist Timeout Configuration.</message>
+        </code>
+        <code name="I9900151">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:서비스 클래스 설정파일 로드 오류.</message>
+        </code>
+        <code name="I9900152">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:서비스 객체 생성 오류.</message>
+        </code>
+        <code name="I9900153">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:거래 타임아웃 설정에 의하여 타임아웃 오류.</message>
+        </code>
+        <code name="I9900154">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Converter 클래스 설정파일 로드 오류.</message>
+        </code>
+        <code name="I9900155">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Converter 객체 생성 오류.</message>
+        </code>
+        <code name="I9900156">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Router 클래스 설정파일 로드 오류.</message>
+        </code>
+        <code name="I9900157">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Router 객체 생성 오류.</message>
+        </code>
+        <code name="I9900158">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:Loopback 데이터 조회 오류.</message>
+        </code>
+        <code name="I9900159">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:Loopback CLOB 데이터 사용 오류.</message>
+        </code>
+        <code name="I9900160">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Outbound Controller에서 Router 호출 오류.</message>
+        </code>
+        <code name="I9900161">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:Router에서 Context 적재 오류.</message>
+        </code>
+        <code name="I9900162">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:Filter 수행 오류.</message>
+        </code>
+        <code name="I9900163">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:Loopback 데이터 LData형식 변환 오류.</message>
+        </code>
+        <code name="I9900164">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:입력된 값이 전문 메시지타입과 다름.</message>
+        </code>
+        <code name="I9900165">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:전문변환 오류.</message>
+        </code>
+        <code name="I9900166">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:입력된값 유효성 오류</message>
+        </code>
+        <code name="I9900167">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:FixedLength to LData 변환오류.</message>
+        </code>
+        <code name="I9900168">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:매핑 엘리먼트 미존재</message>
+        </code>
+        <code name="I9900169">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:가변부 반복건수 미존재.</message>
+        </code>
+        <code name="I9900170">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:json변환 오류</message>
+        </code>
+        <code name="I9900171">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:통신프로토콜 오류 발생.</message>
+        </code>
+        <code name="I9900172">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:통신프로토콜 HTTP URL 형식 오류.</message>
+        </code>
+        <code name="I9900173">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:통신프로토콜 통신 오류</message>
+        </code>
+        <code name="I9900174">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:통신프로토콜 오류 응답 발생.</message>
+        </code>
+        <code name="I9900175">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Adaptor 클래스 인스턴스 생성 오류.</message>
+        </code>
+        <code name="I9900176">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Converter 클래스 로딩 오류.</message>
+        </code>
+        <code name="I9900177">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Client 클래스 로딩 오류.</message>
+        </code>
+        <code name="I9900178">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Controller 정보 로딩 오류.</message>
+        </code>
+        <code name="I9900179">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:load-type 전문 로드타입 로딩 오류.</message>
+        </code>
+        <code name="I9900180">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:거래정보 미존재.</message>
+        </code>
+        <code name="I9900181">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>필드 모델 value를 LData로 설정 매개변수 오류.</message>
+        </code>
+        <code name="I9900182">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Filed 정의된 기본값 설정 오류.</message>
+        </code>
+        <code name="I9900183">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Filed 데이터타입 검증 오류.</message>
+        </code>
+        <code name="I9900184">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:그룹 전문 로드 오류.</message>
+        </code>
+        <code name="I9900185">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:String으로 변환오류 데이터길이 &lt; 전문 항목</message>
+        </code>
+        <code name="I9900186">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Json을 LData로 변환 오류.</message>
+        </code>
+        <code name="I9900187">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:그룹 카운트값 미존재.</message>
+        </code>
+        <code name="I9900188">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>길이정보 미존재 또는 길이필드 미존재.</message>
+        </code>
+        <code name="I9900189">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:항목의 데이터를 정렬 오류</message>
+        </code>
+        <code name="I9900190">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Field 변환 오류</message>
+        </code>
+        <code name="I9900191">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:단건 그룹 값 LData 아님</message>
+        </code>
+        <code name="I9900192">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Legacy시스템 Context 연동 에러 발생.</message>
+        </code>
+        <code name="I9900193">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:SocketSyncClient 수신 데이터 인코딩 오류</message>
+        </code>
+        <code name="I9900194">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Client 송수신시 에러.</message>
+        </code>
+        <code name="I9900195">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Inbound 연동 거래정보 로드 오류.</message>
+        </code>
+        <code name="I9900196">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:DBSpecItem 그룹아이템 조회중 오류.</message>
+        </code>
+        <code name="I9900197">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:DBSpecItem 그룹아이템 등록중 오류.</message>
+        </code>
+        <code name="I9900198">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:LFieldModel의 id set 오류.</message>
+        </code>
+        <code name="I9900199">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:전문정보 로드 오류</message>
+        </code>
+        <code name="I9900200">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Include 전문 로드 오류.</message>
+        </code>
+        <code name="I9900201">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Outbound 연동 거래정보 로드 오류.</message>
+        </code>
+        <code name="I9900202">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:전문정보 미존재.</message>
+        </code>
+        <code name="I9900203">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:루프백 데이터 로드 실패.</message>
+        </code>
+        <code name="I9900204">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:수신 데이터 분해 오류.</message>
+        </code>
+        <code name="I9900205">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:수신 데이터 미존재.</message>
+        </code>
+        <code name="I9900206">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:JOURNAL IOTYPE 미존재</message>
+        </code>
+        <code name="I9900207">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:데이터 변환 실패</message>
+        </code>
+        <code name="I9900208">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:데이터 변환 미지원</message>
+        </code>
+        <code name="I9900209">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:paging 쿼리가 유효하지 않음[order by 체크]</message>
+        </code>
+        <code name="I9900210">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:paging Index 미존재</message>
+        </code>
+        <code name="I9900211">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:paging row size 미존재</message>
+        </code>
+        <code name="I9900212">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:사용가능한 큐 미존재.</message>
+        </code>
+        <code name="I9900213">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:MQ 순서보장 식별키 미존재.</message>
+        </code>
+        <code name="I9900214">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:출력전문 조립오류.</message>
+        </code>
+        <code name="I9900215">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:HEX 문자로 변환시 메시지 미존재 오류.</message>
+        </code>
+        <code name="I9900216">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:메시지를 문자로 변환시 입력값 미존재 오류</message>
+        </code>
+        <code name="I9900217">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:메시지를 문자로 변환시 입력값 길이오류.</message>
+        </code>
+        <code name="I9900218">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:메시지 해더 변환오류.</message>
+        </code>
+        <code name="I9900219">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:해더값 변경중 오류.</message>
+        </code>
+        <code name="I9900220">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:해더길이 계산중 입력값 미존재 오류.</message>
+        </code>
+        <code name="I9900221">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:MQ전송오류.</message>
+        </code>
+        <code name="I9900222">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:TIMER전문 조립중 오류.</message>
+        </code>
+        <code name="I9900223">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:대용량 입력DTO 그룹미존재.</message>
+        </code>
+        <code name="I9900224">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:복호화 오류발생.</message>
+        </code>
+        <code name="I9900225">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:암호화 오류발생.</message>
+        </code>
+        <code name="I9900226">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:단방향 암호화 오류발생.</message>
+        </code>
+        <code name="I9900227">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:암호화 입력값 길이 오류.</message>
+        </code>
+        <code name="I9900228">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:암호화 비대상 체크 오류.</message>
+        </code>
+        <code name="I9900229">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Rule 환경 초기화 오류.</message>
+        </code>
+        <code name="I9900230">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:BID MCI인스턴스 미존재.</message>
+        </code>
+        <code name="I9900231">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:BID정보 미존재 송신불가.</message>
+        </code>
+        <code name="I9900232">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:암복호화 처리모듈 미존재.</message>
+        </code>
+        <code name="I9900233">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:암복호화 처리 오류발생.</message>
+        </code>
+        <code name="I9900234">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:평문검증 처리모듈 미존재.</message>
+        </code>
+        <code name="I9900235">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:평문검증 처리 오류발생.</message>
+        </code>
+        <code name="I9900236">
+            <use-yn>Y</use-yn>
+            <grade>Critical</grade>
+            <message>EAI CLIENT *.PROP 환경파일 로드 실패하였습니다.</message>
+        </code>
+        <code name="I9900237">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>EMS 접속에 실패하였습니다.</message>
+        </code>
+        <code name="I9900238">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>EAI 인터페이스 정보 조회 실패하였습니다.</message>
+        </code>
+        <code name="I9900239">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>EAI연결 송신 객체 생성에 실패하였습니다.</message>
+        </code>
+        <code name="I9900240">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>EAI연결에 예외상황이 발생하였습니다.</message>
+        </code>
+        <code name="I9900241">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>EAI API 기본정보 요청 실패하였습니다..</message>
+        </code>
+        <code name="I9900242">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>byte형태의 메시지가 아닙니다</message>
+        </code>
+        <code name="I9900243">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>EAI거래중 Timeout이 발생하였습니다</message>
+        </code>
+        <code name="I9900244">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>EAI 내부 오류 입니다.</message>
+        </code>
+        <code name="I9900245">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>등록된 수신 서비스가 없습니다</message>
+        </code>
+        <code name="I9900246">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>등록되지 않은 인터페이스입니다</message>
+        </code>
+        <code name="I9900247">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>대상시스템 연계전입니다.</message>
+        </code>
+        <code name="I9900248">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>대상시스템 연계정보가 없습니다</message>
+        </code>
+        <code name="I9900249">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>인터페이스 type이 불일치합니다.(Sync, Async</message>
+        </code>
+        <code name="I9900250">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>인터페이스 중계시스템정보 불일치합니다</message>
+        </code>
+        <code name="I9900251">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>전문 헤더 버전이 불일치 합니다</message>
+        </code>
+        <code name="I9900252">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>전문 IO 버전이 불일치 합니다</message>
+        </code>
+        <code name="I9900253">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>전문 길이가 일치하지 않습니다</message>
+        </code>
+        <code name="I9900254">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>통제된 인터페이스입니다</message>
+        </code>
+        <code name="I9900255">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>API버전이 일치하지 않습니다</message>
+        </code>
+        <code name="I9900256">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>환경정보구분코드 입력 데이터 오류입니다</message>
+        </code>
+        <code name="I9900257">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>대내EAI 사용 설정되어 있지 않습니다</message>
+        </code>
+        <code name="I9900258">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>대외EAI 사용 설정되어 있지 않습니다</message>
+        </code>
+        <code name="I9900259">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>파일 전송에 필요한 파라미터 입력이 잘못되었습니다.</message>
+        </code>
+        <code name="I9900260">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>파일 전송 요청 중 타임아웃이 발생했습니다</message>
+        </code>
+        <code name="I9900261">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>파일 전송 시 타임아웃이 발생했습니다.</message>
+        </code>
+        <code name="I9900262">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>파일전송 요청 시 에러가 발생하였습니다</message>
+        </code>
+        <code name="I9900263">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>송신 경로나 파일이 없습니다</message>
+        </code>
+        <code name="I9900264">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>수신 경로나 파일이 없습니다</message>
+        </code>
+        <code name="I9900265">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>송신 파일 읽기 권한이 없습니다.</message>
+        </code>
+        <code name="I9900266">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>수신 파일 쓰기 권한이 없습니다.</message>
+        </code>
+        <code name="I9900267">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>디스크용량이 없습니다.</message>
+        </code>
+        <code name="I9900268">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>덮어쓰기 불가로 인한 오류</message>
+        </code>
+        <code name="I9900269">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>송신 MFT Agent가 미 기동 중입니다</message>
+        </code>
+        <code name="I9900270">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>수신 MFT Agent가 미 기동 중입니다</message>
+        </code>
+        <code name="I9900271">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>송신 경로 최대 패턴 수 초과 되었습니다.</message>
+        </code>
+        <code name="I9900272">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>수신 경로 최대 패턴 수 초과 되었습니다.</message>
+        </code>
+        <code name="I9900273">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>송신 경로 패턴 체크 에러가 발생했습니다</message>
+        </code>
+        <code name="I9900274">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>Error 수신 경로 패턴 체크 에러가 발생했습니다.</message>
+        </code>
+        <code name="I9900275">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>Error 송신 패턴 정보가 입력되지 않았습니다</message>
+        </code>
+        <code name="I9900276">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>Error 수신 패턴 정보가 입력되지 않았습니다</message>
+        </code>
+        <code name="I9900277">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>Error MFT 에러가 발생하였습니다.</message>
+        </code>
+        <code name="I9900278">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:인터페이스ID 미입력</message>
+        </code>
+        <code name="I9900279">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:인터페이스정보 미존재</message>
+        </code>
+        <code name="I9900280">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:MQ로그 적재중 오류발생</message>
+        </code>
+        <code name="I9900281">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:재인자전문 등록 오류</message>
+        </code>
+        <code name="I9900282">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:연동로그 등록 오류</message>
+        </code>
+        <code name="I9900283">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:존재하지 않는 연동 일련번호</message>
+        </code>
+        <code name="I9900284">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:연동로그에서 연동정보 획득 오류</message>
+        </code>
+        <code name="I9900285">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>온디맨드배치-JOB ID 미입력오류</message>
+        </code>
+        <code name="I9900286">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>온디맨드배치-JOBNAME 미입력오류</message>
+        </code>
+        <code name="I9900287">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>온라인배치 호출 중 오류가 발생했습니다</message>
+        </code>
+        <code name="I9900288">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>해당 배치는 온라인 배치 설정이 되어 있지 않습니다</message>
+        </code>
+        <code name="I9900289">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>해당 배치는 온라인 배치로 실행할 수 없습니다</message>
+        </code>
+        <code name="I9900290">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>온디맨드배치-실행가능 시작시간 입력값 확인</message>
+        </code>
+        <code name="I9900291">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>온디맨드배치-실행가능 종료시간 입력값 확인</message>
+        </code>
+        <code name="I9900292">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>해당 온라인 배치의 실행가능시간을 확인하십시오</message>
+        </code>
+        <code name="I9900293">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>해당 온라인 배치의 실행가능요일을 확인하십시오)</message>
+        </code>
+        <code name="I9900294">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>해당 온라인 배치의 최대 실행개수가 초과되었습니다</message>
+        </code>
+        <code name="I9900295">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>해당 온라인 배치가 이미 실행중입니다</message>
+        </code>
+        <code name="I9900296">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:거래 선후행 처리 오류</message>
+        </code>
+        <code name="I9900298">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>파일전송 처리시 인터페이스ID가 입력되지 않았습니다</message>
+        </code>
+        <code name="I9900299">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>파일전송 처리시 소스파일명이 입력되지 않았습니다</message>
+        </code>
+        <code name="I9900300">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>파일전송 처리시 타겟파일명이 입력되지 않았습니다</message>
+        </code>
+        <code name="I9900301">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>MFT파일쓰기모드가 입력되지 않았습니다</message>
+        </code>
+        <code name="I9900302">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:전체구간타임아웃임계치 미지정</message>
+        </code>
+        <code name="I9900303">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:전체구간타임아웃임계치 &lt; 거래타임아웃시간</message>
+        </code>
+        <code name="I9900304">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:전체구간타임아웃임계치 초과</message>
+        </code>
+        <code name="I9900305">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:전체구간타임아웃임계치 미입력오류</message>
+        </code>
+        <code name="I9900306">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:KB메신저 전송 오류</message>
+        </code>
+        <code name="I9900307">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>데이터베이스 추가 중 이미 존재하는 데이터</message>
+        </code>
+        <code name="I9900308">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>SELECT FOR UPDATW NOWAIT 락획득 못함</message>
+        </code>
+        <code name="I9900309">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>데이터베이스 참조 중 다른 거래에 의한 LOCKING</message>
+        </code>
+        <code name="I9900310">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>데이터베이스 참조 중 데이터 미 존재</message>
+        </code>
+        <code name="I9900311">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>데이터베이스 참조 중 입력항목 데이터 미 입력 오류</message>
+        </code>
+        <code name="I9900312">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>데이터베이스 참조 중 SQLIO SELECT 최대건수 초과</message>
+        </code>
+        <code name="I9900313">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>데이터베이스 참조 중 SQL ERROR</message>
+        </code>
+        <code name="I9900314">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:MQ 재처리대상 미존재</message>
+        </code>
+        <code name="I9900315">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:MQ 재처리 준비중 오류</message>
+        </code>
+        <code name="I9900316">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:MQ로그 조회중 오류발생</message>
+        </code>
+        <code name="I9900317">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:MQ재전송 오류</message>
+        </code>
+        <code name="I9900318">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:취급거래전 타임아웃</message>
+        </code>
+        <code name="I9900319">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:경과시간이 거래타임아웃 초과</message>
+        </code>
+        <code name="I9900320">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:연계정보 미존재</message>
+        </code>
+        <code name="I9900321">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:오류응답수신</message>
+        </code>
+        <code name="I9900322">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:응답전문이 빈값입니다</message>
+        </code>
+        <code name="I9900323">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:데이터포멧오류/ XML데이터가 아닙니다</message>
+        </code>
+        <code name="I9900324">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>연계처리-인터페이스ID, GUID정보상이</message>
+        </code>
+        <code name="I9900325">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>XML전문에서 FIXED전문 전환시 에러 발생</message>
+        </code>
+        <code name="I9900326">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>FIXED전문에서 XML전문 전환시 에러 발생</message>
+        </code>
+        <code name="I9900327">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>XML문서가 유효하지 않습니다</message>
+        </code>
+        <code name="I9900328">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>FIXED문서가 유효하지 않습니다</message>
+        </code>
+        <code name="I9900329">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>수신지접속정보가 없습니다</message>
+        </code>
+        <code name="I9900330">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>EAI 내부 오류 입니다.</message>
+        </code>
+        <code name="I9900331">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>EAI 내부 오류 입니다.</message>
+        </code>
+        <code name="I9900332">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>전문길이정보와 실제길이가 다릅니다</message>
+        </code>
+        <code name="I9900333">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>환경정보구분코드(ENVR_INF_DV_C) 오류</message>
+        </code>
+        <code name="I9900334">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>데이터영역구분코드 오류</message>
+        </code>
+        <code name="I9900335">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>해당 전문의 인터페이스 정보를 찾을 수 없습니다</message>
+        </code>
+        <code name="I9900336">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>해당 기관 연계 오픈 전입니다</message>
+        </code>
+        <code name="I9900337">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>해당 TCP 정보가 등록되어있지 않습니다</message>
+        </code>
+        <code name="I9900338">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>전문 검색키 정보를 찾을 수 없습니다</message>
+        </code>
+        <code name="I9900339">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>내부시스템으로 전송이 실패하였습니다</message>
+        </code>
+        <code name="I9900340">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>TCP SESSION CLOSED</message>
+        </code>
+        <code name="I9900341">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>TCP SESSION ERROR</message>
+        </code>
+        <code name="I9900342">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>RClipse 호출 오류가 발생하였습니다.</message>
+        </code>
+        <code name="I9900343">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>Batch sleep처리시 에러가 발생했습니다</message>
+        </code>
+        <code name="I9900344">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>해당 method는 Batch에서만 사용 가능합니다</message>
+        </code>
+        <code name="I9900345">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>BLOCK SIZE IS NOT MATCH</message>
+        </code>
+        <code name="I9900346">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>파일이 존재하지 않습니다</message>
+        </code>
+        <code name="I9900347">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>slaveWriterOpen method only supports Worker Class</message>
+        </code>
+        <code name="I9900348">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>tableName 값이 존재하지 않습니다</message>
+        </code>
+        <code name="I9900349">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>partitionName 값이 존재하지 않습니다</message>
+        </code>
+        <code name="I9900350">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>owner 값이 존재하지 않습니다</message>
+        </code>
+        <code name="I9900351">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>subPartitionName 값이 존재하지 않습니다</message>
+        </code>
+        <code name="I9900352">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>파티션 테이블 truncate작업중 오류가 발생했습니다</message>
+        </code>
+        <code name="I9900353">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>테이블 truncate작업중 오류가 발생했습니다</message>
+        </code>
+        <code name="I9900354">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>소스테이블 입력값이 존재하지 않습니다</message>
+        </code>
+        <code name="I9900355">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>대상테이블 입력값이 존재하지 않습니다</message>
+        </code>
+        <code name="I9900356">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>테이블 rename 중 오류가 발생했습니다</message>
+        </code>
+        <code name="I9900357">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>입력값이 reader객체가 아닙니다</message>
+        </code>
+        <code name="I9900358">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>EBCDIC 데이터 길이가 지정된 길이보다 큽니다</message>
+        </code>
+        <code name="I9900359">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>EBCDIC 변환 중 오류가 발생했습니다</message>
+        </code>
+        <code name="I9900360">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>reader객체가 파일 reader가 아닙니다</message>
+        </code>
+        <code name="I9900361">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>입력객체가 worker객체가 아닙니다</message>
+        </code>
+        <code name="I9900362">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>해당 메서드는 매뉴얼 배치에서만 사용가능합니다</message>
+        </code>
+        <code name="I9900363">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>파일 ALIAS가 존재하지 않습니다</message>
+        </code>
+        <code name="I9900364">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>입력값 오류 : 입력파일 값이 존재하지 않습니다</message>
+        </code>
+        <code name="I9900365">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>입력값 오류 : 출력파일 값이 존재하지 않습니다</message>
+        </code>
+        <code name="I9900366">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>입력값 오류 : 레코드길이 값 오류입니다</message>
+        </code>
+        <code name="I9900367">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>입력값 오류 : SOSI옵션 값 오류입니다</message>
+        </code>
+        <code name="I9900368">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>입력값 오류 : 줄바꿈 문자 옵션 값 오류입니다</message>
+        </code>
+        <code name="I9900369">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>JAS SERVER호출오류</message>
+        </code>
+        <code name="I9900370">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>FileUtil : 파일이 존재하지 않습니다</message>
+        </code>
+        <code name="I9900371">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>FileUtil : 디렉토리가 존재하지 않습니다</message>
+        </code>
+        <code name="I9900372">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>FileUtil : 유효하지 않은 날짜 포맷입니다</message>
+        </code>
+        <code name="I9900373">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>FileUtil : 파일이 이미 존재합니다</message>
+        </code>
+        <code name="I9900374">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>FileUtil : 파일 복사 중 오류가 발생했습니다</message>
+        </code>
+        <code name="I9900375">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>FileUtil : 파일 Move 중 오류가 발생했습니다</message>
+        </code>
+        <code name="I9900376">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>FileUtil : 파일 처리 중 오류가 발생했습니다</message>
+        </code>
+        <code name="I9900377">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>/fsfile, /fsshrd, /fscm 의 하위 경로이어야 합니다</message>
+        </code>
+        <code name="I9900378">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>fileDecrypt error :)</message>
+        </code>
+        <code name="I9900379">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>fileEncrypt error :)</message>
+        </code>
+        <code name="I9900380">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>회원일련번호가 존재하지 않습니다</message>
+        </code>
+        <code name="I9900381">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>업무구분코드가 유효하지 않습니다</message>
+        </code>
+        <code name="I9900382">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>입력값 역치환키값이 존재하지 않습니다</message>
+        </code>
+        <code name="I9900383">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>요청서비스코드가 유효하지 않습니다</message>
+        </code>
+        <code name="I9900384">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>거래구분코드가 존재하지 않습니다</message>
+        </code>
+        <code name="I9900385">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>유효한 거래구분코드가 아닙니다</message>
+        </code>
+        <code name="I9900386">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>키패드세션키 값이 존재하지 않습니다</message>
+        </code>
+        <code name="I9900387">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>세션키가 존재하지 않습니다</message>
+        </code>
+        <code name="I9900388">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>서비스구분코드가 존재하지 않습니다</message>
+        </code>
+        <code name="I9900389">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>잘못된 서비스구분코드 입니다</message>
+        </code>
+        <code name="I9900390">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>전문상의 키정보가 이상합니다</message>
+        </code>
+        <code name="I9900391">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>거래구분코드가 유효하지 않습니다</message>
+        </code>
+        <code name="I9900392">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>처리구분코드가 존재하지 않습니다</message>
+        </code>
+        <code name="I9900393">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>Input file is not exist</message>
+        </code>
+        <code name="I9900394">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>KMS Key Error :)</message>
+        </code>
+        <code name="I9900395">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>카드종류 오류입니다</message>
+        </code>
+        <code name="I9900396">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>주민번호 암호화 중 오류발생</message>
+        </code>
+        <code name="I9900397">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>주민번호 복호화 도중 오류가 발생하였습니다</message>
+        </code>
+        <code name="I9900398">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>암호화 비밀번호가 존재하지 않습니다</message>
+        </code>
+        <code name="I9900399">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>유효한 암호화 비밀번호가 아닙니다</message>
+        </code>
+        <code name="I9900400">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>Error : Unsupported Local Key</message>
+        </code>
+        <code name="I9900401">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>Error : configuration setting error</message>
+        </code>
+        <code name="I9900402">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>Error : Alias is not registered</message>
+        </code>
+        <code name="I9900403">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>Error : Input data is not existed</message>
+        </code>
+        <code name="I9900404">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>Error : encrypt data length error</message>
+        </code>
+        <code name="I9900405">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>Error : 은행 비밀번호 복호화 중 길이오류 발생</message>
+        </code>
+        <code name="I9900406">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>Error : encrypt data length error</message>
+        </code>
+        <code name="I9900407">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>구분코드를 확인하세요</message>
+        </code>
+        <code name="I9900408">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>카드번호가 존재하지 않습니다</message>
+        </code>
+        <code name="I9900409">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>만료년월이 존재하지 않습니다</message>
+        </code>
+        <code name="I9900410">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>서비스코드가 존재하지 않습니다</message>
+        </code>
+        <code name="I9900411">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>유효한 만료년월이 아닙니다</message>
+        </code>
+        <code name="I9900412">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>유효한 서비스코드가 아닙니다</message>
+        </code>
+        <code name="I9900413">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>유효하지 않은 길이의 암호문입니다</message>
+        </code>
+        <code name="I9900414">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>유효하지 않은 CVC 길이 값입니다</message>
+        </code>
+        <code name="I9900415">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>유효한 회원일련번호가 아닙니다</message>
+        </code>
+        <code name="I9900416">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>유효하지 않는 길이의 비밀번호 길이입니다</message>
+        </code>
+        <code name="I9900417">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>암호화 구분코드 오류입니다</message>
+        </code>
+        <code name="I9900418">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>Invalid char</message>
+        </code>
+        <code name="I9900419">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>XOR할 대상의 길이가 다릅니다</message>
+        </code>
+        <code name="I9900420">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>XOR할 대상의 길이가 0입니다</message>
+        </code>
+        <code name="I9900421">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>8bit의 바이트단위가 아닙니다</message>
+        </code>
+        <code name="I9900422">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>Invalid byte</message>
+        </code>
+        <code name="I9900423">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>Invalid bIn</message>
+        </code>
+        <code name="I9900424">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>복호화할수 없는 비밀번호 입니다</message>
+        </code>
+        <code name="I9900425">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>평문입력데이터 최대길이는 40바이트 입니다</message>
+        </code>
+        <code name="I9900426">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>입력데이터 오류입니다</message>
+        </code>
+        <code name="I9900427">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>처리구분 오류입니다</message>
+        </code>
+        <code name="I9900428">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>처리구분코드를 확인하세요</message>
+        </code>
+        <code name="I9900429">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>지원하지 않는 형식의 암호화문 길이입니다</message>
+        </code>
+        <code name="I9900430">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>유효하지 않는 길이의 암호문입니다</message>
+        </code>
+        <code name="I9900431">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>Error : 복호화 데이터 길이 오류</message>
+        </code>
+        <code name="I9900432">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>Error : 복호화 채널구분오류</message>
+        </code>
+        <code name="I9900433">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>Error : 복호화 암호 길이 오류</message>
+        </code>
+        <code name="I9900434">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>유효한 SALT가 아닙니다</message>
+        </code>
+        <code name="I9900435">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>채널암호화의 입력길이가 최대허용범위 초과</message>
+        </code>
+        <code name="I9900436">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>Error : 유효한 인증번호 길이가 아닙니다</message>
+        </code>
+        <code name="I9900437">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>Error : encCftNo data length error</message>
+        </code>
+        <code name="I9900438">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>입력값을 확인하세요</message>
+        </code>
+        <code name="I9900439">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>Batch 에서는 연계처리 불가</message>
+        </code>
+        <code name="I9900440">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>Batch 사용 불가능한 연계ID</message>
+        </code>
+        <code name="I9900441">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>응답시스템으로 전송,수신 실패</message>
+        </code>
+        <code name="I9900442">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:영업일변경 진행중</message>
+        </code>
+        <code name="I9900443">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:전체 거래제어중</message>
+        </code>
+        <code name="I9900444">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:운영환경 테스트불가</message>
+        </code>
+        <code name="I9900445">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:계획정지 진행중</message>
+        </code>
+        <code name="I9900446">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>사유:SQL 실행오류</message>
+        </code>
+        <code name="I9900490">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>O_Date 파라미터 값이 존재하지 않습니다.</message>
+        </code>
+        <code name="I9900491">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>O_Date 파라미터 값이 유효한 날짜값이 아닙니다</message>
+        </code>
+        <code name="I9900492">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>USER_GCB_BSE_YMD 파라미터 값이 유효한 날짜가 아님</message>
+        </code>
+        <code name="I9900493">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>SYS_IN 값이 N인 경우에는 입력 파라미터로 불가</message>
+        </code>
+        <code name="I9900494">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>Job Parameter미등록이거나, SYS_IN 값이 Y가 아님</message>
+        </code>
+        <code name="I9900495">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>[ERR] SDT거래부점코드 길이 오류입니다</message>
+        </code>
+        <code name="I9900496">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>[ERR] SDT거래직원번호 길이 오류입니다</message>
+        </code>
+        <code name="I9900497">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>[ERR] SDT단말번호 길이 오류입니다</message>
+        </code>
+        <code name="I9900498">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>해당 유틸은 로컬에서는 실행가능하지 않습니다</message>
+        </code>
+        <code name="I9900499">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>입력 컨디션명을 확인하시기 바랍니다</message>
+        </code>
+        <code name="I9900500">
+            <use-yn>Y</use-yn>
+            <grade>Critical</grade>
+            <message>사유: config DEVON HOME 미지정</message>
+        </code>
+        <code name="I9900501">
+            <use-yn>Y</use-yn>
+            <grade>Critical</grade>
+            <message>사유: config devon.xml 미지정</message>
+        </code>
+        <code name="I9900502">
+            <use-yn>Y</use-yn>
+            <grade>Critical</grade>
+            <message>사유: config devon.xml 유효한 파일 아님.</message>
+        </code>
+        <code name="I9900503">
+            <use-yn>Y</use-yn>
+            <grade>Critical</grade>
+            <message>사유: config 노드실행불가.</message>
+        </code>
+        <code name="I9900504">
+            <use-yn>Y</use-yn>
+            <grade>Critical</grade>
+            <message>사유: config config 생성 오류)</message>
+        </code>
+        <code name="I9900505">
+            <use-yn>Y</use-yn>
+            <grade>Critical</grade>
+            <message>사유: config 로딩 오류.</message>
+        </code>
+        <code name="I9900506">
+            <use-yn>Y</use-yn>
+            <grade>Critical</grade>
+            <message>사유: config 파싱 오류.</message>
+        </code>
+        <code name="I9900507">
+            <use-yn>Y</use-yn>
+            <grade>Critical</grade>
+            <message>사유: config 추출 오류.</message>
+        </code>
+        <code name="I9900508">
+            <use-yn>Y</use-yn>
+            <grade>Critical</grade>
+            <message>사유: config path 오류.</message>
+        </code>
+        <code name="I9900509">
+            <use-yn>Y</use-yn>
+            <grade>Critical</grade>
+            <message>사유: config The specified file cannot be read</message>
+        </code>
+        <code name="I9900510">
+            <use-yn>Y</use-yn>
+            <grade>Critical</grade>
+            <message>사유: config The specified file is not found</message>
+        </code>
+        <code name="I9900511">
+            <use-yn>Y</use-yn>
+            <grade>Critical</grade>
+            <message>사유: config 유효하지 않은 문자</message>
+        </code>
+        <code name="I9900512">
+            <use-yn>Y</use-yn>
+            <grade>Critical</grade>
+            <message>사유:기본 엔코딩값 획득 오류</message>
+        </code>
+        <code name="I9900540">
+            <use-yn>Y</use-yn>
+            <grade>Critical</grade>
+            <message>사유:Query 기본위치 미지정.</message>
+        </code>
+        <code name="I9900541">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Query 정보추출 오류.</message>
+        </code>
+        <code name="I9900542">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Query Sql 파일 Read 오류.</message>
+        </code>
+        <code name="I9900543">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Query Sql 파일 분석 오류</message>
+        </code>
+        <code name="I9900544">
+            <use-yn>Y</use-yn>
+            <grade>Critical</grade>
+            <message>사유:Query 존재하지 않는 디렉토리</message>
+        </code>
+        <code name="I9900545">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Query Can't process xml file</message>
+        </code>
+        <code name="I9900546">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Query Can't load the file</message>
+        </code>
+        <code name="I9900547">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>Query Check xml file! Element name doesn't match.</message>
+        </code>
+        <code name="I9900548">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Query 생성 오류</message>
+        </code>
+        <code name="I9900549">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Query xml 파싱 오류</message>
+        </code>
+        <code name="I9900550">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Query 변경 생성 오류</message>
+        </code>
+        <code name="I9900551">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Query 추가 생성 오류</message>
+        </code>
+        <code name="I9900552">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Query 조건 파싱 오류</message>
+        </code>
+        <code name="I9900553">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Query LQueryDynamicFactory 초기화 오류</message>
+        </code>
+        <code name="I9900554">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Query Statement name 미존재</message>
+        </code>
+        <code name="I9900555">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Query 특정 Key의 값이 ArrayList 여야함</message>
+        </code>
+        <code name="I9900556">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Query 특정 Key의 값 미존재</message>
+        </code>
+        <code name="I9900557">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Query 파라미터 패턴 오류</message>
+        </code>
+        <code name="I9900558">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Query 입력 파라미터 갯수 오류</message>
+        </code>
+        <code name="I9900559">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Query 입력 파라미터 유효하지 않음</message>
+        </code>
+        <code name="I9900560">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Query Statement name Query 파일에 미존재</message>
+        </code>
+        <code name="I9900561">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Query metadata 속성 값 오류</message>
+        </code>
+        <code name="I9900562">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Query fetchSize 속성 값 오류</message>
+        </code>
+        <code name="I9900563">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Query LQueryFactory 초기화 값 오류</message>
+        </code>
+        <code name="I9900564">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Query 쿼리 close 오류</message>
+        </code>
+        <code name="I9900565">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Query Update 데이터 처리 실패</message>
+        </code>
+        <code name="I9900566">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Query spec 로드중 파라미티 길이 오류</message>
+        </code>
+        <code name="I9900567">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Query 파일 미존재) )</message>
+        </code>
+        <code name="I9900568">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Query 쿼리 실행 결과 없음) )</message>
+        </code>
+        <code name="I9900569">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Query Type Not Found in the table)</message>
+        </code>
+        <code name="I9900570">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Query 사용불가능한 스키마) )</message>
+        </code>
+        <code name="I9900571">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Query preparing data 처리 오류</message>
+        </code>
+        <code name="I9900572">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Query confirming data 처리 오류</message>
+        </code>
+        <code name="I9900573">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Query Statement 중복 정의됨</message>
+        </code>
+        <code name="I9900574">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Query limit-count 속성 값 오류</message>
+        </code>
+        <code name="I9900575">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Query dbwrap 속성 값 오류</message>
+        </code>
+        <code name="I9900576">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Query data-cut 속성 값 오류</message>
+        </code>
+        <code name="I9900577">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>transaction begin 되지 않아 commit, rollback 불가</message>
+        </code>
+        <code name="I9900578">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:transaction UserTransaction begins 오류</message>
+        </code>
+        <code name="I9900579">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:transaction commit 오류</message>
+        </code>
+        <code name="I9900580">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:transaction rollback 오류</message>
+        </code>
+        <code name="I9900581">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:transaction Jndi 획득 오류</message>
+        </code>
+        <code name="I9900582">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:transaction context-factory 획득 오류</message>
+        </code>
+        <code name="I9900583">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:transaction provider-url 오류</message>
+        </code>
+        <code name="I9900584">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:transaction look up 오류</message>
+        </code>
+        <code name="I9900585">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:transaction 이미 진행중인 트랜젝션</message>
+        </code>
+        <code name="I9900586">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:transaction configuration 획득 오류</message>
+        </code>
+        <code name="I9900587">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:transaction Nested transaction 실행 오류</message>
+        </code>
+        <code name="I9900588">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:transaction Nested JDBC 실행 오류</message>
+        </code>
+        <code name="I9900589">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:transaction Nested JTA 실행 오류</message>
+        </code>
+        <code name="I9900590">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:transaction Nested JDBC or JTA type 만 지원됨</message>
+        </code>
+        <code name="I9900591">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:transaction Nested 이미 진행중인 트랜젝션</message>
+        </code>
+        <code name="I9900592">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:transaction Nested commit 오류</message>
+        </code>
+        <code name="I9900593">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:transaction Nested rollback 오류</message>
+        </code>
+        <code name="I9900594">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:transaction Nested release 오류</message>
+        </code>
+        <code name="I9900595">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:transaction Nested 롤백됨</message>
+        </code>
+        <code name="I9900596">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Connection LJndiDataSource 초기화 실패</message>
+        </code>
+        <code name="I9900597">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Connection InitialContext 획득 실패</message>
+        </code>
+        <code name="I9900598">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Connection 획득 실패</message>
+        </code>
+        <code name="I9900599">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Connection DatabaseMetaData 획득 실패</message>
+        </code>
+        <code name="I9900600">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Connection DataSource 미존재</message>
+        </code>
+        <code name="I9900601">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Connection Support method</message>
+        </code>
+        <code name="I9900602">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Connection 해제중 오류</message>
+        </code>
+        <code name="I9900603">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Connection 미존재[null]</message>
+        </code>
+        <code name="I9900604">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Connection Lconnection 생성실패</message>
+        </code>
+        <code name="I9900605">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>Connection LCallableStatment.saveParam 실행 오류</message>
+        </code>
+        <code name="I9900606">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Connection database MajorVersion 획득 실패</message>
+        </code>
+        <code name="I9900607">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Connection 사용불가능한 datasource</message>
+        </code>
+        <code name="I9900608">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Connectiondatabase ProductName 획득 실패</message>
+        </code>
+        <code name="I9900609">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Connectiondatabase ProductVersion 획득 실패</message>
+        </code>
+        <code name="I9900610">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Connectiondriver Name획득 실패</message>
+        </code>
+        <code name="I9900611">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Connectiondriver Version획득 실패</message>
+        </code>
+        <code name="I9900612">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Connectionurl획득 실패</message>
+        </code>
+        <code name="I9900613">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Connection observer 추가 오류</message>
+        </code>
+        <code name="I9900614">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Connection Lconfiguration 새로고침 실패</message>
+        </code>
+        <code name="I9900615">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Connection properties loading 실패</message>
+        </code>
+        <code name="I9900616">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Connection rollback 처리중 오류</message>
+        </code>
+        <code name="I9900617">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Connection close 처리중 오류</message>
+        </code>
+        <code name="I9900618">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Connection invalid 상태임</message>
+        </code>
+        <code name="I9900619">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Connection 사용불가능함</message>
+        </code>
+        <code name="I9900620">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Connection ResultSet close 처리중 오류</message>
+        </code>
+        <code name="I9900621">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Connection Statement close 처리중 오류</message>
+        </code>
+        <code name="I9900622">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>Connection invalid. PooledJDBCConnection Error</message>
+        </code>
+        <code name="I9900623">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>Connection[LDBCPDataSource]loading properties오류</message>
+        </code>
+        <code name="I9900624">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Dao 파라미터 매핑 오류</message>
+        </code>
+        <code name="I9900625">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Dao Statement 미존재</message>
+        </code>
+        <code name="I9900626">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Dao 지원되지 않은 query type</message>
+        </code>
+        <code name="I9900627">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Dao commit 처리 중 오류</message>
+        </code>
+        <code name="I9900628">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Dao statment was mismatched</message>
+        </code>
+        <code name="I9900629">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Dao 수행중 오류</message>
+        </code>
+        <code name="I9900630">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Dao Stored Procedure 처리중 오류</message>
+        </code>
+        <code name="I9900631">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Dao Clob 처리 오류</message>
+        </code>
+        <code name="I9900632">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Dao rollback 처리 중 오류</message>
+        </code>
+        <code name="I9900633">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Dao query name 미존재</message>
+        </code>
+        <code name="I9900634">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Dao Clob write 오류</message>
+        </code>
+        <code name="I9900635">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>Dao batch 기능 사용 불가[LAddBatchDao Type 아님]</message>
+        </code>
+        <code name="I9900636">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>Dao CommonDao 기능 사용 불가[LCommonDao Type 아님]</message>
+        </code>
+        <code name="I9900637">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Dao closed 처리중 오류</message>
+        </code>
+        <code name="I9900638">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Dao 처리할 compound List 미존재.</message>
+        </code>
+        <code name="I9900639">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Dao ResultSet closed 중 오류</message>
+        </code>
+        <code name="I9900640">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Dao Clob write 처리후 close 중 오류</message>
+        </code>
+        <code name="I9900641">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>Dao procedure-type 값이 유효하지 않음</message>
+        </code>
+        <code name="I9900642">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Dao Driver url 정합성 오류</message>
+        </code>
+        <code name="I9900643">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Dao lob-type 값이 유효하지 않음</message>
+        </code>
+        <code name="I9900644">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>Dao IN 연산시 입력파라미터 ArrayList Type 아님</message>
+        </code>
+        <code name="I9900645">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Dao 입력파라미터 LMultiData 유효하지 않음</message>
+        </code>
+        <code name="I9900646">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Dao autocommit 사용 불가</message>
+        </code>
+        <code name="I9900647">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Dao statement query path 오류</message>
+        </code>
+        <code name="I9900648">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Dao interceptor configuration 획득 오류</message>
+        </code>
+        <code name="I9900649">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>Dao 세팅된 limited-data 보다 ResultSet 결과가 큼</message>
+        </code>
+        <code name="I9900650">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Dao Duplication Data</message>
+        </code>
+        <code name="I9900651">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Dao selectForUpdate Lock [NoWait]</message>
+        </code>
+        <code name="I9900652">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Dao selectForUpdate Lock [Wait]</message>
+        </code>
+        <code name="I9900653">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Dao SQL TimeOut</message>
+        </code>
+        <code name="I9900654">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Dao Can not insert Null</message>
+        </code>
+        <code name="I9900655">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Dao SQLException occurrend</message>
+        </code>
+        <code name="I9900656">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Dao Error 코드 조립 오류</message>
+        </code>
+        <code name="I9900657">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Dao LSqlExceptionTranslator Object is null</message>
+        </code>
+        <code name="I9900658">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Persistent Resultset-converter 미정의</message>
+        </code>
+        <code name="I9900659">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Persistent Resultset 변환 참조객체 미존재</message>
+        </code>
+        <code name="I9900660">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Persistent Resultset Naming Rule 초기화 오류</message>
+        </code>
+        <code name="I9900661">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Persistent ResultSet 객체로 변환 오류</message>
+        </code>
+        <code name="I9900662">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Persistent Lob Column write 오류</message>
+        </code>
+        <code name="I9900663">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Network HttpClient 설정 로드 오류</message>
+        </code>
+        <code name="I9900664">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Network HttpClient Spec 미존재</message>
+        </code>
+        <code name="I9900665">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Network 지원하지 않는 Encoding 오류</message>
+        </code>
+        <code name="I9900666">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Network 지원하지 않는 Encoding 오류</message>
+        </code>
+        <code name="I9900667">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Network Http protocol 오류</message>
+        </code>
+        <code name="I9900668">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Network HttpClient 실행중 I/O 오류</message>
+        </code>
+        <code name="I9900669">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Network HttpClient 데이터 준비중 오류</message>
+        </code>
+        <code name="I9900670">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Network 파라미터 길이 오류</message>
+        </code>
+        <code name="I9900671">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Network HttpClient 설정 Preparing 실행 오류</message>
+        </code>
+        <code name="I9900672">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Network HttpClient 설정 confirming 실행 오류</message>
+        </code>
+        <code name="I9900673">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Network Argument is not valid</message>
+        </code>
+        <code name="I9900674">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Network HttpClient Spec is not found</message>
+        </code>
+        <code name="I9900675">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Network LHttpClientManager 초기화 오류</message>
+        </code>
+        <code name="I9900676">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>Network SocketServer 설정 confirming 실행 오류</message>
+        </code>
+        <code name="I9900677">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Network SocketServer 설정 preparing 실행 오류</message>
+        </code>
+        <code name="I9900678">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>Network LSocketRefresher Key refreshing미지원</message>
+        </code>
+        <code name="I9900679">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Network Argument is not valid</message>
+        </code>
+        <code name="I9900680">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Network LSocketServerManager 초기화 오류</message>
+        </code>
+        <code name="I9900681">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:Excel 객체 load 실패</message>
+        </code>
+        <code name="I9900682">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:Excel Cannot read DevOn Data.</message>
+        </code>
+        <code name="I9900683">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:Excel 객체 초기화 실패</message>
+        </code>
+        <code name="I9900684">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:Excel Cannot get DevOn Data on Sheet</message>
+        </code>
+        <code name="I9900685">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:Excel Cannot find File</message>
+        </code>
+        <code name="I9900686">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:Excel Cannot write a ldata on a cell</message>
+        </code>
+        <code name="I9900687">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:Excel Cannot write a lmultidata on a cell</message>
+        </code>
+        <code name="I9900688">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:Excel Cannot write an object dataon a cell</message>
+        </code>
+        <code name="I9900689">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:Excel Cannot know a type</message>
+        </code>
+        <code name="I9900690">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>Excel Cannot find File.(Check the CSV File(*.csv)</message>
+        </code>
+        <code name="I9900691">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:Excel ResultSet close처리중 오류</message>
+        </code>
+        <code name="I9900692">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:Excel Unexpected exception occurred.</message>
+        </code>
+        <code name="I9900693">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Message Lmessage초기화 오류</message>
+        </code>
+        <code name="I9900694">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Message message table 미존재</message>
+        </code>
+        <code name="I9900695">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Message Parameter Setting ERROR</message>
+        </code>
+        <code name="I9900696">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Message PreparedStatemnt close 오류</message>
+        </code>
+        <code name="I9900697">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Message ResourceBundle 새로고침 오류</message>
+        </code>
+        <code name="I9900698">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Message Encoding Error.</message>
+        </code>
+        <code name="I9900699">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Message 존재하지 않는 코드 검색</message>
+        </code>
+        <code name="I9900700">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Message ResultSet close중 오류</message>
+        </code>
+        <code name="I9900701">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Message Resourcebundle 획득 오류</message>
+        </code>
+        <code name="I9900702">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Message LMessageFile.loadMessage() 사용불가</message>
+        </code>
+        <code name="I9900703">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Message URLClassLoader 생성 오류</message>
+        </code>
+        <code name="I9900704">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Message 입력 파라미터 개수 오류</message>
+        </code>
+        <code name="I9900705">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Message 입력 파라미터 개수 2개 이상 오류</message>
+        </code>
+        <code name="I9900706">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Message LMessageFile 조회 오류</message>
+        </code>
+        <code name="I9900707">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Message 특정key 새로고침 불가</message>
+        </code>
+        <code name="I9900708">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Message 메시지 출력 오류</message>
+        </code>
+        <code name="I9900709">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Message Data Preparing 실행 오류</message>
+        </code>
+        <code name="I9900710">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Message Data confirming 실행 오류</message>
+        </code>
+        <code name="I9900711">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Message lookup field 획득 오류</message>
+        </code>
+        <code name="I9900712">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Message 지원되지 않는 함수</message>
+        </code>
+        <code name="I9900713">
+            <use-yn>Y</use-yn>
+            <grade>Critical</grade>
+            <message>사유:Jms receive queue config 오류</message>
+        </code>
+        <code name="I9900714">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Jms message 전송 오류</message>
+        </code>
+        <code name="I9900715">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Jms QueueConnection 생성 오류</message>
+        </code>
+        <code name="I9900716">
+            <use-yn>Y</use-yn>
+            <grade>Critical</grade>
+            <message>사유:Jms 등록되지 않은 jndi name</message>
+        </code>
+        <code name="I9900717">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Jms Lookup Failed</message>
+        </code>
+        <code name="I9900718">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Jms Message type이 LData아님</message>
+        </code>
+        <code name="I9900719">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>사유:Jms LJMSConnectionManager 등록 실패</message>
+        </code>
+        <code name="I9900720">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>배치 처리중 사유:배치ID 등록여부나 상태확인</message>
+        </code>
+        <code name="I9900721">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:ServiceLink ServiceParameter 미존재</message>
+        </code>
+        <code name="I9900722">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:ServiceLink 유효하지 않은 Transaction Type</message>
+        </code>
+        <code name="I9900723">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:ServiceLink 유효하지 않은 LinkID</message>
+        </code>
+        <code name="I9900724">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:ServiceLink result type is not Ldata</message>
+        </code>
+        <code name="I9900725">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:ServiceLink Link Type('@') is not valid.</message>
+        </code>
+        <code name="I9900726">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>ServiceLink Link Transaction Type가 유효하지 않음</message>
+        </code>
+        <code name="I9900727">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:ServiceLink Transaction N-TYPE 지원하지 않음.</message>
+        </code>
+        <code name="I9900728">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>ServiceLink Caller의 TransactionType 유효하지 않음</message>
+        </code>
+        <code name="I9900729">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:ServiceLink Asynchronously 호출 불가</message>
+        </code>
+        <code name="I9900730">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>ServiceDelegatorservice component 실행 중 오류</message>
+        </code>
+        <code name="I9900731">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:ServiceDelegator ejb 사용불가</message>
+        </code>
+        <code name="I9900732">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:ServiceDelegator ejb 사용불가</message>
+        </code>
+        <code name="I9900733">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:ServiceDelegator ejb 사용불가</message>
+        </code>
+        <code name="I9900734">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>ServiceDelegatorservice component 생성 중 오류</message>
+        </code>
+        <code name="I9900736">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Concurrency LConfiguration instance 오류</message>
+        </code>
+        <code name="I9900737">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Concurrency configuration 획득 중 오류</message>
+        </code>
+        <code name="I9900738">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Concurrency 동시 접속수 초과</message>
+        </code>
+        <code name="I9900739">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Concurrency 접속제한 rule 로딩 오류</message>
+        </code>
+        <code name="I9900740">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Concurrency 속성 size 형식 오류</message>
+        </code>
+        <code name="I9900741">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Concurrency 속성 cycle 형식 오류</message>
+        </code>
+        <code name="I9900742">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Concurrency 속성 duration 형식 오류</message>
+        </code>
+        <code name="I9900743">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Concurrency 속성 duration 형식 오류</message>
+        </code>
+        <code name="I9900744">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:DaoInterceptor 환경 초기화 오류</message>
+        </code>
+        <code name="I9900745">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:DaoInterceptor 초기화 후 재로딩 중 오류</message>
+        </code>
+        <code name="I9900746">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:DaoInterceptor parsing configuration file</message>
+        </code>
+        <code name="I9900747">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:DaoInterceptor preProcess() 호출 오류</message>
+        </code>
+        <code name="I9900748">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:DaoInterceptor postProcess()호출 오류</message>
+        </code>
+        <code name="I9900749">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>LConfiguration Observer등록오류</message>
+        </code>
+        <code name="I9900750">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Preservation Fail to update Data.</message>
+        </code>
+        <code name="I9900751">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Preservation Cannot find preserved data.</message>
+        </code>
+        <code name="I9900752">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>preparing preserved data중 오류발생</message>
+        </code>
+        <code name="I9900753">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>confirming preserved data중 오류발생</message>
+        </code>
+        <code name="I9900754">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>Preservation Fail to load LPreservation data.</message>
+        </code>
+        <code name="I9900755">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>Preservation is not available in the Lpreservation</message>
+        </code>
+        <code name="I9900756">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>Preservation Fail to get preserved datas from DB.</message>
+        </code>
+        <code name="I9900757">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:Dao 중복 컬럼 존재</message>
+        </code>
+        <code name="I9900758">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>사유:입력 파라미터 오류</message>
+        </code>
+        <code name="I9900800">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>배치 작업 준비 중 예외가 발생하였습니다</message>
+        </code>
+        <code name="I9900801">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>배치 작업 초기화 중 예외가 발생하였습니다</message>
+        </code>
+        <code name="I9900802">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>클래스를 생성하는 도중 예외가 발생하였습니다</message>
+        </code>
+        <code name="I9900803">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>외부 프로세스 수행 중 오류가 발생하였습니다</message>
+        </code>
+        <code name="I9900804">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>배치 프로세스 종료 중 오류가 발생하였습니다</message>
+        </code>
+        <code name="I9900805">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>배치 프로세스 초기화 중 오류가 발생하였습니다</message>
+        </code>
+        <code name="I9900806">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>Reader 이름이 유효하지 않습니다</message>
+        </code>
+        <code name="I9900807">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>배치작업이 이미 수행 중 입니다</message>
+        </code>
+        <code name="I9900808">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>배치 JobContext에서 오류가 발생했습니다</message>
+        </code>
+        <code name="I9900809">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>배치 JobDescriptor에서 오류가 발생했습니다</message>
+        </code>
+        <code name="I9900810">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>배치 Job수행중에 오류가 발생했습니다</message>
+        </code>
+        <code name="I9900811">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>배치 Job 실행이력 관련 오류가 발생했습니다</message>
+        </code>
+        <code name="I9900812">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>배치 작업을 수행 할 수 없습니다</message>
+        </code>
+        <code name="I9900813">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>배치 작업이 이미 수행 중입니다</message>
+        </code>
+        <code name="I9900814">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>배치 작업 수행 중 예상치 못한 오류가 발생했습니다</message>
+        </code>
+        <code name="I9900815">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>배치 파라미터 타입이 유효하지 않습니다</message>
+        </code>
+        <code name="I9900816">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>배치 스텝 병렬 수행중 오류가 발생했습니다</message>
+        </code>
+        <code name="I9900817">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>리포트 수행시 Timeout이 발생했습니다</message>
+        </code>
+        <code name="I9900818">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>스텝 후처리 작업 중 오류가 발생했습니다</message>
+        </code>
+        <code name="I9900819">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>해당 스텝이 이미 취소 처리 되었습니다</message>
+        </code>
+        <code name="I9900820">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>해당 스텝이 이미 종료 되었습니다</message>
+        </code>
+        <code name="I9900821">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>스텝 전처리 작업 중 오류가 발생했습니다</message>
+        </code>
+        <code name="I9900822">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>배치 StepDescriptor에서 오류가 발생했습니다</message>
+        </code>
+        <code name="I9900823">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>배치 스텝 실행 중 오류가 발생했습니다</message>
+        </code>
+        <code name="I9900824">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>배치 스텝이 강제 종료 되었습니다</message>
+        </code>
+        <code name="I9900825">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>배치 스텝이 중지 요청에 의해 중지되었습니다</message>
+        </code>
+        <code name="I9900826">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>배치 스텝 실행 중 예상치 못한 에러가 발생했습니다</message>
+        </code>
+        <code name="I9900827">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>배치Step의 선행조건을 만족되지 않아 실행불가</message>
+        </code>
+        <code name="I9900828">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>상주배치 초기화 중 오류가 발생했습니다</message>
+        </code>
+        <code name="I9900829">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>입력 파일이 존재하지 않습니다</message>
+        </code>
+        <code name="I9900830">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>배치 Reader가 설정되어 있지 않습니다</message>
+        </code>
+        <code name="I9900831">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>배치 Reader 종료 중에 에러가 발생되었습니다</message>
+        </code>
+        <code name="I9900832">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>배치 Reader 초기화 중에 에러가 발생되었습니다</message>
+        </code>
+        <code name="I9900833">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>배치 Worker 종료 중에 에러가 발생되었습니다</message>
+        </code>
+        <code name="I9900834">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>배치 Writer 종료 중에 에러가 발생되었습니다</message>
+        </code>
+        <code name="I9900835">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>배치 Writer 초기화 중에 에러가 발생되었습니다</message>
+        </code>
+        <code name="I9900836">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>배치 설정 파일(XML)에 오류사항이 있습니다</message>
+        </code>
+        <code name="I9900837">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>BatchExecutor 수행중 오류가 발생했습니다</message>
+        </code>
+        <code name="I9900838">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>배치 파라미터 타입이 일치하지 않습니다</message>
+        </code>
+        <code name="I9900839">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>ExecutionManager 초기화 중 에러가 발생했습니다</message>
+        </code>
+        <code name="I9900840">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>파일 처리 중 에러가 발생했습니다</message>
+        </code>
+        <code name="I9900841">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>파일 스펙 처리 중 에러가 발생했습니다</message>
+        </code>
+        <code name="I9900842">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>배치정보 처리 중 에러가 발생했습니다</message>
+        </code>
+        <code name="I9900843">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>JobExecutor 초기화 중 에러가 발생했습니다</message>
+        </code>
+        <code name="I9900844">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>JobExecutor 처리 중 에러가 발생했습니다</message>
+        </code>
+        <code name="I9900845">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>JSON 변환 처리 중 에러가 발생했습니다</message>
+        </code>
+        <code name="I9900846">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>Property 처리 중 에러가 발생했습니다</message>
+        </code>
+        <code name="I9900847">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>SQL 파일 처리 중 에러가 발생했습니다</message>
+        </code>
+        <code name="I9900848">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>상태보고자 수행 중 에러가 발생했습니다</message>
+        </code>
+        <code name="I9900849">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>상태보고자 종료 중 에러가 발생했습니다</message>
+        </code>
+        <code name="I9900850">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>상태보고자 초기화 중 에러가 발생했습니다</message>
+        </code>
+        <code name="I9900851">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>스텝의존관계에 오류가 있습니다</message>
+        </code>
+        <code name="I9900852">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>스텝이 존재하지 않습니다</message>
+        </code>
+        <code name="I9900853">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>URL 호출시 오류가 발생하였습니다</message>
+        </code>
+        <code name="I9900854">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>Job Parameter에 대한 파라미터 값 미존재</message>
+        </code>
+        <code name="I9900855">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>O_Date 파라미터 값이 존재하지 않습니다.</message>
+        </code>
+        <code name="I9900856">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>Job Parameter미등록하거나, SYS_IN이 Y가 아님</message>
+        </code>
+        <code name="I9900857">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>재실행정보를 가져올 수 없습니다</message>
+        </code>
+        <code name="I9900858">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>배치 실행 오류 지점을 가져오는 과정에 오류발생</message>
+        </code>
+        <code name="I9900859">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>CustomWorker is not supported setIsCommittedFlag</message>
+        </code>
+        <code name="I9900860">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>RawFileReader를 IterableWorker와 같이 사용불가</message>
+        </code>
+        <code name="I9900861">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>TxtFileReader를 IterableWorker와 같이 사용불가</message>
+        </code>
+        <code name="I9900862">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>AddBatchDao clear exception</message>
+        </code>
+        <code name="I9900863">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>AddBatchDao commit exception</message>
+        </code>
+        <code name="I9900864">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>Job Parameter로 등록되지 않은 파라미터는 사용불가</message>
+        </code>
+        <code name="I9900865">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>Job Parameter 값은 변경처리 하실 수 없습니다</message>
+        </code>
+        <code name="I9900866">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>insertReworkData 메소드 사용오류</message>
+        </code>
+        <code name="I9900867">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>setEbcdicRecordLength 메소드 사용오류</message>
+        </code>
+        <code name="I9900868">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>File reader alias is not found</message>
+        </code>
+        <code name="I9900869">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>isExistInputMasterFile메소드사용오류</message>
+        </code>
+        <code name="I9900870">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>isCommitted Method 메소드의 잘못된 사용</message>
+        </code>
+        <code name="I9900871">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>배치 작업 마무리 중 예외가 발생하였습니다</message>
+        </code>
+        <code name="I9900872">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>Range File Reader is not supprot EBCDIC File</message>
+        </code>
+        <code name="I9900873">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>입력평문 파일 암호화 에러입니다</message>
+        </code>
+        <code name="I9900874">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>VB FILE 메소드의 잘못된 사용</message>
+        </code>
+        <code name="I9900875">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>재실행 JSON 데이터 정보를 가져올 수 없습니다</message>
+        </code>
+        <code name="I9900876">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>getBeforeCommittedDataCount 메소드의 잘못된 사용</message>
+        </code>
+        <code name="I9900877">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>insertReworkData Method Json convert error</message>
+        </code>
+        <code name="I9900878">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>write(String) 메소드의 잘못된 사용</message>
+        </code>
+        <code name="I9900879">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>파일 이름 변경에 실패하였습니다</message>
+        </code>
+        <code name="I9900880">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>줄바꿈 문자 오류입니다</message>
+        </code>
+        <code name="I9900881">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>Unsupported SortCd</message>
+        </code>
+        <code name="I9900882">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>Overflowed length</message>
+        </code>
+        <code name="I9900883">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>Field Length Error</message>
+        </code>
+        <code name="I9900884">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>removeLastLineSeparator 메소드 사용오류</message>
+        </code>
+        <code name="I9900885">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>removeLastLineSeparator process error</message>
+        </code>
+        <code name="I9900886">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>File is not existed</message>
+        </code>
+        <code name="I9900887">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>EBCDIC 변환 중 에러가 발생했습니다</message>
+        </code>
+        <code name="I9900888">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>TXTFileWriter is not support LData write</message>
+        </code>
+        <code name="I9900889">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>TXTFileWriter set Record failure</message>
+        </code>
+        <code name="I9900890">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>TXTFileWriter is not support byte[] write</message>
+        </code>
+        <code name="I9900891">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>TXTFileWriter메소드의 잘못된 사용</message>
+        </code>
+        <code name="I9900892">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>TXTFileWriter is not support byte[] record</message>
+        </code>
+        <code name="I9900893">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>TXTFileWriter : FileOutputStream close fail</message>
+        </code>
+        <code name="I9900894">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>processFileEncrypt is fail</message>
+        </code>
+        <code name="I9900895">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>TXTFileWriter 메소드의 잘못된 사용</message>
+        </code>
+        <code name="I9900896">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>실행중 slave writer를 추가 중 오류발생</message>
+        </code>
+        <code name="I9900897">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>SYS_IN여부가 Y인 Parameter값은 재설정 불가</message>
+        </code>
+        <code name="I9900898">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>파일 이름 변경에 실패하였습니다</message>
+        </code>
+        <code name="I9900899">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>Input io-spec has not reconized line separator</message>
+        </code>
+        <code name="I9900900">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>Unsupported Field Type</message>
+        </code>
+        <code name="I9900901">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>Unsupported Sign Bit</message>
+        </code>
+        <code name="I9900902">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>Unsupported Decimal type</message>
+        </code>
+        <code name="I9900903">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>Error : 전각/반각변환시 에러가 발생했습니다</message>
+        </code>
+        <code name="I9900904">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>Error : 반각변환시 에러가 발생했습니다</message>
+        </code>
+        <code name="I9900905">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>readLine Method is only support TXT File reader</message>
+        </code>
+        <code name="I9900906">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>getCurrentStateDetail 메소드의 잘못된 사용</message>
+        </code>
+        <code name="I9900907">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>[ERR] 위치시킬 라인이 파일의 전체 라인보다 큽니다</message>
+        </code>
+        <code name="I9900908">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>[ERR] Method of this class is not support CSV read</message>
+        </code>
+        <code name="I9900909">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>No more record exists</message>
+        </code>
+        <code name="I9900910">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>Cannot access next record</message>
+        </code>
+        <code name="I9900911">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>get Record no reachable code)</message>
+        </code>
+        <code name="I9900912">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>[ERR] This class is not support raw bytes read</message>
+        </code>
+        <code name="I9900913">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>No match data type inputed segment)</message>
+        </code>
+        <code name="I9900914">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>파일정보를 확인하세요</message>
+        </code>
+        <code name="I9900915">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>[ERR] reset failure)</message>
+        </code>
+        <code name="I9900916">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>[ERR] Method of this class is not support DB read</message>
+        </code>
+        <code name="I9900917">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>Method of this class is not support RAW Rang read</message>
+        </code>
+        <code name="I9900918">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>Method of this class is not support RAW File read</message>
+        </code>
+        <code name="I9900919">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>No more readable bytes</message>
+        </code>
+        <code name="I9900920">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>[RAWFileReader] FileInputStream close fail)</message>
+        </code>
+        <code name="I9900921">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>[RAWFileReader] FileChannel close fail)</message>
+        </code>
+        <code name="I9900922">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>SAM-WITH EDI HEADER N CR type 추가불가</message>
+        </code>
+        <code name="I9900923">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>SAM-WITH_EDI_HEADER type 추가불가</message>
+        </code>
+        <code name="I9900924">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>실행중slave reader에 SAM - WITH_CR type은 추가불가</message>
+        </code>
+        <code name="I9900925">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>SAM-NONE type은 추가할 수 없습니다</message>
+        </code>
+        <code name="I9900926">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>실행중slave reader에 CSV type은 추가할 수 없습니다</message>
+        </code>
+        <code name="I9900927">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>slave reader를 추가하는 과정 중 오류발생</message>
+        </code>
+        <code name="I9900928">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>[ERR] Method of this class is not support SAM read</message>
+        </code>
+        <code name="I9900929">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>Following chars is not LF sequence</message>
+        </code>
+        <code name="I9900930">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>Following chars is not CR-LF sequence</message>
+        </code>
+        <code name="I9900931">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>isFirst method is not support record encrypt File)</message>
+        </code>
+        <code name="I9900932">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>isLast method is not support record encrypt File)</message>
+        </code>
+        <code name="I9900933">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>expected length 간 read length 불일치</message>
+        </code>
+        <code name="I9900934">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>실행중slave reader에 RAW type은 추가할 수 없습니다</message>
+        </code>
+        <code name="I9900935">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>[ERR] Method of this class is not support TXT read</message>
+        </code>
+        <code name="I9900936">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>SSAMFileWriter : FileOutputStream close fail</message>
+        </code>
+        <code name="I9900937">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>SSAMFileWriter : FileChannel close fail</message>
+        </code>
+        <code name="I9900938">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>SSAMFileWriter set Record failure</message>
+        </code>
+        <code name="I9900939">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>SSAMFileWriter is not support raw string write</message>
+        </code>
+        <code name="I9900940">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>SSAMFileWriter is not support raw bytes write</message>
+        </code>
+        <code name="I9900941">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>SSAMFileWriter 사용오류</message>
+        </code>
+        <code name="I9900942">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>SSAMFileWriter cannot found record type</message>
+        </code>
+        <code name="I9900943">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>SAMFileWriter : FileOutputStream close fail</message>
+        </code>
+        <code name="I9900944">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>SAMFileWriter : FileChannel close fail</message>
+        </code>
+        <code name="I9900945">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>SAMFileWriter set Record failure</message>
+        </code>
+        <code name="I9900946">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>SAMFileWriter set Record failure (writeForce)</message>
+        </code>
+        <code name="I9900947">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>SAMFileWriter is not support raw string write</message>
+        </code>
+        <code name="I9900948">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>SAMFileWriter channel position mark reset failure</message>
+        </code>
+        <code name="I9900949">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>SAMFileWriter cannot found record type</message>
+        </code>
+        <code name="I9900950">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>SAMFileFixWriter : FileOutputStream close fail</message>
+        </code>
+        <code name="I9900951">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>SAMFileFixWriter : FileChannel close fail</message>
+        </code>
+        <code name="I9900952">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>SAMFileFixWriter set Record failure</message>
+        </code>
+        <code name="I9900953">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>SAMFileFixWriter is not support raw string write</message>
+        </code>
+        <code name="I9900954">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>SAMFileFixWriter 사용오류</message>
+        </code>
+        <code name="I9900955">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>updateFileInfo method is not support SAM read</message>
+        </code>
+        <code name="I9900956">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>RAWFileWriter is not support LData write</message>
+        </code>
+        <code name="I9900957">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>RAWFileWriter set Record failure</message>
+        </code>
+        <code name="I9900958">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>RAWFileWriter : FileOutputStream close fail</message>
+        </code>
+        <code name="I9900959">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>RAWFileWriter : FileChannel close fail</message>
+        </code>
+        <code name="I9900960">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>RAWFileWriter 사용오류</message>
+        </code>
+        <code name="I9900961">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>DBWriter is not support raw string write</message>
+        </code>
+        <code name="I9900962">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>DBWriter is not support replaceFileName write</message>
+        </code>
+        <code name="I9900963">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>DBWriter 사용오류</message>
+        </code>
+        <code name="I9900964">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>DBWriter is not support setAppendable method</message>
+        </code>
+        <code name="I9900965">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>CSVWriter close fail</message>
+        </code>
+        <code name="I9900966">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>CSVWriter set Record failure</message>
+        </code>
+        <code name="I9900967">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>CSVWriter is not support raw string write</message>
+        </code>
+        <code name="I9900968">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>CSVWriter 사용오류</message>
+        </code>
+        <code name="I9900969">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>CSVWriter cannot found record type</message>
+        </code>
+        <code name="I9900970">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>CSVFileMultiDelimiterWriter close fail</message>
+        </code>
+        <code name="I9900971">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>CSVFileMultiDelimiterWriter set Record failure</message>
+        </code>
+        <code name="I9900972">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>CSVFileMultiDelimiterWriter 사용오류</message>
+        </code>
+        <code name="I9900973">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>CSVFileMultiDelimiterWriter메소드 사용오류</message>
+        </code>
+        <code name="I9900974">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>CSVFileMultiDelimiterWriter 사용오류</message>
+        </code>
+        <code name="I9900975">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>[DBReader] PreparedStatement close fail</message>
+        </code>
+        <code name="I9900976">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>[DBReader] ResultSet close fail</message>
+        </code>
+        <code name="I9900977">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>[DBReader] Connection close fail</message>
+        </code>
+        <code name="I9901001">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>후행오류:후행업무ID등록여부나 상태확인)</message>
+        </code>
+        <code name="I9901002">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>후행 데이터 분배 중 디퍼드 파라미터 수정 오류</message>
+        </code>
+        <code name="I9901003">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>후행오류:후행업무에 해당하는 처리업무 없음. ) )</message>
+        </code>
+        <code name="I9901004">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>후행오류:후행 블록 데이터 저장중 오류.</message>
+        </code>
+        <code name="I9901005">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>후행오류:후행 진행 데이터 저장중 오류.</message>
+        </code>
+        <code name="I9901006">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>후행오류:후행 데이터 SEQ 변경중 오류.</message>
+        </code>
+        <code name="I9901007">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>후행오류:initial_context_factory 설정 없음.</message>
+        </code>
+        <code name="I9901008">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>후행오류:후행 데이터 저장 중 오류.</message>
+        </code>
+        <code name="I9901009">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>후행오류:후행 데이터 메시지 최대길이 초과.</message>
+        </code>
+        <code name="I9901010">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>후행오류:후행 처리 예정 시각이 미입력.</message>
+        </code>
+        <code name="I9901011">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>후행오류:처리 예정 일시 Format 오류 )</message>
+        </code>
+        <code name="I9901012">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>후행오류:처리 예정 일자 &gt; 현재 일자.</message>
+        </code>
+        <code name="I9901013">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>후행오류:처리 예정 시각 &gt; 현재 시각.</message>
+        </code>
+        <code name="I9901014">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>후행오류:후행 처리 블록 진행 상태 수정 중 오류.</message>
+        </code>
+        <code name="I9901015">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>후행오류:후행 처리 개별 진행 상태 수정 중 오류.</message>
+        </code>
+        <code name="I9901016">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>후행오류:후행 처리 서비스 정보 조회중 오류.</message>
+        </code>
+        <code name="I9901017">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>후행오류:후행 처리 오류 정보 저장 중 오류.</message>
+        </code>
+        <code name="I9901018">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>후행오류:후행처리진행내역 후행일련번호 미일치.</message>
+        </code>
+        <code name="I9901019">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>후행오류:알수 없는 오류가 발생했습니다.</message>
+        </code>
+        <code name="I9901020">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>후행데이터 조회건수가 후행일련번호 미일치</message>
+        </code>
+        <code name="I9901021">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>후행오류:후행데이터 블록 단위 처리중 오류.</message>
+        </code>
+        <code name="I9100583">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+        </code>
+        <code name="I9900759">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>사유:입력데이터의 코드변환 오류</message>
+        </code>
+        <code name="I9900760">
+            <use-yn>Y</use-yn>
+            <grade>WARNING</grade>
+            <message>연계개설요구전문 처리중 오류입니다</message>
+        </code>
+        <code name="I9900761">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>거래처리시간이 총괄타임아웃임계치를 초과</message>
+        </code>
+        <code name="I9900762">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>입력일자 유효한 날짜값이 아닙니다</message>
+        </code>
+        <code name="I9900763">
+            <use-yn>Y</use-yn>
+            <grade>MAJOR</grade>
+            <message>Control-M에서 컨디션 발행 중 오류가 발생했습니다</message>
+        </code>
+        <code name="I9900764">
+            <use-yn>Y</use-yn>
+            <grade>MINOR</grade>
+            <message>카드비밀번호 처리중 오류가 발생하였습니다.</message>
+        </code>
+        <code name="I9900765">
+            <use-yn>N</use-yn>
+            <grade>INFO</grade>
+            <message>로컬PC환경에서는 카드비밀번호처리를 지원하지 않습니다.</message>
+        </code>
+        <code name="I9900766">
+            <use-yn>Y</use-yn>
+            <grade>INFO</grade>
+            <message>데이터베이스 참조 중 타임아웃이 발생하였습니다.(사유:인터페이스타임아웃임계치도달)</message>
+        </code>
+    </itsm>
+</extension>

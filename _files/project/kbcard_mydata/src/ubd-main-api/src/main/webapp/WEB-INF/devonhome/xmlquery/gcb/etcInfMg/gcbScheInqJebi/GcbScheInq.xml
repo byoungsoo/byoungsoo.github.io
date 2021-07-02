@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<statements>
+
+    <!--  -->
+    <statement name="retvLstGcbSche" qPath="[GCB_MODEL_업무공통] 2.시스템명세모델::05.엔터티컴포넌트::16.기타정보관리::GCB일정조회Jebi::GCB일정조회Jdao::GCB일정목록조회">
+		<![CDATA[
+			SELECT /*+ 박창섭::/gcb/etcInfMg/gcbScheInqJebi/GcbScheInq/retvLstGcbSche */ 
+			       A.일정등록일시
+			     , B.일정등록일련번호
+			     , B.일정기준년월일
+			     , A.일정알람구분코드
+			     , A.일정시작시분
+			     , A.일정종료시분
+			     , A.일정알람시각구분코드
+			     , A.일정제목
+			     , A.일정내용
+			     , A.일정반복여부
+			     , A.일정반복시작년월일
+			     , A.일정반복종료년월일
+			     , A.일정반복주기구분코드
+			     , A.일정반복기준일
+			     , A.일정반복월요일여부
+			     , A.일정반복화요일여부
+			     , A.일정반복수요일여부
+			     , A.일정반복목요일여부
+			     , A.일정반복금요일여부
+			     , A.일정반복토요일여부
+			     , A.일정반복일요일여부
+			     , A.반복일정영업일반영구분코드
+			  FROM INSTC.TBGCBSC01 A        /* GCB일정기본 */
+			     , INSTC.TBGCBSC02 B        /* GCB일정상세 */
+			 WHERE A.일정등록직원번호 = B.일정등록직원번호
+			   AND A.일정등록일시   = B.일정등록일시
+			   AND A.일정등록직원번호 = ${로그인ID}
+			   AND B.일정기준년월일 BETWEEN ${조회시작년월일} AND ${조회종료년월일}
+			 ORDER BY B.일정기준년월일, A.일정시작시분, A.일정종료시분, A.일정제목
+		]]>
+    </statement>
+</statements>

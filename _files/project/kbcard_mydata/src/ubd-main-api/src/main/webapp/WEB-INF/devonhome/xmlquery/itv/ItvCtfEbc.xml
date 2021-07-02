@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<statements>
+    <statement name="selectCnfCustCi">
+        <![CDATA[
+		SELECT /* 신한수 itv/ItvCtfEbc/selectCnfCustCi */
+		       A.CI내용
+		  FROM INSTC.TBUBDA001 A 
+		 WHERE A.CI내용 = ${username}
+		   AND A.고객식별자 < '6000000000'
+		   AND (A.고객상태구분코드  NOT IN ('3','5') OR 1=0)    /* (해지고객 ,처리정지고객) */
+		   AND ROWNUM <= 1
+				
+        ]]>
+    </statement>
+
+    <statement name="insertSignedConst">
+        <![CDATA[
+		SELECT /* 신한수 itv/ItvCtfEbc/insertSignedConst */
+		       COUNT(A.CI내용)
+		  FROM INSTC.TBUBDA001 A 
+		  WHERE A.CI내용 = ${username}
+		    AND A.고객식별자 < '6000000000'
+		    AND (A.고객상태구분코드  NOT IN ('3','5') OR 1=0)    /* (해지고객 ,처리정지고객) */
+		    AND ROWNUM <= 1
+		
+        ]]>
+    </statement>
+    
+    <statement name="insertScope">
+        <![CDATA[
+		INSERT /* 신한수 itv/ItvCtfEbc/insertScope */
+			   INTO INSTC.TBUBDC015
+			 ( 마이데이터제공기관코드
+			 , 마이데이터업권구분코드
+             , 마이데이터사업자기관코드
+             , 마이데이터클라이언트식별번호
+             , CI내용
+			 , 마이데이터권한영역내용
+			 , 시스템최종갱신일시
+		     , 시스템최종갱신식별자
+		     , 시스템최종거래일시
+			 )
+		VALUES
+			 ( ${mydt_offe_code}
+             , ${mydt_scop_code}
+             , ${mydt_cope_code}
+             , ${mydt_client_id}
+             , ${username}
+             , ${mydt_scop_ctt}
+			 , SYSTIMESTAMP
+			 , '7719'
+			 , TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF6')
+		     )
+        ]]>
+    </statement>
+    
+    <statement name="insertAsset">
+        <![CDATA[
+		INSERT /* 신한수 itv/ItvCtfEbc/insertAsset */
+			   INTO INSTC.TBUBDC016
+			 ( 마이데이터거래고유번호
+			 , 마이데이터거래요청년월일
+			 , 마이데이터업권구분코드
+			 , 마이데이터자산내용
+			 , 시스템최종갱신일시
+		     , 시스템최종갱신식별자
+		     , 시스템최종거래일시
+			 )
+		VALUES
+			 ( ${x_api_tran_id}
+             , ${tran_req_ymd}
+             , ${mydt_scop_code}
+             , ${mydt_asset_cont}
+			 , SYSTIMESTAMP
+			 , ${시스템최종갱신식별자}
+			 , TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF6')
+		     )
+        ]]>
+    </statement>
+    
+    <statement name="deleteScope">
+        <![CDATA[
+		INSERT /* 신한수 itv/ItvCtfEbc/deleteScope */
+			   INTO INSTC.TBUBDC015
+			 ( 마이데이터거래고유번호
+			 , 마이데이터거래요청년월일
+			 , 마이데이터업권구분코드
+			 , 마이데이터권한영역내용
+			 , 시스템최종갱신일시
+		     , 시스템최종갱신식별자
+		     , 시스템최종거래일시
+			 )
+		VALUES
+			 ( ${x_api_tran_id}
+             , ${tran_req_ymd}
+             , ${mydt_scop_code}
+             , ${mydt_asset_cont}
+			 , SYSTIMESTAMP
+			 , ${시스템최종갱신식별자}
+			 , TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF6')
+		     )
+        ]]>
+    </statement>
+    
+    <statement name="insertCtfAPITran">
+        <![CDATA[
+		INSERT /* 신한수 itv/ItvCtfEbc/insertCtfAPITran */
+		       INTO INSTC.TBUBDC100
+		     ( 마이데이터거래고유번호
+		     , 마이데이터거래요청년월일
+		     , 마이데이터거래요청시각
+		     , 마이데이터API식별번호
+		     , 마이데이터거래요청기관코드
+		     , 마이데이터거래응답기관코드
+		     , 마이데이터요청내용
+		     , 마이데이터응답일시
+		     , 마이데이터전문응답내용
+		     , 마이데이터응답코드
+		     , 마이데이터응답메시지내용
+		     , 마이데이터오류코드명
+		     , 마이데이터오류메시지내용
+		     , 시스템최종갱신일시
+		     , 시스템최종갱신식별자
+		     , 시스템최종거래일시
+		     )
+		VALUES
+		     ( ${x_api_tran_id}
+             , ${tran_req_ymd}
+             , ${tran_req_hms}
+		     , ${api_num}
+		     , ${req_orgcode}
+		     , ${res_orgcode}
+		     , ${req_cont}
+		     , ${res_time}
+		     , ${res_telg_cont}
+             , ${res_code}
+             , ${res_msg_cont}
+		     , ${error}
+		     , ${error_description}
+			 , SYSTIMESTAMP
+			 , ${시스템최종갱신식별자}
+			 , TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF6')
+		     )
+		
+        ]]>
+    </statement>
+    
+    <statement name="insertAcsTkReq">
+        <![CDATA[
+		
+		INSERT /* 신한수 itv/ItvCtfEbc/insertAcsTkReq */
+		       INTO INSTC.TBUBDC110
+		     ( 마이데이터거래고유번호
+		     , 마이데이터거래요청년월일
+		     , 마이데이터전송대상구분코드
+		     , 마이데이터인증구분코드
+		     , 접근토큰요청구분코드
+		     , 마이데이터제공기관코드
+		     , 마이데이터사업자기관코드
+		     , 마이데이터중계기관코드
+             , 통합인증기관코드
+		     , 요청권한부여방식명
+		     , 마이데이터클라이언트식별번호
+		     , 클라이언트비밀키내용
+		     , 인가코드내용
+		     , 마이데이터콜백URL주소
+             , 요청리프래시토큰내용
+             , 요청마이데이터토큰내용
+             , 마이데이터토큰구분코드
+             , 통합인증트랜잭션식별번호
+             , 통합인증전자서명유형구분코드
+             , 전송요구내용길이
+             , 전송요구내용
+             , CI내용
+             , 전송요구전자서명내용길이
+             , 전송요구전자서명내용
+             , 본인확인이용여부
+             , 본인확인동의전자서명내용길이
+             , 본인확인동의전자서명내용
+             , 전송요구공격방지내용
+             , 본인확인공격방지내용
+             , 접근토큰유형내용
+             , 응답마이데이터토큰내용
+             , 응답리프래시토큰내용
+             , 접근토큰유효기간초수
+             , 리프래시토큰유효기간초수
+             , 마이데이터권한영역내용
+             , 접근토큰처리여부
+		     , 시스템최종갱신일시
+		     , 시스템최종갱신식별자
+		     , 시스템최종거래일시
+		     )
+		VALUES
+		     ( ${x_api_tran_id}
+             , ${tran_req_ymd}
+             , ${trs_tgt_code}
+             , ${ctf_dt_code}
+		     , ${acctk_req_code}
+		     , ${ofer_orgcode}
+		     , ${comp_orgcode}
+		     , ${cp_orgcode}
+		     , ${ca_code}
+		     , ${req_author_type_name}
+             , ${client_id}
+             , ${client_secret}
+             , ${ahthcode_cont}
+             , ${callback_url}
+             , ${req_refrtk_cont}
+             , ${req_tk_cont}
+             , ${tk_div_code}
+             , ${itv_tran_num}
+             , ${itv_sign_type_code}
+             , ${const_len}
+             , ${const}
+             , ${username}
+             , ${signed_const_len}
+             , ${signed_const}
+             , ${cert_yn}
+             , ${signed_cert_len}
+             , ${sifned_cert_cont}
+             , ${const_nonce}
+             , ${pers_info_nonce}
+             , ${acctk_type}
+             , ${res_tk_cont}
+             , ${res_refrkt_cont}
+             , ${acctk_expire_in}
+             , ${refrtk_expire_in}
+             , ${scope_cont}
+             , ${acctk_process}
+			 , SYSTIMESTAMP
+			 , ${시스템최종갱신식별자}
+			 , TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF6')
+		     )
+		
+        ]]>
+    </statement>
+
+</statements>

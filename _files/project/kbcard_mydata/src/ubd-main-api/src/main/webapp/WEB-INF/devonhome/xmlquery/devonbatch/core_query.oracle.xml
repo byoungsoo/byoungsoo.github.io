@@ -1,0 +1,966 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<statements>
+
+	<!-- 작업 정보 반환 (1건) -->
+	<statement name="retrieveSingleJob">
+    <![CDATA[
+      SELECT
+            JOB_ID,
+			JOB_DESC,
+			EXECUTOR_ID,
+			EXEC_ENABLE,
+			COMMIT_COUNT,
+			EXECUTION_TYPE,
+			IS_SIMULTANEOUS,
+			TIMEOUT,
+			JOB_CYCLE,			
+			--TO_CHAR(REG_DT, 'YYYY-MM-DD HH24:MI:SS.FF3') REG_DT,
+			REG_DT,
+			REG_DT,
+			MOD_USER_ID,
+			--TO_CHAR(MOD_DT, 'YYYY-MM-DD HH24:MI:SS.FF3') MOD_DT,
+			MOD_DT,
+			MOD_DT,
+			REG_USER_ID,
+			SITE_CD
+      FROM
+      		SERE_BT_JOB_INFO_TB
+      WHERE
+      		JOB_ID = ${job_id}
+    ]]>
+	</statement>
+	
+	<!-- 작업 내 스텝 정보 목록 반환 -->
+	<statement name="retrieveStepList">
+    <![CDATA[
+      SELECT
+      		JOB_ID,
+			STEP_ID,
+			STEP_DESC,
+			WORKER_CLASS,
+			THREAD_NUM,
+			PARALLEL_MODE,
+			MAIN_ITEM_TYPE,
+			MOD_DT,
+			MOD_USER_ID,
+			REG_DT,
+			REG_USER_ID,
+			SITE_CD
+       FROM SERE_BT_STEP_INFO_TB
+      WHERE JOB_ID = ${job_id}
+   ORDER BY JOB_ID, STEP_ID
+    ]]>
+	</statement>
+	
+	<!-- 작업 내 스텝 정보 목록 반환 -->
+	<statement name="retrieveStepDependOnsList">
+    <![CDATA[
+      SELECT
+      		 JOB_ID,
+			 STEP_ID,
+			 DEPEND_ONS_STEP_ID,
+			 MOD_DT,
+			 MOD_USER_ID,
+			 REG_DT,
+			 REG_USER_ID,
+			 SITE_CD
+      FROM   SERE_BT_STEP_DEPEND_ONS_TB
+      WHERE  JOB_ID = ${job_id}
+      	AND  STEP_ID = ${step_id}
+      ORDER  BY JOB_ID, STEP_ID
+    ]]>
+	</statement>
+	
+	<!-- 작업 최근 실행 결과 일부 반환 -->
+	<statement name="execlog.retrieveLatestJobExecLog">
+    <![CDATA[
+	 SELECT 
+  					JOB_ID,
+					EXEC_COUNT,
+					EXECUTOR_ID,
+					FILELOG_PATH,
+					START_TIME,
+					END_TIME,
+					STATUS_CODE,	
+					CAUSE_STATUS_CODE,				
+					O_DATE,
+					PROC_SEQ,
+					EXEC_SEQ,
+					COMMIT_COUNT,
+					EXECUTION_TYPE,
+					IS_SIMULTANEOUS,
+					TIMEOUT,
+					JOB_CYCLE,
+					MOD_DT,
+					MOD_USER_ID,
+					REG_DT,
+					REG_USER_ID,
+					SITE_CD
+	FROM
+  		( SELECT
+					JOB_ID,
+					EXEC_COUNT,
+					EXECUTOR_ID,
+					FILELOG_PATH,
+					TO_CHAR(START_TIME, 'YYYY-MM-DD HH24:MI:SS.FF3') START_TIME,
+					TO_CHAR(END_TIME, 'YYYY-MM-DD HH24:MI:SS.FF3') END_TIME,
+					STATUS_CODE,
+					CAUSE_STATUS_CODE,					
+					O_DATE,
+					PROC_SEQ,
+					EXEC_SEQ,
+					COMMIT_COUNT,
+					EXECUTION_TYPE,
+					IS_SIMULTANEOUS,
+					TIMEOUT,
+					JOB_CYCLE,
+					MOD_DT,
+					MOD_USER_ID,
+					REG_DT,
+					REG_USER_ID,
+					SITE_CD
+    	   FROM
+        			SERE_BT_JOB_EXEC_TX_TB
+    	  WHERE
+        			JOB_ID = ${job_id}
+    	  ORDER BY  START_TIME DESC )
+	WHERE ROWNUM = 1
+    ]]>
+	</statement>
+	
+	<!-- 작업 실행 이력을 새로 추가함 -->
+	<statement name="execlog.insertJobStopExecLog">
+		INSERT INTO SERE_BT_JOB_EXEC_TX_TB (
+					JOB_ID,
+					EXEC_COUNT,
+					EXECUTOR_ID,					
+					START_TIME,
+					END_TIME,				
+					STATUS_CODE,
+					CAUSE_STATUS_CODE,					
+					O_DATE,
+					PROC_SEQ,
+					EXEC_SEQ,					
+					EXECUTION_TYPE,					
+					JOB_CYCLE,
+					MOD_DT,
+					MOD_USER_ID,
+					REG_DT,
+					REG_USER_ID,
+					SITE_CD
+					
+		) values (
+					${job_id},
+					${exec_count},
+					${executor_id},
+					SYSTIMESTAMP,
+					SYSTIMESTAMP,					
+					--CURRENT_TIMESTAMP,
+					${status_code},
+					${cause_status_code},																
+					${o_date},
+					${proc_seq},
+					${exec_seq},					
+					${execution_type},
+					${job_cycle},
+					TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3'),
+					${mod_user_id},
+					TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3'),
+					${reg_user_id},
+					${site_cd}
+					
+		)
+	</statement>
+	
+	<!-- 작업 실행 이력을 새로 추가함 -->
+	<statement name="execlog.insertJobExecLog">
+		INSERT INTO SERE_BT_JOB_EXEC_TX_TB (
+					JOB_ID,
+					EXEC_COUNT,
+					EXECUTOR_ID,					
+					START_TIME,					
+					STATUS_CODE,
+					CAUSE_STATUS_CODE,					
+					O_DATE,
+					PROC_SEQ,
+					EXEC_SEQ,					
+					EXECUTION_TYPE,					
+					JOB_CYCLE,
+					MOD_DT,
+					MOD_USER_ID,
+					REG_DT,
+					REG_USER_ID,
+					SITE_CD
+					
+		) values (
+					${job_id},
+					${exec_count},
+					${executor_id},
+					SYSTIMESTAMP,					
+					--CURRENT_TIMESTAMP,
+					${status_code},
+					${cause_status_code},																
+					${o_date},
+					${proc_seq},
+					${exec_seq},					
+					${execution_type},
+					${job_cycle},
+					TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3'),
+					${mod_user_id},
+					TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3'),
+					${reg_user_id},
+					${site_cd}
+					
+		)
+	</statement>
+	
+	<statement name="execlog.retrieveStatusCodeList">
+		SELECT	
+				STATUS_CODE,
+				CAUSE_STATUS_CODE
+		FROM	SERE_BT_JOB_EXEC_TX_TB
+		WHERE	JOB_ID = ${job_id}
+		  AND   O_DATE = ${o_date}
+	</statement>
+	
+	<statement name="execlog.updateJobEndTime">
+		UPDATE SERE_BT_JOB_EXEC_TX_TB
+		   SET
+--		       END_TIME = CURRENT_TIMESTAMP,
+			   END_TIME = SYSTIMESTAMP,
+		       MOD_DT = TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3'),
+			   MOD_USER_ID = ${mod_user_id}
+		 WHERE
+			   JOB_ID = ${job_id}
+		   AND EXEC_COUNT=${exec_count}
+	</statement>
+	
+	<!-- 작업의 상태 코드 업데이트 -->
+	<statement name="execlog.updateJobStatus">
+  	  <![CDATA[
+      UPDATE SERE_BT_JOB_EXEC_TX_TB
+         SET
+             STATUS_CODE = ${status_code},
+             CAUSE_STATUS_CODE = ${cause_status_code},
+             MOD_DT = TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3'),
+			 MOD_USER_ID = ${mod_user_id}
+       WHERE
+             JOB_ID = ${job_id}
+         AND EXEC_COUNT=${exec_count}
+      ]]>
+	</statement>
+	
+	<statement name="parameter.retrieveParameterList">
+		<![CDATA[
+		 SELECT 
+				JOB_ID,
+				PARAM_KEY,
+				PARAM_SEQ,
+				PARAM_VALUE,
+				PARAM_DESC,
+				SEQ,
+				MOD_DT,
+				MOD_USER_ID,
+				REG_DT,
+				REG_USER_ID,
+				SITE_CD				
+				--TO_CHAR(reg_dtm, 'YYYY-MM-DD HH24:MI:SS.FF3') reg_dtm,				
+				--TO_CHAR(mod_dtm, 'YYYY-MM-DD HH24:MI:SS.FF3') mod_dtm,
+		 FROM   SERE_BT_PARAM_INFO_TB
+		WHERE   JOB_ID = ${job_id}  
+		]]>
+	</statement>
+	
+	<!-- 스텝 실행 이력을 새로 추가함 -->
+	<statement name="execlog.insertStepExecLog">
+		INSERT INTO SERE_BT_STEP_EXEC_TX_TB (		
+		JOB_ID,
+		STEP_ID,
+		EXEC_COUNT,
+		EXECUTOR_ID,		
+		STATUS_CODE,	
+		CAUSE_STATUS_CODE,	
+		START_TIME,
+		O_DATE,
+		PROC_SEQ,
+		EXEC_SEQ,
+		MOD_DT,
+		MOD_USER_ID,
+		REG_DT,
+		REG_USER_ID,
+		SITE_CD	
+		) values (
+		${job_id},
+		${step_id},
+		${exec_count},
+		${executor_id},
+		${status_code},
+		${cause_status_code},
+		SYSTIMESTAMP,
+		${o_date},
+		${proc_seq},
+		${exec_seq},
+		TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3'),
+		${mod_user_id},
+		TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3'),
+		${reg_user_id},
+		${site_cd}	
+		)
+	</statement>
+	
+	<!-- 스텝의 상태 코드 업데이트 -->
+	<statement name="execlog.updateStepStatus">
+	  <![CDATA[
+      UPDATE  SERE_BT_STEP_EXEC_TX_TB
+         SET
+	          STATUS_CODE = ${status_code},
+	          CAUSE_STATUS_CODE = ${cause_status_code},
+	          CURRENT_COUNT = ${current_count},
+	          SUCCESS_COUNT = ${success_count},          
+			  ERROR_COUNT = ${error_count},
+	     	  TOTAL_COUNT = ${total_count},
+	          UOM = ${uom},
+	          FAILED_SECTIONS = ${failed_sections},
+	          MOD_DT = TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3'),
+			  MOD_USER_ID = ${mod_user_id}
+       WHERE
+          	  JOB_ID = ${job_id}
+         AND EXEC_COUNT=${exec_count}
+         AND STEP_ID=${step_id}
+      ]]>
+	</statement>
+	
+	<statement name="execlog.updateStepEndTime">
+		UPDATE SERE_BT_STEP_EXEC_TX_TB
+		   SET
+			   --END_TIME = CURRENT_TIMESTAMP
+			   END_TIME = SYSTIMESTAMP,
+			   MOD_DT = TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3'),
+			   MOD_USER_ID = ${mod_user_id}
+		 WHERE
+			   JOB_ID = ${job_id}
+		   AND STEP_ID=${step_id}
+		   AND EXEC_COUNT=${exec_count}
+   </statement>
+   
+   <!-- 작업의 실행 횟수 최대값을 반환함 -->
+   <!-- 
+	<statement name="execlog.getMaxExecCount">
+		SELECT
+		CASE
+		WHEN ( MAX(EXEC_COUNT) ) IS NULL
+		THEN 0
+		ELSE MAX(EXEC_COUNT)
+		END  EXEC_COUNT
+		FROM  SERE_BT_JOB_EXEC_TX_TB
+		WHERE JOB_ID = ${job_id}
+	</statement>
+	
+	<statement name="execlog.getMaxProcSeq">
+		SELECT
+				CASE
+				WHEN ( MAX(PROC_SEQ) ) IS NULL
+				THEN 0
+				ELSE MAX(PROC_SEQ)
+				 END PROC_SEQ
+		FROM	SERE_BT_JOB_EXEC_TX_TB
+		WHERE	EXECUTOR_ID = ${executor_id}
+	      AND	JOB_ID = ${job_id}
+	      AND	O_DATE = ${o_date}
+    </statement>
+	
+	<statement name="execlog.getMaxExecSeq">
+		SELECT
+				CASE
+				WHEN ( MAX(EXEC_SEQ) ) IS NULL
+				THEN 0
+				ELSE MAX(EXEC_SEQ)
+				 END EXEC_SEQ
+		FROM	SERE_BT_JOB_EXEC_TX_TB
+		WHERE	JOB_ID = ${job_id}
+	      AND	O_DATE = ${o_date}
+	      AND	PROC_SEQ = ${proc_seq}
+	</statement>
+	-->
+	
+	 <statement name="residential.retrieveResidentialList">
+	    <![CDATA[
+	      SELECT
+	      		RESIDENTIAL_ID,
+	      		RESIDENTIAL_CLASS,
+	      		JOB_ID,
+	      		EXECUTOR_NAME,
+	      		MONITORING_INTERVAL,
+	      		IS_EXEC_ENABLE,
+	      		END_TIME,
+	      		TIME_OUT,
+	      		REG_DT,
+	      		MOD_DT,
+	      		MOD_USER_ID,
+	      		REG_USER_ID,
+	      		SITE_CD
+	      FROM
+	      		SERE_BT_RESIDENTIAL_INFO_TB
+	      WHERE 1=1
+	       {#1}
+	      ORDER BY residential_id
+	    ]]>
+	    
+	    <append where="false" condition="${residential_id}.NOTEMPTY" id="#1">
+		<![CDATA[
+			  AND	upper(residential_id) like upper('%'||${residential_id}||'%')
+		]]>
+		</append>
+		
+		<append where="false" condition="${job_id}.NOTEMPTY" id="#1">
+		<![CDATA[
+			  AND	upper(job_id) like upper('%'||${job_id}||'%')
+		]]>
+		</append>
+	</statement>
+	
+	<statement name="residential.retrieveResidential">
+	    <![CDATA[
+	      SELECT
+	      		RESIDENTIAL_ID,
+	      		RESIDENTIAL_CLASS,
+	      		JOB_ID,
+	      		EXECUTOR_NAME,
+	      		MONITORING_INTERVAL,
+	      		IS_EXEC_ENABLE,
+	      		END_TIME,
+	      		TIME_OUT,
+	      		REG_DT,
+	      		MOD_DT,
+	      		MOD_USER_ID,
+	      		REG_USER_ID,
+	      		SITE_CD
+	      FROM
+	      		SERE_BT_RESIDENTIAL_INFO_TB
+	      WHERE RESIDENTIAL_ID = ${residential_id}
+	    ]]>
+	</statement>
+	
+	<statement name="execlog.getResidentialMaxProcSeq">
+		SELECT
+				case
+				when ( max(proc_seq) ) is null
+				then 0
+				else max(proc_seq)
+				end proc_seq
+		FROM	SERE_BT_RESIDENTIAL_EXEC_TX_TB
+		WHERE	RESIDENTIAL_ID	= ${residential_id} and
+      			O_DATE = ${o_date}
+	</statement>
+	
+	<statement name="execlog.insertResidentialExecLog">
+		INSERT INTO SERE_BT_RESIDENTIAL_EXEC_TX_TB (
+		RESIDENTIAL_ID,
+		START_TIME,
+		STATUS_CODE,
+		O_DATE,
+		PROC_SEQ,
+		MOD_DT,
+		MOD_USER_ID,
+		REG_DT,
+		REG_USER_ID,
+		SITE_CD	
+		) VALUES (
+		${residential_id},
+		--CURRENT_TIMESTAMP,
+		SYSTIMESTAMP,
+		${status_code},
+		${o_date},
+		${proc_seq},
+		TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3'),
+		${mod_user_id},
+		TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3'),
+		${reg_user_id},
+		${site_cd}	
+		)
+	</statement>
+	
+	<statement name="execlog.updateResidentialExecLog">
+	
+	  UPDATE SERE_BT_RESIDENTIAL_EXEC_TX_TB
+         SET
+      		 END_TIME = (case
+					   when ${status_code} = 1
+					   then null
+					   else SYSTIMESTAMP
+					   end),
+      		 STATUS_CODE    = ${status_code},
+      		 UPDATE_TIME    = SYSTIMESTAMP,
+      		 MOD_DT = TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3'),
+			 MOD_USER_ID = ${mod_user_id}
+       WHERE RESIDENTIAL_ID	= ${residential_id} and
+      		 PROC_SEQ = ${proc_seq} and
+      		 O_DATE = ${o_date}
+	</statement>
+	
+	<!-- 스텝 실행 이력 반환 (단건) -->
+	<statement name="execlog.retrieveStepExecInfo">
+    <![CDATA[
+      select
+      		job_exec.job_id job_id,
+      		step_exec.step_id step_id,
+			step_exec.exec_count exec_count,
+			job_exec.exec_url exec_url,
+			step_exec.current_count current_count,
+			step_exec.error_count error_count,
+			step_exec.total_count total_count,
+			step_exec.success_count success_count,
+			step_exec.resume_mode resume_mode,
+			TO_CHAR(step_exec.start_time, 'YYYY-MM-DD HH24:MI:SS.FF3') start_time,
+			TO_CHAR(step_exec.end_time, 'YYYY-MM-DD HH24:MI:SS.FF3') end_time,
+			step_exec.status_code status_code,
+			step_exec.filelog_path filelog_path,
+			-- status_desc,
+			TO_CHAR(step_exec.reg_dtm, 'YYYY-MM-DD HH24:MI:SS.FF3') reg_dtm,
+			step_exec.reg_eno reg_eno,
+			TO_CHAR(step_exec.mod_dtm, 'YYYY-MM-DD HH24:MI:SS.FF3') mod_dtm,
+			step_exec.mod_eno mod_eno,
+			step_exec.failed_sections
+      from
+      		olb_step_exec_tx step_exec,
+      		olb_job_exec_tx job_exec
+      where
+      		job_exec.exec_count = step_exec.exec_count and
+      		job_exec.job_id = step_exec.job_id and
+      		step_exec.job_id = ${job_id} and
+      		step_exec.step_id = ${step_id}  and
+      		step_exec.exec_count = ${exec_count}
+      order by
+      		job_id, step_id, exec_count
+    ]]>
+	</statement>
+	
+	<!-- 사용자 이력 목록 추가 (임시 쿼리)-->
+	<statement name="execlog.insertJobExecUserLog">
+	<![CDATA[
+	insert into SERE_BT_EXEC_USER_TX_TB (
+      		job_id,
+      		step_id,
+      	 	proc_seq,
+      	 	exec_count,
+      	 	tx_id,
+      	 	tx_seq,
+      	 	tx_val,
+      	 	tx_count,
+      	 	start_time,
+      	 	o_date,
+      	 	MOD_DT,
+		    MOD_USER_ID,
+		    REG_DT,
+		    REG_USER_ID,
+		    SITE_CD	
+	) SELECT
+       		${job_id},
+       		${step_id},
+       		${proc_seq},
+       		${exec_count},
+       		${tx_id},
+       		${tx_seq},
+       		${tx_val},
+       		NVL(MAX(TX_COUNT), 0) + 1 AS TX_COUNT,
+       		SYSTIMESTAMP,
+       		${o_date},
+       		TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3'),
+		    ${mod_user_id},
+		    TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3'),
+		    ${reg_user_id},
+		    ${site_cd}
+      	FROM SERE_BT_EXEC_USER_TX_TB
+      	WHERE JOB_ID = ${job_id}
+      	AND STEP_ID = ${step_id}
+      	AND   TX_ID = ${tx_id}
+      	AND   O_DATE = ${o_date}
+	]]>
+	</statement>
+	
+	<statement name="execlog.updateJobExecUserLog">
+	<![CDATA[
+	UPDATE SERE_BT_EXEC_USER_TX_TB
+       SET
+             TX_VAL          = ${tx_val},
+             MOD_DT = TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3'),
+			 MOD_USER_ID = ${mod_user_id}
+     WHERE
+             JOB_ID = ${job_id}
+       AND   STEP_ID = ${step_id}
+       AND   TX_ID  = ${tx_id}
+       AND   TX_SEQ  = ${tx_seq}
+       AND   EXEC_COUNT  = ${exec_count}
+	]]>
+	</statement>
+	
+	<statement name="execlog.retrieveProcSeq">
+		select	proc_seq
+		from	SERE_BT_JOB_EXEC_TX_TB
+		where	executor_id = ${executor_id}
+		and		job_id = ${job_id}
+		and		exec_count = ${exec_count}
+	</statement>
+	
+	<statement name="execlog.retrieveJobStopMonitorStatus">
+		select	
+			   JOB_ID,
+			   EXEC_COUNT,
+			   EXECUTOR_ID,
+			   STATUS_CODE,
+			   O_DATE,
+			   PROC_SEQ,
+			   EXEC_SEQ
+		from	SERE_BT_JOB_EXEC_STOP_TX_TB
+		where	executor_id = ${executor_id}
+		and		job_id = ${job_id}
+		and		exec_count = ${exec_count}
+	</statement>
+	
+	<!-- 스케줄러에 등록여부 상태 업데이트(테이블 변경본 - 임시)-->
+	<statement name="updateScheduledJobIsExecExable">
+  <![CDATA[
+   	 update SERE_BT_SCHEDULED_INFO_TB
+      set
+      		is_exec_enable = ${is_exec_enable},
+      		MOD_DT = TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3'),
+			MOD_USER_ID = ${mod_user_id}
+      where
+      		job_id = ${job_id}
+   ]]>
+	</statement>
+	
+	<!-- 스케줄러 예약된 모든 작업들 조회(테이블 변경본 - 임시)-->
+	<statement name="retrieveScheduledJobList">
+  <![CDATA[
+  	select
+  		SERE_BT_JOB_INFO_TB.job_id,
+  		SERE_BT_JOB_INFO_TB.executor_id,
+		SERE_BT_JOB_INFO_TB.job_desc,
+		SERE_BT_SCHEDULED_INFO_TB.sched_type,
+		SERE_BT_SCHEDULED_INFO_TB.sched_str,
+		SERE_BT_SCHEDULED_INFO_TB.is_exec_enable
+	from
+      	SERE_BT_JOB_INFO_TB, SERE_BT_SCHEDULED_INFO_TB
+	where
+		SERE_BT_JOB_INFO_TB.job_id = SERE_BT_SCHEDULED_INFO_TB.job_id
+	and (SERE_BT_SCHEDULED_INFO_TB.sched_type = 1 or
+ 		SERE_BT_SCHEDULED_INFO_TB.sched_type = 2)
+ 	{#1}
+   ]]>
+   		<append where="false" condition="${sched_type}.NOTEMPTY" id="#1">
+  	<![CDATA[
+     and SERE_BT_SCHEDULED_INFO_TB.job_id LIKE '%' || ${job_id} || '%'
+  	]]>
+  		</append>
+      	<append where="false" condition="${is_exec_enable}.NOTEMPTY" id="#1">
+  	<![CDATA[
+     and SERE_BT_SCHEDULED_INFO_TB.is_exec_enable =  ${is_exec_enable}
+  	]]>
+  		</append>
+	</statement>
+	
+	
+   <statement name="fileListInfo">
+    <![CDATA[
+      SELECT
+		        JOB_ID,
+				STEP_ID,
+				FILE_SEQ,
+				INOUT_TYPE,
+				FILE_NAME,
+				FILE_PATH,
+				BIZ_FILE_PATH,
+				FILE_ENC,
+				IO_SPEC_ID,
+				FILE_TYPE,
+				FILE_FORM,				
+				FILE_ALIAS,
+				MAIN_CHECK,
+				FILE_WORK_PATH,
+				RENAME_FLAG,
+				EMPTY_DEL_FLAG,
+				COMMENTS,
+				CRLF_CHA_CD,
+				FILE_BASE_DIRECTORY,
+				MOD_DT,
+				MOD_USER_ID,
+				REG_DT,
+				REG_USER_ID,
+				SITE_CD
+      FROM SERE_BT_FILE_INFO_TB
+      WHERE JOB_ID = ${job_id}
+        AND STEP_ID = ${step_id}
+      ORDER BY STEP_ID, FILE_SEQ
+    ]]>
+  </statement>
+  
+    <statement name="datbaseListInfo">
+    <![CDATA[
+      SELECT
+				JOB_ID,
+				STEP_ID,
+				INOUT_TYPE,
+				DB_SPEC,
+				XML_QUERY_LOC,
+				XML_QUERY_NAME,
+				MAIN_CHECK,
+				XML_QUERY_ALIAS,
+				SEQ,
+				MOD_DT,
+				MOD_USER_ID,
+				REG_DT,
+				REG_USER_ID,
+				SITE_CD
+      FROM SERE_BT_DB_INFO_TB
+      WHERE JOB_ID = ${job_id}
+        AND STEP_ID = ${step_id}      
+      ORDER BY STEP_ID
+    ]]>
+  </statement>
+  
+  <!-- 작업 실행 File size, File 처리 시작 시간 update -->
+  <statement name="execlog.updateJobExecFileStartInfo">
+  <![CDATA[
+    UPDATE SERE_BT_FILE_EXEC_TX_TB
+       SET
+           FILE_SIZE=${file_size},
+           START_TIME=SYSTIMESTAMP,
+           MOD_DT = TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3'),
+		   MOD_USER_ID = ${mod_user_id}
+     WHERE JOB_ID = ${job_id}
+       AND STEP_ID = ${step_id}
+       AND EXEC_COUNT = ${exec_count}
+       AND FILE_NAME = ${file_name}
+  ]]>
+  </statement>
+  
+  <!-- 작업 실행 File 처리 종료 시간 update -->
+  <statement name="execlog.updateJobExecFileEndInfo">
+  <![CDATA[
+    UPDATE SERE_BT_FILE_EXEC_TX_TB
+       SET
+           FILE_NAME = ${file_name},
+           TOTAL_COUNT = ${total_count},
+           END_TIME = SYSTIMESTAMP,
+           EMPTY_DEL_FLAG = ${empty_del_flag},
+           MOD_DT = TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3'),
+		   MOD_USER_ID = ${mod_user_id}
+     WHERE JOB_ID = ${job_id}
+       AND STEP_ID = ${step_id}
+       AND EXEC_COUNT = ${exec_count}
+  ]]>
+  </statement> 
+  
+  <statement name="statuslog.insertJobStatus"><![CDATA[
+    	INSERT 
+    	INTO SERE_BT_JOB_ERR_EXEC_TX_TB
+    	 (
+       		SEQ,
+       		JOB_ID,
+       		EXEC_COUNT,
+       		ERR_CODE,
+       		ERR_MSG,
+       		ERR_CAUSE,
+       		MOD_DT,
+		    MOD_USER_ID,
+		    REG_DT,
+		    REG_USER_ID,
+		    SITE_CD	
+    	) VALUES (
+      		 SERE_BT_JOB_ERR_EXEC_TX_SEQ.NEXTVAL,
+       		${job_id},
+       		${exec_count},
+       		${err_code},
+       		${err_msg},
+       		${err_cause},
+       		TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3'),
+		    ${mod_user_id},
+		    TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3'),
+		    ${reg_user_id},
+		    ${site_cd}	
+    	)
+    	]]>
+  	</statement> 
+  
+  <statement name="statuslog.updateStepStatus"><![CDATA[
+      	UPDATE /* devonbatch.shc_core_query.oracle.statuslog.updateJobStatus */ SERE_BT_STEP_EXEC_TX_TB
+      	SET
+          ERR_MSG = ${err_msg},
+          ERR_CODE = ${err_code},
+          ERR_CAUSE = ${err_cause},
+          MOD_DT = TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3'),
+		  MOD_USER_ID = ${mod_user_id}
+      	WHERE
+          JOB_ID = ${job_id}
+          AND EXEC_COUNT=${exec_count}
+          AND STEP_ID=${step_id}
+      ]]>
+  	</statement>
+  	
+  	<statement name="statuslog.insertJobReworkStatus"><![CDATA[
+    	INSERT 
+    	INTO SERE_BT_JOB_EXEC_REWORK_TB
+    	 (
+       		JOB_ID,
+       		EXEC_COUNT,
+       		EXECUTOR_ID,
+       		REWORK_PLACE,
+       		MOD_DT,
+		    MOD_USER_ID,
+		    REG_DT,
+		    REG_USER_ID,
+		    SITE_CD	
+    	) VALUES (
+       		${job_id},
+       		${exec_count},
+       		${executor_id},
+       		${rework_place},
+       		TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3'),
+		    ${mod_user_id},
+		    TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3'),
+		    ${reg_user_id},
+		    ${site_cd}	
+    	)
+    	]]>
+  	</statement> 
+  	
+  	<statement name="statuslog.retrieveJobReworkStatus"><![CDATA[
+    	SELECT
+       		JOB_ID,
+       		EXEC_COUNT,
+       		EXECUTOR_ID,
+       		REWORK_PLACE,
+       		MOD_DT,
+		    MOD_USER_ID,
+		    REG_DT,
+		    REG_USER_ID,
+		    SITE_CD	
+		FROM
+			SERE_BT_JOB_EXEC_REWORK_TB
+    	WHERE
+       		JOB_ID = ${job_id}
+        AND EXEC_COUNT = ${exec_count}
+       	AND EXECUTOR_ID = ${executor_id}
+    	]]>
+  	</statement> 
+  	
+  	<!-- 작업 실행 File 이력을 새로 추가함 -->
+  <statement name="execlog.insertJobExecFileLog">
+  <![CDATA[
+    INSERT INTO SERE_BT_FILE_EXEC_TX_TB (
+        JOB_ID, STEP_ID, INOUT_TYPE, FILE_NAME,
+        FILE_PATH, IO_SPEC_ID, FILE_TYPE,
+        O_DATE, EXEC_COUNT, SEQ, PROC_SEQ, EXEC_SEQ, START_TIME,
+        MOD_DT, MOD_USER_ID, REG_DT, REG_USER_ID, SITE_CD	
+    ) VALUES (
+        ${job_id}, ${step_id}, ${inout_type}, ${file_name},
+        ${file_path}, ${io_spec_id}, ${file_type},
+        ${o_date}, ${exec_count},
+        (
+            SELECT
+                NVL(MAX(SEQ), -1) + 1
+            FROM SERE_BT_FILE_EXEC_TX_TB
+            WHERE STEP_ID = ${step_id}
+            AND FILE_NAME = ${file_name}
+            AND O_DATE = ${o_date}
+        ),
+        ${proc_seq}, ${exec_seq}, SYSTIMESTAMP,
+        TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3'),
+	    ${mod_user_id},
+	    TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3'),
+	    ${reg_user_id},
+	    ${site_cd}
+    )
+  ]]>
+  </statement>
+  
+  
+  
+  <!-- 스텝의 상태 파일 로그 위치 업데이트 -->
+	<statement name="execlog.updateStepFileLogPath">
+	  <![CDATA[
+      update SERE_BT_STEP_EXEC_TX_TB
+      set
+          filelog_path = ${filelog_path},
+          MOD_DT = TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3'),
+		  MOD_USER_ID = ${mod_user_id}
+      where
+          job_id = ${job_id}
+          and exec_count=${exec_count}
+          and step_id=${step_id}
+      ]]>
+	</statement>
+	
+	<!-- 작업의 파일 로그 위치 업데이트 -->
+	<statement name="execlog.updateJobFileLogPath">
+	  <![CDATA[
+      update SERE_BT_JOB_EXEC_TX_TB
+      set
+          filelog_path = ${filelog_path},
+          MOD_DT = TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3'),
+		  MOD_USER_ID = ${mod_user_id}
+      where
+          job_id = ${job_id}
+          and exec_count=${exec_count}
+      ]]>
+	</statement>
+	
+		<!-- 작업의 실행 횟수 최대값을 반환함 -->
+	<statement name="execlog.retrieveExecCountForUpdate">
+		SELECT EXEC_COUNT, O_DATE, PROC_SEQ, EXEC_SEQ
+		  FROM SERE_BT_EXEC_COUNT_TX_TB
+		 WHERE JOB_ID = ${job_id}		   
+		   AND SITE_CD = ${site_cd}
+		   AND EXECUTOR_ID = ${executor_id}
+		   FOR UPDATE NOWAIT		  
+	</statement>
+	
+	<!-- 작업 실행 이력을 새로 추가함 -->
+	<statement name="execlog.insertExecCount">
+		INSERT INTO SERE_BT_EXEC_COUNT_TX_TB (
+					JOB_ID,
+					EXEC_COUNT,
+					O_DATE,
+					PROC_SEQ,
+					EXEC_SEQ,
+					EXECUTOR_ID,				
+					MOD_DT,
+					MOD_USER_ID,
+					REG_DT,
+					REG_USER_ID,
+					SITE_CD
+					
+		) values (
+					${job_id},
+					${exec_count},
+					${o_date},
+					${proc_seq},
+					${exec_seq},
+					${executor_id},										
+					TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3'),
+					${mod_user_id},
+					TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3'),
+					${reg_user_id},
+					${site_cd}
+					
+		)
+	</statement>
+	
+	<statement name="execlog.updateExecCount">
+		UPDATE SERE_BT_EXEC_COUNT_TX_TB
+		   SET
+			   EXEC_COUNT = ${exec_count},
+			   O_DATE = ${o_date},
+			   PROC_SEQ = ${proc_seq},
+			   EXEC_SEQ = ${exec_seq},
+		       MOD_DT = TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MIssFF3'),
+			   MOD_USER_ID = ${mod_user_id}
+		 WHERE JOB_ID = ${job_id}		   
+		   AND SITE_CD = ${site_cd}
+		   AND EXEC_COUNT = ${current_exec_count}
+		   AND EXECUTOR_ID = ${executor_id}
+	</statement>
+  	
+</statements>
