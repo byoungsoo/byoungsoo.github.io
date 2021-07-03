@@ -42,6 +42,8 @@ category: resume
 |자동차운전면허|1종 보통|도로교통공단|2010/04|
 |한국사 능력검정시험|1급|국사편찬위원회|2013/01|
 |정보처리기사|합격|한국산업인력공단|2014/05|
+|AWS Certified DevOps Engineer - Professional|합격|Amazon Web Services (AWS)|2020/10-2023/10|
+|Google Cloud Certified - Professional Cloud Architect|합격|Google|2019/11-2021/11|
 
 <br>
 

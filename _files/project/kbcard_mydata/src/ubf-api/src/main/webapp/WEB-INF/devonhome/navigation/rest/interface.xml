@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<navigation>
-   
-    <action name="/inbound/{source}/{serviceId}">
-    	<method>post</method>
-    	<command>com.kbcard.ubd.comomon.cmd.EaiRecvCmd</command>
-    </action>
-</navigation>

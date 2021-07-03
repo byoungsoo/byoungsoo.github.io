@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<navigation>
-    <action name="/test/{tranId}">
-		<method>get</method>
-		<command>com.kbcard.frw.cmd.TranListCmd</command>
-	</action>
-</navigation>
