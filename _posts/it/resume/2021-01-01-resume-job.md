@@ -6,7 +6,7 @@ category: resume
 ---
 
 
-### 2021.04.02 ~ 2020.08.23 - KB카드 마이데이터 구축 사업  
+### 2021.04.02 ~ 2021.08.23 - KB카드 마이데이터 구축 사업  
   + **역할**: Software Architecture
 
   + **프로젝트 개요**:  
@@ -34,7 +34,7 @@ category: resume
  <br><br>
 
 
-### 2021.02.01 ~ 2020.02.28 - MSA 교육과정 개발  
+### 2021.02.01 ~ 2021.02.28 - MSA 교육과정 개발  
   + **역할**: Software Architecture
 
   + **프로젝트 개요**  
@@ -50,7 +50,7 @@ category: resume
 
  <br><br>
 
-### 2021.01.01 ~ 2020.03.31 - 한화생명 SFA 서비스 MSP (Hanwha Life SFA MSP)  
+### 2021.01.01 ~ 2021.03.31 - 한화생명 SFA 서비스 MSP (Hanwha Life SFA MSP)  
   + **역할**: Software Architecture
 
   + **프로젝트 개요**  
@@ -77,7 +77,7 @@ category: resume
 
 <br><br>
 
-### 2019.07.01 ~ 2020.12.24 - LG화학 Public Cloud전환 프로젝트 (LG Chemical AWS Cloud Migration)
+### 2020.07.01 ~ 2020.12.24 - LG화학 Public Cloud전환 프로젝트 (LG Chemical AWS Cloud Migration)
   + **역할**: Software Architecture / Infra Architecture (Sub)
 
   + **프로젝트 개요**  
