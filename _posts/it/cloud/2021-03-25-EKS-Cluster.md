@@ -78,3 +78,32 @@ EKS OIDC 자격 증명 공급
 eksctl utils associate-iam-oidc-provider --region=ap-northeast-2 --cluster=smp-dev-eks-cluster --approve
 ```
 <br>
+
+
+`Launch Template Userdata`  
+Worker Node로 사용 할 Launch Template의 User Data에 셋팅을 아래와 같이 해준다.  
+dns_cluster_ip의 경우 service_ip range를 변경할 경우 반드시 설정하여 같이 넘겨준다.  
+kubelet_extra_args의 경우 추가적으로 설정 할 정보를 넘겨준다. 아래와 같이 넘겨주면 node-label을 추가할 수 있다.  
+```bash
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="==EKSWorkerNode=="
+
+--==EKSWorkerNode==
+Content-Type: text/x-shellscript; charset="us-ascii"
+
+
+echo "===[start:bootstrap.sh]===================================="
+cluster_name=smp-dev-eks-cluster
+#dns_cluster_ip=172.16.16.10
+kubelet_extra_args=--node-labels=node-group-type=smp-dev-test
+cluster_endpoint=https://A02EF3CEEB0EEBD45FF57F01A8F5BABD.gr7.ap-northeast-2.eks.amazonaws.com
+certificate_authority_data=LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM1ekNDQWMrZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFWTVJNd0VRWURWUVFERXdwcmRXSmwKY201bGRHVnpNQjRYRFRJeE1EWXhOVEF4TURFek9Wb1hEVE14TURZeE16QXhNREV6T1Zvd0ZURVRNQkVHQTFVRQpBeE1LYTNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBTjNLCmxlczB1elFoQ0ZqVnZoTlBUTUVOVHJxZ3BNaWYxUGJFLzhqYWZNa0RxcDJmVE9SdXJSdEFGRXlxVW9HL0VvMHoKNW5nclVYSFllUS9KL1Z2WlFXMEtMbStaaDVJMEoyc3Z6M2hKRXVuRjh1bUFacTBvUFFMN2I0a2hVaTdiTHNFZwpnSWxCYXBRUFdmaGtQZ0lFUWNRY3U5MGRIZjRwQlNlQ1FPVHFMVVRTRldHT2hZZFB5dXQ0UEVwVlRkQzRoeDRoClNrYy9UQldhVFlmY0t2MUVPajBVaXBNQXNHL2N5V1JSdSs3eFcvUTNmWUFQbjNZSnlVNkYzNXFVczIyc05xd3EKNXhPeW1acWlid0l6RDZoSVlFdDJFSWZVeUhqM0NHQlpjeDNZV0VmQjJvQUc3a2EyVUgyVURDWHkzTDhLSy8zYQpaczFZWnV5WXAxT1J6RlJCZVpjQ0F3RUFBYU5DTUVBd0RnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCCi93UUZNQU1CQWY4d0hRWURWUjBPQkJZRUZKdGxoRmpEV1c5TzZHbWtyMDZMN20ybTFBK0pNQTBHQ1NxR1NJYjMKRFFFQkN3VUFBNElCQVFCSHcvMkp1Z29jamE2enpvcE9KVGlkc2o5NjBjUVVpTHNHZlgyOUF3ZXEvZ1M5Ujk0QQpkTWQ1Y2FaZnE0Vm44bWpSOWN0MEc3YWh6bml6RG0zbDV0TkRNZFdCdW9nWUt5Y283QzdJM1NKeGZndm5EcFFrCk5teXhMUHdZdm9wZlEwc1FINmpvZ2xqTk9YSzYrb0F4azNJL1Z4M2p4enpYNXQ5M3A4RHBGMzNudjJ0VkNFODcKQmdySkF6UklWbGNDUnN2Tjc0WC9hSjZKbWFRMDNlT3hndFk2QnpxeUV2NURaWFVnWjdSREVVaEVGdWNFdmxWWApwOXlZTkR0UDRjVVU3RUJuKzFOQW5URUVtZ2FsKytLbzNsVC9jemswQ1piYUJ3ZlhJcEdYWnlTR2NVNzBZOWVHCnJ2a0txM2kvT3MzR1FNQmlCaERzRUdnTUZuWUJCTEZOWUZROAotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+
+#/etc/eks/bootstrap.sh --apiserver-endpoint ${cluster_endpoint} --b64-cluster-ca ${certificate_authority_data} --dns-cluster-ip ${dns_cluster_ip} ${cluster_name} --kubelet-extra-args ${kubelet_extra_args}
+
+/etc/eks/bootstrap.sh --apiserver-endpoint ${cluster_endpoint} --b64-cluster-ca ${certificate_authority_data}  ${cluster_name} --kubelet-extra-args ${kubelet_extra_args}
+
+echo "===[end:bootstrap.sh]======================================"
+
+--==EKSWorkerNode==--\
+```
