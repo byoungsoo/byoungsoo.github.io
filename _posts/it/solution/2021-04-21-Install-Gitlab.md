@@ -87,6 +87,20 @@ docker-compose down
 ```
 <br>
 
+여기 까지 설치 후 혹시나 패스워드를 모를 경우 아래와 같이 진행한다.  
+docker-compose로 서비스가 되었기 때문에 서비스에 진입을 해야 한다.  
+```bash
+docker exec -it gitlab_svc_1 /bin/bash
+cd /var/opt/gitlab
+
+gitlab-rails console -e production
+u = User.where(id: 1).first
+# => #<User id:1 @root>
+u.password = 'newpassword'
+u.password_confirmation = 'newpassword'
+```
+User는 root에 초기 설정된 패스워드로 진행한다.  
+<br>
 
 
 #### - Install Gitlab-Runner  
@@ -175,7 +189,7 @@ export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 ```
 
-`docker-credential-ecr-login`
+`docker-credential-ecr-login`  
 go get 을 통해 docker-credential-ecr-login을 설치  
 environment 설정에 DOCKER_AUTH_CONFIG 설정을 잡아주면 된다.  
 ```bash
