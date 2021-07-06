@@ -10,7 +10,16 @@ tags: aws eks istio bookinfo
 
 #### - kubectl설정  
 kubectl 설치
+
+`Windows`
 https://kubernetes.io/ko/docs/tasks/tools/install-kubectl-windows/
+
+`Linux`
+```bash
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+```
+
 
 aws configure 설정을 통해 access_key, secret_key, region, format을 입력한다.  
 
