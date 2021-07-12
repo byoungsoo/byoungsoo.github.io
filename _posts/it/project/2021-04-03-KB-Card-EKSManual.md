@@ -1009,52 +1009,109 @@ tags: project issue
     Frism 배포 후 자동 수행 되는 파이프라인은 총 4단계로 구성 된다.  
     Build, Package, Deploy, Deploycheck 로 나뉘어져 있으며 각 단계에서는 gradle build, docker build, eks deploy, eks deploy check 를 수행 한다.  
     ```yaml
-    image: ${ACCOUNT_ID}.dkr.ecr.ap-northeast-2.amazonaws.com/common:docker-stable
+    image: ${ACCOUNT_ID}.dkr.ecr.ap-northeast-2.amazonaws.com/common/docker:stable
     variables:
       DOCKER_DRIVER: overlay2
-
-      APPLICATION_GROUP: ${CI_PROJECT_GROUP}
-      APPLICATION_NAME: ${CI_PROJECT_NAME}
+      #Application
+      APPLICATION_GROUP: ${CI_APPLICATION_GROUP}
+      APPLICATION_NAME: ${CI_APPLICATION_NAME}
+      APP_NAME: ${CI_APP_NAME}
+      APPLICATION_NS: ${CI_APPLICATION_NS}
       APPLICATION_PORT: 11010
       ENVIRONMENT: ${CI_ENVIRONMENT}
+      
+      # AWS 
       AWS_REGION: "ap-northeast-2"
+      DEV_ACCOUNT_NO: "222383050459"
+      STG_ACCOUNT_NO: "222383050459"
+      PRD_ACCOUNT_NO: "690656347157"
+      
+      REGISTRY_URL: ${ACCOUNT_ID}.dkr.ecr.ap-northeast-2.amazonaws.com
+      DEV_REGISTRY_URL: ${DEV_ACCOUNT_NO}.dkr.ecr.ap-northeast-2.amazonaws.com
+      DEV_ASSUME_ROLE_NAME: "iam-mydata-dev-liivmateMngEcrDeploy-role"
+      DEV_ROLE_SESSION_NAME: "DEV"
+
+      STG_REGISTRY_URL: ${STG_ACCOUNT_NO}.dkr.ecr.ap-northeast-2.amazonaws.com
+      STG_ASSUME_ROLE_NAME: "iam-mydata-stg-liivmateMngEcrDeploy-role"
+      STG_ROLE_SESSION_NAME: "STG"
+
+      PRD_REGISTRY_URL: ${PRD_ACCOUNT_NO}.dkr.ecr.ap-northeast-2.amazonaws.com
+      PRD_ASSUME_ROLE_NAME: "iam-mydata-prd-liivmateMngEcrDeploy-role"
+      PRD_ROLE_SESSION_NAME: "PRD"
+
       # Jennifer
       JENNIFER_MANAGER_IP: 10.95.252.10
       JENNIFER_MANAGER_PORT: 5000
-      # DockerBuild
-      REGISTRY_URL: ${ACCOUNT_ID}.dkr.ecr.ap-northeast-2.amazonaws.com
       
     stages:
       - build
       - package
       - deploy
       - deploycheck
+      - rollback
+
 
     .assume-role-template: &assume_role
-      - if [ "${CI_COMMIT_BRANCH}" == "develop" ]; then
+      - if [ "${CI_COMMIT_BRANCH}" == "develop" ];
+        then
           export ACCOUNT_NO=${DEV_ACCOUNT_NO};
           export ASSUME_ROLE_NAME=${DEV_ASSUME_ROLE_NAME};
           export ROLE_SESSION_NAME=${DEV_ROLE_SESSION_NAME};
-        elif [ "${CI_COMMIT_BRANCH}" == "stage" ]; then
+          export REGISTRY_URL=${DEV_REGISTRY_URL};
+        elif [ "${CI_COMMIT_BRANCH}" == "stage" ];
+        then
           export ACCOUNT_NO=${STG_ACCOUNT_NO};
           export ASSUME_ROLE_NAME=${STG_ASSUME_ROLE_NAME};
           export ROLE_SESSION_NAME=${STG_ROLE_SESSION_NAME};
-        elif [ "${CI_COMMIT_BRANCH}" == "master" ]; then
+          export REGISTRY_URL=${STG_REGISTRY_URL};
+        elif [ "${CI_COMMIT_BRANCH}" == "master" ];
+        then
           export ACCOUNT_NO=${PRD_ACCOUNT_NO};
           export ASSUME_ROLE_NAME=${PRD_ASSUME_ROLE_NAME};
           export ROLE_SESSION_NAME=${PRD_ROLE_SESSION_NAME};
+          export REGISTRY_URL=${PRD_REGISTRY_URL};
         fi
-      - echo ${ENVIRONMENT}
 
-      - ASSUME_ROLE_CREDENTIALS=$(aws sts assume-role --role-arn arn:aws:iam::${ACCOUNT_NO}:role/${ASSUME_ROLE_NAME} --role-session-name ${ROLE_SESSION_NAME})
+      - ASSUME_ROLE_CREDENTIALS=$(aws sts assume-role --role-arn arn:aws:iam::${ACCOUNT_NO}:role/${ASSUME_ROLE_NAME} --role-session-name ${ROLE_SESSION_NAME} --region ${AWS_REGION})
       - export AWS_ACCESS_KEY_ID=$(echo $ASSUME_ROLE_CREDENTIALS | jq .Credentials.AccessKeyId | sed 's/"//g')
       - export AWS_SECRET_ACCESS_KEY=$(echo $ASSUME_ROLE_CREDENTIALS | jq .Credentials.SecretAccessKey | sed 's/"//g')
       - export AWS_SESSION_TOKEN=$(echo $ASSUME_ROLE_CREDENTIALS | jq .Credentials.SessionToken | sed 's/"//g')
-      - $(aws ecr get-login --no-include-email --region ${AWS_REGION})
 
+
+    .eks-var-setting-template: &eks-var-setting
+      - if [ "${CI_COMMIT_BRANCH}" == "develop" ]; then
+            export ENVIRONMENT="dev";
+            export EKS_CLUSTER_NAME="mydata-cluster-dev";
+            export HELM_VALUES_FILE="values-develop.yaml";
+            export KUBECONFIG=~/.kube/dev-config;
+        elif [ "${CI_COMMIT_BRANCH}" == "stage" ]; then
+            export ENVIRONMENT="stg";
+            export EKS_CLUSTER_NAME="mydata-cluster-stg";
+            export HELM_VALUES_FILE="values-stage.yaml";
+            export KUBECONFIG=~/.kube/stg-config;
+        elif [ "${CI_COMMIT_BRANCH}" == "master" ]; then
+            export ENVIRONMENT="prd";
+            export EKS_CLUSTER_NAME="mydata-cluster-prd";
+            export HELM_VALUES_FILE="values-master.yaml";
+            export KUBECONFIG=~/.kube/prd-config;
+        fi
+
+    .eks-var-sed-template: &eks-var-sed
+      - sed -i "s/<REGISTRY_URL>/${REGISTRY_URL}/g" helm/${HELM_VALUES_FILE}
+      - sed -i "s/<ENVIRONMENT>/${ENVIRONMENT}/g" helm/${HELM_VALUES_FILE}
+      - sed -i "s/<APPLICATION_GROUP>/${APPLICATION_GROUP}/g" helm/${HELM_VALUES_FILE}
+      - sed -i "s/<APPLICATION_NAME>/${APPLICATION_NAME}/g" helm/${HELM_VALUES_FILE}
+      - sed -i "s/<APPLICATION_NS>/${APPLICATION_NS}/g" helm/${HELM_VALUES_FILE}
+      - sed -i "s/<APP_NAME>/${APP_NAME}/g" helm/${HELM_VALUES_FILE}
+      - sed -i "s/<APPLICATION_PORT>/${APPLICATION_PORT}/g" helm/${HELM_VALUES_FILE}
+      - sed -i "s/<CI_COMMIT_SHORT_SHA>/${CI_COMMIT_SHORT_SHA}/g" helm/${HELM_VALUES_FILE}
+      
+      - sed -i "s/<APP_NAME>/${APP_NAME}/g" helm/Chart.yaml
+      - sed -i "s/<APPLICATION_NS>/${APPLICATION_NS}/g" helm/Chart.yaml
+      - sed -i "s/<ENVIRONMENT>/${ENVIRONMENT}/g" helm/Chart.yaml
 
     gradle-build:
-      image: ${REGISTRY_URL}/common:gradle6.5-jdk8
+      image: ${REGISTRY_URL}/common/gradle:6.5-jdk8
       stage: build
       script:
         # Env
@@ -1109,8 +1166,9 @@ tags: project issue
           fi
         - echo ${ENVIRONMENT}
         
-        # Change Variables
-        - sed -i "s/<APPLICATION_NAME>/${CI_PROJECT_NAME}/g" env/${ENVIRONMENT}/Dockerfile
+        # Change Variables <APPLICATION_NS>-<APP_NAME>
+        - sed -i "s/<APPLICATION_NS>/${APPLICATION_NS}/g" env/${ENVIRONMENT}/Dockerfile
+        - sed -i "s/<APP_NAME>/${APP_NAME}/g" env/${ENVIRONMENT}/Dockerfile
         - sed -i "s/<APPLICATION_PORT>/${APPLICATION_PORT}/g" env/${ENVIRONMENT}/Dockerfile
         - sed -i "s/<ENVIRONMENT>/${ENVIRONMENT}/g" env/${ENVIRONMENT}/Dockerfile
 
@@ -1118,82 +1176,74 @@ tags: project issue
         - sed -i "s/<JENNIFER_MANAGER_PORT>/${JENNIFER_MANAGER_PORT}/g" env/${ENVIRONMENT}/Dockerfile
         - sed -i "s/<JENNIFER_DOMAIN_ID>/${JENNIFER_DOMAIN_ID}/g" env/${ENVIRONMENT}/Dockerfile
         
-        - sed -i "s/<APPLICATION_NAME>/${APPLICATION_NAME}/g" env/${ENVIRONMENT}/server.xml
+        - sed -i "s/<APPLICATION_NS>/${APPLICATION_NS}/g" env/${ENVIRONMENT}/server.xml
+        - sed -i "s/<APP_NAME>/${APP_NAME}/g" env/${ENVIRONMENT}/server.xml
         - sed -i "s/<APPLICATION_PORT>/${APPLICATION_PORT}/g" env/${ENVIRONMENT}/server.xml
         
         # Change Files
         - cp env/${ENVIRONMENT}/Dockerfile Dockerfile
 
+        ### Docker Build
+        - $(aws ecr get-login --no-include-email --region ${AWS_REGION})
+        - docker build -t ${APPLICATION_NAME}:${CI_COMMIT_SHORT_SHA} .
+
+        # Assume Role
+        - *assume_role
+
         # AWS ECR Login
         - $(aws ecr get-login --no-include-email --region ${AWS_REGION})
 
-        ### Docker Build
-        - docker build -t ${APPLICATION_NAME}:${CI_COMMIT_SHORT_SHA} .
-        - docker tag ${APPLICATION_NAME}:${CI_COMMIT_SHORT_SHA} ${REGISTRY_URL}/${ENVIRONMENT}-${APPLICATION_NAME}:${CI_COMMIT_SHORT_SHA}
-        - docker tag ${APPLICATION_NAME}:${CI_COMMIT_SHORT_SHA} ${REGISTRY_URL}/${ENVIRONMENT}-${APPLICATION_NAME}:latest
-
+        ### Check Latest Image
+        - export IS_LATEST=`aws ecr describe-images --region ${AWS_REGION} --repository-name ${ENVIRONMENT}-${APPLICATION_NAME} --query imageDetails[].imageTags | grep ${APP_NAME}-latest | wc -l`
+        ### Docker Backup
+        - >
+        if [ "$IS_LATEST" == "1" ]; then
+          echo "Image Backup";
+          docker pull ${REGISTRY_URL}/${ENVIRONMENT}-${APPLICATION_NAME}:${APP_NAME}-latest;
+          docker tag ${REGISTRY_URL}/${ENVIRONMENT}-${APPLICATION_NAME}:${APP_NAME}-latest ${REGISTRY_URL}/${ENVIRONMENT}-${APPLICATION_NAME}:${APP_NAME}-backup;
+          docker push ${REGISTRY_URL}/${ENVIRONMENT}-${APPLICATION_NAME}:${APP_NAME}-backup;
+          docker rmi ${REGISTRY_URL}/${ENVIRONMENT}-${APPLICATION_NAME}:${APP_NAME}-latest;
+          docker rmi ${REGISTRY_URL}/${ENVIRONMENT}-${APPLICATION_NAME}:${APP_NAME}-backup;
+        fi
+        
         ### Docker Push into ECR
-        - $(aws ecr get-login --no-include-email --region ${AWS_REGION})
+        - docker tag ${APPLICATION_NAME}:${CI_COMMIT_SHORT_SHA} ${REGISTRY_URL}/${ENVIRONMENT}-${APPLICATION_NAME}:${CI_COMMIT_SHORT_SHA}
         - docker push ${REGISTRY_URL}/${ENVIRONMENT}-${APPLICATION_NAME}:${CI_COMMIT_SHORT_SHA}
-        - docker push ${REGISTRY_URL}/${ENVIRONMENT}-${APPLICATION_NAME}:latest
+
+        - docker tag ${APPLICATION_NAME}:${CI_COMMIT_SHORT_SHA} ${REGISTRY_URL}/${ENVIRONMENT}-${APPLICATION_NAME}:${APP_NAME}-latest
+        - docker push ${REGISTRY_URL}/${ENVIRONMENT}-${APPLICATION_NAME}:${APP_NAME}-latest
 
         ### Docker Delete Images
         - docker rmi ${APPLICATION_NAME}:${CI_COMMIT_SHORT_SHA}
         - docker rmi ${REGISTRY_URL}/${ENVIRONMENT}-${APPLICATION_NAME}:${CI_COMMIT_SHORT_SHA}
-        - docker rmi ${REGISTRY_URL}/${ENVIRONMENT}-${APPLICATION_NAME}:latest
+        - docker rmi ${REGISTRY_URL}/${ENVIRONMENT}-${APPLICATION_NAME}:${APP_NAME}-latest
 
       only:
         - develop
         - stage
         - master
+
       
 
     # Deploy
     deploy:
       stage: deploy
-      image: ${REGISTRY_URL}/common:helm-deploy
+      image: ${REGISTRY_URL}/common/helm-deploy:latest
       script:
         # Env
-        - if [ "${CI_COMMIT_BRANCH}" == "develop" ]; then
-              export ENVIRONMENT="dev";
-              export EKS_CLUSTER_NAME="mydata-cluster-dev";
-              export HELM_VALUES_FILE="values-develop.yaml";
-              export KUBECONFIG=~/.kube/dev-config;
-          elif [ "${CI_COMMIT_BRANCH}" == "stage" ]; then
-              export ENVIRONMENT="stg";
-              export EKS_CLUSTER_NAME="mydata-cluster-stg";
-              export HELM_VALUES_FILE="values-stage.yaml";
-              export KUBECONFIG=~/.kube/stg-config;
-          elif [ "${CI_COMMIT_BRANCH}" == "master" ]; then
-              export ENVIRONMENT="prd";
-              export EKS_CLUSTER_NAME="mydata-cluster-prd";
-              export HELM_VALUES_FILE="values-master.yaml";
-              export KUBECONFIG=~/.kube/prd-config;
-          fi
-          
-        - echo ${ENVIRONMENT}
-
-        #- aws eks update-kubeconfig --name ${EKS_CLUSTER_NAME} --kubeconfig ./kubeconfig_cli --region ${AWS_REGION}
-        #- export KUBECONFIG=./kubeconfig_cli
-
+        - *eks-var-setting
+        
+        # Assume Role
+        - *assume_role
+        
+        # - aws eks update-kubeconfig --name ${EKS_CLUSTER_NAME} --region ${AWS_REGION}
+        
         ## Change Variables
-        - sed -i "s/<REGISTRY_URL>/${REGISTRY_URL}/g" helm/${HELM_VALUES_FILE}
-        - sed -i "s/<ENVIRONMENT>/${ENVIRONMENT}/g" helm/${HELM_VALUES_FILE}
-        - sed -i "s/<APPLICATION_NAME>/${CI_PROJECT_NAME}/g" helm/${HELM_VALUES_FILE}
-        - sed -i "s/<APPLICATION_PORT>/${APPLICATION_PORT}/g" helm/${HELM_VALUES_FILE}
-        - sed -i "s/<CI_COMMIT_SHORT_SHA>/${CI_COMMIT_SHORT_SHA}/g" helm/${HELM_VALUES_FILE}
-        - sed -i "s/<APPLICATION_GROUP>/${APPLICATION_GROUP}/g" helm/${HELM_VALUES_FILE}
-        
-        - sed -i "s/<EKS_INGRESS_SUBNET>/${EKS_INGRESS_SUBNET}/g" helm/${HELM_VALUES_FILE}
-        - sed -i "s/<EKS_INGRESS_SG>/${EKS_INGRESS_SG}/g" helm/${HELM_VALUES_FILE}
-        
-        - sed -i "s/<APPLICATION_NAME>/${CI_PROJECT_NAME}/g" helm/Chart.yaml
-        - sed -i "s/<ENVIRONMENT>/${ENVIRONMENT}/g" helm/Chart.yaml
+        - *eks-var-sed
 
-        - helm upgrade -i --debug ${APPLICATION_NAME}-${ENVIRONMENT} ./helm/ -f ./helm/${HELM_VALUES_FILE}
-        -n ${APPLICATION_NAME}
+        - helm upgrade -i --debug ${APP_NAME}-${ENVIRONMENT} ./helm/ -f ./helm/${HELM_VALUES_FILE}
+        -n ${APPLICATION_NS}
         
-
       only:
         - develop
         - stage
@@ -1202,30 +1252,45 @@ tags: project issue
     # Deploy-Check 
     deploycheck:
       stage: deploycheck
-      image: ${REGISTRY_URL}/common:helm-deploy
+      image: ${REGISTRY_URL}/common/helm-deploy:latest
       script:
         # Env
-        - if [ "${CI_COMMIT_BRANCH}" == "develop" ]; then
-              export ENVIRONMENT="dev";
-              export EKS_CLUSTER_NAME="MyDataAPICluster";
-              export KUBECONFIG=~/.kube/dev-config;
-          elif [ "${CI_COMMIT_BRANCH}" == "stage" ]; then
-              export ENVIRONMENT="stg";
-              export EKS_CLUSTER_NAME="mydata-cluster-stg";
-              export KUBECONFIG=~/.kube/stg-config;
-          elif [ "${CI_COMMIT_BRANCH}" == "master" ]; then
-              export ENVIRONMENT="prd";
-              export EKS_CLUSTER_NAME="mydata-cluster-prd";
-              export KUBECONFIG=~/.kube/prd-config;
-          fi
-
-        - echo ${ENVIRONMENT}
-        #- aws eks update-kubeconfig --name ${EKS_CLUSTER_NAME} --kubeconfig ./kubeconfig_cli --region ${AWS_REGION}
-        #- export KUBECONFIG=./kubeconfig_cli
+        - *eks-var-setting
+        
+        # Assume Role
+        - *assume_role
+        
+        # - aws eks update-kubeconfig --name ${EKS_CLUSTER_NAME} --region ${AWS_REGION}
         
         # Check Status
-        - kubectl rollout status deployment ${APPLICATION_NAME}-${ENVIRONMENT}-deployment -n ${APPLICATION_NAME}
+        - kubectl rollout status deployment ${APP_NAME}-${ENVIRONMENT}-deploy -n ${APPLICATION_NS}
 
+      only:
+        - develop
+        - stage
+        - master
+
+
+    # Deploy-Check 
+    rollback:
+      stage: deploycheck
+      when: manual
+      image: ${REGISTRY_URL}/common/helm-deploy:latest
+      script:
+        # Env
+        - *eks-var-setting
+        # - aws eks update-kubeconfig --name ${EKS_CLUSTER_NAME} --region ${AWS_REGION}
+
+        # Assume Role
+        - *assume_role
+        
+        ## Change Variables
+        - *eks-var-sed
+
+        ## Deploy Backup
+        - helm upgrade -i --debug --set image.tag=${APP_NAME}-backup ${APP_NAME}-${ENVIRONMENT} ./helm/ -f ./helm/${HELM_VALUES_FILE}
+        -n ${APPLICATION_NS}
+      
       only:
         - develop
         - stage
