@@ -78,6 +78,12 @@ argo-argocd-repo-server              ClusterIP      172.20.90.9      <none>     
 argo-argocd-server                   LoadBalancer   172.20.199.156   a365a14fe8cfd40d3905ff4ee69d52e0-**.elb.ap-northeast-2.amazonaws.com                 80:31017/TCP,443:31146/TCP   62m
 ```
 
+`Login`  
+Username은 admin이고 패스워드는 아래의 정보를 통해 알 수 있다.  
+```bash
+kubectl -n argo get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+```
+
 
 
 <br>
