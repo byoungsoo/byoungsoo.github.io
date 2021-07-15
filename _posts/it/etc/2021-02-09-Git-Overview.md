@@ -24,7 +24,7 @@ git config --global user.email johndoe@example.com
 
 User ID와 Password Credential 저장을 위해서는 아래와 같이 credential store 설정을 한다.  
 ```bash
-git config credential.helpler store
+git config credential.helper store
 ```
 <br>
 
