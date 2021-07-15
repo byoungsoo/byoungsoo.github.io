@@ -83,7 +83,7 @@
 }
 #post-bys .block p {
   color: black;
-  font-size: 18px;
+  font-size: 16px;
   padding-top: 10px;
 }
 
@@ -92,7 +92,7 @@
 }
 
 #post-bys .block li {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 #post-bys .block strong {
@@ -100,13 +100,13 @@
 }
 
 #post-bys .block table {
-  font-size: 18px;
+  font-size: 16px;
   width: 95%;
 }
 
 #post-bys .block table thead th {
   padding: 1rem 2rem;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   border: 0.5px solid #ddd;
   background-color: #d1d1d1;
@@ -115,7 +115,7 @@
 
 #post-bys .block table tr td {
   padding: 0.5rem 2rem;
-  font-size: 18px;
+  font-size: 16px;
   border: 0.5px solid #ddd;
   background-color: #ffffff;
 }
