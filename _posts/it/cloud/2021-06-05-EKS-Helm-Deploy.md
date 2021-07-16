@@ -35,6 +35,22 @@ helm upgrade -i nginx-ingress stable/nginx-ingress -n ingress
 helm upgrade -i "name" stable/nginx-ingress -n "namespace"
 ```
 
+만약 제공 되는 values.yaml 중 변경하고 싶은 값이 있다면 아래와 같이 수행한다.  
+1. helm fetch 를 통해 tgz을 내려받고 압축을 풀어 chart를 내려받은 후 values.yaml 값을 수정하여 배포  
+
+```bash
+helm fetch stable/nginx-ingress
+tar -xzvf nginx-ingress-1.41.3.tgz
+```
+
+2. helm upgrade -i 를 통해 수행하며 --set 옵션을 통해 values.yaml을 오버라이딩 한다.  
+```bash
+#sample
+helm upgrade -i nginx-ingress stable/nginx-ingress -n ingress \
+--set image.pullPolicy=Always \
+--set serviceAccount.enabled=false
+```
+
 <br><br>
 
 #### Helm Chart Create  
