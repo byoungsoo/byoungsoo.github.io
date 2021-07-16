@@ -8,10 +8,6 @@ tags: aws eks helm deploy
 ---
 
 #### Helm 설정  
-
-
-
-
 `Instasll Helm`
 ```bash
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3

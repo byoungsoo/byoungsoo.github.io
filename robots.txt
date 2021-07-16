@@ -1,5 +1,10 @@
 User-agent: *
+Disallow: /category/it/resume
+Disallow: /category/it/project
+Disallow: /category/it/issue
+Disallow: /resume
+Disallow: /project
+Disallow: /issue
 Allow: /
-
 Sitemap: http://byoungsoo.github.io/sitemap.xml
- 
+
