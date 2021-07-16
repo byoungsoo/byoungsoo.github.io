@@ -57,6 +57,7 @@ helm upgrade -i nginx-ingress stable/nginx-ingress -n ingress \
 helm create "name" 을 통해서 default chart를 생성할 수 있다.  
 아래와 같이 command를 실행하면 현재 폴더에 helm 폴더가 생기고 하위에 templates, Chart.yaml, Values.yaml 이 생성된다.  
 templates 하위에는 deployment.yaml, service.yaml, serviceaccount.yaml ingress.yaml 등이 기본적으로 생성되며 모두 values.yaml에 설정한 값을 이용하여 배포된다.  
+`Helm Chart`  
 ```bash
 helm create helm
 #helm create "name"
