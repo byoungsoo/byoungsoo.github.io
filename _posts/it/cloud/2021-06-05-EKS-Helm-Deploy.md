@@ -71,7 +71,7 @@ helm create helm
 helm upgrade -i test ./helm/ -f ./helm/values.yaml -n test
 
 #Output
-:<<'END'
+: << "END"
 Release "test" does not exist. Installing it now.
 NAME: test
 LAST DEPLOYED: Fri Jul 16 17:24:50 2021
