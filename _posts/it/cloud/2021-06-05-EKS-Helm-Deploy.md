@@ -34,10 +34,10 @@ helm upgrade -i nginx-ingress stable/nginx-ingress -n ingress
 ```bash
 helm upgrade -i "name" stable/nginx-ingress -n "namespace"
 ```
+<br>
 
 만약 제공 되는 values.yaml 중 변경하고 싶은 값이 있다면 아래와 같이 수행한다.  
 1. helm fetch 를 통해 tgz을 내려받고 압축을 풀어 chart를 내려받은 후 values.yaml 값을 수정하여 배포  
-
 ```bash
 helm fetch stable/nginx-ingress
 tar -xzvf nginx-ingress-1.41.3.tgz
@@ -57,8 +57,10 @@ helm upgrade -i nginx-ingress stable/nginx-ingress -n ingress \
 helm create "name" 을 통해서 default chart를 생성할 수 있다.  
 아래와 같이 command를 실행하면 현재 폴더에 helm 폴더가 생기고 하위에 templates, Chart.yaml, Values.yaml 이 생성된다.  
 templates 하위에는 deployment.yaml, service.yaml, serviceaccount.yaml ingress.yaml 등이 기본적으로 생성되며 모두 values.yaml에 설정한 값을 이용하여 배포된다.  
+`Helm Chart`  
 ```bash
 helm create helm
+#helm create "name"
 ```
 <br>
 
@@ -69,7 +71,8 @@ helm create helm
 #Command
 helm upgrade -i test ./helm/ -f ./helm/values.yaml -n test
 
-#Comments
+#Output
+: << "END"
 Release "test" does not exist. Installing it now.
 NAME: test
 LAST DEPLOYED: Fri Jul 16 17:24:50 2021
@@ -82,13 +85,16 @@ NOTES:
   export CONTAINER_PORT=$(kubectl get pod --namespace test $POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
   echo "Visit http://127.0.0.1:8080 to use your application"
   kubectl --namespace test port-forward $POD_NAME 8080:$CONTAINER_PORT
+END
 ```
 
 ```bash
 helm upgrade -i --debug ${APP_NAME} ./helm/ -f ./helm/${HELM_VALUES_FILE} -n ${APPLICATION_NS}
 
-helm ls -A #helm ls -n namespace
+helm ls -A
+#helm ls -n namespace
 ```
+<br>
 
 `Helm Delete`  
 helm을 통해 배포한 app은 아래와 같은 커맨드로 resource 삭제가 가능하다.  
