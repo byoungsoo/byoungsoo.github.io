@@ -13,7 +13,7 @@ category: resume
 &nbsp; 저는 주로 AWS 클라우드 환경에서 프로젝트를 진행하고 있고, 
 KB카드, 한화생명, LG화학, 대한항공 등의 사이트에서 프로젝트를 진행했습니다.
 
-대한항공은 Replatform 전략을 통해 AWS 클라우드로 Migration하는 프로젝트였고 이 중 WEB/WAS 구축을 주 업무로 수행했습니다.
+대한항공 프로젝트에서는 Replatform 전략을 통해 AWS 클라우드로 Migration하는 프로젝트였고 이 중 WEB/WAS 구축을 주 업무로 수행했습니다.
 Auto Scaling이 가능한 미들웨어 설계/구축을 진행하였고, Websphere 환경의 기존 소스를 분석하여 JBoss환경의 기동 시키기까지 
 소스 전환을 위한 트러블 슈팅도 담당하여 성공적인 Migration 업무를 수행했습니다. 
 
