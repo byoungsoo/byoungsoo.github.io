@@ -73,7 +73,7 @@ Max e속성과 동일한 시간으로 계산된 Expires속성을 세팋해서 �
 • LegacyC00kieProcessor는 VO쿠카와 always add expires 설정을 활성화한 상하에 대해 Expires를 추가한다 (`71쿠 
 키를 사용하려면 always add expires를 활성화할 것을 권장)  
 
- ![scouter](/assets/it/issue/koreanair/koaissue1.png){: width="90%" height="auto"}   
+ ![koaissue01](/assets/it/issue/koreanair/koaissue01.png){: width="90%" height="auto"}   
 
 <br>
 
