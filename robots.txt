@@ -1,4 +1,5 @@
 User-agent: *
+Disallow: /assets
 Disallow: /category/it/resume
 Disallow: /category/it/project
 Disallow: /category/it/issue
