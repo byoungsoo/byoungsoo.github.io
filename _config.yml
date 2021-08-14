@@ -18,6 +18,9 @@ subtitle: "Github Blog"
 
 # the base hostname & protocol for your site
 url: "https://byoungsoo.github.io/"
+#AccessToken
+#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
+
 
 # baseurl: "/the/subpath/of/your/site" # Set this value to "" if you want your site to be root
 baseurl: ""
