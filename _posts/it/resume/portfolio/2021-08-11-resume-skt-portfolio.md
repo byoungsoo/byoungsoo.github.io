@@ -26,11 +26,6 @@ category: resume
 <br>
 
 
-![koa](/assets/it/project/koreanair/koa7.png){: width="60%" height="auto"}  
-
-
-![koa](/assets/it/project/koreanair/koa8.png){: width="85%" height="auto"}  
-
 
 
 
@@ -48,3 +43,31 @@ Ex)
 : 기존 대용량 NAS데이터를 읽으며 WAS기동 시간이 10분 이상 걸리던 시스템을 대상으로 JBoss내 overlay 기능을 통해 WAS 기동 시간 대폭 단축 등  
 : 기존 Websphere등에서 지원되는 SOAP 통신등이 전환 시 오류가 발생하면서 표준에 맞지 않는 소스들이 발견 -> 표준 가이드 제공  
 -대한항공 클라우드 전환 2단계 성공적인 오픈  
+
+
+
+
+### KB카드 마이데이터 프로젝트
+
+
++ **주요역할**  
+-AWS EKS 환경 구축  
+-KB카드 통합 Gitlab CI/CD 환경 구축  
+-EKS 배포를 위한 CI/CD 파이프라인 구축   
+-EKS 로깅 환경 구축(EFK)  
+-컨테이너 Base 이미지에 대한 파이프라인 구축 (CI/CD 빌드 이미지 및 Tomcat 서비스 이미지)  
+-Cloud환경 WEB/WAS 표준 가이드 리딩  
+-Cloud TA역할 수행  
+-Cloud 환경 내 Trouble Shooting  
+
+
+
+
+
+
+
+   
+<br>
+
+
+
