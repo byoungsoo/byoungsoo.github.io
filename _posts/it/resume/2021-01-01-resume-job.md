@@ -30,6 +30,8 @@ category: resume
    -클라우드 환경 내 WEB/WAS Auto-Scaling 적용  
    -CI/CD 자동화 파이프라인 구축을 통해 개발자들의 업무 효율성 향상  
    -SI를 진행하면서 발생되는 Trouble Shooting  
+   -Kibana와 AWS SNS 연계를 통해 Application Biz 오류 발생 시 담당자 문자발송을 통해 장애조치 처리에 대한 효율성 제공    
+
 
  <br><br>
 
