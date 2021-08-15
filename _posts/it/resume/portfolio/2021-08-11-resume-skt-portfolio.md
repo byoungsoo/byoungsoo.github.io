@@ -7,7 +7,7 @@ category: resume
 
 
 
-### 대한항공 프로젝트
+## -대한항공 AWS 전환 프로젝트  
 
 <br>
 
@@ -33,6 +33,10 @@ category: resume
 <br>
 
 
+
+
+
+
 **업무성과**   
 
 -ERP, HR, Middleware 업무를 담당하여 해당 업무 레거시 시스템을 전체 분석하였으며 고객들과의 인터뷰 등을 통해 이관 방식에 대한 논의 및 필요사항 도출  
@@ -47,27 +51,28 @@ Ex)
 
 
 
-### KB카드 마이데이터 프로젝트
 
 
-+ **주요역할**  
--AWS EKS 환경 구축  
--KB카드 통합 Gitlab CI/CD 환경 구축  
--EKS 배포를 위한 CI/CD 파이프라인 구축   
--EKS 로깅 환경 구축(EFK)  
--컨테이너 Base 이미지에 대한 파이프라인 구축 (CI/CD 빌드 이미지 및 Tomcat 서비스 이미지)  
--Cloud환경 WEB/WAS 표준 가이드 리딩  
--Cloud TA역할 수행  
--Cloud 환경 내 Trouble Shooting  
 
 
+## -KB카드 마이데이터 프로젝트
+
+<br>
+
+**주요역할**  
+
+1. AWS EKS 환경 구축  
+2. KB카드 통합 Gitlab CI/CD 환경 구축  
+3. EKS 배포를 위한 CI/CD 파이프라인 구축   
+4. EKS 로깅 환경 구축(EFK)  
+5. 컨테이너 Base 이미지에 대한 파이프라인 구축 (CI/CD 빌드 이미지 및 Tomcat 서비스 이미지)  
+6. Cloud환경 WEB/WAS 표준 가이드 리딩  
+7. Cloud TA역할 수행  
+8. Cloud 환경 내 Trouble Shooting  
 
 
 
 
 
    
-<br>
-
-
-
+<br><br>
