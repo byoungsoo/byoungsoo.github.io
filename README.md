@@ -36,7 +36,11 @@ Spring / Java
 
 ---
 ### **Project**  
-2021.04.03 ~ 2021.08.24 - KB Card Mydata 구축  / `SWA`  
+#### **kakao Enterprise**
+2021.10.18 ~ 2021. - KB Card Mydata 구축  / `SA`  
+
+#### **LG CNS**
+2021.04.03 ~ 2021.10.01 - KB Card Mydata 구축  / `SWA`  
 
 2021.03.01 ~ 2021.04.02 - TEC 과제 / `SWA`  
 
