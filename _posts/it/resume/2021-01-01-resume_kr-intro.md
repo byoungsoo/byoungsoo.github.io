@@ -28,7 +28,7 @@ category: resume
 
 |회사명|근무부서|담당직무|입사일/퇴사일|프로젝트|
 | :---: | :---: | :---: | :---: | :--- |
-|LG CNS|Cloud Innovation팀|Software Arhictecture|2015.01/현재 재직|-KB Card 마이데이터 구축<br>-TEC과제 (내부 과제: EKS 표준 모니터링 체계 구축)<br>-MSA Outer Arhictecture(Essential) 교육과정 개발<br>-Hanwha Life MSP 운영<br>-LG Chemical AWS Cloud 전환<br>-Korean Air AWS Cloud 전환<br>-LG Electronics Oracle ERP SM/SI 업무|
+|LG CNS|Cloud Innovation팀|Software Architecture|2015.01/현재 재직|-KB Card 마이데이터 구축<br>-TEC과제 (내부 과제: EKS 표준 모니터링 체계 구축)<br>-MSA Outer Architecture(Essential) 교육과정 개발<br>-Hanwha Life MSP 운영<br>-LG Chemical AWS Cloud 전환<br>-Korean Air AWS Cloud 전환<br>-LG Electronics Oracle ERP SM/SI 업무|
 
 <br>
 
