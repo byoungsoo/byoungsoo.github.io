@@ -77,10 +77,28 @@
 }
 
 #post-bys .block h2 {
-  padding-top: 35px;
-  line-height: 27px;
+  font-size: 30px;
+  padding-top: 40px;
+  line-height: 10px;
   margin: 0;
 }
+
+#post-bys .block h3 {
+  font-size: 25px;
+  padding-top: 30px;
+  line-height: 10px;
+}
+
+#post-bys .block h4 {
+  font-size: 20px;
+  padding-top: 15px;
+  line-height: 10px;
+}
+
+#post-bys .block h5 {
+  font-size: 15px;
+}
+
 #post-bys .block p {
   color: black;
   font-size: 16px;
@@ -95,9 +113,9 @@
   font-size: 16px;
 }
 
-#post-bys .block strong {
+/* #post-bys .block strong {
   font-size: 20px;
-}
+} */
 
 #post-bys .block table {
   font-size: 16px;
