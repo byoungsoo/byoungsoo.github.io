@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Network - Basic"
+title: "Basic - Network"
 author: "Bys"
 category: etc
 date: 2021-11-22 01:00:00
