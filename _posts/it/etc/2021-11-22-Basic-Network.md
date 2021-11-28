@@ -17,6 +17,21 @@ TCP 포트는 왜 65535개만 사용가능한가? 라는 단순한 질문을 던
 
 ## 1. Network 기본 개념
 
++ ### Load Balancer란  
+
+Distributed, Scalable 시스템 환경에서는 확장성, 가용성 등을 고려한 아키텍처가 설계 되어진다.  
+로드밸런서는 서버의 앞단에 위치하여 단일 접점의 역할을 하며 다량의 트래픽에 대해 적절히 뒷 단의 서버에 트래픽을 분산하여 요청하는 기능을 수행한다.  
+
+분산 요청을 하게 되면 각 서버에 요청 되는 트래픽을 분산시켜 안정정적으로 응답할 수 있게 된다.  
+
+AWS 환경에서는 NLB, ALB가 존재한다.  
+NLB는 L4 Layer 에서 동작하는 로드밸런서로 IP/PORT 기반의 라우팅을 하게 된다.  
+설정시 Listen하는 포트는 TCP/UDP포트를 설정할 수 있으며 Target Group으로 요청을 받는 서버 및 포트를 설정하게 된다.  
+
+ALB는 L7 Layer 에서 동작하는 로드밸런서로 URL/IP/PORT 기반의 라우팅을 할 수 있다.  
+L4 Layer와 다르게 Listen하는 포트를 HTTP/TCP/UDP로 설정할 수 있고, Path를 설정할 수 있으므로 더 다양한 라우팅을 가능하게 한다.
+
+
 + ### OSI 7 계층 (Open System Interconnection)  
 
 1. `Physical Layer - 물리 계층`  
@@ -84,5 +99,18 @@ TCP 포트는 왜 65535개만 사용가능한가? 라는 단순한 질문을 던
 
 + ### Protocol
 
-1. `ARP Protocol (Address Resolution Protocol)`  
+
+1. `L7 / FTP (File Transfer Protocol)`  
+
+2. `L7 / SMTP (Simple Mail Transfer Protocol)`  
+   
+3. `L4 / TCP (Transmission Control Protocol)`  
+
+4. `L4 / UDP (User Datagram Protocol)`  
+
+5. `L3 / IP (Internet Protocol)`
+
+6. `L3 / ARP Protocol (Address Resolution Protocol)`  
     네트워크 상에서 IP 주소를 물리적 네트워크 주소로 대응(bind)시키기 위해 사용되는 프로토콜이다.  
+
+7. `BGP (Border Gateway Protocol)`  

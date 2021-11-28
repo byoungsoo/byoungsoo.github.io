@@ -29,7 +29,8 @@ AWS나 클라우드 사용경험이 없어도 다양한 기술분야에 대한 �
 Customer facing/influencing role 인 만큼 communication skill도 중요하게 생각합니다.  
 
 AWS 나 클라우드 관련 보다는 다양한 IT 분야에 대한 기본개념에 대한 이해를 묻는 질문들이 많습니다.  
-(ex. 3 tier 웹 어플리케이션의 정의와 구성방식? 컨테이너? distributed and scalable systems 구성 시 고려할 요소? CI/CD? micro services design 의 장단점? Load Balancer란? TCP와 UDP의 차이는? RDBMS와 NoSQL의 차이는? 웹방화벽이 일반 방화벽과 어떻게 다른지? RAID는? Hadoop등등)  
+(ex. 3 tier 웹 어플리케이션의 정의와 구성방식? 컨테이너? distributed and scalable systems 구성 시 고려할 요소? CI/CD? micro services design 의 장단점? Load Balancer란?
+ TCP와 UDP의 차이는? RDBMS와 NoSQL의 차이는? 웹방화벽이 일반 방화벽과 어떻게 다른지? RAID는? Hadoop등등)  
 
 얼마나 fundamental한 지식이 잘 갖추어져 있는지, 어느 부분이 강하고 약한지 포괄적으로 점검하기 위한 단계이므로 모든 질문에 전부 답하기는 어렵습니다.  
 아시는 범위내에서 차분하게 정리해서 답변해 주시면 됩니다.  
