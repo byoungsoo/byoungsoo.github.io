@@ -5,6 +5,41 @@ author: "Bys"
 category: resume
 ---
 
+
+**채용과정**
+솔루션즈 아키텍트는 고객들의 클라우드 도입/전환 과정에서 필요한 기술적인 조언과 지원을 제공하는 역할을 수행합니다.  
+AWS나 클라우드 사용경험이 없어도 다양한 기술분야에 대한 깊이있는 hands-on 경험과 새로운 기술에 대한 호기심이 있는 분들에게 적합한 포지션입니다.  
+역할이 낮선 분들을 위해 팀에서는 Architect로 원활하게 정착할 수 있도록 장기적인 온보딩/transformation 프로그램을 운영하고 있습니다.  
+
+인터뷰는 1차 기술 인터뷰 à 2차 기술 인터뷰(과제 기반) à 최종 인터뷰의 단계로, 모두 원격으로 진행합니다.  
+채용 과정에서 중요하게 생각하는 부분과 그렇지 않은 부분을 나누어서 설명 드리면 다음과 같습니다.  
+
+<중요한 부분>  
+1. 기술 전문성: 특정 영역에 대한 강점을 포함한 전반적 IT 전문성  
+2. 호기심: 새로운 기술 습득에 대한 관심과 열정(특정 기술분야에 매몰되지 않고 새로운 기술에 대한 꾸준한 학습을 하시는 분)  
+3. 커뮤니케이션: 구조화된 메시지 전달을 할 수 있는 커뮤니케이션 스킬  
+
+
+<중요하지 않은 부분>  
+1. AWS/Cloud 경험: 입사하고 배워도 됩니다만, 어느정도의 관심이 있으면 도움이 됩니다.  
+2. 영어: 읽고 쓸 줄 알면 말하는 건 장기적으로 천천히 준비해 가도 됩니다.  
+ 
+
+첫 인터뷰는 기술영역 전반(dev, DB, storage, network, security, virtualization, etc)에 대한 한국어 구술 인터뷰 형태로 진행되며  
+Customer facing/influencing role 인 만큼 communication skill도 중요하게 생각합니다.  
+
+AWS 나 클라우드 관련 보다는 다양한 IT 분야에 대한 기본개념에 대한 이해를 묻는 질문들이 많습니다.  
+(ex. 3 tier 웹 어플리케이션의 정의와 구성방식? 컨테이너? distributed and scalable systems 구성 시 고려할 요소? CI/CD? micro services design 의 장단점? Load Balancer란? TCP와 UDP의 차이는? RDBMS와 NoSQL의 차이는? 웹방화벽이 일반 방화벽과 어떻게 다른지? RAID는? Hadoop등등)  
+
+얼마나 fundamental한 지식이 잘 갖추어져 있는지, 어느 부분이 강하고 약한지 포괄적으로 점검하기 위한 단계이므로 모든 질문에 전부 답하기는 어렵습니다.  
+아시는 범위내에서 차분하게 정리해서 답변해 주시면 됩니다.  
+
+ How to join a Chime meeting:
+  Select Join a meeting without an account à Join a Meeting
+Enter the Meeting ID: 3071427286 and put your name in, then join meeting
+à Select Use Mic & Speakers à Click on ‘Video’ à Please wait until the interviewer joins.
+
+
 **LP**
 
 1. Customer Obsession
