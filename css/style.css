@@ -145,6 +145,10 @@
   padding-top: 20px;
 }
 
+#post-bys .blockquote {
+  border-left: 5px solid #ddd
+}
+
 /* #post-bys .block img {
   padding-left: 40px;
   width: 100%;
