@@ -114,3 +114,13 @@ L4 Layer와 다르게 Listen하는 포트를 HTTP/TCP/UDP로 설정할 수 있�
     네트워크 상에서 IP 주소를 물리적 네트워크 주소로 대응(bind)시키기 위해 사용되는 프로토콜이다.  
 
 7. `BGP (Border Gateway Protocol)`  
+
+
+### - Bridge  
+
+Bridge는 
+
+
+
+> 참고
+https://developers.redhat.com/blog/2018/10/22/introduction-to-linux-interfaces-for-virtual-networking#bridge
