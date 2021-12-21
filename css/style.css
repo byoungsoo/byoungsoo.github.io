@@ -74,12 +74,14 @@
   font-family: 'BinggraeBold';
   /* font-family: 'MyriadSemiBold'; */
   padding-top: 32px;
+  font-weight: 700;
 }
 
 #post-bys .block h2 {
   font-size: 30px;
   padding-top: 40px;
   line-height: 10px;
+  font-weight: 600;
   margin: 0;
 }
 
@@ -87,12 +89,14 @@
   font-size: 25px;
   padding-top: 30px;
   line-height: 10px;
+  font-weight: 600;
 }
 
 #post-bys .block h4 {
   font-size: 20px;
   padding-top: 15px;
   line-height: 10px;
+  font-weight: 600;
 }
 
 #post-bys .block h5 {
@@ -145,8 +149,8 @@
   padding-top: 20px;
 }
 
-#post-bys .blockquote {
-  border-left: 5px solid rgb(248, 243, 172)
+#post-bys blockquote {
+  border-left: 1px solid #ddd
 }
 
 /* #post-bys .block img {
