@@ -113,13 +113,18 @@
   font-family: 'Binggrae';
 }
 
-#post-bys .block li {
-  font-size: 16px;
+#post-bys .block ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  margin-inline-start: 2.5em;
 }
 
-/* #post-bys .block strong {
-  font-size: 20px;
-} */
+#post-bys .block li {
+  font-size: 16px;
+  color: black;
+}
+
 
 #post-bys .block table {
   font-size: 16px;
@@ -150,7 +155,7 @@
 }
 
 #post-bys blockquote {
-  border-left: 1px solid #ddd
+  border-left: 5px solid #ddd
 }
 
 /* #post-bys .block img {
