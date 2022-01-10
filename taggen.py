@@ -6,9 +6,10 @@ import os
 post_dir = '_posts/it/algorithm/'
 post_dir = '_posts/it/cloud/'
 post_dir = '_posts/it/etc/'
-post_dir = '_posts/it/solution/'
+post_dir = '_posts/it/solution/
+post_dir = '_posts/reading/'
 '''
-post_dir = '_posts/it/solution/'
+post_dir = '_posts/reading/'
 tag_dir = 'tag/'
 
 filenames = glob.glob(post_dir + '*md')

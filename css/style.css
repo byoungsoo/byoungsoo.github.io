@@ -80,6 +80,7 @@
 #post-bys .block h2 {
   font-size: 30px;
   padding-top: 40px;
+  padding-bottom: 5px;
   line-height: 10px;
   font-weight: 600;
   margin: 0;
@@ -116,7 +117,12 @@
 #post-bys .block ul {
   padding: 0;
   margin: 0;
-  list-style: none;
+  margin-inline-start: 2.5em;
+}
+
+#post-bys .block ol {
+  padding: 5px;
+  margin: 0;
   margin-inline-start: 2.5em;
 }
 

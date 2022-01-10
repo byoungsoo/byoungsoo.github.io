@@ -1,6 +1,6 @@
 ---
 layout: tagpage
-title: "Tag: java"
-tag: java
+title: "Tag: command"
+tag: command
 robots: noindex
 ---

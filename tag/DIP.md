@@ -1,6 +1,6 @@
 ---
 layout: tagpage
-title: "Tag: java"
-tag: java
+title: "Tag: DIP"
+tag: DIP
 robots: noindex
 ---
