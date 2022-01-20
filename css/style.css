@@ -88,7 +88,8 @@
 
 #post-bys .block h3 {
   font-size: 25px;
-  padding-top: 30px;
+  padding-top: 10px;
+  padding-bottom: 5px;
   line-height: 10px;
   font-weight: 600;
 }
@@ -107,7 +108,7 @@
 #post-bys .block p {
   color: black;
   font-size: 16px;
-  padding-top: 10px;
+  padding-top: 5px;
 }
 
 #post-bys .block .post-info-wrapper {
