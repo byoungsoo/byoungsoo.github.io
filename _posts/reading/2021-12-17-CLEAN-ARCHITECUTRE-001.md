@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Clean Architecture (PART 1~3) - Robert C. Martin"
+title: "Clean Architecture (Chapter 1~11) - Robert C. Martin"
 author: "Bys"
 category: reading
 date: 2021-12-17 01:00:00

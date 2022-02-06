@@ -111,6 +111,13 @@
   padding-top: 5px;
 }
 
+#post-bys .block p em{
+  color: rgba(90, 90, 90, 0.8);
+  font-weight: bold;
+  font-size: 16px;
+  padding-top: 5px;
+}
+
 #post-bys .block .post-info-wrapper {
   font-family: 'Binggrae';
 }
