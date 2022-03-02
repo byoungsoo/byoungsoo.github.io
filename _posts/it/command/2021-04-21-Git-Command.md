@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "Git 사용법 Command"
+title: "Git Command"
 author: "Bys"
-category: etc
-date: 2021-02-09 00:00:00
+category: command
+date: 2021-04-21 00:00:00
 tags: git gitcommand
 ---
 
