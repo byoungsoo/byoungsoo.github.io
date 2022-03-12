@@ -239,6 +239,33 @@ openstack alarm create \
   --alarm-action "https://user:{token}@{jenkins_url}/job/test-aodh-memory1024-alarm/build"
 ```
 
+alarm-action에 들어가는 URL을 호출할 때, 넘어가는 body의 파라미터는 아래와 같다.  
+```python
+# aodh > notifier > rest.py
+body = {'alarm_name': alarm_name, 'alarm_id': alarm_id,
+        'severity': severity, 'previous': previous,
+        'current': current, 'reason': reason,
+        'reason_data': reason_data}
+headers['content-type'] = 'application/json'
+kwargs = {'data': json.dumps(body),
+          'headers': headers}
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+max_retries = self.conf.rest_notifier_max_retries
+session = requests.Session()
+session.mount(action.geturl(),
+              requests.adapters.HTTPAdapter(max_retries=max_retries))
+resp = session.post(action.geturl(), **kwargs)
+LOG.info('Notifying alarm <%(id)s> gets response: %(status_code)s '
+          '%(reason)s.', {'id': alarm_id,
+                          'status_code': resp.status_code,
+                          'reason': resp.reason})
+```
+Openstack은 오픈소스이므로 Github에 올려져 있는 소스를 참고하면 정보를 알 수 있다.  
+
+
+
 <br>
 
 ### 3.3 알람 설정 확인
