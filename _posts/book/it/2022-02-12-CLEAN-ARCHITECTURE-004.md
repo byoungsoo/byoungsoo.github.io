@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Clean Architecture (Chapter 27~) - Robert C. Martin"
+title: "Clean Architecture (Chapter 27~34) - Robert C. Martin"
 author: "Bys"
 category: it_book
 date: 2022-02-12 01:00:00
