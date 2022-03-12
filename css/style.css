@@ -109,6 +109,7 @@
   color: black;
   font-size: 16px;
   padding-top: 5px;
+  overflow: auto;
 }
 
 #post-bys .block p em{
