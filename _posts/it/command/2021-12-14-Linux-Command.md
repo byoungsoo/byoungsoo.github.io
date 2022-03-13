@@ -6,6 +6,15 @@ category: command
 tags: linux command cli
 ---
 
+`while반복문`
+```bash
+while true; do
+echo "======================================================="
+netstat -anop | grep SYN
+sleep 1
+done
+```
+
 
 `압축하기` 
 ```bash
