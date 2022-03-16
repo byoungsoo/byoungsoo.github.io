@@ -928,9 +928,10 @@ public @interface Controller {
 @Controller 어노테이션이나 @Repository 어노테이션 등은 컴포넌트 스캔 대상이 될 뿐만 아니라 스프링 프레임워크에서 특별한 기능과 연관되어 있다. 
 @Controller 어노테이션은 웹 MVC와 관련 있고 @Repository 어노테이션은 DB연동과 관련 있다.  
 
-<be>
+<br>
 
 #### 컴포넌트 스캔에 따른 충돌 처리  
+
 spring 패키지와 spring2 패키지에 MemberRegisterService 클래스가 존재하고 두 클래스 모두 @Component 어노테이션을 붙였다고 하자. 
 이 상태에서 다음 @ComponentScan 어노테이션을 사용하면 어떻게 될까?  
 ```Java
@@ -939,6 +940,7 @@ spring 패키지와 spring2 패키지에 MemberRegisterService 클래스가 존�
 public class AppCtx{
 }
 ```
+
 위 설정을 이용해서 스프링 컨테이너를 생성하면 Exception이 발생한다.  
 ```log
 Caused by: org.springframework.context.annotation.ConflictingBeanDefinitionException: 
