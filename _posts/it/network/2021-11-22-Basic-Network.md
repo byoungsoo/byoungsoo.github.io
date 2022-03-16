@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Basic - Network"
+title: "Network 기본 개념"
 author: "Bys"
-category: etc
+category: network
 date: 2021-11-22 01:00:00
 tags: network
 ---

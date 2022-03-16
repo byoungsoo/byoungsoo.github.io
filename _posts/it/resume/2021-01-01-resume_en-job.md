@@ -1,6 +1,6 @@
 ---
 layout: resume
-title: "경력사항"
+title: "경력사항(EN)"
 author: "Bys"
 category: resume
 ---

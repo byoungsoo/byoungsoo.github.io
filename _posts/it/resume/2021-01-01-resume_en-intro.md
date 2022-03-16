@@ -1,6 +1,6 @@
 ---
 layout: resume
-title: "자기소개서"
+title: "자기소개서(EN)"
 author: "Bys"
 category: resume
 ---

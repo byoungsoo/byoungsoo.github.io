@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Spring5 프로그래밍 (Chapter 1~3)"
+title: "Spring5 프로그래밍 (Chapter 1~5)"
 author: "Bys"
 category: it_book
 date: 2022-03-13 01:00:00
@@ -712,17 +712,262 @@ public void setDateFormatter(@Nullable DateTimeFormatter dateTimeFormatter) {
 스프링 컨테이너는 세터 메서드를 호출할 때 자동 주입할 빈이 존재하면 해당 빈을 인자로 전달하고, 존재하지 않으면 인자로 null을 전달한다. 
 *@Autowired 어노테이션의 required 속성을 false로 할 때와 차이점은 @Nullable 어노테이션을 사용하면 자동 주입할 빈이 존재하지 않아도 메서드가 호출된다는 점이다.*  
 
+<br>
+
+#### 자동 주입과 명시적 의준 주입 간의 관계  
+
+설정 클래스에서 의존을 주입했는데 자동 주입 대상이면 어떻게 될까?  
+
+```Java
+package config;
+
+@Configuration
+public class AppCtx {
+@Bean
+	@Qualifier("printer")
+	public MemberPrinter memberPrinter1() {
+		System.out.println("test");
+		return new MemberPrinter();
+	}
+	
+	@Bean
+	public MemberInfoPrinter infoPrinter() {
+		MemberInfoPrinter infoPrinter = new MemberInfoPrinter();
+		infoPrinter.setPrinter(memberPrinter2()); //의존 명시 주입
+		return infoPrinter;
+	}
+}
+```
+
+```Java
+package spring;
+
+public class MemberInfoPrinter {
+
+	private MemberDao memDao;
+	private MemberPrinter printer;
+
+	@Autowired
+	public void setMemberDao(MemberDao memberDao) {
+		this.memDao = memberDao;
+	}
+
+	@Autowired
+	@Qualifier("printer") //의존 자동 주입
+	public void setPrinter(MemberPrinter printer) {
+		this.printer = printer;
+	}
+
+}
+```
+1. infoPrinter() 메서드는 MemberInfoPrinter의 setPrinter()메서드를 호출해서 memberPrinter2 빈을 주입하고 있다.  
+2. MemberInfoPrinter의 setPrinter() 메서드는 @Autowired 어노테이션, @Qualifier 어노테이션을 통해 memberPrinter1을 이용해 자동 주입하고 있다.  
+
+실행 결과를 확인해보면 memberPrinter1 빈을 사용해서 회원정보를 출력한다.  
+즉 설정 클래스에서 세터 메서드를 통해 의존을 주입해도 해당 세터 메서드에 @Autowired 어노테이션이 붙어 있으면 자동 주입을 통해 일치하는 빈을 주입한다. 
+따라서 @Autowired 어노테이션을 사용했다면 설정 클래스에서 객체를 주입하기보다는 스프링이 제공하는 자동 주입 기능을 사용하는 편이 낫다.  
+
+<br><br>
+
+### 5. 컴포넌트 스캔  
+자동 주입과 함께 사용하는 추가 기능이 컴포넌트 스캔이다. 컴포넌트 스캔은 스프링이 직접 클래스를 검색해서 빈으로 등록해주는 기능이다. 
+설정 클래스에 빈으로 등록하지 않아도 원하는 클래스를 빈으로 등록할 수 있으므로 컴포넌트 스캔 기능을 사용하면 설정 코드가 크게 줄어든다.  
+
+#### @Component 어노테이션으로 스캔 대상 지정  
+스프링이 검색해서 빈으로 등록할 수 있으려면 클래스에 @Component 어노테이션을 붙여야 한다. 
+@Component 어노테이션은 해당 클래스를 스캔 대상으로 표시한다. 
+
+```Java
+@Component
+public class MemberRegisterService {
+}
+
+@Component("listPrinter")
+public class MemberListPrinter {
+}
+
+@Component("infoPrinter")
+public class MemberInfoPrinter {
+}
+```
+@Component 어노테이션에 값을 주었는지에 따라 빈으로 등록할 때 사용할 이름이 결정된다. 
+@Component 어노테이션에 값을 주지 않은 경우 클래스 이름의 첫 글자를 소문자로 바꾼 이름을 빈 이름으로 사용한다. 
+MemberRegisterService 클래스의 경우 빈 이름으로 memberRegisterService를 사용한다.  
+
+@Component 어노테이션에 값을 주면 그 값을 빈 이름으로 사용한다. MemberListPrinter 클래스의 경우 빈 이름으로 listPrinter를 사용한다. 
+
+<br>
+
+#### @Component 어노테이션으로 스캔 설정  
+@Component 어노테이션을 붙인 클래스를 스캔해서 스프링 빈으로 등록하려면 설정 클래스에 @ComponentScan 어노테이션을 적용해야 한다. 
+설정 클래스인 AppCtx에 @ComponentScan 어노테이션을 적용하면 아래와 같다.  
+```Java
+@ComponentScan(basePackages = {"spring"})
+@Configuration
+public class AppCtx {
+
+}
+```
+@ComponentScan 어노테이션의 basePackages 속성값은 {"spring"}이다. 이 속성은 스캔 대상 패키지 목록을 지정한다. 
+spring 패키지와 그 하위 패키지에 속한 클래스를 스캔 대상으로 설정한다. 스캔 대상에 해당하는 클래스 중에서 @Component 어노테이션이 붙은 클래스의 객체를 생성해서 빈으로 등록한다.  
+
+<br>
+
+#### 스캔 대상에서 제외하거나 포함하기  
+excludeFilters 속성을 사용하면 스캔할 때 특정 대상을 자동 등록 대상에서 제외할 수 있다. 
+
+```Java
+@ComponentScan(basePackages = {"spring"}, excludeFilters = @Filter(type = FilterType.REGEX, pattern = "spring\\..*Dao"))
+@Configuration
+public class AppCtxWithExclude {
+	@Bean
+	public MemberDao memberDao(){
+		return new MemberDao();
+	}
+}
+```
+위 코드는 @Filter 어노테이션의 type 속성값으로 FilterType.REGEX를 중ㅆ다. 이는 정규표현식을 사용해서 제외 대상을 지정한다는 의미이다. 
+pattern속성은 FilterType에 적용할 값을 설정한다. 위 설정에서는 "spring."으로 시작하고 Dao로 끝나는 정규표현식을 지정했으므로 spring.MemberDao 클래스를 컴포넌트 스캔 대상에서 제외한다.  
+
+<br>
+
+```Java
+@ComponentScan(basePackages = {"spring"}, excludeFilters = @Filter(type = FilterType.ASPECTJ, pattern = "spring.*Dao"))
+@Configuration
+public class AppCtxWithExclude {
+	@Bean
+	public MemberDao memberDao(){
+		return new MemberDao();
+	}
+}
+```
+FilterType.ASPECTJ를 필터 타입으로 설정할 수도 있다. 이 타입을 사용하면 정규표현식 대신 AspectJ 패턴을 사용해서 대상을 지정한다. 
+위 설정을 사용하면 spring 패키지에서 이름이 Dao로 끝나는 타입을 컴포넌트 스캔 대상에서 제외한다.  
+
+<br>
+
+특정 어노테이션을 붙인 타입을 컴포넌트 대상에서 제외할 수도 있다.  
+예를 들어 다음의 @NoProduct나 @ManualBean 어노테이션을 붙인 클래스는 컴포넌트 스캔 대상에서 제외하고 싶다고 하자. 
+```Java
+@Retention(RUNTIME)
+@Target(TYPE)
+public @interface NoProduct{
+}
+
+@Retention(RUNTIME)
+@Target(TYPE)
+public @interface ManualBean{
+}
+```
+
+이 두 어노테이션을 붙인 클래스를 컴포넌트 스캔 대상에서 제외하려면 다음과 같이 excludeFilters 속성을 설정한다. 
+```Java
+@Configuration
+@ComponentScan(basePackages = {"spring", "spring2"}, excludeFilters = @Filter(type = FilterType.ANNOTATION, classes = {NoProduct.class, ManualBean.class}))
+public class AppCtxWithExclude {
+	@Bean
+	public MemberDao memberDao(){
+		return new MemberDao();
+	}
+}
+
+@ManualBean
+@Component
+public class MemberDao{
+}
+```
+<br>
+
+특정 타입이나 그 하위 타입을 컴포넌트 스캔 대상에서 제외하려면 ASSIGNABLE_TYPE을 FilterType으로 사용한다.  
+```Java
+@Configuration
+@ComponentScan(basePackages = {"spring"}, excludeFilters = @Filter(type = FilterType.ASSIGNABLE_TYPE, classes = MemberDao.class))
+public class AppCtxWithExclude {
+}
+
+```
+classes 속성에는 제외할 타입 모록을 지정한다. 
+
+<br>
+
+설정할 필터가 두 개 이상이면 excludeFilters 속성에 배열을 사용해서 @Filter 목록을 전달하면 된다. 
+```Java
+@Configuration
+@ComponentScan(basePackages = {"spring"},
+  excludeFilters = {
+	  @Filter(type = FilterType.ANNOTATION, classes = ManualBean.class),
+	  @Filter(type = FilterType.REGEX, pattern = "spring2\\..*")
+})
+public class AppCtxWithExclude {
+}
+```
+
+#### 기본 스캔 대상  
+@Component 어노테이션을 붙인 클래스만 컴포넌트 스캔 대상에 포함되는 것은 아니다. 다음 어노테이션을 붙인 클래스가 컴포넌트 스캔 대상에 포함된다.  
+- @Component(org.springframework.stereotype 패키지)
+- @Controller(org.springframework.stereotype 패키지)
+- @Service(org.springframework.stereotype 패키지)
+- @Repository(org.springframework.stereotype 패키지)
+- @Aspect(org.aspectj.lang.annotation 패키지)
+- @Configuration(org.springframework.context.annotation 패키지)
+
+@Aspect 어노테이션을 제외한 나머지 어노테이션은 실제로는 @Component 어노테이션에 대한 특수 어노테이션이다.  
+
+`@Controller`  
+```Java
+@Target({ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Component
+public @interface Controller {
+	@AliasFor(annotation = Component.class)
+	String value() default "";
+}
+```
+@Component 어노테이션이 붙어 있는데, 스프링은 @Controller 어노테이션을 @Component 어노테이션과 동일하게 컴포넌트 스캔 대상에 포함한다. 
+@Controller 어노테이션이나 @Repository 어노테이션 등은 컴포넌트 스캔 대상이 될 뿐만 아니라 스프링 프레임워크에서 특별한 기능과 연관되어 있다. 
+@Controller 어노테이션은 웹 MVC와 관련 있고 @Repository 어노테이션은 DB연동과 관련 있다.  
+
+<be>
+
+#### 컴포넌트 스캔에 따른 충돌 처리  
+spring 패키지와 spring2 패키지에 MemberRegisterService 클래스가 존재하고 두 클래스 모두 @Component 어노테이션을 붙였다고 하자. 
+이 상태에서 다음 @ComponentScan 어노테이션을 사용하면 어떻게 될까?  
+```Java
+@Configuratino
+@ComponentScan(basePackages = {"spring","spring2"})
+public class AppCtx{
+}
+```
+위 설정을 이용해서 스프링 컨테이너를 생성하면 Exception이 발생한다.  
+```log
+Caused by: org.springframework.context.annotation.ConflictingBeanDefinitionException: 
+Annotation-specified bean name 'memberRegisterService' for bean class [spring2.MemberRegisterService] conflicts with existing, 
+non-compatible bean definition of same name and class [spring.MemberRegisterService]
+```
+<br>
 
 
+MmemberDao 클래스는 컴포넌트 스캔 대상이다. 자동 등록된 빈의 이름은 memberDao다. 그런데 다음과 같이 설정 클래스에 직접 MemberDao 클래스를 "memberDao"라는 이름의 빈으로 등록하면 어떻게 될 까?
+```Java
+@Component
+public class MemberDao{
+}
+```
 
-
-
-
-
-
-
-
-
+```Java
+@ComponentScan(basePackages = {"spring")
+@Configuration
+public class AppCtx {
+	
+	@Bean
+	public MemberDao memberDao() {
+		MemberDao memberDao = new MemberDao();
+		return memberDao;
+	}
+}
+```
+스캔할 때 사용하는 빈 이름과 수동 등록한 빈 이름이 같은 경우 수동 등록한 빈이 우선한다. 즉 MemberDao 타입 빈은 AppCtx에서 정의한 한 개만 존재한다.  
 
 
 

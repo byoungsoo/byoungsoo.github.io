@@ -2,7 +2,7 @@
 layout: post
 title: "Java 기초 개념"
 author: "Bys"
-category: etc
+category: programming
 tags: java programming
 ---
 
