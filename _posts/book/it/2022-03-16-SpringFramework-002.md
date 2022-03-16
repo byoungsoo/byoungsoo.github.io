@@ -40,13 +40,174 @@ close() 메서드는 AbstractApplicationContext 클래스에 정의되어 있다
 
 스프링 컨테이너의 라이프사이클에 따라 빈 객체도 자연스럽게 생성과 소멸이라는 라이프사이클을 갖는다.  
 
+<br>
+
 #### 스프링 빈 객체의 라이프사이클  
-스프링 컨테이너는 빈 객체의 라이프사이클을 관리한다. 컨테이너가 관리하는 빈 객체의 라이프사이클은 아래와 같다. 
-| :-: |
-|- 객체 생성 -> |
+스프링 컨테이너는 빈 객체의 라이프사이클을 관리한다. 컨테이너가 관리하는 빈 객체의 라이프사이클은 아래와 같다.  
+- 객체 생성 -> 의존 설정 -> 초기화 -> 소멸
 
+스프링 컨테이너를 초기화 할 때 가장 먼저 빈 객체를 생성하고 의존을 설정한다. 
+의존 자동 주입을 통한 의존 설정이 이 시점에 수행된다. 모든 의존 설정이 완료되면 빈 객체의 초기화를 수행한다. 
+빈 객체를 초기화하기 위해 스프링은 빈 객체의 지정된 메서드를 호출한다.  
 
+스프링 컨테이너를 종료하면 스프링 컨테이너는 빈 객체의 소멸을 처리한다. 이때에도 지정한 메서드를 호출한다.  
 
+스프링 컨테이너는 빈 객체를 초기화하고 소멸하기 위해 빈 객체의 지정한 메서드를 호출한다.
+- org.springframework.beans.factory.InitializingBean
+- org.springframework.beans.factory.DisposableBean
+
+```Java
+public interface InitializingBean {
+    void afterPropertiesSet() throws Exception;
+}
+
+public interface DisposableBean {
+    void destroy() throws Exception;
+}
+```
+빈 객체가 InitializingBean 객체를 구현하면 스프링 컨테이너는 초기화 과정에서 빈 객체의 afterPropertiesSet() 메서드를 실행한다. 
+빈 객체를 생성한 뒤에 초기화 과정이 필요하면 InitializingBean 인터페이스를 상속하고 afterPropertiesSet() 메서드를 알맞게 구현하면 된다. 
+
+스프링 컨테이너는 빈 객체가 DisposableBean 인터페이스를 구현한 경우 소멸 과정에서 빈 객체의 destroy() 메서드를 실행한다. 
+빈 객체의 소멸 과정이 필요하면 DisposableBean 인터페이스를 상속하고 destroy() 메서드를 알맞게 구현하면 된다.  
+
+초기화와 소멸 과정이 필요한 예가 데이터베이스 커넥션 풀이다. 커넥션 풀을 위한 빈 객체는 초기화 과정에서 데이터베이스 연결을 생성한다. 
+컨테이너를 사용하는 동안 연결을 유지하고 빈 객체를 소멸할 때 사용중이 데이터베이스 연결을 끊어야 한다.  
+
+<br>
+
+`Client`  
+```Java
+package spring;
+
+public class Client implements InitializingBean, DisposableBean {
+
+	private String host;
+
+	public void setHost(String host) {
+		this.host = host;
+	}
+
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		System.out.println("Client.afterPropertiesSet() 실행");
+	}
+
+	public void send() {
+		System.out.println("Client.send() to " + host);
+	}
+
+	@Override
+	public void destroy() throws Exception {
+		System.out.println("Client.destroy() 실행");
+	}
+
+}
+```
+
+`AppCtx`  
+```Java
+@Configuration
+public class AppCtx {
+
+	@Bean
+	public Client client() {
+		Client client = new Client();
+		client.setHost("host");
+		return client;
+	}
+    
+	@Bean(initMethod = "connect", destroyMethod = "close")
+	public Client2 client2() {
+		Client2 client = new Client2();
+		client.setHost("host");
+		return client;
+	}
+}
+```
+
+`Main`  
+```Java
+package main;
+
+public class Main {
+
+	public static void main(String[] args) throws IOException {
+		AbstractApplicationContext ctx = 
+				new AnnotationConfigApplicationContext(AppCtx.class);
+
+		Client client = ctx.getBean(Client.class);
+		client.send();
+
+		ctx.close();
+	}
+
+}
+```
+
+`Output`  
+```log
+Client.afterPropertiesSet() 실행
+Client.send() to host
+Client.destroy() 실행
+```
+
+실행 순서를 보면 Main함수의 AnnotationConfigApplicationContext 객체를 생성할 때 AppContext클래스를 생성자 파라미터로 전달한다. 
+AnnotationConfigApplicationContext 객체는 AppCtx 클래스에 정의한 @Bean 설정 정보를 읽어와 Client객체를 생성하고 초기화한다. 
+
+초기화 과정에서 afterPropertiesSet() 메서드를 실행했다. 스프링 컨테이너는 빈 객체 생성을 마무리한 뒤에 초기화 메서드를 실행한다. 가장 마지막에 destroy()메서드를 실행했다. 
+이 메서드는 스프링 컨테이너를 종료하면 호출이된다. Main함수에서 ctx.close() 코드가 없다면 컨테이너의 종료 과정을 수행하지 않기 때문에 빈 객체의 소멸 과정도 실행되지 않는다.  
+
+<br>
+
+InitializingBean, DisposableBean 인터페이스를 사용하고 싶지 않은 경우에는 스프링 설정에서 직접 메서드를 지정할 수 있다. 
+@Bean 태그에서 initMethod 속성과 destroyMethod 속성을 사용해서 초기화 메서드와 소멸 메서드의 이름을 지정하면 된다.  
+
+`AppCtx`  
+```Java
+package config;
+
+@Configuration
+public class AppCtx {
+    
+	@Bean(initMethod = "connect", destroyMethod = "close")
+	public Client2 client2() {
+		Client2 client = new Client2();
+		client.setHost("host");
+//		client.connect();  initMethod="connect"
+		return client;
+	}
+}
+```
+
+`Client2`  
+```Java
+package spring;
+
+public class Client2 {
+
+	private String host;
+
+	public void setHost(String host) {
+		this.host = host;
+	}
+	public void connect() {
+		System.out.println("Client2.connect() 실행");
+	}
+	public void send() {
+		System.out.println("Client2.send() to " + host);
+	}
+	public void close() {
+		System.out.println("Client2.close() 실행");
+	}
+
+}
+
+```
+Client2 클래스를 빈으로 사용하려면 초기화 과정에서 connect()메서드를 실행하고 소멸 과정에서 close()메서드를 실행해야 한다면 
+위 코드와 같이 @Bean 어노테이션의 initMethod 속성과 destroyMethod 속성에 초기화와 소멸 과정에서 사용할 메서드 이름이 connect와 close를 지정해주기만 하면 된다.  
+
+<br>
 
 
 
