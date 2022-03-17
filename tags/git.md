@@ -1,6 +1,6 @@
 ---
 layout: tagpage
-title: "Tag: DIP"
-tag: DIP
+title: "Tag: git"
+tag: git
 robots: noindex
 ---

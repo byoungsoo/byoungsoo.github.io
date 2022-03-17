@@ -4,7 +4,7 @@ title: "Spring5 프로그래밍 (Chapter 1~5)"
 author: "Bys"
 category: it_book
 date: 2022-03-13 01:00:00
-tags: programming spring
+tags: programming spring 의존주입 DI ComponentScan 
 ---
 
 ### 2. 스프링 시작하기  
