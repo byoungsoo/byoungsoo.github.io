@@ -44,16 +44,22 @@ for post_dir in post_directories:
         f.close()
     total_tags = set(total_tags)
 
+    count = 0
     for tag in total_tags:
         tag_filename = tag_dir + tag + '.md'
         exists = os.path.isfile(tag_filename)
+        
         if exists:
-            break
-        f = open(tag_filename, 'a')
-        write_str = '---\nlayout: tagpage\ntitle: \"Tag: ' + tag + '\"\ntag: ' + tag + '\nrobots: noindex\n---\n'
-        f.write(write_str)
-        f.close()
-    print("Tags generated, count", total_tags.__len__())
+            print(f'Exists File: {tag_filename}' )
+        else:
+            count += 1
+            f = open(tag_filename, 'a')
+            write_str = '---\nlayout: tagpage\ntitle: \"Tag: ' + tag + '\"\ntag: ' + tag + '\nrobots: noindex\n---\n'
+            f.write(write_str)
+            f.close()
+
+    print("Tags generated, count", count)
+    print()
 
 '''
 if not os.path.exists(tag_dir):

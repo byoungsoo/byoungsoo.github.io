@@ -11,6 +11,8 @@ keep_files:
   - ".git"
   - ".gitignore"
 
+gems:
+- jekyll/tagging
 
 # Site settings
 title: Bysoo GithubPage
@@ -42,6 +44,10 @@ ga_tracking_id: "UA-137282255-1"
 
 # Category
 categories: category/
+
+# Tagging
+tag_page_layout: tagpage
+tag_page_dir: tags
 
 feed:
   path: feed.xml
