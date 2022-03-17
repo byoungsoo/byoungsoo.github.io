@@ -138,6 +138,7 @@
 #post-bys .block li {
   font-size: 16px;
   color: black;
+  word-break: break-all;
 }
 
 
