@@ -4,7 +4,7 @@ title: "Clean Architecture (Chapter 1~11) - Robert C. Martin"
 author: "Bys"
 category: it_book
 date: 2021-12-17 01:00:00
-tags: reading clean architecture SOLID SRP OCP LSP DIP
+tags: book clean architecture solid srp ocp lsp dip
 ---
 
 ## 소개

@@ -1,11 +1,12 @@
 ---
-layout: tagpage
+layout: tag_collections
 permalink: /category/tags/
 title: Tags
 ---
- <h3>Tags</h3>
 
-{% for tag in site.tags %}
+{% assign sorted_tags = site.tags | sort %}
+{% for tag in sorted_tags %}
+
   {% assign main_tag = tag | first %}
   {% assign posts = tag | last %}
 

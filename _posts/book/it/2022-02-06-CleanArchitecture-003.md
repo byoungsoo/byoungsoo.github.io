@@ -4,7 +4,7 @@ title: "Clean Architecture (Chapter 18~26) - Robert C. Martin"
 author: "Bys"
 category: it_book
 date: 2022-02-06 01:00:00
-tags: reading clean architecture component 
+tags: book clean architecture component 
 ---
 
 ### 18. 경계 해부학  

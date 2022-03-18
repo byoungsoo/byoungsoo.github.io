@@ -4,7 +4,7 @@ title: "Git Command"
 author: "Bys"
 category: command
 date: 2021-04-21 00:00:00
-tags: git gitcommand
+tags: git command
 ---
 
 

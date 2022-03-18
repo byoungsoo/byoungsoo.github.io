@@ -4,7 +4,7 @@ title: "Clean Architecture (Chapter 12~17) - Robert C. Martin"
 author: "Bys"
 category: it_book
 date: 2021-12-30 01:00:00
-tags: reading clean architecture component 
+tags: book clean architecture component 
 ---
 
 ## 컴포넌트 원칙  

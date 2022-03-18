@@ -3,7 +3,7 @@ layout: post
 title: "Linux Command"
 author: "Bys"
 category: command
-tags: linux command cli
+tags: linux command
 ---
 
 `while반복문`
