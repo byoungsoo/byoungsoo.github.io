@@ -4,7 +4,6 @@ title: "Project KoreanAir - Issue"
 author: "Bys"
 category: issue
 date: 2020-01-02 01:00:00
-tags: troubleshooting issue
 ---
 
 #### **- NAS 동기화 이슈**  

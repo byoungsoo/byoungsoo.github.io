@@ -1,13 +1,13 @@
 ---
 layout: post
-title: "Spring5 프로그래밍 (Chapter 6)[빈 라이프사이클과 범위]"
+title: "Spring5 프로그래밍 (Chapter 7)[AOP 프로그래밍]"
 author: "Bys"
 category: it_book
 date: 2022-03-16 01:00:00
-tags: programming spring framework lifecycle bean scope
+tags: programming spring framework aop
 ---
 
-### 6. 빈 라이프사이클과 범위  
+### 7. AOP 프로그래밍  
 
 #### 컨테이너 초기화와 종료  
 스프링 컨테이너는 초기화와 종료라는 라이프사이클을 갖는다. 
@@ -238,6 +238,7 @@ public class AppCtxWithPrototype{
 스프링 컨테이너는 프로토타입 빈 객체를 생성하고 프로퍼티를 설정하고 초기화 작업까지는 수행하지만, 컨테이너를 종료한다고 해서 생성한 프로토타입 빈 객체의 소멸 메서드를 실행하지는 않는다. 
 따라서 프로토타입 범위의 빈을 사용할 때에는 빈 객체의 소멸 처리를 코드에서 직접 해야 한다.  
 
+### 7. AOP 프로그래밍    
 
 
 <br><br><br>

@@ -4,7 +4,7 @@ title: "Spring5 프로그래밍 (Chapter 1~5)"
 author: "Bys"
 category: it_book
 date: 2022-03-13 01:00:00
-tags: programming spring 의존주입 DI ComponentScan 
+tags: programming spring framework bean autowired configuration component componentscan import qualifier
 ---
 
 ### 2. 스프링 시작하기  
@@ -935,7 +935,7 @@ public @interface Controller {
 spring 패키지와 spring2 패키지에 MemberRegisterService 클래스가 존재하고 두 클래스 모두 @Component 어노테이션을 붙였다고 하자. 
 이 상태에서 다음 @ComponentScan 어노테이션을 사용하면 어떻게 될까?  
 ```Java
-@Configuratino
+@Configuration
 @ComponentScan(basePackages = {"spring","spring2"})
 public class AppCtx{
 }
