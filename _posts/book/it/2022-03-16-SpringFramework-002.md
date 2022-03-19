@@ -4,12 +4,12 @@ title: "Spring5 프로그래밍 (Chapter 6)[빈 라이프사이클과 범위]"
 author: "Bys"
 category: it_book
 date: 2022-03-16 01:00:00
-tags: book programming spring framework lifecycle bean scope
+tags: book programming spring framework lifecycle @bean @scope
 ---
 
-### 6. 빈 라이프사이클과 범위  
+## 6. 빈 라이프사이클과 범위  
 
-#### 컨테이너 초기화와 종료  
+### 6.1 컨테이너 초기화와 종료  
 스프링 컨테이너는 초기화와 종료라는 라이프사이클을 갖는다. 
 
 ```Java
@@ -42,7 +42,7 @@ close() 메서드는 AbstractApplicationContext 클래스에 정의되어 있다
 
 <br>
 
-#### 스프링 빈 객체의 라이프사이클  
+### 6.2 스프링 빈 객체의 라이프사이클  
 스프링 컨테이너는 빈 객체의 라이프사이클을 관리한다. 컨테이너가 관리하는 빈 객체의 라이프사이클은 아래와 같다.  
 - 객체 생성 -> 의존 설정 -> 초기화 -> 소멸
 
@@ -52,6 +52,9 @@ close() 메서드는 AbstractApplicationContext 클래스에 정의되어 있다
 
 스프링 컨테이너를 종료하면 스프링 컨테이너는 빈 객체의 소멸을 처리한다. 이때에도 지정한 메서드를 호출한다.  
 
+<br>
+
+#### 6.2.1 빈 객체의 초기화와 소멸: 스프링 인터페이스 
 스프링 컨테이너는 빈 객체를 초기화하고 소멸하기 위해 빈 객체의 지정한 메서드를 호출한다.
 - org.springframework.beans.factory.InitializingBean
 - org.springframework.beans.factory.DisposableBean
@@ -160,6 +163,7 @@ AnnotationConfigApplicationContext 객체는 AppCtx 클래스에 정의한 @Bean
 
 <br>
 
+#### 6.2.2 빈 객체의 초기화와 소멸: 커스텀 메서드
 InitializingBean, DisposableBean 인터페이스를 사용하고 싶지 않은 경우에는 스프링 설정에서 직접 메서드를 지정할 수 있다. 
 @Bean 태그에서 initMethod 속성과 destroyMethod 속성을 사용해서 초기화 메서드와 소멸 메서드의 이름을 지정하면 된다.  
 
@@ -209,7 +213,7 @@ Client2 클래스를 빈으로 사용하려면 초기화 과정에서 connect()�
 
 <br>
 
-#### 빈 객체의 생성과 관리 범위
+### 6.3 빈 객체의 생성과 관리 범위
 2장에서 우리는 스프링 컨테이너는 빈 객체를 한 개만 생성한다고 했다. 
 ```Java
 Client client1 = ctx.getBean("client", Client.class);

@@ -1,6 +1,6 @@
 ---
 layout: tagpage
-title: "Tag: bean"
-tag: bean
+title: "Tag: @bean"
+tag: @bean
 robots: noindex
 ---

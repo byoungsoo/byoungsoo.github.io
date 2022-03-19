@@ -4,16 +4,16 @@ title: "Spring5 프로그래밍 (Chapter 7)[AOP 프로그래밍]"
 author: "Bys"
 category: it_book
 date: 2022-03-16 01:00:00
-tags: book programming spring framework aop aspect
+tags: book programming spring framework aop @aspect @around @pointcut
 ---
 
-### 7. AOP 프로그래밍  
+## 7. AOP 프로그래밍  
 트랜잭션의 처리 방식을 이해하려면 AOP(Aspect Oriented Programming)를 알야아 한다.  
 
 스프링 프레임워크의 AOP 기능은 spring-aop 모듈이 제공하는데 spring-context 모듈을 의존 대상에 추가하면 spring-aop 모듈도 함께 의존 대상에 포함된다. 
 따라서 spring-aop 모듈에 대한 의존을 따로 추가하지 않아도 된다. aspectjweaver 모듈은 AOP를 설정하는데 필요한 어노테이션을 제공하므로 이 의존을 추가해야 한다.  
 
-#### 프록시와 AOP  
+### 7.2 프록시와 AOP  
 `Calculator`  
 ```Java
 package chap07;
@@ -199,7 +199,7 @@ ImpeCalculator와 RecCalculator는 팩토리얼을 구한다는 핵심 기능 �
 
 <br>
 
-**AOP**  
+#### 7.2.1 AOP
 AOP는 Aspect Oriented Programming의 약자로, 여러 객체에 공통으로 적용할 수 있는 기능을 분리해서 재사용성을 높여주는 프로그래밍 기법이다. 
 AOP는 핵심 기능과 공통 기능의 구현을 분리함으로써 핵심 기능을 구현한 코드의 수정 없이 공통 기능을 적용할 수 있게 만들어 준다.  
 
@@ -233,7 +233,7 @@ AOP에서 공통 기능을 Aspect라고 하는데 Aspect 외에 알아두여야 
 
 <br>
 
-**Advice의 종류**  
+#### 7.2.2 Advice의 종류 
 스프링은 프록시를 이용해서 메서드 호출 시점에 Aspect를 적용하기 때문에 구현 가능한 Advice의 종류는 아래와 같다. 
 
 `스프링에서 구현 가능한 Advice 종류`  
@@ -251,7 +251,7 @@ AOP에서 공통 기능을 Aspect라고 하는데 Aspect 외에 알아두여야 
 
 <br>
 
-#### 스프링 AOP 구현  
+### 7.3 스프링 AOP 구현  
 스프링 AOP를 이용해서 공통 기능을 구현하고 적용하는 방법은 단순하다. 다음과 같은 절차만 따르면 된다. 
 - Aspect로 사용할 클래스에 @Aspect 어노테이션을 붙인다.  
 - @Pointcut 어노테이션으로 공통 기능을 적용할 Pointcut을 정의한다.  
@@ -259,6 +259,7 @@ AOP에서 공통 기능을 Aspect라고 하는데 Aspect 외에 알아두여야 
 
 <br>
 
+#### 7.3.1 @Aspect, @Pointcut, @Around를 이용한 AOP 구현  
 개발자는 공통 기능을 제공하는 Aspect 구현 클래스를 만들고 자바 설정을 이용해서 Aspect를 어디에 적용할지 설정하면 된다. 
 Aspect는 @Aspect 어노테이션을 이용해서 구현한다. 프록시는 스프링 프레임워크가 알아서 만들어준다. 
 
@@ -306,8 +307,8 @@ measure() 메서드의 ProceedingJoinPoint 타입 파라미터는 프록시 대�
 위의 코드에서 proceed() 메서드를 사용해서 실제 대상 객체의 메서드를 호출한다. 
 이 메서드를 호출하면 대상 객체의 메서드가 실행되므로 이 코드 이전과 이후에 공통 기능을 위한 코드를 위치시키면 된다. 위 의 코드에서는 실행하기 전과 후에 현재 시간을 구한 뒤 실행 시간을 출력하고 있다.  
 
-위의 코드를 보면 ProceedingJointPoint의 getSignature(), getTarget(), getArgs() 등의 메서드를 사용하고 있다. 
-각 메서드는 호출한 메서드의 시그니처, 대상, 객체, 인자 목록을 구하는데 사용된다. 이 메서드를 사용해서 대상 객체의 클래스 이름과 메서드 이름을 출력한다. 
+위의 코드를 보면 ProceedingJoinPoint의 getSignature(), getTarget(), getArgs() 등의 메서드를 사용하고 있다. 
+각 메서드는 호출한 메서드의 시그니처, 대상 객체, 인자 목록을 구하는데 사용된다. 이 메서드를 사용해서 대상 객체의 클래스 이름과 메서드 이름을 출력한다. 
 각 메서드에 대한 내용은 뒤에서 다시 살펴보도록 하자.  
 
 > 자바에서 메서드 이름과 파라미터를 합쳐서 메서드 시그니처라고 한다. 메서드 이름이 다르거나 파라미터 타입, 개수가 다르면 시그니처가 다르다고 표현한다. 
@@ -374,20 +375,200 @@ public class MainAspect {
 		ctx.close();
 	}
 }
+
+package aspect;
+
+@Aspect
+public class ExeTimeAspect {
+
+	@Pointcut("execution(public * chap07..*(..))")
+	private void publicTarget() {
+	}
+
+	@Around("publicTarget()")
+	public Object measure(ProceedingJoinPoint joinPoint) throws Throwable {
+		long start = System.nanoTime();
+		try {
+			Object result = joinPoint.proceed();
+			return result;
+		} finally {
+			long finish = System.nanoTime();
+			Signature sig = joinPoint.getSignature();
+			System.out.printf("%s.%s(%s) 실행 시간 : %d ns\n",
+					joinPoint.getTarget().getClass().getSimpleName(),
+					sig.getName(), Arrays.toString(joinPoint.getArgs()),
+					(finish - start));
+		}
+	}
+
+}
 ```
+`Output`
+```log
+RecCalculator.factorial([5]) 실행 시간 : 27225 ns
+cal.factorial(5) = 120
+com.sun.proxy.$Proxy17
+```
+위 와같은 문구가 출력되었다. 첫 번째 줄은 ExeTimeAspect 클래스의 measure() 메서드가 출력한 것이다. 
+세 번째 줄은 cal.getClass().getName()에서 출력한 코드다. 이 출력 결과를 보면 Calculator 타입이 RecCalculator 클래스가 아니고 $Proxy17이다. 
+이 타입은 스프링이 생성한 프록시 타입이다. 실제 Main에서 cal.factorial(5); 코드를 호출할 때 실행되는 과정은 아래 그림과 같다.  
 
+![spring5_7_3](/assets/book/spring5/spring5_7_3.png){: width="60%" height="auto"}  
 
+AOP를 적용하지 않았으면 ctx.getBean("calculator", Calculator.class) 에서 리턴한 객체는 프록시 객체가 아닌 RecCalculator 타입이었을 것이다. 
 
+<br>
 
+#### 7.3.2 ProceedingJoinPoint의 메서드  
+Around Advice에서 사용할 공통 기능 메서드는 대부분 파라미터로 전달받은 ProceedingJoinPoint의 proceed() 메서드만 호출하면 된다. 
+ExeTimeAspect클래스도 joinPoint.proceed() 메서드를 호출했다.  
 
+호출 되는 대상 객체에 대한 정보, 실행되는 메서드에 대한 정보, 메서드를 호출할 때 전달된 이자에 대한 정보가 필요할 때가 있다. 
+이들 정보에 접근할 수 있또록 ProceedingJoinPoint 인터페이스는 다음 메서드를 제공한다.  
+- Signature getSignature(): 호출되는 메서드에 대한 정보를 구한다. 
+- Object getTarget(): 대상 객체를 구한다. 
+- Object[] getArgs(): 파라미터 목록을 구한다. 
 
+org.aspectj.lang.Signature 인터페이스는 다음 메서드를 제공한다. 각 메서드는 호출되는 메서드의 정보를 제공한다. 
+- String getName(): 호출되는 메서드의 이름을 구한다. 
+- String toLongString(): 호출되는 메서드를 완전하게 표현한 문장을 구한다(메서드의 리턴 타입, 파라미터 타입이 모두 표시된다).
+- String toShortString(): 호출되는 메서드를 축약해서 표현한 문장을 구한다(기본 구현은 메서드의 이름만 구한다).
 
+<br>
 
+### 7.4 프록시 생성 방식  
 
+MainAspect 클래스 코드를 다음과 같이 변경해보자.  
 
+`MainAspect`  
+```Java
+package main;
 
+public class MainAspect {
+	
+	public static void main(String[] args) {
+		AnnotationConfigApplicationContext ctx = 
+				new AnnotationConfigApplicationContext(AppCtx.class);
 
+		//Calculator cal = ctx.getBean("calculator", Calculator.class);
+		Calculator cal = ctx.getBean("calculator", RecCalculator.class);
 
+	}
+}
+
+@Configuration
+@EnableAspectJAutoProxy
+public class AppCtx {
+
+	@Bean
+	public Calculator calculator() {
+		return new RecCalculator();
+	}
+
+}
+```
+getBean() 메서드에 Calculator 타입 대신에 RecCalculator 타입을 사용하도록 수정했다. 
+자바 설정 파일에도 "calculator"빈을 생성할 때 사용한 타입이 RecCalculator 클래스이므로 문제가 없어 보인다. 
+하지만 정상 실행될 것이라는 예상과 달리 다음과 같은 exception이 발생한다.  
+
+```log
+Exception in thread "main" org.springframework.beans.factory.BeanNotOfRequiredTypeException: 
+Bean named 'calculator' is expected to be of type 'chap07.RecCalculator' but was actually of type 'com.sun.proxy.$Proxy17'
+```
+exception 메세지를 보면 getBean() 메서드에 사용한 타입이 RecCalculator인데 반해 실제 타입은 $Proxy17이라는 메세지가 나온다. 
+$Proxy17은 스프링이 런타임에 생성한 프록시 객체의 클래스 이름이다. 이 $Proxy 클래스는 RecCalculator 클래스가 상속받은 Calculator 인터페이스를 상속받게 된다. 
+아래 그림과 같은 게층 구조를 갖는다.  
+
+![spring5_7_4](/assets/book/spring5/spring5_7_4.png){: width="45%" height="auto"}  
+
+스프링은 AOP를 위한 프록시 객체를 생성할 때 실제 생성할 빈 객체가 인터페이스를 상속하면 인터페이스를 이용해서 프록시를 생성한다. 
+앞서 에에서도 RecCalculator 클래스가 Calculator 인터페이스를 상속하므로 Calculator 인터페이스를 상속받은 프록시 객체를 생성했다. 
+따라서 위의 코드처럼 빈의 실제 타입이 RecCalculator라고 하더라도 "calculator" 이름에 해당하는 빈 객체의 타입은 위 그림처럼 Calculator 인터페이스를 상속받은 프록시 타입이 된다.  
+
+빈 객체가 인터페이스를 상속할 때 인터페이스가 아닌 클래스를 이용해서 프록시를 생성하고 싶다면 다음과 같이 설정하면 된다.  
+```Java
+@Configuration
+@EnableAspectJAutoProxy(proxyTargetClass = true)
+public class AppCtx{
+}
+```
+@EnableAspectJAutoProxy 어노테이션의 proxyTargetClass 속성을 true로 지정하면 인터페이스가 아닌 자바 클래스를 상속받아 프록시를 생성한다. 
+
+<br>
+
+#### 7.4.1 execution 명시자 표현식  
+Aspect를 적용할 위치를 지정할 대 사용한 Pointcut설정을 보면 execution 명시자를 사용했다.  
+
+```Java
+@Pointcut("execution(public * chap07..*(..))")
+private void publicTarget(){
+}
+```
+execution 명시자는 Advice를 적용할 메서드를 지정할 때 사용한다. 기본 형식은 다음과 같다.  
+
+```Java
+execution(수식어패턴? 리턴타입패턴 클래스이름패턴?메서드이름패턴(파라미터패턴))
+```
+'수식어패턴'은 생략 가능하며 public, protected 등이 온다. 스프링 AOP는 public 메서드에만 적용할 수 있기 때문에 사실상 public만 의미있다. 
+'리턴타입패턴'은 리턴 타입을 명시한다. '클래스이름패턴'과 '메서드이름패턴'은 클래스 이름 및 메서드 이름을 패턴으로 명시한다. 
+'파라미터패턴'은 매칭될 파라미터에 대해서 명시한다.  
+
+각 패턴은 '*'을 이용하여 모든 값을 표현할 수 있다. 또한 '..'(점 두개)을 이용하여 0개 이상이라는 의미를 표현할 수 있다.  
+
+`execution 명시자 예시`  
+
+| 예                                                 | 설명 |
+| :---                                              | :--- |
+| execution(public void set*(..))                   | 리턴 타입이 void이고, 메서드 이름이 set으로시작하고, 파라미터가 0개 이상인 메서드 호출. 파라미터 부분에 '..'을 사용하여 파라미터가 0개 이상인 것을 표현했다. |
+| execution(* chap07.*.*())                         | chap07 패키지의 타입에 속한 파라미터가 없는 모든 메서드 호출 |
+| execution(* chap07..*.*(..))                      | chap07 패키지 및 하위 패키지에 있는, 파라미터가 0개 이상인 메서드 호출. 패키지 부분에 '..'을 사용하여 해당 패키지 또는 하위 패키지를 표현했다. |
+| execution(Long chap07.Calculator.factorial(..))   | 리턴 타입이 Long인 Calculator 타입의 factorial() 메서드 호출 |
+| execution(* get*(*))                              | 이름이 get으로 시작하고 파라미터가 한 개인 메서드 호출 |
+| execution(* get*(*, *))                           | 이름이 get으로 시작하고 파라미터가 두 개인 메서드 호출 |
+| execution(* read*(Integer, ..))                   | 메서드 이름이 read로 시작하고, 첫 번째 파라미터 타입이 Integer이며, 한 개 이상의 파라미터를 갖는 메서드 호출 |
+
+<br>
+
+#### 7.4.2 Advice 적용 순서  
+한 Pointcut에 여러 Advice를 적용할 수도 있다. 
+
+`CacheAspect`  
+```Java
+package aspect;
+
+@Aspect
+public class CacheAspect {
+
+	private Map<Long, Object> cache = new HashMap<>();
+
+	@Pointcut("execution(public * chap07..*(long))")
+	public void cacheTarget() {
+	}
+	
+	@Around("cacheTarget()")
+	public Object execute(ProceedingJoinPoint joinPoint) throws Throwable {
+		Long num = (Long) joinPoint.getArgs()[0];
+		if (cache.containsKey(num)) {
+			System.out.printf("CacheAspect: Cache에서 구함[%d]\n", num);
+			return cache.get(num);
+		}
+
+		Object result = joinPoint.proceed();
+		cache.put(num, result);
+		System.out.printf("CacheAspect: Cache에 추가[%d]\n", num);
+		return result;
+	}
+}
+```
+CacheAspect 클래스는 간단하게 캐시를 구현한 공통 기능이다. 동작 순서는 아래와 같다.  
+1. 첫 번째 인자를 Long 타입으로 구한다. ((Long) joinPoint.getArgs()[0];)
+2. 위 에서 구한 키 값이 cache에 존재하면 키에 해당하는 값을 구해서 리턴한다. (return cache.get(num);)
+3. 위 에서 구한 키 값이 cache에 존재하지 않으면 프록시 대상 객체를 실행한다. (joinPoint.proceed();)
+4. 프록시 대상 객체를 실행한 결과를 cache에 추가한다. (cache.put(num, result);)
+5. 프록시 대상 객체의 실행 결과를 리턴한다. 
+
+@Around 값으로 cacheTarget() 메서드를 지정했다. @Pointcut 설정은 첫 번째 인자가 long인 메서드를 대상으로 한. 
+따라서 execute
 
 
 <br><br><br>

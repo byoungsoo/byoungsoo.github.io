@@ -1,6 +1,6 @@
 ---
 layout: tagpage
-title: "Tag: aspect"
-tag: aspect
+title: "Tag: @scope"
+tag: @scope
 robots: noindex
 ---

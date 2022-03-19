@@ -1,6 +1,6 @@
 ---
 layout: tagpage
-title: "Tag: qualifier"
-tag: qualifier
+title: "Tag: @import"
+tag: @import
 robots: noindex
 ---

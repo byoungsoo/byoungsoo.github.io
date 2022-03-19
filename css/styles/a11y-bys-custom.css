@@ -5,7 +5,8 @@
 /* Comment */
 .hljs-comment,
 .hljs-quote {
-  color: #696969;
+  color: #57A64A;
+  font-style: italic;
 }
 
 /* Red */
@@ -42,7 +43,8 @@
 .hljs-symbol,
 .hljs-bullet,
 .hljs-addition {
-  color: #008000;
+  /* color: #008000; */
+  color: #ff7300
 }
 
 /* Blue */
@@ -61,7 +63,7 @@
   display: block;
   overflow-x: auto;
   background: #fefefe;
-  color: #545454;
+  color: #1a1a1a;
   padding: 0.5em;
 }
 

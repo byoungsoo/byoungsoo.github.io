@@ -1,6 +1,6 @@
 ---
 layout: tagpage
-title: "Tag: autowired"
-tag: autowired
+title: "Tag: @pointcut"
+tag: @pointcut
 robots: noindex
 ---
