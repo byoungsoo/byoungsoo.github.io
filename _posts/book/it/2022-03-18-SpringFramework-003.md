@@ -567,8 +567,37 @@ CacheAspect 클래스는 간단하게 캐시를 구현한 공통 기능이다. �
 4. 프록시 대상 객체를 실행한 결과를 cache에 추가한다. (cache.put(num, result);)
 5. 프록시 대상 객체의 실행 결과를 리턴한다. 
 
-@Around 값으로 cacheTarget() 메서드를 지정했다. @Pointcut 설정은 첫 번째 인자가 long인 메서드를 대상으로 한. 
-따라서 execute
+@Around 값으로 cacheTarget() 메서드를 지정했다. @Pointcut 설정은 첫 번째 인자가 long인 메서드를 대상으로 한다. 
+따라서 execute() 메서드는 앞서 작성한 Calculator의 factorial(long) 메서드에 적용된다. 
+
+새로운 Aspect를 구현했으므로 스프링 설정 클래스에는 아래와 같이 두 개의 Aspect를 추가할 수 있다. 
+ExeTimeAspect는 앞서 구현한 시간 측정 Aspect이다. 두 Aspect에서 설정한 Pointcut은 모두 Calculator 타입의 factorial() 메서드에 적용된다.  
+
+`AppCtxWithCacheAspect`
+```Java
+package config;
+
+@Configuration
+@EnableAspectJAutoProxy
+public class AppCtxWithCache {
+
+	@Bean
+	public CacheAspect cacheAspect() {
+		return new CacheAspect();
+	}
+
+	@Bean
+	public ExeTimeAspect exeTimeAspect() {
+		return new ExeTimeAspect();
+	}
+
+	@Bean
+	public Calculator calculator() {
+		return new RecCalculator();
+	}
+
+}
+```
 
 
 <br><br><br>
