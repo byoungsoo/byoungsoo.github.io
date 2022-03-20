@@ -599,6 +599,139 @@ public class AppCtxWithCache {
 }
 ```
 
+`MainAspectWithCache`
+```Java
+package main;
+
+public class MainAspectWithCache {
+	
+	public static void main(String[] args) {
+		AnnotationConfigApplicationContext ctx = 
+				new AnnotationConfigApplicationContext(AppCtxWithCache.class);
+
+		Calculator cal = ctx.getBean("calculator", Calculator.class);
+		cal.factorial(7);
+		cal.factorial(7);
+		cal.factorial(5);
+		cal.factorial(5);
+		ctx.close();
+	}
+
+}
+```
+`Output`
+```log
+RecCalculator.factorial([7]) 실행 시간 : 16710 ns
+CacheAspect: Cache에 추가[7]
+CacheAspect: Cache에서 구함[7]
+RecCalculator.factorial([5]) 실행 시간 : 3969 ns
+CacheAspect: Cache에 추가[5]
+CacheAspect: Cache에서 구함[5]
+```
+결과를 보면 첫 번째 factorial(7)을 실행할 때와 두 번째 factorial(7)을 실행할 때 콘솔에 출력되는 내용이 다르다. 
+첫 번째 실행 결과는 ExeTimeAspect와 CacheAspect가 모두 적용되었고 두 번째 실행 결과는 CacheAspect만 적용되었다. 
+이렇게 첫 번째와 두 번째 실행 결과가 다른 이유는 Advice를 다음 순서로 적용했기 때문이다.
+
+- CacheAspect 프록시 -> ExeTimeAspect프록시 -> 실제 대상 객체  
+
+메인에서 ctx.getBean("calculator", Calculator.class); 로 구한 calculator 빈은 실제로는 CacheAspect 프록시 객체이다. 
+근데 CacheAspect 프록시 객체의 대상 객체는 ExeTimeAspect의 프록시 객체이다. 
+그리고 ExeTimeAspect 프록시의 대상 객체가 실제 대상 겍체이다.  
+
+![spring5_7_7](/assets/book/spring5/spring5_7_7.png){: width="55%" height="auto"}  
+
+실제 실행 순서는 그림과 같다.  
+factorial(7)을 두 번째 호출하면 cache맵에 담긴 값을 리턴하고 끝난다. 이 경우 joinPoint.proceed()를 실행하지 않으므로 ExeTimeAspect나 실제 객체가 실행되지 않는다.  
+
+어떤 Aspect가 먼저 적용될지는 스프링 프레임워크나 자바 버전에 따라 달라질 수 있기 때문에 적용 순서가 중요하다면 직접 순서를 지정해야 한다. 
+이럴 때 사용하는 것이 @Order 어노테이션이다. @Aspect 어노테이션과 함께 @Order 어노테이션을 클래스에 붙이면 @Order 어노테이션에 지정한 값에 따라 적용 순서를 결정한다. 
+@Order 어노테이션의 값이 작으면 먼저 적용하고 크면 나중에 적용한다.  
+
+다음과 같이 두 Aspect 클래스에 @Order 어노테이션을 적용했다고 하자. 
+```Java
+@Aspect
+@Order(1)
+public class ExeTimeAspect {
+}
+
+@Aspect
+@Order(2)
+public class CacheAspect {
+}
+```
+
+- ExeTimeAspect 프록시 -> CacheAspect 프록시 -> 실제 대상 객체 
+
+`Output`  
+```log
+CacheAspect: Cache에 추가[7], Result: 5040
+RecCalculator.factorial([7]) 실행 시간 : 230406 ns
+CacheAspect: Cache에서 구함[7], Result: 5040
+RecCalculator.factorial([7]) 실행 시간 : 91243 ns
+```
+<br>
+
+#### 7.4.3 @Around의 Pointcut 설정과 @Pointcut 재사용  
+@Pointcut 어노테이션이 아닌 @Around 어노테이션에 execution 명시자를 직접 지정할 수도 있다. 
+```Java
+@Aspect
+public class CacheAspect{
+
+	@Around(execution(public * chap07..*(..)))
+	public Object execute(ProceedingJointPoint joinPoint) throws Throwable{
+
+	}
+}
+```
+
+만약 같은 Pointcut을 여러 Advice가 함께 사용한다면 공통 Pointcut을 재사용할 수도 있다.  
+
+사실 이미 Pointcut을 재사용하는 코드를 앞서 작성했다.
+```Java
+@Aspect
+public class ExeTimeAspect {
+
+	@Pointcut("execution(public * chap07..*(long))")
+	private void publicTarget() {
+	}
+	
+	@Around("publicTarget()")
+	public Object measure(ProceedingJoinPoint joinPoint) throws Throwable {
+	}
+}
+```
+이 코드에서 @Around는 publicTarget() 메서드에 설정한 Pointcut을 사용한다. 
+publicTarget() 메서드는 private인데 이 경우 같은 클래스에 있는 @Around 어노테이션에서만 해당 설정을 사용할 수 있다. 
+
+다른 클래스에 위치한 @Around 어노테이션에서 publicTarget() 메서드의 Pointcut을 사용하고 싶다면 publicTarget() 메서드를 public으로 바꾸면 된다. 
+그리고 해당 Pointcut의 완전한 클래스 이름을 포함한 메서드 이름을 @Around 어노테이션에서 사용하면 된다. 
+```Java
+@Aspect
+public class ExeTimeAspect {
+
+	@Pointcut("execution(public * chap07..*(long))")
+	public void publicTarget() {
+	}
+}
+
+
+@Aspect
+public class cacheAspect{
+
+	@Around(aspect.ExeTimeAspect.publicTarget())
+	//@Around(ExeTimeAspect.publicTarget()) 같은 패키지에 위치하므로 패키지 이름이 없는 클래스 이름으로 설정 가능 
+}
+```
+<br>
+
+여러 Aspect에서 공통으로 사용하는 Pointcut이 있다면 그림과 같이 별도 클래스에 Pointcut을 정의하고, 각 Aspect 클래스에서 해당 Pointcut을 사용하도록 구성하면 Pointcut 관리가 편해진다. 
+
+![spring5_7_10](/assets/book/spring5/spring5_7_10.png){: width="60%" height="auto"}  
+
+그림에서 @Pointcut을 설정한 CommonPointcut은 빈으로 등록할 필요가 없다. 
+@Around 어노테이션에서 해당 클래스에 접근 가능하면 해당 Pointcut을 사용할 수 있다.  
+
+
 
 <br><br><br>
 

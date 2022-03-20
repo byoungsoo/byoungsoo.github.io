@@ -24,7 +24,6 @@ public class Greeter {
     public void setFormat(String format) {
         this.format = format;
     }
-
 }
 ```
 <br>
