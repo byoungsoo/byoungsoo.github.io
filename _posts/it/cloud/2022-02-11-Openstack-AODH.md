@@ -7,6 +7,33 @@ date: 2022-02-11 01:00:00
 tags: openstack aodh alarm
 ---
 
+
+### 목차 
+### 1. 사전 준비 사항  
++ #### 1.1. Nova Instance를 생성  
++ #### 1.2. Jmeter 설정 및 HTTP_REQUEST 설정  
+
+### 2. Metric 정보 확인  
++ #### 2.1. CPU Metric에 대한 이해
++ #### 2.2. Metric 수집 정보 확인  
+
+### 3. 알람 설정
++ #### 3.1 CPU 알람 설정
++ #### 3.2 Memory 알람 설정
++ #### 3.3 알람 설정 확인
+
+### 4. Jmeter를 활용한 부하 및 Alarm Test
++ #### 4.1 Jmeter를 활용한 부하
++ #### 4.2 Alarm 결과 확인
+
+### 4. Jmeter를 활용한 부하 및 Alarm Test
+
+### 5. Alarm에 대한 종료
+
+### 6. AODH 추후 고려할 점  
+
+---
+
 # AODH
 
 AODH 사용자에게 제공되는 모니터링 서비스이다. 모니터링 이용하여 Heat와 같은 Orchestration 서비스에서 인스턴스 그룹의 Auto-Scaling이 가능하며 사용자에게 클라우드 리소스에 대한 알람을 보낼 수 있다.  
@@ -214,33 +241,6 @@ openstack alarm create \
   --alarm-action "https://user:{token}@{jenkins_url}/job/test-aodh-memory1024-alarm/build"
 ```
 
-alarm-action에 들어가는 URL을 호출할 때, 넘어가는 body의 파라미터는 아래와 같다.  
-```python
-# aodh > notifier > rest.py
-body = {'alarm_name': alarm_name, 'alarm_id': alarm_id,
-        'severity': severity, 'previous': previous,
-        'current': current, 'reason': reason,
-        'reason_data': reason_data}
-headers['content-type'] = 'application/json'
-kwargs = {'data': json.dumps(body),
-          'headers': headers}
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-max_retries = self.conf.rest_notifier_max_retries
-session = requests.Session()
-session.mount(action.geturl(),
-              requests.adapters.HTTPAdapter(max_retries=max_retries))
-resp = session.post(action.geturl(), **kwargs)
-LOG.info('Notifying alarm <%(id)s> gets response: %(status_code)s '
-          '%(reason)s.', {'id': alarm_id,
-                          'status_code': resp.status_code,
-                          'reason': resp.reason})
-```
-Openstack은 오픈소스이므로 Github에 올려져 있는 소스를 참고하면 정보를 알 수 있다.  
-
-
-
 <br>
 
 ### 3.3 알람 설정 확인
@@ -408,31 +408,87 @@ archive-policy를 1분 단위로 측정하도록 default 설정을 변경하는 
 따라서 추후 화면에서 아래와 같은 계산식을 통해 사용자에게 cpu_util 값을 입력 받고, cpu(ns)을 알람에 설정하는 것으로 해야 할 것으로 보인다.  
 cpu(ns) = cpu_util(%) * 1000000000 * granularity(sec) * cpu_core(vpcu) / 100 
 
+<br><br>
+
+## 7. 참고  
+
+- alarm-action에 들어가는 URL을 호출할 때, 넘어가는 body의 파라미터는 아래와 같다.  
+
+    `aodh/aodh/notifier/rest.py`  
+    ```python
+    # aodh > notifier > rest.py
+    body = {'alarm_name': alarm_name, 'alarm_id': alarm_id,
+            'severity': severity, 'previous': previous,
+            'current': current, 'reason': reason,
+            'reason_data': reason_data}
+    headers['content-type'] = 'application/json'
+    kwargs = {'data': json.dumps(body),
+              'headers': headers}
+
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    max_retries = self.conf.rest_notifier_max_retries
+    session = requests.Session()
+    session.mount(action.geturl(),
+                  requests.adapters.HTTPAdapter(max_retries=max_retries))
+    resp = session.post(action.geturl(), **kwargs)
+    LOG.info('Notifying alarm <%(id)s> gets response: %(status_code)s '
+              '%(reason)s.', {'id': alarm_id,
+                              'status_code': resp.status_code,
+                              'reason': resp.reason})
+    ```
+
+    Openstack은 오픈소스이므로 Github에 올려져 있는 소스를 참고하면 정보를 알 수 있다.  
+
+<br>
+
+- repeat-actions true인 경우 Interval 변경  
+    repeat-action 값이 true 인 경우, 1분마다 알람이 재 수신되며 evaluation_interval 값을 변경하면 반복 수신 주기를 변경할 수 있다.  
+    
+    `/etc/aodh/aodh.conf`  
+    ```bash
+    [DEFAULT]
+    #evaluation_interval = 60
+    ```
+
+    참고소스는 아래와 같다.  
+
+    `aodh/aodh/evaluator/__init__.py`  
+    ```python
+    class AlarmEvaluationService(cotyledon.Service):
+
+        PARTITIONING_GROUP_NAME = "alarm_evaluator"
+        EVALUATOR_EXTENSIONS_NAMESPACE = "aodh.evaluator"
+
+        def __init__(self, worker_id, conf):
+            super(AlarmEvaluationService, self).__init__(worker_id)
+            self.conf = conf
+
+            ef = lambda: futures.ThreadPoolExecutor(max_workers=10)  # noqa: E731
+            self.periodic = periodics.PeriodicWorker.create(
+                [], executor_factory=ef)
+
+            self.evaluators = extension.ExtensionManager(
+                namespace=self.EVALUATOR_EXTENSIONS_NAMESPACE,
+                invoke_on_load=True,
+                invoke_args=(self.conf,)
+            )
+          
+            ...... # 생략
+
+            if self.evaluators:
+                @periodics.periodic(spacing=self.conf.evaluation_interval,
+                                    run_immediately=not delay_start)
+                def evaluate_alarms():
+                    self._evaluate_assigned_alarms()
+
+            ...... # 생략
+    ```
+    소스 호출 순서는 아래와 같다.  
+    - \_\_init\_\_ -> evaluators -> _evaluate_assigned_alarms -> _evaluate_alarm -> _fire_alarm -> _refresh -> 
+
+
 ---
-
-## 목차 
-## 1. 사전 준비 사항  
-+ ### 1.1. Nova Instance를 생성  
-+ ### 1.2. Jmeter 설정 및 HTTP_REQUEST 설정  
-
-## 2. Metric 정보 확인  
-+ ### 2.1. CPU Metric에 대한 이해
-+ ### 2.2. Metric 수집 정보 확인  
-
-## 3. 알람 설정
-+ ### 3.1 CPU 알람 설정
-+ ### 3.2 Memory 알람 설정
-+ ### 3.3 알람 설정 확인
-
-## 4. Jmeter를 활용한 부하 및 Alarm Test
-+ ### 4.1 Jmeter를 활용한 부하
-+ ### 4.2 Alarm 결과 확인
-
-## 4. Jmeter를 활용한 부하 및 Alarm Test
-
-## 5. Alarm에 대한 종료
-
-## 6. AODH 추후 고려할 점  
 
 <br><br><br>
 
