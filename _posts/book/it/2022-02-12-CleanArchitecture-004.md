@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Clean Architecture (Chapter 27~34) - Robert C. Martin"
+title: "클린 아키텍처 (Chapter 27~34) - Robert C. Martin"
 author: "Bys"
 category: it_book
 date: 2022-02-12 01:00:00
@@ -433,7 +433,7 @@ public 타입이 적으면 적을수록 필요한 의존성의 수도 적어진�
 
 ---
 
-- 출처  
-클린 아키텍처 (로버트 C. 마틴)  
+**Reference**  
+- 클린 아키텍처 (로버트 C. 마틴)
 
 ---

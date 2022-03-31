@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Clean Architecture (Chapter 18~26) - Robert C. Martin"
+title: "클린 아키텍처 (Chapter 18~26) - Robert C. Martin"
 author: "Bys"
 category: it_book
 date: 2022-02-06 01:00:00
@@ -423,7 +423,7 @@ GameRules는 GameRules가 정의하고 Language가 구현하는 API를 이용해
 
 ---
 
-- 출처  
-클린 아키텍처 (로버트 C. 마틴)  
+**Reference**  
+- 클린 아키텍처 (로버트 C. 마틴)
 
 ---

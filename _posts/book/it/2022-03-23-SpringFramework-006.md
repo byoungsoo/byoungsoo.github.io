@@ -491,8 +491,8 @@ public class RegisterController {
 
 ---
 
-- 출처  
-초보 웹 개발자를 위한 스프링 5 (최범균)
+**Reference**  
+- 초보 웹 개발자를 위한 스프링 5 (최범균)
 
 ---
 

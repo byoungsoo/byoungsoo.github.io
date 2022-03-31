@@ -4,7 +4,7 @@ title: "Spring 프로그래밍 (Chapter 13)[스프링 MVC 3: 세션, 인터셉�
 author: "Bys"
 category: it_book
 date: 2022-03-30 01:00:00
-tags: book programming spring framework mvc session cookie interceptor
+tags: book programming spring framework mvc session cookie interceptor antpath
 ---
 
 ## 13 MVC 3: 세션, 인터셉터, 쿠키
@@ -19,8 +19,6 @@ tags: book programming spring framework mvc session cookie interceptor
 컨트롤러에서 HttpSession을 사용하려면 다음의 두 가지 방법 중 한 가지를 사용하면 된다. 
 - 요청 매핑 어노테이션 적용 메서드에 HttpSession 파라미터를 추가한다. 
 - 요청 매핑 어노테이션 적용 메서드에 HttpServletRequest 파라미터를 추가하고 HttpServletRequest을 이용해서 HttpSession을 구한다.  
-
-<br>
 
 1. 첫 번째 방법을 사용한 코드
     ```Java
@@ -42,8 +40,6 @@ tags: book programming spring framework mvc session cookie interceptor
     ```
     첫 번째 방법은 항상 HttpSession을 생성하지만 두 번째 방법은 필요한 시점에만 HttpSession을 생성할 수 있다.  
 
-
-<br>
 
 로그인에 성공하면 authInfo 속성에 인증 정보 객체를 저장하도록 코드를 추가한다. 
 ```Java
@@ -144,6 +140,65 @@ public class AuthCheckInterceptor implements HandlerInterceptor {
 #### 13.5.2 HandlerInterceptor 설정하기  
 HandlerInterceptor를 구현하면 HandlerInterceptor를 어디에 적용할지 설정해야 한다.  
 
+```Java
+@Configuration
+@EnableWebMvc
+public class MvcConfig implements WebMvcConfigurer {
+
+    @Override
+	public void addInterceptors(InterceptorRegistry registry){
+		registry.addInterceptor(authCheckInterceptor())
+				.addPathPatterns("/edit/**");
+	}
+
+   	@Bean
+	public AuthCheckInterceptor authCheckInterceptor(){
+		return new AuthCheckInterceptor();
+	}
+	...... // 생략
+}
+```
+1. WebMvcConfigurer#addInterceptors() 메서드는 인터셉터를 설정하는 메서드이다.  
+2. InterceptorRegistry#addInterceptor() 메서드는 HandlerInterceptor 객체를 설정한다.  
+3. InterceptorRegistry#addInterceptor() 메서드는 InterceptorRegistration 객체를 리턴하는데 이 객체의 addPathPatterns() 메서드는 인터셉터를 적용할 경로 패턴을 지정한다. 이 경로는 Ant 경로 패턴을 사용한다. 
+    addPathPatterns() 메서드에 지정한 경로 패턴 중 일부를 제외하고 싶다면 excludePathPatterns() 메서드를 사용한다.  
+    ```Java
+    @Configuration
+    @EnableWebMvc
+    public class MvcConfig implements WebMvcConfigurer {
+
+        @Override
+        public void addInterceptors(InterceptorRegistry registry){
+            registry.addInterceptor(authCheckInterceptor())
+                    .addPathPatterns("/edit/**")
+                    .excludePathPatterns("/edit/changePassword");
+        }
+        ......//생략
+    }
+    ```
+
+> **Ant 경로 패턴**  
+Ant 패턴은 *, **, ?의 세 가지 특수 문자를 이용해서 경로를 표현한다. 각 문자는 다음의 의미를 갖는다. 
+- *: 0개 또는 그 이상의 글자 
+- ?: 1개 글자
+- **: 0개 또는 그 이상의 폴더 경로  <br><br>
+이들 문자를 사용한 경로 표현 예는 다음과 같다.  
+- @RequestMapping("/member/?*.info")  
+/member/로 시작하고 확장자가 .info로 끝나는 모든 경로  
+- @RequestMapping("/faq/f?00.fq")  
+/faq/f로 시작하고, 1글자가 사이에 위치하고 00.fq로 끝나는 모든 경로 ex) /fq/fa00.fq 
+- @RequestMapping("/folders/**/files")  
+/folders/로 시작하고, 중간에 0개 이상의 중간 경로가 존재하고 /files로 끝나는 모든 경로 ex) /folders/files, /folders/1/2/3/files 등 
+
+
+### 13.6 컨트롤러에서 쿠키 사용하기  
+사용자 편의를 위해 아이디를 기억해 두었다가 다음에 로그인할 때 아이디를 자동으로 넣어주는 사이트가 많다. 이 기능을 구현할 때 쿠키를 사용한다. 
+이 장의 예제에도 쿠키를 사용해서 이메일 기억하기 기능을 추가해보자.  
+
+1. loginForm.jsp: 이메일 기억하기 선택 항목을 추가한다. 
+2. LoginController#form(): 쿠키가 존재할 경우 폼에 전달할 커맨드 객체의 email 프로퍼티를 쿠키의 값으로 설정한다. 
+3. LoginController#submit(): 이메일 기억하기 옵션을 선택한 경우 로그인 성공 후에 이메일 담고 있는 쿠키를 생성한다.  
+4. label.properties: 메시지를 추가한다.  
 
 
 
@@ -153,8 +208,8 @@ HandlerInterceptor를 구현하면 HandlerInterceptor를 어디에 적용할지 
 
 ---
 
-- 출처  
-초보 웹 개발자를 위한 스프링 5 (최범균)
+**Reference**  
+- 초보 웹 개발자를 위한 스프링 5 (최범균)
 
 ---
 

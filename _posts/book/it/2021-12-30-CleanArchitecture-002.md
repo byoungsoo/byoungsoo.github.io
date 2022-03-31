@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Clean Architecture (Chapter 12~17) - Robert C. Martin"
+title: "클린 아키텍처 (Chapter 12~17) - Robert C. Martin"
 author: "Bys"
 category: it_book
 date: 2021-12-30 01:00:00
@@ -316,7 +316,7 @@ GUI를 보고선 GUI가 시스템이라고 생각하곤 한다. 이들은 시스
 
 ---
 
-- 출처  
-클린 아키텍처 (로버트 C. 마틴)  
+**Reference**  
+- 클린 아키텍처 (로버트 C. 마틴)
 
 ---
