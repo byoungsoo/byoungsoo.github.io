@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Spring5 프로그래밍 (Chapter 9~10)[스프링 mvc]"
+title: "Spring5 프로그래밍 (Chapter 9~10)[스프링 MVC]"
 author: "Bys"
 category: it_book
 date: 2022-03-20 01:00:00
@@ -409,18 +409,7 @@ DefaultServletHttpRequestHandler는 클라이언트의 모든 요청을 WAS가 �
 DispatcherServlet은 웹 브라우저의 요청을 받기 위한 창구 역할을 하고, 다른 주요 구성 요소들을 이용해서 요청 흐름을 제어하는 역할을 한다. 
 HandlerMapping은 클라이언트의 요청을 처리할 핸들러 객체를 찾아준다. 핸들러(커맨드) 객체는 클라이언트의 요청을 실제로 처리한 뒤 뷰 정모와 모델을 설정한다. 
 HandlerAdapter는 DispatcherServlet과 핸들러 객체 사이의 변환을 알맞게 처리해 준다. 
-ViewResolver는 요청 처리 결과를 생성할 View를 찾아주고 View는 최종적으로 클라이언트에 응답을 생성해서 전달한다.  
-
-
-
-
-
-
-
-
-
-
-
+ViewResolver는 요청 처리 결과를 생성할 View를 찾아주고 View는 최종적으로 클라이언트에 응답을 생성해서 전달한다.
 
 
 <br><br><br>
