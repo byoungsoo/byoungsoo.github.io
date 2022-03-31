@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Spring5 프로그래밍 (Chapter 7)[AOP 프로그래밍]"
+title: "Spring 프로그래밍 (Chapter 7)[AOP 프로그래밍]"
 author: "Bys"
 category: it_book
 date: 2022-03-18 01:00:00

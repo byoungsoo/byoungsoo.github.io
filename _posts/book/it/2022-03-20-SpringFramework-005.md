@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Spring5 프로그래밍 (Chapter 9~10)[스프링 MVC]"
+title: "Spring 프로그래밍 (Chapter 9~10)[스프링 MVC]"
 author: "Bys"
 category: it_book
 date: 2022-03-20 01:00:00

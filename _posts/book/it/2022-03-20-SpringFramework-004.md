@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Spring5 프로그래밍 (Chapter 8)[DB 연동]"
+title: "Spring 프로그래밍 (Chapter 8)[DB 연동]"
 author: "Bys"
 category: it_book
 date: 2022-03-20 01:00:00

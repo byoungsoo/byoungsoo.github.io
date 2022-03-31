@@ -8,7 +8,7 @@ tags: git command
 ---
 
 
-#### **- Git Config**
+### Git Config
 
 Windows의 경우 cmd창을 열고 아래의 명령어를 실행한다.
 git을 설치했지만 명령어가 안되는 경우 환경변수 설정을 확인한다.   
@@ -43,7 +43,7 @@ color.diff=auto
 <br><br>
 
 
-#### **- Git Clone**
+### Git Clone
 
 `git clone`  
 ```
@@ -73,7 +73,7 @@ git push -ur origin master
 <br>
 
 
-#### **- Git Pull**
+### Git Pull
 pull의 명령어는 원격저장소의 변경된 데이터를 로컬에 반영할 수 있다.
 
 `git pull`
@@ -102,5 +102,41 @@ git reset --hard origin/master
 git pull origin master  
 ```
 이렇게 명령을 수행하게 되면 원격저장소(origin)의 master를 기준으로 로컬데이터를 엎어쓰게 된다. 
+
+### Git Cherry-Pick
+Cherry pick 을 사용하면 원하는 커밋이력만 가지고 올 수 있다. 
+
+`git cherry-pick`
+```bash
+# checkout develop
+git checkout develop
+
+
+# log
+git log
+
+## Output ##
+commit 789abc
+Author: Bys <skwltg90@naver.com>
+Date:   Wed Mar 24 08:24:37 2022 +0900
+
+commit 456def
+Author: Bys <skwltg90@naver.com>
+Date:   Wed Mar 23 08:24:37 2022 +0900
+
+    Update complete2
+
+commit 123abc
+Author: Bys <skwltg90@naver.com>
+Date:   Tue Mar 22 08:29:41 2022 +0900
+
+    update complete1
+
+# checkout master
+git checkout master
+
+# cherry-pick
+git cherry-pick 456def
+```
 
 <br><br> 
