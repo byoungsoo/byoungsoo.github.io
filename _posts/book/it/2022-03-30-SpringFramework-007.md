@@ -4,7 +4,7 @@ title: "Spring 프로그래밍 (Chapter 13)[스프링 MVC 3: 세션, 인터셉�
 author: "Bys"
 category: it_book
 date: 2022-03-30 01:00:00
-tags: book programming spring framework mvc session cookie interceptor antpath
+tags: book programming spring framework mvc session cookie interceptor antpath @cookievalue
 ---
 
 ## 13 MVC 3: 세션, 인터셉터, 쿠키
@@ -200,7 +200,64 @@ Ant 패턴은 *, **, ?의 세 가지 특수 문자를 이용해서 경로를 표
 3. LoginController#submit(): 이메일 기억하기 옵션을 선택한 경우 로그인 성공 후에 이메일 담고 있는 쿠키를 생성한다.  
 4. label.properties: 메시지를 추가한다.  
 
+loginForm.jsp에는 이메일 기억하기를 선택할 수 있도록 체크박스를 추가한다.  
 
+LoginController의 form() 메서드는 이메일 정보를 기억하고 있는 쿠키가 존재하면 해당 쿠키의 값을 이용해서 LoginCommand 객체의 email 프로퍼티 값을 설정하면 된다. 
+스프링 MVC에서 쿠키를 사용하는 방법 중 하나는 @CookieValue 어노테이션을 사용하는 것이다. 
+@CookieValue 어노테이션은 요청 매핑 어노테이션 적용 메서드의 Cookie타입 파라미터에 적용한다. 
+
+```Java
+@GetMapping
+public String form(LoginCommand loginCommand, @CookieValue(value="REMEMBER", required = false) Cookie rCookie, HttpSession session){
+    if(session.getAttribute("authInfo") != null){
+        System.out.println("session.getAuthInfo(): " + session.getAttribute("authInfo"));
+        System.out.println("session.getId(): " + session.getId());
+        return "login/loginSuccess";
+    }
+    if (rCookie != null) {
+        loginCommand.setEmail(rCookie.getValue());
+        loginCommand.setRememberEmail(true);
+    }
+    return "login/loginForm";
+}
+```
+
+@CookieValue 어노테이션의 value 속성은 쿠키의 이름을 지정한다. 이 코드는 이름이 REMEMBER인 쿠키를 Cookie 타입으로 전달받는다. 
+지정한 이름을 가진 쿠키가 존재하지 않을 수도 있다면 required 속성값을 false로 지정한다. (이 예제의 경우 이메일 기억하기를 선택하지 않을 수도 있다.)  
+REMEMBER 쿠키가 존재하면 쿠키의 값을 읽어와 커맨드 객체의 email 프로퍼티 값을 설정한다. 
+커맨드 객체를 사용해서 폼을 출력하므로 REMEMBER 쿠키가 존재하면 입력 폼의 email 프로퍼티에 쿠키값이 채워져서 출력된다.  
+
+
+실제로 REMEMBER 쿠키를 생성하는 부분은 로그인을 처리하는 submit() 메서드이다.  
+쿠키를 생성하려면 HttpServletResponse 객체가 필요하므로 submit() 메서드의 파라미터로 HttpServletResponse 타입을 추가한다.  
+```Java
+@PostMapping
+public String submit(LoginCommand loginCommand, Errors errors, HttpSession session, HttpServletResponse response){
+    new LoginCommandValidator().validate(loginCommand, errors);
+    if(errors.hasErrors()){
+        return "login/loginForm";
+    }
+    try {
+        AuthInfo authInfo = authService.authenticate(loginCommand.getEmail(), loginCommand.getPassword());
+        session.setAttribute("authInfo", authInfo);
+
+        Cookie rememberCookie = new Cookie("REMEMBER", loginCommand.getEmail());
+        rememberCookie.setPath("/");
+        if(loginCommand.isRememberEmail()) {
+            rememberCookie.setMaxAge(60 * 60 * 24* 30);
+        } else {
+            rememberCookie.setMaxAge(0);
+        }
+        response.addCookie(rememberCookie);
+
+        return "login/loginSuccess";
+    } catch(WrongIdPasswordException e) {
+        errors.reject("idPasswordNotMatching");
+        return "login/loginForm";
+    }
+}
+```
+로그인에 성공하면 이메일 기억하기를 선택했는지 여부에 따라 30일동안 유지되는 쿠키를 생성하거나 바로 삭제되는 쿠키를 생성한다.  
 
 
 
