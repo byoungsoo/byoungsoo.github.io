@@ -7,7 +7,7 @@ date: 2022-03-30 01:00:00
 tags: book programming spring framework mvc session cookie interceptor antpath @cookievalue
 ---
 
-## 13 MVC 3: 세션, 인터셉터, 쿠키
+## 13. MVC 3: 세션, 인터셉터, 쿠키
 
 ### 13.3 컨트롤러에서 HttpSession 사용하기  
 
@@ -259,6 +259,11 @@ public String submit(LoginCommand loginCommand, Errors errors, HttpSession sessi
 ```
 로그인에 성공하면 이메일 기억하기를 선택했는지 여부에 따라 30일동안 유지되는 쿠키를 생성하거나 바로 삭제되는 쿠키를 생성한다.  
 
+<br><br>
+
+## 14. MVC 3: 세션, 인터셉터, 쿠키
+
+### 13.3 컨트롤러에서 HttpSession 사용하기  
 
 
 <br><br><br>
