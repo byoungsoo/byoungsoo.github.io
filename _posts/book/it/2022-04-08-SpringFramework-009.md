@@ -589,6 +589,81 @@ public class ApiExceptionHandler {
 
 @RestControllerAdvice 어노테이션을 사용하면 에러 처리 코드가 한 곳에 모여 효과적으로 에러 응답을 관리할 수 있다. 
 
+<br>
+
+## 17. 프로필과 프로퍼티 파일
+
+### 17.1 프로필 
+프로필은 논리적인 이름으로서 설정 집합에 프로필을 지정할 수 있다. 
+스프링 컨테이너는 설정 집합 중에서 지정한 이름을 사용하는 프로필을 선택하고 해당 프로필에 속한 설정을 이용해서 컨테이너를 초기화할 수 있다.
+
+### 17.1.1 @Configuration 설정에서 프로필 사용하기 
+@Configuration 어노테이션을 이용한 설정에서 프로필을 지정하려면 @Profile 어노테이션을 이용한다. 
+```Java
+@Configuration
+@Profile("dev")
+@EnableTransactionManagement
+public class DsDevConfig {
+
+    @Bean(destroyMethod = "close")
+    public DataSource dataSource() {
+        DataSource ds = new DataSource();
+        ds.setDriverClassName("com.mysql.jdbc.Driver");
+        ds.setUrl("jdbc:mysql://localhost/spring5fs?characterEncoding=utf8");
+        ds.setUsername("root");
+        ds.setPassword("root");
+        ds.setInitialSize(2);
+        ds.setMaxActive(10);
+        ds.setTestWhileIdle(true);
+        ds.setMinEvictableIdleTimeMillis(60000 * 3);
+        ds.setTimeBetweenEvictionRunsMillis(10 * 1000);
+        return ds;
+    }
+```
+```Java
+@Configuration
+@Profile("prd")
+@EnableTransactionManagement
+public class DsPrdConfig {
+
+    @Bean(destroyMethod = "close")
+    public DataSource dataSource() {
+        DataSource ds = new DataSource();
+        ds.setDriverClassName("com.mysql.jdbc.Driver");
+        ds.setUrl("jdbc:mysql://localhost/spring5fs?characterEncoding=utf8");
+        ds.setUsername("root");
+        ds.setPassword("root");
+        ds.setInitialSize(2);
+        ds.setMaxActive(10);
+        ds.setTestWhileIdle(true);
+        ds.setMinEvictableIdleTimeMillis(60000 * 3);
+        ds.setTimeBetweenEvictionRunsMillis(10 * 1000);
+        return ds;
+    }
+```
+
+특정 프로필을 선택하려면 컨테이너를 초기화하기 전에 setActiveProfiles() 메서드를 사용해서 프로필을 선택해야 한다. 
+```Java
+AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+context.getEnvironment().setActiveProfiles("dev");
+context.register(MemberConfig.class, DsDevConfig.class, DsPrdConfig.class);
+context.refresh();
+```
+getEnvironment() 메서드는 스프링 실행 환경을 설정하는데 사용되는 Environment를 리턴한다. 이 Environment의 setActiveProfiles() 메서드를 사용해서 사용할 프로필을 선택할 수 있다.  
+프로필을 사용할 때 주의할 점은 설정 정보를 전달하기 전에 어떤 프로필을 사용할지 지정해야 한다는 점이다. 
+위 코드를 보면 setActiveProfiles() 메서드로 "dev" 프로필을 사용한다고 설정한 뒤에 register() 메서드로 설정 파일 목록을 지정했다. 그런 뒤 refresh() 메서드를 실행해서 컨테이너를 초기화했다. 
+이 순서를 지키지 않고 프로필을 선택하기 전에 설정 정보를 먼저 전달하면 프로필을 지정한 설정이 사용되지 않기 때문에 설정을 읽어오는 과정에서 빈을 찾지 못해 엑셉션이 발생한다. 
+
+두 개 이상의 프로필을 활성화하고 싶다면 다음과 같이 각 프로필 이름을 메서드에 파라미터로 전달한다.
+```Java
+context.getEnvironment().setActiveProfiles("dev", "test");
+```
+
+프로필을 선택하는 또 다른 방법은 spring.profiles.active 시스템 프로퍼티에 사용할 프로필 값을 지정하는 것이다. 두 개 이상인 경우 사용할 프로필을 콤마로 구분해서 설정하면 된다. 
+```Java
+java -Dspring.profiles.active=dev main.Main
+```
+
 
 
 
