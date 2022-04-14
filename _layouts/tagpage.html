@@ -7,13 +7,18 @@ layout: default
         <h1 class="tag-title">Tag: #{{ page.tag }}</h1>
       </div>
       
-      <div class="post-area">
-        <ul>
-          {% for post in site.tags[page.tag] %}
-          <a href="{{ post.url | prepend: site.baseurl }}" class="bold">{{ post.title }}</a>
-          <p class="post-date">{{ post.date | date_to_long_string }}</p>  
-          {% endfor %}
-        </ul>
+      {% for post in site.tags[page.tag] %}
+      <div class="container">
+        <div class="row">
+          <div class="post-area">
+              <a href="{{ post.url | prepend: site.baseurl }}" class="bold">{{ post.title }}</a>
+              <p class="post-date">{{ post.date | date_to_long_string }}</p>
+              <!-- <p>
+                {{ post.content | strip_html | truncatewords: 50 }}
+              </p> -->
+          </div>
+        </div>
       </div>
+      {% endfor %}
   </div>
 </div>

@@ -4,7 +4,7 @@ title: "Spring 프로그래밍 (Chapter 1~5)[스프링 컨테이너, DI]"
 author: "Bys"
 category: it_book
 date: 2022-03-13 01:00:00
-tags: book programming spring framework @bean @autowired @configuration @component @componentscan @import @qualifier
+tags: book programming spring framework @bean @autowired @configuration @component @componentscan @filter @import @qualifier 
 ---
 
 ## 2. 스프링 시작하기  
@@ -828,7 +828,7 @@ public class AppCtxWithExclude {
 	}
 }
 ```
-위 코드는 @Filter 어노테이션의 type 속성값으로 FilterType.REGEX를 중ㅆ다. 이는 정규표현식을 사용해서 제외 대상을 지정한다는 의미이다. 
+위 코드는 @Filter 어노테이션의 type 속성값으로 FilterType.REGEX를 주었다. 이는 정규표현식을 사용해서 제외 대상을 지정한다는 의미이다. 
 pattern속성은 FilterType에 적용할 값을 설정한다. 위 설정에서는 "spring."으로 시작하고 Dao로 끝나는 정규표현식을 지정했으므로 spring.MemberDao 클래스를 컴포넌트 스캔 대상에서 제외한다.  
 
 <br>
