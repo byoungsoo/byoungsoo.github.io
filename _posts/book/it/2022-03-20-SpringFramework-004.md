@@ -19,7 +19,7 @@ tags: book programming spring framework db @transactional
 JDBC API를 이용하면 위의 코드처럼 DB연동에 필요한 Connection을 구한 다음 쿼리를 실행하기 위한 PreparedStatement를 생성한다. 
 그리고 쿼리를 실행한 뒤에는 finally 블록에서 ResultSet, PreparedStatement, Connection을 닫는다.  
 
-여기서 문제는 점선으로 표시한 부분이다. 점선으로 표시한 코드는 사실상 데이터 처리와는 상관없는 코드지만 JDBC 프로그램ㅇ을 할 때 구조적으로 반복된다. 
+여기서 문제는 점선으로 표시한 부분이다. 점선으로 표시한 코드는 사실상 데이터 처리와는 상관없는 코드지만 JDBC 프로그래밍을 할 때 구조적으로 반복된다. 
 실제 핵심은 점선으로 표시한 부분을 제외한 나머지 코드로 전체 코드의 절반도 되지 않는다.  
 
 구조적인 반복을 줄이기 위한 방법은 템플릿 메서드 패턴과 전략 패턴을 함께 사용하는 것이다. 
@@ -454,7 +454,7 @@ changePassword() 메서드는 MemberDao의 update() 메서들르 호출하고 �
 그런데 MemberDao.update() 메서드는 @Transactional 어노테이션이 적용되어 있지 않다. 이런 경우 트랜잭션 처리는 어떻게 될까?
 
 비록 update() 메서드에 @Transactional이 붙어 있지 않지만 JdbcTemplate 클래스 덕에 트랜잭션 범위에서 쿼리를 실행할 수 있게 된다. 
-JdbcTemplate은 진행 중인 트랜잭션이 존재하면 해당 트랜잭션 범위에서 쿼리르 실행한다. 
+JdbcTemplate은 진행 중인 트랜잭션이 존재하면 해당 트랜잭션 범위에서 쿼리를 실행한다. 
 
 
 
