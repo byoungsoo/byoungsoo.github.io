@@ -4,7 +4,7 @@ title: "클린 아키텍처 (Chapter 27~34) - Robert C. Martin"
 author: "Bys"
 category: it_book
 date: 2022-02-12 01:00:00
-tags: book clean architecture service 
+tags: book clean-architecture service 
 ---
 
 ### 27. '크고 작은 모든' 서비스들  
