@@ -37,7 +37,7 @@ Spring / Java
 ---
 ### **Project**  
 #### **kakao Enterprise**
-2021.10.18 ~ 2021. - KB Card Mydata 구축  / `SA`  
+2021.10.18 ~ 2022.~ - Openstack을 이용한 공공클라우드 서비스 개발/검증  
 
 #### **LG CNS**
 2021.04.03 ~ 2021.10.01 - KB Card Mydata 구축  / `SWA`  
