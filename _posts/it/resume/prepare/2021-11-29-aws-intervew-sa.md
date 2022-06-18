@@ -1,6 +1,6 @@
 ---
 layout: resume
-title: "AWS - Interview"
+title: "AWS - Interview SA"
 author: "Bys"
 category: resume
 ---
@@ -46,38 +46,17 @@ Enter the Meeting ID: 3071427286 and put your name in, then join meeting
 1. Customer Obsession
    Leaders start with the customer and work backwards. They work vigorously to earn and keep customer trust. Although leaders pay attention to competitors, they obsess over customers.
 
-   S: 일정이 굉장히 촉박한 상황
-   T: 가트너에서 이야기하는 MSA Outer 아키텍처에 대한 구성을 혼자서 진행했어야 하는 업무 
-   A: 1) 고객으로 부터 신뢰를 얻기 위한 노력
-      2) 일정에 대한 집착
-      KB카드 마이데이터 프로젝트는 일정부터가 매우 촉박한 프로젝트 였습니다. 
-      기존 AA분으로 투입되셨던 분이 허리디스크로 인하여 병가를 사용하게 되었고, 저는 투입된지 1주일 안에 개발 환경을 구축해주어야 하는 상황이었습니다. 그리고 그 때 까지 진행된 것은 거의 없었습니다. 
-      진급하고 처음 혼자 투입된 프로젝트에서 저는 엄청난 부담감과 책임감 그리고 압박감을 받았습니다. 그리고 잘 해내고 싶었습니다. 
-
-      KB카드 마이데이터 프로젝트에서 부하 테스트가 끝나가는 중 고객들이 Logging 환경 구축은 해주었지만, 로그를 통해서만 오류를 감지하는 것은 쉽지 않다고 이야기를 들었고, 최대한 고객 입장에서 어떻게 쉽게 오류를 찾아갈 수 있을지를 고민했습니다. 
-      1차적으로는 오류가 발생하면 우선적으로 알람을 보내도록 하고, 2차적으로는 X-Ray를 통해 추적이 가능하도록 하는 것이 가장 좋은 선택지였습니다. 
-      1차 목표를 달성하기 위해서 로그를 통해 알람을 보낼 수 있는 방법을 Kibana 에서 찾을 수 있었습니다. Elasticsearch에 저장된 Index들을 쿼리하여 특정 에러가 발생할 경우 담당자들에게 문자를 발송하는 것이었습니다. 
-      또한 모든 어플리케이션 파드에 사이드카 형식으로 x-ray 데몬 컨테이너를 추가하여 어떤 어플리케이션에서 오류가 발생했는지를 쉽게 찾을 수 있도록 가이드하였습니다. 
-   R: 개발/운영 환경을 모두 구축하고 부하테스트 까지 진행하면서 모든 일정안에 성공적으로 맞춤
-
    고객 집착의 경험 신뢰를 쌓기 위해 했던 것들.
 
 2. Ownership
    Leaders are owners. They think long term and don’t sacrifice long-term value for short-term results. They act on behalf of the entire company, beyond just their own team. They never say “that’s not my job."
-
-   S: 사업팀에서는 일단 서비스가 있다는 것을 토대로 고객에 대한 사업을 하고 싶었음
-   T: 퓨어 오픈스택 컴포넌트를 통해 분기별 서비스 개발을 해야 하는 업무
-   A: 서비스에 대한 오너쉽. 몇 몇 서비스의 경우 일단 사업팀의 요건에 맞춰서만 급하게 출시하자는 목소리도 존재했습니다. 
-      하지만 불안정한 서비스와 기능이 빠진 서비스는 경쟁사 대비 고객의 신뢰를 잃을 수 있다고 생각했습니다. 그래서 일정이 조금 늦더라도 기준치 이상의 서비스 수준은 무조건 준수해야 한다고 생각했다. 
-      신규 기능에 대한 간략한 출시보다는 기존의 서비스의 고도화에도 분명히 힘을 주어야 한다. 
-      단기적인 성과를 위해 장기적인 가치를 
-
-      주인의식을 가진 경험 혹은 장기적인 관점의 가치를 위하여 단기적인 관점의 결과를 포기한 것
-   R: 현재 
-
+~~~~
+   주인의식을 가진 경험 혹은 장기적인 관점의 가치를 위하여 단기적인 관점의 결과를 포기한 것
 
 3. Invent and Simplify
    Leaders expect and require innovation and invention from their teams and always find ways to simplify. They are externally aware, look for new ideas from everywhere, and are not limited by “not invented here." As we do new things, we accept that we may be misunderstood for long periods of time.
+
+   혁신과 단순함, 
 
 4. Are Right, A Lot
    Leaders are right a lot. They have strong judgment and good instincts. They seek diverse perspectives and work to disconfirm their beliefs.
@@ -107,11 +86,6 @@ Enter the Meeting ID: 3071427286 and put your name in, then join meeting
 
 12. Dive Deep
     Leaders operate at all levels, stay connected to the details, audit frequently, and are skeptical when metrics and anecdote differ. No task is beneath them.
-
-    트러블 슈팅할 때 최대한 DeepDive 하게 -> lg화학에서 사용하던 사내 프레임워크 코어 소스를 달라고 하여 설정이 잘 못된 부분 확인 ! 
-    기존에 잘 운영되던 어플리케이션에서 컨테이너로 소스를 전환하자 문제가 발생 os가 windows -> linux로 전환되면서 설정 파일을 읽을 때 순서가 잘 못되었던 것! 
-    최종적으로는 설정의 문제도 있었지만, 소스의 문제가 있을 수 있었고 해당 내용을 내부 팀에게 전달하여 원인 파악과 해결방법을 같이 전달해준 적 !
-
 
 13. Have Backbone; Disagree and Commit
     Leaders are obligated to respectfully challenge decisions when they disagree, even when doing so is uncomfortable or exhausting. Leaders have conviction and are tenacious. They do not compromise for the sake of social cohesion. Once a decision is determined, they commit wholly.
