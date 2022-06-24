@@ -35,14 +35,17 @@ Click here to find out more information on interview preparations with AWS.
    origin의 호스트 헤더를 전달하도록 whilelist header 부분에 저희 호스트 헤더를 넣어줘야 된다라고 하는 관련문서를 찾아봤고 이를 적용하면서
    R: 결과적으로는 이슈도 해결하고 고객들에게 빠른 서비스를 제공할 수 있게 되었습니다. 
 
-
    2) X-Ray 서비스
-   S: 당시 상황은 처음에는 수집 어플리케이션, 제공 어플리케이션 두 종류의 어플리케이션만 Kubernetes환경에 배포될 예정이었는데 고객쪽에서 제공 어플리케이션을 기능별로 더 나누었으면 좋겠다는 변경사항이 있었습니다. 저희는 해당 요구사항에 맞춰 어플리케이션을 기능별로 나누어서 4개 정도의 어플리케이션으로 구성을 했었습니다.  
-   로깅은 EFK를 통해 모두 통합된 한경으로 모이게 이미 구축이 되어있었고, 어플리케이션의 모니터링은 Jeniffer라고 하는 APM툴에 의해 분석이 되고 있었습니다. 
-   다만 서비스가 나눠지고 고객들은 컨테이너 환경에 익숙하지 않자 오류가 발생했을 때 추적 및 대응을 하기에 어려워하는게 보였습니다. 
-   마침 X-RAY VPC 엔드포인트가 작년에 나왔고하여 제가 데브온 프레임워크 담당자에게 X-Ray라는 서비스를 좀 설명드리고 이것을 적용하면 고객들이 좋아할 것 같다고 설득하여 적용을 시작했습니다. 
-   T: 그렇게 저는 x-ray 서비스를 고객에게 제공하자는 업무를 가지고 시작을 했습니다. 
-   A: 어플리케이션이 올라가는 파드에 사이드카패턴으로 x-ray daemon 컨테이너를 배포하고 iam role생성 및 service계정에 해당하는 role을 등록하여 정상적으로 x-ray서비스를 제공했습니다. 
+   S: 기본 수집/제공 어플리케이션 -> 기능별 MSA형태로 어플레케이션 분할 -> 컨테이너 환경에서 오류가 발생시 로그를 보고 추적이 고객은 불편해 보였음 -> X-Ray를 도입
+   T: X-Ray를 통해 고객에게 가시적으로 보이는 추적 서비스를 제공해주기로 결심
+   A: 어플리케이션이 올라가는 파드에 사이드카패턴으로 x-ray daemon 컨테이너를 배포하고 관련된 iam role생성 및 service계정에 해당하는 role을 등록하여 정상적으로 x-ray서비스를 제공했습니다. 
+   R: 고객분들은 이런 추적 서비스에 대해서 잘 모르고 계셨고, 저희가 다 구축한 후에 이런 서비스가 있는데 이용을 하시겠냐라고 물어봤을 때 너무 좋아하셔서 운영서버까지 적용했던 경험이 있습니다. 
+
+   3) Application 오류에 대한 알람 서비스
+   S: 장애 발생 -> 금보원과 같은 금융기관을 통해 인지 -> 장애시 인지를 할 수 있도록 해달라
+   T: 인지를 해야 한다는 것에서 저는 담당자들이 알람을 받아야 한다고 생각을 함 
+   A: 어플리케이션에서 개발하기에는 시간이 오래걸릴 것 같았고, 방안을 찾아보던 중 Kibana에 Alert 서비스가 있었음
+   Elasticsearch에 대한 특정 로그들에 대한 QueryAPI를 만들어 AWS SNS와 연동하여 Email 및 OpsNow라는 플랫폼과 연동하여 SMS발송 환경을 구축
    R: 고객분들은 이런 추적 서비스에 대해서 잘 모르고 계셨고, 저희가 다 구축한 후에 이런 서비스가 있는데 이용을 하시겠냐라고 물어봤을 때 너무 좋아하셔서 운영서버까지 적용했던 경험이 있습니다. 
 
    **신뢰를 얻어야함**
@@ -62,15 +65,27 @@ Click here to find out more information on interview preparations with AWS.
 
    고객 집착의 경험 신뢰를 쌓기 위해 했던 것들.
 
+   **고객에게 불만을 제공해주었던 적**  
+   S: GERP생산팀에서 근무를 할 때의 경험 -> 고객의 CSR 요청 -> 전화/메일로 다이렉트로 연결
+   T: 고객의 문제를 해결해주는 역할 
+   A: 우선 순위에 대한 판단을 통해 처리를 해주지만, 긴급하지 않은 경우에는 절차를 통해 CSR로 요청 
+   R: 그 놈의 CSR 쓸 테니까 우선 본인들의 긴급한 상황을 처리해달라! 죄송하다 절차라고 하는 것이 있으므로 순차적으로 처리해드리겠다. -> 고객의 불만 
+
+   S: 
+   T: 
+   A: 
+   R: 
+
 2. Ownership
    Leaders are owners. They think long term and don’t sacrifice long-term value for short-term results. They act on behalf of the entire company, beyond just their own team. They never say “that’s not my job."
 
-   1) 시스템 최적화 - 이 자원이 나의 돈이라면 나는 이렇게 할 것인가?
-   S: 한화생명 MSP 프로젝트 당시 리소스 모니터링 & 자원 최적화
+   1) 자원 최적화 - 이 자원이 나의 돈이라면 나는 이렇게 할 것인가?
+   S: 한화생명 MSP 프로젝트 당시 리소스 모니터링 -> 불필요하게도 자원의 규모가 컸고 특히나 DB 서버에서 비용이 많이 나왔음
+   T: 
+   A: 
+   R: 
 
-
-   S: 
-   
+   2) 마이데이터 성능테스트
 
 
 3. Invent and Simplify
@@ -125,7 +140,6 @@ Click here to find out more information on interview preparations with AWS.
    2) 
 
 
-
 9.  Bias for Action
    Speed matters in business. Many decisions and actions are reversible and do not need extensive study. We value calculated risk taking. 
 
@@ -133,7 +147,6 @@ Click here to find out more information on interview preparations with AWS.
    S: 솔루션에 대한 선택이었는데요. LG
    
    2) 
-
 
 
 
