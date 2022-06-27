@@ -121,7 +121,7 @@ configureDefaultServletHandling() 메서드와 configureViewResolvers() 메서�
 - contextClass 초기화 파라미터를 설정한다. 자바 설정을 사용하는 경우 AnnotationConfigWebApplicationContext클래스를 사용한다. 
   이 클래스는 자바 설정을 이용하는 웹 어플리케이션 용 스프링 컨테이너 클래스이다. 
 - contextConfiguration 초기화 파라미터의 값을 지정한다. 이 파라미터에는 스프링 설정 클래스 목록을 지정한다. 각 설정 파일의 경로는 줄바꿈이나 콤바로 구분한다. 
-- <load-on-startup>1</load-on-startup> 톰캣과 같은 컨테이너가 웹 어플리케이션을 구동할 때 이 서블릿을 함께 실행하도록 설정한다.  
+- \<load-on-startup\>1\</load-on-startup\> 톰캣과 같은 컨테이너가 웹 어플리케이션을 구동할 때 이 서블릿을 함께 실행하도록 설정한다.  
 - 모든 요청을 DispatcherServlet이 처리하도록 서블릿 매핑을 설정한다. 
 - HTTP 요청 파라미터의 인코딩 처리를 위한 서블릿 필터를 등록한다. 스프링은 인코딩 처리를 위한 필터인 CharacterEncodingFilter 클래스를 제공한다.  
 
@@ -199,7 +199,7 @@ jsp() 메서드의 첫 번째 인자는 JSP 파일 경롤를 찾을 때 사용�
 ### 10.1 스프링 MVC 핵심 구성 요소 
 
 스프링 MVC 핵심 구성 요소와 각 요소 간의 관계는 아래와 같이 정리할 수 있다. 
-이 그림은 매우 중요하믈 ㅗ설명을 읽을 때 수시로 이 그림을 참조하면 내용을 이해하는데 도움이 된다.  
+이 그림은 매우 중요하므로 설명을 읽을 때 수시로 이 그림을 참조하면 내용을 이해하는데 도움이 된다.  
 
 ![spring5_10_1](/assets/book/spring5/spring5_10_1.png){: width="60%" height="auto"}  
 
