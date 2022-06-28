@@ -45,14 +45,26 @@ category: resume
    **상사와의 갈등을 겪었던 경험**  
    1) 마이데이터 당시 아키텍처 한 분
 
+   **고객설득**  
+   1) KB카드 CI/CD 아키텍처 설계 변경에 대한 부분
+   DEV/STG/PRD 각 계정의 환경마다 CI/CD 환경을 구축하는 것으로 아키텍처가 설계되어있었습니다. 리소스 중복으로 인한 비용증가, 관리포인트가 늘어난다고 생각을 했고
+   -> 이것을 별도의 CI/CD어카운계정으로 빼서 관리하는 아키텍처 설계로 변경하는 것이 좋다는 판단을 했음, 초기니 빠른 설계변경이 더 도움이 될 것이라 
+   -> 비용절감 효과와 관리포인트를 줄일 수 있는점, 그리고 aws블로그 및 기타 기술문서에서 멀티어카운트에 대한 ci/cd 아키텍처에 대한 베스트프랙티스 사례 데이터를 들고
+   고객들을 설득하였습니다. 
+   -> 하지만 베스핀 글로벌에서는 현 시점에서 어카운트 계정을 하나 더 생성하는 것에 대한 리스크를 이야기하였고 네트워크 할당부터 시간이 오래걸림
+   -> 장기적인 관점에서는 어쨋든 별도의 계정에 CI/CD를 관리하는 것이 확장성 측면이나 비용절감 등의 면에서 더 낫다고 판단을 했고 
+   -> 그렇다면 우선적으로는 저희 환경 운영환경에 단일 CI/CD아키텍처로 구성을 하고, 5월 오픈작업이 끝나는대로 별도의 계정에 이관작업을 다시 한 번 진행하자 
+   -> OK
+   -> 결과적로는 5월에 저희 회사에서 KB카드 홈페이지 리뉴얼이라고 하는 프로젝트를 하나 더 수주해서 인력들이 투입이 되었었는데요 
+   -> 이 프로젝트에서도 저희 CI/CD환경을 같이 사용하면서 다른 프로젝트에서도 시간과 비용의 절감효과가 있었던 일이 있습니다. 
+
 
 2. Ownership
    Leaders are owners. They think long term and don’t sacrifice long-term value for short-term results. They act on behalf of the entire company, beyond just their own team. They never say “that’s not my job."
    
    해결해야 할 문제가 있을 때 앞장서십시오. (주도적)
    1) 인도 출장 (새로운 도전 - 새로운 경험 - 성장)
-   2) 마이데이터 통합 CI/CD 구축 -> 마이데이터 프로젝트 CI/CD 구축 후 KB카드 홈페이지 리뉴얼 프로젝트 구축
-   3) 보정프로그램  (혹시모르니까?)
+   2) 보정프로그램  (혹시모르니까?)
 
 3. Invent and Simplify
    Leaders expect and require innovation and invention from their teams and always find ways to simplify. They are externally aware, look for new ideas from everywhere, and are not limited by “not invented here." As we do new things, we accept that we may be misunderstood for long periods of time.
@@ -62,6 +74,16 @@ category: resume
 
 4. Are Right, A Lot
    Leaders are right a lot. They have strong judgment and good instincts. They seek diverse perspectives and work to disconfirm their beliefs.
+
+   1) 실패한 경험
+   
+   대한항공 이관 당시 설정 잘못함
+   
+   KB카드 당시 운영상 장애
+   S: helm에 대한 개선 반영 
+   T: 운영환경에 반영하고 있었음 -> 파드만 반영 격리된 노드에 
+   A: 
+   R: 
 
 5. Learn and Be Curious
    Leaders are never done learning and always seek to improve themselves. They are curious about new possibilities and act to explore them.
@@ -80,11 +102,11 @@ category: resume
 8.  Bias for Action
    Speed matters in business. Many decisions and actions are reversible and do not need extensive study. We value calculated risk taking. 
    
-   1) Tomcat, Weblogic 
-   솔루션들에 대한 선택 
+   빠른 판단  
+   1) 솔루션들에 대한 선택 
    
    누군가 문제를 처리해주기 기다리는 대신 직접 나서 해결한 경험이 있나?
-   1) LG화학 데브온 프레임워크
+   1) LG화학 데브온 프레임워크  
 
 
 10. Frugality
@@ -137,19 +159,19 @@ category: resume
    주로 Pure오픈스택을 기반으로 컴포넌트 검증 및 콘솔 개발 업무를 수행하고 있습니다.
    이상입니다.
 
-   I joined LG CNS GERP Manufacturing team for the first time in 2015.
+   I joined LG CNS, GERP Manufacturing team for the first time in 2015.
    and I was in charge of INV AND IWMS module. performed operation tasks such as ERP development and maintenance for 4 years.
 
    After that, i moved to the cloud architecture team and mainly used AWS to carry out the Korean Air migration project, the LG Chem migration project, 
-   the Hanwha Life SFA MSP project, and the KB Card My Data project. 
+   the Hanwha Life SFA project, and the KB Card My Data project. 
    In the Korean Air project, I was in charge of the ERP/Middleware/HR system and transferred web/was and applications.
    In the LG Chem migration project, also migrate on-premise applications on AWS using ECS, 
    In Hanwha Life MSP project, my role was operating system on EKS about 3 months.
-   In the KB Card My Data project, we worked to build new services based on EKS and I was in charge of all most of AWS services.
+   In the KB Card My Data project, I was in charge of building CI/CD Pipeline, and EKS, Logging system.
 
    and last year i moved company to kakao enterprise. 
    And I have been working based on openstack. 
-   main role is performing a poc for openstack components and develop service console.
+   main role is performing a poc for openstack components and develop web console.
    thank you.
 
 
