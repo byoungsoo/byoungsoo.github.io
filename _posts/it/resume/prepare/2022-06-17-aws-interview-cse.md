@@ -1,6 +1,6 @@
 ---
 layout: resume
-title: "AWS - Interview CSE Final"
+title: "AWS - Interview CSE"
 author: "Bys"
 category: resume
 ---
@@ -34,13 +34,13 @@ Click here to find out more information on interview preparations with AWS.
    origin의 호스트 헤더를 전달하도록 whilelist header 부분에 저희 호스트 헤더를 넣어줘야 된다라고 하는 관련문서를 찾아봤고 이를 적용하면서  
    R: 결과적으로는 이슈도 해결하고 고객들에게 빠른 서비스를 제공할 수 있게 되었습니다.  
 
-   2) X-Ray 서비스  
+   1) X-Ray 서비스  
    S: 기본 수집/제공 어플리케이션 -> 기능별 MSA형태로 어플레케이션 분할 -> 컨테이너 환경에서 오류가 발생시 로그를 보고 추적이 고객은 불편해 보였음 -> X-Ray를 도입  
    T: X-Ray를 통해 고객에게 가시적으로 보이는 추적 서비스를 제공해주기로 결심  
    A: 어플리케이션이 올라가는 파드에 사이드카패턴으로 x-ray daemon 컨테이너를 배포하고 관련된 iam role생성 및 service계정에 해당하는 role을 등록하여 정상적으로 x-ray서비스를 제공했습니다.   
    R: 고객분들은 이런 추적 서비스에 대해서 잘 모르고 계셨고, 저희가 다 구축한 후에 이런 서비스가 있는데 이용을 하시겠냐라고 물어봤을 때 너무 좋아하셔서 운영서버까지 적용했던 경험이 있습니다.   
 
-   3) Application 오류에 대한 알람 서비스  
+   1) Application 오류에 대한 알람 서비스  
    S: 장애 발생 -> 금보원과 같은 금융기관을 통해 인지 -> 장애시 인지를 할 수 있도록 해달라  
    T: 인지를 해야 한다는 것에서 저는 담당자들이 알람을 받아야 한다고 생각을 함   
    A: 어플리케이션에서 개발하기에는 시간이 오래걸릴 것 같았고, 방안을 찾아보던 중 Kibana에 Alert 서비스가 있었음  
