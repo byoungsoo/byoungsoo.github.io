@@ -56,7 +56,7 @@ category: resume
    -> 그렇다면 우선적으로는 저희 환경 운영환경에 단일 CI/CD아키텍처로 구성을 하고, 5월 오픈작업이 끝나는대로 별도의 계정에 이관작업을 다시 한 번 진행하자 
    -> OK
    -> 결과적로는 5월에 저희 회사에서 KB카드 홈페이지 리뉴얼이라고 하는 프로젝트를 하나 더 수주해서 인력들이 투입이 되었었는데요 
-   -> 이 프로젝트에서도 저희 CI/CD환경을 같이 사용하면서 다른 프로젝트에서도 시간과 비용의 절감효과가 있었던 일이 있습니다. 
+   -> 이 프로젝트에서도 저희 CI/CD환경을 같이 사용하면서 다른 프로젝트에서도 시간과 비용의 절감효과가 있었던 일이 있습니다.  
 
 
 2. Ownership
@@ -65,6 +65,9 @@ category: resume
    해결해야 할 문제가 있을 때 앞장서십시오. (주도적)
    1) 인도 출장 (새로운 도전 - 새로운 경험 - 성장)
    2) 보정프로그램  (혹시모르니까?)
+
+   누군가 문제를 처리해주기 기다리는 대신 직접 나서 해결한 경험이 있나?
+   1) LG화학 데브온 프레임워크  
 
 3. Invent and Simplify
    Leaders expect and require innovation and invention from their teams and always find ways to simplify. They are externally aware, look for new ideas from everywhere, and are not limited by “not invented here." As we do new things, we accept that we may be misunderstood for long periods of time.
@@ -83,7 +86,7 @@ category: resume
    S: helm에 대한 개선 반영 
    T: 운영환경에 반영하고 있었음 -> 파드만 반영 격리된 노드에 
    A: 
-   R: 
+   R: 바로 개
 
 5. Learn and Be Curious
    Leaders are never done learning and always seek to improve themselves. They are curious about new possibilities and act to explore them.
@@ -100,20 +103,15 @@ category: resume
    Thinking small is a self-fulfilling prophecy. Leaders create and communicate a bold direction that inspires results. They think differently and look around corners for ways to serve customers.
 
 8.  Bias for Action
-   Speed matters in business. Many decisions and actions are reversible and do not need extensive study. We value calculated risk taking. 
+    Speed matters in business. Many decisions and actions are reversible and do not need extensive study. We value calculated risk taking. 
    
-   빠른 판단  
-   1) 솔루션들에 대한 선택 
+    빠른 판단  
+    1) 솔루션들에 대한 선택 
    
-   누군가 문제를 처리해주기 기다리는 대신 직접 나서 해결한 경험이 있나?
-   1) LG화학 데브온 프레임워크  
-
-
 10. Frugality
     Accomplish more with less. Constraints breed resourcefulness, self-sufficiency, and invention. There are no extra points for growing headcount, budget size, or fixed expense.
 
-    1) 한화생명 운영당시 
-    쿠버네티스와 노드의 자원들을 모니터링 하는 중 사용량이 많지 않은 것에 비해 용량이 과하게 잡혀있는 부분이 있었음
+    1) 최대한 나의 시간을 더 투자 -> 프로세스의 우선순위 정리 -> 반복되는 작업의 스크립트화 -> 이슈가 발생하면 동료의 지원 요청 -> 어떻게든 고객의 이슈는 해결한다.  
 
 11. Earn Trust
     Leaders listen attentively, speak candidly, and treat others respectfully. They are vocally self-critical, even when doing so is awkward or embarrassing. Leaders do not believe their or their team’s body odor smells of perfume. They benchmark themselves and their teams against the best.
@@ -124,11 +122,11 @@ category: resume
    신뢰를 얻기 위해 한 행동들  
    1) 인도 출장 -> 사원이지만 해야 한다 -> 아침/밤 공부  
 
-
 12. Dive Deep
     Leaders operate at all levels, stay connected to the details, audit frequently, and are skeptical when metrics and anecdote differ. No task is beneath them.
 
    1) LG화학 데브온 프레임워크  
+   2) aodh alarm상세 내용 분석  
 
 13. Have Backbone; Disagree and Commit
     Leaders are obligated to respectfully challenge decisions when they disagree, even when doing so is uncomfortable or exhausting. Leaders have conviction and are tenacious. They do not compromise for the sake of social cohesion. Once a decision is determined, they commit wholly.
@@ -176,11 +174,9 @@ category: resume
 
 
 1. 왜 아마존에 입사하고 싶은가요?
-   1) AWS를 처음 접하고 느낀건 품질과 완성도, 다양한 서비스에 대해서 매료되었었습니다. 
-   고객친화적 프로세스와 서비스를 경험했고 AWS를 사용하면서 AWS를 좋아하게 되었습니다. 언제가는 저도 AWS에서 일하리라는 목표가 생겼습니다. 
-   지금은 고객들에게 
-   
-   2) AWS 에서 만난 띄어난 직원들 내가 아는 실력이 좋은 동료들! 꼭 같이 일하고 싶다. 주변의 동료의 중요성!
+   1) AWS를 처음 접하고 느낀건 품질과 완성도, 그리고 IAM, EKS 등 다양한 서비스에 대해서 매료되었었습니다. 
+   고객친화적 프로세스와 서비스를 경험했고 AWS를 사용하면서 AWS를 좋아하게 되었습니다. 언제가는 저도 AWS에서 일하고자 하는 목표가 생겼고, 
+   제가 만난 기존의 동료들 그리고 프로젝트를 하면서 만난 AWS직원들 모두 굉장히 훌륭하다 같이 성장하고 또 AWS 서비스에 기여를 하고 싶은생각에 지원하게 되었습니다. 
 
 2. 왜 이 부서로 지원을 하게 되었나요?
    1) 문제해결은 스트레스를 많이 받는 일이기도 하지만 반대로 문제 해결 과정에서 사람은 성장합니다. 
