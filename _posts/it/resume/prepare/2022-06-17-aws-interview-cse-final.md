@@ -25,7 +25,7 @@ category: resume
    
    하지만 이런 일 중에서도 첫 번째로 이야기드린 고객의 이슈를 해결하는 역할이 이 포지션에 메인역할 이라고 이야기 드릴 수 있을 것 같습니다. 
 
-**LP**
+**LP**  
 
 1. Customer Obsession
    Leaders start with the customer and work backwards. They work vigorously to earn and keep customer trust. Although leaders pay attention to competitors, they obsess over customers.
@@ -51,12 +51,14 @@ category: resume
    
    해결해야 할 문제가 있을 때 앞장서십시오. (주도적)
    1) 인도 출장 (새로운 도전 - 새로운 경험 - 성장)
-   2) 마이데이터 프로젝트 CI/CD 구축 후 KB카드 홈페이지 리뉴얼 프로젝트 구축 -> CI/CD통합 요청 
+   2) 마이데이터 통합 CI/CD 구축 -> 마이데이터 프로젝트 CI/CD 구축 후 KB카드 홈페이지 리뉴얼 프로젝트 구축
+   3) 보정프로그램  (혹시모르니까?)
 
 3. Invent and Simplify
    Leaders expect and require innovation and invention from their teams and always find ways to simplify. They are externally aware, look for new ideas from everywhere, and are not limited by “not invented here." As we do new things, we accept that we may be misunderstood for long periods of time.
 
    1) 대한항공 많은 시스템 -> JBCS 및 JBoss 공통으로 설정되는 부분들을 쭉 정리하기 시작하여 스크립트작업 시작 
+   2) 보정프로그램  (혹시모르니까?)
 
 4. Are Right, A Lot
    Leaders are right a lot. They have strong judgment and good instincts. They seek diverse perspectives and work to disconfirm their beliefs.
