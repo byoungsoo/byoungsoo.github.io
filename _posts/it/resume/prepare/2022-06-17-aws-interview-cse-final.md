@@ -58,6 +58,10 @@ category: resume
    -> 결과적로는 5월에 저희 회사에서 KB카드 홈페이지 리뉴얼이라고 하는 프로젝트를 하나 더 수주해서 인력들이 투입이 되었었는데요 
    -> 이 프로젝트에서도 저희 CI/CD환경을 같이 사용하면서 다른 프로젝트에서도 시간과 비용의 절감효과가 있었던 일이 있습니다.  
 
+   **고객이 합리적이지 않은 요구사항들을 했을 때 솔루션이라던지**  
+
+
+
 
 2. Ownership
    Leaders are owners. They think long term and don’t sacrifice long-term value for short-term results. They act on behalf of the entire company, beyond just their own team. They never say “that’s not my job."
@@ -149,7 +153,7 @@ category: resume
 **예상질문**
 
 0. 자기소개
-   자기소개 하도록 하겠습니다. 저는 2015년도에 LG CNS에 처음 입사하여 4년간 LG전자 GERP생산팀에서 INV/IWMS 모듈을 맡아 ERP개발 및 유지/보수등의 운영 업무를 수행했습니다.
+   자기소개 하도록 하겠습니다. 저는 2015년도에 LG CNS에 처음 입사하여 4년간 LG전자 GERP생산팀에서 INV/IWMS 모듈을 맡아 고객 CSR 기반으로 ERP개발 및 유지/보수등의 운영 업무를 수행했습니다.
    이 후에는 클라우드 아키텍처팀으로 이동을 하였고 주로 AWS를 사용해서 대한항공 마이그레이션 프로젝트, LG 화학 Public Cloud전환 프로젝트, 한화생명 M-SFA 운영업무, KB카드 마이데이터 프로젝트 등을 수행하였습니다. 대한항공 프로젝트에서는 ERP/Middleware/HR 시스템을 담당하여 web/was 및 어플리케이션에 대한 이관을 주 업무로 수행하였습니다.
    LG 화학 Public cloud 전환 프로젝트에서는 ECS 서비스를 사용하여 전환 업무를 진행하였고, 한화생명에서는 MSP 역할로 운영업무를 3개월 정도 진행했습니다.
    KB카드 마이데이터 프로젝트에서는 MSA Outer 아키텍처라고 불리우는 Orchestration, CI/CD, Telemetry 등에 대한 환경 구축을 주 업무로 수행했습니다. 
