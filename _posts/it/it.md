@@ -25,3 +25,9 @@
 
 - Python Basic
 
+
+
+
+## Future Video List
+[Kubernetes networking with Calico - deep dive](https://www.youtube.com/watch?v=A8AkkP5_GbE)
+[Kubernetes 네트워킹 이해. 2 부 : POD 네트워크, CNI 및 Flannel CNI 플러그인.](https://www.youtube.com/watch?v=U35C0EPSwoY)
