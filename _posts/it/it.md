@@ -29,5 +29,6 @@
 
 
 ## Future Video List
-[Kubernetes networking with Calico - deep dive](https://www.youtube.com/watch?v=A8AkkP5_GbE)
-[Kubernetes 네트워킹 이해. 2 부 : POD 네트워크, CNI 및 Flannel CNI 플러그인.](https://www.youtube.com/watch?v=U35C0EPSwoY)
+[Kubernetes networking with Calico - deep dive](https://www.youtube.com/watch?v=A8AkkP5_GbE)  
+[Kubernetes 네트워킹 이해. 2 부 : POD 네트워크, CNI 및 Flannel CNI 플러그인.](https://www.youtube.com/watch?v=U35C0EPSwoY)  
+[Java 제네릭이 무엇인가 ??](https://velog.io/@jkijki12/Java-%EC%A0%9C%EB%84%A4%EB%A6%AD)  

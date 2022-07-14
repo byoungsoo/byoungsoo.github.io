@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Minikube 사용하기"
+title: "Minikube 설치 및 분석"
 author: "Bys"
 category: cloud
 date: 2022-07-07 01:00:00
@@ -153,7 +153,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:latest
+        image: was:latest
         ports:
         - containerPort: 80
 ```
@@ -244,11 +244,6 @@ default via 192.168.49.1 dev eth0
 CNI란 Container Network Interface로 Tunneling을 통해 이루어진다.  
 
 ![minikube002](/assets/it/cloud/minikube/minikube002.png){: width="50%" height="auto"}
-
-<br>
-
-## Minikube 사용자 추가  
-
 
 
 <br><br><br>
