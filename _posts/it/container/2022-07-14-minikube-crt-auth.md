@@ -2,14 +2,14 @@
 layout: post
 title: "Minikube 인증서를 통한 사용자 추가 및 인증/인가"
 author: "Bys"
-category: cloud
-date: 2022-07-07 01:00:00
+category: container
+date: 2022-07-14 01:00:00
 tags: kubernetes minikube csr crt authentication
 ---
 
 # Minikube
 
-## 1.Minikube 사용자 추가  
+## 1.Minikube 인증서를 이용한 사용자 인증  
 
 이번에는 인증서를 통한 신규 사용자 생성 및 권한에 대해 확인 해 본다.  
 
@@ -19,8 +19,8 @@ A few steps are required in order to get a normal user to be able to authenticat
 자세한 내용은 아래 공식홈페이지를 참고한다.  
 [Certificate Signing Requests](https://kubernetes.io/docs/reference/access-authn-authz/certificate-signing-requests/)
 
-사용자는 클러스터에 의해 발급된 인증서를 가지고 인증이 가능하다.  
-따라서 개인 키파일을 만들어 서명요청서를 만들고 클러스터의 키파일로 서명을 요청한다.  
+사용자는 클러스터에 의해 발급된 인증서를 가지고 인증을 진행하면 허가가 가능하다. 
+따라서 개인 키파일을 만들어 서명요청서를 만들고 클러스터의 키파일로 서명을 요청한다. 
 클러스터의 관리자가 서명요청을 승인하면 클러스터에 의해 서명된 인증서가 발급되게 되고 사용자는 발급된 인증서를 통해 config파일을 구성하고 인증을 진행하게 된다.  
 
 아래의 과정을 따라가며 진행해본다.  

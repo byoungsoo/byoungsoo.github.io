@@ -2,7 +2,7 @@
 layout: post
 title: "AWS EKS Ingress ALB"
 author: "Bys"
-category: cloud
+category: container
 date: 2021-04-26 01:00:00
 tags: aws eks ingress alb
 ---

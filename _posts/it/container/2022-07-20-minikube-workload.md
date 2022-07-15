@@ -2,8 +2,8 @@
 layout: post
 title: "Kubernetes 워크로드"
 author: "Bys"
-category: cloud
-date: 2022-07-07 01:00:00
+category: container
+date: 2022-07-20 01:00:00
 tags: kubernetes minikube workload
 ---
 

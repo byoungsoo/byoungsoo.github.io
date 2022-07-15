@@ -2,7 +2,7 @@
 layout: post
 title: "AWS EKS Kubectl 설정"
 author: "Bys"
-category: cloud
+category: container
 date: 2021-03-26 01:00:00
 tags: aws eks istio bookinfo
 ---

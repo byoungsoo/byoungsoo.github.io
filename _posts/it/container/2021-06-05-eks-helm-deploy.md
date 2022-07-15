@@ -2,7 +2,7 @@
 layout: post
 title: "AWS EKS Helm Deploy"
 author: "Bys"
-category: cloud
+category: container
 date: 2021-06-05 01:00:00
 tags: aws eks helm deploy
 ---

@@ -2,7 +2,7 @@
 layout: post
 title: "Minikube 설치 및 분석"
 author: "Bys"
-category: cloud
+category: container
 date: 2022-07-07 01:00:00
 tags: kubernetes minikube network bridge
 ---
