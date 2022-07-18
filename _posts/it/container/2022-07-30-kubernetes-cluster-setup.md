@@ -108,6 +108,13 @@ Kubeadm은 Container Runtime을 알려진 엔드포인트에서 자동적으로 
 | CRI-O	                            | unix:///var/run/crio/crio.sock |
 | Docker Engine (using cri-dockerd) | unix:///var/run/cri-dockerd.sock |
 
+![kubeadm_container001](/assets/it/container/kubeadm/kubeadm_container001.png){: width="70%" height="auto"}  
+
+![kubeadm_container002](/assets/it/container/kubeadm/kubeadm_container002.png){: width="70%" height="auto"}  
+
+kubernetes 1.24 버전에서는 docker 런타임 중단에 따라 기존 docker가 아닌 CRI플러그인으로써 containerd, CRI-O 등을 사용해야 한다.  
+여기서는 CRI플러그인으로 containerd를 사용한다. 또한 OCI에 runC를 사용한다.  
+
 자세한 내용은 아래 공식문서를 참고한다. [Container Runtimes](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd)  
 여기서는 containerd를 이용한다. [Download containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md)  
 
