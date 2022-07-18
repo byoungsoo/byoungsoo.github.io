@@ -44,13 +44,15 @@ kubeadm을 통해 구성할 때 필요사항은 아래와 같다.
 
 ### 1.1 Master 노드, Woker 노드 환경 구성
 
-`hostname set`
+`hostname set`  
+호스트명은 모두 Unique해야 하며 dns등록이 필요하다.(여기서는 hosts파일에 등록)  
 ```bash
 sudo hostnamectl set-hostname kube-master-node1
 sudo hostnamectl set-hostname kube-worker-node1
 ```
 
 `swapoff`  
+kubelet은 swap메모리 지원을 하지 않기 때문에 모두 off하는 것을 공식적으로 권장하고 있다.  
 ```bash
 sudo swapoff -a
 cat /proc/meminfo | grep -i swap
