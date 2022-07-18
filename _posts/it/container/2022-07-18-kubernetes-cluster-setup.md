@@ -198,8 +198,8 @@ kubernetes 1.24 버전에서는 docker 런타임 중단에 따라 기존 docker�
 공식 문서를 읽어보면 아래와 같은 글이 있다.  
 
 > - (Recommended) If you have plans to upgrade this single control-plane kubeadm cluster to high availability you should specify the --control-plane-endpoint to set the shared endpoint for all control-plane nodes. Such an endpoint can be either a DNS name or an IP address of a load-balancer.  
-    - 만약 고가용성 확보를 위한 클러스터를 구축하려면 --control-plane-endpoint를 설정해야 하며 해당 endpoint는 dns이름이나 로드밸런서의 ip로 endpoint로 설정해야 한다. 
-      따라서 이번에는 ELB를 생성하여 ELB의 DNS Name을 endpoint로 설정해보려고 한다. NLB를 사용하였으며 TG 포트는 API-Server포트인 6443으로 하였고 동일하게 Listener설정도 6443포트로 맞췄다.  
+    - 만약 고가용성 확보를 위한 클러스터를 구축하려면 --control-plane-endpoint를 설정해야 하며 해당 endpoint는 dns이름이나 로드밸런서의 ip로 endpoint를 설정해야 한다. 
+      따라서 이번에는 NLB를 생성하여 NLB의 DNS Name을 endpoint로 설정해보려고 한다. TG 포트는 API-Server포트인 6443으로 하였고 동일하게 Listener설정도 6443포트로 맞췄다.  
 
 > - Choose a Pod network add-on, and verify whether it requires any arguments to be passed to kubeadm init. Depending on which third-party provider you choose, you might need to set the --pod-network-cidr to a provider-specific value. See Installing a Pod network add-on.
     - Pod network을 위한 add-on을 선택하는 부분이며 필요한 경우 kubeadm init 인수로 전달해주어야 한다. --pod-network-cidr 을 사용한다.  
@@ -487,7 +487,7 @@ kubeadm join nlb-kube-master-a0dca3b259bf3238.elb.ap-northeast-2.amazonaws.com:6
 먼저 worker노드에서 root로 위 커맨드를 수행해본다.  
 ```bash
 kubeadm join kyle-nlb-kube-master-a0dca3b259bf3238.elb.ap-northeast-2.amazonaws.com:6443 --token 3qz1dn.ci5py76kh2jkuxad \
-> --discovery-token-ca-cert-hash sha256:b43b7bfb924b8b08d915a4db98a286be911c6bd46849c0d2022f58ec5b834d34
+  --discovery-token-ca-cert-hash sha256:b43b7bfb924b8b08d915a4db98a286be911c6bd46849c0d2022f58ec5b834d34
 ##Print
 [preflight] Running pre-flight checks
 	[WARNING FileExisting-tc]: tc not found in system path
