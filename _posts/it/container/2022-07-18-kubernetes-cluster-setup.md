@@ -3,7 +3,7 @@ layout: post
 title: "Kubernetes 클러스터 구축 [kubeadm]"
 author: "Bys"
 category: container
-date: 2022-07-15 01:00:00
+date: 2022-07-18 01:00:00
 tags: kubernetes cluster
 ---
 
@@ -64,7 +64,7 @@ SwapFree:              0 kB
 
 `security-group`  
 aws환경이므로 노드간 통신을 위해 security-group을 설정해야 한다. 
-선 sg-master-node, sg-worker-node 두 개의 security group을 생성하여 모든 master 노드에는 sg-master-node, worker 노드에는 sg-worker-node를 적용한다.  
+우선 sg-master-node, sg-worker-node 두 개의 security group을 생성하여 모든 master 노드에는 sg-master-node, worker 노드에는 sg-worker-node를 적용한다.  
 
 그리고 아래 공식문서를 참고해서 master노드와 worker노드간 필요한 통신그룹을 허용한다.  
 [Ports and Protocol](https://kubernetes.io/docs/reference/ports-and-protocols/)
@@ -186,13 +186,13 @@ kubernetes 1.24 버전에서는 docker 런타임 중단에 따라 기존 docker�
   tar Cxzvf /opt/cni/bin cni-plugins-linux-amd64-v1.1.1.tgz
   ```
 
-<br>
-
 `container image(Optional)`  
 만약 마스터 노드에 인턴텟이 되지 않는다면 아래의 문서를 추가로 참고한다.  
 [without an internet connection](https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init/#without-internet-connection)
 
-여기까지 모든 환경 구성이 끝나면 master, worker 각각 snapshot을 생성한다. 추후에 
+여기까지 모든 환경 구성이 끝나면 master, worker 각각 snapshot을 생성한다. 추후에 master와 worker의 수를 늘리면서 join에 참여시켜 최종적으로는 master, worker의 수를 여러개로 늘릴 예정이다. 
+
+<br>
 
 ### 1.2 Initializing Control-Plane Node  
 공식 문서를 읽어보면 아래와 같은 글이 있다.  
