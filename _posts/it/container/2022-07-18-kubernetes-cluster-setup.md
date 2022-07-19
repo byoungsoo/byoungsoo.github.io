@@ -30,8 +30,8 @@ kubeadm을 통해 구성할 때 필요사항은 아래와 같다.
 
 - Environment
   - AWS 환경에서 작업을 진행
-  - Master: 1대 (AmazonLinux, m5xlarge)
-  - Worker: 1대 (AmazonLinux, t3.medium)
+  - Master: 2대 (AmazonLinux, m5xlarge)
+  - Worker: 2대 (AmazonLinux, t3.medium)
 
 <br>
 
@@ -48,7 +48,9 @@ kubeadm을 통해 구성할 때 필요사항은 아래와 같다.
 호스트명은 모두 Unique해야 하며 dns등록이 필요하다.(여기서는 hosts파일에 등록)  
 ```bash
 sudo hostnamectl set-hostname kube-master-node1
+sudo hostnamectl set-hostname kube-master-node2
 sudo hostnamectl set-hostname kube-worker-node1
+sudo hostnamectl set-hostname kube-worker-node2
 ```
 
 `swapoff`  
@@ -246,7 +248,9 @@ To see the stack trace of this error execute with --v=5 or higher
       ```
       vim /etc/hosts
       10.20.1.232 kube-master-node1
+      10.20.2.10 kube-master-node2 
       10.20.1.67 kube-worker-node1
+      10.20.2.22 kube-worker-node2
       ```
 2. /proc/sys/net/bridge/bridge-nf-call-iptables does not exist
     - 정확한 원인은 추가 확인이 필요하다. 우선 아래와 같이 조치 후 넘어갔다.  
@@ -486,7 +490,7 @@ kubeadm join nlb-kube-master-a0dca3b259bf3238.elb.ap-northeast-2.amazonaws.com:6
 
 먼저 worker노드에서 root로 위 커맨드를 수행해본다.  
 ```bash
-kubeadm join kyle-nlb-kube-master-a0dca3b259bf3238.elb.ap-northeast-2.amazonaws.com:6443 --token 3qz1dn.ci5py76kh2jkuxad \
+kubeadm join nlb-kube-master-a0dca3b259bf3238.elb.ap-northeast-2.amazonaws.com:6443 --token 3qz1dn.ci5py76kh2jkuxad \
   --discovery-token-ca-cert-hash sha256:b43b7bfb924b8b08d915a4db98a286be911c6bd46849c0d2022f58ec5b834d34
 ##Print
 [preflight] Running pre-flight checks
@@ -514,6 +518,228 @@ kube-master-node1   Ready    control-plane   67m   v1.24.3
 kube-worker-node1   Ready    <none>          53s   v1.24.3
 ```
 
+node에 ROLES가 none으로 표시 되는 것을 볼 수 있다. 아래와 같이 커맨드를 통해 설정할 수 있다.  
+```bash
+kubectl label node <node name> node-role.kubernetes.io/<role name>=<key-(any name)>
+kubectl label node kube-worker-node1 node-role.kubernetes.io/worker=worker
+kubectl label node kube-worker-node2 node-role.kubernetes.io/worker=worker
+
+kubectl label node <node name> node-role.kubernetes.io/<role name>-
+kubectl label node kube-worker-node1 node-role.kubernetes.io/worker-
+kubectl label node kube-worker-node2 node-role.kubernetes.io/worker-
+```
+```bash
+kubectl get nodes
+##Print
+NAME                STATUS   ROLES           AGE     VERSION
+kube-master-node1   Ready    control-plane   18h     v1.24.3
+kube-worker-node1   Ready    worker          16h     v1.24.3
+kube-worker-node2   Ready    worker          6m46s   v1.24.3
+```
+<br>
+
+
+### 1.5 Master노드 Join  
+시간이 지나 다시 위에서 최초 kubeadm init 하고 나온 control-plane join 커맨드를 통해 kube-master-node2 노드를 추가하려고 하였을 때 아래와 같은 오류가 발생하였다.  
+
+```txt
+[download-certs] Downloading the certificates in Secret "kubeadm-certs" in the "kube-system" Namespace
+error execution phase control-plane-prepare/download-certs: error downloading certs: error downloading the secret: Secret "kubeadm-certs" was not found in the "kube-system" Namespace. This Secret might have expired. Please, run `kubeadm init phase upload-certs --upload-certs` on a control plane to generate a new one
+```
+
+
+최초 kubeadm init 당시 --upload-certs 옵션을 통해 구성을 하였었다. --upload-certs 옵션을 사용하면 init을 진행하면 컨트롤 플레인의 인증서를 임시로 클러서터의 Secret에 보관할 수 있다. 
+하지만 업로드 된 Secret은 2시간 이 후에는 만료가 되므로 아래와 같이 새로운 인증서를 업로드 한다.  
+자세한 내용은 공식 문서를 참고한다. [Uploading control-plane certificates to the cluster](https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init/#uploading-control-plane-certificates-to-the-cluster)  
+
+```bash
+kubeadm init phase upload-certs --upload-certs
+##Print
+[upload-certs] Storing the certificates in Secret "kubeadm-certs" in the "kube-system" Namespace
+[upload-certs] Using certificate key:
+8cbbfb6ddd28539f95e23343d9e085777e9a7adb4df084d6031116b3f5a836ef
+```
+이렇게 하면 새로운 certificate key가 생성된 것을 알 수 있다.  
+
+해당 키를 다시 아래와 같이 --certificate-key 옵션으로 넣어준다. 그러면 아래와 같이 정상적으로 Join된 것을 확인 할 수 있다.  
+```bash
+kubeadm join nlb-kube-master-a0dca3b259bf3238.elb.ap-northeast-2.amazonaws.com:6443 --token 3qz1dn.ci5py76kh2jkuxad \
+	--discovery-token-ca-cert-hash sha256:b43b7bfb924b8b08d915a4db98a286be911c6bd46849c0d2022f58ec5b834d34 \
+	--control-plane --certificate-key 8cbbfb6ddd28539f95e23343d9e085777e9a7adb4df084d6031116b3f5a836ef
+
+##Print
+This node has joined the cluster and a new control plane instance was created:
+
+* Certificate signing request was sent to apiserver and approval was received.
+* The Kubelet was informed of the new secure connection details.
+* Control plane label and taint were applied to the new node.
+* The Kubernetes control plane instances scaled up.
+* A new etcd member was added to the local/stacked etcd cluster.
+
+To start administering your cluster from this node, you need to run the following as a regular user:
+
+	mkdir -p $HOME/.kube
+	sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+	sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+Run 'kubectl get nodes' to see this node join the cluster.
+```
+
+최종적으로 마스터노드 2대와 워커노드 2대의 클러스터를 구축하였다.  
+```bash
+kubectl get nodes
+##Print
+NAME                STATUS   ROLES           AGE     VERSION
+kube-master-node1   Ready    control-plane   19h     v1.24.3
+kube-master-node2   Ready    control-plane   5m37s   v1.24.3
+kube-worker-node1   Ready    worker          18h     v1.24.3
+kube-worker-node2   Ready    worker          69m     v1.24.3
+```
+
+
+
+## 2. TroubleShooting
+
+### 2.1 Calico Ready  
+새로운 master, worker 노드들이 추가 된 이 후 부터 calico-node 파드들이 모드 Ready에 실패했다.  
+```bash
+kubectl get pods -A
+##Print
+NAMESPACE     NAME                                        READY   STATUS    RESTARTS        AGE
+kube-system   calico-kube-controllers-6766647d54-gvsn6    1/1     Running   0               18h
+kube-system   calico-node-5kx97                           0/1     Running   0               18h
+kube-system   calico-node-h6qm4                           0/1     Running   0               18h
+kube-system   calico-node-n9p9r                           0/1     Running   0               71m
+kube-system   calico-node-sjmk7                           0/1     Running   0               7m51s
+kube-system   coredns-6d4b75cb6d-bn4wg                    1/1     Running   0               19h
+kube-system   coredns-6d4b75cb6d-rtl2f                    1/1     Running   0               19h
+kube-system   etcd-kube-master-node1                      1/1     Running   2               19h
+kube-system   etcd-kube-master-node2                      1/1     Running   0               7m46s
+kube-system   kube-apiserver-kube-master-node1            1/1     Running   2               19h
+kube-system   kube-apiserver-kube-master-node2            1/1     Running   0               7m50s
+kube-system   kube-controller-manager-kube-master-node1   1/1     Running   3 (7m35s ago)   19h
+kube-system   kube-controller-manager-kube-master-node2   1/1     Running   0               7m50s
+kube-system   kube-proxy-dm4p8                            1/1     Running   0               7m51s
+kube-system   kube-proxy-jbtgs                            1/1     Running   0               71m
+kube-system   kube-proxy-p62z8                            1/1     Running   0               18h
+kube-system   kube-proxy-ztlqf                            1/1     Running   0               19h
+kube-system   kube-scheduler-kube-master-node1            1/1     Running   3 (7m35s ago)   19h
+kube-system   kube-scheduler-kube-master-node2            1/1     Running   0               7m50s
+```
+
+상세 조회를 해보니 모두 Readiness probe 실패가 되었는데 BGP 피어링이 잘 되지 않은 것 같다.  
+```bash
+kubectl describe pod calico-node-n9p9r -n kube-system
+##Print
+Events:
+  Type     Reason     Age                  From     Message
+  ----     ------     ----                 ----     -------
+  Warning  Unhealthy  16s (x466 over 68m)  kubelet  (combined from similar events): Readiness probe failed: 2022-07-19 02:38:55.795 [INFO][13044] confd/health.go 180: Number of node(s) with BGP peering established = 0
+calico/node is not ready: BIRD is not ready: BGP not established with 10.20.1.232,10.20.1.67,10.20.2.10
+```
+
+아래 커맨드를 통해 배포된 calico cni를 살펴보자.  
+```bash
+kubectl get pod calico-node-5kx97 -n kube-system -o yaml > calicocni.yml
+```
+
+`calicocni.yml`  
+다음은 yml파일 중 일부를 뽑은 것이다. Calico의 경우 BIRD, FELIX 라고 하는 프로세스가 존재한다.  
+bird는 BGP 데몬이며 Route Sharing을 위한 프로세스이다. 이 데몬은 다른 노드에 있는 BGP데몬들과 라우팅 정보를 교환한다.  
+felix는 etcd로 부터 정보를 읽어 라우팅 테이블을 만들고 호스트의 라우트 테이블을 설정한다.  
+```yaml
+image: docker.io/calico/node:v3.23.2
+    imagePullPolicy: IfNotPresent
+    lifecycle:
+      preStop:
+        exec:
+          command:
+          - /bin/calico-node
+          - -shutdown
+    livenessProbe:
+      exec:
+        command:
+        - /bin/calico-node
+        - -felix-live
+        - -bird-live
+      failureThreshold: 6
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 10
+    name: calico-node
+    readinessProbe:
+      exec:
+        command:
+        - /bin/calico-node
+        - -felix-ready
+        - -bird-ready
+      failureThreshold: 3
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 10
+```
+
+현재 발생되고 있는 문제는 클러스터 노드간 bird라고 하는 bgp데몬이 각 노드들 사이에서 라우팅 정보를 공유하는 동안 통신이 불가하여 발생한 문제로 보인다. 
+따라서 master, worker 노드간 BGP 포트인 179 포트를 모두 허용해 준다. 
+이 후에 파드의 상태를 살펴보면 모두 정상 적으로 동작하는 것을 알 수 있다.  
+```bash
+kubectl get pods -A
+##Print 
+NAMESPACE     NAME                                        READY   STATUS    RESTARTS        AGE
+kube-system   calico-kube-controllers-6766647d54-gvsn6    1/1     Running   0               23h
+kube-system   calico-node-5kx97                           1/1     Running   0               23h
+kube-system   calico-node-h6qm4                           1/1     Running   0               22h
+kube-system   calico-node-n9p9r                           1/1     Running   0               5h44m
+kube-system   calico-node-sjmk7                           1/1     Running   0               4h40m
+kube-system   coredns-6d4b75cb6d-bn4wg                    1/1     Running   0               23h
+kube-system   coredns-6d4b75cb6d-rtl2f                    1/1     Running   0               23h
+kube-system   etcd-kube-master-node1                      1/1     Running   2               23h
+kube-system   etcd-kube-master-node2                      1/1     Running   0               4h40m
+kube-system   kube-apiserver-kube-master-node1            1/1     Running   2               23h
+kube-system   kube-apiserver-kube-master-node2            1/1     Running   0               4h40m
+kube-system   kube-controller-manager-kube-master-node1   1/1     Running   3 (4h40m ago)   23h
+kube-system   kube-controller-manager-kube-master-node2   1/1     Running   0               4h40m
+kube-system   kube-proxy-dm4p8                            1/1     Running   0               4h40m
+kube-system   kube-proxy-jbtgs                            1/1     Running   0               5h44m
+kube-system   kube-proxy-p62z8                            1/1     Running   0               22h
+kube-system   kube-proxy-ztlqf                            1/1     Running   0               23h
+kube-system   kube-scheduler-kube-master-node1            1/1     Running   3 (4h40m ago)   23h
+kube-system   kube-scheduler-kube-master-node2            1/1     Running   0               4h40m
+```
+
+추가적으로는 조치를 하기 이전에 #1 번을 보면 master 노드에서 라우팅 정보를 봤을 때 자신의 노드의 생성된 pod의 라우팅정보(cali interface)만 조회가 되었다가  
+BGP 프로토콜에 대한 통신을 허용한 이 후에는 #2 와 같이 다른 노드들의 파드로 라우팅 정보(tunl0 interface)가 추가 된 것을 확인 할 수 있다.  
+```bash
+#1
+netstat -nr
+##Print 
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+0.0.0.0         10.20.1.1       0.0.0.0         UG        0 0          0 eth0
+10.20.1.0       0.0.0.0         255.255.255.0   U         0 0          0 eth0
+169.254.169.254 0.0.0.0         255.255.255.255 UH        0 0          0 eth0
+192.168.57.128  0.0.0.0         255.255.255.192 U         0 0          0 *
+192.168.57.129  0.0.0.0         255.255.255.255 UH        0 0          0 cali16b5fa8c7c3
+192.168.57.130  0.0.0.0         255.255.255.255 UH        0 0          0 calicecbce59cab
+192.168.57.131  0.0.0.0         255.255.255.255 UH        0 0          0 cali3193d48a378
+
+#2
+netstat -nr
+##Print
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+0.0.0.0         10.20.1.1       0.0.0.0         UG        0 0          0 eth0
+10.20.1.0       0.0.0.0         255.255.255.0   U         0 0          0 eth0
+169.254.169.254 0.0.0.0         255.255.255.255 UH        0 0          0 eth0
+192.168.57.128  0.0.0.0         255.255.255.192 U         0 0          0 *
+192.168.57.129  0.0.0.0         255.255.255.255 UH        0 0          0 cali16b5fa8c7c3
+192.168.57.130  0.0.0.0         255.255.255.255 UH        0 0          0 calicecbce59cab
+192.168.57.131  0.0.0.0         255.255.255.255 UH        0 0          0 cali3193d48a378
+192.168.11.0    10.20.2.22      255.255.255.192 UG        0 0          0 tunl0
+192.168.103.128 10.20.1.67      255.255.255.192 UG        0 0          0 tunl0
+192.168.238.192 10.20.2.10      255.255.255.192 UG        0 0          0 tunl0
+```
 
 <br>
 
@@ -523,8 +749,9 @@ kube-worker-node1   Ready    <none>          53s   v1.24.3
 
 <br><br><br>
 
-> Ref: https://kubernetes.io/ko/docs/setup/production-environment/tools/kubeadm/install-kubeadm/  
-> Ref: https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/  
-> Ref: https://lifeplan-b.tistory.com/155?category=886551  
-> Ref: https://trylhc.tistory.com/entry/Containerd-%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%84%A4%EC%A0%95  
-> Ref: https://projectcalico.docs.tigera.io/getting-started/kubernetes/self-managed-onprem/onpremises  
+> Ref: [https://kubernetes.io/ko/docs/setup/production-environment/tools/kubeadm/install-kubeadm/](https://kubernetes.io/ko/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)  
+> Ref: [https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)  
+> Ref: [https://projectcalico.docs.tigera.io/getting-started/kubernetes/self-managed-onprem/onpremises](https://projectcalico.docs.tigera.io/getting-started/kubernetes/self-managed-onprem/onpremises)  
+> Ref: [https://www.youtube.com/watch?v=MpbIZ1SmEkU](https://www.youtube.com/watch?v=MpbIZ1SmEkU)  
+> Ref: [https://lifeplan-b.tistory.com/155?category=886551](https://lifeplan-b.tistory.com/155?category=886551)  
+> Ref: [https://trylhc.tistory.com/entry/Containerd-%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%84%A4%EC%A0%95](https://trylhc.tistory.com/entry/Containerd-%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%84%A4%EC%A0%95)  
