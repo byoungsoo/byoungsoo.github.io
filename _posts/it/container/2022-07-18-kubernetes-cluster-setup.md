@@ -192,6 +192,12 @@ kubernetes 1.24 버전에서는 docker 런타임 중단에 따라 기존 docker�
 만약 마스터 노드에 인턴텟이 되지 않는다면 아래의 문서를 추가로 참고한다.  
 [without an internet connection](https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init/#without-internet-connection)
 
+```bash
+kubeadm config images list
+kubeadm config images pull
+```
+
+
 여기까지 모든 환경 구성이 끝나면 master, worker 각각 snapshot을 생성한다. 추후에 master와 worker의 수를 늘리면서 join에 참여시켜 최종적으로는 master, worker의 수를 여러개로 늘릴 예정이다. 
 
 <br>
