@@ -11,6 +11,7 @@ date: 2020-07-01 01:00:00
 
 추가 자세한 사항은 _files 참고
 
+`jenkinsfile`  
 ```groovy
 #!groovy
  
@@ -478,5 +479,88 @@ pipeline {
     }
 }
 ```
+<br>
 
+`codebuild.sh`  
+```bash
+#!/usr/bin/env bash
 
+readonly waitTime='15s'
+
+# buildspec upload
+zip -j $source_artifact ./cicd/codebuild/*
+aws s3 cp $source_artifact s3://$s3_bucket/artifacts/
+
+codebuild=$(echo $codebuild | tr [a-z] [A-Z])
+
+# execute codebuild
+codebuildId=$(aws codebuild start-build --project-name $codebuild | jq -r '.build.id')
+
+echo $codebuildId
+aws codebuild batch-get-builds --ids $codebuildId
+
+# check codebuild
+getCodeBuildStatus(){
+    codbuildStatus=$(aws codebuild batch-get-builds --ids $codebuildId | jq -r '.builds[0].buildStatus')
+
+    echo "CodeBuild $codebuild, current status: $codbuildStatus (non-existent if blank)"
+}
+
+# Get the status of the CFN stack that will be deployed
+getCodeBuildStatus
+
+# Wait until the stack status is no longer IN_PROGRESS
+while [[ $codbuildStatus == *"IN_PROGRESS"* ]]
+do
+    echo "Sleeping for $waitTime to allow the codebuild progress to complete."
+    sleep $waitTime
+    getCodeBuildStatus
+done
+
+if [[ $codbuildStatus == 'SUCCEEDED' ]]; then
+    exit 0
+else
+    exit 1
+fi
+
+```
+<br>
+
+`codedeploy.sh`  
+```bash
+#!/usr/bin/env bash
+
+readonly waitTime='15s'
+
+# appspec upload
+aws s3 cp cicd/codedeploy/appspec.yaml s3://$s3_bucket/artifacts/
+
+# execute codedeploy
+codedeployId=$(aws deploy create-deployment \
+    --cli-input-json file://cicd/codedeploy/create-deployment.json \
+    --region ap-northeast-2 | jq -r '.deploymentId')
+
+echo $codedeployId
+aws deploy get-deployment --deployment-id $codedeployId
+
+getDeployStatus(){
+    deployStatus=$(aws deploy get-deployment --deployment-id $codedeployId | jq -r '.deploymentInfo.status')
+
+    echo "CodeDeploy $codedeployId, current status: $deployStatus"
+}
+
+getDeployStatus
+
+while [[ $deployStatus == "InProgress" ]] || [[ $deployStatus == "Created" ]]
+do
+    echo "Sleeping for $waitTime to allow the deploy progress to complete."
+    sleep $waitTime
+    getDeployStatus
+done
+
+if [[ $deployStatus == 'Succeeded' ]]; then
+    exit 0
+else
+    exit 1
+fi
+```
