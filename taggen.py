@@ -4,6 +4,7 @@ import os
 post_directories=[
     '_posts/it/algorithm/',
     '_posts/it/cloud/',
+    '_posts/it/container/',
     '_posts/it/command/',
     '_posts/it/etc/',
     '_posts/it/network/',
@@ -44,14 +45,16 @@ for post_dir in post_directories:
         f.close()
     total_tags = set(total_tags)
 
+    print(f'PostDirectory: {post_dir}' )
     count = 0
     for tag in total_tags:
         tag_filename = tag_dir + tag + '.md'
         exists = os.path.isfile(tag_filename)
         
         if exists:
-            print(f'Exists File: {tag_filename}' )
+            continue
         else:
+            print(f'Generate File: {tag_filename}' )
             count += 1
             f = open(tag_filename, 'a')
             write_str = '---\nlayout: tagpage\ntitle: \"Tag: ' + tag + '\"\ntag: ' + tag + '\nrobots: noindex\n---\n'

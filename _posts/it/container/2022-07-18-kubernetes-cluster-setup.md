@@ -1,14 +1,14 @@
 ---
 layout: post
-title: "Kubernetes 클러스터 구축 [kubeadm]"
+title: "[Kubeadm] Kubernetes 클러스터 구축"
 author: "Bys"
 category: container
 date: 2022-07-18 01:00:00
-tags: kubernetes cluster
+tags: kubernetes calico bgp kubeadm
 ---
 
 # Kubernetes
-이번에는 개별 서버들에 kubeadm을 이용해서 Kubernetes Master, Worker를 직접 구축해보려고 한다.  
+이번에는 개별 서버들에 kubeadm을 이용해서 Kubernetes Master, Worker를 직접 구축해보려고 한다. (현재 시점 kubernetes version 1.24)  
 자세한 내용은 공식문서를 참고한다. [Creating a cluster with kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)  
 
 kubeadm을 통해 구성할 때 필요사항은 아래와 같다.  
@@ -192,6 +192,7 @@ kubernetes 1.24 버전에서는 docker 런타임 중단에 따라 기존 docker�
 만약 마스터 노드에 인턴텟이 되지 않는다면 아래의 문서를 추가로 참고한다.  
 [without an internet connection](https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init/#without-internet-connection)
 
+아래와 같이 필요한 이미지와 
 ```bash
 kubeadm config images list
 kubeadm config images pull
@@ -433,7 +434,7 @@ Events:
   Warning  FailedScheduling  3m14s  default-scheduler  0/1 nodes are available: 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling.
 ```
 
-따라서 아래와 같이 파드를 컨트롤 플레인에 올릴 수 있도록 설정한다.  
+따라서 아래와 같이 파드를 컨트롤 플레인에 올릴 수 있도록 설정한다. (Worker 노드를 먼저 조인시켜도 해당 문제 해결 가능)  
 자세한 사항은 공식문서를 참고한다. [Control plane node isolation](https://17billion.github.io/kubernetes/2019/04/24/kubernetes_control_plane_working.html)  
 ```bash
 kubectl taint nodes --all node-role.kubernetes.io/control-plane- node-role.kubernetes.io/master-
@@ -529,10 +530,6 @@ node에 ROLES가 none으로 표시 되는 것을 볼 수 있다. 아래와 같�
 kubectl label node <node name> node-role.kubernetes.io/<role name>=<key-(any name)>
 kubectl label node kube-worker-node1 node-role.kubernetes.io/worker=worker
 kubectl label node kube-worker-node2 node-role.kubernetes.io/worker=worker
-
-kubectl label node <node name> node-role.kubernetes.io/<role name>-
-kubectl label node kube-worker-node1 node-role.kubernetes.io/worker-
-kubectl label node kube-worker-node2 node-role.kubernetes.io/worker-
 ```
 ```bash
 kubectl get nodes
@@ -747,8 +744,11 @@ Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
 192.168.238.192 10.20.2.10      255.255.255.192 UG        0 0          0 tunl0
 ```
 
-<br>
+여기서 Calico는 기본적으로 ipipMode((IP in IP encapsulation)를 사용하고 있으며 Direct, Vxlan 방식도 존재한다. 
+자세한 내용은 다른 포스팅에서 별도로 작성해 보도록 한다.  
+[Calico Encapsulation](https://projectcalico.docs.tigera.io/networking/vxlan-ipip)
 
+<br>
 
 
 
@@ -761,3 +761,4 @@ Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
 > Ref: [https://www.youtube.com/watch?v=MpbIZ1SmEkU](https://www.youtube.com/watch?v=MpbIZ1SmEkU)  
 > Ref: [https://lifeplan-b.tistory.com/155?category=886551](https://lifeplan-b.tistory.com/155?category=886551)  
 > Ref: [https://trylhc.tistory.com/entry/Containerd-%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%84%A4%EC%A0%95](https://trylhc.tistory.com/entry/Containerd-%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%84%A4%EC%A0%95)  
+> Ref: [https://projectcalico.docs.tigera.io/networking/vxlan-ipip](https://projectcalico.docs.tigera.io/networking/vxlan-ipip)  
