@@ -229,7 +229,7 @@ kubeadm init 을 통해 Control Plane 을 구성한다. --control-plane-endpoint
 kubeadm init \
 --control-plane-endpoint "nlb-kube-master-a0dca3b259bf3238.elb.ap-northeast-2.amazonaws.com:6443" \
 --upload-certs \
---pod-network-cidr "192.168.0.0/16"
+--pod-network-cidr "192.168.0.0/16" \
 ```
 
 해당 커맨드를 입력하였더니 오류가 발생했다.  
@@ -750,8 +750,43 @@ Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
 
 <br>
 
+### 2.2 kubeadm reset  
+문제가 생겨 초기화를 시켜야 하는 경우 kubeadm reset을 통해 초기화가 가능하다.  
+각 노드에서 진행한다.  
+```bash
+kubeadm reset
+##Print
+The reset process does not clean CNI configuration. To do so, you must remove /etc/cni/net.d
 
+The reset process does not reset or clean up iptables rules or IPVS tables.
+If you wish to reset iptables, you must do so manually by using the "iptables" command.
 
+If your cluster was setup to utilize IPVS, run ipvsadm --clear (or similar)
+to reset your system's IPVS tables.
+
+The reset process does not clean your kubeconfig files and you must remove them manually.
+Please, check the contents of the $HOME/.kube/config file.
+```
+```bash
+#Delete CNI Configuration
+rm -rf /etc/cni/net.d
+
+#init iptables
+iptables -L
+iptables -F
+iptables -X
+
+#check route table
+route -n
+
+route del -net 192.168.11.0    netmask 255.255.255.192 gw 10.20.2.22 
+route del -net 192.168.57.128  netmask 255.255.255.192 gw 10.20.1.232
+route del -net 192.168.103.128 netmask 255.255.255.192 gw 0.0.0.0    
+route del -net 192.168.103.130 netmask 255.255.255.255 gw 0.0.0.0    
+route del -net 192.168.103.133 netmask 255.255.255.255 gw 0.0.0.0    
+route del -net 192.168.103.134 netmask 255.255.255.255 gw 0.0.0.0    
+route del -net 192.168.238.192 netmask 255.255.255.192 gw 10.20.2.10 
+```
 
 <br><br><br>
 

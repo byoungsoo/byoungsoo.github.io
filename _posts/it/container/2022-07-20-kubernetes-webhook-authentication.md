@@ -363,7 +363,7 @@ metadata:
   name: kube-apiserver
   namespace: kube-system
 spec:
-containers:
+containers:`
   - command:
     # 생략
     - --tls-private-key-file=/etc/kubernetes/pki/apiserver.key
@@ -461,7 +461,7 @@ Authentication webhook은 POST요청으로 TokenReview라는 JSON 객체를 아�
 따라서 자체 인증서버를 자체 구축하고 Kubernetes에서 Webhook Token 인증을 사용하려고 하면 TokenReview JSON 객체를 받아서 안에 있는 token에 대한 유효성을 체크하고, 
 체크가 완료 되었다면 다시 TokenReview객체에 status 데이터를 담아서 TokenReview 객체를 리턴해주는 부분을 구현해주면 된다.  
 
-하지만 Token값을 매번 보내줘야 한다는 점에서 번거로운 부분이 있다. 그래서 다음 번에는 [client-go-credential-plugins](https://kubernetes.io/docs/reference/access-authn-authz/authentication/#client-go-credential-plugins) 방식을 통해서 인증하는 부분을 확인해본다. 이 방식은 Webhook Token 기반으로 진행되는 것으로 보이니 해당 내용을 꼭 숙지한다.  
+하지만 Token값을 매번 보내줘야 한다는 점에서 번거로운 부분이 있다. 그래서 다음 번에는 [client-go credential plugins](https://kubernetes.io/docs/reference/access-authn-authz/authentication/#client-go credential plugins) 방식을 통해서 인증하는 부분을 확인해본다. 이 방식은 Webhook Token 기반으로 진행되는 것으로 보이니 해당 내용을 꼭 숙지한다.  
 (아마도 aws, openstack 등을 살펴보니 사용자가 token을 보내주는 부분을 각 서비스의 cli를 통해 IAM, Keystone과 같은 서비스를 사용하여 token을 get하고 그 토큰을 이용하여 webhook token방식으로 인증하는 것이 아닌가 싶다.)  
 
 <br><br><br>
