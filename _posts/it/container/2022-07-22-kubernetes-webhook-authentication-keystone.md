@@ -631,28 +631,29 @@ openstack의 추가 사용자를 생성하여 인증을 받아본다.
 openstack user create --domain default --project admin --password password openstack-reader-user
 openstack role add --user openstack-reader-user --project admin reader
 ```
-- ~/.kube/config
-```yaml
-- name: openstackuser
-  user:
-    exec:
-      apiVersion: client.authentication.k8s.io/v1beta1
-      args: null
-      command: client-keystone-auth
-      env:
-      - name: OS_AUTH_URL
-        value: http://10.20.2.79:5000/v3/
-      - name: OS_DOMAIN_NAME
-        value: default
-      - name: OS_PROJECT_NAME
-        value: admin
-      - name: OS_USERNAME
-        value: openstack-reader-user
-      - name: OS_PASSWORD
-        value: password
-      interactiveMode: IfAvailable
-      provideClusterInfo: false
-```
+- ~/.kube/config  
+
+  ```yaml
+  - name: openstackuser
+    user:
+      exec:
+        apiVersion: client.authentication.k8s.io/v1beta1
+        args: null
+        command: client-keystone-auth
+        env:
+        - name: OS_AUTH_URL
+          value: http://10.20.2.79:5000/v3/
+        - name: OS_DOMAIN_NAME
+          value: default
+        - name: OS_PROJECT_NAME
+          value: admin
+        - name: OS_USERNAME
+          value: openstack-reader-user
+        - name: OS_PASSWORD
+          value: password
+        interactiveMode: IfAvailable
+        provideClusterInfo: false
+  ```
 
 리소스 조회시 마찬가지로 인증은 되었지만 권한 없음이 나온다. 위와 같이 rbac을 통해 권한 설정 후 진행하면 된다.  
 이로써 신규 계정을 추가하여 openstack의 인증을 받고 권한은 kubernetes rbac을 통해 컨트롤 하는 방법을 테스트해봤다.  
