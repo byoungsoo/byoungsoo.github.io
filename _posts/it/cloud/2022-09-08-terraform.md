@@ -115,7 +115,16 @@ terraform apply -var-file="variable.tfvars"
 해당 내용은 가장 기본적인 수준의 VPC를 구성해본 것이므로 추가적인 내용이나 오류가 있다면 terraform 공식 홈페이지의 내용을 확인하여 tf파일의 내용을 수정하여 init, plan, apply의 단계를 걸치면 된다.  
 
 
+#### 4. terraform 디버깅
+terraform을 실행하고 나서 오류가 발생하면 상세 로그를 디버깅 할 수 있다. TF_LOG 변수를 TRACE레벨로 변경하고 terraform을 실행하면 된다.  
+```bash
+export TF_LOG=TRACE
+terraform apply -no-color 2>&1 | tee apply.log
+```
+
+
+
 <br><br><br>
 
 > Ref: https://www.terraform.io/language/values/variables
-
+> Ref: [Terraform Debugging](https://support.hashicorp.com/hc/en-us/articles/360001113727-Enabling-trace-level-logs-in-Terraform-CLI-Cloud-or-Enterprise)
