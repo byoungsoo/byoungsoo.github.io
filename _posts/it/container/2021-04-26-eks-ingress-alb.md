@@ -20,9 +20,9 @@ eksctl version
 
 `ALB Ingress IAM Policy`  
 ServiceAccount의 Role에서 사용할 Policy를 지정  
-aws-load-balancer-controller 버전 2.2.0이므로 배포 버전확인 필요  
+aws-load-balancer-controller 버전 2.4.4이므로 배포 버전확인 필요  
 ```bash
-curl -o iam_policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.2.0/docs/install/iam_policy.json
+curl -o iam_policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.4.4/docs/install/iam_policy.json
 
 aws iam create-policy \
   --policy-name AWSLoadBalancerControllerIAMPolicy \
@@ -39,22 +39,32 @@ eksctl utils associate-iam-oidc-provider --region=ap-northeast-2 --cluster=Clust
 `Create an IAM role and annotate the kubernetes service account named aws-load-balancer-controller in the kube-system namespace for the AWS Load Balancer Controller`  
 아래 내용을 배포하면 AWS IAM Role이 하나 생성 되면서 aws-load-balancer-controller ServiceAccount에 해당 IAM Role을 맵핑시켜준다.  
 ```bash
-export idnumber=`aws sts get-caller-identity | jq -r .Account`
+export ACCOUNT_ID=`aws sts get-caller-identity | jq -r .Account`
 eksctl create iamserviceaccount \
 --cluster=ClusterName \
 --namespace=kube-system \
 --name=aws-load-balancer-controller \
---attach-policy-arn=arn:aws:iam::ACCOUNT_ID:policy/AWSLoadBalancerControllerIAMPolicy \
+--attach-policy-arn=arn:aws:iam::$ACCOUNT_ID:policy/AWSLoadBalancerControllerIAMPolicy \
 --override-existing-serviceaccounts \
 --approve
 ```
+
+eksctl create iamserviceaccount \
+  --cluster=my-cluster \
+  --namespace=kube-system \
+  --name=aws-load-balancer-controller \
+  --role-name "AmazonEKSLoadBalancerControllerRole" \
+  --attach-policy-arn=arn:aws:iam::111122223333:policy/AWSLoadBalancerControllerIAMPolicy \
+  --approve
+  
 <br>
 
 
 `Install the TargetGroupBinding custom resource definitions`  
 사용자 리소스 정의 배포  
 ```bash
-kubectl apply -k "github.com/aws/eks-charts/stable/aws-load-balancer-controller//crds?ref=master"
+kubectl apply -k "github.com/aws/eks-charts/stable/aws-load-balancer-controller/crds?ref=master"
+
 ```
 <br>
 
@@ -63,15 +73,29 @@ Helm Repo를 추가시켜주고 Helm 배포를 진행한다.
 폐쇄망에서는 내부동작중 Waf URL을 호출하지 않도록 Waf관련 enable을 모두 false로 변경한다.  
 ```bash
 helm repo add eks https://aws.github.io/eks-charts
+
+# Private Image
 helm upgrade -i aws-load-balancer-controller eks/aws-load-balancer-controller \
 --set clusterName=ClusterName \
 --set serviceAccount.create=false \
 --set serviceAccount.name=aws-load-balancer-controller \
 --set image.repository=222383050459.dkr.ecr.ap-northeast-2.amazonaws.com/opensource-components \
---set image.tag=aws-load-balancer-controller-v2.2.0 \
+--set image.tag=aws-load-balancer-controller-v2.4.4 \
 --set enableWaf=false \
 --set enableWafv2=false \
 --set enableShield=false \
 -n kube-system
+
+# Public Image
+helm upgrade -i aws-load-balancer-controller eks/aws-load-balancer-controller \
+--set clusterName=ClusterName \
+--set serviceAccount.create=false \
+--set serviceAccount.name=aws-load-balancer-controller \
+--set image.repository=602401143452.dkr.ecr.ap-northeast-2.amazonaws.com/amazon/aws-load-balancer-controller \
+--set enableWaf=false \
+--set enableWafv2=false \
+--set enableShield=false \
+-n kube-system
+
 ```
 <br>
