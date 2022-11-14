@@ -1,13 +1,19 @@
 ---
 layout: post
-title: "AWS EKS Ingress ALB"
+title: "AWS Load Balancer Controller 설치"
 author: "Bys"
 category: container
-date: 2021-04-26 01:00:00
+date: 2022-11-14 01:00:00
 tags: aws eks ingress alb
 ---
 
-#### - eksctl 설치  
+# AWS Load Balancer Controller
+Kubernetes에서는 CSP사들의 resource를 사용하기 위해서 자체적으로 개발해서 가지고 있는 controller 들이 존재한다. 그것을 In-tree controller라고 부른다. 우리는 In-tree controller를 사용하는 경우 kubernetes를 설치할 때 이미 자체적으로 가지고 있으므로 별도의 controller 설치 없이 사용이 가능하다.  
+그러나 그 외에 controller가 없는 경우에는 각 CSP사에서 제공하는 controller들을 설치하여 사용해야 한다. Out-of-Tree controller라고 한다. 
+AWS Load Balancer Controller의 경우는 Out-of-Tree controller로 'AWS Load Balancer Controller'를 별도로 설치하지 않는 경우 아무리 annotations를 명시하여 Ingress를 배포해도 실제 AWS ALB는 provisioning 되지 않는다. 
+따라서 ALB를 Ingress로 사용하기 위해서는 아래의 컨트롤러 설치가 필수이다. 
+
+## - eksctl 설치  
 `Install eksctl`
 ```bash
 curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
@@ -16,7 +22,7 @@ eksctl version
 ```
 <br>
 
-#### EKS Ingress ALB
+## Install - AWS Load Balancer Controller
 
 `ALB Ingress IAM Policy`  
 ServiceAccount의 Role에서 사용할 Policy를 지정  
@@ -96,6 +102,11 @@ helm upgrade -i aws-load-balancer-controller eks/aws-load-balancer-controller \
 --set enableWafv2=false \
 --set enableShield=false \
 -n kube-system
-
 ```
 <br>
+
+
+<br><br><br>
+
+> Ref: https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html
+> Ref: https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.2/guide/ingress/annotations/

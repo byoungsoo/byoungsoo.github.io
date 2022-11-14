@@ -71,7 +71,7 @@ domainFilters:
 `ingress_controller_values.yml`  
 ```yaml
 controller:
-  name: ccccontroller
+  name: controller
   
   ingressClass: nginx-internal
   

@@ -40,6 +40,7 @@
 
 - IAM: Federated가 어떻게 활용되는지
   - Federated가 어떻게 활용되고 있는지 확인이 필요
+  - EKS OIDC역할 확인하기
 
 - Lambda: 샘플 코드를 통해확인
   - EventTrigger를 걸고 SES를 호출 하는 것을 해볼 수 있음
