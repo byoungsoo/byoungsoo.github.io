@@ -6,6 +6,17 @@ category: command
 tags: linux command
 ---
 
+`efs mount`
+```bash
+sudo yum -y update  
+sudo yum -y install nfs-utils
+
+mkdir /mount-point
+sudo mount -t nfs -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport fs-0810dac727c8700a9.efs.ap-northeast-2.amazonaws.com:/   /mount-point
+```
+- Ref: https://docs.aws.amazon.com/efs/latest/ug/wt1-test.html
+
+
 `while반복문`
 ```bash
 while true; do

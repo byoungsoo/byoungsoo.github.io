@@ -1,16 +1,38 @@
 ---
 layout: post
-title: "EKS ALB Ingress 살펴보기"
+title: "AWS EKS ALB Ingress 살펴보기"
 author: "Bys"
 category: container
 date: 2022-11-14 01:00:00
 tags: kubernetes eks alb ingress
 ---
 
-# AWS
+### 1. AWS Load Balancer Controller
+AWS Load Balancer Controller는 AWS ELB를 사용하기 위해 AWS에서 개발한 [Out-of-tree Controller](https://kubernetes.io/blog/2019/04/17/the-future-of-cloud-providers-in-kubernetes/#:~:text=In%2DTree%20%26%20Out%2Dof%2DTree%20Providers)이다. AWS ELB를 사용하기 위해서는 AWS load balancer controller를 먼저 설치해야 한다. AWS load balancer controller를 통해 어떻게 ALB Ingress를 생성하는지 살펴본다.  
 
-## AWS Load Balancer Controller Annotation 특징 살펴보기
-아래는 ALB ingress를 배포하면서 ALB ingress의 annotations 특징을 살펴보려고 한다. 
+<br>
+
+### 2. [동작 방법](https://github.com/kubernetes-sigs/aws-load-balancer-controller/blob/main/docs/how-it-works.md)
+
+![awslbcontroller001](/assets/it/container/eks/awslbcontroller001.png){: width="60%" height="auto"}
+
+1. The controller watches for ingress events from the API server. When it finds ingress resources that satisfy its requirements, it begins the creation of AWS resources.
+2. An ALB (ELBv2) is created in AWS for the new ingress resource. This ALB can be internet-facing or internal. You can also specify the subnets it's created in using annotations.
+3. Target Groups are created in AWS for each unique Kubernetes service described in the ingress resource.
+4. Listeners are created for every port detailed in your ingress resource annotations. When no port is specified, sensible defaults (80 or 443) are used. Certificates may also be attached via annotations.
+5. Rules are created for each path specified in your ingress resource. This ensures traffic to a specific path is routed to the correct Kubernetes Service.
+6. Along with the above, the controller also...
+    - deletes AWS components when ingress resources are removed from k8s.
+    - modifies AWS components when ingress resources change in k8s.
+    - assembles a list of existing ingress-related AWS components on start-up, allowing you to recover if the controller were to be restarted.
+
+
+<br>
+
+### 3. ALB Ingress Test
+아래는 nginx의 간단한 예시를 통해 Deployment, Service, Ingress를 배포해본다. 
+
+
 ```yaml
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
@@ -84,7 +106,7 @@ spec:
               number: 80
 ```
 
-위 와 같이 배포를 하고 나면 아래와 같이 ingress가 생성된 것을 확인 할 수 있다. 
+위 와 같이 배포를 하고 나면 아래와 같이 pod, svc, ingress가 생성된 것을 확인 할 수 있으며 추가적으로 TargetGroupBinding이라는 리소스도 생성된다.  
 ```bash
 $ k get pod,svc,targetgroupbinding,ing -n test
 
@@ -100,10 +122,12 @@ k8s-test-nginxsvc-c3ca7df12f   nginx-svc      80             ip            66m
 
 NAME                                      CLASS   HOSTS   ADDRESS                                                            PORTS   AGE
 ingress.networking.k8s.io/nginx-ingress   alb     *       k8s-v1dev-0ee906a5cb-1817684647.ap-northeast-2.elb.amazonaws.com   80      62m
-
 ```
 
-그 중 annotation의 특징을 먼저 살펴보자  
+<br>
+
+### 4. [ALB Ingress Annotation](https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.4/guide/ingress/annotations/)
+Annotation을 통해 다양한 ALB 설정이 가능하며 group.name을 통해 single alb설정도 가능하다. Multi-cluster에서의 single alb설정에 대한 문의가 있었지만, group.name을 통한 single alb의 scope에 대해 살펴보면 multi-cluster가 아닌 단일 cluster에서만 가능하다.  
 ```yaml
 annotations:
     # group.name의 특징은 group.name이 같으면 single alb로 설정이 가능하다는 것이다. 
@@ -112,9 +136,10 @@ annotations:
     alb.ingress.kubernetes.io/group.name: nginx-group
 ```
 
+<br>
 
-## TargetGroupBinding 살펴보기
-ingress를 배포하고 나면 
+### 5. TargetGroupBinding 살펴보기
+Ingress를 배포하고 나면 CustomResource인 TargetGroupBinding이 생성된다. TargetGroupBinding은 실제 AWS리소스인 Target Group의 ARN값과 Target으로 하는 Service Ref값을 통해 어떤 서비스를 Target Group에 등록할지 매핑해준다. 따라서 TargetGroupBinding을 통해 쿠버네티스의 서비스와 AWS의 ALB와 Target을 연결하고 있다고 생각하면 된다.  
 
 ```yaml
 Name:         k8s-test-nginxsvc-c3ca7df12f
@@ -143,8 +168,36 @@ Status:
 Events:                 <none>
 ```
 
+<br>
+
+### 6. IngressClass
+Ingress를 살펴보면 Class가 alb로 생성된 것을 알 수 있다. Ingress의 spec을 살펴보면 'ingressClassName: alb'으로 설정된 것을 볼 수 있다. 이 Ingress를 정의할 때 ingressClass는 alb이름의 ingressClass를 사용하겠다는 의미이며 해당하는 alb IngressClass는 'controller: ingress.k8s.aws/alb'를 사용한다.
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+  annotations:
+    meta.helm.sh/release-name: aws-load-balancer-controller
+    meta.helm.sh/release-namespace: kube-system
+  creationTimestamp: "2022-10-28T06:12:53Z"
+  generation: 1
+  labels:
+    app.kubernetes.io/instance: aws-load-balancer-controller
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: aws-load-balancer-controller
+    app.kubernetes.io/version: v2.4.4
+    helm.sh/chart: aws-load-balancer-controller-1.4.5
+  name: alb
+  resourceVersion: "1356505"
+  uid: 589bedac-3fa7-4511-bba4-afc41ea1761f
+spec:
+  controller: ingress.k8s.aws/alb
+```
 
 
 <br><br><br>
 
-> Ref: https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.2/guide/ingress/annotations/
+> Ref: https://kubernetes.io/blog/2019/04/17/the-future-of-cloud-providers-in-kubernetes/#:~:text=In%2DTree%20%26%20Out%2Dof%2DTree%20Providers  
+> Ref: https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/aws-load-balancer-controller.html  
+> Ref: https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.4/guide/ingress/annotations/  
+> Ref: https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.2/guide/ingress/ingress_class/  

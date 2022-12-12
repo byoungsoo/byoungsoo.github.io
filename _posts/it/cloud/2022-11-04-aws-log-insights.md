@@ -48,6 +48,16 @@ fields @logStream, @timestamp, @message
   | sort @timestamp desc
 ```
 
+### Controller
+```
+fields @logStream, @timestamp, @message
+  | filter @logStream like /^kube-apiserver-audit/
+  | filter objectRef.resource == "persistentvolumeclaims"
+  | filter objectRef.name  = "efs-provisioner-test"
+  | sort @timestamp desc
+```
+
+
 <br><br><br>
 
 > Ref: [Log Inssights document](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/AnalyzingLogData.html)
