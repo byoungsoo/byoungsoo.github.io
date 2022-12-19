@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "AWS EKS에 AppMesh 적용하기 (Java, SpringBoot, EKS, AppMesh)"
+title: "EKS에 AppMesh 적용하기"
 author: "Bys"
 category: container
-date: 2023-11-21 01:00:00
+date: 2022-12-15 01:00:00
 tags: kubernetes eks appmesh
 ---
 
@@ -59,19 +59,19 @@ helm upgrade -i appmesh-controller eks/appmesh-controller \
 
 <br>
 
-## 2: Deploy App Mesh resources
+## 2. Deploy App Mesh resources
 기존 test namespace에 존재하는 application에 적용하는 과정.
 
+### 2.1 AppMesh 생성  
 1. AppMesh생성 및 Envoy sidecar를 Injection 설정
 [Envoy injection](https://aws.github.io/aws-app-mesh-controller-for-**k8s**/reference/injector/)
 다음은 namespace를 통한 설정이다. 
-
 
 ```yaml
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: test
+  name: aws
   labels:
     mesh: bys-dev-appmesh-eks-main
     appmesh.k8s.aws/sidecarInjectorWebhook: enabled
@@ -85,14 +85,19 @@ spec:
     matchLabels:
       mesh: bys-dev-appmesh-eks-main
   egressFilter:
-    type: ALLOW_ALL # Allow external traffic
+    type: DROP_ALL #ALLOW_ALL/DROP_ALL
 ```
 
 - ALLOW_ALL or DROP_ALL
+우선 ALLOW_ALL을 선택하게 되면 virtualNode에서 ServiceMesh 내/외부 모든 endpoint에 대한 통신을 허용하게 한다. 반면 DROP_ALL을 선택하게 되면 virtualNode에서 ServiceMesh에 등록된 리소스에 한하여 통신이 가능하도록 한다. 
+즉, 이 설정을 하면 outgoing traffic이 envoy를 통하지 않고 'Application -> 외부'로 direct통신을 하게 되는 구조가 된다. Application내부에서 HttpCall을 통해 외부와 통신을 할 수 없다. outgoing traffic은 envoy를 통해 통신을 하게 되며 envoy입장에서는 AppMesh의 설정을 통해 알고있는 virtualService가 아닌 경우 404오류를 뱉게 된다. 따라서 DROP_ALL을 선택하게 되면 내부 통신을 위해 virtualNode에서 Backend설정이 필수이다.  
+
+![appmesh-xray001.png](/assets/it/container/eks/appmesh-xray001.png){: width="80%" height="auto"}  
+
+![appmesh-xray002.png](/assets/it/container/eks/appmesh-xray002.png){: width="90%" height="auto"}  
+
 > The first option is to set the egress filter on the mesh resource to ALLOW_ALL. This setting will allow any application service within the mesh to communicate with any destination IP address inside or outside of the mesh.
 The second option, DROP_ALL, allows egress only from virtual nodes to other defined resources in the service mesh. AWS App Mesh allows network traffic to flow from a virtual node to any service that is discoverable by a service discovery method. There are two supported options for service discovery, DNS or AWS Cloud Map.
-
-
 
 
 만약  namespace에서 'appmesh.k8s.aws/sidecarInjectorWebhook: disabled' 처리가 되어있더라도 Pod의 spec에서 'appmesh.k8s.aws/sidecarInjectorWebhook: enabled' 값이 enabled 되어있다면 값을 override하여 sidecarInjection이 수행된다.  
@@ -100,7 +105,7 @@ The second option, DROP_ALL, allows egress only from virtual nodes to other defi
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: test
+  name: aws
   labels:
     mesh: bys-dev-appmesh-eks-main
     appmesh.k8s.aws/sidecarInjectorWebhook: disabled
@@ -109,7 +114,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: awssdk-dev-deploy
-  namespace: test
+  namespace: aws
 spec:
   template:
     metadata:
@@ -118,7 +123,7 @@ spec:
 ```
 
 
-2. [Virtual Node](https://docs.aws.amazon.com/app-mesh/latest/userguide/virtual_nodes.html)
+1. [Virtual Node](https://docs.aws.amazon.com/app-mesh/latest/userguide/virtual_nodes.html)
 
    - Virtual Node는 EKS에서 Service와 같은 검색 가능한 서비스에 대한 논리적 포인터 역할을 한다. 
        > A virtual node acts as a logical pointer to a discoverable service, such as an Amazon ECS or Kubernetes service.
@@ -141,24 +146,31 @@ spec:
 apiVersion: appmesh.k8s.aws/v1beta2
 kind: VirtualNode
 metadata:
-  name: awssdk-dev-appmesh-virtual-node
-  namespace: test
+  name: appmesh-vn-awssdk-iam-dev
+  namespace: aws
 spec:
   podSelector:
     matchLabels:
-      app.kubernetes.io/name: awssdk-dev
+      app.kubernetes.io/name: awssdk-iam-dev
   serviceDiscovery:
     dns:
-      hostname: awssdk-dev-svc.test.svc.cluster.local
+      hostname: awssdk-iam-dev-svc.aws
   listeners:
     - portMapping:
-        port: 10010
+        port: 10012
         protocol: http
-#   backends:
-#     - virtualService:
-#         virtualServiceRef:
-#           name: another virtual service to request
-#           namespace: test
+  backends:
+    - virtualService:
+        virtualServiceRef:
+          name: appmesh-vs-awssdk-storage-dev
+  #    - virtualService:
+  #        virtualServiceRef:
+  #          name: awssdk-ec2-dev-svc.aws
+  logging:
+    accessLog:
+      file:
+        path: "/dev/stdout"
+
 ```
 
 

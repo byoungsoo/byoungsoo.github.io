@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "AWS EKS Helm Deploy"
+title: "EKS Helm Deploy"
 author: "Bys"
 category: container
 date: 2021-06-05 01:00:00

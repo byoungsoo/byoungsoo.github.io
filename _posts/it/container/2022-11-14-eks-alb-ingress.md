@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "AWS EKS ALB Ingress 살펴보기"
+title: "EKS ALB Ingress 살펴보기"
 author: "Bys"
 category: container
 date: 2022-11-14 01:00:00

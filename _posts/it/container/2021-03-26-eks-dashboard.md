@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "AWS EKS Dashboard 사용"
+title: "EKS Dashboard 사용"
 author: "Bys"
 category: container
 date: 2021-03-26 01:00:00

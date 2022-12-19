@@ -12,6 +12,8 @@ tags: kubernetes eksctl
 eksctl은 eks클러스터를 생성, 관리하기 위한 커맨드 툴로 kubernetes가 아닌 eks를 사용하기 위한 툴이다.   
 [Install](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
 
+### 알아두면 좋을 것들 
+
 
 ## 1. eksctl create cluster with nodegroup
 아래 cluster.yaml 파일을 생성 한 후 eksctl로 create cluster를 생성하면 cloudformation stack이 생성된다. eksctl을 통해 EKS Cluster와 Managed Node Group을 쉽게 생성할 수 있다. 
@@ -38,7 +40,7 @@ vpc:
           id: "subnet-0b4076508ce121c27"
 
 managedNodeGroups:
-  - name: bys-dev-ng-manged-v1
+  - name: ng-main
     amiFamily: AmazonLinux2
     instanceType: m5.large
     volumeSize: 80
@@ -65,6 +67,7 @@ managedNodeGroups:
 ```bash
 eksctl create nodegroup --config-file=cluster.yml
 ```
+
 
 ## 2. eksctl delete nodegroup
 아래 커맨드를 통해 nodegroup을 지울 때는 중요한 내용이 있다. 'eksctl create node' 커맨드를 통해 nodeGroup 생성하게 되면 별도로 iam spec을 설정하지 않는 이상 nodeGroup의 Instance Role이 하나 생성되게 되고, 해당 instance role이 'aws-auth' copnfigMap 파일에 등록이 되게 된다.  

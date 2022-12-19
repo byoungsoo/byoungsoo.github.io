@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "AWS Load Balancer Controller 설치"
+title: "EKS AWS Load Balancer Controller 설치"
 author: "Bys"
 category: container
 date: 2022-11-14 01:00:00
