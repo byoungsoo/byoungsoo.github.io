@@ -98,7 +98,7 @@ aws codebuild update-project --cli-input-json file://cdb-dev.json
     "serviceRole": "arn:aws:iam::202949997891:role/service-role/bys-shared-iam-cdb-role",
     "timeoutInMinutes": 60,
     "queuedTimeoutInMinutes": 480,
-    "encryptionKey": "arn:aws:kms:ap-northeast-2:202949997891:key/42490b53-71d6-4265-9dab-8d4eddc90d97",
+    "encryptionKey": "arn:aws:kms:ap-northeast-2:202949997891:key/11112222-71d6-4265-9dab-111122223333",
     "tags": [
         {
             "key": "Name",
@@ -137,7 +137,7 @@ env:
     # AWS
     AWS_REGION: "ap-northeast-2"
     CODESERIES_S3: bys-shared-s3-codeseries-awssdk-iam
-    KMS_KEY_ID: "42490b53-71d6-4265-9dab-8d4eddc90d97"
+    KMS_KEY_ID: "11112222-71d6-4265-9dab-111122223333"
     DEV_ACCOUNT_NO: "558846431111"
 
 
@@ -161,10 +161,6 @@ phases:
 #    commands:
 #      - echo ${COMMIT_ID}
 #      - echo ${BRANCH_NAME}
-#      - echo ${DEV_ACCOUNT_NO}
-#      - echo ${DEV_REGISTRY_URL}
-#      - echo ${STG_REGISTRY_URL}
-#      - echo ${APPLICATION_NAME}
   pre_build:
     on-failure: ABORT
     commands:
@@ -296,7 +292,7 @@ cache:
 <br>
 
 ## 3. [CodePipeline](https://docs.aws.amazon.com/codepipeline/latest/userguide/welcome.html)
-1. CodePipeline에서는 이전에 생성 된 CodeCommit, CodeBuild를 활용해 파이프라인을 구축한다.
+1. CodePipeline에서는 이전에 생성 된 CodeCommit, CodeBuild를 활용해 파이프라인을 구축한다. 코드 파이프라인의 구조는 [CodePipeline pipeline structure](https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html)를 참고한다.  
 
 2. Source 단계에서 namespace에 SourceVariables를 설정하면 Build단계에서 #{SourceVariables.CommitId}과 같은 변수를 설정해 사용할 수 있다. [Variables](https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-variables.html)문서를 참고한다.  
 
@@ -314,7 +310,7 @@ aws codepipeline update-pipeline --cli-input-json file://cdpl-dev.json
             "type": "S3",
             "location": "bys-shared-s3-codeseries-awssdk-iam",
             "encryptionKey": {
-                "id": "arn:aws:kms:ap-northeast-2:202949997891:key/42490b53-71d6-4265-9dab-8d4eddc90d97",
+                "id": "arn:aws:kms:ap-northeast-2:202949997891:key/11112222-71d6-4265-9dab-111122223333",
                 "type": "KMS"
               }
         },
@@ -486,7 +482,7 @@ cross account 설정을 위한 순서는 아래와 같으며 자세한 내용은
            "kms:Decrypt"
           ],
         "Resource": [
-           "arn:aws:kms:ap-northeast-2:202949997891:key/42490b53-71d6-4265-9dab-8d4eddc90d97"
+           "arn:aws:kms:ap-northeast-2:202949997891:key/111122222-71d6-4265-9dab-111122223333"
           ]
       }
    ]
@@ -535,8 +531,7 @@ cross account 설정을 위한 순서는 아래와 같으며 자세한 내용은
 
 ##### 3.4. Codepipeline 편집 기존 `cdpl-dev.json` 파일에 아래의 내용을 추가한다. 
 provider는 CodeDeployToECS가 되어야지만 CodeDeploy를 이용한 ECS Blue/Green배포가 가능하다. 자세한 내용은 [CodeDeploy blue-green](https://docs.aws.amazon.com/codepipeline/latest/userguide/action-reference-ECSbluegreen.html)를 참고한다.  
-[ECS CodeDeploy blue-green](https://docs.amazonaws.cn/en_us/codepipeline/latest/userguide/action-reference-ECSbluegreen.html)
-[CodePipeline pipeline structure](https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html)
+
 ```json
             {
                 "name": "DevDeploy",
@@ -575,7 +570,7 @@ provider는 CodeDeployToECS가 되어야지만 CodeDeploy를 이용한 ECS Blue/
 aws codepipeline update-pipeline --cli-input-json file://cdpl-dev.json
 ```
 
-## 4. [CodeDeploy]()
+## 4. [CodeDeploy](https://docs.aws.amazon.com/codedeploy/latest/userguide/deployment-configurations.html)
 
 https://github.com/shashank070/aws-codepipeline-ecs-bluegreen-deployment
 
@@ -661,7 +656,7 @@ CodeDeployToECS로 provider를 변경하고 나서 CodePipeline에서 발생한 
            "kms:Decrypt"
           ],
         "Resource": [
-           "arn:aws:kms:ap-northeast-2:202949997891:key/42490b53-71d6-4265-9dab-8d4eddc90d97"
+           "arn:aws:kms:ap-northeast-2:202949997891:key/11112222-71d6-4265-9dab-111122223333"
           ]
       }
    ]
