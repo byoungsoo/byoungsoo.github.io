@@ -7,7 +7,7 @@ date: 2022-11-14 01:00:00
 tags: kubernetes eks alb ingress
 ---
 
-### 1. AWS Load Balancer Controller
+## 1. AWS Load Balancer Controller
 AWS Load Balancer Controller는 AWS ELB를 사용하기 위해 AWS에서 개발한 [Out-of-tree Controller](https://kubernetes.io/blog/2019/04/17/the-future-of-cloud-providers-in-kubernetes/#:~:text=In%2DTree%20%26%20Out%2Dof%2DTree%20Providers)이다. AWS ELB를 사용하기 위해서는 AWS load balancer controller를 먼저 설치해야 한다. AWS load balancer controller를 통해 어떻게 ALB Ingress를 생성하는지 살펴본다.  
 
 <br>

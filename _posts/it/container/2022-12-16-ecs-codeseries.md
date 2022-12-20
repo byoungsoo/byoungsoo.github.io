@@ -4,7 +4,7 @@ title: "ECS에 CodeSeries를 통해 배포하기 (Multi Account환경)"
 author: "Bys"
 category: container
 date: 2022-12-16 01:00:00
-tags: ecs aws
+tags: codecommit codebuild codepipeline codeseries aws ecs
 ---
 
 # CodeSeries
@@ -12,6 +12,9 @@ CodeSeries는 AWS에서 제공하는 CI/CD의 집합이다. Repository, Build, D
 여기서는 Multi Account환경(shared, dev)에서 CodeCommit, CodeBuild, CodeDeploy, CodePipeline을 통해 ECS환경에 Blue/Green 배포를 하는 환경을 구성해 볼 것이다.  
 
 계정별 서비스를 살펴보면 CodeCommit, CodeBuild CodePipeline은 shared계정에 생성하며 CodeDeploy, ECS, ECR 서비스는 dev계정에서 생성한다.  
+
+![codeseries-architecture001](/assets/it/container/codeseries/codeseries-architecture001.png){: width="100%" height="100%"}  
+
 
 - 구축하면서 알게 된 점 및 알아두면 좋을 점 
     1. CodePipeline, CodeBuild, CodeDeploy는 각각 자신의 Role을 갖는다.  
@@ -296,290 +299,284 @@ cache:
 
 2. Source 단계에서 namespace에 SourceVariables를 설정하면 Build단계에서 #{SourceVariables.CommitId}과 같은 변수를 설정해 사용할 수 있다. [Variables](https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-variables.html)문서를 참고한다.  
 
-```bash
-aws codepipeline create-pipeline --cli-input-json file://cdpl-dev.json
-aws codepipeline update-pipeline --cli-input-json file://cdpl-dev.json
-```
-`cdpl-dev.json`
-```json
-{
-    "pipeline": {
-        "name": "bys-shared-cdpl-awssdk-iam-dev",
-        "roleArn": "arn:aws:iam::202949997891:role/service-role/bys-shared-iam-cdpl-awssdk-iam-role",
-        "artifactStore": {
-            "type": "S3",
-            "location": "bys-shared-s3-codeseries-awssdk-iam",
-            "encryptionKey": {
-                "id": "arn:aws:kms:ap-northeast-2:202949997891:key/11112222-71d6-4265-9dab-111122223333",
-                "type": "KMS"
-              }
-        },
-        "stages": [
-            {
-                "name": "Source",
-                "actions": [
-                    {
-                        "name": "Source",
-                        "actionTypeId": {
-                            "category": "Source",
-                            "owner": "AWS",
-                            "provider": "CodeCommit",
-                            "version": "1"
-                        },
-                        "runOrder": 1,
-                        "configuration": {
-                            "BranchName": "develop",
-                            "OutputArtifactFormat": "CODE_ZIP",
-                            "PollForSourceChanges": "false",
-                            "RepositoryName": "awssdk-iam"
-                        },
-                        "outputArtifacts": [
-                            {
-                                "name": "SourceArtifact"
-                            }
-                        ],
-                        "inputArtifacts": [],
-                        "region": "ap-northeast-2",
-                        "namespace": "SourceVariables"
-                    }
-                ]
+    ```bash
+    aws codepipeline create-pipeline --cli-input-json file://cdpl-dev.json
+    aws codepipeline update-pipeline --cli-input-json file://cdpl-dev.json
+    ```
+    `cdpl-dev.json`
+    ```json
+    {
+        "pipeline": {
+            "name": "bys-shared-cdpl-awssdk-iam-dev",
+            "roleArn": "arn:aws:iam::202949997891:role/service-role/bys-shared-iam-cdpl-awssdk-iam-role",
+            "artifactStore": {
+                "type": "S3",
+                "location": "bys-shared-s3-codeseries-awssdk-iam",
+                "encryptionKey": {
+                    "id": "arn:aws:kms:ap-northeast-2:202949997891:key/11112222-71d6-4265-9dab-111122223333",
+                    "type": "KMS"
+                }
             },
-            {
-                "name": "Build",
-                "actions": [
-                    {
-                        "name": "Build",
-                        "actionTypeId": {
-                            "category": "Build",
-                            "owner": "AWS",
-                            "provider": "CodeBuild",
-                            "version": "1"
-                        },
-                        "runOrder": 1,
-                        "configuration": {
-                            "EnvironmentVariables": "[{\"name\":\"COMMIT_ID\",\"value\":\"#{SourceVariables.CommitId}\",\"type\":\"PLAINTEXT\"},{\"name\":\"BRANCH_NAME\",\"value\":\"#{SourceVariables.BranchName}\",\"type\":\"PLAINTEXT\"}]",
-                            "ProjectName": "bys-shared-cdb-awssdk-iam-dev"
-                        },
-                        "outputArtifacts": [
-                            {
-                                "name": "BuildArtifact"
-                            }
-                        ],
-                        "inputArtifacts": [
-                            {
-                                "name": "SourceArtifact"
-                            }
-                        ],
-                        "region": "ap-northeast-2",
-                        "namespace": "BuildVariables"
-                    }
-                ]
-            }
-        ],
-        "version": 2
+            "stages": [
+                {
+                    "name": "Source",
+                    "actions": [
+                        {
+                            "name": "Source",
+                            "actionTypeId": {
+                                "category": "Source",
+                                "owner": "AWS",
+                                "provider": "CodeCommit",
+                                "version": "1"
+                            },
+                            "runOrder": 1,
+                            "configuration": {
+                                "BranchName": "develop",
+                                "OutputArtifactFormat": "CODE_ZIP",
+                                "PollForSourceChanges": "false",
+                                "RepositoryName": "awssdk-iam"
+                            },
+                            "outputArtifacts": [
+                                {
+                                    "name": "SourceArtifact"
+                                }
+                            ],
+                            "inputArtifacts": [],
+                            "region": "ap-northeast-2",
+                            "namespace": "SourceVariables"
+                        }
+                    ]
+                },
+                {
+                    "name": "Build",
+                    "actions": [
+                        {
+                            "name": "Build",
+                            "actionTypeId": {
+                                "category": "Build",
+                                "owner": "AWS",
+                                "provider": "CodeBuild",
+                                "version": "1"
+                            },
+                            "runOrder": 1,
+                            "configuration": {
+                                "EnvironmentVariables": "[{\"name\":\"COMMIT_ID\",\"value\":\"#{SourceVariables.CommitId}\",\"type\":\"PLAINTEXT\"},{\"name\":\"BRANCH_NAME\",\"value\":\"#{SourceVariables.BranchName}\",\"type\":\"PLAINTEXT\"}]",
+                                "ProjectName": "bys-shared-cdb-awssdk-iam-dev"
+                            },
+                            "outputArtifacts": [
+                                {
+                                    "name": "BuildArtifact"
+                                }
+                            ],
+                            "inputArtifacts": [
+                                {
+                                    "name": "SourceArtifact"
+                                }
+                            ],
+                            "region": "ap-northeast-2",
+                            "namespace": "BuildVariables"
+                        }
+                    ]
+                }
+            ],
+            "version": 2
+        }
     }
-}
-```
-여기 까지 완료하면 shared 계정에 CodeCommit, CodeBuild를 구성하고 CodePipeline을 통해 소스가 커밋되면 빌드하는 단계까지 구성이 완료되었다.  
-지금 부터는 4. CodeDeploy를 구성을 먼저하고, 다시 이 단계로 돌아온다.  
+    ```
+    여기 까지 완료하면 shared 계정에 CodeCommit, CodeBuild를 구성하고 CodePipeline을 통해 소스가 커밋되면 빌드하는 단계까지 구성이 완료되었다.  
+    지금 부터는 4. CodeDeploy를 구성을 먼저하고, 다시 이 단계로 돌아온다.  
 
-<br>
-
-### 3. [CodePipeline with resources from another AWS account](https://docs.aws.amazon.com/codepipeline/latest/userguide/pipelines-create-cross-account.html)
+3. [CodePipeline with resources from another AWS account](https://docs.aws.amazon.com/codepipeline/latest/userguide/pipelines-create-cross-account.html)
 cross account 설정을 위한 순서는 아래와 같으며 자세한 내용은 링크를 참고한다.  
+   - Shared계정에 KMS키를 생성하고 Define Key Usage Permissions로는 Codepipeline의 ServiceRole을 등록한다.  
+   - Shared계정에 있는 S3에 Dev계정의 CodeDeploy가 접근해야 하므로 S3 Bucket Policy에 다음과 같이 CodeDeploy가 접근할 수 있도록 한다. S3는 558846431111:root에서 접근할 수 있도록 열어준다.  
+   ```json
+   {
+       "Version": "2012-10-17",
+       "Id": "SSEAndSSLPolicy",
+       "Statement": [
+           {
+               "Sid": "DenyUnEncryptedObjectUploads",
+               "Effect": "Deny",
+               "Principal": "*",
+               "Action": "s3:PutObject",
+               "Resource": "arn:aws:s3:::bys-shared-s3-codeseries-awssdk-iam/*",
+               "Condition": {
+                   "StringNotEquals": {
+                       "s3:x-amz-server-side-encryption": "aws:kms"
+                   }
+               }
+           },
+           {
+               "Sid": "DenyInsecureConnections",
+               "Effect": "Deny",
+               "Principal": "*",
+               "Action": "s3:*",
+               "Resource": "arn:aws:s3:::bys-shared-s3-codeseries-awssdk-iam/*",
+               "Condition": {
+                   "Bool": {
+                       "aws:SecureTransport": "false"
+                   }
+               }
+           },
+           {
+               "Sid": "",
+               "Effect": "Allow",
+               "Principal": {
+                   "AWS": "arn:aws:iam::558846431111:root"
+               },
+               "Action": [
+                   "s3:Get*",
+                   "s3:Put*"
+               ],
+               "Resource": "arn:aws:s3:::bys-shared-s3-codeseries-awssdk-iam/*"
+           },
+           {
+               "Sid": "",
+               "Effect": "Allow",
+               "Principal": {
+                   "AWS": "arn:aws:iam::558846431111:root"
+               },
+               "Action": "s3:ListBucket",
+               "Resource": "arn:aws:s3:::bys-shared-s3-codeseries-awssdk-iam"
+           }
+       ]
+   }
+   ```
 
-##### 3.1. Shared계정에 KMS키를 생성하고 Define Key Usage Permissions로는 Codepipeline의 ServiceRole을 등록한다.  
-##### 3.2. Shared계정에 있는 S3에 Dev계정의 CodeDeploy가 접근해야 하므로 S3 Bucket Policy에 다음과 같이 CodeDeploy가 접근할 수 있도록 한다. S3는 558846431111:root에서 접근할 수 있도록 열어준다.  
-```json
-{
-    "Version": "2012-10-17",
-    "Id": "SSEAndSSLPolicy",
-    "Statement": [
-        {
-            "Sid": "DenyUnEncryptedObjectUploads",
-            "Effect": "Deny",
-            "Principal": "*",
-            "Action": "s3:PutObject",
-            "Resource": "arn:aws:s3:::bys-shared-s3-codeseries-awssdk-iam/*",
-            "Condition": {
-                "StringNotEquals": {
-                    "s3:x-amz-server-side-encryption": "aws:kms"
-                }
-            }
-        },
-        {
-            "Sid": "DenyInsecureConnections",
-            "Effect": "Deny",
-            "Principal": "*",
-            "Action": "s3:*",
-            "Resource": "arn:aws:s3:::bys-shared-s3-codeseries-awssdk-iam/*",
-            "Condition": {
-                "Bool": {
-                    "aws:SecureTransport": "false"
-                }
-            }
-        },
-        {
-            "Sid": "",
-            "Effect": "Allow",
-            "Principal": {
-                "AWS": "arn:aws:iam::558846431111:root"
-            },
-            "Action": [
-                "s3:Get*",
-                "s3:Put*"
-            ],
-            "Resource": "arn:aws:s3:::bys-shared-s3-codeseries-awssdk-iam/*"
-        },
-        {
-            "Sid": "",
-            "Effect": "Allow",
-            "Principal": {
-                "AWS": "arn:aws:iam::558846431111:root"
-            },
-            "Action": "s3:ListBucket",
-            "Resource": "arn:aws:s3:::bys-shared-s3-codeseries-awssdk-iam"
-        }
-    ]
-}
-```
-
-##### 3.3. bys-dev-iam-create-cdp-in-shared CrossAccount Role설정한다. 코드파이프라인에서 CodeDeploy단계의 Role로 사용된다.   
-```json
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "s3:Get*"
-            ],
-            "Resource": [
-                "arn:aws:s3:::bys-shared-s3-codeseries-awssdk-iam/*"
-            ]
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
-                "s3:ListBucket"
-            ],
-            "Resource": [
-                "arn:aws:s3:::bys-shared-s3-codeseries-awssdk-iam"
-            ]
-        }
-    ]
-}
-{
-    "Version": "2012-10-17",
-    "Statement": [
-      {
-        "Effect": "Allow",
-        "Action": [
-           "kms:DescribeKey",
-           "kms:GenerateDataKey*",
-           "kms:Encrypt",
-           "kms:ReEncrypt*",
-           "kms:Decrypt"
-          ],
-        "Resource": [
-           "arn:aws:kms:ap-northeast-2:202949997891:key/111122222-71d6-4265-9dab-111122223333"
-          ]
-      }
-   ]
-}
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "VisualEditor0",
-            "Effect": "Allow",
-            "Action": "iam:PassRole",
-            "Resource": "*"
-        }
-    ]
-}
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "ecs:RegisterTaskDefinition"
-            ],
-            "Resource": "*"
-        }
-    ]
-}
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "codedeploy:CreateDeployment",
-                "codedeploy:GetDeployment",
-                "codedeploy:GetDeploymentConfig",
-                "codedeploy:GetApplication",
-                "codedeploy:GetApplicationRevision",
-                "codedeploy:RegisterApplicationRevision"
-            ],
-            "Resource": "*"
-        }
-    ]
-}
-```
-
-##### 3.4. Codepipeline 편집 기존 `cdpl-dev.json` 파일에 아래의 내용을 추가한다. 
-provider는 CodeDeployToECS가 되어야지만 CodeDeploy를 이용한 ECS Blue/Green배포가 가능하다. 자세한 내용은 [CodeDeploy blue-green](https://docs.aws.amazon.com/codepipeline/latest/userguide/action-reference-ECSbluegreen.html)를 참고한다.  
-
-```json
+   - bys-dev-iam-create-cdp-in-shared CrossAccount Role설정한다. 코드파이프라인에서 CodeDeploy단계의 Role로 사용된다.   
+    ```json
+    {
+        "Version": "2012-10-17",
+        "Statement": [
             {
-                "name": "DevDeploy",
-                "actions": [
-                    {
-                        "inputArtifacts": [
-                            {
-                                "name": "BuildArtifact"
-                            }
-                        ],
-                        "name": "DevDeploy",
-                        "actionTypeId": {
-                            "category": "Deploy",
-                            "owner": "AWS",
-                            "version": "1",
-                            "provider": "CodeDeployToECS"
-                        },
-                        "outputArtifacts": [],
-                        "configuration": {
-                            "AppSpecTemplateArtifact": "BuildArtifact",
-                            "AppSpecTemplatePath": "appspec.yml",
-                            "TaskDefinitionTemplateArtifact": "BuildArtifact",
-                            "TaskDefinitionTemplatePath": "taskdef.json",
-                            "ApplicationName": "bys-dev-cddp-ecs-main-awssdk-iam",
-                            "DeploymentGroupName": "bys-dev-cddpg-ecs-main-awssdk-iam"
-                        },
-                        "runOrder": 1,
-                        "roleArn": "arn:aws:iam::558846431111:role/bys-dev-iam-create-cdp-in-shared"
-                    }
+                "Effect": "Allow",
+                "Action": [
+                    "s3:Get*"
+                ],
+                "Resource": [
+                    "arn:aws:s3:::bys-shared-s3-codeseries-awssdk-iam/*"
+                ]
+            },
+            {
+                "Effect": "Allow",
+                "Action": [
+                    "s3:ListBucket"
+                ],
+                "Resource": [
+                    "arn:aws:s3:::bys-shared-s3-codeseries-awssdk-iam"
                 ]
             }
-```
+        ]
+    }
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+            "kms:DescribeKey",
+            "kms:GenerateDataKey*",
+            "kms:Encrypt",
+            "kms:ReEncrypt*",
+            "kms:Decrypt"
+            ],
+            "Resource": [
+            "arn:aws:kms:ap-northeast-2:202949997891:key/111122222-71d6-4265-9dab-111122223333"
+            ]
+        }
+    ]
+    }
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Sid": "VisualEditor0",
+                "Effect": "Allow",
+                "Action": "iam:PassRole",
+                "Resource": "*"
+            }
+        ]
+    }
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Effect": "Allow",
+                "Action": [
+                    "ecs:RegisterTaskDefinition"
+                ],
+                "Resource": "*"
+            }
+        ]
+    }
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Effect": "Allow",
+                "Action": [
+                    "codedeploy:CreateDeployment",
+                    "codedeploy:GetDeployment",
+                    "codedeploy:GetDeploymentConfig",
+                    "codedeploy:GetApplication",
+                    "codedeploy:GetApplicationRevision",
+                    "codedeploy:RegisterApplicationRevision"
+                ],
+                "Resource": "*"
+            }
+        ]
+    }
+    ```
 
-##### 3.5. Codepipeline을 업데이트한다.  
-```bash
-aws codepipeline update-pipeline --cli-input-json file://cdpl-dev.json
-```
+   - Codepipeline 편집 기존 `cdpl-dev.json` 파일에 아래의 내용을 추가한다. 
+   provider는 CodeDeployToECS가 되어야지만 CodeDeploy를 이용한 ECS Blue/Green배포가 가능하다. 자세한 내용은 [CodeDeploy blue-green](https://docs.aws.amazon.com/codepipeline/latest/userguide/action-reference-ECSbluegreen.html)를 참고한다.  
+   ```json
+               {
+                   "name": "DevDeploy",
+                   "actions": [
+                       {
+                           "inputArtifacts": [
+                               {
+                                   "name": "BuildArtifact"
+                               }
+                           ],
+                           "name": "DevDeploy",
+                           "actionTypeId": {
+                               "category": "Deploy",
+                               "owner": "AWS",
+                               "version": "1",
+                               "provider": "CodeDeployToECS"
+                           },
+                           "outputArtifacts": [],
+                           "configuration": {
+                               "AppSpecTemplateArtifact": "BuildArtifact",
+                               "AppSpecTemplatePath": "appspec.yml",
+                               "TaskDefinitionTemplateArtifact": "BuildArtifact",
+                               "TaskDefinitionTemplatePath": "taskdef.json",
+                               "ApplicationName": "bys-dev-cddp-ecs-main-awssdk-iam",
+                               "DeploymentGroupName": "bys-dev-cddpg-ecs-main-awssdk-iam"
+                           },
+                           "runOrder": 1,
+                           "roleArn": "arn:aws:iam::558846431111:role/bys-dev-iam-create-cdp-in-shared"
+                       }
+                   ]
+               }
+   ```
+
+   - Codepipeline을 업데이트한다.  
+   ```bash
+   aws codepipeline update-pipeline --cli-input-json file://cdpl-dev.json
+   ```
 
 ## 4. [CodeDeploy](https://docs.aws.amazon.com/codedeploy/latest/userguide/deployment-configurations.html)
-
-https://github.com/shashank070/aws-codepipeline-ecs-bluegreen-deployment
 
 1. Application생성 
 Compute platform을 Amazon ECS로 생성 
 
 2. Deployment Group생성
 
-![codedeploy001](/assets/it/container/codeseries/codedeploy001.png){: width="40%" height="auto"}  
+![codedeploy001](/assets/it/container/codeseries/codedeploy001.png){: width="70%" height="auto"}  
 
 <br>
 
@@ -614,7 +611,7 @@ CodeDeployToECS로 provider를 변경하고 나서 CodePipeline에서 발생한 
 2. CodeDeploy Group Role - bys-dev-iam-cdp-role
 3. CodePipeline에서 Deploy단계에 설정한 Role - bys-dev-iam-create-cdp-in-shared
 
-![crossaccount-cdpl001](/assets/it/container/codeseries/crossaccount-cdpl001.png){: width="40%" height="auto"}  
+![crossaccount-cdpl001](/assets/it/container/codeseries/crossaccount-cdpl001.png){: width="100%" height="auto"}  
 
 이 중 CodePipeline의 단계를 수행하는 Role은 bys-dev-iam-create-cdp-in-shared Role이다. 해당 오류를 겪을 때 정확히 어떤 권한에서 어떤 Permission에 대한 문제가 있는지 나오지 않았다.  
 하지만 소스코드를 본 결과 정확하게 S3에 403오류로 인한 메세지가 나타나는 것이었고 3개의 권한에 순서대로 S3권한을 주어가며 테스트 해봤지만 모두 동일한 오류가 발생했다. 그래서 S3의 권한 문제인지 헷갈리기 시작했었다.  

@@ -12,8 +12,6 @@ tags: kubernetes eksctl
 eksctl은 eks클러스터를 생성, 관리하기 위한 커맨드 툴로 kubernetes가 아닌 eks를 사용하기 위한 툴이다.   
 [Install](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
 
-### 알아두면 좋을 것들 
-
 
 ## 1. eksctl create cluster with nodegroup
 아래 cluster.yaml 파일을 생성 한 후 eksctl로 create cluster를 생성하면 cloudformation stack이 생성된다. eksctl을 통해 EKS Cluster와 Managed Node Group을 쉽게 생성할 수 있다. 
@@ -27,8 +25,9 @@ apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
-  name: bys-dev-eks-main
+  name: bys-dev-eks-v123
   region: ap-northeast-2
+  version: "1.23"
 
 vpc:
   id: "vpc-0ca96cd5c37d3bae8"
@@ -40,26 +39,22 @@ vpc:
           id: "subnet-0b4076508ce121c27"
 
 managedNodeGroups:
-  - name: ng-main
+  - name: ng-1
     amiFamily: AmazonLinux2
     instanceType: m5.large
     volumeSize: 80
-    minSize: 4
+    minSize: 2
     maxSize: 10
-    desiredCapacity: 4
+    desiredCapacity: 2
     privateNetworking: true
     subnets:
       - bys-dev-sbn-az1-app
       - bys-dev-sbn-az2-app
-    labels: {role: worker-v1.22}
-    securityGroups:
-      attachIDs: ["sg-03103f41dab2d16fb"]
     ssh:
       allow: true
       publicKeyName: "bys-console"
-      # new feature for restricting SSH access to certain AWS security group IDs
     tags:
-      name: "worker"
+      auto-delete: "no"
 ```
 <br>
 
@@ -75,6 +70,29 @@ eksctl create nodegroup --config-file=cluster.yml
 
 ```bash
 eksctl delete nodegroup
+```
+
+## 3. eksctl create iamserviceaccount
+
+```bash
+# Create IAM Role with ServiceAccount
+eksctl create iamserviceaccount \
+  --cluster=bys-dev-eks-main \
+  --namespace=awssdk-iam  \
+  --name=dashboard-v1-sa \
+  --role-name "AwsSdkStorageAppRole" \
+  --attach-policy-arn=arn:aws:iam::aws:policy/AmazonS3FullAccess \
+  --override-existing-serviceaccounts \
+  --approve
+
+# Create ServiceAccount and attach exist role to ServiceAccount, it need to add trust relationship manually.
+eksctl create iamserviceaccount \
+  --cluster=bys-dev-eks-main \
+  --namespace=kube-system \
+  --name=aws-load-balancer-controller \
+  --attach-role-arn=arn:aws:iam::558846430793:role/AmazonEKSLoadBalancerControllerRole \
+  --override-existing-serviceaccounts \
+  --approve
 ```
 
 
