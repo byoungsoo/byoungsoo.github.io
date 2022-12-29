@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[Kubeadm] Kubernetes Webhook Token 인증 (Openstack Keystone)"
+title: "Kubernetes Webhook Token 인증 (Openstack Keystone)"
 author: "Bys"
 category: container
 date: 2022-07-20 01:00:00
@@ -477,7 +477,7 @@ admin 유저에게 rbac을 통해 권한을 부여하고 조회에 관한 테스
   ```
 
 - openstack-rolebinding.yaml  
-admin 사용자에게 클러스터 전체에 파드만 조회할 수 있는 권한을 바인딩시킨다.  
+  admin 사용자에게 클러스터 전체에 파드만 조회할 수 있는 권한을 바인딩시킨다.  
 
   ```yaml
   apiVersion: rbac.authorization.k8s.io/v1
@@ -495,47 +495,48 @@ admin 사용자에게 클러스터 전체에 파드만 조회할 수 있는 권�
     apiGroup: rbac.authorization.k8s.io
   ```
 
-파드만 조회할 수 있는 권한을 주었기 때문에 pod 외에 리소스는 조회가 안되는 것을 확인할 수 있다.  
-```bash
-kubectl get all -A
-##Print
-NAMESPACE     NAME                                        READY   STATUS    RESTARTS       AGE
-default       busybox                                     1/1     Running   1 (40m ago)    160m
-default       dnsutils                                    1/1     Running   2 (37m ago)    157m
-kube-system   calico-kube-controllers-555bc4b957-dfgbw    1/1     Running   6 (93m ago)    161m
-kube-system   calico-node-dw2ht                           1/1     Running   0              161m
-kube-system   calico-node-f782m                           1/1     Running   0              161m
-kube-system   calico-node-tl89p                           1/1     Running   0              161m
-kube-system   calico-node-twmn7                           1/1     Running   0              161m
-kube-system   coredns-6d4b75cb6d-bwxk8                    1/1     Running   0              163m
-kube-system   coredns-6d4b75cb6d-gksnn                    1/1     Running   0              163m
-kube-system   etcd-kube-master-node1                      1/1     Running   10             163m
-kube-system   etcd-kube-master-node2                      1/1     Running   0              162m
-kube-system   k8s-keystone-auth-86ddfc6c7-fjw2t           1/1     Running   0              153m
-kube-system   k8s-keystone-auth-86ddfc6c7-tsdwh           1/1     Running   0              153m
-kube-system   kube-apiserver-kube-master-node1            1/1     Running   1 (76m ago)    82m
-kube-system   kube-apiserver-kube-master-node2            1/1     Running   6 (88m ago)    87m
-kube-system   kube-controller-manager-kube-master-node1   1/1     Running   3 (83m ago)    163m
-kube-system   kube-controller-manager-kube-master-node2   1/1     Running   1 (95m ago)    162m
-kube-system   kube-proxy-8wt9j                            1/1     Running   0              162m
-kube-system   kube-proxy-9tpjn                            1/1     Running   0              163m
-kube-system   kube-proxy-bs74m                            1/1     Running   0              162m
-kube-system   kube-proxy-dftkv                            1/1     Running   0              162m
-kube-system   kube-scheduler-kube-master-node1            1/1     Running   27 (83m ago)   163m
-kube-system   kube-scheduler-kube-master-node2            1/1     Running   16 (95m ago)   162m
+  파드만 조회할 수 있는 권한을 주었기 때문에 pod 외에 리소스는 조회가 안되는 것을 확인할 수 있다.  
+  ```bash
+  kubectl get all -A
+  ##Print
+  NAMESPACE     NAME                                        READY   STATUS    RESTARTS       AGE
+  default       busybox                                     1/1     Running   1 (40m ago)    160m
+  default       dnsutils                                    1/1     Running   2 (37m ago)    157m
+  kube-system   calico-kube-controllers-555bc4b957-dfgbw    1/1     Running   6 (93m ago)    161m
+  kube-system   calico-node-dw2ht                           1/1     Running   0              161m
+  kube-system   calico-node-f782m                           1/1     Running   0              161m
+  kube-system   calico-node-tl89p                           1/1     Running   0              161m
+  kube-system   calico-node-twmn7                           1/1     Running   0              161m
+  kube-system   coredns-6d4b75cb6d-bwxk8                    1/1     Running   0              163m
+  kube-system   coredns-6d4b75cb6d-gksnn                    1/1     Running   0              163m
+  kube-system   etcd-kube-master-node1                      1/1     Running   10             163m
+  kube-system   etcd-kube-master-node2                      1/1     Running   0              162m
+  kube-system   k8s-keystone-auth-86ddfc6c7-fjw2t           1/1     Running   0              153m
+  kube-system   k8s-keystone-auth-86ddfc6c7-tsdwh           1/1     Running   0              153m
+  kube-system   kube-apiserver-kube-master-node1            1/1     Running   1 (76m ago)    82m
+  kube-system   kube-apiserver-kube-master-node2            1/1     Running   6 (88m ago)    87m
+  kube-system   kube-controller-manager-kube-master-node1   1/1     Running   3 (83m ago)    163m
+  kube-system   kube-controller-manager-kube-master-node2   1/1     Running   1 (95m ago)    162m
+  kube-system   kube-proxy-8wt9j                            1/1     Running   0              162m
+  kube-system   kube-proxy-9tpjn                            1/1     Running   0              163m
+  kube-system   kube-proxy-bs74m                            1/1     Running   0              162m
+  kube-system   kube-proxy-dftkv                            1/1     Running   0              162m
+  kube-system   kube-scheduler-kube-master-node1            1/1     Running   27 (83m ago)   163m
+  kube-system   kube-scheduler-kube-master-node2            1/1     Running   16 (95m ago)   162m
 
-Error from server (Forbidden): replicationcontrollers is forbidden: User "admin" cannot list resource "replicationcontrollers" in API group "" at the cluster scope
-Error from server (Forbidden): services is forbidden: User "admin" cannot list resource "services" in API group "" at the cluster scope
-Error from server (Forbidden): daemonsets.apps is forbidden: User "admin" cannot list resource "daemonsets" in API group "apps" at the cluster scope
-Error from server (Forbidden): deployments.apps is forbidden: User "admin" cannot list resource "deployments" in API group "apps" at the cluster scope
-Error from server (Forbidden): replicasets.apps is forbidden: User "admin" cannot list resource "replicasets" in API group "apps" at the cluster scope
-Error from server (Forbidden): statefulsets.apps is forbidden: User "admin" cannot list resource "statefulsets" in API group "apps" at the cluster scope
-Error from server (Forbidden): horizontalpodautoscalers.autoscaling is forbidden: User "admin" cannot list resource "horizontalpodautoscalers" in API group "autoscaling" at the cluster scope
-Error from server (Forbidden): cronjobs.batch is forbidden: User "admin" cannot list resource "cronjobs" in API group "batch" at the cluster scope
-Error from server (Forbidden): jobs.batch is forbidden: User "admin" cannot list resource "jobs" in API group "batch" at the cluster scope
-```
+  Error from server (Forbidden): replicationcontrollers is forbidden: User "admin" cannot list resource "replicationcontrollers" in API group "" at the cluster scope
+  Error from server (Forbidden): services is forbidden: User "admin" cannot list resource "services" in API group "" at the cluster scope
+  Error from server (Forbidden): daemonsets.apps is forbidden: User "admin" cannot list resource "daemonsets" in API group "apps" at the cluster scope
+  Error from server (Forbidden): deployments.apps is forbidden: User "admin" cannot list resource "deployments" in API group "apps" at the cluster scope
+  Error from server (Forbidden): replicasets.apps is forbidden: User "admin" cannot list resource "replicasets" in API group "apps" at the cluster scope
+  Error from server (Forbidden): statefulsets.apps is forbidden: User "admin" cannot list resource "statefulsets" in API group "apps" at the cluster scope
+  Error from server (Forbidden): horizontalpodautoscalers.autoscaling is forbidden: User "admin" cannot list resource "horizontalpodautoscalers" in API group "autoscaling" at the cluster scope
+  Error from server (Forbidden): cronjobs.batch is forbidden: User "admin" cannot list resource "cronjobs" in API group "batch" at the cluster scope
+  Error from server (Forbidden): jobs.batch is forbidden: User "admin" cannot list resource "jobs" in API group "batch" at the cluster scope
+  ```
 
-권한을 변경해보자. 모든 리소스에 대한 조회 권한을 주고 다시 적용한다.   
+  권한을 변경해보자. 모든 리소스에 대한 조회 권한을 주고 다시 적용한다.   
+
 - openstack-role.yaml  
   
   ```yaml
@@ -553,84 +554,85 @@ Error from server (Forbidden): jobs.batch is forbidden: User "admin" cannot list
     verbs: ["get", "watch", "list"]
   ```
 
-이제는 모든 리소스가 조회되는 것을 확인 할 수 있다.  
-```bash
-kubectl get all -A
-##Print
-NAMESPACE     NAME                                            READY   STATUS    RESTARTS       AGE
-default       pod/busybox                                     1/1     Running   1 (42m ago)    162m
-default       pod/dnsutils                                    1/1     Running   2 (39m ago)    159m
-kube-system   pod/calico-kube-controllers-555bc4b957-dfgbw    1/1     Running   6 (95m ago)    163m
-kube-system   pod/calico-node-dw2ht                           1/1     Running   0              163m
-kube-system   pod/calico-node-f782m                           1/1     Running   0              163m
-kube-system   pod/calico-node-tl89p                           1/1     Running   0              163m
-kube-system   pod/calico-node-twmn7                           1/1     Running   0              163m
-kube-system   pod/coredns-6d4b75cb6d-bwxk8                    1/1     Running   0              165m
-kube-system   pod/coredns-6d4b75cb6d-gksnn                    1/1     Running   0              165m
-kube-system   pod/etcd-kube-master-node1                      1/1     Running   10             165m
-kube-system   pod/etcd-kube-master-node2                      1/1     Running   0              164m
-kube-system   pod/k8s-keystone-auth-86ddfc6c7-fjw2t           1/1     Running   0              155m
-kube-system   pod/k8s-keystone-auth-86ddfc6c7-tsdwh           1/1     Running   0              155m
-kube-system   pod/kube-apiserver-kube-master-node1            1/1     Running   1 (77m ago)    84m
-kube-system   pod/kube-apiserver-kube-master-node2            1/1     Running   6 (90m ago)    89m
-kube-system   pod/kube-controller-manager-kube-master-node1   1/1     Running   3 (85m ago)    165m
-kube-system   pod/kube-controller-manager-kube-master-node2   1/1     Running   1 (97m ago)    164m
-kube-system   pod/kube-proxy-8wt9j                            1/1     Running   0              164m
-kube-system   pod/kube-proxy-9tpjn                            1/1     Running   0              165m
-kube-system   pod/kube-proxy-bs74m                            1/1     Running   0              164m
-kube-system   pod/kube-proxy-dftkv                            1/1     Running   0              164m
-kube-system   pod/kube-scheduler-kube-master-node1            1/1     Running   27 (85m ago)   165m
-kube-system   pod/kube-scheduler-kube-master-node2            1/1     Running   16 (97m ago)   164m
+  이제는 모든 리소스가 조회되는 것을 확인 할 수 있다.  
+  ```bash
+  kubectl get all -A
+  ##Print
+  NAMESPACE     NAME                                            READY   STATUS    RESTARTS       AGE
+  default       pod/busybox                                     1/1     Running   1 (42m ago)    162m
+  default       pod/dnsutils                                    1/1     Running   2 (39m ago)    159m
+  kube-system   pod/calico-kube-controllers-555bc4b957-dfgbw    1/1     Running   6 (95m ago)    163m
+  kube-system   pod/calico-node-dw2ht                           1/1     Running   0              163m
+  kube-system   pod/calico-node-f782m                           1/1     Running   0              163m
+  kube-system   pod/calico-node-tl89p                           1/1     Running   0              163m
+  kube-system   pod/calico-node-twmn7                           1/1     Running   0              163m
+  kube-system   pod/coredns-6d4b75cb6d-bwxk8                    1/1     Running   0              165m
+  kube-system   pod/coredns-6d4b75cb6d-gksnn                    1/1     Running   0              165m
+  kube-system   pod/etcd-kube-master-node1                      1/1     Running   10             165m
+  kube-system   pod/etcd-kube-master-node2                      1/1     Running   0              164m
+  kube-system   pod/k8s-keystone-auth-86ddfc6c7-fjw2t           1/1     Running   0              155m
+  kube-system   pod/k8s-keystone-auth-86ddfc6c7-tsdwh           1/1     Running   0              155m
+  kube-system   pod/kube-apiserver-kube-master-node1            1/1     Running   1 (77m ago)    84m
+  kube-system   pod/kube-apiserver-kube-master-node2            1/1     Running   6 (90m ago)    89m
+  kube-system   pod/kube-controller-manager-kube-master-node1   1/1     Running   3 (85m ago)    165m
+  kube-system   pod/kube-controller-manager-kube-master-node2   1/1     Running   1 (97m ago)    164m
+  kube-system   pod/kube-proxy-8wt9j                            1/1     Running   0              164m
+  kube-system   pod/kube-proxy-9tpjn                            1/1     Running   0              165m
+  kube-system   pod/kube-proxy-bs74m                            1/1     Running   0              164m
+  kube-system   pod/kube-proxy-dftkv                            1/1     Running   0              164m
+  kube-system   pod/kube-scheduler-kube-master-node1            1/1     Running   27 (85m ago)   165m
+  kube-system   pod/kube-scheduler-kube-master-node2            1/1     Running   16 (97m ago)   164m
 
-NAMESPACE     NAME                                TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                  AGE
-default       service/kubernetes                  ClusterIP   10.96.0.1       <none>        443/TCP                  165m
-kube-system   service/k8s-keystone-auth-service   ClusterIP   10.96.193.242   <none>        8443/TCP                 155m
-kube-system   service/kube-dns                    ClusterIP   10.96.0.10      <none>        53/UDP,53/TCP,9153/TCP   165m
+  NAMESPACE     NAME                                TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                  AGE
+  default       service/kubernetes                  ClusterIP   10.96.0.1       <none>        443/TCP                  165m
+  kube-system   service/k8s-keystone-auth-service   ClusterIP   10.96.193.242   <none>        8443/TCP                 155m
+  kube-system   service/kube-dns                    ClusterIP   10.96.0.10      <none>        53/UDP,53/TCP,9153/TCP   165m
 
-NAMESPACE     NAME                         DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR            AGE
-kube-system   daemonset.apps/calico-node   4         4         4       4            4           kubernetes.io/os=linux   163m
-kube-system   daemonset.apps/kube-proxy    4         4         4       4            4           kubernetes.io/os=linux   165m
+  NAMESPACE     NAME                         DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR            AGE
+  kube-system   daemonset.apps/calico-node   4         4         4       4            4           kubernetes.io/os=linux   163m
+  kube-system   daemonset.apps/kube-proxy    4         4         4       4            4           kubernetes.io/os=linux   165m
 
-NAMESPACE     NAME                                      READY   UP-TO-DATE   AVAILABLE   AGE
-kube-system   deployment.apps/calico-kube-controllers   1/1     1            1           163m
-kube-system   deployment.apps/coredns                   2/2     2            2           165m
-kube-system   deployment.apps/k8s-keystone-auth         2/2     2            2           155m
+  NAMESPACE     NAME                                      READY   UP-TO-DATE   AVAILABLE   AGE
+  kube-system   deployment.apps/calico-kube-controllers   1/1     1            1           163m
+  kube-system   deployment.apps/coredns                   2/2     2            2           165m
+  kube-system   deployment.apps/k8s-keystone-auth         2/2     2            2           155m
 
-NAMESPACE     NAME                                                 DESIRED   CURRENT   READY   AGE
-kube-system   replicaset.apps/calico-kube-controllers-555bc4b957   1         1         1       163m
-kube-system   replicaset.apps/coredns-6d4b75cb6d                   2         2         2       165m
-kube-system   replicaset.apps/k8s-keystone-auth-86ddfc6c7          2         2         2       155m
-```
-<br>
+  NAMESPACE     NAME                                                 DESIRED   CURRENT   READY   AGE
+  kube-system   replicaset.apps/calico-kube-controllers-555bc4b957   1         1         1       163m
+  kube-system   replicaset.apps/coredns-6d4b75cb6d                   2         2         2       165m
+  kube-system   replicaset.apps/k8s-keystone-auth-86ddfc6c7          2         2         2       155m
+  ```
+  <br>
 
-하지만 마찬가지로 조회권한만 있기 때문에 아래와 같이 생성은 할 수 없다.  
-```bash
-kubectl apply -f https://k8s.io/examples/application/nginx-with-request.yaml
-##Print
-Error from server (Forbidden): error when creating "https://k8s.io/examples/application/nginx-with-request.yaml": deployments.apps is forbidden: User "admin" cannot create resource "deployments" in API group "apps" in the namespace "default"
-```
-<br>
+  하지만 마찬가지로 조회권한만 있기 때문에 아래와 같이 생성은 할 수 없다.  
+  ```bash
+  kubectl apply -f https://k8s.io/examples/application/nginx-with-request.yaml
+  ##Print
+  Error from server (Forbidden): error when creating "https://k8s.io/examples/application/nginx-with-request.yaml": deployments.apps is forbidden: User "admin" cannot create resource "deployments" in API group "apps" in the namespace "default"
+  ```
+  <br>
 
-만약 config파일에 openstack user가 아닌 다른 계정을 넣으면 아래와 같이 token을 return 받을 수 없다. (admin -> admin123)
-```yaml
-- name: OS_USERNAME
-  value: admin1
-```
-```bash
-kubectl get po -A
-##Print
-Invalid user credentials were provided
-Unable to connect to the server: getting credentials: exec plugin didn't return a token or cert/key pair
-```
-<br>
+  만약 config파일에 openstack user가 아닌 다른 계정을 넣으면 아래와 같이 token을 return 받을 수 없다. (admin -> admin123)
+  ```yaml
+  - name: OS_USERNAME
+    value: admin1
+  ```
+  ```bash
+  kubectl get po -A
+  ##Print
+  Invalid user credentials were provided
+  Unable to connect to the server: getting credentials: exec plugin didn't return a token or cert/key pair
+  ```
+  <br>
 
-openstack의 추가 사용자를 생성하여 인증을 받아본다. 
-사실상 openstack의 role은 kubernetes rbac과는 아무런 상관이 없다. 따라서 단순히 user 인증용으로만 생성한다고 생각하면된다.  
-이는 aws에서도 동일하다.  
-```bash
-openstack user create --domain default --project admin --password password openstack-reader-user
-openstack role add --user openstack-reader-user --project admin reader
-```
+  openstack의 추가 사용자를 생성하여 인증을 받아본다. 
+  사실상 openstack의 role은 kubernetes rbac과는 아무런 상관이 없다. 따라서 단순히 user 인증용으로만 생성한다고 생각하면된다.  
+  이는 aws에서도 동일하다.  
+  ```bash
+  openstack user create --domain default --project admin --password password openstack-reader-user
+  openstack role add --user openstack-reader-user --project admin reader
+  ```
+
 - ~/.kube/config  
 
   ```yaml
@@ -655,17 +657,18 @@ openstack role add --user openstack-reader-user --project admin reader
         provideClusterInfo: false
   ```
 
-리소스 조회시 마찬가지로 인증은 되었지만 권한 없음이 나온다. 위와 같이 rbac을 통해 권한 설정 후 진행하면 된다.  
-이로써 신규 계정을 추가하여 openstack의 인증을 받고 권한은 kubernetes rbac을 통해 컨트롤 하는 방법을 테스트해봤다.  
-```bash
-kubectl get po -A
-##Print
-Error from server (Forbidden): pods is forbidden: User "openstack-reader-user" cannot list resource "pods" in API group "" at the cluster scope
+  리소스 조회시 마찬가지로 인증은 되었지만 권한 없음이 나온다. 위와 같이 rbac을 통해 권한 설정 후 진행하면 된다.  
+  이로써 신규 계정을 추가하여 openstack의 인증을 받고 권한은 kubernetes rbac을 통해 컨트롤 하는 방법을 테스트해봤다.  
+  ```bash
+  kubectl get po -A
+  ##Print
+  Error from server (Forbidden): pods is forbidden: User "openstack-reader-user" cannot list resource "pods" in API group "" at the cluster scope
 
-kubectl get po -n kube-system
-##Print
-Error from server (Forbidden): pods is forbidden: User "openstack-reader-user" cannot list resource "pods" in API group "" in the namespace "kube-system"
-```
+  kubectl get po -n kube-system
+  ##Print
+  Error from server (Forbidden): pods is forbidden: User "openstack-reader-user" cannot list resource "pods" in API group "" in the namespace "kube-system"
+  ```
+  
 <br>
 
 
@@ -706,7 +709,7 @@ kubectl run curl --rm -it --restart=Never --image curlimages/curl -- \
 마지막 test 과정에서 unknown apiVersion 오류가 발생했었다. 지금 생각해보면 당연히 apiVersion이 잘못된 것이었을 것이다. 
 그런데 이 때는 위의 네트워크 이슈랑 같이 맞물려서 어떤게 문제인지 제대로 파악하지 못했던 것 같다.  
 
-[![kubeadm_auth_webhook006](/assets/it/container/kubeadm/kubeadm_auth_webhook006.png){: width="80%" height="auto"}](/assets/it/container/kubeadm/kubeadm_auth_webhook006.png)  
+[![kubeadm_auth_webhook006](/assets/it/container/k8s/kubeadm_auth_webhook006.png){: width="80%" height="auto"}](/assets/it/container/k8s/kubeadm_auth_webhook006.png)  
 [Issue:Missing support for client.authentication.k8s.io/v1](https://github.com/kubernetes-client/java/issues/2290)
 
 네트워크 정상 통신 여부를 모두 확인한 뒤에는 해당 이슈가 나왔을 때 위의 문서들을 찾았다. 결국 공식문서에 나와있던 v1으로는 호출시 오류가 발생하는게 맞고 v1beta1으로 버전을 수정했다.  

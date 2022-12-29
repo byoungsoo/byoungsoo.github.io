@@ -1,0 +1,207 @@
+   1 handler.go:153] metrics-server: GET "/livez" satisfied by nonGoRestful
+I1222 14:19:44.520029       1 pathrecorder.go:240] metrics-server: "/livez" satisfied by exact match
+I1222 14:19:44.520166       1 httplog.go:129] "HTTP" verb="GET" URI="/livez" latency="573.766µs" userAgent="kube-probe/1.21+" audit-ID="fedbdb06-7f6e-4b9b-b89b-1d8665244d62" srcIP="10.20.10.235:57100" resp=200
+I1222 14:19:54.520082       1 httplog.go:129] "HTTP" verb="GET" URI="/livez" latency="500.954µs" userAgent="kube-probe/1.21+" audit-ID="3ecd3921-a762-461f-a024-172499db78b5" srcIP="10.20.10.235:36120" resp=200
+I1222 14:20:04.521623       1 httplog.go:129] "HTTP" verb="GET" URI="/readyz" latency="673.809µs" userAgent="kube-probe/1.21+" audit-ID="98e31fe2-9730-4eca-b024-4379f2d72c8e" srcIP="10.20.10.235:37132" resp=200
+I1222 14:20:04.522262       1 httplog.go:129] "HTTP" verb="GET" URI="/livez" latency="179.845µs" userAgent="kube-probe/1.21+" audit-ID="c59db085-5216-4cd3-aa54-3e1d367bd1e4" srcIP="10.20.10.235:37120" resp=200
+I1222 14:20:04.583833       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="530.472µs" userAgent="Go-http-client/2.0" audit-ID="3cd250fd-129e-438e-9d5b-292f348a27cf" srcIP="10.20.10.23:55758" resp=200
+I1222 14:20:04.584292       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="256.767µs" userAgent="Go-http-client/2.0" audit-ID="d03fbd3a-b21a-4294-b368-33b9a6c1e773" srcIP="10.20.10.23:55758" resp=200
+I1222 14:20:04.584593       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="217.442µs" userAgent="Go-http-client/2.0" audit-ID="7ed95f2d-fc43-423e-a0a2-a106a30c2418" srcIP="10.20.10.23:55758" resp=200
+I1222 14:20:04.584880       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="211.407µs" userAgent="Go-http-client/2.0" audit-ID="733cb8bf-8956-4109-a6ee-df59740ea425" srcIP="10.20.10.23:55758" resp=200
+I1222 14:20:04.586715       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="261.814µs" userAgent="Go-http-client/2.0" audit-ID="872a805b-9de9-4139-a7ee-bc90b2718e44" srcIP="10.20.11.208:45268" resp=200
+I1222 14:20:04.586723       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="219.169µs" userAgent="Go-http-client/2.0" audit-ID="ae017da8-c8ab-4944-ba25-bb8fe1aadd5b" srcIP="10.20.11.208:45268" resp=200
+I1222 14:20:04.666380       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="580.841µs" userAgent="Go-http-client/2.0" audit-ID="f6bb71d5-5b52-4ce4-8dd4-6c65614d7c54" srcIP="10.20.10.23:55758" resp=200
+I1222 14:20:04.667044       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="273.57µs" userAgent="Go-http-client/2.0" audit-ID="96b0f55a-2691-4468-95c5-962b3bdb3450" srcIP="10.20.10.23:55758" resp=200
+I1222 14:20:04.667344       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="253.074µs" userAgent="Go-http-client/2.0" audit-ID="f4e057e3-0f94-40ed-a6ea-ae3ff5d96fa8" srcIP="10.20.10.23:55758" resp=200
+I1222 14:20:04.667793       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="960.101µs" userAgent="Go-http-client/2.0" audit-ID="8dbf043c-394c-4b18-b501-b80c8587e2e9" srcIP="10.20.10.23:55758" resp=200
+I1222 14:20:04.668422       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="355.187µs" userAgent="Go-http-client/2.0" audit-ID="543f1007-5b84-4f41-9efc-816b8d8be2f3" srcIP="10.20.11.208:45268" resp=200
+I1222 14:20:04.668760       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="327.107µs" userAgent="Go-http-client/2.0" audit-ID="f08cc111-d014-4339-8535-1be762fb0653" srcIP="10.20.11.208:45268" resp=200
+I1222 14:20:04.669108       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="497.829µs" userAgent="Go-http-client/2.0" audit-ID="2da6cd03-70e3-42c2-9544-9b618f9aa1c0" srcIP="10.20.11.208:45268" resp=200
+I1222 14:20:04.669296       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="379.528µs" userAgent="Go-http-client/2.0" audit-ID="f9e3741a-1163-4a62-b022-b0838486818a" srcIP="10.20.11.208:45268" resp=200
+I1222 14:20:04.668270       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="871.158µs" userAgent="Go-http-client/2.0" audit-ID="8a10bced-fbce-4a61-9c8e-dfa34f1fe97b" srcIP="10.20.10.23:55758" resp=200
+I1222 14:20:04.669994       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="365.031µs" userAgent="Go-http-client/2.0" audit-ID="39bd2907-042b-4d56-be5d-03a03222f9f1" srcIP="10.20.11.208:45268" resp=200
+I1222 14:20:09.853936       1 scraper.go:137] "Scraping node" node="ip-10-20-11-91.ap-northeast-2.compute.internal"
+I1222 14:20:09.864643       1 scraper.go:172] "Scrape finished" duration="17.079732ms" nodeCount=2 podCount=17
+I1222 14:20:14.522285       1 handler.go:153] metrics-server: GET "/livez" satisfied by nonGoRestful
+I1222 14:20:14.522304       1 pathrecorder.go:240] metrics-server: "/livez" satisfied by exact match
+I1222 14:20:14.522389       1 httplog.go:129] "HTTP" verb="GET" URI="/livez" latency="151.638µs" userAgent="kube-probe/1.21+" audit-ID="f4ae86cd-fc65-4334-8b5a-0b3547cb7094" srcIP="10.20.10.235:46216" resp=200
+I1222 14:20:14.522579       1 handler.go:153] metrics-server: GET "/readyz" satisfied by nonGoRestful
+I1222 14:20:14.522593       1 pathrecorder.go:240] metrics-server: "/readyz" satisfied by exact match
+I1222 14:20:14.522643       1 shared_informer.go:270] caches populated
+I1222 14:20:14.522700       1 httplog.go:129] "HTTP" verb="GET" URI="/readyz" latency="1.150284ms" userAgent="kube-probe/1.21+" audit-ID="af83870a-5abb-4507-b545-1d41f8aed5b4" srcIP="10.20.10.235:46218" resp=200
+I1222 14:20:15.691254       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1/namespaces/default/pods" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:20:15.691532       1 httplog.go:129] "HTTP" verb="LIST" URI="/apis/metrics.k8s.io/v1beta1/namespaces/default/pods?labelSelector=run%3Dphp-apache" latency="7.105934ms" userAgent="kube-controller-manager/v1.21.14 (linux/amd64) kubernetes/b07006b/system:serviceaccount:kube-system:horizontal-pod-autoscaler" audit-ID="76c222cf-aa81-4fdd-95a0-ca75040e6499" srcIP="10.20.11.208:53706" resp=200
+I1222 14:20:15.750972       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:20:15.751092       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1?timeout=32s" latency="20.648687ms" userAgent="kube-controller-manager/v1.21.14 (linux/amd64) kubernetes/b07006b/system:serviceaccount:kube-system:generic-garbage-collector" audit-ID="2fc76860-152e-473a-949f-35d87424af49" srcIP="10.20.11.208:53706" resp=200
+I1222 14:20:20.480314       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:20:20.480340       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:20:20.480438       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="371.641µs" userAgent="Go-http-client/2.0" audit-ID="928ee39f-8289-4808-bdc9-7772dfd58122" srcIP="10.20.11.208:45268" resp=200
+I1222 14:20:20.480449       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="370.621µs" userAgent="Go-http-client/2.0" audit-ID="710d0178-1dea-487d-bfd5-1141b66ee9d3" srcIP="10.20.11.208:45268" resp=200
+I1222 14:20:20.480637       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:20:20.480722       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="240.3µs" userAgent="Go-http-client/2.0" audit-ID="c6b07f16-9b48-4ba2-8eff-938d8514c9d0" srcIP="10.20.11.208:45268" resp=200
+I1222 14:20:20.480930       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:20:20.480988       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:20:20.481018       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="255.485µs" userAgent="Go-http-client/2.0" audit-ID="14aa7f7d-f4be-44e5-8ab8-0b4f68216075" srcIP="10.20.11.208:45268" resp=200
+I1222 14:20:20.481069       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="274.455µs" userAgent="Go-http-client/2.0" audit-ID="17510bd1-5845-4a00-ad96-90a3c94a1918" srcIP="10.20.11.208:45268" resp=200
+I1222 14:20:24.522448       1 handler.go:153] metrics-server: GET "/readyz" satisfied by nonGoRestful
+I1222 14:20:24.522466       1 pathrecorder.go:240] metrics-server: "/readyz" satisfied by exact match
+I1222 14:20:24.522511       1 shared_informer.go:270] caches populated
+I1222 14:20:24.522568       1 httplog.go:129] "HTTP" verb="GET" URI="/readyz" latency="203.307µs" userAgent="kube-probe/1.21+" audit-ID="db4c21e0-3351-4828-a56e-1d72751e0ecc" srcIP="10.20.10.235:48348" resp=200
+I1222 14:20:24.522774       1 handler.go:153] metrics-server: GET "/livez" satisfied by nonGoRestful
+I1222 14:20:24.522784       1 pathrecorder.go:240] metrics-server: "/livez" satisfied by exact match
+I1222 14:20:24.523559       1 httplog.go:129] "HTTP" verb="GET" URI="/livez" latency="992.803µs" userAgent="kube-probe/1.21+" audit-ID="61132e14-cce3-4b9b-be4b-24094813227e" srcIP="10.20.10.235:48346" resp=200
+I1222 14:20:24.847479       1 scraper.go:115] "Scraping metrics from nodes" nodeCount=2
+I1222 14:20:24.849595       1 scraper.go:137] "Scraping node" node="ip-10-20-11-91.ap-northeast-2.compute.internal"
+I1222 14:20:24.863028       1 scraper.go:137] "Scraping node" node="ip-10-20-10-235.ap-northeast-2.compute.internal"
+I1222 14:20:24.865756       1 scraper.go:172] "Scrape finished" duration="18.249746ms" nodeCount=2 podCount=17
+I1222 14:20:30.748499       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:20:30.748613       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1?timeout=32s" latency="16.379403ms" userAgent="kube-controller-manager/v1.21.14 (linux/amd64) kubernetes/b07006b/controller-discovery" audit-ID="3827b9ac-c396-4c99-aba3-cbcd147e064d" srcIP="10.20.11.208:53706" resp=200
+I1222 14:20:30.763061       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1/namespaces/default/pods" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:20:30.763274       1 httplog.go:129] "HTTP" verb="LIST" URI="/apis/metrics.k8s.io/v1beta1/namespaces/default/pods?labelSelector=run%3Dphp-apache" latency="3.420529ms" userAgent="kube-controller-manager/v1.21.14 (linux/amd64) kubernetes/b07006b/system:serviceaccount:kube-system:horizontal-pod-autoscaler" audit-ID="b7a092e1-faaa-4ccc-a6e1-cd09af5d88fc" srcIP="10.20.11.208:53706" resp=200
+I1222 14:20:32.128621       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:20:32.128734       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1?timeout=32s" latency="7.152444ms" userAgent="kube-controller-manager/v1.21.14 (linux/amd64) kubernetes/b07006b/system:serviceaccount:kube-system:resourcequota-controller" audit-ID="122e6244-86ae-4a93-93ab-a81429410094" srcIP="10.20.11.208:53706" resp=200
+I1222 14:20:32.353357       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:20:32.353485       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="336.412µs" userAgent="Go-http-client/2.0" audit-ID="9a32a5e8-69c8-437d-9b3f-8a1e71787c28" srcIP="10.20.10.23:55758" resp=200
+I1222 14:20:32.353579       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:20:32.353677       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="269.473µs" userAgent="Go-http-client/2.0" audit-ID="02539883-70ee-4f95-ac04-ff7936748882" srcIP="10.20.10.23:55758" resp=200
+I1222 14:20:32.353774       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:20:32.353848       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="229.243µs" userAgent="Go-http-client/2.0" audit-ID="d7f82269-fc59-4721-b129-6e2cf860afd9" srcIP="10.20.10.23:55758" resp=200
+I1222 14:20:32.353358       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:20:32.353989       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:20:32.354017       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="942.112µs" userAgent="Go-http-client/2.0" audit-ID="eccac515-9f34-4c0b-bc38-0f79b8765830" srcIP="10.20.10.23:55758" resp=200
+I1222 14:20:32.354070       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="294.276µs" userAgent="Go-http-client/2.0" audit-ID="eaa41515-d1d3-4ceb-8c70-e8ad6776dab5" srcIP="10.20.10.23:55758" resp=200
+I1222 14:20:34.521293       1 handler.go:153] metrics-server: GET "/livez" satisfied by nonGoRestful
+I1222 14:20:34.521312       1 pathrecorder.go:240] metrics-server: "/livez" satisfied by exact match
+I1222 14:20:34.521412       1 httplog.go:129] "HTTP" verb="GET" URI="/livez" latency="372.927µs" userAgent="kube-probe/1.21+" audit-ID="9cc6e508-6416-41cb-9785-f579c385c4ec" srcIP="10.20.10.235:37932" resp=200
+I1222 14:20:34.522187       1 handler.go:153] metrics-server: GET "/readyz" satisfied by nonGoRestful
+I1222 14:20:34.522200       1 pathrecorder.go:240] metrics-server: "/readyz" satisfied by exact match
+I1222 14:20:34.522266       1 shared_informer.go:270] caches populated
+I1222 14:20:34.522330       1 httplog.go:129] "HTTP" verb="GET" URI="/readyz" latency="212.179µs" userAgent="kube-probe/1.21+" audit-ID="5e6ec63e-0e29-4a32-ad34-b007665fb08d" srcIP="10.20.10.235:37934" resp=200
+I1222 14:20:39.846991       1 scraper.go:115] "Scraping metrics from nodes" nodeCount=2
+I1222 14:20:39.848146       1 scraper.go:137] "Scraping node" node="ip-10-20-10-235.ap-northeast-2.compute.internal"
+I1222 14:20:39.855555       1 scraper.go:137] "Scraping node" node="ip-10-20-11-91.ap-northeast-2.compute.internal"
+I1222 14:20:39.869052       1 scraper.go:172] "Scrape finished" duration="22.031298ms" nodeCount=2 podCount=17
+I1222 14:20:44.046325       1 handler.go:153] metrics-server: GET "/openapi/v2" satisfied by nonGoRestful
+I1222 14:20:44.046342       1 pathrecorder.go:240] metrics-server: "/openapi/v2" satisfied by exact match
+I1222 14:20:44.048195       1 handler.go:153] metrics-server: GET "/openapi/v2" satisfied by nonGoRestful
+I1222 14:20:44.048208       1 pathrecorder.go:240] metrics-server: "/openapi/v2" satisfied by exact match
+I1222 14:20:44.049492       1 httplog.go:129] "HTTP" verb="GET" URI="/openapi/v2" latency="16.685956ms" userAgent="" audit-ID="55a0637a-62eb-436a-98b7-5fd1bc511cbb" srcIP="10.20.11.208:53706" resp=304
+I1222 14:20:44.049513       1 httplog.go:129] "HTTP" verb="GET" URI="/openapi/v2" latency="19.258768ms" userAgent="" audit-ID="07b00a29-af6a-46a0-8e9d-ea96657231c1" srcIP="10.20.10.23:50562" resp=304
+I1222 14:20:44.519778       1 handler.go:153] metrics-server: GET "/livez" satisfied by nonGoRestful
+I1222 14:20:44.519798       1 pathrecorder.go:240] metrics-server: "/livez" satisfied by exact match
+I1222 14:20:44.519890       1 httplog.go:129] "HTTP" verb="GET" URI="/livez" latency="210.332µs" userAgent="kube-probe/1.21+" audit-ID="3d1703f3-2ea5-45ea-9c18-b63d005913b5" srcIP="10.20.10.235:58102" resp=200
+I1222 14:20:44.522961       1 handler.go:153] metrics-server: GET "/readyz" satisfied by nonGoRestful
+I1222 14:20:44.522976       1 pathrecorder.go:240] metrics-server: "/readyz" satisfied by exact match
+I1222 14:20:44.523023       1 shared_informer.go:270] caches populated
+I1222 14:20:44.523081       1 httplog.go:129] "HTTP" verb="GET" URI="/readyz" latency="184.548µs" userAgent="kube-probe/1.21+" audit-ID="6c3c1c2f-0751-4f87-8963-1ff46c04adc0" srcIP="10.20.10.235:58116" resp=200
+I1222 14:20:45.776056       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:20:45.776161       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1?timeout=32s" latency="11.075534ms" userAgent="kube-controller-manager/v1.21.14 (linux/amd64) kubernetes/b07006b/system:serviceaccount:kube-system:generic-garbage-collector" audit-ID="82758183-d862-4374-b804-007ab3abe3fd" srcIP="10.20.11.208:53706" resp=200
+I1222 14:20:45.787219       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1/namespaces/default/pods" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:20:45.787407       1 httplog.go:129] "HTTP" verb="LIST" URI="/apis/metrics.k8s.io/v1beta1/namespaces/default/pods?labelSelector=run%3Dphp-apache" latency="3.050918ms" userAgent="kube-controller-manager/v1.21.14 (linux/amd64) kubernetes/b07006b/system:serviceaccount:kube-system:horizontal-pod-autoscaler" audit-ID="7fc22aeb-d261-437a-b586-f519d49220d6" srcIP="10.20.11.208:53706" resp=200
+I1222 14:20:50.480187       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:20:50.480207       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:20:50.480314       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="376.812µs" userAgent="Go-http-client/2.0" audit-ID="8b85261d-c781-4b8c-93ce-a9ee78dc4d42" srcIP="10.20.11.208:45268" resp=200
+I1222 14:20:50.480314       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="366.884µs" userAgent="Go-http-client/2.0" audit-ID="37bca9ac-1541-4fac-85d0-e0a7bbe40eb8" srcIP="10.20.11.208:45268" resp=200
+I1222 14:20:50.480629       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:20:50.480727       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="266.519µs" userAgent="Go-http-client/2.0" audit-ID="6059426c-5a55-44ae-9297-0c3a227f371f" srcIP="10.20.11.208:45268" resp=200
+I1222 14:20:50.481139       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:20:50.481248       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="299.41µs" userAgent="Go-http-client/2.0" audit-ID="27e51c14-0b1e-44eb-981d-c55c8149ee81" srcIP="10.20.11.208:45268" resp=200
+I1222 14:20:50.481439       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:20:50.481520       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="228.236µs" userAgent="Go-http-client/2.0" audit-ID="4595a3b6-21ea-437f-b7e2-47f44cee1fe2" srcIP="10.20.11.208:45268" resp=200
+I1222 14:20:54.525112       1 handler.go:153] metrics-server: GET "/readyz" satisfied by nonGoRestful
+I1222 14:20:54.525133       1 pathrecorder.go:240] metrics-server: "/readyz" satisfied by exact match
+I1222 14:20:54.525188       1 shared_informer.go:270] caches populated
+I1222 14:20:54.525241       1 httplog.go:129] "HTTP" verb="GET" URI="/readyz" latency="188.145µs" userAgent="kube-probe/1.21+" audit-ID="af40876d-b87e-4276-8da7-8a9e66ef32dd" srcIP="10.20.10.235:41984" resp=200
+I1222 14:20:54.525424       1 handler.go:153] metrics-server: GET "/livez" satisfied by nonGoRestful
+I1222 14:20:54.525436       1 pathrecorder.go:240] metrics-server: "/livez" satisfied by exact match
+I1222 14:20:54.525503       1 httplog.go:129] "HTTP" verb="GET" URI="/livez" latency="1.012738ms" userAgent="kube-probe/1.21+" audit-ID="cdd2a186-52b5-4204-9d5e-012022566746" srcIP="10.20.10.235:41976" resp=200
+I1222 14:20:54.847708       1 scraper.go:115] "Scraping metrics from nodes" nodeCount=2
+I1222 14:20:54.857989       1 scraper.go:137] "Scraping node" node="ip-10-20-10-235.ap-northeast-2.compute.internal"
+I1222 14:20:54.859079       1 scraper.go:137] "Scraping node" node="ip-10-20-11-91.ap-northeast-2.compute.internal"
+I1222 14:20:54.866381       1 scraper.go:172] "Scrape finished" duration="18.632351ms" nodeCount=2 podCount=17
+I1222 14:21:00.829801       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:21:00.829931       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1?timeout=32s" latency="14.089258ms" userAgent="kube-controller-manager/v1.21.14 (linux/amd64) kubernetes/b07006b/controller-discovery" audit-ID="6c67500c-6c45-47e9-9805-17c99a05ca77" srcIP="10.20.11.208:53706" resp=200
+I1222 14:21:00.856467       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1/namespaces/default/pods" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:21:00.856639       1 httplog.go:129] "HTTP" verb="LIST" URI="/apis/metrics.k8s.io/v1beta1/namespaces/default/pods?labelSelector=run%3Dphp-apache" latency="2.956642ms" userAgent="kube-controller-manager/v1.21.14 (linux/amd64) kubernetes/b07006b/system:serviceaccount:kube-system:horizontal-pod-autoscaler" audit-ID="4f3c8441-4166-4640-a835-db319e52b3ae" srcIP="10.20.11.208:53706" resp=200
+I1222 14:21:02.164022       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:21:02.164142       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1?timeout=32s" latency="15.903339ms" userAgent="kube-controller-manager/v1.21.14 (linux/amd64) kubernetes/b07006b/system:serviceaccount:kube-system:resourcequota-controller" audit-ID="3ff863b7-7533-4738-9547-bdeb6f4b52f4" srcIP="10.20.11.208:53706" resp=200
+I1222 14:21:02.353664       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:21:02.353796       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="321.17µs" userAgent="Go-http-client/2.0" audit-ID="ad546c9e-9fc8-43c7-bbab-435ad4938170" srcIP="10.20.10.23:55758" resp=200
+I1222 14:21:02.353919       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:21:02.354082       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="330.227µs" userAgent="Go-http-client/2.0" audit-ID="f33cfcc6-cfc4-417d-a89b-396b34cec1f3" srcIP="10.20.10.23:55758" resp=200
+I1222 14:21:02.354093       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:21:02.354160       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="217.823µs" userAgent="Go-http-client/2.0" audit-ID="b0b1a81f-8351-4cdd-a525-c089057d11f1" srcIP="10.20.10.23:55758" resp=200
+I1222 14:21:02.353664       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:21:02.354281       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="884.79µs" userAgent="Go-http-client/2.0" audit-ID="7044772b-d148-4a6c-a6fd-0b4c53456532" srcIP="10.20.10.23:55758" resp=200
+I1222 14:21:02.354540       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:21:02.354660       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="332.299µs" userAgent="Go-http-client/2.0" audit-ID="8dd190ef-a2f3-4fa2-9e13-29a30384b1aa" srcIP="10.20.10.23:55758" resp=200
+I1222 14:21:04.521303       1 handler.go:153] metrics-server: GET "/livez" satisfied by nonGoRestful
+I1222 14:21:04.521324       1 pathrecorder.go:240] metrics-server: "/livez" satisfied by exact match
+I1222 14:21:04.521422       1 httplog.go:129] "HTTP" verb="GET" URI="/livez" latency="388.246µs" userAgent="kube-probe/1.21+" audit-ID="0bd5583e-f274-4b07-b0b5-dfd6f43373bb" srcIP="10.20.10.235:37498" resp=200
+I1222 14:21:04.521777       1 handler.go:153] metrics-server: GET "/readyz" satisfied by nonGoRestful
+I1222 14:21:04.521785       1 pathrecorder.go:240] metrics-server: "/readyz" satisfied by exact match
+I1222 14:21:04.521815       1 shared_informer.go:270] caches populated
+I1222 14:21:04.521850       1 httplog.go:129] "HTTP" verb="GET" URI="/readyz" latency="121.447µs" userAgent="kube-probe/1.21+" audit-ID="35139edf-2bd8-41b0-ac2a-37fb5e740370" srcIP="10.20.10.235:37514" resp=200
+I1222 14:21:09.846783       1 scraper.go:115] "Scraping metrics from nodes" nodeCount=2
+I1222 14:21:09.852086       1 scraper.go:137] "Scraping node" node="ip-10-20-10-235.ap-northeast-2.compute.internal"
+I1222 14:21:09.852155       1 scraper.go:137] "Scraping node" node="ip-10-20-11-91.ap-northeast-2.compute.internal"
+I1222 14:21:09.861301       1 scraper.go:172] "Scrape finished" duration="14.489411ms" nodeCount=2 podCount=17
+I1222 14:21:14.519979       1 handler.go:153] metrics-server: GET "/livez" satisfied by nonGoRestful
+I1222 14:21:14.519999       1 pathrecorder.go:240] metrics-server: "/livez" satisfied by exact match
+I1222 14:21:14.520089       1 httplog.go:129] "HTTP" verb="GET" URI="/livez" latency="513.502µs" userAgent="kube-probe/1.21+" audit-ID="9f708516-3f57-4696-9011-ccaceebeedf1" srcIP="10.20.10.235:58284" resp=200
+I1222 14:21:14.523167       1 handler.go:153] metrics-server: GET "/readyz" satisfied by nonGoRestful
+I1222 14:21:14.523184       1 pathrecorder.go:240] metrics-server: "/readyz" satisfied by exact match
+I1222 14:21:14.523227       1 shared_informer.go:270] caches populated
+I1222 14:21:14.523280       1 httplog.go:129] "HTTP" verb="GET" URI="/readyz" latency="169.445µs" userAgent="kube-probe/1.21+" audit-ID="ee6c75e9-eade-4607-a098-bf7fbe5dcdb4" srcIP="10.20.10.235:58292" resp=200
+I1222 14:21:15.815285       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:21:15.815402       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1?timeout=32s" latency="17.608454ms" userAgent="kube-controller-manager/v1.21.14 (linux/amd64) kubernetes/b07006b/system:serviceaccount:kube-system:generic-garbage-collector" audit-ID="baab907f-25ee-4b90-9ca8-745bb9241aae" srcIP="10.20.11.208:53706" resp=200
+I1222 14:21:15.867760       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1/namespaces/default/pods" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:21:15.867985       1 httplog.go:129] "HTTP" verb="LIST" URI="/apis/metrics.k8s.io/v1beta1/namespaces/default/pods?labelSelector=run%3Dphp-apache" latency="2.866413ms" userAgent="kube-controller-manager/v1.21.14 (linux/amd64) kubernetes/b07006b/system:serviceaccount:kube-system:horizontal-pod-autoscaler" audit-ID="96bdab92-46ce-471e-b75b-690038bfdf59" srcIP="10.20.11.208:53706" resp=200
+I1222 14:21:20.481130       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:21:20.481266       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="375.428µs" userAgent="Go-http-client/2.0" audit-ID="8ff800d2-4fb6-446d-8516-4f430675c192" srcIP="10.20.11.208:45268" resp=200
+I1222 14:21:20.481766       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:21:20.481853       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="263.727µs" userAgent="Go-http-client/2.0" audit-ID="e6bf04eb-8040-4af2-b8aa-6b6c9838978f" srcIP="10.20.11.208:45268" resp=200
+I1222 14:21:20.482177       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:21:20.482259       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="288.76µs" userAgent="Go-http-client/2.0" audit-ID="eb73ee8a-4c41-43fd-b34c-86e773c98555" srcIP="10.20.11.208:45268" resp=200
+I1222 14:21:20.482327       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:21:20.482417       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="288.874µs" userAgent="Go-http-client/2.0" audit-ID="da179acb-d8d9-4a30-89b8-37fa741e6661" srcIP="10.20.11.208:45268" resp=200
+I1222 14:21:20.482593       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:21:20.482673       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="289.022µs" userAgent="Go-http-client/2.0" audit-ID="55e1407c-81db-466a-9b31-0e4a01ebb51e" srcIP="10.20.11.208:45268" resp=200
+I1222 14:21:24.523463       1 handler.go:153] metrics-server: GET "/livez" satisfied by nonGoRestful
+I1222 14:21:24.523481       1 pathrecorder.go:240] metrics-server: "/livez" satisfied by exact match
+I1222 14:21:24.523581       1 httplog.go:129] "HTTP" verb="GET" URI="/livez" latency="510.349µs" userAgent="kube-probe/1.21+" audit-ID="407f32be-909b-4f3e-8b47-9c0b59b35515" srcIP="10.20.10.235:58502" resp=200
+I1222 14:21:24.524449       1 handler.go:153] metrics-server: GET "/readyz" satisfied by nonGoRestful
+I1222 14:21:24.524464       1 pathrecorder.go:240] metrics-server: "/readyz" satisfied by exact match
+I1222 14:21:24.524508       1 shared_informer.go:270] caches populated
+I1222 14:21:24.524574       1 httplog.go:129] "HTTP" verb="GET" URI="/readyz" latency="194.295µs" userAgent="kube-probe/1.21+" audit-ID="7bd0e023-8913-4875-95bb-2d9238b84c2f" srcIP="10.20.10.235:58508" resp=200
+I1222 14:21:24.846755       1 scraper.go:115] "Scraping metrics from nodes" nodeCount=2
+I1222 14:21:24.848962       1 scraper.go:137] "Scraping node" node="ip-10-20-10-235.ap-northeast-2.compute.internal"
+I1222 14:21:24.862784       1 scraper.go:137] "Scraping node" node="ip-10-20-11-91.ap-northeast-2.compute.internal"
+I1222 14:21:24.865313       1 scraper.go:172] "Scrape finished" duration="18.528624ms" nodeCount=2 podCount=17
+I1222 14:21:30.929915       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:21:30.930031       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1?timeout=32s" latency="10.905994ms" userAgent="kube-controller-manager/v1.21.14 (linux/amd64) kubernetes/b07006b/controller-discovery" audit-ID="a5210b73-20e8-4640-8e84-c2659bb74503" srcIP="10.20.11.208:53706" resp=200
+I1222 14:21:30.943182       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1/namespaces/default/pods" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:21:30.943359       1 httplog.go:129] "HTTP" verb="LIST" URI="/apis/metrics.k8s.io/v1beta1/namespaces/default/pods?labelSelector=run%3Dphp-apache" latency="2.691878ms" userAgent="kube-controller-manager/v1.21.14 (linux/amd64) kubernetes/b07006b/system:serviceaccount:kube-system:horizontal-pod-autoscaler" audit-ID="2e6f21fb-8bd9-4622-8069-39b89e64fb31" srcIP="10.20.11.208:53706" resp=200
+I1222 14:21:32.187471       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:21:32.187600       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1?timeout=32s" latency="11.671651ms" userAgent="kube-controller-manager/v1.21.14 (linux/amd64) kubernetes/b07006b/system:serviceaccount:kube-system:resourcequota-controller" audit-ID="d1e84752-cc4a-41f2-a4cb-10d29fae9a2b" srcIP="10.20.11.208:53706" resp=200
+I1222 14:21:32.353510       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:21:32.353654       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="377.257µs" userAgent="Go-http-client/2.0" audit-ID="963bdca6-294f-4df6-a780-915ddee4db27" srcIP="10.20.10.23:55758" resp=200
+I1222 14:21:32.353785       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:21:32.353891       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="289.985µs" userAgent="Go-http-client/2.0" audit-ID="a395a91d-937c-429a-81e9-06eec342a46b" srcIP="10.20.10.23:55758" resp=200
+I1222 14:21:32.353943       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:21:32.353518       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:21:32.354011       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="230.552µs" userAgent="Go-http-client/2.0" audit-ID="3c8ef601-5196-4332-aa4c-e538b7fd5658" srcIP="10.20.10.23:55758" resp=200
+I1222 14:21:32.354061       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="805.699µs" userAgent="Go-http-client/2.0" audit-ID="4403a0df-4fc2-4475-95ea-3a552a83fe58" srcIP="10.20.10.23:55758" resp=200
+I1222 14:21:32.354383       1 handler.go:143] metrics-server: GET "/apis/metrics.k8s.io/v1beta1" satisfied by gorestful with webservice /apis/metrics.k8s.io/v1beta1
+I1222 14:21:32.354468       1 httplog.go:129] "HTTP" verb="GET" URI="/apis/metrics.k8s.io/v1beta1" latency="249.383µs" userAgent="Go-http-client/2.0" audit-ID="c975768e-2fc4-4159-95b5-1b8496753151" srcIP="10.20.10.23:55758" resp=200
+I1222 14:21:34.521888       1 handler.go:153] metrics-server: GET "/livez" satisfied by nonGoRestful
+I1222 14:21:34.521906       1 pathrecorder.go:240] metrics-server: "/livez" satisfied by exact match
+I1222 14:21:34.521990       1 httplog.go:129] "HTTP" verb="GET" URI="/livez" latency="359.05µs" userAgent="kube-probe/1.21+" audit-ID="57654703-0dc0-4847-b687-848cd1ecac98" srcIP="10.20.10.235:49656" resp=200
+I1222 14:21:34.522793       1 handler.go:153] metrics-server: GET "/readyz" satisfied by nonGoRestful
+I1222 14:21:34.522825       1 pathrecorder.go:240] metrics-server: "/readyz" satisfied by exact match
+I1222 14:21:34.522872       1 shared_informer.go:270] caches populated
+I1222 14:21:34.522926       1 httplog.go:129] "HTTP" verb="GET" URI="/readyz" latency="204.863µs" userAgent="kube-probe/1.21+" audit-ID="7fe1d73e-9490-49ca-9681-f90eece01d70" srcIP="10.20.10.235:49664" resp=200
+I1222 14:21:39.846807       1 scraper.go:115] "Scraping metrics from nodes" nodeCount=2
+I1222 14:21:39.855057       1 scraper.go:137] "Scraping node" node="ip-10-20-11-91.ap-northeast-2.compute.internal"
+I1222 14:21:39.857191       1 scraper.go:137] "Scraping node" node="ip-10-20-10-235.ap-northeast-2.compute.internal"
+I1222 14:21:39.865486       1 scraper.go:172] "Scrape finished" duration="18.651891ms" nodeCount=2 podCount=17

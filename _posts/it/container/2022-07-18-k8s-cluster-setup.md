@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[Kubeadm] Kubernetes 클러스터 구축"
+title: "Kubernetes 클러스터 구축 [kubeadm]"
 author: "Bys"
 category: container
 date: 2022-07-18 01:00:00
@@ -110,8 +110,8 @@ Kubeadm은 Container Runtime을 알려진 엔드포인트에서 자동적으로 
 | CRI-O	                            | unix:///var/run/crio/crio.sock |
 | Docker Engine (using cri-dockerd) | unix:///var/run/cri-dockerd.sock |
 
-[![kubeadm_container001](/assets/it/container/kubeadm/kubeadm_container001.png){: width="55%" height="auto"}](/assets/it/container/kubeadm/kubeadm_container001.png)
-[![kubeadm_container002](/assets/it/container/kubeadm/kubeadm_container002.png){: width="40%" height="auto"}](/assets/it/container/kubeadm/kubeadm_container002.png)
+[![kubeadm_container001](/assets/it/container/k8s/kubeadm_container001.png){: width="55%" height="auto"}](/assets/it/container/k8s/kubeadm_container001.png)
+[![kubeadm_container002](/assets/it/container/k8s/kubeadm_container002.png){: width="40%" height="auto"}](/assets/it/container/k8s/kubeadm_container002.png)
 
 kubernetes 1.24 버전에서는 docker 런타임 중단에 따라 기존 docker가 아닌 CRI플러그인으로써 containerd, CRI-O 등을 사용해야 한다.  
 여기서는 CRI플러그인으로 containerd를 사용한다. 또한 OCI에 runC를 사용한다.  
@@ -528,8 +528,8 @@ kube-worker-node1   Ready    <none>          53s   v1.24.3
 node에 ROLES가 none으로 표시 되는 것을 볼 수 있다. 아래와 같이 커맨드를 통해 설정할 수 있다.  
 ```bash
 kubectl label node <node name> node-role.kubernetes.io/<role name>=<key-(any name)>
-kubectl label node kube-worker-node1 node-role.kubernetes.io/worker=worker
-kubectl label node kube-worker-node2 node-role.kubernetes.io/worker=worker
+kubectl label node kube-worker-node1 node-role.kubernetes.io/worker=
+kubectl label node kube-worker-node2 node-role.kubernetes.io/worker=
 ```
 ```bash
 kubectl get nodes

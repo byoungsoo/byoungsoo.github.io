@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "EKS에서 EBS 사용하기"
+title: "EBS CSI driver를 통한 EBS PersistentVolume 사용하기"
 author: "Bys"
 category: container
 date: 2022-12-09 01:00:00

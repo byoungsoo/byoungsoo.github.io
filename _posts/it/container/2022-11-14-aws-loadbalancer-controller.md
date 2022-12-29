@@ -1,18 +1,75 @@
 ---
 layout: post
-title: "EKS ALB Ingress 살펴보기"
+title: "AWS Load Balancer Controller를 통한 ELB 사용하기"
 author: "Bys"
 category: container
 date: 2022-11-14 01:00:00
-tags: kubernetes eks alb ingress
+tags: aws eks ingress alb
 ---
 
-## 1. AWS Load Balancer Controller
-AWS Load Balancer Controller는 AWS ELB를 사용하기 위해 AWS에서 개발한 [Out-of-tree Controller](https://kubernetes.io/blog/2019/04/17/the-future-of-cloud-providers-in-kubernetes/#:~:text=In%2DTree%20%26%20Out%2Dof%2DTree%20Providers)이다. AWS ELB를 사용하기 위해서는 AWS load balancer controller를 먼저 설치해야 한다. AWS load balancer controller를 통해 어떻게 ALB Ingress를 생성하는지 살펴본다.  
+# AWS Load Balancer Controller
+AWS Load Balancer Controller는 AWS ELB를 사용하기 위해 AWS에서 개발한 [Out-of-tree controller](https://kubernetes.io/blog/2019/04/17/the-future-of-cloud-providers-in-kubernetes/#:~:text=In%2DTree%20%26%20Out%2Dof%2DTree%20Providers)이다. AWS ELB를 사용하기 위해서는 AWS load balancer controller를 먼저 설치해야 한다. AWS load balancer controller를 통해 어떻게 ALB Ingress를 생성하는지 살펴본다.  
 
-<br>
+(참고) 
+- In-tree controller
+  - Kubernetes 소스에서 개발되고 릴리즈되는 controller로 Kubernetes native
+- Out-of-Tree controller 
+  - Kubernetes가 아닌 외부에서 제공하는 controller로 Kubernetes core와 독립적  
 
-### 2. [동작 방법](https://github.com/kubernetes-sigs/aws-load-balancer-controller/blob/main/docs/how-it-works.md)
+## 1. [Install - AWS Load Balancer Controller](https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html)
+1. Policy생성
+
+2. Create iamserviceaccount
+아래 내용을 배포하면 AWS IAM Role이 하나 생성 되면서 aws-load-balancer-controller ServiceAccount에 해당 IAM Role을 맵핑시켜준다.  
+    ```bash
+    export ACCOUNT_ID=`aws sts get-caller-identity | jq -r .Account`
+    eksctl create iamserviceaccount \
+    --cluster=ClusterName \
+    --namespace=kube-system \
+    --name=aws-load-balancer-controller \
+    --attach-policy-arn=arn:aws:iam::$ACCOUNT_ID:policy/AWSLoadBalancerControllerIAMPolicy \
+    --override-existing-serviceaccounts \
+    --approve
+    ```
+
+    eksctl create iamserviceaccount \
+      --cluster=my-cluster \
+      --namespace=kube-system \
+      --name=aws-load-balancer-controller \
+      --role-name "AmazonEKSLoadBalancerControllerRole" \
+      --attach-policy-arn=arn:aws:iam::111122223333:policy/AWSLoadBalancerControllerIAMPolicy \
+      --approve
+    ```
+
+3. Install the TargetGroupBinding custom resource definitions
+4. Helm을 통한 배포 
+    ```bash
+    # Private Image
+    helm upgrade -i aws-load-balancer-controller eks/aws-load-balancer-controller \
+    --set clusterName=ClusterName \
+    --set serviceAccount.create=false \
+    --set serviceAccount.name=aws-load-balancer-controller \
+    --set image.repository=222383050459.dkr.ecr.ap-northeast-2.amazonaws.com/opensource-components \
+    --set image.tag=aws-load-balancer-controller-v2.4.4 \
+    --set enableWaf=false \
+    --set enableWafv2=false \
+    --set enableShield=false \
+    -n kube-system
+
+    # Public Image
+    helm upgrade -i aws-load-balancer-controller eks/aws-load-balancer-controller \
+    --set clusterName=ClusterName \
+    --set serviceAccount.create=false \
+    --set serviceAccount.name=aws-load-balancer-controller \
+    --set image.repository=602401143452.dkr.ecr.ap-northeast-2.amazonaws.com/amazon/aws-load-balancer-controller \
+    --set enableWaf=false \
+    --set enableWafv2=false \
+    --set enableShield=false \
+    -n kube-system
+    ```
+
+
+## 2. [동작 방법](https://github.com/kubernetes-sigs/aws-load-balancer-controller/blob/main/docs/how-it-works.md)
 
 ![awslbcontroller001](/assets/it/container/eks/awslbcontroller001.png){: width="60%" height="auto"}
 
@@ -29,7 +86,7 @@ AWS Load Balancer Controller는 AWS ELB를 사용하기 위해 AWS에서 개발�
 
 <br>
 
-### 3. ALB Ingress Test
+## 3. ALB Ingress Test
 아래는 nginx의 간단한 예시를 통해 Deployment, Service, Ingress를 배포해본다. 
 
 
@@ -126,7 +183,7 @@ ingress.networking.k8s.io/nginx-ingress   alb     *       k8s-v1dev-0ee906a5cb-1
 
 <br>
 
-### 4. [ALB Ingress Annotation](https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.4/guide/ingress/annotations/)
+## 4. [ALB Ingress Annotation](https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.4/guide/ingress/annotations/)
 Annotation을 통해 다양한 ALB 설정이 가능하며 group.name을 통해 single alb설정도 가능하다. Multi-cluster에서의 single alb설정에 대한 문의가 있었지만, group.name을 통한 single alb의 scope에 대해 살펴보면 multi-cluster가 아닌 단일 cluster에서만 가능하다.  
 ```yaml
 annotations:
@@ -138,7 +195,7 @@ annotations:
 
 <br>
 
-### 5. TargetGroupBinding 살펴보기
+## 5. TargetGroupBinding 살펴보기
 Ingress를 배포하고 나면 CustomResource인 TargetGroupBinding이 생성된다. TargetGroupBinding은 실제 AWS리소스인 Target Group의 ARN값과 Target으로 하는 Service Ref값을 통해 어떤 서비스를 Target Group에 등록할지 매핑해준다. 따라서 TargetGroupBinding을 통해 쿠버네티스의 서비스와 AWS의 ALB와 Target을 연결하고 있다고 생각하면 된다.  
 
 ```yaml
@@ -170,7 +227,7 @@ Events:                 <none>
 
 <br>
 
-### 6. IngressClass
+## 6. IngressClass
 Ingress를 살펴보면 Class가 alb로 생성된 것을 알 수 있다. Ingress의 spec을 살펴보면 'ingressClassName: alb'으로 설정된 것을 볼 수 있다. 이 Ingress를 정의할 때 ingressClass는 alb이름의 ingressClass를 사용하겠다는 의미이며 해당하는 alb IngressClass는 'controller: ingress.k8s.aws/alb'를 사용한다.
 ```yaml
 apiVersion: networking.k8s.io/v1
@@ -194,10 +251,11 @@ spec:
   controller: ingress.k8s.aws/alb
 ```
 
-
 <br><br><br>
 
-> Ref: https://kubernetes.io/blog/2019/04/17/the-future-of-cloud-providers-in-kubernetes/#:~:text=In%2DTree%20%26%20Out%2Dof%2DTree%20Providers  
+> Ref: https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html  
+> Ref: https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.2/guide/ingress/annotations/  
+> Ref: https://kubernetes.io/blog/2019/04/17/the-future-of-cloud-providers-in-kubernetes/#:~:text=In%2DTree%20%26%20Out%2Dof%2DTree%20Providers   
 > Ref: https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/aws-load-balancer-controller.html  
 > Ref: https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.4/guide/ingress/annotations/  
 > Ref: https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.2/guide/ingress/ingress_class/  

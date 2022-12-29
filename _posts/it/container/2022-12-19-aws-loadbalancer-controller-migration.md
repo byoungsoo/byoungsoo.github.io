@@ -7,37 +7,39 @@ date: 2022-12-19 01:00:00
 tags: aws eks controller migration
 ---
 
-## AWS Load Balancer Controller Migration (v1.1.9 -> v2.4.4)
-EKS v1.21에서 진행하였으며 @As-Is AWS Load Balancer Controller는 v1.1.9, @To-Be AWS Load Balancer Controller v2.4.4로 진행한다.  
-해당 내용은 개인적인 환경에서 테스트 한 것으로 반드시 각 환경에서 재 테스트가 필요하다.  
+## AWS Load Balancer Controller Migration
+- EKS v1.21에서 진행하였으며 @As-Is AWS Load Balancer Controller는 v1.1.9, @To-Be AWS Load Balancer Controller v2.4.4로 진행한다.  
+- 해당 내용은 개인적인 환경에서 테스트 한 것으로 반드시 각 환경에서 재 테스트가 필요하다.  
+- 테스트 확인 결과 v1.1.6 -> v2.4.5도 동일한 방법으로 가능하다. 
 
 ### 1. 알아두면 좋을 것들  
-- AWS load balancer controller는 resource생성 시 'elbv2.k8s.aws/cluster: ${clusterName}' Tagging한다. 아래는 aws load balancer controller v2의 IAM Policy 중 일부다. 'elbv2.k8s.aws/cluster'키 값의 유/무를 통해 통해 자신이 생성한 Resource에 대해서만 권한을 가지도록 설정하는 부분들이 존재한다.  따라서, 기존 리소스에 수작업으로 <elbv2.k8s.aws/cluster: cluster-name> 태그를 추가하는 과정이 필요하다.  
-```json
-{
-    "Effect": "Allow",
-    "Action": [
-        "elasticloadbalancing:ModifyLoadBalancerAttributes",
-        "elasticloadbalancing:SetIpAddressType",
-        "elasticloadbalancing:SetSecurityGroups",
-        "elasticloadbalancing:SetSubnets",
-        "elasticloadbalancing:DeleteLoadBalancer",
-        "elasticloadbalancing:ModifyTargetGroup",
-        "elasticloadbalancing:ModifyTargetGroupAttributes",
-        "elasticloadbalancing:DeleteTargetGroup"
-    ],
-    "Resource": "*",
-    "Condition": {
-        "Null": {
-            "aws:ResourceTag/elbv2.k8s.aws/cluster": "false"
+- AWS load balancer controller는 resource생성 시 'elbv2.k8s.aws/cluster: ${clusterName}' Tagging한다.  
+- 아래는 aws load balancer controller v2의 IAM Policy 중 일부다. 'elbv2.k8s.aws/cluster'키 값의 유/무를 통해 통해 자신이 생성한 Resource에 대해서만 권한을 가지도록 설정하는 부분들이 존재한다. 따라서, 기존 리소스에 수작업으로 <elbv2.k8s.aws/cluster: cluster-name> 태그를 추가하는 과정이 필요하다.  
+    ```json
+    {
+        "Effect": "Allow",
+        "Action": [
+            "elasticloadbalancing:ModifyLoadBalancerAttributes",
+            "elasticloadbalancing:SetIpAddressType",
+            "elasticloadbalancing:SetSecurityGroups",
+            "elasticloadbalancing:SetSubnets",
+            "elasticloadbalancing:DeleteLoadBalancer",
+            "elasticloadbalancing:ModifyTargetGroup",
+            "elasticloadbalancing:ModifyTargetGroupAttributes",
+            "elasticloadbalancing:DeleteTargetGroup"
+        ],
+        "Resource": "*",
+        "Condition": {
+            "Null": {
+                "aws:ResourceTag/elbv2.k8s.aws/cluster": "false"
+            }
         }
     }
-}
-```
+    ```
 
 - Controller를 변경하는 중 기존 서비스중인 ALB는 자체로 영향을 받지 않는다. 다만 migration중 ALB를 제어하지 못하는 시간이 생긴다.  
 - (중요) Controller를 변경하고 나서 v2에서 지원하는 annotation 'alb.ingress.kubernetes.io/group.name'을 추가하면 신규 ALB가 생성되게 되며 이에 따라 DNS주소가 변경된다.  
-- 'kubernetes.io/ingress.class: "alb"' 제거 및 spec에 'ingressClassName: alb'를 추가한다.  
+- (중요) kubernetes.io/ingress.class: "alb" 제거 및 spec에 'ingressClassName: alb'를 추가한다.  
 
 
 ### 2. aws load balancer controller v1 설치
