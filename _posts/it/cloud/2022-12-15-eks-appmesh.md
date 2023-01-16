@@ -117,9 +117,9 @@ XRay에서 Envoy에 대한 추적을 하려면 '--set tracing.enabled=true', '--
             appmesh.k8s.aws/sidecarInjectorWebhook: enabled
     ```
 
-  ![appmesh-xray001.png](/assets/it/container/eks/appmesh-xray001.png){: width="80%" height="auto"}  
+  ![appmesh-xray001.png](/assets/it/cloud/eks/appmesh-xray001.png){: width="80%" height="auto"}  
 
-  ![appmesh-xray002.png](/assets/it/container/eks/appmesh-xray002.png){: width="90%" height="auto"}  
+  ![appmesh-xray002.png](/assets/it/cloud/eks/appmesh-xray002.png){: width="90%" height="auto"}  
 
 
 
