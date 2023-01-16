@@ -2,7 +2,7 @@
 layout: post
 title: "EKS Ingress-nginx 설치"
 author: "Bys"
-category: container
+category: cloud
 date: 2021-04-26 01:00:00
 tags: aws eks ingress nginx
 ---

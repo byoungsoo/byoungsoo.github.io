@@ -2,7 +2,7 @@
 layout: post
 title: "Kubernetes Component"
 author: "Bys"
-category: container
+category: etc
 date: 2022-12-22 01:00:00
 tags: kubernetes node
 ---

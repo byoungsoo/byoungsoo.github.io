@@ -1,16 +1,16 @@
 ---
 layout: post
-title: "제목"
+title: "EKS iptables 동작방식"
 author: "Bys"
 category: incubator
 date: 2023-11-21 01:00:00
-tags: kubernetes node
+tags: eks node iptables
 ---
 
-# [Kubernetes Node](https://kubernetes.io/docs/concepts/architecture/nodes/)
+# [iptables]()
 
 
-## 1. ECS환경 구성하기 
+## 1. EKS 노드의 iptables
 
 1. Launch Template
 

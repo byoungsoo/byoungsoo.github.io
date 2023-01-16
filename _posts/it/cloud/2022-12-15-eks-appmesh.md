@@ -2,7 +2,7 @@
 layout: post
 title: "EKS AppMesh 적용하기"
 author: "Bys"
-category: container
+category: cloud
 date: 2022-12-15 01:00:00
 tags: kubernetes eks appmesh
 ---

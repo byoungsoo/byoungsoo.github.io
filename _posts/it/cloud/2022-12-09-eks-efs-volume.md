@@ -2,7 +2,7 @@
 layout: post
 title: "EFS CSI Driver를 통한 EFS PersistentVolume 사용하기"
 author: "Bys"
-category: container
+category: cloud
 date: 2022-12-09 01:00:00
 tags: kubernetes eks efs csi
 ---
@@ -203,10 +203,47 @@ efs-app-1    1/1     Running   0          8s     10.20.11.47   ip-10-20-11-227.a
 
 
 ## 5. TroubleShooting
+EKS에서 EFS를 PVC로 사용 할 때 발생할 수 있는 여러가지 문제들...
 
-```bash
+#### 1. Pod가 ContainerCreating 또는 Terminating 단계에서 진행되지 않고 멈춤  
+- 원인  
+  - /proc/mounts에 대한 파일 시스템의 읽기 정합성이 깨져 발생. EFS CSI driver는 mount point가 제거된 것으로 생각하고 mount point와 일치하는 stunnel process를 정리해버림. 
+  - stunnel process가 닫혔기 때문에 응답이 오지 않음
 
-```
+- 증상
+  ```
+  $ dmesg -T
+  nfs: server 127.0.0.1 not responding, timed out
+  nfs: server 127.0.0.1 not responding, timed out
+  ```
+
+- 해결
+  - EFS CSI node 재기동
+  - EC2 재기동
+
+- Github  
+[Github Issue](https://github.com/kubernetes-sigs/aws-efs-csi-driver/issues/616)  
+
+
+#### 2. Pod가 ContainerCreating 또는 Terminating 단계에서 진행되지 않고 멈춤  
+- 원인  
+EFS CSI driver v1.3.6 버전에서 발견할 수 있는 현상으로 현재 원인을 확인하지 못함 
+
+- 증상
+  ```bash
+  $ dmesg -T
+  nfs: server 127.0.0.1 not responding, still trying
+  nfs: server 127.0.0.1 not responding, still trying
+  ```
+
+- 해결
+  - EFS CSI driver v1.3.8로 업그레이드
+  - EFS CSI node 재기동 or EC2 재기동
+
+- Github  
+[Github Issue](https://github.com/kubernetes-sigs/aws-efs-csi-driver/issues/616)  
+
+
 
 
 <br><br><br>

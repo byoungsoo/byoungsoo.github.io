@@ -2,7 +2,7 @@
 layout: post
 title: "Kubernetes 클러스터 구축 [kubeadm]"
 author: "Bys"
-category: container
+category: etc
 date: 2022-07-18 01:00:00
 tags: kubernetes calico bgp kubeadm
 ---

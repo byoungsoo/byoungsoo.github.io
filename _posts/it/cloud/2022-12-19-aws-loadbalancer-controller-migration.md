@@ -2,7 +2,7 @@
 layout: post
 title: "AWS load balancer controller migration(v1->v2)"
 author: "Bys"
-category: container
+category: cloud
 date: 2022-12-19 01:00:00
 tags: aws eks controller migration
 ---

@@ -2,7 +2,7 @@
 layout: post
 title: "Network - Architecture"
 author: "Bys"
-category: etc
+category: incubator
 date: 2021-11-28 01:00:00
 tags: architecture
 ---

@@ -2,7 +2,7 @@
 layout: post
 title: "EKS Dashboard 사용"
 author: "Bys"
-category: container
+category: cloud
 date: 2021-03-26 01:00:00
 tags: aws eks 
 ---

@@ -2,7 +2,7 @@
 layout: post
 title: "AWS EKS - External Secrets 사용하기"
 author: "Bys"
-category: container
+category: incubator
 date: 2023-12-21 01:00:00
 tags: ecs aws
 ---

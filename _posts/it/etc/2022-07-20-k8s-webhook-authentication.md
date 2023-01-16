@@ -2,7 +2,7 @@
 layout: post
 title: "Kubernetes Webhook Token 인증"
 author: "Bys"
-category: container
+category: etc
 date: 2022-07-20 01:00:00
 tags: kubernetes authentication kubeadm
 ---

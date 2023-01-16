@@ -2,7 +2,7 @@
 layout: post
 title: "EKS환경에서 EFS 사용하기"
 author: "Bys"
-category: container
+category: incubator
 date: 2023-12-06 01:00:00
 tags: kubernetes eks efs csi
 ---

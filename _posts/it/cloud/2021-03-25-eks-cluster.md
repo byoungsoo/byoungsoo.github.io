@@ -2,7 +2,7 @@
 layout: post
 title: "EKS Cluster 생성"
 author: "Bys"
-category: container
+category: cloud
 date: 2021-03-25 01:00:00
 tags: aws eks eksctl
 ---

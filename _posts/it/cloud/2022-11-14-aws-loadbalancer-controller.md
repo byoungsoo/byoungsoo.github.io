@@ -2,7 +2,7 @@
 layout: post
 title: "AWS Load Balancer Controller를 통한 ELB 사용하기"
 author: "Bys"
-category: container
+category: cloud
 date: 2022-11-14 01:00:00
 tags: aws eks ingress alb
 ---

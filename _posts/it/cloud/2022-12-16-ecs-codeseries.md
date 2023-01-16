@@ -2,7 +2,7 @@
 layout: post
 title: "ECS에 CodeSeries를 통해 배포하기 (Multi Account환경)"
 author: "Bys"
-category: container
+category: cloud
 date: 2022-12-16 01:00:00
 tags: codecommit codebuild codepipeline codeseries aws ecs
 ---

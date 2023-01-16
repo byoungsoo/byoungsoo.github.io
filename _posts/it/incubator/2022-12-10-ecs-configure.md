@@ -2,7 +2,7 @@
 layout: post
 title: "AWS ECS환경 구축하기"
 author: "Bys"
-category: container
+category: incubator
 date: 2023-11-21 01:00:00
 tags: ecs aws
 ---

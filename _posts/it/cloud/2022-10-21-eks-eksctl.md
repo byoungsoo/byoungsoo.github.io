@@ -2,7 +2,7 @@
 layout: post
 title: "EKS를 위한 eksctl 사용"
 author: "Bys"
-category: container
+category: cloud
 date: 2022-10-21 01:00:00
 tags: kubernetes eksctl
 ---
@@ -63,6 +63,11 @@ managedNodeGroups:
 eksctl create nodegroup --config-file=cluster.yml
 ```
 이렇게 생성된 노드는 managedNodeGroup으로 aws-auth ConfigMap에 노드의 InstanceRole이 자동으로 등록된다. 
+
+(참고) NodeGroup 생성시
+1. Custom Launch Template -> new Launch Template
+2. ASG는 new Launch Template을 가지고 생성되며 최초에 Custom Launch Template에 정의한 속성만 수정이 가능하다.  
+3. Custom Launch Template에 AMI가 지정되면 Userdata가 Injection 되지 않는다. 
 
 <br>
 
