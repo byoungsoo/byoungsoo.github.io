@@ -3,7 +3,7 @@ layout: post
 title: "EKS iptables 동작방식"
 author: "Bys"
 category: incubator
-date: 2023-11-21 01:00:00
+date: 2023-01-01 01:00:00
 tags: eks node iptables
 ---
 

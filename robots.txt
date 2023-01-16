@@ -3,6 +3,7 @@ Disallow: /assets
 Disallow: /category/it/resume
 Disallow: /category/it/project
 Disallow: /category/it/issue
+Disallow: /category/it/incubator
 Disallow: /resume
 Disallow: /project
 Disallow: /issue

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "ECS에 CodeSeries를 통해 배포하기 (Multi Account환경)"
+title: "ECS CodeSeries를 통한 Blue/Green 배포하기 (Multi Account환경)"
 author: "Bys"
 category: cloud
 date: 2022-12-16 01:00:00
@@ -94,7 +94,6 @@ aws codebuild update-project --cli-input-json file://cdb-dev.json
         "image": "aws/codebuild/amazonlinux2-x86_64-standard:3.0",
         "computeType": "BUILD_GENERAL1_SMALL",
         "environmentVariables": [],
-        "privilegedMode": false,
         "imagePullCredentialsType": "CODEBUILD",
         "privilegedMode": true
     },

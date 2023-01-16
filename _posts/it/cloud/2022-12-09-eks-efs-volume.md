@@ -23,76 +23,76 @@ EFS CSI driver는 Pod가 EFS스토리지에 TLS암호화를 통해 접근할 수
 
 자세한 내용은 테스트를 통해 설명하며 테스트를 위해 아래의 내용을 배포한다.  
 1. `PVC & Pod 배포`  
-  ```yaml
-  apiVersion: v1
-  kind: PersistentVolumeClaim
-  metadata:
-    name: netutil-efs-claim1
-    namespace: test
-  spec:
-    accessModes:
-      - ReadWriteMany
-    storageClassName: efs-eks-v122
-    resources:
-      requests:
-        storage: 5Gi
-  ---
-  apiVersion: v1
-  kind: Pod
-  metadata:
-    name: netutils-efs-1
-    namespace: test
-  spec:
-    containers:
-      - name: netutil-efs-1
-        image: public.ecr.aws/w0m8q0d5/common:bys-netutil
-        command: ["/bin/sh"]
-        args: ["-c", "while true; do echo $(date -u) >> /data/out1; sleep 5; done"]
-        volumeMounts:
-          - name: persistent-storage
-            mountPath: /data
-    volumes:
-      - name: persistent-storage
-        persistentVolumeClaim:
-          claimName: netutil-efs-claim1
-  ```
+    ```yaml
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      name: netutil-efs-claim1
+      namespace: test
+    spec:
+      accessModes:
+        - ReadWriteMany
+      storageClassName: efs-eks-v122
+      resources:
+        requests:
+          storage: 5Gi
+    ---
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      name: netutils-efs-1
+      namespace: test
+    spec:
+      containers:
+        - name: netutil-efs-1
+          image: public.ecr.aws/w0m8q0d5/common:bys-netutil
+          command: ["/bin/sh"]
+          args: ["-c", "while true; do echo $(date -u) >> /data/out1; sleep 5; done"]
+          volumeMounts:
+            - name: persistent-storage
+              mountPath: /data
+      volumes:
+        - name: persistent-storage
+          persistentVolumeClaim:
+            claimName: netutil-efs-claim1
+    ```
 
 2. `워커노드에 접속`
-  ```bash
-  # pvc는 아래와 같이 127.0.0.1:20149 주소로 mount 
-  $ mount | grep efs
-  127.0.0.1:/ on /var/lib/kubelet/pods/83fc554d-70bb-4919-9a34-2242214a08d2/volumes/kubernetes.io~csi/pvc-4395bf6c-0756-4c8b-bdca-85f300ce3cac/mount type nfs4 (rw,relatime,vers=4.1,rsize=1048576,wsize=1048576,namlen=255,hard,noresvport,proto=tcp,port=20149,timeo=600,retrans=2,sec=sys,clientaddr=127.0.0.1,local_lock=none,addr=127.0.0.1)
+    ```bash
+    # pvc는 아래와 같이 127.0.0.1:20149 주소로 mount 
+    $ mount | grep efs
+    127.0.0.1:/ on /var/lib/kubelet/pods/83fc554d-70bb-4919-9a34-2242214a08d2/volumes/kubernetes.io~csi/pvc-4395bf6c-0756-4c8b-bdca-85f300ce3cac/mount type nfs4 (rw,relatime,vers=4.1,rsize=1048576,wsize=1048576,namlen=255,hard,noresvport,proto=tcp,port=20149,timeo=600,retrans=2,sec=sys,clientaddr=127.0.0.1,local_lock=none,addr=127.0.0.1)
 
-  # stunnel 프로세스는 아래와 같이 127.0.0.1주소의 20149 포트를 LISTEN
-  $ netstat -anop | grep stunnel
-  tcp        0      0 127.0.0.1:20149         0.0.0.0:*               LISTEN      17177/stunnel        off (0.00/0/0)
+    # stunnel 프로세스는 아래와 같이 127.0.0.1주소의 20149 포트를 LISTEN
+    $ netstat -anop | grep stunnel
+    tcp        0      0 127.0.0.1:20149         0.0.0.0:*               LISTEN      17177/stunnel        off (0.00/0/0)
 
-  # 아래와 같이 stunnel의 구성파일 확인 
-  $ ps -ef | grep stunnel
-  root     17177 28085  0 12:42 ?        00:00:00 /usr/bin/stunnel /var/run/efs/stunnel-config.fs-11112222333344445.var.lib.kubelet.pods.83fc554d-70bb-4919-9a34-2242214a08d2.volumes.kubernetes.io~csi.pvc-4395bf6c-0756-4c8b-bdca-85f300ce3cac.mount.20149
+    # 아래와 같이 stunnel의 구성파일 확인 
+    $ ps -ef | grep stunnel
+    root     17177 28085  0 12:42 ?        00:00:00 /usr/bin/stunnel /var/run/efs/stunnel-config.fs-11112222333344445.var.lib.kubelet.pods.83fc554d-70bb-4919-9a34-2242214a08d2.volumes.kubernetes.io~csi.pvc-4395bf6c-0756-4c8b-bdca-85f300ce3cac.mount.20149
 
-  $ cat /var/run/efs/stunnel-config.fs-11112222333344445.var.lib.kubelet.pods.83fc554d-70bb-4919-9a34-2242214a08d2.volumes.kubernetes.io~csi.pvc-4395bf6c-0756-4c8b-bdca-85f300ce3cac.mount.20149
-  fips = no
-  foreground = yes
-  socket = l:SO_REUSEADDR=yes
-  socket = a:SO_BINDTODEVICE=lo
-  [efs]
-  client = yes
-  accept = 127.0.0.1:20149
-  connect = fs-11112222333344445.efs.ap-northeast-2.amazonaws.com:2049
-  sslVersion = TLSv1.2
-  renegotiation = no
-  TIMEOUTbusy = 20
-  TIMEOUTclose = 0
-  TIMEOUTidle = 70
-  delay = yes
-  verify = 2
-  CAfile = /etc/amazon/efs/efs-utils.crt
-  cert = /var/run/efs/fs-11112222333344445.var.lib.kubelet.pods.83fc554d-70bb-4919-9a34-2242214a08d2.volumes.kubernetes.io~csi.pvc-4395bf6c-0756-4c8b-bdca-85f300ce3cac.mount.20149+/certificate.pem
-  key = /etc/amazon/efs/privateKey.pem
-  checkHost = fs-11112222333344445.efs.ap-northeast-2.amazonaws.com
-  ```
-  즉, NFS스토리지는 127.0.0.1:20149 주소로 mount가 되며 stunnel 프로세스는 127.0.0.1:20149의 데이터를 fs-11112222333344445.efs.ap-northeast-2.amazonaws.com:2049로 암호화 하여 proxy하는 역할을 한다.  
+    $ cat /var/run/efs/stunnel-config.fs-11112222333344445.var.lib.kubelet.pods.83fc554d-70bb-4919-9a34-2242214a08d2.volumes.kubernetes.io~csi.pvc-4395bf6c-0756-4c8b-bdca-85f300ce3cac.mount.20149
+    fips = no
+    foreground = yes
+    socket = l:SO_REUSEADDR=yes
+    socket = a:SO_BINDTODEVICE=lo
+    [efs]
+    client = yes
+    accept = 127.0.0.1:20149
+    connect = fs-11112222333344445.efs.ap-northeast-2.amazonaws.com:2049
+    sslVersion = TLSv1.2
+    renegotiation = no
+    TIMEOUTbusy = 20
+    TIMEOUTclose = 0
+    TIMEOUTidle = 70
+    delay = yes
+    verify = 2
+    CAfile = /etc/amazon/efs/efs-utils.crt
+    cert = /var/run/efs/fs-11112222333344445.var.lib.kubelet.pods.83fc554d-70bb-4919-9a34-2242214a08d2.volumes.kubernetes.io~csi.pvc-4395bf6c-0756-4c8b-bdca-85f300ce3cac.mount.20149+/certificate.pem
+    key = /etc/amazon/efs/privateKey.pem
+    checkHost = fs-11112222333344445.efs.ap-northeast-2.amazonaws.com
+    ```
+    즉, NFS스토리지는 127.0.0.1:20149 주소로 mount가 되며 stunnel 프로세스는 127.0.0.1:20149의 데이터를 fs-11112222333344445.efs.ap-northeast-2.amazonaws.com:2049로 암호화 하여 proxy하는 역할을 한다.  
 
 <br>
 

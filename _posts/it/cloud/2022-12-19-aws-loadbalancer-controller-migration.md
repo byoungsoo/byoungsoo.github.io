@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "AWS load balancer controller migration(v1->v2)"
+title: "EKS AWS load balancer controller migration(v1->v2)"
 author: "Bys"
 category: cloud
 date: 2022-12-19 01:00:00
