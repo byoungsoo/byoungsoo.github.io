@@ -66,6 +66,14 @@ AWS Load Balancer Controller는 AWS ELB를 사용하기 위해 AWS에서 개발�
     --set enableWafv2=false \
     --set enableShield=false \
     -n kube-system
+
+    # Public Image
+    helm upgrade -i aws-load-balancer-controller eks/aws-load-balancer-controller \
+    --set clusterName=ClusterName \
+    --set serviceAccount.create=false \
+    --set serviceAccount.name=aws-load-balancer-controller \
+    --set image.repository=602401143452.dkr.ecr.ap-northeast-2.amazonaws.com/amazon/aws-load-balancer-controller \
+    -n kube-system
     ```
 
 

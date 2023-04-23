@@ -53,7 +53,7 @@ Git credential을 생성하면 Username, Password가 생성되는데 이 credent
 
 ```bash
 # Create Template
-aws codebuild create-project --generate-cli-skeleton > codebuild.json
+aws codebuild create-project --generate-cli-skeleton > cdb-dev.json
 
 # Create CodeBuild project
 aws codebuild create-project --cli-input-json file://cdb-dev.json

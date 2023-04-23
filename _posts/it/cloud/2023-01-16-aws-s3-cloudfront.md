@@ -25,73 +25,73 @@ tags: aws codecommit codebuild s3 cloudfront
 2. CI/CD 계정에 CodeBuild를 생성한다. `bys-shared-cdb-s3cfn`
     - 코드빌드에 대한 자세한 구성은 [CodeSeries 구성](2022-12-16-ecs-codeseries.md)를 참고한다.  
     - `bys-shared-iam-cdb-role` IAM role은 'AWSCodeCommitFullAccess', 'AmazonS3FullAccess' 정책을 할당했다.  
-    ```bash
-    # Create Template
-    aws codebuild create-project --generate-cli-skeleton > codebuild.json
+        ```bash
+        # Create Template
+        aws codebuild create-project --generate-cli-skeleton > codebuild.json
 
-    # Create CodeBuild project
-    aws codebuild create-project --cli-input-json file://codebuild.json
-    ```
-    `codebuild.json` [Schema 참고](https://docs.aws.amazon.com/codebuild/latest/userguide/create-project-cli.html)
-    ```json
-    {
-        "name": "bys-shared-cdb-s3cloudfront",
-        "description": "bys-shared-cdb-s3cloudfront",
-        "source": {
-            "type": "CODECOMMIT",
-            "location": "https://git-codecommit.ap-northeast-2.amazonaws.com/v1/repos/bys-shared-cdcm-s3cfn",
-            "gitCloneDepth": 1,
-            "gitSubmodulesConfig": {
-                "fetchSubmodules": false
+        # Create CodeBuild project
+        aws codebuild create-project --cli-input-json file://codebuild.json
+        ```
+        `codebuild.json` [Schema 참고](https://docs.aws.amazon.com/codebuild/latest/userguide/create-project-cli.html)
+        ```json
+        {
+            "name": "bys-shared-cdb-s3cloudfront",
+            "description": "bys-shared-cdb-s3cloudfront",
+            "source": {
+                "type": "CODECOMMIT",
+                "location": "https://git-codecommit.ap-northeast-2.amazonaws.com/v1/repos/bys-shared-cdcm-s3cfn",
+                "gitCloneDepth": 1,
+                "gitSubmodulesConfig": {
+                    "fetchSubmodules": false
+                },
+                "buildspec": "codeseries/codebuild/buildspec.yml",
+                "insecureSsl": false
             },
-            "buildspec": "codeseries/codebuild/buildspec.yml",
-            "insecureSsl": false
-        },
-        "secondarySources": [],
-        "sourceVersion": "refs/heads/main",
-        "secondarySourceVersions": [],
-        "artifacts": {
-            "type": "S3",
-            "location": "bys-shared-s3-codeseries-cloudfront",
-            "path": "/dev/artifacts",
-            "name": "BuildArtifact"
-        },
-        "secondaryArtifacts": [],
-        "cache": {
-            "type": "S3",
-            "location": "bys-shared-s3-codeseries-cloudfront/sample/dev/cahce"
-        },
-        "environment": {
-            "type": "LINUX_CONTAINER",
-            "image": "aws/codebuild/amazonlinux2-x86_64-standard:4.0",
-            "computeType": "BUILD_GENERAL1_SMALL",
-            "environmentVariables": [],
-            "privilegedMode": false,
-            "imagePullCredentialsType": "CODEBUILD"
-        },
-        "serviceRole": "arn:aws:iam::202949997891:role/service-role/bys-shared-iam-cdb-role",
-        "timeoutInMinutes": 60,
-        "queuedTimeoutInMinutes": 480,
-        "encryptionKey": "arn:aws:kms:ap-northeast-2:202949997891:key/7d16264a-10b4-4b7e-bea6-1863ac0b50c1",
-        "tags": [
-            {
-                "key": "Name",
-                "value": "bys-shared-cdb-s3cloudfront"
-            }
-        ],
-        "badgeEnabled": false,
-        "logsConfig": {
-            "cloudWatchLogs": {
-                "status": "ENABLED"
+            "secondarySources": [],
+            "sourceVersion": "refs/heads/main",
+            "secondarySourceVersions": [],
+            "artifacts": {
+                "type": "S3",
+                "location": "bys-shared-s3-codeseries-cloudfront",
+                "path": "/dev/artifacts",
+                "name": "BuildArtifact"
             },
-            "s3Logs": {
-                "status": "ENABLED",
-                "location": "bys-shared-s3-codeseries-cloudfront/dev/logs",
-                "encryptionDisabled": false
+            "secondaryArtifacts": [],
+            "cache": {
+                "type": "S3",
+                "location": "bys-shared-s3-codeseries-cloudfront/sample/dev/cahce"
+            },
+            "environment": {
+                "type": "LINUX_CONTAINER",
+                "image": "aws/codebuild/amazonlinux2-x86_64-standard:4.0",
+                "computeType": "BUILD_GENERAL1_SMALL",
+                "environmentVariables": [],
+                "privilegedMode": false,
+                "imagePullCredentialsType": "CODEBUILD"
+            },
+            "serviceRole": "arn:aws:iam::202949997891:role/service-role/bys-shared-iam-cdb-role",
+            "timeoutInMinutes": 60,
+            "queuedTimeoutInMinutes": 480,
+            "encryptionKey": "arn:aws:kms:ap-northeast-2:202949997891:key/7d16264a-10b4-4b7e-bea6-1863ac0b50c1",
+            "tags": [
+                {
+                    "key": "Name",
+                    "value": "bys-shared-cdb-s3cloudfront"
+                }
+            ],
+            "badgeEnabled": false,
+            "logsConfig": {
+                "cloudWatchLogs": {
+                    "status": "ENABLED"
+                },
+                "s3Logs": {
+                    "status": "ENABLED",
+                    "location": "bys-shared-s3-codeseries-cloudfront/dev/logs",
+                    "encryptionDisabled": false
+                }
             }
         }
-    }
-    ```
+        ```
 
 3. CodeBuild 소스 구성 
     - dist/index.html

@@ -30,12 +30,13 @@ Kubernetes Cluster Autoscaler는 pods가 실패하거나 다른 노드로 다시
 
 
 ## 3. [동작방법](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#table-of-contents)  
-> CA is responsible for ensuring that your cluster has enough nodes to schedule your pods without wasting resources.  
+> CA is responsible for ensuring that your cluster has enough nodes to schedule your pods without wasting resources. It watches for pods that fail to schedule and for nodes that are underutilized. It then simulates the addition or removal of nodes before applying the change to your cluster. The AWS Cloud Provider implementation within Cluster Autoscaler controls the .DesiredReplicas field of your EC2 Auto Scaling Groups.
+
  즉, 파드가 클러스터의 노드에 정상적으로 스케줄링 될 수 있도록 노드의 수를 유지해주는 역할을 한다. 파드가 노드에 스케줄되는 것이 실패하는 것과 노드의 사용량이 낮은 것을 모니터링 하면서 노드를 추가하거나 제거하는 것을 시뮬레이션 하고 적용한다.   
 
 ### Scale-up
 
- ![autoscaler001](/assets/it/cloud/eks/autoscaler001.png){: width="50%" height="auto"}
+ ![autoscaler001](/assets/it/cloud/eks/autoscaler001.png){: width="80%" height="auto"}
 
 그림을 보면 알다시피 Pending Pod가 생겼을 때 오토스케일링 그룹에서 바로 노드를 늘려주는 것이 아니라 CA가 그것을 인지하고 오토스케일링 그룹으로 인스턴스의 증가/제거를 요청 하는 역할을 하는 것이다.  
 

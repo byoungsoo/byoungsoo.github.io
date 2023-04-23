@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "Template"
+title: "AWS ECS 개념 및 환경 구성"
 author: "Bys"
 category: incubator
 date: 2023-01-01 01:00:00
-tags: incubator
+tags: ecs aws
 ---
 
 # [ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/clusters.html)  

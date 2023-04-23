@@ -4,7 +4,7 @@ title: "EKS AppMesh 적용하기"
 author: "Bys"
 category: cloud
 date: 2022-12-15 01:00:00
-tags: kubernetes eks appmesh
+tags: kubernetes eks appmesh controller
 ---
 
 # [AppMesh](https://docs.aws.amazon.com/app-mesh/latest/userguide/what-is-app-mesh.html)

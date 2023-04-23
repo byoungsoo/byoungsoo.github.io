@@ -5,17 +5,38 @@ author: "Bys"
 category: resume
 ---
 
+
+## AWS
+### 2022.08.08 ~ 현재
+  + **Role**: Cloud Support Engineer (Deployment)  
+
+  + **Main Role**  
+   - Container Service (EKS, ECS)
+   - Iac Service (CloudFormation)
+   - CI/CD Service (CodeCommit, CodeBuild, CodeDeploy, CodePipeline)
+
+  + **Performance**  
+   - Supporting AWS container, IaC, CI/CD services for several customers such as Saumsung, LG, SK, HIST and foreign company
+   - Training EKS service for Cloud Support Associate  
+   
+ <br><br>
+
+
 ## Kakao Enterprise
-### 2021.10.18 - Kakao i Cloud
+### 2021.10.18 ~ 2022.08.05
   + **Role**: Software Engineer & Solution Architect  
 
   + **Main Role**  
-   -Delivery Kakao i Cloud for Government Institution  
-   -Develop Kakao i Cloud portal  
+   - Delivery Kakao i Cloud for Government Institution  
+   - Developed KiC gov portal
+   - PoC for openstack services
 
   + **Performance**  
-   -Developed Kakao i Cloud portal and API for Openstack Manila service
-
+   - Developed KiC gov API for openstack Heat
+   - Developed KiC gov API for openstack AODH
+   - Developed KiC gov API for openstack LBaaS
+   - Developed KiC gov API for scheduling service with Quartz
+   
  <br><br>
 
 

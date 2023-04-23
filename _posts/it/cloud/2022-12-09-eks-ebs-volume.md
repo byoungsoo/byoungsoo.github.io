@@ -4,7 +4,7 @@ title: "EBS CSI driver를 통한 EBS PersistentVolume 사용하기"
 author: "Bys"
 category: cloud
 date: 2022-12-09 01:00:00
-tags: kubernetes eks ebs csi
+tags: kubernetes eks ebs csi controller
 ---
 
 ## EBS CSI driver

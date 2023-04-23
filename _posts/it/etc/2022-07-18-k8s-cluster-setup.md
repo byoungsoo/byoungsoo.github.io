@@ -260,7 +260,9 @@ To see the stack trace of this error execute with --v=5 or higher
       10.20.2.22 kube-worker-node2
       ```
 2. /proc/sys/net/bridge/bridge-nf-call-iptables does not exist
-    - 정확한 원인은 추가 확인이 필요하다. 우선 아래와 같이 조치 후 넘어갔다.  
+    - 정확한 원인은 추가 확인이 필요하다. 우선 아래와 같이 조치 후 넘어갔다. (아래는 확인 결과)  
+      > 네트워크 플러그인 요구 사항  
+        쿠버네티스를 빌드하거나 배포하는 플러그인 개발자와 사용자들을 위해, 플러그인은 kube-proxy를 지원하기 위한 특정 설정이 필요할 수도 있다. iptables 프록시는 iptables에 의존하며, 플러그인은 컨테이너 트래픽이 iptables에 사용 가능하도록 해야 한다. 예를 들어, 플러그인이 컨테이너를 리눅스 브릿지에 연결하는 경우, 플러그인은 net/bridge/bridge-nf-call-iptables sysctl을 1 로 설정하여 iptables 프록시가 올바르게 작동하는지 확인해야 한다. 플러그인이 Linux 브리지를 사용하지 않고 대신 Open vSwitch나 다른 메커니즘을 사용하는 경우, 컨테이너 트래픽이 프록시에 대해 적절하게 라우팅되도록 해야 한다.
       ```bash
       modprobe br_netfilter
       echo 1 > /proc/sys/net/bridge/bridge-nf-call-iptables

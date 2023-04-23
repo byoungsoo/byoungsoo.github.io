@@ -4,7 +4,7 @@ title: "EFS CSI Driver를 통한 EFS PersistentVolume 사용하기"
 author: "Bys"
 category: cloud
 date: 2022-12-09 01:00:00
-tags: kubernetes eks efs csi
+tags: kubernetes eks efs csi controller
 ---
 
 # EFS CSI driver
@@ -102,7 +102,7 @@ EFS CSI driver는 Pod가 EFS스토리지에 TLS암호화를 통해 접근할 수
   
 1. [StorageClass](https://kubernetes.io/docs/concepts/storage/storage-classes/)를 정의한다. StorageClass는 provisioner, parameters, reclaimPolicy 필드를 포함하는데 이는 dynamic provisioning을 통해 PV를 생성 할 때 사용된다. 
    - provisioner는 PV를 provisioning할 때 어떤 볼륨 plugin을 사용할지 결정한다. 
-   - Parameters는 사용되는 provisioner에 따라 허용되는 값이 달라진다. EBS CSI driver에서는 'efs.csi.aws.com' provisioner를 사용하며 provisioningMode, fileSystemId, directoryPerms등을 허용한다. 자세한 내용은 링크 참고 [Parameters](https://github.com/kubernetes-sigs/aws-efs-csi-driver#storage-class-parameters-for-dynamic-provisioning).
+   - Parameters는 사용되는 provisioner에 따라 허용되는 값이 달라진다. EFS CSI driver에서는 'efs.csi.aws.com' provisioner를 사용하며 provisioningMode, fileSystemId, directoryPerms등을 허용한다. 자세한 내용은 링크 참고 [Parameters](https://github.com/kubernetes-sigs/aws-efs-csi-driver#storage-class-parameters-for-dynamic-provisioning).
    - StorageClass에 의해 동적으로 생성 된 PV는 reclaimPolicy필드를 갖는데 'Delete' or 'Retain' 값을 갖는다. 
 
 2. Developer는 생성되어있는 cluster에서 StorageClass들을 리스트하여 각각의 정의를 보고 어떤 볼륨을 생성할지 결정한다. 그리고 원하는 StorageClass의 볼륨을 생성하기 위한 요청을 진행하게 되는데 이 내용을 담은 것이 PVC다. 

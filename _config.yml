@@ -15,7 +15,7 @@ gems:
 - jekyll/tagging
 
 # Site settings
-title: Bysoo GithubPage
+title: bys GithubPage
 subtitle: "Github Blog"
 
 # the base hostname & protocol for your site
@@ -43,7 +43,7 @@ descriptions:
 
 
 
-######Bysoo Customizing Setting######
+######bys Customizing Setting######
 # Google analytics
 ga_tracking_id: "UA-137282255-1"
 
