@@ -66,7 +66,7 @@ Karpenter와 비교하였을 때 아래와 같은 한계점을 가진다.
 #### [Node Template](https://karpenter.sh/v0.27.0/concepts/node-templates/)  
 AWS의 Launch Template이라고 생각하면 된다. 실제로 node가 생성될 때 provisioner는 아래와 같이 AWSNodeTemplate을 이용하여 Launch Template을 생성하며 해당 LT로 노드를 생성하게 된다.  
 
-```json
+```log
 Mar 2, 2023 @ 11:02:17.349	2023-03-02T02:02:17.349342382Z stdout F 2023-03-02T02:02:17.349Z	INFO	controller.provisioner.cloudprovider	launched new instance	{"commit": "8c27519-dirty", "provisioner": "karpenter-default", "id": "i-0eb1db912a728a778", "hostname": "ip-10-20-11-158.ap-northeast-2.compute.internal", "instance-type": "c5a.large", "zone": "ap-northeast-2c", "capacity-type": "on-demand"}
 
 Mar 2, 2023 @ 11:02:15.524	2023-03-02T02:02:15.523833797Z stdout F 2023-03-02T02:02:15.523Z	DEBUG	controller.provisioner.cloudprovider	created launch template	{"commit": "8c27519-dirty", "provisioner": "karpenter-default", "launch-template-name": "Karpenter-bys-dev-eks-main-6867569097314650987", "launch-template-id": "lt-08e6437c11ffda1e9"}
