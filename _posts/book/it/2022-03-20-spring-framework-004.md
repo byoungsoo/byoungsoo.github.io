@@ -14,7 +14,7 @@ tags: book programming spring framework db @transactional
 
 ### 8.1 JDBC 프로그래밍의 단점을 보완하는 스프링  
 
-![spring5_8_1](/_assets/book/spring5/spring5_8_1.png){: width="60%" height="auto"}  
+![spring5_8_1](/assets/book/spring5/spring5_8_1.png){: width="60%" height="auto"}  
 
 JDBC API를 이용하면 위의 코드처럼 DB연동에 필요한 Connection을 구한 다음 쿼리를 실행하기 위한 PreparedStatement를 생성한다. 
 그리고 쿼리를 실행한 뒤에는 finally 블록에서 ResultSet, PreparedStatement, Connection을 닫는다.  
@@ -285,7 +285,7 @@ public class ChangePasswordService {
 }
 ```
 
-![spring5_8_4](/_assets/book/spring5/spring5_8_4.png){: width="50%" height="auto"}  
+![spring5_8_4](/assets/book/spring5/spring5_8_4.png){: width="50%" height="auto"}  
 
 ChangePasswordService 클래스의 메서드에 @Transactional 어노테이션이 적용되어 있으므로 스프링은 트랜잭션 기능을 적용한 프록시 객체를 생성한다. 
 ctx.getBean("changePwdSvc", ChangePasswordService.class); 코드를 실행하면 ChangePasswordService 객체 대신에 트랜잭션 처리를 위해 생성한 프록시 객체를 리턴한다.  
@@ -295,7 +295,7 @@ ctx.getBean("changePwdSvc", ChangePasswordService.class); 코드를 실행하면
 
 #### 8.7.3 @Transactional 적용 메서드의 롤백 처리  
 
-![spring5_8_5](/_assets/book/spring5/spring5_8_5.png){: width="60%" height="auto"}  
+![spring5_8_5](/assets/book/spring5/spring5_8_5.png){: width="60%" height="auto"}  
 
 @Transactional을 처리하기 위한 프록시 객체는 원본 객체의 메서드를 실행하는 과정에서 RuntimeException이 발생하면 트랜잭션을 롤백한다. 
 별도 설정을 추가하지 않으면 발생한 exception이 RuntimeException일 때 트랜잭션을 롤백한다. 

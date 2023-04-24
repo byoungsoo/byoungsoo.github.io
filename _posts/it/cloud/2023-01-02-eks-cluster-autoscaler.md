@@ -36,7 +36,7 @@ Kubernetes Cluster Autoscaler는 pods가 실패하거나 다른 노드로 다시
 
 ### Scale-up
 
- ![autoscaler001](/_assets/it/cloud/eks/autoscaler001.png){: width="80%" height="auto"}
+ ![autoscaler001](/assets/it/cloud/eks/autoscaler001.png){: width="80%" height="auto"}
 
 그림을 보면 알다시피 Pending Pod가 생겼을 때 오토스케일링 그룹에서 바로 노드를 늘려주는 것이 아니라 CA가 그것을 인지하고 오토스케일링 그룹으로 인스턴스의 증가/제거를 요청 하는 역할을 하는 것이다.  
 

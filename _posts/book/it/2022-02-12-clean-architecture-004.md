@@ -286,7 +286,7 @@ IT 역사 전체로 시야를 넓히면 웹은 아무것도 바꾸지 않았다.
 아마도 가장 단순한 첫 번째 설계 방식은 전통적인 수평 계층형 아키텍처다. 기술적인 관점에서 해당 코드가 하는 일에 기반해 그 코드를 분할한다.  
 흔히 우리는 이 방식을 '계층 기반 패키지'라고 부른다.  
 
-![clean_archit044](/_assets/book/clean_architecture/clean_archit044.png){: width="30%" height="auto"}  
+![clean_archit044](/assets/book/clean_architecture/clean_archit044.png){: width="30%" height="auto"}  
 
 그림의 UML 클래스 다이어그램에서 계층 기반 패키지가 어떤 모습인지 볼 수 있다.  
 
@@ -308,7 +308,7 @@ IT 역사 전체로 시야를 넓히면 웹은 아무것도 바꾸지 않았다.
 **기능 기반 패키지**  
 코드를 조직화하는 또 다른 선택지로 '기능 기반 패키지' 구조도 있다. 이는 서로 연관된 기능, 도메인 개념, 또는 Aggregate Root에 기반하여 수직의 얇은 조각으로 코드를 나누는 방식이다. 
 
-![clean_archit045](/_assets/book/clean_architecture/clean_archit045.png){: width="25%" height="auto"}  
+![clean_archit045](/assets/book/clean_architecture/clean_archit045.png){: width="25%" height="auto"}  
 
 그림에서 보듯이 등장하는 인터페이스와 클래스는 이전과 같지만, 모두가 (세 개가 아닌) 단 하나의 패키지에 속하게 된다. 
 이는 '계층 기반 패키지'를 아주 간단히 리팩터링한 형태지만, 이제 코드의 상위 수준 구조가 업무 도메인에 대해 무언가를 알려주게 된다. 
@@ -325,13 +325,13 @@ IT 역사 전체로 시야를 넓히면 웹은 아무것도 바꾸지 않았다.
 엉클 밥에 따르면, '포트와 어댑터(Ports and Adapters)'혹은 '육각형 아키텍처(Hexagonal Architecture)', '경계, 컨트롤러, 엔티티(BCE)'등의 방식으로 접근하는 이유는 
 업무/도메인에 초점을 둔 코드가 프레임워크나 데이터베이스 같은 기술적인 세부 구현과 독립적이며 분리된 아키텍처를 만들기 위해서다. 
 
-![clean_archit046](/_assets/book/clean_architecture/clean_archit046.png){: width="30%" height="auto"}  
+![clean_archit046](/assets/book/clean_architecture/clean_archit046.png){: width="30%" height="auto"}  
 
 요약하자면 그림에서 제시하는 것처럼, 그런 코드 베이스는 '내부(도메인)'와 '외부(인프라)'로 구성됨을 흔히 볼 수 있다. 
 '내부'영역은 도메인 개념을 모두 포함하는 반면, '외부'영역은 외부 세계 (예를 들며 UI, 데이터베이스, 서드파티 통합)와의 상호작용을 포함한다. 
 여기서 주요 규칙은 바로 '외부'가 '내부'에 의존하며, 절대 그 반대로는 안 된다는 점이다  
 
-![clean_archit047](/_assets/book/clean_architecture/clean_archit047.png){: width="25%" height="auto"}  
+![clean_archit047](/assets/book/clean_architecture/clean_archit047.png){: width="25%" height="auto"}  
 
 그림은 '주문 조회하기' 유스케이스를 이 방식으로 구현한 모습이다. 
 
@@ -356,7 +356,7 @@ UML 믈래스 다이어그램에서 봤듯이, 구현 관점에서 보면 각 �
 예를 들어 팀에서 신규 인력을 고용하여 주문과 관련된 또 다른 유스케이스를 구현하라고 지시했다고 가정해 보자. 
 이 사람은 신입인 탓에 이 유스케이스를 가능한 한 빨리 구현해서 깊은 인상을 남기고 싶어한다. 그 결과 만들어진 UMl 다이어그램은 그림과 같다. 
 
-![clean_archit048](/_assets/book/clean_architecture/clean_archit048.png){: width="25%" height="auto"}  
+![clean_archit048](/assets/book/clean_architecture/clean_archit048.png){: width="25%" height="auto"}  
 
 의존성 화살표는 여전히 아래를 향하지만, 이제 몇몇 유스케이스에서는 OrdersController가 OrdersService를 우회하고 있다. 
 이러한 조직화는 계층가 인접한 계층을 건너뛰는 일이 허용되기 때문에 흔히 완화된 계층형 아키텍처라고 부른다. 경우에 따라 이는 의도된 겨로가이기도 한데, CQRS패턴을 지키려고 시도하는 경우다. 
@@ -370,7 +370,7 @@ UML 믈래스 다이어그램에서 봤듯이, 구현 관점에서 보면 각 �
 이 접근법은 서비스 중심적인 시각으로 소프트웨어 시스템을 바라보며, 마이크로서비스 아키텍처가 가진 시각과도 동일하다. 
 포트와 어댑터에서 웹을 그저 또 다른 전달 메커니즘으로 취급하는 것과 마찬가지로, 컴포넌트 기반 패키지에서도 사용자 인터페이스를 큰 단위의 컴포넌트로부터 분리해서 유지한다. 
 
-![clean_archit049](/_assets/book/clean_architecture/clean_archit049.png){: width="25%" height="auto"}  
+![clean_archit049](/assets/book/clean_architecture/clean_archit049.png){: width="25%" height="auto"}  
 
 그림에서 '주문 조회하기' 유스케이스가 어떤 모습인지 보여준다. 
 본질적으로 이 접근법에선느 '업무 로직'과 영속성 관련 코드를 하나로 묶는데, 이 묶음을 나는 '컴포넌트'라고 부른다.  
@@ -401,7 +401,7 @@ public타입을 코드 베이스 어디에서도 사용할 수 있다면 패키�
 패키지를 무시해 버리면 (캡슐화나 은닉을 하는 데 아무런 도움도 되지 않으므로) 최종적으로 어떤 아키텍처 스타일로 만들려고 하는지는 아무런 의미가 없어진다. 
 public 지시자를 과용하면 이 장의 앞에서 제시한 네 가지 아키텍처 접근법은 본질적으로 완전히 같아진다. 
 
-![clean_archit051](/_assets/book/clean_architecture/clean_archit051.png){: width="25%" height="auto"}  
+![clean_archit051](/assets/book/clean_architecture/clean_archit051.png){: width="25%" height="auto"}  
 
 그림에서 각 타입 사이의 화살표를 유심히 살펴보라. 채택하려는 아키텍처 접근법과 아무런 관계 없이 화살표들이 모두 동일한 방향을 가리킨다. 
 개념적으로 이 접근법들은 매우 다르지만, 구문적으로는 완전히 똑같다. 

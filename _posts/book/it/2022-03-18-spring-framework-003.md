@@ -148,7 +148,7 @@ long result = calculator.factorial(4);
 
 위 코드에서 calulator.factorial()을 실행하면 그림과 같은 순서로 코드가 실행된다.  
 
-![spring5_7_1](/_assets/book/spring5/spring5_7_1.png){: width="60%" height="auto"}  
+![spring5_7_1](/assets/book/spring5/spring5_7_1.png){: width="60%" height="auto"}  
 
 
 위 실행 흐름을 보면 ExeTimeCalculator 클래스의 factorial() 메서드는 결과적으로 ImpeCalculator의 factorial() 메서드의 실행 시간을 구해서 콘솔에 출력하게 된다.  
@@ -212,7 +212,7 @@ AOP는 핵심 기능과 공통 기능의 구현을 분리함으로써 핵심 기
 1번과 2번 두 가지는 스프링 AOP에서는 지원하지 않으며 AspectJ와 같이 AOP 전용 도구를 사용해서 적용할 수 있다.  
 스프링이 제공하는 AOP 방식은 프록시를 이용한 세 번째 방식이다. 
 
-![spring5_7_2](/_assets/book/spring5/spring5_7_2.png){: width="60%" height="auto"}  
+![spring5_7_2](/assets/book/spring5/spring5_7_2.png){: width="60%" height="auto"}  
 
 프록시 방식은 앞서 살펴본 것처럼 중간에 프록시 객체를 생성한다. 그리고 그림처럼 실제 객체의 기능을 실행하기 전-후에 공통 기능을 호출한다. 
 
@@ -413,7 +413,7 @@ com.sun.proxy.$Proxy17
 세 번째 줄은 cal.getClass().getName()에서 출력한 코드다. 이 출력 결과를 보면 Calculator 타입이 RecCalculator 클래스가 아니고 $Proxy17이다. 
 이 타입은 스프링이 생성한 프록시 타입이다. 실제 Main에서 cal.factorial(5); 코드를 호출할 때 실행되는 과정은 아래 그림과 같다.  
 
-![spring5_7_3](/_assets/book/spring5/spring5_7_3.png){: width="60%" height="auto"}  
+![spring5_7_3](/assets/book/spring5/spring5_7_3.png){: width="60%" height="auto"}  
 
 AOP를 적용하지 않았으면 ctx.getBean("calculator", Calculator.class) 에서 리턴한 객체는 프록시 객체가 아닌 RecCalculator 타입이었을 것이다. 
 
@@ -479,7 +479,7 @@ exception 메세지를 보면 getBean() 메서드에 사용한 타입이 RecCalc
 $Proxy17은 스프링이 런타임에 생성한 프록시 객체의 클래스 이름이다. 이 $Proxy 클래스는 RecCalculator 클래스가 상속받은 Calculator 인터페이스를 상속받게 된다. 
 아래 그림과 같은 게층 구조를 갖는다.  
 
-![spring5_7_4](/_assets/book/spring5/spring5_7_4.png){: width="45%" height="auto"}  
+![spring5_7_4](/assets/book/spring5/spring5_7_4.png){: width="45%" height="auto"}  
 
 스프링은 AOP를 위한 프록시 객체를 생성할 때 실제 생성할 빈 객체가 인터페이스를 상속하면 인터페이스를 이용해서 프록시를 생성한다. 
 앞서 에에서도 RecCalculator 클래스가 Calculator 인터페이스를 상속하므로 Calculator 인터페이스를 상속받은 프록시 객체를 생성했다. 
@@ -638,7 +638,7 @@ CacheAspect: Cache에서 구함[5]
 근데 CacheAspect 프록시 객체의 대상 객체는 ExeTimeAspect의 프록시 객체이다. 
 그리고 ExeTimeAspect 프록시의 대상 객체가 실제 대상 겍체이다.  
 
-![spring5_7_7](/_assets/book/spring5/spring5_7_7.png){: width="55%" height="auto"}  
+![spring5_7_7](/assets/book/spring5/spring5_7_7.png){: width="55%" height="auto"}  
 
 실제 실행 순서는 그림과 같다.  
 factorial(7)을 두 번째 호출하면 cache맵에 담긴 값을 리턴하고 끝난다. 이 경우 joinPoint.proceed()를 실행하지 않으므로 ExeTimeAspect나 실제 객체가 실행되지 않는다.  
@@ -726,7 +726,7 @@ public class cacheAspect{
 
 여러 Aspect에서 공통으로 사용하는 Pointcut이 있다면 그림과 같이 별도 클래스에 Pointcut을 정의하고, 각 Aspect 클래스에서 해당 Pointcut을 사용하도록 구성하면 Pointcut 관리가 편해진다. 
 
-![spring5_7_10](/_assets/book/spring5/spring5_7_10.png){: width="60%" height="auto"}  
+![spring5_7_10](/assets/book/spring5/spring5_7_10.png){: width="60%" height="auto"}  
 
 그림에서 @Pointcut을 설정한 CommonPointcut은 빈으로 등록할 필요가 없다. 
 @Around 어노테이션에서 해당 클래스에 접근 가능하면 해당 Pointcut을 사용할 수 있다.  

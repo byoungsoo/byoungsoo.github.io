@@ -102,7 +102,7 @@ CRP는 강하게 결합되지 않은 클래스들을 동일한 컴포넌트에 �
 의존성 구조에 순환이 있어서는 안 된다. 의존성 구조에 순환이 생기면 'The morning after syndrome'을 피해 갈 수 없다.  
 
 
-![clean_archit016](/_assets/book/clean_architecture/clean_archit016.png){: width="50%" height="auto"}  
+![clean_archit016](/assets/book/clean_architecture/clean_archit016.png){: width="50%" height="auto"}  
 컴포넌트 다이어그램에서는 컴포넌트를 조립하여 애플리케이션을 만드는 다소 전형적인 구조를 볼 수 있다.  
 
 이 구조가 방향 그래프(directed graph)임에 주의하자. 컴포넌트는 정점(vertex)에 해당하고, 의존성 관계는 방향이 있는 간선(directed edge)에 해당한다.  
@@ -114,7 +114,7 @@ Presenters 컴포넌트를 만드는 개발자가 이 컴포넌트를 테스트�
 
 <br>
 
-![clean_archit017](/_assets/book/clean_architecture/clean_archit017.png){: width="50%" height="auto"}  
+![clean_archit017](/assets/book/clean_architecture/clean_archit017.png){: width="50%" height="auto"}  
 새로운 요구상이 발생해서 Entities에 포함된 클래스 하나가 Authorizer에 포함된 클래스 하나를 사용하도록 변경할 수밖에 없다고 가정해 보자.  
 예를 들어 Entities의 User 클래스가 Authorizer의 Permissions 클래스를 사용한다고 해보자. 이렇게 되면 그림에서 보듯이 순환 의존성(dependency cycle)이 발생한다.  
 
@@ -130,13 +130,13 @@ Entities 컴포넌트를 테스트할 때 무슨 일이 벌어질지를 생각�
 **순환 끊기**  
 컴포넌트 사이의 순환을 끊고 의존성을 다시 DAG로 원상복구하는 일은 언제라도 가능하다. 이를 위한 주요 메커니즘 두 가지를 살펴보자.  
 
-![clean_archit018](/_assets/book/clean_architecture/clean_archit018.png){: width="50%" height="auto"}  
+![clean_archit018](/assets/book/clean_architecture/clean_archit018.png){: width="50%" height="auto"}  
 - 의존성 역전 원칙(DIP)을 적용한다.  
 그림 처럼 User가 필요로 하는 메서드를 젝오하는 인터페이스를 생성한다.  
 
 <br>
 
-![clean_archit019](/_assets/book/clean_architecture/clean_archit019.png){: width="50%" height="auto"}  
+![clean_archit019](/assets/book/clean_architecture/clean_archit019.png){: width="50%" height="auto"}  
 - Entities와 Authorizer가 모두 의존하는 새로운 컴포넌트를 만든다.  
 
 컴포넌트 의존성 다이어그램은 애플리케이션의 기능을 기술하는 일과는 거의 관련이 없다.  
@@ -151,7 +151,7 @@ Entities 컴포넌트를 테스트할 때 무슨 일이 벌어질지를 생각�
 안정된 의존성 원칙(Stable Dependencies Principle)을 준수하면 변경하기 어려운 모듈이 변경하기 쉽게 만들어진 모듈에 의존하지 않도록 만들 수 있다.  
 
 
-![clean_archit021](/_assets/book/clean_architecture/clean_archit021.png){: width="40%" height="auto"}  
+![clean_archit021](/assets/book/clean_architecture/clean_archit021.png){: width="40%" height="auto"}  
 그림의 X는 안정된 컴포넌트. 세 컴포넌트가 X에 의존하며, 따라서 X 컴폰넌트는 변경하지 말아야 할 이유가 세 가지나 되기 때문이다.  
 이 경우 X는 세 컴포넌트를 책임진다(responsible)라고 말한다.  
 반대로 X는 어디에도 의존하지 않으므로 X가 변경되도록 만들 수 있는 외적인 영향이 전혀 없다.  
@@ -159,7 +159,7 @@ Entities 컴포넌트를 테스트할 때 무슨 일이 벌어질지를 생각�
 
 <br>
 
-![clean_archit022](/_assets/book/clean_architecture/clean_archit022.png){: width="40%" height="auto"}  
+![clean_archit022](/assets/book/clean_architecture/clean_archit022.png){: width="40%" height="auto"}  
 그림의 Y는 상당히 불안정한 컴포넌트다. 어떤 컴포넌트도 Y에 의존하지 않으므로 Y는 책임성이 없다고 말할 수 있다.  
 또한 Y는 세 개의 컴포넌트에 의존하므로 변경이 발생할 수 있는 외부 요인이 세 가지다. 이 경우 Y는 의존적이라고 말한다.  
 
@@ -168,7 +168,7 @@ Entities 컴포넌트를 테스트할 때 무슨 일이 벌어질지를 생각�
 I(불안정성): I = Fan-out / (Fan-in + Fan-out).  
 I=0이면 최고로 안정된 컴포넌트라는 뜻이다. I=1이면 최고로 불안정한 컴포넌트라는 뜻이다.  
 
-![clean_archit023](/_assets/book/clean_architecture/clean_archit023.png){: width="40%" height="auto"}  
+![clean_archit023](/assets/book/clean_architecture/clean_archit023.png){: width="40%" height="auto"}  
 모든 컴포넌트가 최고로 안정적인 시스템이라면 변경이 불가능하다. 이는 바람직한 상황이 아니다.  
 사실 우리가 컴포넌트 구조를 설계할 때 기대하는 것은 불안정한 컴포넌트도 있고 안정된 컴포넌트도 존재하는 상태다.  
 그림의 다이어그램은 세 컴포넌트로 구성된 시스템이 가질 수 있는 이상적인 구조다.  
@@ -183,7 +183,7 @@ A가 0이면 컴포넌트에는 추상 클래스가 하나도 없다는 뜻이�
 
 <br>
 
-![clean_archit024](/_assets/book/clean_architecture/clean_archit024.png){: width="30%" height="auto"}  
+![clean_archit024](/assets/book/clean_architecture/clean_archit024.png){: width="30%" height="auto"}  
 
 **고통의 구역(Zone of pain)**  
 (0,0) 주변 구역에 위치한 컴포넌트를 살펴보자. 이 컴포넌트는 매우 안정적이며 구체적이다. 이러한 컴포넌트는 바람직한 상태가 아닌데, 뻣뻣한 상태이기 때문이다.  
@@ -275,11 +275,11 @@ A가 0이면 컴포넌트에는 추상 클래스가 하나도 없다는 뜻이�
 소프트웨어 아키텍처는 선을 긋는 기술이며, 나는 이러한 선을 경계(boundary)라고 부른다.  
 경계는 소프트웨어 요소를 서로 분리하고, 경계 한편에 잇는 요소가 반대편에 있는 요소를 알지 못하도록 막는다.  
 
-![clean_archit025](/_assets/book/clean_architecture/clean_archit025.png){: width="40%" height="auto"}  
+![clean_archit025](/assets/book/clean_architecture/clean_archit025.png){: width="40%" height="auto"}  
 경계선은 상속 관계를 횡단하면서 Database Interface 바로 아래에 그어진다.  
 이 도표에서 DatabaseAccess가 존재한다는 사실을 알고 있는 클래스는 없다는 뜻이다.  
 
-![clean_archit026](/_assets/book/clean_architecture/clean_archit026.png){: width="40%" height="auto"}  
+![clean_archit026](/assets/book/clean_architecture/clean_archit026.png){: width="40%" height="auto"}  
 화살표의 방향에 주목하자. Database는 BusinessRules에 대해 알고 있다. BusinessRules는 Database에 관해 알지 못한다.  
 이는 DatabaseInterface 클래스는 BusinessRules 컴포넌트에 속하며, DatabaseAccess 클래스는 Database 컴포넌트에 속한다는 사실을 의미한다.  
 
@@ -300,7 +300,7 @@ GUI를 보고선 GUI가 시스템이라고 생각하곤 한다. 이들은 시스
 **플러그인 아키텍처**  
 사실 소프트웨어 개발 기술의 역사는 플러그인을 손쉽게 생성하여, 확장 가능하며 유지보수가 쉬운 시스템 아키텍처를 확립할 수 있게 만드는 방법에 대한 이야기다.  
 
-![clean_archit027](/_assets/book/clean_architecture/clean_archit027.png){: width="40%" height="auto"}  
+![clean_archit027](/assets/book/clean_architecture/clean_archit027.png){: width="40%" height="auto"}  
 
 교체작업은 사소한 일은 아닐 것이다.  
 그렇다 하더라도 플러그인 구조를 가정한 채 시작함으로써, 최소한 우리는 이러한 변경 작업을 현실성 있도록 만들었다.  

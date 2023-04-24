@@ -183,7 +183,7 @@ spec:
 <br>
 
 ## 4. [동작방법]()  
-![karpenter001](/_assets/it/cloud/eks/karpenter001.png){: width="80%" height="auto"}
+![karpenter001](/assets/it/cloud/eks/karpenter001.png){: width="80%" height="auto"}
 
 1. CRD인 provisioner와 awsnodetemplate을 정의하며 Provisioner는 awsnodetemplate을 참조한다. 
 2. Kubernetes karpenter는 pods가 실패하거나 다른 노드로 다시 스케쥴링이 될 때 워커 노드 수를 자동으로 조정한다. 

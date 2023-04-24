@@ -709,7 +709,7 @@ kubectl run curl --rm -it --restart=Never --image curlimages/curl -- \
 마지막 test 과정에서 unknown apiVersion 오류가 발생했었다. 지금 생각해보면 당연히 apiVersion이 잘못된 것이었을 것이다. 
 그런데 이 때는 위의 네트워크 이슈랑 같이 맞물려서 어떤게 문제인지 제대로 파악하지 못했던 것 같다.  
 
-[![kubeadm_auth_webhook006](/_assets/it/etc/k8s/kubeadm_auth_webhook006.png){: width="80%" height="auto"}](/_assets/it/etc/k8s/kubeadm_auth_webhook006.png)  
+[![kubeadm_auth_webhook006](/assets/it/etc/k8s/kubeadm_auth_webhook006.png){: width="80%" height="auto"}](/assets/it/etc/k8s/kubeadm_auth_webhook006.png)  
 [Issue:Missing support for client.authentication.k8s.io/v1](https://github.com/kubernetes-client/java/issues/2290)
 
 네트워크 정상 통신 여부를 모두 확인한 뒤에는 해당 이슈가 나왔을 때 위의 문서들을 찾았다. 결국 공식문서에 나와있던 v1으로는 호출시 오류가 발생하는게 맞고 v1beta1으로 버전을 수정했다.  

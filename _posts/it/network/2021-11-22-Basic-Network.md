@@ -84,7 +84,7 @@ L4 Layer와 다르게 Listen하는 포트를 HTTP/TCP/UDP로 설정할 수 있�
          데이터를 전달하면서 정확하게 전달이 되었는지 통신상태를 확인해주는 확인응답인 ACK 패킷을 지속적으로 전달하는 절차를 가지고 있어 신뢰성이 있는 프로토콜이다.  
          신뢰성을 제공하기 때문에 오류제어와 흐름제어와 같은 기능을 제공한다.  
          
-         ![net1](/_assets/it/etc/basic/network/net1.png){: width="70%" height="auto"}   
+         ![net1](/assets/it/etc/basic/network/net1.png){: width="70%" height="auto"}   
          \<TCP 3Way Handshake\>  
        
          **UDP**  

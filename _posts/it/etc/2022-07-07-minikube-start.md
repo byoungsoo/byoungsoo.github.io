@@ -176,7 +176,7 @@ nginx-deployment-544dc8b7c4-lpgbs   1/1     Running   0          20m   172.17.0.
 ssh -i /home/minikube/.minikube/machines/minikube/id_rsa docker@$(minikube ip)
 ```
 
-[![minikube001](/_assets/it/etc/minikube/minikube001.png){: width="60%" height="auto"}](/_assets/it/etc/minikube/minikube001.png)
+[![minikube001](/assets/it/etc/minikube/minikube001.png){: width="60%" height="auto"}](/assets/it/etc/minikube/minikube001.png)
 
 전체적인 구성은 아래와 위와 같으며 아래와 같이 확인을 진행해본다. 
 
@@ -243,7 +243,7 @@ default via 192.168.49.1 dev eth0
 여기까지는 하나의 노드에서 진행된 경우고, 여러개의 WorkerNode를 생성하게 되면 Pod간 통신을 위해 CNI를 설치해야 한다.  
 CNI란 Container Network Interface로 Tunneling을 통해 이루어진다.  
 
-[![minikube002](/_assets/it/etc/minikube/minikube002.png){: width="70%" height="auto"}](/_assets/it/etc/minikube/minikube002.png)
+[![minikube002](/assets/it/etc/minikube/minikube002.png){: width="70%" height="auto"}](/assets/it/etc/minikube/minikube002.png)
 
 
 <br><br><br>

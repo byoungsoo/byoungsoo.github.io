@@ -201,7 +201,7 @@ jsp() 메서드의 첫 번째 인자는 JSP 파일 경롤를 찾을 때 사용�
 스프링 MVC 핵심 구성 요소와 각 요소 간의 관계는 아래와 같이 정리할 수 있다. 
 이 그림은 매우 중요하므로 설명을 읽을 때 수시로 이 그림을 참조하면 내용을 이해하는데 도움이 된다.  
 
-![spring5_10_1](/_assets/book/spring5/spring5_10_1.png){: width="60%" height="auto"}  
+![spring5_10_1](/assets/book/spring5/spring5_10_1.png){: width="60%" height="auto"}  
 
 그림에서 <<spring bean>> 이라고 표시한 것은 스프링 빈으로 등록해야 하는 것을 의미한다. 
 회색 배경을 까진 구성 요소(컨트롤러, JSP)는 개발자가 직접 구현해야 하는 요소이다.  
@@ -277,7 +277,7 @@ DispatcherServlet은 핸들러 객체의 실제 타입에 상관없이 실행 �
 DispatcherServlet은 전달받은 설정 파일을 이용해서 스프링 컨테이너를 생성하는데 앞에서 언급한 
 HandlerMapping, HandlerAdapter, 컨트롤러, ViewResolver 등의 빈은 아래 그림처럼 DispatcherServlet이 생성한 스프링 컨테이너에서 구한다. 
 
-![spring5_10_2](/_assets/book/spring5/spring5_10_2.png){: width="40%" height="auto"}  
+![spring5_10_2](/assets/book/spring5/spring5_10_2.png){: width="40%" height="auto"}  
 
 <br>
 

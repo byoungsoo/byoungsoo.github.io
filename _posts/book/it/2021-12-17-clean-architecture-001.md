@@ -75,11 +75,11 @@ OO를 사용하면 아키텍트는 플러그인 아키텍처를 구성할 수 �
 저수준의 세부사항은 중요도가 낮은 플러그인 모듈로 만들 수 있고, 고수준의 정책을 포함하는 모듈과는 독립적으로 개발하고 배포할 수 있다.  
 
 
-![clean_archit001](/_assets/book/clean_architecture/clean_archit001.png){: width="50%" height="auto"}
+![clean_archit001](/assets/book/clean_architecture/clean_archit001.png){: width="50%" height="auto"}
 
 <br>
 
-![clean_archit002](/_assets/book/clean_architecture/clean_archit002.png){: width="45%" height="auto"}  
+![clean_archit002](/assets/book/clean_architecture/clean_archit002.png){: width="45%" height="auto"}  
 제어의 역전 (Dependency Inversion)
 
 <br><br>
@@ -119,7 +119,7 @@ public class Squint {
 불변 컴포넌트는 변수의 상태를 변경할 수 있는, 즉 순수 함수형 컴포넌트가 아닌 하나 이상의 다른 컴퐅넌트와 서로 통신한다.  
 상태 변경은 컴포넌트를 갖가지 동시성 문제에 노출하는 꼴이므로, 흔히 트랜잭션 메모리(transactional memory)와 같은 실천법을 사용하여 동시 업데이트와 경합 조건 문제로부터 가변 변수를 보호한다.  
 
-![clean_archit003](/_assets/book/clean_architecture/clean_archit003.png){: width="40%" height="auto"}
+![clean_archit003](/assets/book/clean_architecture/clean_archit003.png){: width="40%" height="auto"}
 
 현명한 아키텍트라면 가능한 한 많은 처리를 불변 컴포넌트로 옮겨야 하고, 가변 컴포넌트에서는 가능한 한 많은 코드를 빼내야 한다.  
 
@@ -192,7 +192,7 @@ SOLID원칙의 목적은 중간 수준의 소프트웨어 구조가 아래와 �
 
 **징후 1: 우발적 중복**  
 이 클래스는 세 가지 메서드 calculatePay(), reportHours(), save()를 가진다.  
-![clean_archit004](/_assets/book/clean_architecture/clean_archit004.png){: width="30%" height="auto"}
+![clean_archit004](/assets/book/clean_architecture/clean_archit004.png){: width="30%" height="auto"}
 
 이 클래스는 SRP를 위반하는데, 이들 세 가지 메서드가 서로 매우 다른 세 명의 액터를 책임지기 때문이다.  
 - calculatePay() 메서드는 회계팀에서 기능을 정의하며, CFO 보고를 위해 사용한다.  
@@ -208,14 +208,14 @@ SOLID원칙의 목적은 중간 수준의 소프트웨어 구조가 아래와 �
 **해결책**  
 가장 확실한 해결책은 데이터와 메서드를 분리하는 방식일 것이다.  
 
-![clean_archit005](/_assets/book/clean_architecture/clean_archit005.png){: width="40%" height="auto"}  
+![clean_archit005](/assets/book/clean_architecture/clean_archit005.png){: width="40%" height="auto"}  
 
 아무런 메서드가 없는 간단한 데이터 구조인 EmployeeData 클래스를 만들어, 세 개의 클래스가 공유하도록 한다.  
 각 클래스는 자신의 메서드에 반드시 필요한 소스 코드만을 포함한다. 세 클래스는 서로의 존재를 몰라야 한다. 따라서 '우연한 중복'을 피할 수 있다.  
 
 <br>
 
-![clean_archit006](/_assets/book/clean_architecture/clean_archit006.png){: width="60%" height="auto"}  
+![clean_archit006](/assets/book/clean_architecture/clean_archit006.png){: width="60%" height="auto"}  
 
 반면 위의 해결책은 개발자가 세 가지 클래스를 인스턴스화하고 추적해야 한다는 게 단점이다. 이러한 난관에서 빠져나올 때 흔히 쓰는 기법으로 파사드(Facade) 패턴이 있다.  
 EmployeeFacade에 코드는 거의 없다. 이 클래스는 세 클래스의 객체를 생성하고, 요청된 메서드를 가지는 객체로 위임하는 일을 책임진다.  
@@ -223,7 +223,7 @@ EmployeeFacade에 코드는 거의 없다. 이 클래스는 세 클래스의 객
 <br>
 
 
-![clean_archit007](/_assets/book/clean_architecture/clean_archit007.png){: width="40%" height="auto"}  
+![clean_archit007](/assets/book/clean_architecture/clean_archit007.png){: width="40%" height="auto"}  
 
 어떤 개발자는 가장 중요한 업무 규칙을 데이터와 가깝게 배치하는 방식을 선호한다. 
 이 경우라면 기존의 Employee 클래스에 그대로 유지하되, Employee 클래스를 덜 중요한 나머지 메서드들에 대한 Facade로 사용할 수도 있다. 
@@ -235,7 +235,7 @@ EmployeeFacade에 코드는 거의 없다. 이 클래스는 세 클래스의 객
 ### 8. OCP: 개방-폐쇄 원칙  
 소프트웨어 개체(artifact)는 확장에는 열려 있어야 하고, 변경에는 닫혀 있어야 한다. 다시 말해 소프트웨어 개체의 행위는 확장할 수 있어야 하지만, 이때 개체를 변경해서는 안 된다.  
 
-![clean_archit008](/_assets/book/clean_architecture/clean_archit008.png){: width="50%" height="auto"}  
+![clean_archit008](/assets/book/clean_architecture/clean_archit008.png){: width="50%" height="auto"}  
 
 화살표가 열려 있다면 사용(using)관계이며, 닫혀 있다면 구현(implement)관계 또는 상속(inheritance)관계다. 
 여기에서 주목할 점은 모든 의존성이 소스 코드 의존성을 나타낸다는 사실이다. 
@@ -243,7 +243,7 @@ EmployeeFacade에 코드는 거의 없다. 이 클래스는 세 클래스의 객
 
 <br><br>
 
-![clean_archit009](/_assets/book/clean_architecture/clean_archit009.png){: width="60%" height="auto"}  
+![clean_archit009](/assets/book/clean_architecture/clean_archit009.png){: width="60%" height="auto"}  
 
 모든 컴포넌트 관계는 단 방향으로 이루어진다는 뜻이다. 이들 화살표는 변경으로부터 보호하려는 컴포넌트를 향하도록 그려진다.  
 A 컴포넌트에서 발생한 변경으로부터 B 컴포넌트를 보호하려면 반드시 A 컴포넌트가 B 컴포넌트에 의존해야 한다.  
@@ -265,12 +265,12 @@ OCP는 시스템의 아키텍처를 떠받치는 원동력 중 하나다. OCP의
 > 여기에서 필요한 것은 당므과 같은 치환(substitution)원칙이다. S 타입의 객체 o1 각각에 대응하는 T 타입 객체 o2가 있고,  
 T 타입을 이용해서 정의한 모든 프로그램 P에서 o2의 자리에 o1을 치환하더라도 P의 행위가 변하지 않는다면, S는 T의 하위 타입이다.  
 
-![clean_archit011](/_assets/book/clean_architecture/clean_archit011.png){: width="35%" height="auto"}  
+![clean_archit011](/assets/book/clean_architecture/clean_archit011.png){: width="35%" height="auto"}  
 이 설계는 LSP를 준수하는데, Billing 애플리케이션의 행위가 License 하위 타입 중 무엇을 사용하는지에 전혀 의존하지 않기 때문이다. 이들 하위 타입은 모두 License 타입을 치환할 수 있다.  
 
 <br>
 
-![clean_archit012](/_assets/book/clean_architecture/clean_archit012.png){: width="35%" height="auto"}  
+![clean_archit012](/assets/book/clean_architecture/clean_archit012.png){: width="35%" height="auto"}  
 LSP를 위반하는 전형적인 문제로는 정사각형/직사각형(square/rectangle) 문제가 있다.  
 이 예제에서 Square는 Rectangle의 하위 타입으로는 적합하지 않다. 이런 형태의 LSP 위반을 막기 위한 유일한 방법은 (if문 등을 이용해서) Rectangle이 실제로는 Square인지를 검사하는 메커니즘을 User에 추가하는 것이다.  
 하지만 이렇게 하면 User의 행위가 사용하는 타입에 의존하게 되므로, 결국 타입을 서로 치환할 수 없게 된다.  
@@ -283,11 +283,11 @@ LSP는 아키텍처 수준까지 확장할 수 있고, 반드시 확장해야만
 ### 10. ISP: 인터페이스 분리 원칙  
 인터페이스 분리 원칙(ISP)는 아래 그림에서 그 이름이 유래했다.  
 
-![clean_archit013](/_assets/book/clean_architecture/clean_archit013.png){: width="35%" height="auto"}  
+![clean_archit013](/assets/book/clean_architecture/clean_archit013.png){: width="35%" height="auto"}  
 User1은 오직 op1을, User2는 op2만을, User3는 op3만을 사용한다고 가정해 보자.  
 이 경우 User1에서는 op2, op3를 전혀 사용하지 않음에도 User1의 소스 코드는 이 두 메서드에 의존하게 된다.  
 
-![clean_archit014](/_assets/book/clean_architecture/clean_archit014.png){: width="35%" height="auto"}  
+![clean_archit014](/assets/book/clean_architecture/clean_archit014.png){: width="35%" height="auto"}  
 이러한 문제는 그림에서 보는 것처럼 오퍼레이션을 인터페이스 단위로 분리하여 해결할 수 있다.  
 
 
@@ -329,7 +329,7 @@ User1은 오직 op1을, User2는 op2만을, User3는 op3만을 사용한다고 �
 이러한 점은 조심하는 게 당연한데, 사실상 모든 언어에서 객체를 생성하려면 해당 객체를 구체적으로 정의한 코드에 대해 소스 코드 의존성이 발생하기 때문이다.  
 **자바 등 대다수의 객체 지향 언어에서 이처럼 바람직하지 못한 의존성을 처리할 때 추상 팩토리를 사용하곤 한다.**    
 
-![clean_archit015](/_assets/book/clean_architecture/clean_archit015.png){: width="40%" height="auto"}  
+![clean_archit015](/assets/book/clean_architecture/clean_archit015.png){: width="40%" height="auto"}  
 
 그림에서 추상 팩토리를 사용한 구조를 볼 수 있다. Application은 Service 인터페이스를 통해 ConcreteImpl을 사용하지만, Application에서는 어떤 식으로든 ConcreteImpl의 인스턴스를 생성해야 한다.  
 ConcreteImpl에 대해 소스 코드 의존성을 만들지 않으면서 이 목적을 이루기 위해 Application은 ServiceFactory 인터페이스의 makeSvc 메서드를 호출한다.  

@@ -79,7 +79,7 @@ AWS Load Balancer Controller는 AWS ELB를 사용하기 위해 AWS에서 개발�
 
 ## 2. [동작 방법](https://github.com/kubernetes-sigs/aws-load-balancer-controller/blob/main/docs/how-it-works.md)
 
-![awslbcontroller001](/_assets/it/cloud/eks/awslbcontroller001.png){: width="60%" height="auto"}
+![awslbcontroller001](/assets/it/cloud/eks/awslbcontroller001.png){: width="60%" height="auto"}
 
 1. The controller watches for ingress events from the API server. When it finds ingress resources that satisfy its requirements, it begins the creation of AWS resources.
 2. An ALB (ELBv2) is created in AWS for the new ingress resource. This ALB can be internet-facing or internal. You can also specify the subnets it's created in using annotations.

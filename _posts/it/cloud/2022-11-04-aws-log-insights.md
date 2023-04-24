@@ -97,7 +97,7 @@ fields @logStream, @timestamp, requestURI, @message
 ```
 
 아래와 같은 결과를 확인할 수 있다.  
-![delete_audit_log001.png](/_assets/it/cloud/eks/delete_audit_log001.png){: width="95%" height="auto"}  
+![delete_audit_log001.png](/assets/it/cloud/eks/delete_audit_log001.png){: width="95%" height="auto"}  
 
 ### Controller
 `EKS Controller List`
