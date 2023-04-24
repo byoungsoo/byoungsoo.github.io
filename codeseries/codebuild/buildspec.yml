@@ -14,11 +14,17 @@ phases:
     commands:
       - echo "Current Path"
       - pwd
+      - whoami
   build:
     on-failure: ABORT
     commands:
       ### Jekyll Build ###
+      - chown -R $(whoami) ./*
+      - ls -al
+      
       - bundle exec jekyll build 
+
+
   post_build:
     commands:
       - echo post_build completed on `date`
