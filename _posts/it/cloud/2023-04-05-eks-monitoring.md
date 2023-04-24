@@ -10,7 +10,7 @@ tags: eks prometheus grafana monitoring
 
 # Prometheus & Grafana
 
-[![prometheus-architecture001](/assets/it/cloud/eks/prometheus-architecture001.png){: width="60%" height="auto"}](/assets/it/cloud/eks/prometheus-architecture001.png)
+![prometheus-architecture001](/assets/it/cloud/eks/prometheus-architecture001.png){: width="60%" height="auto"}
 
 Prometheus를 배포하면 prometheus서버는 여러 방식을 통해 메트릭을 수집한다. 이 후 prometheus의 수집 데이터를 grafana는 시각화 하여 편리하게 보여준다. 이를 통해 Kubernetes 전체 상태에 대한 모니터링이 가능하다.
 
