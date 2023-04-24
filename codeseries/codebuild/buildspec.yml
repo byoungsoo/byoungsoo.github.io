@@ -18,6 +18,7 @@ phases:
       - chmod -R 755 ./*
       - chown -R $(whoami) ./*
       - ls -al
+      - rm -rf ~/.bundle
       
   build:
     on-failure: ABORT
