@@ -23,8 +23,7 @@ phases:
     commands:
       ### Jekyll Build ###
       
-      - bundle add webrick
-      - bundle exec jekyll build 
+      - jekyll build 
 
 
   post_build:
