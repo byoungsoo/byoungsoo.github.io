@@ -3,7 +3,7 @@ layout: post
 title: "Kubernetes Deployment생성 Workflow"
 author: "Bys"
 category: etc
-date: 2023-01-01 01:00:00
+date: 2023-04-24 01:00:00
 tags: kubernetes deployment workflow
 ---
 
