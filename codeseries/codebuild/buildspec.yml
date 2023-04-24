@@ -15,8 +15,7 @@ phases:
       - echo "Current Path"
       - pwd
       - whoami
-      - bundle init
-      - bundle add jekyll
+      - bundle add webrick
   build:
     on-failure: ABORT
     commands:
