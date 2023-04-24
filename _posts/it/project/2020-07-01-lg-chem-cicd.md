@@ -7,7 +7,7 @@ date: 2020-07-01 01:00:00
 ---
 
 
-![lgchem22](/assets/it/project/lgchem/lgchem22.png){: width="20%" height="auto"}  
+![lgchem22](/assets/it/project/l-chem/lgchem22.png){: width="20%" height="auto"}  
 
 추가 자세한 사항은 _files 참고
 

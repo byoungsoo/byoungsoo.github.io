@@ -3,7 +3,6 @@
 http://byoungsoo.github.io/
 
             
-
 ---
 ## **Work**
 1. Public Cloud (AWS)
@@ -23,21 +22,27 @@ E-mail: skwltg90@naver.com
 ---
 ### **Skill Set**  
 
-AWS Cloud
+- Container
+  - EKS, ECS, Kubernetes
 
-Kubernetes, CI/CD
+- CI/CD
+  - CodePipeline, CodeCommit. CodeBuild, CodeDeploy, Gitlab, Jenkins
 
-Middleware
+- Architecture
+  - Solutions Architect
 
-PLSQL / Forms
-
-Spring / Java
+- Development
+  - PLSQL / Forms
+  - Spring / Java
 
 
 ---
 ### **Project**  
-#### **kakao Enterprise**
-2021.10.18 ~ 2022.~ - Openstack을 이용한 공공클라우드 서비스 개발/검증  
+#### **Kakao Enterprise**
+2022.08.08 ~ 2023.~ - AWS CSE - Deployment
+
+#### **Kakao Enterprise**
+2021.10.18 ~ 2022.08 - Openstack을 이용한 공공클라우드 서비스 개발/검증  
 
 #### **LG CNS**
 2021.04.03 ~ 2021.10.01 - KB Card Mydata 구축  / `SWA`  
