@@ -15,6 +15,7 @@ phases:
       - echo "Current Path"
       - pwd
       - whoami
+      - chmod -R 755 ./*
       - chown -R $(whoami) ./*
       - ls -al
       
