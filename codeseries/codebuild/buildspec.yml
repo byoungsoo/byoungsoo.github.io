@@ -15,14 +15,15 @@ phases:
       - echo "Current Path"
       - pwd
       - whoami
-      - bundle add webrick
+      - chown -R $(whoami) ./*
+      - ls -al
+      
   build:
     on-failure: ABORT
     commands:
       ### Jekyll Build ###
-      - chown -R $(whoami) ./*
-      - ls -al
-
+      
+      - bundle add webrick
       - bundle exec jekyll build 
 
 
