@@ -24,7 +24,7 @@ tags: book clean-architecture component
 '수준(level)'을 엄밀하게 정의하자면 '입력과 출력까지의 거리'다. 시스템의 입력과 출력 모두로부터 멀리 위치할수록 정책의 수준은 높아진다.  
 입력과 출력을 다루는 정책이라면 시스템에서 최하위 수준에 위치한다.  
 
-![clean_archit028](/assets/book/clean_architecture/clean_archit028.png){: width="40%" height="auto"}  
+![clean_archit028](/_assets/book/clean_architecture/clean_archit028.png){: width="40%" height="auto"}  
 번역 컴포넌트는 이 시스템에서 최고 수준의 컴포넌트인데, 입력과 출력에서부터 가장 멀리 떨어져 있기 때문이다.  
 주목할 점은 데이터 흐름과 소스 코드 의존성이 항상 같은 방향을 가리키지는 않는다는 사실이다. 다시 한 번 말하지만 이것이 바로 소프트웨어 아키텍처가 가진 예술 중 하나다.  
 소스 코드 의존성은 그 수준에 따라 결합되어야하며, 데이터 흐름을 기준으로 결합되어서는 안 된다.  
@@ -39,7 +39,7 @@ function encrypt() {
 ```
 이는 잘못된 아키텍처다. 고수준인 encrypt 함수가 저수준인 readChar와 writeChar 함수에 의존하기 때문이다.  
 
-![clean_archit029](/assets/book/clean_architecture/clean_archit029.png){: width="50%" height="auto"}  
+![clean_archit029](/_assets/book/clean_architecture/clean_archit029.png){: width="50%" height="auto"}  
 위 그림의 클래스 다이어그램은 이 시스템의 아키텍처를 개선해본 모습이다.  
 주목할 점은 Encrypt 클래스, CharWriter와 CharReader 인터페이스를 둘러싸고 있는 점선으로 된 경계다. 이 경계를 횡단하는 의존성은 모두 경계 안쪽으로 향한다.  
 이 경계로 묶인 영역이 이 시스템에서 최고 수준의 구성요소다.  
@@ -68,7 +68,7 @@ function encrypt() {
 엔티티 객체는 핵심 업무 데이터를 직접 포함하거나 핵심 업무 데이터에 매우 쉽게 접근할 수 있다.  
 엔티티의 인터페이스는 핵심 업무 데이터를 기반으로 동작하는 핵심 업무 규칙을 구현한 함수들로 구성된다.  
 
-![clean_archit031](/assets/book/clean_architecture/clean_archit031.png){: width="50%" height="auto"}  
+![clean_archit031](/_assets/book/clean_architecture/clean_archit031.png){: width="50%" height="auto"}  
 
 대출을 뜻하는 Loan 엔티티가 UML 클래스로 어떻게 표현되는지를 보여준다.  
 Loan 엔티티는 세 가지의 핵심 업무 데이터를 포함하며, 데이터와 관련된 세 가지 핵심 업무 규칙을 인터페이스로 제공한다.  
@@ -92,7 +92,7 @@ Loan 엔티티는 세 가지의 핵심 업무 데이터를 포함하며, 데이�
 엔티티 내의 핵심 업무 규칙과는 반대로, 유스케이스는 애플리케이션에 특화된(application-specific)업무 규칙을 설명한다.  
 
 
-![clean_archit032](/assets/book/clean_architecture/clean_archit032.png){: width="50%" height="auto"}  
+![clean_archit032](/_assets/book/clean_architecture/clean_archit032.png){: width="50%" height="auto"}  
 
 마지막 줄에서 Customer를 언급한다는 점에 주목하자. 이는 Customer 엔티티에 대한 참조이며, 은행과 고객의 관계를 결정짓는 핵심 업무 규칙은 바로 이 Customer 엔티티에 포함된다.  
 유스케이스는 엔티티 내부의 핵심 업무 규칙을 어떻게, 그리고 언제 호출 할지를 명시하는 규칙을 담는다. 엔티티가 어떻게 춤을 출지를 유스케이스가 제어하는 것이다.  
@@ -161,7 +161,7 @@ Loan 엔티티는 세 가지의 핵심 업무 데이터를 포함하며, 데이�
 - 모든 외부 에이전시에 대한 독립성  
 실제로 업무 규칙은 외부 세계와의 인터페이스에 대해 전혀 알지 못한다.    
 
-![clean_archit033](/assets/book/clean_architecture/clean_archit033.png){: width="50%" height="auto"}  
+![clean_archit033](/_assets/book/clean_architecture/clean_archit033.png){: width="50%" height="auto"}  
 
 위 그림의 다이어그램은 이들 아키텍처 전부를 실행 가능한 하나의 아이디어로 통합하려는 시도다.  
 
@@ -201,7 +201,7 @@ Loan 엔티티는 세 가지의 핵심 업무 데이터를 포함하며, 데이�
 
 **전형적인 시나리오**  
 
-![clean_archit034](/assets/book/clean_architecture/clean_archit034.png){: width="50%" height="auto"}  
+![clean_archit034](/_assets/book/clean_architecture/clean_archit034.png){: width="50%" height="auto"}  
 
 위 그림의 다이어그램은 데이터베이스를 사용하는 웹 기반 자바 시스템의 전형적인 시나리오를 보여준다.  
 
@@ -313,7 +313,7 @@ ORM보다는 차라리 '데이터 매퍼(Data Mapper)'라고 부르는 편이나
 완벽한 형태의 아키텍처 경계는 양방향으로 격리된 상태를 유지해야 하므로 쌍방향 Boundary 인터페이스를 사용한다. 
 양방향으로 격리된 상태를 유지하려면 초기 설정할 때나 지속적으로 유지할 때도 비용이 많이 든다.  
 
-![clean_archit035](/assets/book/clean_architecture/clean_archit035.png){: width="50%" height="auto"}
+![clean_archit035](/_assets/book/clean_architecture/clean_archit035.png){: width="50%" height="auto"}
 
 추후 완벽한 형태의 경계로 확장할 수 있는 공간을 확보하고자 할 때 활용할 수 있는 더 간단한 구조가 위의 그림에 나와 있다. 이는 Strategy 패턴을 사용한 전형적인 사례다.  
 
@@ -321,7 +321,7 @@ ORM보다는 차라리 '데이터 매퍼(Data Mapper)'라고 부르는 편이나
 
 이보다 훨씬 더 단순한 경계는 퍼사드(Facade) 패턴으로, 그림과 같다.  
 
-![clean_archit036](/assets/book/clean_architecture/clean_archit036.png){: width="40%" height="auto"}  
+![clean_archit036](/_assets/book/clean_architecture/clean_archit036.png){: width="40%" height="auto"}  
 
 이 경우에는 심지어 의존성 역전까지도 희생한다  경계는 Facade 클래스로만 간단히 정의된다. 
 Facade 클래스에는 모든 서비스 클래스를 메서드 형태로 정의하고, 서비스 호출이 발생하면 해당 서비스 클래스로 호출을 전달한다. 클라이언트는 이들 서비스 클래스에 직접 접근할 수 없다.  
@@ -343,7 +343,7 @@ Facade 클래스에는 모든 서비스 클래스를 메서드 형태로 정의�
 텍스트 기반 UI는 그대로 유지하되, 게임 규칙과 UI를 분리해서 우리 제품을 여러 시장에서 다양한 언어로 발매할 수 있게 만든다고 가정해 보자. 
 게임 규칙은 언어 독립적인 API를 사용해서 UI 컴포넌트와 통신할 것이고, UI는 API를 사람이 이해할 수 있는 언어로 변환할 것이다.  
 
-![clean_archit037](/assets/book/clean_architecture/clean_archit037.png){: width="40%" height="auto"}  
+![clean_archit037](/_assets/book/clean_architecture/clean_archit037.png){: width="40%" height="auto"}  
 
 그림처럼 소스 코드 의존성을 적절히 관리하면, UI 컴포넌트가 어떤 언어를 사용하더라도 게임 규칙을 재사용할 수 있다. 
 
@@ -352,14 +352,14 @@ Facade 클래스에는 모든 서비스 클래스를 메서드 형태로 정의�
 따라서 이번에도 역시 API를 생성하여, 게임 규칙이 데이터 저장소 컴포넌트와 통신할 때 사용하도록 만든다.  
 
 
-![clean_archit038](/assets/book/clean_architecture/clean_archit038.png){: width="60%" height="auto"}  
+![clean_archit038](/_assets/book/clean_architecture/clean_archit038.png){: width="60%" height="auto"}  
 
 따라서 그림에서 보듯이 의존성 규칙을 준수할 수 있도록 의존성이 적절한 방향을 가리키게 만들어야 한다. 
 
 **클린 아키텍처?**  
 아키텍처 경계가 잠재되어 있을 수도 있다.  
 
-![clean_archit039](/assets/book/clean_architecture/clean_archit039.png){: width="60%" height="auto"}  
+![clean_archit039](/_assets/book/clean_architecture/clean_archit039.png){: width="60%" height="auto"}  
 
 점선으로 된 테두리는 API를 정의하는 추상 컴포넌트를 가리키며, 해당 API는 추상 컴포넌트 위나 아래의 컴포넌트가 구현한다.  
 예를 들어 Language API는 English와 Spanish가 구현한다.  
@@ -368,7 +368,7 @@ GameRules는 GameRules가 정의하고 Language가 구현하는 API를 이용해
 
 이러한 변형들을 모두 제거하고 순전히 API 컴포넌트만 집중하면 다이어그램을 단순화할 수 있다.  
 
-![clean_archit041](/assets/book/clean_architecture/clean_archit041.png){: width="60%" height="auto"}  
+![clean_archit041](/_assets/book/clean_architecture/clean_archit041.png){: width="60%" height="auto"}  
 그림의 다이어그램은 모든 화살표가 위를 향하도록 맞춰졌다는 점에 주목하자. 그 결과 GameRules는 최상위에 놓인다. 
 
 이 구성은 데이터 흐름을 두 개의 흐름으로 효과적으로 분리한다. 
@@ -380,7 +380,7 @@ GameRules는 GameRules가 정의하고 Language가 구현하는 API를 이용해
 
 그림에서 보듯이 네트워크(Network) 컴포넌트를 추가해야 한다.  
 
-![clean_archit042](/assets/book/clean_architecture/clean_archit042.png){: width="40%" height="auto"}  
+![clean_archit042](/_assets/book/clean_architecture/clean_archit042.png){: width="40%" height="auto"}  
 
 이 구성은 데이터 흐름을 세 개의 흐름으로 분리하며, 이들 흐름은 모두 GameRules가 제어한다.  
 시스템이 복잡해질수록 컴포넌트 구조는 더 많은 흐름으로 분리될 것이다.  

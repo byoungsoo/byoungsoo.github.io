@@ -37,7 +37,7 @@ Kubernetes에서는 인증전략 중 하나로 Webhook Token을 통한 인증이
 (클러스터 구축은 모두 완료 된 상태에서 진행 [Kubeadm을 통한 클러스터 구축](https://byoungsoo.github.io/container/2022/07/18/kubernetes-cluster-setup.html))   
 
 - Flow  
-[![kubeadm_auth_webhook001](/assets/it/etc/k8s/kubeadm_auth_webhook001.png){: width="80%" height="auto"}](/assets/it/etc/k8s/kubeadm_auth_webhook001.png)  
+[![kubeadm_auth_webhook001](/_assets/it/etc/k8s/kubeadm_auth_webhook001.png){: width="80%" height="auto"}](/_assets/it/etc/k8s/kubeadm_auth_webhook001.png)  
 
 - Environment
   - AWS 환경에서 작업을 진행
@@ -330,7 +330,7 @@ kube-system   kube-scheduler-kube-master-node2            1/1     Running   4 (4
 ```
 또한 인증서버에는 client 요청이 들어올 때마다 로그가 찍히는 것을 확인 할 수 있다.  
 
-[![kubeadm_auth_webhook004](/assets/it/etc/k8s/kubeadm_auth_webhook004.png){: width="50%" height="auto"}](/assets/it/etc/k8s/kubeadm_auth_webhook004.png)  
+[![kubeadm_auth_webhook004](/_assets/it/etc/k8s/kubeadm_auth_webhook004.png){: width="50%" height="auto"}](/_assets/it/etc/k8s/kubeadm_auth_webhook004.png)  
 
 <br>
 
@@ -397,7 +397,7 @@ Events:
 
 마지막 확인으로는 Postman을 통해 확인한다.  
 kube-apiserver에 요청을 하더라도 우리는 Bearer Token값만 임의로 넣어주게 되면 Webhook 인증을 통해 클러스터의 파드 정보를 조회 할 수 있다.  
-[![kubeadm_auth_webhook005](/assets/it/etc/k8s/kubeadm_auth_webhook005.png){: width="80%" height="auto"}](/assets/it/etc/k8s/kubeadm_auth_webhook005.png)  
+[![kubeadm_auth_webhook005](/_assets/it/etc/k8s/kubeadm_auth_webhook005.png){: width="80%" height="auto"}](/_assets/it/etc/k8s/kubeadm_auth_webhook005.png)  
 
 <br>
 
@@ -425,7 +425,7 @@ Authentication webhook은 POST요청으로 TokenReview라는 JSON 객체를 아�
 
 먼저 Postman을 통해 요청하는 모습과 응답을 살펴보자.  
 
-[![kubeadm_auth_webhook003](/assets/it/etc/k8s/kubeadm_auth_webhook003.png){: width="50%" height="auto"}](/assets/it/etc/k8s/kubeadm_auth_webhook003.png)  
+[![kubeadm_auth_webhook003](/_assets/it/etc/k8s/kubeadm_auth_webhook003.png){: width="50%" height="auto"}](/_assets/it/etc/k8s/kubeadm_auth_webhook003.png)  
 
 1. client는 kubectl --token을 통해 token값을 보내게 된다. 
 2. kube-apiserver의 authentication webhook은 우리의 인증서버로 TokenReview JSON객체를 보내게 되며 거기에는 token값이 들어있다. 

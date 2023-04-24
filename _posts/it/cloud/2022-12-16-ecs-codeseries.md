@@ -13,7 +13,7 @@ CodeSeries는 AWS에서 제공하는 CI/CD의 집합이다. Repository, Build, D
 
 계정별 서비스를 살펴보면 CodeCommit, CodeBuild CodePipeline은 shared계정에 생성하며 CodeDeploy, ECS, ECR 서비스는 dev계정에서 생성한다.  
 
-![codeseries-architecture001](/assets/it/cloud/codeseries/codeseries-architecture001.png){: width="100%" height="100%"}  
+![codeseries-architecture001](/_assets/it/cloud/codeseries/codeseries-architecture001.png){: width="100%" height="100%"}  
 
 
 - 구축하면서 알게 된 점 및 알아두면 좋을 점 
@@ -575,7 +575,7 @@ Compute platform을 Amazon ECS로 생성
 
 2. Deployment Group생성
 
-![codedeploy001](/assets/it/cloud/codeseries/codedeploy001.png){: width="70%" height="auto"}  
+![codedeploy001](/_assets/it/cloud/codeseries/codedeploy001.png){: width="70%" height="auto"}  
 
 <br>
 
@@ -610,7 +610,7 @@ CodeDeployToECS로 provider를 변경하고 나서 CodePipeline에서 발생한 
 2. CodeDeploy Group Role - bys-dev-iam-cdp-role
 3. CodePipeline에서 Deploy단계에 설정한 Role - bys-dev-iam-create-cdp-in-shared
 
-![crossaccount-cdpl001](/assets/it/cloud/codeseries/crossaccount-cdpl001.png){: width="100%" height="auto"}  
+![crossaccount-cdpl001](/_assets/it/cloud/codeseries/crossaccount-cdpl001.png){: width="100%" height="auto"}  
 
 이 중 CodePipeline의 단계를 수행하는 Role은 bys-dev-iam-create-cdp-in-shared Role이다. 해당 오류를 겪을 때 정확히 어떤 권한에서 어떤 Permission에 대한 문제가 있는지 나오지 않았다.  
 하지만 소스코드를 본 결과 정확하게 S3에 403오류로 인한 메세지가 나타나는 것이었고 3개의 권한에 순서대로 S3권한을 주어가며 테스트 해봤지만 모두 동일한 오류가 발생했다. 그래서 S3의 권한 문제인지 헷갈리기 시작했었다.  

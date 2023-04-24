@@ -23,8 +23,8 @@ url: "https://byoungsoo.github.io"
 
 # baseurl: "/the/subpath/of/your/site" # Set this value to "" if you want your site to be root
 baseurl: ""
-cover: "/assets/cover.png"
-logo: "/assets/logo.png"
+cover: "/_assets/cover.png"
+logo: "/_assets/logo.png"
 
 # Build settings
 markdown: kramdown

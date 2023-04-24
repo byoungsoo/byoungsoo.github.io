@@ -98,7 +98,7 @@ EFS CSI driver는 Pod가 EFS스토리지에 TLS암호화를 통해 접근할 수
 
 ## 3. Dynamic Provisioning 동작방법
 
-![storage001](/assets/it/cloud/eks/storage001.png){: width="50%" height="auto"}
+![storage001](/_assets/it/cloud/eks/storage001.png){: width="50%" height="auto"}
   
 1. [StorageClass](https://kubernetes.io/docs/concepts/storage/storage-classes/)를 정의한다. StorageClass는 provisioner, parameters, reclaimPolicy 필드를 포함하는데 이는 dynamic provisioning을 통해 PV를 생성 할 때 사용된다. 
    - provisioner는 PV를 provisioning할 때 어떤 볼륨 plugin을 사용할지 결정한다. 

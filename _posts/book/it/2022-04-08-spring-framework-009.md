@@ -160,7 +160,7 @@ public class RestMemberController {
 @RestController 어노테이션을 붙인 경우 스프링 MVC는 요청 매핑 어노테이션을 붙인 메서드가 리턴한 객체를 알맞은 형식으로 변환해서 응답 데이터를 전송한다. 
 이때 클래스 패스에 Jackson이 존재하면 JSON 형식의 문자열로 변환해서 응답한다. 
 
-![spring5_16_3](/assets/book/spring5/spring5_16_3.png){: width="100%" height="auto"}  
+![spring5_16_3](/_assets/book/spring5/spring5_16_3.png){: width="100%" height="auto"}  
 
 <br>
 
@@ -183,7 +183,7 @@ public class Member {
 
 @JsonIgnore 어노테이션을 붙인 대상이 JSON 결과에서 제외된 것을 알 수 있다. 
 
-![spring5_16_4](/assets/book/spring5/spring5_16_4.png){: width="100%" height="auto"}  
+![spring5_16_4](/_assets/book/spring5/spring5_16_4.png){: width="100%" height="auto"}  
 
 <br>
 
@@ -346,7 +346,7 @@ public class MvcConfig implements WebMvcConfigurer {
 
 그림과 같이 응답 헤더의 Content-Type이 application/json 인 것을 알 수 있다. 
 
-![spring5_16_3](/assets/book/spring5/spring5_16_3.png){: width="100%" height="auto"}  
+![spring5_16_3](/_assets/book/spring5/spring5_16_3.png){: width="100%" height="auto"}  
 
 <br>
 
@@ -378,7 +378,7 @@ public void newMember(@RequestBody @Valid RegisterRequest regReq, HttpServletRes
 보통 POST 방식의 폼 데이터는 쿼리 문자열인 "p1=v1&p2=v2"로 전송되는데 이때 컨텐츠 타입은 application/x-www-form-urlencoded이다. 
 쿼리 문자열 대신 JSON 형식을 사용하려면 application/json 타입으로 데이터를 전송할 수 있는 별도 프로그램이 필요하다. 
 
-![spring5_16_6](/assets/book/spring5/spring5_16_6.png){: width="100%" height="auto"}  
+![spring5_16_6](/_assets/book/spring5/spring5_16_6.png){: width="100%" height="auto"}  
 
 응답상태가 201인 것을 알 수 있다. 또한 "Location" 헤더가 응답 결과에 포함되어 있다. 
 

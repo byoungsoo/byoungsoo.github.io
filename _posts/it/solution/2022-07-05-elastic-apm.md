@@ -13,11 +13,11 @@ tags: elasticsearch apm
 APM은 Application Performance Monitoring으로 Application에 대한 성능정보 및 호출이력 JVM 리소스 모니터링 등 기본적인 Metric 정보를 확인할 수 있다.  
 다양한 APM이 존재하지만 이번에 Elastic APM을 사용한 이유는 구성 환경 중 이미 EFK를 활용하여 로깅시스템을 구축하였고, Kibana와 통합된 화면으로 APM정보를 확인 할 수 있다는 점에서 사용을 해보게 되었다. 
 
-![elastic-apm001.png](/assets/it/solution/elastic-apm/elastic-apm001.png){: width="80%" height="auto"}  
+![elastic-apm001.png](/_assets/it/solution/elastic-apm/elastic-apm001.png){: width="80%" height="auto"}  
 
 ### 2. Elastic-APM의 구성요소  
 
-![elastic-apm002.png](/assets/it/solution/elastic-apm/elastic-apm002.png){: width="80%" height="auto"}  
+![elastic-apm002.png](/_assets/it/solution/elastic-apm/elastic-apm002.png){: width="80%" height="auto"}  
 
 실제로 Beats, Logstash와 연동하여 elasticsearch로도 데이터를 전달할 수 있는 아키텍처이며 여기서는 elastic-apm-agents와 elastic-apm-server를 사용하여 구성하였다. 
 agent,server 방식에서는 아래와 같은 구성 요소를 갖는다. 
@@ -196,7 +196,7 @@ agent,server 방식에서는 아래와 같은 구성 요소를 갖는다.
 ### 3. Elastic-APM 데이터 확인  
    Application이 정상 기동되었다면 데이터 수집이 정상적인지 Kibana화면을 통해 확인할 수 있다.  
 
-   ![elastic-apm003.png](/assets/it/solution/elastic-apm/elastic-apm003.png){: width="95%" height="auto"}  
+   ![elastic-apm003.png](/_assets/it/solution/elastic-apm/elastic-apm003.png){: width="95%" height="auto"}  
 
    JVM  
-   ![elastic-apm004.png](/assets/it/solution/elastic-apm/elastic-apm004.png){: width="95%" height="auto"}  
+   ![elastic-apm004.png](/_assets/it/solution/elastic-apm/elastic-apm004.png){: width="95%" height="auto"}  

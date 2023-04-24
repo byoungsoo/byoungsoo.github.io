@@ -40,7 +40,7 @@ AODH 사용자에게 제공되는 모니터링 서비스이다. 모니터링 이
 
 아키텍처는 다음과 같다.  
 
-![aodh_1](/assets/it/cloud/openstack/aodh/aodh_1.png){: width="60%" height="auto"}  
+![aodh_1](/_assets/it/cloud/openstack/aodh/aodh_1.png){: width="60%" height="auto"}  
 
 데이터는 Ceilometer에 의해 수집되며 Gnocchi라고 하는 시계열 데이터베이스로 전송이 되게 된다.  
 Gnocchi는 측정된 데이터를 시계열 데이터베이스에 맞는 포맷으로 최적화하여 저장하고, Aodh는 알람 서비스로 gnocchi의 데이터를 이용하여 알람을 보낼 수 있게 된다.  
@@ -296,7 +296,7 @@ ops alarm list
 ### 4.1 Jmeter를 활용한 부하
 대상 서버에는 임시로 was및 소스를 올려놨고 테스트를 진행했다.  
 
-![aodh_3](/assets/it/cloud/openstack/aodh/aodh_3.png){: width="60%" height="auto"}  
+![aodh_3](/_assets/it/cloud/openstack/aodh/aodh_3.png){: width="60%" height="auto"}  
 
 부하 테스트를 시작한 시간은 16:12분이다.  
 
@@ -392,7 +392,7 @@ openstack metric aggregates '(* (/ (/ (aggregate rate:mean (metric cpu mean)) 30
 
 실제로 Jenkins build 수행 이력을 확인 하면 아래와 같다.  
 
-![aodh_5](/assets/it/cloud/openstack/aodh/aodh_5.png){: width="40%" height="auto"}  
+![aodh_5](/_assets/it/cloud/openstack/aodh/aodh_5.png){: width="40%" height="auto"}  
 
 16시 46분까지 알람을 보낸 이 후 알람이 종료 되었다.  
 

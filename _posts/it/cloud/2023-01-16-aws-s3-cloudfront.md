@@ -11,7 +11,7 @@ tags: aws codecommit codebuild s3 cloudfront
 여기서는 CodeBuild, S3, CloudFront를 통한 Web 서비스를 하는 방법에 대해서 알아볼 것이다.  
 이번 글에서는 아래의 아키텍처를 구성하면서 S3의 권한과 CloudFront설정에 대한 부분을 중점적으로 확인해 보도록 한다.  
 
-![s3-cloudfront-architecture](/assets/it/cloud/s3-cloudfront/s3-cloudfront-architecture.png){: width="100%" height="100%"}  
+![s3-cloudfront-architecture](/_assets/it/cloud/s3-cloudfront/s3-cloudfront-architecture.png){: width="100%" height="100%"}  
 
 - 참고
 여기서는 node.js를 통해 진행하므로 node.js를 미리 설치한다. 자세한 내용은 기타 설치문서 참고.
