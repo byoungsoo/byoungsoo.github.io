@@ -2,14 +2,14 @@
 layout: post
 title: "Kubernetes Component"
 author: "Bys"
-category: etc
+category: k8s
 date: 2022-12-22 01:00:00
 tags: kubernetes node
 ---
 
 # [Kubernetes Component](https://kubernetes.io/docs/concepts/overview/components/)
 
-![kubernetes-component001](/assets/it/etc/k8s/kubernetes-component001.png){: width="100%" height="auto"}  
+![kubernetes-component001](/assets/it/k8s/k8s/kubernetes-component001.png){: width="100%" height="auto"}  
 
 다음은 Kubernetes를 설치한 이 후에 가장 기본적인 상태를 조회한 것이다.  
 Pod를 보면 EKS에서는 볼 수 없었던 control plane 구성 요소인 kube-apiserver, kube-controller-manager, kube-scheduler, etcd 컴포너트를 볼 수 있다.  

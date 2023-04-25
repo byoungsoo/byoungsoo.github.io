@@ -2,7 +2,7 @@
 layout: post
 title: "Minikube 토큰을 통한 인증/인가"
 author: "Bys"
-category: etc
+category: k8s
 date: 2022-07-15 01:00:00
 tags: kubernetes minikube csr crt authentication
 ---

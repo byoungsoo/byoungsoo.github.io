@@ -2,7 +2,7 @@
 layout: post
 title: "Kubernetes Deployment생성 Workflow"
 author: "Bys"
-category: etc
+category: k8s
 date: 2023-04-23 01:00:00
 tags: kubernetes deployment workflow
 ---
@@ -11,7 +11,7 @@ tags: kubernetes deployment workflow
 
 EKS를 통해 deployment 생성 시 로그를 확인하며 Kubernetes에서 실제 리소스 생성이 되는 과정을 살펴본다.  
 
-[![k8s-workflow-deployment](/assets/it/etc/k8s/k8s-workflow-deployment.png){: width="80%" height="auto"}](/assets/it/etc/k8s/k8s-workflow-deployment.png)  
+[![k8s-workflow-deployment](/assets/it/k8s/k8s/k8s-workflow-deployment.png){: width="80%" height="auto"}](/assets/it/k8s/k8s/k8s-workflow-deployment.png)  
 
 1. Client는 kubectl커맨드를 통해 kube-apiserver로 생성 요청 
 ```bash

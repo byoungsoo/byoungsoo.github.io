@@ -2,7 +2,7 @@
 layout: post
 title: "Minikube 인증서를 통한 사용자 추가 및 인증/인가"
 author: "Bys"
-category: etc
+category: k8s
 date: 2022-07-14 01:00:00
 tags: kubernetes minikube csr crt authentication
 ---
