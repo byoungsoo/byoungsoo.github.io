@@ -76,8 +76,13 @@ server:
       - hosts:
           - prometheus-main.bys.world
         secretName: cert
-    
-              
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 500m
+      memory: 512Mi
 
 prometheus-node-exporter:
   affinity:
@@ -115,6 +120,13 @@ server:
       service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: auto-delete=no
 
 prometheus-node-exporter:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 64Mi
+    limits:
+      cpu: 100m
+      memory: 64Mi
   affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
@@ -140,6 +152,19 @@ helm upgrade -i grafana grafana/grafana --namespace prometheus -f grafana-values
 
 `grafana-values-alb.yaml`  
 ```yaml
+persistence:
+  type: pvc
+  enabled: true
+  storageClassName: ebs-sc-gp3
+  accessModes:
+    - ReadWriteOnce
+  size: 100Gi
+  # annotations: {}
+  finalizers:
+    - kubernetes.io/pvc-protection
+  # subPath: ""
+  # existingClaim:
+
 datasources:
   datasources.yaml:
     apiVersion: 1
@@ -193,6 +218,19 @@ ingress:
 
 `grafana-values-nlb.yaml`  
 ```yaml
+persistence:
+  type: pvc
+  enabled: true
+  storageClassName: ebs-sc-gp3
+  accessModes:
+    - ReadWriteOnce
+  size: 100Gi
+  # annotations: {}
+  finalizers:
+    - kubernetes.io/pvc-protection
+  # subPath: ""
+  # existingClaim:
+  
 datasources:
   datasources.yaml:
     apiVersion: 1

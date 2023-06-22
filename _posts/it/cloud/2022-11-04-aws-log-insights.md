@@ -237,4 +237,4 @@ fields @logStream, @timestamp, @message
 <br><br><br>
 
 > Ref: [Log Inssights document](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/AnalyzingLogData.html)
-> Ref: [EKS Log Insights](https://aws.amazon.com/premiumsupport/knowledge-center/eks-get-control-plane-logs/ )
+> Ref: [EKS Log Insights](https://aws.amazon.com/premiumsupport/knowledge-center/eks-get-control-plane-logs/)

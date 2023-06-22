@@ -44,7 +44,7 @@ AWS Load Balancer Controller는 AWS ELB를 사용하기 위해 AWS에서 개발�
 3. Install the TargetGroupBinding custom resource definitions
 4. Helm을 통한 배포 
     ```bash
-    # Private Image
+    # Private Image in private ENV
     helm upgrade -i aws-load-balancer-controller eks/aws-load-balancer-controller \
     --set clusterName=ClusterName \
     --set serviceAccount.create=false \
@@ -56,7 +56,7 @@ AWS Load Balancer Controller는 AWS ELB를 사용하기 위해 AWS에서 개발�
     --set enableShield=false \
     -n kube-system
 
-    # Public Image
+    # Public Image in private ENV
     helm upgrade -i aws-load-balancer-controller eks/aws-load-balancer-controller \
     --set clusterName=ClusterName \
     --set serviceAccount.create=false \
