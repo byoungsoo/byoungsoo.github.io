@@ -33,8 +33,16 @@ eksctl create iamserviceaccount \
 ### 2. [Installation, self-managed](https://github.com/kubernetes-sigs/aws-ebs-csi-driver/blob/master/docs/install.md)
 설치 가이드에 따라 EBS CSI Driver를 설치하고 나면 Controller가 Deployment로 배포가 되고, EBS CSI Driver daemonSet이 설치된다. 
 
+```bash
+# kubectl
 kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=release-1.13"
 kubectl delete -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=release-1.13"
+
+# Helm
+helm repo add aws-ebs-csi-driver https://kubernetes-sigs.github.io/aws-ebs-csi-driver
+helm repo update
+helm upgrade --install aws-ebs-csi-driver --namespace kube-system aws-ebs-csi-driver/aws-ebs-csi-driver -f values.yaml
+```
 
 <br>
 
