@@ -136,7 +136,17 @@ fields @logStream, @timestamp, @message
   | filter @logStream like /^kube-apiserver-audit/
   | filter objectRef.resource == "persistentvolumeclaims"
   | filter objectRef.name  = "efs-provisioner-test"
-  | sort @timestamp desc
+  | sort @timestamp desc$$
+```
+
+`vpc-resource-controller`
+```bash
+fields @timestamp, verb, user.username, objectRef.resource, @message
+| filter @logStream like /^kube-apiserver-audit/
+| filter objectRef.namespace == "default"
+| filter verb not in ["list", "watch", "get"]
+| filter user.username like "vpc-resource-controller"
+| sort @timestamp desc
 ```
 
 `watch object`
