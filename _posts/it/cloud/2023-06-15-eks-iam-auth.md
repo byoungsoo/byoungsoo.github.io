@@ -72,7 +72,7 @@ $ aws-iam-authenticator token -i bys-dev-eks-main
 ```
 
 위 토큰을 [JWT](https://jwt.io/)사이트로 이동하여 Decode를 해보면 payload에는 아래와 같은 정보가 확인된다.  
-
+아래 URL은 Pre-signed AWS API요청으로 자세한 내용은 [문서](https://docs.aws.amazon.com/IAM/latest/UserGuide/create-signed-request.html)에서 확인할 수 있다.   
 ```txt
 "https://sts.ap-northeast-2.amazonaws.com/?Action=GetCallerIdentity
 &Version=2011-06-15
@@ -83,6 +83,9 @@ $ aws-iam-authenticator token -i bys-dev-eks-main
 &X-Amz-SignedHeaders=host%3Bx-k8s-aws-id
 &X-Amz-Signature=1be0c55281b7e8e97807dc4df95047c046e802b39dab1941bf703d1dadb24628"
 ```
+참고로 x-k8s-aws-id 헤더에는 클러스터 ID가 들어간다.  
+
+
 
 이 중 실제 `X-Amz-Crednetial=AKIAYTTTTTYYYYYXXXXX` 정보는 해당 커맨드를 수행한 IAM User의 Access Key정보와 같다.  
 
