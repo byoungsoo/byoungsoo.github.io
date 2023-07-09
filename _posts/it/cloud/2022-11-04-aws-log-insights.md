@@ -136,7 +136,7 @@ fields @logStream, @timestamp, @message
   | filter @logStream like /^kube-apiserver-audit/
   | filter objectRef.resource == "persistentvolumeclaims"
   | filter objectRef.name  = "efs-provisioner-test"
-  | sort @timestamp desc$$
+  | sort @timestamp desc
 ```
 
 `vpc-resource-controller`
