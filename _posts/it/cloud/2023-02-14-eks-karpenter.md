@@ -63,7 +63,7 @@ Karpenter와 비교하였을 때 아래와 같은 한계점을 가진다.
 
 ## 3. Karpenter 구성요소
 
-#### [Node Template](https://karpenter.sh/v0.27.0/concepts/node-templates/)  
+#### [Node Template](https://karpenter.sh/docs/concepts/node-templates/)  
 AWS의 Launch Template이라고 생각하면 된다. 실제로 node가 생성될 때 provisioner는 아래와 같이 AWSNodeTemplate을 이용하여 Launch Template을 생성하며 해당 LT로 노드를 생성하게 된다.  
 
 ```log
@@ -122,8 +122,11 @@ spec:
     auto-delete: "no"
 ```
 
-#### [Provisioner](https://karpenter.sh/v0.27.0/concepts/provisioners/)  
-Karpenter Controller의 provisioner는 실제로 AWS API를 호출하여 노드를 provisioning 하는 역할을 담당한다. 이 때 provisioner는 노드의 제약사항 및 해당 노드에서 실행할 수 있는 파드에 대한 제약 사항을 설정할 수 있으며 또한 추가적인 Kubelet args를 설정할 수 있다. 
+#### [Provisioner](https://karpenter.sh/docs/concepts/provisioners/)  
+Karpenter Controller의 provisioner는 실제로 AWS API를 호출하여 노드를 provisioning 하는 역할을 담당한다. 이 때 provisioner는 노드의 제약사항 및 해당 노드에서 실행할 수 있는 파드에 대한 제약 사항을 설정할 수 있으며 또한 추가적인 Kubelet args를 설정할 수 있다.  
+Karpenter에서는 여러개의 provisioner를 사용할 수 있다. 
+- Karpenter는 provisioner에 taint 설정이 존재하고 pod에 toleration설정이 없으면 해당 provisioner를 사용하지 않는다.  
+- Pod가 여러 provisioner에 중복으로 매치되지 않도록 상호배타적으로 설정하는 것이좋다. 만약 여러개의 provisioner가 매치되면 weight이 높은 provisioner를 사용한다.  
 
 `default_provisioner`  
 ```yaml
@@ -134,6 +137,11 @@ metadata:
 spec:
   providerRef:
     name: karpenter-default
+
+  #weight: 50
+  #taints:
+  #  - key: example.com/special-taint
+  #    effect: NoSchedule
 
   requirements:
     - key: karpenter.k8s.aws/instance-category
@@ -180,9 +188,17 @@ spec:
     evictionMaxPodGracePeriod: 60
 ```
 
+
+#### [Machine](https://github.com/aws/karpenter/blob/main/designs/node-ownership.md#kubernetes-crd-object-store-machine-crd)  
+Karpenter는 provisioning loop의 완료단계에서 Machine을 생성한다. Provisioner는 Machine을 소유하고 Machine은 Kubernetes 노드 오브젝트와 Cloud Provider의 노드를 소유한다. Machine은 노드와 매핑되는데 노드의 `spec.providerID` 값과 Machine의 `status.providerID` 값과 매핑된다. 
+
+> Karpenter will no longer create node objects or launch instances as part of the provisioning loop, but, instead, will create Machine CRs at the completion of the provisioning loop. This machine CR will then be picked up by a separate controller that will launch capacity based on the requirements passed from the provisioning loop and will resolve the static values from the **CreateFleet** response into its status. After the instance is launched, the kubelet starts, and the node joins the cluster, machines will be mapped to nodes using the `spec.providerID` of the Node and the `status.providerID` of the Machine.
+
+![karpenter-node-ownership](/assets/it/cloud/eks/karpenter-node-ownership.png){: width="40%" height="auto"}  
+
 <br>
 
-## 4. [동작방법]()  
+## 4. [Provisioning 동작방법]()  
 ![karpenter001](/assets/it/cloud/eks/karpenter001.png){: width="80%" height="auto"}
 
 1. CRD인 provisioner와 awsnodetemplate을 정의하며 Provisioner는 awsnodetemplate을 참조한다. 
@@ -276,6 +292,57 @@ Events:
 
 
 
+## 5. [Deprovisioning 동작방법](https://karpenter.sh/docs/concepts/deprovisioning/)  
+
+- finalizers  
+  Karpenter는 provision된 노드에 Kubernetes finalizers를 설정한다. 
+
+  ```yaml
+  $ kubectl get nodes  -o yaml --show-managed-fields
+
+  apiVersion: v1
+  kind: Node
+  metadata:
+    annotations:
+      alpha.kubernetes.io/provided-node-ip: 10.20.11.140
+      karpenter.sh/managed-by: bys-dev-eks-main
+      karpenter/provisioner.name: karpenter-default
+      node.alpha.kubernetes.io/ttl: "0"
+      volumes.kubernetes.io/controller-managed-attach-detach: "true"
+    finalizers:
+    - karpenter.sh/termination
+  ```
+  Karpenter sets a Kubernetes finalizer on each node it provisions. The finalizer blocks deletion of the node object while the Termination Controller cordons and drains the node, before removing the underlying machine. 
+  Deprovisioning is triggered by the Deprovisioning Controller, by the user through manual deprovisioning, or through an external system that sends a delete request to the node object.
+
+- Deprovisioning  
+  Karpenter automatically discovers deprovisionable nodes and spins up replacements when needed. Karpenter deprovisions nodes by executing one automatic method at a time, in order of Expiration, Drift, Emptiness, and then Consolidation. 
+
+<!-- To do -->
+- Deprovisioning Controller 
+  1. Identify a list of prioritized candidates for the deprovisioning method.
+  2. For each deprovisionable node, execute a scheduling simulation with the pods on the node to find if any replacement nodes are needed.
+  3. Cordon the node(s) to prevent pods from scheduling to it.
+  4. Pre-spin any replacement nodes needed as calculated in Step (2), and wait for them to become ready.
+  5. Delete the node(s) and wait for the Termination Controller to gracefully shutdown the node(s).
+  6. Once the Termination Controller terminates the node, go back to Step (1), starting at the the first deprovisioning method again.
+
+- Termination Controller
+  1. 노드에 Cordon을 통해 신규 파드의 스케줄링 방지
+  2. K8s Eviction API를 통해 Eviction 시작 (PDB 존중), 노드가 drain 되기를 기다린다. 노드가 완전히 Drain되면 3번 프로세스 시작. 
+      - 만약 가디라는동안 만약 Underlying machine(AWS에서는 EC2)가 존재하지 않으면, 노드의 finalizers 필드를 제거하여 API 서버가 노드를 삭제하여 완전히 삭제될 수 있도록 한다. 
+  3. CSP의 machine을 종료한다. 
+  4. 노드의 finalizers 필드를 제거하여 API 서버가 노드를 삭제하여 완전히 삭제될 수 있도록 한다. 
+
+<!-- To do -->
+- Automated Methods
+  1. Emptiness
+     - 마지막 파드가 노드로부터 stop된 후, `ttlSecondsAfterEmpty` 설정 이 후 Karpenter가 노드 삭제 요청을 함.
+  2. Expiration
+  3. Consolidation
+  4. Drift
+  5. Interruption
+
 
 ## 10. [Trouble Shooting]()  
 
@@ -323,10 +390,16 @@ Fargate 노드에는 데몬셋이 배포되지 않도록 아래의 nodeAffinity�
 또한 Karpenter 노드의 경우에는 CPU가 부족해서 생성되지 않고 있는 상황으로 CPU Type자체를 변경해야 할 필요가 생겼다. 이번 경우에는 노드를 drain 시키고 다시 재 생성 하였다. 
 
 
+#### 2. EC2 인스턴스가 기동되자마자 바로 종료되는 현상 
+- Node terminates before ready on failed encrypted EBS volume
+
+If you are using a custom launch template and an encrypted EBS volume, the IAM principal launching the node may not have sufficient permissions to use the KMS customer managed key (CMK) for the EC2 EBS root volume. This issue also applies to Block Device Mappings specified in the Provisioner. In either case, this results in the node terminating almost immediately upon creation.
+
+To correct the problem if it occurs, you can use the approach that AWS EBS uses, which avoids adding particular roles to the KMS policy.
+
+
 <br><br><br>
 
 - References  
-[1] https://github.com/aws/karpenter/issues/1018
-
-
-
+[1] https://github.com/aws/karpenter/issues/101  
+[2] https://karpenter.sh/docs/troubleshooting/
