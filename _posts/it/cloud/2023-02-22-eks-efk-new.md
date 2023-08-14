@@ -357,6 +357,18 @@ Index를 분리하기 위해 Cloudwatch log group을 다르게 설정하였다.
     extra_user_agent    container-insights
 ```
 
+또는 Application 그룹 밑으로 넣고 싶은 경우는 아래 처럼 수정한다.  
+```ruby
+[OUTPUT]
+    Name                cloudwatch_logs
+    Match               application.*
+    region              ${AWS_REGION}
+    log_group_name      /aws/containerinsights/${CLUSTER_NAME}/application
+    log_stream_prefix   ${CLUSTER_NAME}.$kubernetes['namespace_name'].$kubernetes['container_name']
+    auto_create_group   true
+    extra_user_agent    container-insights
+```
+
 <br>
 
 ### 4. IMDS 문제 
