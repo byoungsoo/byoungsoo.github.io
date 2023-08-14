@@ -28,3 +28,14 @@ elapsed: 0.2 s                                                                  
 unpacking linux/amd64 sha256:529cf6b1b6e5b76e901abc43aee825badbd93f9c5ee5f1e316d46a83abbce5a2...
 done: 35.246662ms
 ```
+
+
+
+
+## Docker
+```bash
+docker buildx build --platform linux/amd64 -t python:v1 .
+docker tag python:v1 558846430793.dkr.ecr.ap-northeast-2.amazonaws.com/python:latest
+```
+
+
