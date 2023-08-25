@@ -35,6 +35,8 @@ eksctl utils enable-secrets-encryption \
 
 ### 4. 동작방법
 
+![eks-kms-encryption](/assets/it/cloud/eks/eks-kms-encryption.png){: width="50%" height="auto"}
+
 1. User는 Kubectl 커맨드를 통해 Secret리소스를 생성한다.  
 2. EKS API서버는 내부적으로 DEK(Data Encryption Key)를 생성하고 secret의 plaintext payload를 암호화 한다.  
 3. EKS API 서버는 AWS API인 'kms:Encrypt'를 호출하며 DEK를 KMS 키를 사용해 암호화 합니다. 
