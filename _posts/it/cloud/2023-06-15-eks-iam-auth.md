@@ -134,7 +134,7 @@ aws-iam-authenticator 서버는 aws-auth ConfigMap에서 확인한 kubernetes Us
 ### 1.4. EKS API 서버의 인가 과정
 EKS API 서버는 Kubernetes의 User/Group 정보를 받으면 RBAC(Role-based Access Control)기반의 Role/ClusterRole을 부여한다.  
 
-<br><br>
+<br>
 
 이렇게 Amazon EKS 에서는 인증/인가 과정이 동작하며 인증 과정은 AWS IAM 서비스를 통해 인가 과정은 Kubernetes 기반의 RBAC으로 동일하게 작동한다.  
 
