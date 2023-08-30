@@ -43,6 +43,23 @@ filter @logStream like /^authenticator/
 | limit 50
 ```
 
+### kube-controller-manager log 
+```bash
+fields @timestamp, @message
+  | filter @logStream like /^kube-controller-manager/
+  | filter @message like "FLAG"
+  | sort @timestamp desc
+```
+
+### kube-apiserver Log
+```bash
+fields @timestamp, @message
+  | filter @logStream like /^kube-apiserver-/
+  | filter @logStream not like /^kube-apiserver-audit/
+  | filter @message like "FLAG"
+  | sort @timestamp desc
+```
+
 
 ### Audit Log
 1. aws-auth 관련
@@ -134,7 +151,7 @@ ttl-controller
 ```
 
 ```bash
-fields @logStream, @timestamp, @message
+fields @timestamp, verb, user.username, objectRef.resource, objectRef.namespace, objectRef.name , responseObject.code, @message
   | filter @logStream like /^kube-apiserver-audit/
   | filter objectRef.resource == "persistentvolumeclaims"
   | filter objectRef.name  = "efs-provisioner-test"
@@ -143,7 +160,7 @@ fields @logStream, @timestamp, @message
 
 `vpc-resource-controller`
 ```bash
-fields @timestamp, verb, user.username, objectRef.resource, @message
+fields @timestamp, verb, user.username, objectRef.resource, objectRef.namespace, objectRef.name , responseObject.code, @message
 | filter @logStream like /^kube-apiserver-audit/
 | filter objectRef.namespace == "default"
 | filter verb not in ["list", "watch", "get"]
@@ -153,7 +170,7 @@ fields @timestamp, verb, user.username, objectRef.resource, @message
 
 `watch object`
 ```bash
-fields @timestamp, verb, user.username, userAgent, objectRef.resource
+fields @timestamp, verb, user.username, objectRef.resource, objectRef.namespace, objectRef.name , responseObject.code, @message
 | filter @logStream like /^kube-apiserver-audit/
 | filter user.username like "kube-controller"
 | filter objectRef.resource == "replicasets"
@@ -163,7 +180,7 @@ fields @timestamp, verb, user.username, userAgent, objectRef.resource
 
 `deployment-controller`
 ```bash
-fields @timestamp, verb, user.username, userAgent, objectRef.resource, responseObject.code
+fields @timestamp, verb, user.username, objectRef.resource, objectRef.namespace, objectRef.name , responseObject.code, @message
 | filter @logStream like /^kube-apiserver-audit/
 # | filter user.username like "kube-controller"
 | filter objectRef.resource == "replicasets"
@@ -182,14 +199,6 @@ fields @timestamp, verb, user.username, objectRef.resource, objectRef.namespace,
 ```
 > kube-controller-manager/v1.25.8 (linux/amd64) kubernetes/83fe90d/system:serviceaccount:kube-system:replicaset-controller -> create -> pods
 
-
-`kube-controller-manager`
-```bash
-fields @timestamp, @message
-  | filter @logStream like /^kube-controller-manage/
-  | filter @message like "FLAG"
-  | sort @timestamp desc
-```
 
 ### TargetGroupBindings
 `Sample Data`
