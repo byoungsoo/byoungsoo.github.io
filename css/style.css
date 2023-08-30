@@ -74,12 +74,12 @@
 #post-bys .block h1 {
   /* font-family: 'BinggraeBold'; */
   /* font-family: 'MyriadSemiBold'; */
-  padding-top: 32px;
+  padding-top: 28px;
   font-weight: 700;
 }
 
 #post-bys .block h2 {
-  font-size: 30px;
+  font-size: 24px;
   padding-top: 40px;
   padding-bottom: 5px;
   /* line-height: 10px; */
@@ -88,7 +88,7 @@
 }
 
 #post-bys .block h3 {
-  font-size: 25px;
+  font-size: 22px;
   padding-top: 10px;
   padding-bottom: 5px;
   /* line-height: 10px; */
@@ -103,7 +103,7 @@
 }
 
 #post-bys .block h5 {
-  font-size: 17px;
+  font-size: 18px;
   padding-top: 10px;
   padding-bottom: 5px;
   font-weight: 600;
@@ -128,6 +128,7 @@
 
 #post-bys .block .post-info-wrapper {
   font-family: 'Binggrae';
+  /* font-family: 'Binggrae'; */
 }
 
 #post-bys .block ul {
