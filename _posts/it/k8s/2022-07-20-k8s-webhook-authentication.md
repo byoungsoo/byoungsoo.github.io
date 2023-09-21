@@ -18,9 +18,9 @@ Kubernetes 사용자에 대해서 먼저 알아보자.
 
 - Authentication strategies
   1. 쿠버네티스 클러스터의 CA(Certificate Authority, 인증기관)에 의해 서명된 유효한 인증서를 가지고 있는 경우 (CN=UserName)  
-    [Minikube 인증서를 통한 사용자 추가 및 인증/인가](https://byoungsoo.github.io/container/2022/07/14/minikube-crt-auth.html)  
+    [Minikube 인증서를 통한 사용자 추가 및 인증/인가](https://byoungsoo.github.io/k8s/2022/07/14/minikube-crt-auth.html)  
   2. Service Account Tokens  
-    [Minikube 토큰을 통한 인증/인가](https://byoungsoo.github.io/container/2022/07/15/minikube-token-auth-copy.html)  
+    [Minikube 토큰을 통한 인증/인가](https://byoungsoo.github.io/k8s/2022/07/15/minikube-token-auth-copy.html)  
   3. [**Webhook Token Authentication**](https://kubernetes.io/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)  
   4. Static Token File
   5. Bootstrap Tokens 
@@ -34,7 +34,7 @@ Webhook 기반의 인증 기법은 다양한 형태의 외부 인증 서버와 �
 webhook은 특정 이벤트가 발생했을 때, 사전에 정의된 URL을 호출하여 후속 작업을 처리할 수 있도록 도와주는 방법이다.  
 Kubernetes에서는 인증전략 중 하나로 Webhook Token을 통한 인증이 가능하도록 하였다. 
 여기서는 별도의 Webhook 인증서버를 구성하여 테스트를 진행할 것이다.  
-(클러스터 구축은 모두 완료 된 상태에서 진행 [Kubeadm을 통한 클러스터 구축](https://byoungsoo.github.io/container/2022/07/18/kubernetes-cluster-setup.html))   
+(클러스터 구축은 모두 완료 된 상태에서 진행 [Kubeadm을 통한 클러스터 구축](https://byoungsoo.github.io/k8s/2022/07/18/kubernetes-cluster-setup.html))   
 
 - Flow  
 [![kubeadm_auth_webhook001](/assets/it/k8s/k8s/kubeadm_auth_webhook001.png){: width="80%" height="auto"}](/assets/it/k8s/k8s/kubeadm_auth_webhook001.png)  
