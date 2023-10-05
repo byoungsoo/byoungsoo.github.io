@@ -36,6 +36,8 @@ done: 35.246662ms
 ```bash
 docker buildx build --platform linux/amd64 -t python:v1 .
 docker tag python:v1 558846430793.dkr.ecr.ap-northeast-2.amazonaws.com/python:latest
+
+docker buildx build --platform linux/amd64 -t 558846430793.dkr.ecr.ap-northeast-2.amazonaws.com/stress-ng:latest .
 ```
 
 

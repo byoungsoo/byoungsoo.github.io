@@ -118,27 +118,46 @@ kubernetes 1.24 버전에서는 docker 런타임 중단에 따라 기존 docker�
 
 자세한 내용은 아래 공식문서를 참고한다. [Container Runtimes](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd)  
 여기서는 containerd를 이용한다. [Download containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md)  
+Release 버전은 문서에 확인 가능하다. [Release](https://github.com/containerd/containerd/releases)  
+
 
 - container runtime 설치  
   ```bash
-  wget https://github.com/containerd/containerd/releases/download/v1.6.6/containerd-1.6.6-linux-amd64.tar.gz
-  tar Cxzvf /usr/local containerd-1.6.6-linux-amd64.tar.gz
+  wget https://github.com/containerd/containerd/releases/download/v1.6.24/containerd-1.6.24-linux-amd64.tar.gz
+  tar Cxzvf /usr/local containerd-1.6.24-linux-amd64.tar.gz
   ```
 
 - systemd 서비스 등록  
   ```bash
-  vim /etc/systemd/system/containerd.service
+  vim /usr/local/lib/systemd/system/containerd.service
   ```
 
   ```txt
+  # Copyright The containerd Authors.
+  #
+  # Licensed under the Apache License, Version 2.0 (the "License");
+  # you may not use this file except in compliance with the License.
+  # You may obtain a copy of the License at
+  #
+  #     http://www.apache.org/licenses/LICENSE-2.0
+  #
+  # Unless required by applicable law or agreed to in writing, software
+  # distributed under the License is distributed on an "AS IS" BASIS,
+  # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  # See the License for the specific language governing permissions and
+  # limitations under the License.
+
   [Unit]
   Description=containerd container runtime
   Documentation=https://containerd.io
   After=network.target local-fs.target
 
   [Service]
+  #uncomment to fallback to legacy CRI plugin implementation with podsandbox support.
+  #Environment="DISABLE_CRI_SANDBOXES=1"
   ExecStartPre=-/sbin/modprobe overlay
   ExecStart=/usr/local/bin/containerd
+
   Type=notify
   Delegate=yes
   KillMode=process
@@ -178,14 +197,14 @@ kubernetes 1.24 버전에서는 docker 런타임 중단에 따라 기존 docker�
 
 - runc
   ```
-  wget https://github.com/opencontainers/runc/releases/download/v1.1.3/runc.amd64
+  wget https://github.com/opencontainers/runc/releases/download/v1.1.9/runc.amd64
   install -m 755 runc.amd64 /usr/local/sbin/runc
   ```
 
 - CNI Plugin
   ```
-  wget https://github.com/containernetworking/plugins/releases/download/v1.1.1/cni-plugins-linux-amd64-v1.1.1.tgz
-  tar Cxzvf /opt/cni/bin cni-plugins-linux-amd64-v1.1.1.tgz
+  wget https://github.com/containernetworking/plugins/releases/download/v1.3.0/cni-plugins-linux-amd64-v1.3.0.tgz
+  tar Cxzvf /opt/cni/bin cni-plugins-linux-amd64-v1.3.0.tgz
   ```
 
 `container image(Optional)`  
@@ -227,7 +246,7 @@ kubeadm init 을 통해 Control Plane 을 구성한다. --control-plane-endpoint
 마스터 서버에서 아래와 같은 커맨드를 입력한다.  
 ```bash
 kubeadm init \
---control-plane-endpoint "nlb-kube-master-a0dca3b259bf3238.elb.ap-northeast-2.amazonaws.com:6443" \
+--control-plane-endpoint "bys-dev-nlb-kubeadm-cluster-8fc7f1f5d5b6d0b6.elb.ap-northeast-2.amazonaws.com:6443" \
 --upload-certs \
 --pod-network-cidr "192.168.0.0/16" \
 ```
@@ -235,7 +254,7 @@ kubeadm init \
 해당 커맨드를 입력하였더니 오류가 발생했다.  
 ```txt
 kubeadm init \
-> --control-plane-endpoint "nlb-kube-master-a0dca3b259bf3238.elb.ap-northeast-2.amazonaws.com:6443" \
+> --control-plane-endpoint "bys-dev-nlb-kubeadm-cluster-8fc7f1f5d5b6d0b6.elb.ap-northeast-2.amazonaws.com:6443" \
 > --upload-certs \
 > --pod-network-cidr "192.168.0.0/16"
 
@@ -284,7 +303,7 @@ To see the stack trace of this error execute with --v=5 or higher
 [bootstrap-token] Configured RBAC rules to allow Node Bootstrap tokens to post CSRs in order for nodes to get long term certificate credentials
 [bootstrap-token] Configured RBAC rules to allow the csrapprover controller automatically approve CSRs from a Node Bootstrap Token
 [bootstrap-token] Configured RBAC rules to allow certificate rotation for all node client certificates in the cluster
-[bootstrap-token] Creating the "cluster-info" ConfigMap in the "kube-public" namespace
+[bootstrap-token] Creating the "cluster-info" ConfigMap in the "kube-public" names  pace
 [kubelet-finalize] Updating "/etc/kubernetes/kubelet.conf" to point to a rotatable kubelet client certificate and key
 [addons] Applied essential addon: CoreDNS
 [addons] Applied essential addon: kube-proxy
@@ -381,7 +400,7 @@ Flannel, Calico 등 다양한 종류의 CNI가 존재하며 그 중에서도 이
 자세한 사항은 공식 문서를 확인한다. [Calico Install](https://projectcalico.docs.tigera.io/getting-started/kubernetes/self-managed-onprem/onpremises#install-calico)  
 Master 노드에서 아래 명령어를 수행한다.  
 ```bash
-curl https://projectcalico.docs.tigera.io/manifests/calico.yaml -O
+curl -LO https://docs.tigera.io/calico/latest/manifests/calico.yaml
 kubectl apply -f calico.yaml
 ```
 
