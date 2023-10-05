@@ -205,13 +205,47 @@ Karpenter는 provisioning loop의 완료단계에서 Machine을 생성한다. Pr
 2. Kubernetes karpenter는 pods가 실패하거나 다른 노드로 다시 스케쥴링이 될 때 워커 노드 수를 자동으로 조정한다. 
 3. Karpenter에서는 ASG를 관리하지 않고 Karpenter -> EC2 Fleet API를 바로 호출하며 Just in time. Not ready 상태에서도 이미 pod가 스케쥴 됨.
 
-- Workflow
+- Karpenter Workflow
   1. launching machine with 1 pods requesting
   2. computed new node(s) to fit pod(s)
   3. discovered kubernetes version
   4. discovered new ami
   5. created launch template
   6. launched new instance
+
+
+- Current Instance & Node Creation Flow  
+Karpenter currently performs the following operations when it detect pending pods and launches capacity to the cluster:
+1. VM 인스턴스 생성을 위해 EC2 API로 CreateFleet API를 수행한다. > Performs a CreateFleet request against EC2 APIs which leads to VM Instance Creation
+2. Kubernetes API로 /core/v1/node Create를 수행한다. > Performs a Create against the /core/v1/node Kubernetes API
+3. If there is a conflict in this Create call to the Node object, Karpenter assumes that Kubelet already created the node and does not add the Karpenter-managed node labels onto the node
+4. Reconciles the Node termination finalizer onto the node as soon as the node watch receives an Add/Update event for the node
+5. Reconciles the Provisioner ownerReference onto the node as soon as the node watch receives an Add/Update event for the node
+    ```yaml
+    $ k get nodes ip-10-20-11-140.ap-northeast-2.compute.internal --show-managed-fields -o yaml
+
+    apiVersion: v1
+    kind: Node
+    metadata:
+      annotations:
+        alpha.kubernetes.io/provided-node-ip: 10.20.11.140
+        csi.volume.kubernetes.io/nodeid: '{"ebs.csi.aws.com":"i-04226997c81ddee46","efs.csi.aws.com":"i-04226997c81ddee46"}'
+        karpenter.sh/managed-by: bys-dev-eks-main
+        karpenter/provisioner.name: karpenter-default
+        node.alpha.kubernetes.io/ttl: "0"
+        volumes.kubernetes.io/controller-managed-attach-detach: "true"
+      creationTimestamp: "2023-08-03T08:43:09Z"
+      finalizers:
+      - karpenter.sh/termination
+    .....생략
+      ownerReferences:
+      - apiVersion: karpenter.sh/v1alpha5
+        blockOwnerDeletion: true
+        kind: Machine
+        name: default-prv-6dsjg
+        uid: 37177659-2f4e-4b76-beac-71067d904471
+    ```
+
 
 
 `Cloud Trail Event`  
