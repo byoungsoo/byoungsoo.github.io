@@ -16,6 +16,11 @@ Amazon EKS에서는 EKS 클러스터에 접근하기 위한 인증을 위해 IAM
 <br><br>
 
 ## 1. 동작과정 Dive Deep
+  1. Client는 IAM Identity token 정보와 함께 EKS API 서버로 요청을 전달  
+  2. EKS API Server는 Webhook Token Authentication 설정을 통해 aws-iam-authenticator 서버로 요청을 전달  
+  3. aws-iam-authenticator 서버는 AWS IAM과 인증 절차를 수행하고 aws-auth ConfigMap을 통해 User/Group을 전달
+  4. RBAC을 통한 인가
+
 ### 1.1 Client는 IAM Identity token 정보와 함께 EKS API 서버로 요청을 전달  
 
 Debug모드를 통해 Client에서 kubectl 커맨드를 통해 요청시 어떻게 수행되는지 알아본다.  
