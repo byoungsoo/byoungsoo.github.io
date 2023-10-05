@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "EKS 인증 및 인가 과정 dive deep"
+title: "EKS IAM Authentication and RBAC (EKS 인증 및 인가 과정 Dive Deep)"
 author: "Bys"
 category: cloud
 date: 2023-06-16 01:00:00
@@ -70,6 +70,9 @@ $ aws-iam-authenticator token -i bys-dev-eks-main
   }
 }
 ```
+- Token 형태
+  - k8s-aws-v1.<BASE64-PRESIGNED-URL-WITH-STRPPED-PADDING>
+
 
 위 토큰을 [JWT](https://jwt.io/)사이트로 이동하여 Decode를 해보면 payload에는 아래와 같은 정보가 확인된다.  
 아래 URL은 Pre-signed AWS API요청으로 자세한 내용은 [문서](https://docs.aws.amazon.com/IAM/latest/UserGuide/create-signed-request.html)에서 확인할 수 있다.   
@@ -83,11 +86,19 @@ $ aws-iam-authenticator token -i bys-dev-eks-main
 &X-Amz-SignedHeaders=host%3Bx-k8s-aws-id
 &X-Amz-Signature=1be0c55281b7e8e97807dc4df95047c046e802b39dab1941bf703d1dadb24628"
 ```
+
+또는
+```bash
+echo "aHR0cHM6Ly9zdHMuYXAtbm9ydGhlYXN0LTIuYW1hem9uYXdzLmNvbS8_QWN0aW9uPUdldENhbGxlcklkZW50aXR5JlZlcnNpb249MjAxMS0wNi0xNSZYLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFZRUhPWFpaRVJHM1lVRlVJJTJGMjAyMzA2MTUlMkZhcC1ub3J0aGVhc3QtMiUyRnN0cyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjMwNjE1VDE0NTM0NFomWC1BbXotRXhwaXJlcz0wJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCUzQngtazhzLWF3cy1pZCZYLUFtei1TaWduYXR1cmU9MWJlMGM1NTI4MWI3ZThlOTc4MDdkYzRkZjk1MDQ3YzA0NmU4MDJiMzlkYWIxOTQxYmY3MDNkMWRhZGIyNDYyOA" | base64 --decode
+
+https://sts.ap-northeast-2.amazonaws.com/?Action=GetCallerIdentity&Version=2011-06-15&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAYEHOXZZERG3YUFUI%2F20230615%2Fap-northeast-2%2Fsts%2Faws4_request&X-Amz-Date=20230615T145344Z&X-Amz-Expires=0&X-Amz-SignedHeaders=host%3Bx-k8s-aws-id&X-Amz-Signature=1be0c55281b7e8e97807dc4df95047%
+```
+
+
 참고로 x-k8s-aws-id 헤더에는 클러스터 ID가 들어간다.  
-
-
-
 이 중 실제 `X-Amz-Crednetial=AKIAYTTTTTYYYYYXXXXX` 정보는 해당 커맨드를 수행한 IAM User의 Access Key정보와 같다.  
+
+Pre-signed URL의 경우 위 URL 값 중 어떤 것을 변경하게 되면 이 요청은 허용되지 않는다. [문서](https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html)  
 
 <br>
 
