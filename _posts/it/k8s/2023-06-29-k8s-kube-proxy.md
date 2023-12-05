@@ -19,16 +19,16 @@ tags: eks node iptables
 
 ## Kube-proxy의 동작 방식
 
-kube-proxy는 [spec.internalTrafficPolicy](https://kubernetes.io/docs/concepts/services-networking/service-traffic-policy/)의 설정에 따라서 라우팅되는 엔드포인트를 필터링 한다[1]. 서비스에는 spec.internalTrafficPolicy 필드가 존재하며 Cluster(Default 설정) 또는 Local 값을 갖으며 서비스의 internalTrafficPolicy 정책이 Local인 경우 트래픽이 랜덤으로 분산되지 않는다.  
+kube-proxy는 [spec.externalTrafficPolicy](https://kubernetes.io/docs/concepts/services-networking/service-traffic-policy/)의 설정에 따라서 라우팅되는 엔드포인트를 필터링 한다[1]. 서비스에는 spec.externalTrafficPolicy 필드가 존재하며 Cluster(Default 설정) 또는 Local 값을 갖으며 서비스의 externalTrafficPolicy 정책이 Local인 경우 트래픽이 랜덤으로 분산되지 않는다.  
 
-- spec.internalTrafficPolicy: Local
-internalTrafficPolicy가 Local로 설정된 서비스에 대해서 kube-proxy는 같은 노드에 있는 엔드포인트로 트래픽을 분산한다. [문서](https://kubernetes.io/blog/2022/12/30/advancements-in-kubernetes-traffic-engineering/#:~:text=Figure%208%3A%20Service%20routing%20when%20internalTrafficPolicy%20is%20Local)를 확인하면 첫 번째 노드의 A파드에서 B서비스로 요청시 A파드가 존재하는 노드의 kube-proxy는 자신의 노드에 존재하는 1개의 B파드로만 트래픽을 전달한다. 
+- spec.externalTrafficPolicy: Local
+externalTrafficPolicy가 Local로 설정된 서비스에 대해서 kube-proxy는 같은 노드에 있는 엔드포인트로 트래픽을 분산한다. [문서](https://kubernetes.io/blog/2022/12/30/advancements-in-kubernetes-traffic-engineering/#:~:text=healthy%20Node%2C%20when-,externalTrafficPolicy%20is%20Local,-One%20such%20scenario)를 확인하면 첫 번째 노드의 A파드에서 B서비스로 요청시 A파드가 존재하는 노드의 kube-proxy는 자신의 노드에 존재하는 1개의 B파드로만 트래픽을 전달한다. 
 
-- spec.internalTrafficPolicy: Cluster(Default)
-internalTrafficPolicy가 Cluster로 설정된 서비스에 대해서 kube-proxy는 모든 엔드포인트로 랜덤하게 트래픽을 분산한다. [문서](https://kubernetes.io/blog/2022/12/30/advancements-in-kubernetes-traffic-engineering/#:~:text=Figure%207%3A%20Service%20routing%20when%20internalTrafficPolicy%20is%20Cluster)를 확인하면 첫 번째 노드의 A파드에서 B서비스로 요청시 A파드가 존재하는 노드의 kube-proxy는 iptables를 기반으로 트래픽을 3개의 B파드로 전달한다. 
+- spec.externalTrafficPolicy: Cluster(Default)
+externalTrafficPolicy가 Cluster로 설정된 서비스에 대해서 kube-proxy는 모든 엔드포인트로 랜덤하게 트래픽을 분산한다. [문서](https://kubernetes.io/blog/2022/12/30/advancements-in-kubernetes-traffic-engineering/#:~:text=Figure%207%3A%20Service%20routing%20when%20internalTrafficPolicy%20is%20Cluster)를 확인하면 첫 번째 노드의 A파드에서 B서비스로 요청시 A파드가 존재하는 노드의 kube-proxy는 iptables를 기반으로 트래픽을 3개의 B파드로 전달한다. 
 
 
-### [DeepDive] - When internalTrafficPolicy is Cluster.
+### [DeepDive] - When externalTrafficPolicy is Cluster.
 
 1. nginx 샘플 배포  
 
@@ -72,7 +72,7 @@ internalTrafficPolicy가 Cluster로 설정된 서비스에 대해서 kube-proxy�
         protocol: TCP
         targetPort: 80
     ```
-    해당 매니페스트를 배포 하면 서비스의 internalTrafficPolicy는 기본 설정인 Cluster 값을 갖는다.  
+    해당 매니페스트를 배포 하면 서비스의 externalTrafficPolicy는 기본 설정인 Cluster 값을 갖는다.  
 
 2. 배포 확인  
 

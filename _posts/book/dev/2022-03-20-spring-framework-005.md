@@ -2,7 +2,7 @@
 layout: post
 title: "Spring 프로그래밍 (Chapter 9~10)[스프링 MVC]"
 author: "Bys"
-category: it_book
+category: dev
 date: 2022-03-20 01:00:00
 tags: book programming spring framework mvc
 ---

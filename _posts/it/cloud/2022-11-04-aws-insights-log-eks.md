@@ -62,18 +62,38 @@ fields @timestamp, @message
 
 
 ### Audit Log
-1. aws-auth 관련  
+- Lease object
+```bash
+fields @timestamp, userAgent, verb, objectRef.resource, objectRef.name, user.extra.sessionName.0
+| filter @logStream like "kube-apiserver-audit" 
+| filter verb not in ["list", "watch", "get"]
+| filter objectRef.resource == "leases"
+| filter objectRef.name == "ip-10-20-42-209.ap-northeast-2.compute.internal"
+| sort @timestamp desc
+```
+
+- Node object
+```bash
+fields @timestamp, userAgent, verb, objectRef.resource, objectRef.name, requestObject.status.conditions.3.type
+| filter @logStream like "kube-apiserver-audit" 
+| filter verb not in ["list", "watch", "get"]
+| filter objectRef.resource == "nodes"
+| filter objectRef.name == "ip-10-20-42-209.ap-northeast-2.compute.internal"
+| sort @timestamp desc
+```
+
+- aws-auth 관련  
 query를 통해 aws-auth configmaps와 관련된 수정/삭제에 대한 기록을 조회해 볼 수 있다.  
 ```bash
 fields @timestamp, verb, user.username, objectRef.resource, objectRef.namespace, objectRef.name , responseObject.code, @message
 | filter @logStream like /^kube-apiserver-audit/
 | filter objectRef.resource == “configmaps” 
 | filter objectRef.name == "aws-auth"
-|filter verb in ["patch", "delete"]
+|filter verb not in ["watch", "list", "get"]
 | sort @timestamp desc
 ```
 
-2. aws-node에 대한 serviceaccounts에 대한 조회 api 이외의 api로그를 확인 해 볼 수 있다.  
+- aws-node에 대한 serviceaccounts에 대한 조회 api 이외의 api로그를 확인 해 볼 수 있다.  
 ```bash
 fields @timestamp, verb, user.username, objectRef.resource, objectRef.namespace, objectRef.name , responseObject.code, @message
   | filter @logStream like /^kube-apiserver-audit/
@@ -84,7 +104,7 @@ fields @timestamp, verb, user.username, objectRef.resource, objectRef.namespace,
 ```
 
 
-3. 특정 requestURI를 통해 찾을 때 아래의 내용을 통해 확인한다. [API Docs](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#-strong-api-overview-strong-)  
+- 특정 requestURI를 통해 찾을 때 아래의 내용을 통해 확인한다. [API Docs](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#-strong-api-overview-strong-)  
 
 ```bash
 # Delete pods
@@ -102,19 +122,19 @@ fields @logStream, @timestamp, requestURI, @message
 | sort @timestamp desc
 ```
 
-    `Test`  
-    ```bash
-    kubectl delete node ip-10-20-10-35.ap-northeast-2.compute.internal
-    ```
+  `Test`  
+  ```bash
+  kubectl delete node ip-10-20-10-35.ap-northeast-2.compute.internal
+  ```
 
-    아래의 내용을 통해 Log insight 조회 
-    ```bash
-    fields @logStream, @timestamp, requestURI, @message
-    | filter @logStream like /^kube-apiserver-audit/
-    | filter requestURI like "/api/v1/node"
-    | filter verb == "delete"
-    | sort @timestamp desc
-    ```
+  아래의 내용을 통해 Log insight 조회 
+  ```bash
+  fields @logStream, @timestamp, requestURI, @message
+  | filter @logStream like /^kube-apiserver-audit/
+  | filter requestURI like "/api/v1/node"
+  | filter verb == "delete"
+  | sort @timestamp desc
+  ```
 
 아래와 같은 결과를 확인할 수 있다.  
 ![delete_audit_log001.png](/assets/it/cloud/eks/delete_audit_log001.png){: width="95%" height="auto"}  

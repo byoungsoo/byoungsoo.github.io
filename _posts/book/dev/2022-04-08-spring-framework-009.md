@@ -2,7 +2,7 @@
 layout: post
 title: "Spring 프로그래밍 (Chapter 15~17)[웹 어플리케이션의 구조, JSON응답과 요청처리, 프로필과 프로퍼티 파일]"
 author: "Bys"
-category: it_book
+category: dev
 date: 2022-04-08 01:00:00
 tags: book programming spring framework mvc @restcontroller @jsonignore @jsonformat unixtimestamp @requestbody
 ---

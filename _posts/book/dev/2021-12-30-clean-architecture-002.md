@@ -2,7 +2,7 @@
 layout: post
 title: "클린 아키텍처 (Chapter 12~17) - Robert C. Martin"
 author: "Bys"
-category: it_book
+category: dev
 date: 2021-12-30 01:00:00
 tags: book clean-architecture component 
 ---

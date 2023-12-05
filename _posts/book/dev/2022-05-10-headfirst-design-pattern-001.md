@@ -2,7 +2,7 @@
 layout: post
 title: "헤드퍼스트 디자인 패턴"
 author: "Bys"
-category: it_book
+category: dev
 date: 2022-05-10 01:00:00
 tags: book programming java design-pattern
 ---

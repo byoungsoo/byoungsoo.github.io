@@ -2,7 +2,7 @@
 layout: post
 title: "클린 아키텍처 (Chapter 1~11) - Robert C. Martin"
 author: "Bys"
-category: it_book
+category: dev
 date: 2021-12-17 01:00:00
 tags: book clean-architecture solid srp ocp lsp dip
 ---

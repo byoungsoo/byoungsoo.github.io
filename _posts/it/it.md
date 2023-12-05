@@ -48,6 +48,10 @@
 - SDK
   - eks cluster안에서 ses를 호출하는 sdk를 개발하고 어플리케이션 안에서 권한을 어떻게 사용하는지 확인 해보기
 
+- Storage
+  - https://oslab.kaist.ac.kr/wp-content/uploads/esos_files/publication/conferences/korean/WC_ojt.pdf
+
+
 <br>
 
 
