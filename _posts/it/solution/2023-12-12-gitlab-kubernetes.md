@@ -24,6 +24,8 @@ tar xvf
 
 최상단 `values.yaml` 파일 수정  
 ```yaml
+# In order to use ALB via AWS Load Balancer Controller, Disabled Nginx Ingress Controller and configure below.
+
   ## https://docs.gitlab.com/charts/charts/globals#configure-ingress-settings
   ingress:
     # apiVersion: ""
@@ -60,9 +62,14 @@ tar xvf
             port:
               name: use-annotation
     pathType: Prefix
+......
 
+# Disabled nginx-ingress to use alb ingress class
+nginx-ingress: &nginx-ingress
+  enabled: false
+......
 
-
+# This is for gitlab-runners for kubernetes. Mount containerd.sock volume to use nerdctl, pull_policy change to always.
 gitlab-runner:
   install: true
   rbac:
@@ -95,10 +102,6 @@ gitlab-runner:
         {{ end }}
 ......
 
-# Disabled nginx-ingress to use alb ingress class
-nginx-ingress: &nginx-ingress
-  enabled: false
-
 ......
 
 certmanager-issuer:
@@ -122,7 +125,6 @@ master:
 위 와 같이 values.yaml 파일을 수정하고 추가적으로 수정이 필요한 내부 Chart의 values.yaml 파일을 수정한다. 
 
 
-
 <br>
 
 #### - Install Gitlab using Helm
@@ -137,7 +139,6 @@ helm upgrade --install gitlab ./ --namespace gitlab
 kubectl get secrets gitlab-gitlab-initial-root-password -n gitlab -o jsonpath={.data.password}|base64 -d
 ```
 <br>
-
 
 
 ### TroubleShooting  
@@ -158,4 +159,25 @@ kubectl get secrets gitlab-gitlab-initial-root-password -n gitlab -o jsonpath={.
   --context "${CI_PROJECT_DIR}"
   --dockerfile "${CI_PROJECT_DIR}/${DOCKER_FILE_NAME}"
   --destination "${ECR_BASE_URL}/${DOCKER_ECR_IMAGE_REPO}:${BASE_IMAGE_TAG}"
+```
+
+<br>
+
+#### - [Kubernetes executor, Runner 설정](https://docs.gitlab.com/runner/executors/kubernetes.html)
+Image를 Pull, Push 하기 위해서는 nerdctl 커맨드를 사용하여야 했는데 containerd 런타임을 통해 수행되기 때문에 노드의 containerd.sock을 마운트하여 사용할 수 있도록 한다.  
+> containerd is a high-level container runtime. To put it simply, it's a daemon that manages the complete container lifecycle on a single host: creates, starts, stops containers, pulls and stores images, configures mounts, networking, etc.
+
+[`values.yaml`](https://gitlab.com/gitlab-org/charts/gitlab/-/blob/master/values.yaml?ref_type=heads#L1237)
+```yaml
+[[runners]]
+  [runners.kubernetes]
+  image = "202949997891.dkr.ecr.ap-northeast-2.amazonaws.com/common/build:kaniko-debug"
+  pull_policy = ["always", "if-not-present"]
+  {{- if .Values.global.minio.enabled }}
+  [[runners.kubernetes.volumes.host_path]]
+    name = "containerdsock"
+    mount_path = "/run/containerd/containerd.sock"
+    read_only = true
+    host_path = "/run/containerd/containerd.sock"
+  [runners.cache]
 ```
