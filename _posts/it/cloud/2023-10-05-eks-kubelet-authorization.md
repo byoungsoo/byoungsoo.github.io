@@ -45,8 +45,11 @@ users:
 
 따라서 kubelet은 aws-iam-authenticator token을 통해 API서버로 요청하면 [인증/인가 과정](https://byoungsoo.github.io/cloud/2023/06/16/eks-iam-auth.html)이 이뤄지게 된다.
 
-*그렇다면 Kubelet은 어떤 IAM Role/User를 통해 권한을 받게될까?*  
+<br>
+
+*그렇다면 Kubelet은 어떤 IAM Role/User를 통해 권한을 받게될까?*
 - 바로 노드가 사용하는 IAM Role인 my-node-role이다.  
+
 ```yaml
 apiVersion: v1
 data:
@@ -61,14 +64,47 @@ metadata:
   name: aws-auth
   namespace: kube-system
 ```
-my-node-role을 사용하는 IAM Role에 대해서는 system:bootstrappers, system:nodes 그룹을 반환해준다. 
+my-node-role을 사용하는 IAM Role에 대해서는 system:bootstrappers, system:nodes 그룹을 리턴해준다. 
+
+<br>
 
 *그렇다면 system:bootstrappers, system:nodes 그룹은 어떤 권한을 가지고 있을까?*  
+ClusterRoleBinding 리소스에 매핑된 내용을 확인해보면 `eks:node-bootstrapper` ClusterRole 외 에는 맵핑된 ClusterRole이 없는 것을 확인할 수 있다.  
 
+```yaml
+Name:         eks:node-bootstrapper
+Labels:       eks.amazonaws.com/component=node
+Annotations:  <none>
+Role:
+  Kind:  ClusterRole
+  Name:  eks:node-bootstrapper
+Subjects:
+  Kind   Name                  Namespace
+  ----   ----                  ---------
+  Group  system:bootstrappers
+  Group  system:nodes
+```
 
+<br>
 
+*그렇다면 eks:node-bootstrapper ClusterRole은 어떤 권한을 가지고 있을까?*  
+특이하게도 자기 자신 노드에 대한 인증서에대한 서명 요청 외에는 권한이 없다. 이는 최초 노드 등록 후 자기 자신 서버에 대한 kubelet이 서버로 동작하기 위한 CSR 요청을 하기 위한 권한이다.  
+
+```bash
+$ kubectl describe clusterrole eks:node-bootstrapper
+Name:         eks:node-bootstrapper
+Labels:       eks.amazonaws.com/component=node
+Annotations:  <none>
+PolicyRule:
+  Resources                                                      Non-Resource URLs  Resource Names  Verbs
+  ---------                                                      -----------------  --------------  -----
+  certificatesigningrequests.certificates.k8s.io/selfnodeserver  []                 []              [create]
+```
+
+<br>
+
+*그렇다면 Kubelet은 어떻게 KUBE-API 서버로 많은 권한을 가지고 요청을 할 수 있을까?*  
 아래는 Amazon EKS에서 API 서버의 feature를 확인해보면 EKS에서는 authorization-mode로 Node, RBACK, Webhook 3가지를 사용하는 것을 확인할 수 있다. 
-
 **CloudWatch Logs Insights**  
 ```bash
 fields @message
@@ -77,22 +113,14 @@ fields @message
   | filter @message like "FLAG"
   | sort @timestamp desc
 ```
+
 ---
-| @message |
-| --- |
-......Skip
+| @message | --- |
 | I1001 04:09:41.141998      10 flags.go:64] FLAG: --authorization-mode="[Node,RBAC,Webhook]" |
 | I1001 04:09:41.142161      10 flags.go:64] FLAG: --enable-admission-plugins="[NodeRestriction,ExtendedResourceToleration]" |
-......Skip
 ---
 
 ![temp-node-auth](temp-node-auth.png)
-
-
-## 2. EKS의 인증을 위한 aws-iam-authenticator와 RBAC
-
-
-## 3. Node Authorization 모드
 
 
 1. Kubelet은 kubeconfig를 사용하여 API서버와 통신
@@ -123,6 +151,7 @@ fields @message
           - --region
           - "ap-northeast-2"
   ```
+  
 2. aws-iam-authenticator에 의해서 얻는 권한은 eks:node-bootstrapper clusterrole
 이 권한은 오로지 CSR 생성을 하기 위해서만 얻어지는 권한이다. eks:node-bootstrapper
 ```bash
