@@ -17,14 +17,13 @@ kubectl create ns gitlab
 
 helm repo add gitlab https://charts.gitlab.io/
 helm repo update
-
-helm pull gitlab/gitlab
-tar xvf 
 ```
 
 최상단 `values.yaml` 파일 수정  
 ```yaml
-# In order to use ALB via AWS Load Balancer Controller, Disabled Nginx Ingress Controller and configure below.
+global:
+  hosts:
+    domain: bys.world
 
   ## https://docs.gitlab.com/charts/charts/globals#configure-ingress-settings
   ingress:
@@ -38,7 +37,7 @@ tar xvf
       alb.ingress.kubernetes.io/scheme : internet-facing
       alb.ingress.kubernetes.io/security-groups: shared-sg-alb-gitlab
       alb.ingress.kubernetes.io/ssl-policy: ELBSecurityPolicy-TLS13-1-2-2021-06
-      alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-northeast-2:111122223333:certificate/11111-7a4f-47ca-98a1-6a9f3a08ecda
+      alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-northeast-2:558846430793:certificate/5f262e0f-98db-49b2-8ddc-65a663d3e7cf
       alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
       alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": {"Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
       alb.ingress.kubernetes.io/healthcheck-path: /
@@ -62,14 +61,26 @@ tar xvf
             port:
               name: use-annotation
     pathType: Prefix
-......
 
-# Disabled nginx-ingress to use alb ingress class
+
+## Settings to for the Let's Encrypt ACME Issuer
+certmanager-issuer:
+#   # The email address to register certificates requested from Let's Encrypt.
+#   # Required if using Let's Encrypt.
+  email: skwltg90@naver.com
+
+
+## https://docs.gitlab.com/charts/charts/nginx/
+## https://docs.gitlab.com/charts/architecture/decisions#nginx-ingress
+## Installation & configuration of charts/ingress-nginx:
 nginx-ingress: &nginx-ingress
   enabled: false
-......
 
-# This is for gitlab-runners for kubernetes. Mount containerd.sock volume to use nerdctl, pull_policy change to always.
+
+
+## Installation & configuration of gitlab/gitlab-runner
+## See requirements.yaml for current version
+# bys
 gitlab-runner:
   install: true
   rbac:
@@ -100,38 +111,49 @@ gitlab-runner:
             BucketLocation = "ap-northeast-2"
             Insecure = false
         {{ end }}
-......
 
-......
+# Redis
+redis:
+  master:
+    persistence:
+      size: 30Gi
+  replica:
+    persistence:
+      size: 30Gi
 
-certmanager-issuer:
-#   # The email address to register certificates requested from Let's Encrypt.
-#   # Required if using Let's Encrypt.
-  email: 123@naver.com
-```
-
-
-```yaml
-# gitlab-runner
-image:
-  registry: registry.gitlab.com
-  image: docker:stable
-
-# redis
-master:
+# Minio
+minio:
   persistence:
-    size: 30Gi
-```
-위 와 같이 values.yaml 파일을 수정하고 추가적으로 수정이 필요한 내부 Chart의 values.yaml 파일을 수정한다. 
+    size: 20Gi
 
+# Postgresql
+postgresql:
+  primary:
+    persistence:
+      size: 30Gi
+  readReplicas:
+    persistence:
+      size: 30Gi
+
+## Prometheus
+prometheus:
+  server:
+    persistentVolume:
+      size: 30Gi
+
+gitlab:
+  gitaly:
+    persistence:
+      size: 80Gi
+```
+위 와 같이 values.yaml 파일을 수정한다. Chart의 구조상 Dependency가 있는 Chart에 대해서는 Chart의 이름: 에서 values.yaml파일의 값을 다시 수정한다.  
 
 <br>
 
 #### - Install Gitlab using Helm
 
 ```bash
-# helm upgrade --install gitlab gitlab/gitlab --namespace gitlab -f values.yaml
-helm upgrade --install gitlab ./ --namespace gitlab
+helm upgrade --install gitlab gitlab/gitlab --namespace gitlab -f values.yaml
 ```
 위 커맨드를 통해 설치시 AWS Load Balancer Controller를 통해 ALB가 설치된다. Nginx ingress를 사용하지 않고 ALB를 통해 서비스하기 위해서 사용한다. 또한 내부적으로 PVC 볼륨 사이즈 값들을 수정하였는데 remote가 아닌 수정된 내부 Chart values 파일을 적용하기 위해서는 pull 받은 디렉토리의 경로에서 차트를 실행시킨다.  
 
