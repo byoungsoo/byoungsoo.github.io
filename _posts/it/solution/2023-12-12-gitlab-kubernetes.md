@@ -17,13 +17,14 @@ kubectl create ns gitlab
 
 helm repo add gitlab https://charts.gitlab.io/
 helm repo update
+
 ```
 
 최상단 `values.yaml` 파일 수정  
 ```yaml
 global:
   hosts:
-    domain: bys.world
+    domain: bys.digital
 
   ## https://docs.gitlab.com/charts/charts/globals#configure-ingress-settings
   ingress:
@@ -37,7 +38,7 @@ global:
       alb.ingress.kubernetes.io/scheme : internet-facing
       alb.ingress.kubernetes.io/security-groups: shared-sg-alb-gitlab
       alb.ingress.kubernetes.io/ssl-policy: ELBSecurityPolicy-TLS13-1-2-2021-06
-      alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-northeast-2:558846430793:certificate/5f262e0f-98db-49b2-8ddc-65a663d3e7cf
+      alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-northeast-2:558846430793:certificate/250015a4-4753-4a97-b536-88a6e6aaaf73
       alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
       alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": {"Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
       alb.ingress.kubernetes.io/healthcheck-path: /
