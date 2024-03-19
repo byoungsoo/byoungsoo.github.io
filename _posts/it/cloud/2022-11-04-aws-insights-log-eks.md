@@ -29,7 +29,6 @@ verb = list, get, watch, create, patch, delete
 
 # Kubernetes Objects
 objectRef.resource = configmaps, deployments, replicasets, pods, statefulsets, persistentvolumeclaims, serviceaccounts, targetgroupbindings ......
-
 ```
 
 ### Authenticator Log
@@ -50,6 +49,7 @@ fields @timestamp, @message
   | filter @message like "FLAG"
   | sort @timestamp desc
 ```
+
 
 ### kube-apiserver Log
 ```bash
@@ -87,7 +87,7 @@ query를 통해 aws-auth configmaps와 관련된 수정/삭제에 대한 기록�
 ```bash
 fields @timestamp, verb, user.username, objectRef.resource, objectRef.namespace, objectRef.name , responseObject.code, @message
 | filter @logStream like /^kube-apiserver-audit/
-| filter objectRef.resource == “configmaps” 
+| filter objectRef.resource == "configmaps"
 | filter objectRef.name == "aws-auth"
 |filter verb not in ["watch", "list", "get"]
 | sort @timestamp desc
@@ -101,6 +101,14 @@ fields @timestamp, verb, user.username, objectRef.resource, objectRef.namespace,
   | filter objectRef.resource == "serviceaccounts"
   | filter objectRef.name  = "aws-node"
   | sort @timestamp desc
+```
+
+- HPA
+```bash
+fields @timestamp, responseObject.spec.targetCPUUtilizationPercentage, responseObject.status.currentCPUUtilizationPercentage, responseObject.status.desiredReplicas, responseObject.status.currentReplicas
+| filter @logStream like /audit/
+| filter requestURI like '/apis/autoscaling/v1/namespaces/test-namespace/horizontalpodautoscalers/test-hpa/status'
+| sort @timestamp asc
 ```
 
 

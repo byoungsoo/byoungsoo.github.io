@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "kubernetes Volume"
+title: "kubernetes CSI Driver"
 author: "Bys"
 category: incubator
 date: 2023-01-01 01:00:00
@@ -42,3 +42,8 @@ Temp
 
 > Ref: https://docs.aws.amazon.com/ko_kr/AmazonECS/latest/developerguide/instance_IAM_role.html
 > Ref: https://tech.gluesys.com/blog/2022/06/21/CSI.html
+
+
+> device-plugin-registration - https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#device-plugin-registration
+> pluginwatcher - https://github.com/kubernetes/kubernetes/blob/master/pkg/kubelet/pluginmanager/pluginwatcher/README.md
+> CSI Spec - https://github.com/container-storage-interface/spec/blob/master/spec.md#rpc-interface
