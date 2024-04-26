@@ -10,7 +10,7 @@ tags: eks prometheus grafana monitoring
 
 # Prometheus & Grafana
 
-![prometheus-architecture001](/assets/it/cloud/eks/prometheus-architecture001.png){: width="70%" height="auto"}
+![prometheus-architecture001](/assets/it/cloud/eks/monitoring/prometheus-architecture001.png){: width="70%" height="auto"}
 
 Prometheus를 배포하면 prometheus서버는 여러 방식을 통해 메트릭을 수집한다. 이 후 prometheus의 수집 데이터를 grafana는 시각화 하여 편리하게 보여준다. 이를 통해 Kubernetes 전체 상태에 대한 모니터링이 가능하다.
 
@@ -262,7 +262,7 @@ admin 접속 후 별도 User를 생성하여 사용한다.
 
 ## 2. Prometehus & Grafana 동작방식
 
-![prometheus-architecture004](/assets/it/cloud/eks/prometheus-architecture004.png){: width="90%" height="auto"}  [Ref](https://mihai-albert.com/2022/02/13/out-of-memory-oom-in-kubernetes-part-3-memory-metrics-sources-and-tools-to-collect-them/)
+![prometheus-architecture004](/assets/it/cloud/eks/monitoring/prometheus-architecture004.png){: width="90%" height="auto"}  [Ref](https://mihai-albert.com/2022/02/13/out-of-memory-oom-in-kubernetes-part-3-memory-metrics-sources-and-tools-to-collect-them/)
 
 #### Prometheus Server
 Prometheus 서버는 데이터를 수집해서 시계열 데이터에 저장하는 역할을 한다. 
@@ -305,9 +305,9 @@ kube_endpoint_address_available{app_kubernetes_io_instance="prometheus",endpoint
 
 아래와 같이 Visualization은 Time series 또는 gauge를 활용할 수 있다.   
 
-![grafana-dashboard001](/assets/it/cloud/eks/grafana-dashboard001.png){: width="95%" height="auto"}
+![grafana-dashboard001](/assets/it/cloud/eks/monitoring/grafana-dashboard001.png){: width="95%" height="auto"}
 
-![grafana-dashboard002](/assets/it/cloud/eks/grafana-dashboard002.png){: width="95%" height="auto"}
+![grafana-dashboard002](/assets/it/cloud/eks/monitoring/grafana-dashboard002.png){: width="95%" height="auto"}
 
 
 <br><br><br>
