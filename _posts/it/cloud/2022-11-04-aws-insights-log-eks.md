@@ -50,6 +50,14 @@ fields @timestamp, @message
   | sort @timestamp desc
 ```
 
+### cloud-controller-manager log 
+```bash
+fields @timestamp, @message
+  | filter @logStream like /^cloud-controller-manager/
+  | filter @message like ""
+  | sort @timestamp desc
+```
+
 
 ### kube-apiserver Log
 ```bash

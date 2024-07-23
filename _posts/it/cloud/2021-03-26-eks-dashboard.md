@@ -50,7 +50,10 @@ subjects:
 `Deploy Kubernetes Dashboard`
 아래와 같이 배포를 하면 kubernetes-dashboard Namespace에 Pod가 생성되며 Dashboard를 이용할 수 있다.  
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.5/aio/deploy/recommended.yaml
+helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
+
+kubectl create ns kubernetes-dashboard
+helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard --namespace kubernetes-dashboard --version 7.4.0
 ```
 <br>
 
@@ -58,7 +61,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.5/a
 EKS Dashboard를 접속하기 위해서는 Token이 필요하다.  
 아래 명령을 통해 Token 값을 획득한다.  
 ```bash
-kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep eks-admin | awk '{print $1}')
+aws eks get-token --cluster-name bys-dev-eks-test | jq -r '.status.token'
 ```
 <br>
 
@@ -68,6 +71,11 @@ EKS Dashboard를 접속하기 위해서는 Local에서 kubectl proxy 명령을 �
 ```bash
 kubectl proxy &
 http://localhost:18001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/overview?namespace=_all
+
+kubectl -n kubernetes-dashboard port-forward svc/kubernetes-dashboard-kong-proxy 8443:443 --address 10.20.1.208
+https://localhost:8443/#/login
+https://3.39.219.95:8443/#/login
+
 ```
 <br>
 

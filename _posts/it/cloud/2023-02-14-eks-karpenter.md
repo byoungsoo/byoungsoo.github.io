@@ -30,8 +30,8 @@ Karpenter와 비교하였을 때 아래와 같은 한계점을 가진다.
 <br>
 
 ## 2. Karpenter Install  
-[Install, Getting Started with Karpenter](https://karpenter.sh/v0.25.0/getting-started/getting-started-with-eksctl/)  
-[Install, Migrating from Cluster Autoscaler](https://karpenter.sh/v0.25.0/getting-started/migrating-from-cas/)  
+[Install, Getting Started with Karpenter](https://karpenter.sh/docs/getting-started/getting-started-with-karpenter/)  
+[Install, Migrating from Cluster Autoscaler](https://karpenter.sh/docs/getting-started/migrating-from-cas/)  
 
 
 1. karpenter node에서 사용할 Instance Role 생성
@@ -423,6 +423,7 @@ Fargate 노드에는 데몬셋이 배포되지 않도록 아래의 nodeAffinity�
 
 또한 Karpenter 노드의 경우에는 CPU가 부족해서 생성되지 않고 있는 상황으로 CPU Type자체를 변경해야 할 필요가 생겼다. 이번 경우에는 노드를 drain 시키고 다시 재 생성 하였다. 
 
+<br>
 
 #### 2. EC2 인스턴스가 기동되자마자 바로 종료되는 현상 
 - Node terminates before ready on failed encrypted EBS volume
@@ -430,6 +431,40 @@ Fargate 노드에는 데몬셋이 배포되지 않도록 아래의 nodeAffinity�
 If you are using a custom launch template and an encrypted EBS volume, the IAM principal launching the node may not have sufficient permissions to use the KMS customer managed key (CMK) for the EC2 EBS root volume. This issue also applies to Block Device Mappings specified in the Provisioner. In either case, this results in the node terminating almost immediately upon creation.
 
 To correct the problem if it occurs, you can use the approach that AWS EBS uses, which avoids adding particular roles to the KMS policy.
+
+<br>
+
+#### 3. Karpenter 컨트롤러가 Spot Interruption을 제대로 처리하지 못할때 확인할 것
+- interruptionQueue 설정
+
+<br>
+
+#### 4. Karpenter 컨트롤러 Provision 실패
+다음과 같은 메세지와 함께 프로비저닝이 실패했다. [소스코드](https://github.com/kubernetes-sigs/karpenter/blob/37d09a148b887a809a754a5d9703f8ef25ad492a/pkg/controllers/provisioning/scheduling/nodeclaim.go#L103C2-L103C47)를 잘 살펴보면 실패사유와 원인을 확인할 수 있지만 명확하지 않다.  
+
+```
+{"level":"ERROR","time":"2024-06-11T06:26:33.747Z","logger":"controller.provisioner","message":"Could not schedule pod, incompatible with nodepool \"test-nodepool\", daemonset overhead={\"cpu\":\"310m\",\"memory\":\"272Mi\",\"pods\":\"7\"}, no instance type satisfied resources {\"cpu\":\"3310m\",\"memory\":\"3344Mi\",\"pods\":\"8\",\"vpc.amazonaws.com/pod-eni\":\"1\"} and requirements karpenter.sh/capacity-type In [on-demand], karpenter.sh/nodepool In [test-nodepool], kubernetes.io/arch In [amd64], node.kubernetes.io/instance-type In [c7i.2xlarge c7i.4xlarge], nodepool In [test-nodepool], nodepool/test-nodepool Exists, topology.kubernetes.io/zone In [ap-northeast-2a ap-northeast-2c] (no instance type which had enough resources and the required offering met the scheduling requirements);,"commit":"c4ak371","pod":"test-nodepool/nginx-a1938a0d"}
+```
+
+이 오류가 발생한 사유는 SGP를 사용하였기 때문이다. SGP를 사용하면 requests에는 `"vpc.amazonaws.com/pod-eni": "1"` 리소스가 포함된다.  v0.32버전 에서는 Instance Type의 리소스를 확인해보면 다음과 같이 리소스가 있는 것을 알 수 있다.  
+#### c7i.2xlarge 
+ | Resource | Quantity |
+ |--|--|
+ |cpu|7910m|
+ |ephemeral-storage|17Gi|
+ |memory|14162Mi|
+ |pods|58|
+
+ 그리고 v0.34 버전 부터는 다음과 같이 SGP 리소스가 추가되었다. 
+ | Resource | Quantity |
+ |--|--|
+ |cpu|7910m|
+ |ephemeral-storage|17Gi|
+ |memory|14162Mi|
+ |pods|58|
+ |vpc.amazonaws.com/pod-eni|38|
+ 
+따라서, 버전 업그레이드가 필요한 상황이다.  
 
 
 <br><br><br>
