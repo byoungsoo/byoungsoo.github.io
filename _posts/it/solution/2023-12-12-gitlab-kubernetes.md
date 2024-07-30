@@ -154,6 +154,7 @@ gitlab:
 #### - Install Gitlab using Helm
 
 ```bash
+helm repo update gitlab
 helm upgrade --install gitlab gitlab/gitlab --namespace gitlab -f values.yaml
 helm upgrade --install gitlab gitlab/gitlab --namespace gitlab --version 7.11.0 -f values.yaml
 ```
@@ -205,3 +206,35 @@ Image를 Pull, Push 하기 위해서는 nerdctl 커맨드를 사용하여야 했
     host_path = "/run/containerd/containerd.sock"
   [runners.cache]
 ```
+
+<br>
+
+#### - [Kubernetes executor, Runner 설정](https://docs.gitlab.com/runner/executors/kubernetes.html)
+Image를 Pull, Push 하기 위해서는 nerdctl 커맨드를 사용하여야 했는데 containerd 런타임을 통해 수행되기 때문에 노드의 containerd.sock을 마운트하여 사용할 수 있도록 한다.  
+> containerd is a high-level container runtime. To put it simply, it's a daemon that manages the complete container lifecycle on a single host: creates, starts, stops containers, pulls and stores images, configures mounts, networking, etc.
+
+[`values.yaml`](https://gitlab.com/gitlab-org/charts/gitlab/-/blob/master/values.yaml?ref_type=heads#L1237)
+```yaml
+[[runners]]
+  [runners.kubernetes]
+  image = "202949997891.dkr.ecr.ap-northeast-2.amazonaws.com/common/build:kaniko-debug"
+  pull_policy = ["always", "if-not-present"]
+  {{- if .Values.global.minio.enabled }}
+  [[runners.kubernetes.volumes.host_path]]
+    name = "containerdsock"
+    mount_path = "/run/containerd/containerd.sock"
+    read_only = true
+    host_path = "/run/containerd/containerd.sock"
+  [runners.cache]
+```
+
+<br>
+
+
+#### - [Mirroring Repositories](https://docs.gitlab.com/17.2/ee/user/project/repository/mirror/index.html)
+https를 통해 엔드포인트 연결 시에는 username/password 방식으로 동작해야 한다. 
+Github에 연결할 때는 패스워드 인증 기능이 되지 않기 때문에 username에는 사용자, password에는 token을 입력한다. 
+  - URL: https://github.com/byoungsoo/cloudformation.git
+  - User: bys
+  - Password: <token>
+

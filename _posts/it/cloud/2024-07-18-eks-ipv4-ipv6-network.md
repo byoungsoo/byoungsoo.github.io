@@ -288,6 +288,3 @@ netutil-79c7497789-59pks   1/1     Running   0          7s    2406:da12:86:8705:
 
 
 <br><br><br>
-
-- References  
-[1] 
