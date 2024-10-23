@@ -4,6 +4,7 @@ import os
 post_directories=[
     '_posts/it/algorithm/',
     '_posts/it/cloud/',
+    '_posts/it/k8s/',
     '_posts/it/command/',
     '_posts/it/etc/',
     '_posts/it/network/',
