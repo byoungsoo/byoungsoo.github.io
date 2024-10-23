@@ -70,6 +70,16 @@ fields @timestamp, @message
 
 
 ### Audit Log
+- Event object
+```bash
+fields @timestamp, userAgent, verb, objectRef.resource, objectRef.name, user.extra.sessionName.0
+| filter @logStream like "kube-apiserver-audit" 
+| filter verb not in ["list", "watch", "get"]
+| filter objectRef.resource == "events"
+| sort @timestamp desc
+```
+
+
 - Lease object
 ```bash
 fields @timestamp, userAgent, verb, objectRef.resource, objectRef.name, user.extra.sessionName.0
@@ -87,6 +97,25 @@ fields @timestamp, userAgent, verb, objectRef.resource, objectRef.name, requestO
 | filter verb not in ["list", "watch", "get"]
 | filter objectRef.resource == "nodes"
 | filter objectRef.name == "ip-10-20-42-209.ap-northeast-2.compute.internal"
+| sort @timestamp desc
+```
+
+- Pod object
+```bash
+fields @timestamp, userAgent, verb, objectRef.resource, objectRef.name, requestObject.status.conditions.3.type
+| filter @logStream like "kube-apiserver-audit" 
+| filter verb not in ["list", "watch", "get"]
+| filter objectRef.resource == "pods"
+| filter objectRef.name == "aws-load-balancer-controller-7875bd8f78-7b866"
+| sort @timestamp desc
+```
+
+- Multiple objects
+```bash
+fields @timestamp, userAgent, verb, objectRef.resource, objectRef.name
+| filter @logStream like "kube-apiserver-audit" 
+| filter verb not in ["list", "watch", "get"]
+| filter objectRef.resource in ["persistentvolumeclaims", "persistentvolumes", "volumeattachments", "volumesnapshots", "volumesnapshotcontents"]
 | sort @timestamp desc
 ```
 
@@ -117,6 +146,14 @@ fields @timestamp, responseObject.spec.targetCPUUtilizationPercentage, responseO
 | filter @logStream like /audit/
 | filter requestURI like '/apis/autoscaling/v1/namespaces/test-namespace/horizontalpodautoscalers/test-hpa/status'
 | sort @timestamp asc
+```
+
+- Eviction API
+```bash
+fields @timestamp, @message
+| filter @logStream like /^kube-apiserver-audit/
+| filter requestURI like '/eviction'
+| sort @timestamp desc
 ```
 
 
