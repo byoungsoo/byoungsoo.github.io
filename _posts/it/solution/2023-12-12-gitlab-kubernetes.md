@@ -156,7 +156,7 @@ gitlab:
 ```bash
 helm repo update gitlab
 helm upgrade --install gitlab gitlab/gitlab --namespace gitlab -f values.yaml
-helm upgrade --install gitlab gitlab/gitlab --namespace gitlab --version 7.11.0 -f values.yaml
+helm upgrade --install gitlab gitlab/gitlab --namespace gitlab --version 8.3.5 -f values.yaml
 ```
 위 커맨드를 통해 설치시 AWS Load Balancer Controller를 통해 ALB가 설치된다. Nginx ingress를 사용하지 않고 ALB를 통해 서비스하기 위해서 사용한다. 또한 내부적으로 PVC 볼륨 사이즈 값들을 수정하였는데 remote가 아닌 수정된 내부 Chart values 파일을 적용하기 위해서는 pull 받은 디렉토리의 경로에서 차트를 실행시킨다.  
 
