@@ -369,6 +369,8 @@ Index를 분리하기 위해 Cloudwatch log group을 다르게 설정하였다.
     extra_user_agent    container-insights
 ```
 
+Kubernetes 메타데이터는 [문서](https://docs.fluentbit.io/manual/pipeline/outputs/cloudwatch#log-stream-and-group-name-templating-using-record_accessor-syntax) 참고.
+
 <br>
 
 ### 4. IMDS 문제 
