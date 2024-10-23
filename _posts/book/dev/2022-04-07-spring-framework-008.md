@@ -4,7 +4,7 @@ title: "Spring 프로그래밍 (Chapter 14)[스프링 MVC 4: 날짜 값 변환, 
 author: "Bys"
 category: dev
 date: 2022-04-07 01:00:00
-tags: book programming spring framework mvc exception @pathvariable @exceptionhandler @controlleradvice
+tags: book programming spring framework mvc exception pathvariable exceptionhandler controlleradvice
 ---
 
 ## 14. MVC 4: 날짜 값 변환, @PathVariable, 익셉션 처리

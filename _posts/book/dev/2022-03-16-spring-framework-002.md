@@ -4,7 +4,7 @@ title: "Spring 프로그래밍 (Chapter 6)[빈 라이프사이클과 범위]"
 author: "Bys"
 category: dev
 date: 2022-03-16 01:00:00
-tags: book programming spring framework lifecycle @bean @scope
+tags: book programming spring framework lifecycle bean scope
 ---
 
 ## 6. 빈 라이프사이클과 범위  

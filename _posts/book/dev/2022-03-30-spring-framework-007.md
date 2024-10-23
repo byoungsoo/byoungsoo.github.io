@@ -4,7 +4,7 @@ title: "Spring 프로그래밍 (Chapter 13)[스프링 MVC 3: 세션, 인터셉�
 author: "Bys"
 category: dev
 date: 2022-03-30 01:00:00
-tags: book programming spring framework mvc session cookie interceptor antpath @cookievalue
+tags: book programming spring framework mvc session cookie interceptor antpath cookievalue
 ---
 
 ## 13. MVC 3: 세션, 인터셉터, 쿠키

@@ -4,7 +4,7 @@ title: "Spring 프로그래밍 (Chapter 7)[AOP 프로그래밍]"
 author: "Bys"
 category: dev
 date: 2022-03-18 01:00:00
-tags: book programming spring framework aop @aspect @around @pointcut
+tags: book programming spring framework aop aspect around pointcut
 ---
 
 ## 7. AOP 프로그래밍  

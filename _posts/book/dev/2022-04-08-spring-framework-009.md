@@ -4,7 +4,7 @@ title: "Spring 프로그래밍 (Chapter 15~17)[웹 어플리케이션의 구조,
 author: "Bys"
 category: dev
 date: 2022-04-08 01:00:00
-tags: book programming spring framework mvc @restcontroller @jsonignore @jsonformat unixtimestamp @requestbody
+tags: book programming spring framework mvc restcontroller jsonignore jsonformat unixtimestamp requestbody
 ---
 
 ## 15. 간단한 웹 어플리케이션 구조

@@ -4,7 +4,7 @@ title: "Spring 프로그래밍 (Chapter 8)[DB 연동]"
 author: "Bys"
 category: dev
 date: 2022-03-20 01:00:00
-tags: book programming spring framework db @transactional 
+tags: book programming spring framework db transactional 
 ---
 
 ## 8. DB 연동  

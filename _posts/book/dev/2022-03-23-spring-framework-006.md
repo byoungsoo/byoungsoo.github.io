@@ -4,7 +4,7 @@ title: "Spring 프로그래밍 (Chapter 11)[스프링 MVC 1]"
 author: "Bys"
 category: dev
 date: 2022-03-23 01:00:00
-tags: book programming spring framework mvc @modelattribute @valid
+tags: book programming spring framework mvc modelattribute valid
 ---
 
 ## 11 MVC 1: 요청 매핑, 커맨드 객체, 리다이렉트, 폼 태그, 모델  
