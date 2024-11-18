@@ -166,7 +166,36 @@ CodeDeploy-managed-automatic-launch-deployment-hook-inplace 훅은 아래 ASG �
 <br><br>
 
 
-## 2. [EC2 Blue/Green deployment]()  
+## 2. [EC2 - Blue/Green 배포](https://docs.aws.amazon.com/codedeploy/latest/userguide/reference-appspec-file-structure-hooks.html#:~:text=in%20this%20diagram.-,In%2Dplace%20deployments,-In%20an%20in)  
+
+#### 동작방식
+[Codedeploy agent동작](https://docs.aws.amazon.com/codedeploy/latest/userguide/codedeploy-agent.html#codedeploy-agent-outbound-port)은 폴링 방식을 통해 Codedeploy 서비스를 호출하기 때문에 EC2 인스턴스의 443 포트 아웃바운드 통신이 가능해야 한다. 또한 Codedeploy agent가 EC2 인스턴스에서 동작할 때는 EC2 메타데이터 정보를 활용하기 때문에 IMDS 접근이 가능해야한다.  
+
+
+1. **일반적인 배포**  
+Codedeploy agent는 폴링 방식을 통해 Codedeploy 서비스를 확인하다 배포가 있을 경우, [In-place deployments](https://docs.aws.amazon.com/codedeploy/latest/userguide/reference-appspec-file-structure-hooks.html#:~:text=in%20this%20diagram.-,In%2Dplace%20deployments,-In%20an%20in) 라이프사이클 훅에 따라 동작한다.  
+
+    ![ec2_blue_green_lifecycle](/assets/it/cloud/codeseries/ec2_blue_green_lifecycle.png){: width="40%" height="auto"}  
+
+   - BlockTraffic
+     - BlockTraffic 단계에서는 타겟그룹에 타겟을 제거(DeregisterTargets API)하며 타겟그룹의 deregistration.delay 속성 값에 영향을 받는다.  
+     - 만약, 타겟그룹 최초 생성시 설정한 포트와 트래픽 포트가 다른 경우 Draining이 되지 않는 문제가 발생할 수 있다.  
+   - AllowTraffic
+     - AllowTraffic 단계에서는 타겟그룹에 타겟을 등록(RegisterTargets API)하며 CodeDeploy는 ELB의 헬스체크를 확인한다. 만약, ELB의 타겟 헬스체크가 실패하면 **1시간** 후 Timeout이 발생한다.  
+
+
+2. **Scale-out 동작 시**  
+In-place 배포와 동일
+
+
+3. **배포 실패 시**
+Blue/Green 배포에서는 배포 실패 시 롤백이 진행되며, 새로 생성된 ASG, EC2 인스턴스에 대한 리소스가 남게된다. 이 리소스를 자동으로 정리하기 위해서는 다음의 과정을 통해 자동화 할 수 있다.  
+[EC2 Blue/Green 배포 실패 시 생성된 ASG 자동 삭제 방법](https://byoungsoo.github.io/cloud/2024/04/25/cdp-asg-delete-automation.html)
+
+
+<br><br>
+
+## 3. [EC2 Blue/Green deployment]()  
 
 #### 구성
 
@@ -198,7 +227,7 @@ Blue/Green 배포란 기존환경을 복사한 새로운 환경을 만들어서 
 <br><br>
 
 
-## 3. [Lambda Blue/Green deployment]()  
+## 4. [Lambda Blue/Green deployment]()  
 
 1. 람다 함수 생성 - CodeDeployTestFunction 
 
@@ -324,6 +353,19 @@ service codedeploy
 
 #### - BlockTraffic 단계에서 타겟들이 정상적으로 DeregisterTargets[1] API에 의해 Draining이 되지 않는 문제
 DeregisterTargets API[1]/CLI[2]의 문서에 따르면, Port Override를 한 경우 해당 요청에 대해 추가적인 Parameter를 정의하여 요청하게 되어 있으나 현재 CodeDeploy에서는 해당 기능이 아직 제공되고 있지 않기 때문에 **타겟그룹의 최초 생성시 설정한 포트와 트래픽 포트가 다른 경우** 문제가 발생할 수 있다.  
+
+
+
+#### - EC2 In-place 설정에서 신규 인스턴스 생성시에도 CodeDeploy에 의한 신규 배포가 생성되지 않음.
+CodeDeploy를 통해 EC2 in-place 배포를 설정하면 CodeDeploy에서 생성하는 LAUNCH:Lifecycle 훅이 생성된다. 해당 훅은 인스턴스가 신규로 시작/생성되면 CodeDeploy 서비스를 트리거하여 새로운 배포를 생성하도록 한다. 이를 통해 인스턴스 신규 생성시에도 새로운 코드가 잘 배포될 수 있다.
+
+ASG를 통해 신규 인스턴스를 지속 생성하는데도, CodeDeploy 서비스를 통해 신규 배포가 되지 않음. 
+
+이벤트를 확인해보니 CompleteLifecycleAction API 호출 이력은 존재함. 해당 API는 CodeDeploy가 작업 완료 후 ASG로 fall-back 을 위해 전송하는 API임. 이를 통해 LC 훅은 트리거가 되었으나 CodeDeploy에서 의도적으로 배포를 하지 않는 것으로 인지.
+확인해보니 성공한 배포가 존재하지 않았음. 
+이 동작은 CodeDeploy 에서 마지막으로 성공한 `배포`를 확인하여 신규 인스턴스에 배포를 생성하기 때문임. 
+
+
 
 
 <br><br><br>

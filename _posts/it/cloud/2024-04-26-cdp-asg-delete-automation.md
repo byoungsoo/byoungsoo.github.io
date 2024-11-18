@@ -7,6 +7,20 @@ date: 2024-04-25 01:00:00
 tags: codedeploy deployment
 ---
 
+### - Architecture
+
+![cdp-asg-architecture](/assets/it/cloud/codeseries/cdp-asg-architecture.png){: width="60%" height="auto"}  
+
+1. 배포 생성
+2. CodeDeploy 서비스에 의해 ASG 그룹 복제
+3. 배포 실패
+4. CodeDeploy 서비스에서 DeploymentFailure 이벤트에 수신 후, SNS topic 트리거
+5. SNS 서비스를 통해 Lambda function invoke
+
+위 과정을 통해 자동삭제를 지원한다.  
+
+
+### - Demo
 #### 1. Create SNS Topic. 
 1. Move to menu (Amazon SNS -> Topics -> Create topic)
 2. Input
