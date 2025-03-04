@@ -38,7 +38,7 @@ global:
       alb.ingress.kubernetes.io/scheme : internet-facing
       alb.ingress.kubernetes.io/security-groups: shared-sg-alb-gitlab
       alb.ingress.kubernetes.io/ssl-policy: ELBSecurityPolicy-TLS13-1-2-2021-06
-      alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-northeast-2:202949997891:
+      alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-northeast-2:202949997891:certificate/57b91a03-9fb1-4f3a-a192-94ab30a5e105
       alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
       alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": {"Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
       alb.ingress.kubernetes.io/healthcheck-path: /
