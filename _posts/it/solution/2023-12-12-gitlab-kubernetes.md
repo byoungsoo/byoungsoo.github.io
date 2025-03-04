@@ -24,7 +24,7 @@ helm repo update
 ```yaml
 global:
   hosts:
-    domain: bys.digital
+    domain: bys.asia
 
   ## https://docs.gitlab.com/charts/charts/globals#configure-ingress-settings
   ingress:
@@ -38,7 +38,7 @@ global:
       alb.ingress.kubernetes.io/scheme : internet-facing
       alb.ingress.kubernetes.io/security-groups: shared-sg-alb-gitlab
       alb.ingress.kubernetes.io/ssl-policy: ELBSecurityPolicy-TLS13-1-2-2021-06
-      alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-northeast-2:558846430793:certificate/250015a4-4753-4a97-b536-88a6e6aaaf73
+      alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-northeast-2:202949997891:
       alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
       alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": {"Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
       alb.ingress.kubernetes.io/healthcheck-path: /
