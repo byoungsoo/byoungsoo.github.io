@@ -4,7 +4,7 @@ title: "PostgreSQL"
 author: "Bys"
 category: solution
 date: 2025-02-07 01:00:00
-tags: keycloak jupyter spark mlflow
+tags: mlops postgresql
 ---
 
 ## MLOps

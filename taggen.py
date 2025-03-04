@@ -10,8 +10,9 @@ post_directories=[
     '_posts/it/network/',
     '_posts/it/programming/',
     '_posts/it/solution/',
-    '_posts/book/it/',
-    '_posts/book/fiction/'
+    '_posts/it/newtrend/',
+    '_posts/book/dev/',
+    '_posts/book/os/',
     ]
 
 tag_dir = 'tags/'

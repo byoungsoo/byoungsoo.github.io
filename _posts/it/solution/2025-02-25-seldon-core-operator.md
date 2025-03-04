@@ -4,7 +4,7 @@ title: "Seldon Core Operator"
 author: "Bys"
 category: solution
 date: 2025-02-25 01:00:00
-tags: mlops jupyter
+tags: mlops seldon
 ---
 
 ## MLOps

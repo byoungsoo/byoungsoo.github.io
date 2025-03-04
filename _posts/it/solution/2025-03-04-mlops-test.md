@@ -4,7 +4,7 @@ title: "Model 빌드/배포 및 테스트"
 author: "Bys"
 category: solution
 date: 2025-03-04 01:00:00
-tags: jupyter mlflow seldon
+tags: mlops
 ---
 
 
