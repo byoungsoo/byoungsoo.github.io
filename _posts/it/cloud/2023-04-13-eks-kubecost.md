@@ -14,6 +14,9 @@ Kubecost는 Kubernetes를 사용하는데 있어 실시간 비용과 인사이�
 
 ## [Kubecost Install](https://docs.aws.amazon.com/eks/latest/userguide/cost-monitoring.html)
 
+
+### [Helm Chart](https://github.com/kubecost/cost-analyzer-helm-chart/tree/develop/cost-analyzer)
+
 Values 파일을 내려 받는다. 
 ```bash
 wget https://raw.githubusercontent.com/kubecost/cost-analyzer-helm-chart/develop/cost-analyzer/values-eks-cost-monitoring.yaml
@@ -83,6 +86,8 @@ ingress:
 helm upgrade -i kubecost oci://public.ecr.aws/kubecost/cost-analyzer --version 1.102.0 \
     --namespace kubecost --create-namespace \
     -f values-eks-cost-monitoring.yaml
+
+helm upgrade -i kubecost kubecost/cost-analyzer -n kubecost -f /Users/bys/workspace/kubernetes/kubecost/bys-dev-eks-main/values-eks-cost-monitoring-new.yaml
 ```
 
 아래와 같이 kubecost-cost-analyzer가 정상 배포되었는지 확인한다. 

@@ -29,35 +29,58 @@ Karpenter와 비교하였을 때 아래와 같은 한계점을 가진다.
 
 <br>
 
-## 2. Karpenter Install  
-[Install, Getting Started with Karpenter](https://karpenter.sh/docs/getting-started/getting-started-with-karpenter/)  
-[Install, Migrating from Cluster Autoscaler](https://karpenter.sh/docs/getting-started/migrating-from-cas/)  
+## 2. [Install Karpenter](https://github.com/aws/karpenter-provider-aws/tree/main/charts/karpenter)   
 
 
-1. karpenter node에서 사용할 Instance Role 생성
-   - aws-auth configMap에 Instance Role 등록 
+`env`
+```bash
+export CLUSTER_NAME="bys-shared-eks-main"
+export AWS_REGION="ap-northeast-2"
+export KARPENTER_NAMESPACE="karpenter"
+export AWS_PARTITION="aws" # if you are not using standard partitions, you may need to configure to aws-cn / aws-us-gov
+export OIDC_ENDPOINT="$(aws eks describe-cluster --name "${CLUSTER_NAME}" --query "cluster.identity.oidc.issuer" --output text)"
+export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query 'Account' --output text)
+export K8S_VERSION=1.30
+export ARM_AMI_ID="$(aws ssm get-parameter --name /aws/service/eks/optimized-ami/${K8S_VERSION}/amazon-linux-2-arm64/recommended/image_id --query Parameter.Value --output text)"
+export AMD_AMI_ID="$(aws ssm get-parameter --name /aws/service/eks/optimized-ami/${K8S_VERSION}/amazon-linux-2/recommended/image_id --query Parameter.Value --output text)"
+export GPU_AMI_ID="$(aws ssm get-parameter --name /aws/service/eks/optimized-ami/${K8S_VERSION}/amazon-linux-2-gpu/recommended/image_id --query Parameter.Value --output text)"
+```
 
-2. Custom Resource Definition 설치
-   - provisioner
-   - awsnodetemplates
 
-3. Karpenter deployment 배포  
-   - Karpenter deployment는 ASG로 운영되는 managed node group에서 실행이 되어야 한다. (안정성을 위해)
-   - Affinity 설정
-    ```yaml
-          affinity:
-            nodeAffinity:
-              requiredDuringSchedulingIgnoredDuringExecution:
-                nodeSelectorTerms:
-                - matchExpressions:
-                  - key: karpenter.sh/provisioner-name
-                    operator: DoesNotExist
-                - matchExpressions:
-                  - key: eks.amazonaws.com/nodegroup
-                    operator: In
-                    values:
-                    - ng-v1
-    ```
+```yaml
+affinity:
+  nodeAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 50
+        preference:
+          matchExpressions:
+            - key: eks.amazonaws.com/nodegroup
+              operator: Exists
+
+tolerations:
+  - key: CriticalAddonsOnly
+    operator: Exists
+  - key: system
+    operator: Exists
+    effect: "NoSchedule"
+
+
+# -- Global Settings to configure Karpenter
+settings:
+  # -- Cluster name.
+  clusterName: "bys-shared-eks-main"
+
+  # -- Interruption queue is the name of the SQS queue used for processing interruption events from EC2
+  # Interruption handling is disabled if not specified. Enabling interruption handling may
+  # require additional permissions on the controller service account. Additional permissions are outlined in the docs.
+  interruptionQueue: "bys-shared-eks-main"
+```
+
+```bash
+export KARPENTER_VERSION="1.2.1"
+helm upgrade -i -n karpenter karpenter-crd oci://public.ecr.aws/karpenter/karpenter-crd
+helm upgrade -i -n karpenter karpenter oci://public.ecr.aws/karpenter/karpenter -f /Users/bys/workspace/kubernetes/karpenter/bys-shared-eks-main/values.yaml
+```
 
 <br>
 
@@ -447,7 +470,8 @@ To correct the problem if it occurs, you can use the approach that AWS EBS uses,
 ```
 
 이 오류가 발생한 사유는 SGP를 사용하였기 때문이다. SGP를 사용하면 requests에는 `"vpc.amazonaws.com/pod-eni": "1"` 리소스가 포함된다.  v0.32버전 에서는 Instance Type의 리소스를 확인해보면 다음과 같이 리소스가 있는 것을 알 수 있다.  
-#### c7i.2xlarge 
+#### c7i.2xlarge  
+
  | Resource | Quantity |
  |--|--|
  |cpu|7910m|

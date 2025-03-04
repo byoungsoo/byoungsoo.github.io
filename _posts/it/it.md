@@ -16,23 +16,19 @@
 - k8s network  
 [Kubernetes 네트워크 이해하기 (2) : 서비스 개념과 동작 원리](https://speakerdeck.com/devinjeon/kubernetes-neteuweokeu-ihaehagi-2-seobiseu-gaenyeomgwa-dongjag-weonri?slide=38)
 
-<br>
+- 책: 베스트셀러가상 면접 사례로 배우는 대규모 시스템 설계 기초 2
 
+<br>
 
 ### 2. Should to study
 - Network Virtualization  
 
-<br>
+- AI
+  - LLM - https://velog.io/@480/GenAI-%EA%B8%B0%EC%B4%88-LLM-%EC%9D%84-%EC%89%BD%EA%B2%8C-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0
 
 
 ### 3. Need to study
 - Python Basic
-
-- Terraform 을 통한 환경 구성
-  - VPC완료
-  - EC2
-  - EKS
-  - ECS
 
 - S3: S3권한 확인 작업 
   - Web hosting 시와 버킷 자체에 대한 액세스 권한에 대해서 헷갈리고 있는 부분 확인
@@ -51,9 +47,11 @@
 - Storage
   - https://oslab.kaist.ac.kr/wp-content/uploads/esos_files/publication/conferences/korean/WC_ojt.pdf
 
+- ML
+  - Pytorch
+  - Tensorflow
 
 <br>
-
 
 ## 4. Future Video List
 [Kubernetes networking with Calico - deep dive](https://www.youtube.com/watch?v=A8AkkP5_GbE)  

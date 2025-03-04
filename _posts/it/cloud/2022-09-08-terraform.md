@@ -105,7 +105,7 @@ cidr_blocks = {
 #### 3. terraform 적용하기    
 vpc 폴더 밑으로 해당 tf 파일들을 모두 작성하였다면 현재 vpc 폴더 밑으로는 `vpc.tf`, `route.tf`, `gateway.tf`, `variable.tf`, `variable.tfvars`파일 총 5개의 파일이 존재한다.  
 terminal을 열고 아래의 명령을 수행한다.
-```bash
+```bash 
 terraform init
 terraform plan -var-file="variable.tfvars"
 terraform apply -var-file="variable.tfvars"
@@ -124,7 +124,32 @@ terraform apply -no-color 2>&1 | tee apply.log
 
 
 
+---
+Updated at: 2022-09-08 01:00:00
+
+---
+
+#### 10. 리팩토링을 고민한 이유
+AWS Account 및 리전에 테라폼을 통해 배포를 하다보니 여러가지 문제점이 발생했다. 폴더레벨 및 Terraform 워크스페이스에 대한 고민을 하기 시작한 것이다. 또한, 반복되는 코드 등에 대해 Refactoring 작업을 진행했다.  
+코드는 Github 에서 관리.
+
+
+#### 11. Refactoring 코드
+1. 전체적인 모듈화를 진행하지는 않았다.
+2. Workspace는 어카운트별 리소스별로 나누었다. 
+3. Workspace간 의존성은 최대한 VPC 리소스만 의존하도록 한다. 
+4. 너무 복잡한 코드는 인프라 관리를 어렵게할 수 있다. 
+5. EKS 서비스와 같이 모듈을 가져다 사용할 수 있는 서비스는 모듈을 사용하여 클러스터별로 관리한다. 
+
+
+
 <br><br><br>
 
-> Ref: https://www.terraform.io/language/values/variables
-> Ref: [Terraform Debugging](https://support.hashicorp.com/hc/en-us/articles/360001113727-Enabling-trace-level-logs-in-Terraform-CLI-Cloud-or-Enterprise)
+[1] Variable  
+https://www.terraform.io/language/values/variables  
+
+[2] Terraform Debugging  
+https://support.hashicorp.com/hc/en-us/articles/360001113727-Enabling-trace-level-logs-in-Terraform-CLI-Cloud-or-Enterprise  
+
+[3] For each  
+https://developer.hashicorp.com/terraform/language/meta-arguments/count#when-to-use-for_each-instead-of-count  
