@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "PostgreSQL"
+title: "MLOps - PostgreSQL"
 author: "Bys"
-category: solution
+category: ml
 date: 2025-02-07 01:00:00
 tags: mlops postgresql
 ---

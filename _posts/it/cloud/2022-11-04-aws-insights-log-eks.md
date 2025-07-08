@@ -68,6 +68,14 @@ fields @timestamp, @message
   | sort @timestamp desc
 ```
 
+### etcd Log
+```bash
+fields @timestamp, @message
+  | filter @logStream like /^etcd-/
+  | filter @message like "apply request took too long"
+  | sort @timestamp desc
+```
+
 
 ### Audit Log
 - Event object
@@ -102,13 +110,24 @@ fields @timestamp, userAgent, verb, objectRef.resource, objectRef.name, requestO
 
 - Pod object
 ```bash
-fields @timestamp, userAgent, verb, objectRef.resource, objectRef.name, requestObject.status.conditions.3.type
+fields @timestamp, userAgent, verb, objectRef.resource, objectRef.name, @messages
 | filter @logStream like "kube-apiserver-audit" 
 | filter verb not in ["list", "watch", "get"]
 | filter objectRef.resource == "pods"
 | filter objectRef.name == "aws-load-balancer-controller-7875bd8f78-7b866"
 | sort @timestamp desc
 ```
+
+- PV object
+```bash
+fields @timestamp, userAgent, verb, objectRef.resource, objectRef.name, @messages
+| filter @logStream like "kube-apiserver-audit" 
+| filter verb not in ["list", "watch", "get"]
+| filter objectRef.resource == "persistentvolumes"
+| filter objectRef.name == "pvc-af163ed3-b2f1-4fbc-9179-e722afaf3de4"
+| sort @timestamp desc
+```
+
 
 - Multiple objects
 ```bash

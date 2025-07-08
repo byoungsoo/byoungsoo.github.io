@@ -46,7 +46,7 @@ Storage Provider가 플러그인을 한 번만 개발하면 여러 Container Orc
 
 - [external-provisioner(csi-provisioner)](https://kubernetes-csi.github.io/docs/external-provisioner.html#csi-external-provisioner)
   1. CSI external-provisioner 컨테이너는 PersistentVolumeClaim 리소스를 Watch 한다. 
-  2. PersistentVolume 리소스가 생성되면 CreateVolume API를 호출한다. 
+  2. PersistentVolumeClaim 리소스가 생성되면 CreateVolume API를 호출한다. 
   3. Volume이 정상적으로 생성되면 Kubernetes PersistentVolume 리소스를 생성한다.  
   4. PV의 기본 ReclaimPolicy는 Delete이며 PersistentVolumeClaim 리소스를 삭제하면 csi-provisioner는 PV를 삭제한다.  
 

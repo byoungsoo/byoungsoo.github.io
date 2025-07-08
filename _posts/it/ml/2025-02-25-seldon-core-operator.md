@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Seldon Core Operator"
+title: "MLOps - Seldon Core Operator"
 author: "Bys"
-category: solution
+category: ml
 date: 2025-02-25 01:00:00
 tags: mlops seldon
 ---

@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Model 빌드/배포 및 테스트"
+title: "MLOps - Model 빌드/배포 및 테스트"
 author: "Bys"
-category: solution
+category: ml
 date: 2025-03-04 01:00:00
 tags: mlops
 ---

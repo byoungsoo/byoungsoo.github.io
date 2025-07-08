@@ -11,19 +11,19 @@ keep_files:
   - ".git"
   - ".gitignore"
 
-gems:
-- jekyll/tagging
+# Theme settings - using custom theme
 
 # Site settings
 title: bys GithubPage
 subtitle: "Github Blog"
+name: "Byoungsoo"
+description: "Personal blog and portfolio"
 
 # the base hostname & protocol for your site
 url: "https://byoungsoo.github.io"
 
 # baseurl: "/the/subpath/of/your/site" # Set this value to "" if you want your site to be root
 baseurl: ""
-cover: "/assets/cover.png"
 logo: "/assets/logo.png"
 
 # Build settings
@@ -34,24 +34,68 @@ kramdown:
         block:
             line_numbers: false
 
-descriptions:
-  - cat: jekyll
-    desc: "Posts describing Jekyll setup techniques."
+# Outputting
+permalink: /:categories/:title/
+paginate: 5
+paginate_path: /page:num/
 
-  - cat: dummy
-    desc: "Just some placeholder posts, lorem ipsum and the rest."
+# Collections
+collections:
+  portfolio:
+    output: true
+    permalink: /:collection/:path/
 
+# Plugins
+plugins:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-feed
+  - jekyll-include-cache
+  - jekyll/tagging
 
-######bys Customizing Setting######
+# Tagging
+tag_page_layout: tagpage
+tag_page_dir: tags
+
 # Google analytics
 ga_tracking_id: "UA-137282255-1"
 
 # Category
 categories: category/
 
-# Tagging
-tag_page_layout: tagpage
-tag_page_dir: tags
+# Author information
+author:
+  name: "Byoungsoo"
+  avatar: "/assets/logo.png"
+  bio: "Github Blog"
+  location: "South Korea"
+  links:
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/byoungsoo"
+
+# Default settings
+defaults:
+  # _posts
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      comments: true
+      share: true
+      related: true
+  # _portfolio
+  - scope:
+      path: ""
+      type: portfolio
+    values:
+      layout: single
+      author_profile: false
+      share: true
 
 feed:
   path: feed.xml

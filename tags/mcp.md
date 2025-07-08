@@ -1,6 +1,6 @@
 ---
 layout: tagpage
-title: "Tag: gpu"
-tag: gpu
+title: "Tag: mcp"
+tag: mcp
 robots: noindex
 ---
