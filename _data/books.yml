@@ -1,6 +1,6 @@
-2026:
-  - title: "test"
-    author: "test"
+# 2026:
+#   - title: "test"
+#     author: "test"
 
 2025:
   - title: "쿠버네티스로 구현하는 머신러닝"
