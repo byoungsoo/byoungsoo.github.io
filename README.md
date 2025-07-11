@@ -2,6 +2,10 @@
 
 🌐 **Blog URL**: [https://byoungsoo.github.io](https://byoungsoo.github.io)
 
+## 🚀 Version
+- **v2.0**: 밝은 파란색 느낌의 깔끔한 신규 스타일 적용
+- **v1.0**: 기존 Jekyll 테마 스타일 활용
+
 ## 📚 주요 카테고리
 
 ### ☁️ Cloud & Infrastructure
