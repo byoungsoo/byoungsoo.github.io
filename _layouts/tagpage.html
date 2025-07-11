@@ -1,24 +1,19 @@
 ---
 layout: default
 ---
-<div class="container">
-  <div class="row">
-      <div class="title-area">
-        <h1 class="tag-title">Tag: #{{ page.tag }}</h1>
+
+<div class="category-container">
+  <div class="category-header">
+    <h1>🏷️ {{ page.tag }}</h1>
+    <p>"{{ page.tag }}" 태그가 달린 모든 포스트 목록</p>
+  </div>
+  
+  <div class="posts-grid">
+    {% for post in site.tags[page.tag] %}
+      <div class="post-card">
+        <a href="{{ post.url | prepend: site.baseurl }}" class="post-title">{{ post.title }}</a>
+        <p class="post-date">{{ post.date | date_to_long_string }}</p>
       </div>
-      
-      {% for post in site.tags[page.tag] %}
-      <div class="container">
-        <div class="row">
-          <div class="post-area">
-              <a href="{{ post.url | prepend: site.baseurl }}" class="bold">{{ post.title }}</a>
-              <p class="post-date">{{ post.date | date_to_long_string }}</p>
-              <!-- <p>
-                {{ post.content | strip_html | truncatewords: 50 }}
-              </p> -->
-          </div>
-        </div>
-      </div>
-      {% endfor %}
+    {% endfor %}
   </div>
 </div>

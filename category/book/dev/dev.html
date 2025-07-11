@@ -3,29 +3,19 @@ layout: page
 title: Reading
 permalink: /category/book/dev
 ---
-<!-- Slider Start -->
-<section id="global-header">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="block">
-          <h1>IT</h1>
-          <p></p>
-        </div>
-      </div>
-    </div>
+
+<div class="category-container">
+  <div class="category-header">
+    <h1>📚 Development</h1>
+    <p>개발 및 프로그래밍 관련 도서 독서 기록</p>
   </div>
-</section>
-{% for post in site.categories.dev %}
-<div class="container">
-  <div class="row">
-    <div class="post-area">
-        <a href="{{ post.url | prepend: site.baseurl }}" class="bold">{{ post.title }}</a>
+  
+  <div class="posts-grid">
+    {% for post in site.categories.dev %}
+      <div class="post-card">
+        <a href="{{ post.url | prepend: site.baseurl }}" class="post-title">{{ post.title }}</a>
         <p class="post-date">{{ post.date | date_to_long_string }}</p>
-        <!-- <p>
-          {{ post.content | strip_html | truncatewords: 50 }}
-        </p> -->
-    </div>
+      </div>
+    {% endfor %}
   </div>
 </div>
-{% endfor %}

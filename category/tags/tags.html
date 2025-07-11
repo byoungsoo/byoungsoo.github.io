@@ -1,28 +1,46 @@
 ---
-layout: tag_collections
+layout: page
 permalink: /category/tags/
 title: Tags
 ---
 
-{% assign sorted_tags = site.tags | sort %}
-{% for tag in sorted_tags %}
-
-  {% assign main_tag = tag | first %}
-  {% assign posts = tag | last %}
-
-<h4><a name="{{main_tag | downcase | replace:" ","-" }}"></a><a class="internal" href="/tags/{{main_tag | downcase | replace:" ","-" }}">{{ main_tag | downcase }}</a></h4>
-
-<ul>
-{% for post in posts %}
-  {% if post.tags contains main_tag %}
-  <li>
-    <a href="{{ post.url }}">{{ post.title }}</a>
-    <span class="date">{{ post.date | date: "%B %-d, %Y"  }}</span>
-  </li>
-  {% endif %}
-{% endfor %}
-</ul>
-
-<hr>
-
-{% endfor %}
+<div class="category-container">
+  <div class="category-header">
+    <h1>🏷️ Tags</h1>
+    <p>블로그 포스트들을 태그별로 분류한 목록</p>
+  </div>
+  
+  <div class="posts-grid">
+    {% assign sorted_tags = site.tags | sort %}
+    {% for tag in sorted_tags %}
+      {% assign main_tag = tag | first %}
+      {% assign posts = tag | last %}
+      
+      <div class="post-card">
+        <div class="tag-header">
+          <h3 class="tag-title">
+            <a name="{{main_tag | downcase | replace:" ","-" }}"></a>
+            <a href="/tags/{{main_tag | downcase | replace:" ","-" }}">{{ main_tag | downcase }}</a>
+          </h3>
+          <span class="tag-count">{{ posts.size }}개</span>
+        </div>
+        
+        <ul class="tag-posts">
+          {% for post in posts limit:5 %}
+            {% if post.tags contains main_tag %}
+            <li class="tag-post-item">
+              <a href="{{ post.url }}" class="post-title">{{ post.title }}</a>
+              <span class="post-date">{{ post.date | date: "%Y.%m.%d" }}</span>
+            </li>
+            {% endif %}
+          {% endfor %}
+          {% if posts.size > 5 %}
+            <li class="more-posts">
+              <a href="/tags/{{main_tag | downcase | replace:" ","-" }}">+ {{ posts.size | minus: 5 }}개 더 보기</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    {% endfor %}
+  </div>
+</div>

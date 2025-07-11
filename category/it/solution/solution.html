@@ -3,29 +3,19 @@ layout: page
 title: IT
 permalink: /category/it/solution
 ---
-<!-- Slider Start -->
-<section id="global-header">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="block">
-          <h1>Solution</h1>
-          <p></p>
-        </div>
-      </div>
-    </div>
+
+<div class="category-container">
+  <div class="category-header">
+    <h1>🔧 Solution</h1>
+    <p>솔루션 구축과 시스템 설정에 대한 학습 기록</p>
   </div>
-</section>
-{% for post in site.categories.solution %}
-<div class="container">
-  <div class="row">
-    <div class="post-area">
-        <a href="{{ post.url | prepend: site.baseurl }}" class="bold">{{ post.title }}</a>
+  
+  <div class="posts-grid">
+    {% for post in site.categories.solution %}
+      <div class="post-card">
+        <a href="{{ post.url | prepend: site.baseurl }}" class="post-title">{{ post.title }}</a>
         <p class="post-date">{{ post.date | date_to_long_string }}</p>
-        <!-- <p>
-          {{ post.content | strip_html | truncatewords: 50 }}
-        </p> -->
-    </div>
+      </div>
+    {% endfor %}
   </div>
 </div>
-{% endfor %}

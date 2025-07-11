@@ -1,0 +1,106 @@
+/* Tags Page Specific Styles */
+
+.tag-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.tag-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0;
+}
+
+.tag-title a {
+  color: #2c3e50;
+  text-decoration: none;
+  text-transform: capitalize;
+}
+
+.tag-title a:hover {
+  color: #74b9ff;
+}
+
+.tag-count {
+  background: #74b9ff;
+  color: white;
+  font-size: 0.85rem;
+  padding: 4px 10px;
+  border-radius: 15px;
+  font-weight: 500;
+}
+
+.tag-posts {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tag-post-item {
+  padding: 8px 0;
+  border-bottom: 1px solid #f8f9fa;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.tag-post-item:last-child {
+  border-bottom: none;
+}
+
+.tag-post-item .post-title {
+  color: #2c3e50;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.6rem;
+  line-height: 1.4;
+  flex: 1;
+}
+
+.tag-post-item .post-title:hover {
+  color: #74b9ff;
+}
+
+.tag-post-item .post-date {
+  color: #7f8c8d;
+  font-size: 1.3rem;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.more-posts {
+  padding: 12px 0 0 0;
+  text-align: center;
+  border-top: 1px solid #f0f0f0;
+  margin-top: 10px;
+}
+
+.more-posts a {
+  color: #74b9ff;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.more-posts a:hover {
+  color: #0984e3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .tag-post-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+  
+  .tag-post-item .post-date {
+    font-size: 0.75rem;
+  }
+}

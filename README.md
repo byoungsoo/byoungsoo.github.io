@@ -1,6 +1,4 @@
-# Byoungsoo's Tech Blog
-
-개인 학습 내용을 정리한 기술 블로그입니다. 클라우드, 쿠버네티스, MLOps, 개발 등 다양한 IT 기술에 대한 실습과 학습 내용을 기록하고 있습니다.
+# bys Blog
 
 🌐 **Blog URL**: [https://byoungsoo.github.io](https://byoungsoo.github.io)
 
@@ -118,18 +116,37 @@ tags: aws eks kubernetes
 - `Makefile`: 개발 워크플로우 자동화
 - GitHub Pages: 정적 사이트 호스팅
 
-### 개선 사항
-- ✅ Jekyll 4.3+ 업그레이드
-- ✅ SEO 최적화
-- ✅ 보안 헤더 추가
-- ✅ 태그 시스템 개선
 
-## 📊 통계
+### CSS 파일 구조
+블로그의 스타일링은 역할별로 분리된 CSS 파일들로 관리됩니다:
 
-- **총 포스트**: 100+ 개
-- **주요 카테고리**: Cloud (40+), Kubernetes (20+), MLOps (15+)
-- **학습 기간**: 2019년 ~ 현재
-- **업데이트**: 지속적
+#### 📁 핵심 CSS 파일들
+- **`main.css`**: 기본 스타일, 헤더, 전역 설정
+- **`category-style.css`**: 모든 카테고리 페이지 공통 스타일 (카드 레이아웃, 그리드)
+- **`navigation-style.css`**: 네비게이션 메뉴 전용 스타일 (드롭다운, 호버 효과)
+- **`contact-style.css`**: Contact 페이지 전용 스타일 (폼, 소셜 아이콘)
+- **`tags-style.css`**: Tags 페이지 전용 스타일 (태그 카드, 포스트 리스트)
+- **`footer-style.css`**: Footer 전용 스타일 (단순 Copyright)
+- **`home-style.css`**: 홈페이지 전용 스타일 (히어로 섹션, 카테고리 쇼케이스, 통계)
+
+#### 🎯 스타일 적용 범위
+- **전체 사이트**: `main.css`, `navigation-style.css`, `footer-style.css`
+- **카테고리 페이지**: `category-style.css` (IT, Book 하위 모든 페이지)
+- **특정 페이지**: `contact-style.css`, `tags-style.css`, `home-style.css`
+
+#### 🔄 디자인 시스템
+- **색상 테마**: 밝은 블루 그라데이션 (`#74b9ff` → `#0984e3`)
+- **레이아웃**: 카드 기반 그리드 시스템 (최대 너비 1500px)
+- **타이포그래피**: 일관된 폰트 크기 (제목 1.4rem, 날짜 1.1rem)
+- **반응형**: 모바일 최적화 (768px 브레이크포인트)
+
+#### 📝 수정 가이드
+- **전체 색상 변경**: `navigation-style.css`, `contact-style.css`, `tags-style.css`, `home-style.css`에서 그라데이션 값 수정
+- **카드 크기 조정**: `category-style.css`에서 `minmax` 값과 `max-width` 수정
+- **홈페이지 레이아웃**: `home-style.css`에서 히어로 섹션, 카테고리 그리드, 통계 섹션 수정
+- **새 카테고리 추가**: `category-style.css` 스타일 자동 적용, HTML 구조만 맞추면 됨
+- **폰트 크기 변경**: `category-style.css`, `tags-style.css`, `home-style.css`에서 `font-size` 값 수정
+
 
 ## 📞 연락처
 
