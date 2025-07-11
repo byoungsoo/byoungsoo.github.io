@@ -1,6 +1,0 @@
----
-layout: tagpage
-title: "Tag: authentication"
-tag: authentication
-robots: noindex
----
