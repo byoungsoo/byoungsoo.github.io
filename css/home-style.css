@@ -13,7 +13,7 @@
 }
 
 .hero-content h1::before {
-  content: "🚀✨";
+  /* content: "💻"; */
   margin-right: 15px;
 }
 

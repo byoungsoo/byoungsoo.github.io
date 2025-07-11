@@ -33,6 +33,7 @@ x-amz-date: 20150830T123600Z
 이때 Signature 생성 방법을 간단히 보면 아래와 같다[3].  
 1. Create a canonical request (표준 요청 생성)
 요청 내용(호스트, 작업, 헤더 등)을 표준 형식으로 정렬한다. Canonical request는 서명할 문자열을 생성하는 데 사용되는 입력 중 하나이다.  
+
 ```
 <HTTPMethod>\n
 <CanonicalURI>\n
@@ -435,15 +436,15 @@ echo "request_url = ${ENDPOINT}/${S3KEY}?${CANONICAL_QUERYSTRING}"
 ```
 
 
-- References
-[1] API 요청용 AWS Signature Version 4
+- References  
+[1] API 요청용 AWS Signature Version 4  
 https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/reference_sigv.html
 
-[2] AWS API 호출
+[2] AWS API 호출  
 https://aws.amazon.com/ko/blogs/korea/aws-api-call-1/
 
-[3] Create a signed AWS API request
+[3] Create a signed AWS API request  
 https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_sigv-create-signed-request.html
 
-[4] AWS API 호출 - pre-signed URL 생성하기
+[4] AWS API 호출 - pre-signed URL 생성하기  
 https://aws.amazon.com/ko/blogs/korea/aws-api-call-2-s3-pre-signed-url/

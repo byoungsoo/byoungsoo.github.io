@@ -121,18 +121,19 @@ tags: aws eks kubernetes
 블로그의 스타일링은 역할별로 분리된 CSS 파일들로 관리됩니다:
 
 #### 📁 핵심 CSS 파일들
-- **`main.css`**: 기본 스타일, 헤더, 전역 설정
+- **`main.css`**: 기본 스타일, 헤더, 전역 설정 (정리됨)
 - **`category-style.css`**: 모든 카테고리 페이지 공통 스타일 (카드 레이아웃, 그리드)
 - **`navigation-style.css`**: 네비게이션 메뉴 전용 스타일 (드롭다운, 호버 효과)
-- **`contact-style.css`**: Contact 페이지 전용 스타일 (폼, 소셜 아이콘)
+- **`contact-style.css`**: Contact 페이지 전용 스타일 (폼, 소셜 아이콘, 정리됨)
 - **`tags-style.css`**: Tags 페이지 전용 스타일 (태그 카드, 포스트 리스트)
-- **`footer-style.css`**: Footer 전용 스타일 (단순 Copyright)
+- **`footer-style.css`**: Footer 전용 스타일 (단순 Copyright, 정리됨)
 - **`home-style.css`**: 홈페이지 전용 스타일 (히어로 섹션, 카테고리 쇼케이스, 통계)
+- **`post-style.css`**: 포스트 페이지 전용 스타일 (모던 카드 레이아웃, 타이포그래피)
 
 #### 🎯 스타일 적용 범위
 - **전체 사이트**: `main.css`, `navigation-style.css`, `footer-style.css`
 - **카테고리 페이지**: `category-style.css` (IT, Book 하위 모든 페이지)
-- **특정 페이지**: `contact-style.css`, `tags-style.css`, `home-style.css`
+- **특정 페이지**: `contact-style.css`, `tags-style.css`, `home-style.css`, `post-style.css`
 
 #### 🔄 디자인 시스템
 - **색상 테마**: 밝은 블루 그라데이션 (`#74b9ff` → `#0984e3`)
@@ -141,18 +142,39 @@ tags: aws eks kubernetes
 - **반응형**: 모바일 최적화 (768px 브레이크포인트)
 
 #### 📝 수정 가이드
-- **전체 색상 변경**: `navigation-style.css`, `contact-style.css`, `tags-style.css`, `home-style.css`에서 그라데이션 값 수정
+- **전체 색상 변경**: `navigation-style.css`, `contact-style.css`, `tags-style.css`, `home-style.css`, `post-style.css`에서 그라데이션 값 수정
 - **카드 크기 조정**: `category-style.css`에서 `minmax` 값과 `max-width` 수정
 - **홈페이지 레이아웃**: `home-style.css`에서 히어로 섹션, 카테고리 그리드, 통계 섹션 수정
+- **포스트 페이지 스타일**: `post-style.css`에서 제목, 메타 정보, 태그, 콘텐츠 스타일 수정
 - **새 카테고리 추가**: `category-style.css` 스타일 자동 적용, HTML 구조만 맞추면 됨
-- **폰트 크기 변경**: `category-style.css`, `tags-style.css`, `home-style.css`에서 `font-size` 값 수정
+- **폰트 크기 변경**: `category-style.css`, `tags-style.css`, `home-style.css`, `post-style.css`에서 `font-size` 값 수정
 
+## 🏗️ 레이아웃 구조
+
+### _layouts 폴더 구성
+블로그의 페이지 레이아웃은 역할별로 분리되어 관리됩니다:
+
+#### 📁 핵심 레이아웃 파일들
+- **`default.html`**: 기본 레이아웃 (헤더, 푸터 포함)
+- **`page.html`**: 일반 페이지 레이아웃 (카테고리 페이지 등)
+- **`post.html`**: 포스트 페이지 레이아웃 (모던 디자인 적용)
+- **`tagpage.html`**: 태그 개별 페이지 레이아웃
+- **`portfolio_default.html`**, **`portfolio_page.html`**: 포트폴리오 관련 레이아웃
+
+### _includes 폴더 구성
+재사용 가능한 컴포넌트들로 구성됩니다:
+
+#### 📁 핵심 Include 파일들
+- **`head.html`**: HTML 헤드 섹션 (CSS, JS 로드)
+- **`header.html`**: 네비게이션 헤더
+- **`footer.html`**: 푸터 (Copyright)
+- **`collecttags.html`**: 태그 수집 스크립트
+- **`comments.html`**: Disqus 댓글 시스템
 
 ## 📞 연락처
-
 - **GitHub**: [@byoungsoo](https://github.com/byoungsoo)
 - **Blog**: [byoungsoo.github.io](https://byoungsoo.github.io)
 
 ---
 
-> 이 블로그는 개인 학습 목적으로 작성되었으며, 지속적으로 업데이트됩니다.
+> 이 블로그는 개인 학습 목적으로 작성되었으며, 지속적으로 업데이트중입니다.

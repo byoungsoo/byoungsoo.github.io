@@ -472,46 +472,7 @@ header .navbar-default .navbar-nav {
 }
 
 
-/*--	Contact Header - Modern Light Style--*/
-#global-header-contact {
-  background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
-  padding: 120px 0;
-  position: relative;
-  color: white;
-}
-#global-header-contact:before {
-  display: none;
-}
-
-#global-header-contact .block {
-  color: white;
-  margin: 0 auto;
-  text-align: center;
-  max-width: 800px;
-}
-#global-header-contact .block h1 {
-  font-weight: 600;
-  font-size: 2.8rem;
-  letter-spacing: 1px;
-  padding-bottom: 20px;
-  margin-top: 0;
-  margin-bottom: 15px;
-  position: relative;
-}
-#global-header-contact .block h1::before {
-  content: "📧";
-  font-size: 2rem;
-  margin-right: 15px;
-  display: inline-block;
-}
-#global-header-contact .block p {
-  font-size: 1.3rem;
-  font-weight: 300;
-  letter-spacing: 0.5px;
-  opacity: 0.95;
-  margin: 0;
-  line-height: 1.6;
-}
+/* Contact header styles moved to contact-style.css */
 
 
 
@@ -765,11 +726,11 @@ header .navbar-default .navbar-nav {
   letter-spacing: 1px;
   word-spacing: 3px;
 }
-/* Contact form styles moved to contact-style.css */
+/* Contact form and header styles moved to contact-style.css */
 /*--
 	wrapper-contact Start
 --*/
-/* Address block and social icons styles moved to contact-style.css */
+/* Contact-related styles moved to contact-style.css */
 .google-map {
   position: relative;
 }

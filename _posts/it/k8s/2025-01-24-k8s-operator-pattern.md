@@ -7,14 +7,9 @@ date: 2025-01-24 01:00:00
 tags: kubernetes pattern operator
 ---
 
-# [Operator])
-
+# [Operator]
 
 ### [Operator Pattern]()
-
-
-
-
 
 
 ---
@@ -68,9 +63,8 @@ InstallPlan: OLM이 Operator를 설치하기 위해 따라야 할 계획을 수�
 
 <br><br><br>
 
-> References
-[1] Operators
+- References  
+[1] Operators  
 - https://docs.redhat.com/ko/documentation/openshift_container_platform/4.9/html-single/operators/index#olm-architecture_olm-arch
-
-[2] 쿠버네티스 패턴
-- O'REILLY
+[2] 쿠버네티스 패턴  
+- O'REILLY    

@@ -201,16 +201,26 @@ check_interval = 15
       mount_path = "/run/containerd/containerd.sock"
       read_only = true
       host_path = "/run/containerd/containerd.sock"
-    [runners.cache]
-      Type = "s3"
-      Path = "cache"
-      Shared = true
-      [runners.cache.s3]
-        ServerAddress = {{ include "gitlab-runner.cache-tpl.s3ServerAddress" . }}
-        BucketName = "bys-shared-s3-gitlab-runner-cache"
-        BucketLocation = "ap-northeast-2"
-        Insecure = false
 ```
+
+
+만약, 캐시를 사용하고 싶다면 [Advanced configuration 문서](https://docs.gitlab.com/runner/configuration/advanced-configuration/)를 참고할 수 있다.  
+```yaml
+[runners.cache]
+  Type = "s3"
+  Path = "path/to/prefix"
+  Shared = false
+  [runners.cache.s3]
+    ServerAddress = "s3.amazonaws.com"
+    AccessKey = "AWS_S3_ACCESS_KEY"
+    SecretKey = "AWS_S3_SECRET_KEY"
+    BucketName = "runners-cache"
+    BucketLocation = "eu-west-1"
+    Insecure = false
+    ServerSideEncryption = "KMS"
+    ServerSideEncryptionKeyID = "alias/my-key"
+```
+
 <br>
 
 
