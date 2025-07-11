@@ -3,288 +3,241 @@ layout: page
 title: Reading
 permalink: /category/book
 ---
-<!-- Slider Start -->
-<!-- Top -->
-<!-- <section id="slider">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-10 col-md-offset-2">
-        <div class="block">
-          <h1 class="animated fadeInUp">
-          <p class="animated fadeInUp"><br> Keep Calm and Think What I Love</p>
-        </div>
-      </div>
-    </div>
+
+<style>
+.reading-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.reading-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.reading-header h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.reading-header p {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.books-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.year-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #f0f0f0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.year-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.year-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 3px solid #3498db;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.year-title::before {
+  content: "📚";
+  font-size: 1.5rem;
+}
+
+.book-count {
+  background: #3498db;
+  color: white;
+  font-size: 0.9rem;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: 500;
+  margin-left: auto;
+}
+
+.book-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.book-item {
+  padding: 8px 0;
+  border-bottom: 1px solid #f8f9fa;
+  transition: background-color 0.2s ease;
+}
+
+.book-item:last-child {
+  border-bottom: none;
+}
+
+.book-item:hover {
+  background-color: #f8f9fa;
+  margin: 0 -15px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 6px;
+}
+
+.book-title {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 1.4rem;
+  line-height: 1.4;
+}
+
+.book-author {
+  color: #7f8c8d;
+  font-size: 1.2rem;
+  margin-top: 2px;
+}
+
+.stats-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 40px;
+  border-radius: 12px;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  display: block;
+}
+
+.stat-label {
+  font-size: 1rem;
+  opacity: 0.9;
+  margin-top: 5px;
+}
+
+@media (max-width: 768px) {
+  .books-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .year-card {
+    padding: 20px;
+  }
+  
+  .reading-header h1 {
+    font-size: 2rem;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+</style>
+
+
+<div class="reading-container">
+  <div class="reading-header">
+    <h1>📖 독서 기록</h1>
+    <p>My Reading Journey</p>
   </div>
-</section> -->
 
-<!-- Wrapper Start -->
-<!-- About Me tab -->
-<section id="intro">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12 col-sm-12">
-        <div class="block">
-          <div class="section-title">
-            <h2>&lt;읽은 독서 목록&gt;</h2>
+  <!-- Debug: {{ site.data.books }} -->
+  
+  <div class="books-grid">
+    {% if site.data.books %}
+      {% for year_data in site.data.books %}
+        {% assign year = year_data[0] %}
+        {% assign books = year_data[1] %}
+        <div class="year-card">
+          <div class="year-title">
+            {{ year }}
+            <span class="book-count">{{ books.size }}권</span>
           </div>
-          <div class="col-md-4 col-sm-12">
-            <div class="block">
-              <h2>&lt;2025&gt;</h2>
-              <div class="bucket-list">
-                쿠버네티스로 구현하는 머신러닝 - 파이살 마수드<br/>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-12">
-            <div class="block">
-              <h2>&lt;2024&gt;</h2>
-              <div class="bucket-list">
-                트렌드 코리아 2024 - 김난도<br/>
-                그림으로 배우는 리눅스 구조 - 타케우치 사토루<br/>
-                만일 내가 인생을 다시 산다면 - 김혜남<br/>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-12">
-            <div class="block">
-              <h2>&lt;2023&gt;</h2>
-              <div class="bucket-list">
-                나의 문화유산답사기 - 유홍준<br/>
-                공간의 미래 - 유홍준<br/>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-12">
-            <div class="block">
-              <h2>&lt;2022&gt;</h2>
-              <div class="bucket-list">
-                세계 문화 여행: 스폐인 - 메리언 미니<br/>
-                돈키호테 - 미겔 데 세르반테스<br/>
-                쿠버네티스 모범 사례 - 브렌던 번스 외<br/>
-                인플레이션에서 살아남기 - 오건영<br/>
-                나는 아마존을 다녔다 - 박정준<br/>
-                스프링 부트 퀵스타트 - 채규태<br/>
-                시스코 네트워킹 - 진강훈<br/>
-                스프링5 프로그래밍 입문 - 최범균<br/>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-12">
-            <div class="block">
-              <h2>&lt;2021&gt;</h2>
-              <div class="bucket-list">
-                고구려 7 - 김진명</br>
-                고구려 6 - 김진명</br>
-                Clean Architecture - 로버트 C. 마틴<br/>
-                <!-- 살아갈 날들을 위한 공부 - 레프 톨스토이<br/> -->
-                15단계로 배우는 도커와 쿠버네티스 - 타카라 마호<br/>
-                실무로 배우는 시스템 성능 최적화 - 권문수<br/>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-12">
-            <div class="block">
-              <h2>&lt;2020&gt;</h2>
-              <div class="bucket-list">
-                페스트 - 알베르 카뮈<br/>
-                그림으로 배우는 HTTP & Network Basic - 우에노<br/>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <br/><br/>
-      <!-- <div class="col-md-12 col-sm-12">
-        <div class="block">
-          <div class="section-title">
-            <h2>&lt;읽고 싶은 독서 목록&gt;</h2>
-          </div>
-          <div class="col-md-4 col-sm-12">
-            <div class="block">
-              <div class="bucket-list">
-                데미안 - 헤르만 헤세</br>
-                Do it! 점프 투 파이썬 - 박응용</br>
-                쿠버네티스 오퍼레이터 - 제이슨 도비스 외</br>
-                대용량 아키텍처와 성능 튜닝 - 조대협<br/>
-                Clean Code - 로버트 C. 마틴<br/>
-                헤드 퍼스트 디자인 패턴 - 에릭 프리먼 외<br/>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>   -->
-    </div>
-  </div>
-</section>
-      <!-- .col-md-7 close -->
-
-      <!--
-      <div class="col-md-5 col-sm-12">
-        <div class="block">
-          <img src="img/home/aboutme1.jpg" alt="Img">
-        </div>
-      </div>
-      -->
-      <!-- .col-md-5 close -->
-
-
-
-<!-- Third Tab About service-->
-<!-- Bucket List Page origin -->
-<!-- 
-<section id="service">
-  <div class="container">
-    <div class="row">
-      <div class="section-title">
-        <h2>&lt;Bucket List&gt;</h2>
-      </div>
-    </div>
-    <div class="row ">
-      <div class="col-sm-6 col-md-3">
-        <p class="service_align">
-           산티아고 순례길 걷기<br>
-           영국에서 EPL 축구보기<br>
-           그리스와 터키 재 방문 하기!<br>
-        </p>
-      </div>
-      
-      <div class="col-sm-6 col-md-3">
-        <p class="service_align">
-           블로그 성공적으로 운영하기<br>
-           스페인어로 일상 대화 해보기<br>
-        </p>
-      </div>
-
-      <div class="col-sm-6 col-md-3">
-        <p class="service_align">
-           생선손질 부터 초밥 만들어보기<br>
-           아마추어 사진 작가<br>
-        </p>
-      </div>
-
-      <div class="col-sm-6 col-md-3">
-        <p class="service_align">
-          한 달에 한 권 책 읽기<br>
-        </p>
-      </div>
-
-    
-      
-      <div class="col-sm-6 col-md-3">
-        <div class="service-item">
-          <i class="ion-leaf"></i>
-          <h4>Development</h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut </p>
-        </div>
-      </div>
-
-      <div class="col-sm-6 col-md-3">
-        <div class="service-item">
-          <i class="ion-planet"></i>
-          <h4>Brand Identity</h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut </p>
-        </div>
-      </div>
-      <div class="col-sm-6 col-md-3">
-        <div class="service-item">
-          <i class="ion-earth"></i>
-          <h4>Brand Identity</h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut </p>
-        </div>
-      </div>
-     
-
-    </div>
-  </div>
-</section> -->
-
-
-
-<!-- Second Tab -->
-<!--
-<section id="feature">
-<div class="container">
-  <div class="row">
-    <div class="col-md-6 col-md-offset-6">
-      <h2>WE BELIEVE IN GREAT IDEAS</h2>
-      <p>Maecenas faucibus mollis interdum. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-      <p>Maecenas faucibus mollis interdum. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-      <p>Maecenas faucibus mollis interdum. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-      <a href="#" class="btn btn-view-works">View Works</a>
-    </div>
-  </div>
-</div>
-</section>
-
-
-<!-- Call to action Start -->
-<!--
-<section id="call-to-action">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="block">
-          <h2>We design delightful digital experiences.</h2>
-          <p>Read more about what we do and our philosophy of design. Judge for yourself The work and results we’ve achieved for other clients, and meet our highly experienced Team who just love to design.</p>
-          <a class="btn btn-default btn-call-to-action" href="#" >Tell Us Your Story</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
--->
-
-
-
-<!-- Content Start -->
-<!--
-<section id="testimonial">
-  <div class="container">
-    <div class="row">
-      <div class="section-title text-center">
-        <h2>Fun Facts About Us</h2>
-        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics</p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6">
-        {% if site.data.funfacts.size > 0 %}
-        <div class="block">
-          {% for ff in site.data.funfacts %}
-          <ul class="counter-box clearfix">
-            <li>
-              <div class="block">
-                <i class="{{ ff.icon }}"></i>
-                <h4 class="counter">{{ ff.counter }}</h4>
-                <span>{{ ff.text }}</span>
-              </div>
-            </li>
+          <ul class="book-list">
+            {% for book in books %}
+              <li class="book-item">
+                <div class="book-title">{{ book.title }}</div>
+                <div class="book-author">{{ book.author }}</div>
+              </li>
             {% endfor %}
           </ul>
         </div>
-        {% endif %}
-      </div>
-      <div class="col-md-6">
-        {% if site.data.testimonials.size > 0 %}
-        <div class="testimonial-carousel">
-          <div id="testimonial-slider" class="owl-carousel">
-            {% for tm in site.data.testimonials %}
-            <div>
-                <img src="img/cotation.png" alt="IMG">
-                <p>{{ tm.testimonial }}</p>
-                <div class="user">
-                  <img src="{{ tm.image }}" alt="Pepole">
-                  <p><span>{{ tm.name }}</span> {{ tm.title }}</p>
-                </div>
-            </div>
-            {% endfor %}
-          </div>
+      {% endfor %}
+    {% else %}
+      <p>데이터를 불러올 수 없습니다.</p>
+    {% endif %}
+  </div>
+
+  {% if site.data.books %}
+    {% assign total_books = 0 %}
+    {% assign max_books_year = '' %}
+    {% assign max_books_count = 0 %}
+    
+    {% for year_data in site.data.books %}
+      {% assign books = year_data[1] %}
+      {% assign total_books = total_books | plus: books.size %}
+      
+      {% if books.size > max_books_count %}
+        {% assign max_books_count = books.size %}
+        {% assign max_books_year = year_data[0] %}
+      {% endif %}
+    {% endfor %}
+    
+    {% assign years_count = site.data.books.size %}
+    {% assign avg_books = total_books | divided_by: years_count %}
+    
+    <div class="stats-section">
+      <h2>📊 독서 통계</h2>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-number">{{ total_books }}</span>
+          <div class="stat-label">총 읽은 책</div>
         </div>
-        {% endif %}
+        <div class="stat-item">
+          <span class="stat-number">{{ years_count }}</span>
+          <div class="stat-label">독서 연도</div>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">{{ avg_books }}</span>
+          <div class="stat-label">연평균 독서량</div>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">{{ max_books_year }}</span>
+          <div class="stat-label">최다 독서 연도</div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
--->
+  {% endif %}
+</div>

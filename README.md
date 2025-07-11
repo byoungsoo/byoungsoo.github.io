@@ -66,7 +66,7 @@
 - **Static Site Generator**: Jekyll 4.3+
 - **Theme**: Custom theme (기존 minimal-mistakes 기반)
 - **Hosting**: GitHub Pages
-- **CI/CD**: GitHub Actions
+- **Deployment**: Manual deployment
 
 ### 로컬 개발 설정
 
@@ -116,11 +116,10 @@ tags: aws eks kubernetes
 ### 주요 스크립트
 - `taggen.py`: 태그 페이지 자동 생성
 - `Makefile`: 개발 워크플로우 자동화
-- GitHub Actions: 자동 배포
+- GitHub Pages: 정적 사이트 호스팅
 
 ### 개선 사항
 - ✅ Jekyll 4.3+ 업그레이드
-- ✅ GitHub Actions 자동 배포
 - ✅ SEO 최적화
 - ✅ 보안 헤더 추가
 - ✅ 태그 시스템 개선

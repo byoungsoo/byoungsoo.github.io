@@ -1,0 +1,61 @@
+2026:
+  - title: "test"
+    author: "test"
+
+2025:
+  - title: "쿠버네티스로 구현하는 머신러닝"
+    author: "파이살 마수드"
+  - title: "싯다르타"
+    author: "헤르만 헤세"
+
+2024:
+  - title: "트렌드 코리아 2024"
+    author: "김난도"
+  - title: "그림으로 배우는 리눅스 구조"
+    author: "타케우치 사토루"
+  - title: "쿠버네티스 패턴"
+    author: "빌긴 이브리암, 롤란트 후스"
+  - title: "만일 내가 인생을 다시 산다면"
+    author: "김혜남"
+
+2023:
+  - title: "나의 문화유산답사기"
+    author: "유홍준"
+  - title: "공간의 미래"
+    author: "유홍준"
+
+2022:
+  - title: "세계 문화 여행: 스페인"
+    author: "메리언 미니"
+  - title: "돈키호테"
+    author: "미겔 데 세르반테스"
+  - title: "쿠버네티스 모범 사례"
+    author: "브렌던 번스 외"
+  - title: "인플레이션에서 살아남기"
+    author: "오건영"
+  - title: "나는 아마존을 다녔다"
+    author: "박정준"
+  - title: "스프링 부트 퀵스타트"
+    author: "채규태"
+  - title: "시스코 네트워킹"
+    author: "진강훈"
+  - title: "스프링5 프로그래밍 입문"
+    author: "최범균"
+
+2021:
+  - title: "고구려 7"
+    author: "김진명"
+  - title: "고구려 6"
+    author: "김진명"
+  - title: "Clean Architecture"
+    author: "로버트 C. 마틴"
+  - title: "15단계로 배우는 도커와 쿠버네티스"
+    author: "타카라 마호"
+  - title: "실무로 배우는 시스템 성능 최적화"
+    author: "권문수"
+
+2020:
+  - title: "페스트"
+    author: "알베르 카뮈"
+  - title: "그림으로 배우는 HTTP & Network Basic"
+    author: "우에노"

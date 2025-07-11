@@ -7,6 +7,16 @@
 Gemfile.lock
 .DS_Store
 
+### Python Virtual Environment ###
+.venv/
+venv/
+env/
+
+### Jekyll Generated ###
+_site/
+.jekyll-cache/
+.jekyll-metadata
+
 
 ### Git ###
 # Created by git for backups. To disable backups in Git:

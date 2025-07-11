@@ -11,6 +11,7 @@ tags: argocd deployment
 
 #### [ArgoCD Rollout](https://argo-rollouts.readthedocs.io/en/stable/#what-is-argo-rollouts)
 
+Rollout 을 배포하면 replicaset 이 생성되며 이에 따른 파드가 생성된다. Rollout을 통해 업데이트를 진행하면 신규 replicaset이 생성되며 argocd 에서 컨트롤 한다. Deployment 오브젝트는 별도로 존재하지 않으며 이를 대체한다.  
 
 `rollout.yaml`  
 ```yaml
