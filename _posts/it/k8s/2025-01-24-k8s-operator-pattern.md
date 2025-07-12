@@ -59,12 +59,12 @@ OperatorGroup: Operator가 작동할 수 있는 네임스페이스를 정의합�
 InstallPlan: OLM이 Operator를 설치하기 위해 따라야 할 계획을 수립합니다.
 
 
--------------------------
+---
 
-<br><br><br>
+## 📚 References
 
-- References  
-[1] Operators  
+[1] **Operators**  
 - https://docs.redhat.com/ko/documentation/openshift_container_platform/4.9/html-single/operators/index#olm-architecture_olm-arch
-[2] 쿠버네티스 패턴  
-- O'REILLY    
+
+[2] **쿠버네티스 패턴**  
+- O'REILLY

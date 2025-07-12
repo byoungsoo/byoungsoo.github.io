@@ -290,4 +290,9 @@ Chain AWS-SNAT-CHAIN-0 (1 references)
 32768   60999
 ```
 
-<br><br><br>
+서비스에는 spec.externalTrafficPolicy 필드가 존재하며 Cluster(Default 설정) 또는 Local 값을 갖으며 서비스의 externalTrafficPolicy 정책이 Local인 경우 트래픽이 랜덤으로 분산되지 않는다.
+
+
+---
+
+## 📚 References

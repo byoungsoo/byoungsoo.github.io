@@ -45,7 +45,10 @@ Kubernetes comes with a set of built-in controllers that run inside the kube-con
 You can find controllers that run outside the control plane, to extend Kubernetes. Or, if you want, you can write a new controller yourself. 
 You can run your own controller as a set of Pods, or externally to Kubernetes. 
 
-<br><br><br>
 
-- References
-1. 
+---
+
+## 📚 References
+
+[1] **Kubernetes Controller**  
+- https://kubernetes.io/docs/concepts/architecture/controller/

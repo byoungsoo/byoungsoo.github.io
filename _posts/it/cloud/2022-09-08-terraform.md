@@ -150,11 +150,16 @@ AWS Account 및 리전에 테라폼을 통해 배포를 하다보니 여러가�
 
 <br><br><br>
 
-[1] Variable  
+
+---
+
+## 📚 References
+
+[1] **Variable**  
 https://www.terraform.io/language/values/variables  
 
-[2] Terraform Debugging  
+[2] **Terraform Debugging**  
 https://support.hashicorp.com/hc/en-us/articles/360001113727-Enabling-trace-level-logs-in-Terraform-CLI-Cloud-or-Enterprise  
 
-[3] For each  
-https://developer.hashicorp.com/terraform/language/meta-arguments/count#when-to-use-for_each-instead-of-count  
+[3] **For each**  
+https://developer.hashicorp.com/terraform/language/meta-arguments/count#when-to-use-for_each-instead-of-count

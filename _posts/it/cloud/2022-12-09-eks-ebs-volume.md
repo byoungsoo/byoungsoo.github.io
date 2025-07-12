@@ -199,10 +199,19 @@ drwx------ 2 root root 16384 Dec  8 14:49 lost+found
 1. Pod를 삭제하면 /var/lib/kubelet/pods 하위 경로인 48c42e3a-073d-46b9-9a18-73679e9eaf31 디렉토리가 삭제된다.  
 
 
-<br><br><br>
 
-> Ref: [https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi.html](https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi.html)  
-> Ref: [https://docs.aws.amazon.com/eks/latest/userguide/csi-iam-role.html](https://docs.aws.amazon.com/eks/latest/userguide/csi-iam-role.html)  
-> Ref: [https://github.com/kubernetes-sigs/aws-ebs-csi-driver/tree/master/docs#set-up-driver-permission](https://github.com/kubernetes-sigs/aws-ebs-csi-driver/tree/master/docs#set-up-driver-permission)  
-> Ref: [https://github.com/kubernetes-sigs/aws-ebs-csi-driver/blob/master/docs/install.md](https://github.com/kubernetes-sigs/aws-ebs-csi-driver/blob/master/docs/install.md)  
-> Ref: [https://hyperconnect.github.io/2021/07/05/ebs-csi-gp3-support.html](https://hyperconnect.github.io/2021/07/05/ebs-csi-gp3-support.html)  
+---
+
+## 📚 References
+
+[1] **Use Kubernetes volume storage with Amazon EBS**  
+- https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi.html
+
+[2] **Set up driver permission**  
+- https://github.com/kubernetes-sigs/aws-ebs-csi-driver/tree/master/docs#set-up-driver-permission
+
+[3] **Install**  
+- https://github.com/kubernetes-sigs/aws-ebs-csi-driver/blob/master/docs/install.md
+
+[4] **Hyperconnect tech blog**  
+- https://hyperconnect.github.io/2021/07/05/ebs-csi-gp3-support.html

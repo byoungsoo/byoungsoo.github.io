@@ -397,11 +397,10 @@ Container image는 IMDS v2를 사용하기 위해 설정되어있으나 conf 수
 
 
 
-<br><br><br>
 
-- References   
-[1] [Set up Fluent Bit as a DaemonSet to send logs to CloudWatch Logs](https://docs.aws.amazon.com/ko_kr/AmazonCloudWatch/latest/monitoring/Container-Insights-setup-logs-FluentBit.html)  
-[2] [Fine-grained access control in Amazon OpenSearch Service](https://docs.amazonaws.cn/en_us/opensearch-service/latest/developerguide/fgac.html#fgac-enabling)  
-[3] [How do I troubleshoot CloudWatch Logs so that it streams to my Amazon OpenSearch Service domain?](https://aws.amazon.com/premiumsupport/knowledge-center/opensearch-troubleshoot-cloudwatch-logs/?nc1=h_ls)  
-[4] [Templating Log Group and Stream Names based on Kubernetes metadata](https://github.com/aws/amazon-cloudwatch-logs-for-fluent-bit#templating-log-group-and-stream-names-based-on-kubernetes-metadata)  
-[5] [Opensearch Example policy](https://opensearch.org/docs/latest/im-plugin/ism/policies/#delete)  
+---
+
+## 📚 References
+
+[1] **Github Issue**  
+- https://github.com/fluent/fluent-bit/issues/2840#issuecomment-1296177358

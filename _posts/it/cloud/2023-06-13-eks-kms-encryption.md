@@ -43,5 +43,9 @@ eksctl utils enable-secrets-encryption \
 
 
 
-<br><br><br>
-[1] Workshop - https://aws.amazon.com/ko/blogs/containers/using-eks-encryption-provider-support-for-defense-in-depth/  
+---
+
+## 📚 References
+
+[1] **Workshop**  
+- https://aws.amazon.com/ko/blogs/containers/using-eks-encryption-provider-support-for-defense-in-depth/

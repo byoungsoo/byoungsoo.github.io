@@ -249,8 +249,14 @@ EFS CSI driver v1.3.6 버전에서 발견할 수 있는 현상으로 현재 원�
   - https://aws.amazon.com/ko/blogs/storage/mount-amazon-efs-file-systems-cross-account-from-amazon-eks/
 
 
-<br><br><br>
 
-- References 
-[1] https://docs.aws.amazon.com/eks/latest/userguide/efs-csi.html  
-[2] https://github.com/kubernetes-sigs/aws-efs-csi-driver  
+---
+
+## 📚 References
+[1] **Use elastic file system storage with Amazon EFS**
+- https://docs.aws.amazon.com/eks/latest/userguide/efs-csi.html  
+
+[2] **aws-efs-csi-driver**  
+- https://github.com/kubernetes-sigs/aws-efs-csi-driver  
+
+

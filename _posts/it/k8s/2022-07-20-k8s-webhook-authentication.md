@@ -464,13 +464,31 @@ Authentication webhook은 POST요청으로 TokenReview라는 JSON 객체를 아�
 하지만 Token값을 매번 보내줘야 한다는 점에서 번거로운 부분이 있다. 그래서 다음 번에는 [client-go credential plugins](https://kubernetes.io/docs/reference/access-authn-authz/authentication/#client-go credential plugins) 방식을 통해서 인증하는 부분을 확인해본다. 이 방식은 Webhook Token 기반으로 진행되는 것으로 보이니 해당 내용을 꼭 숙지한다.  
 (아마도 aws, openstack 등을 살펴보니 사용자가 token을 보내주는 부분을 각 서비스의 cli를 통해 IAM, Keystone과 같은 서비스를 사용하여 token을 get하고 그 토큰을 이용하여 webhook token방식으로 인증하는 것이 아닌가 싶다.)  
 
-<br><br><br>
 
-> Ref: [https://kubernetes.io/docs/reference/access-authn-authz/authentication/](https://kubernetes.io/docs/reference/access-authn-authz/authentication/)  
-> Ref: [https://kubernetes.io/docs/reference/access-authn-authz/authentication/#webhook-token-authentication](https://kubernetes.io/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)  
-> Ref: [https://kubernetes.io/docs/reference/access-authn-authz/kubelet-authn-authz/#kubelet-authentication](https://kubernetes.io/docs/reference/access-authn-authz/kubelet-authn-authz/#kubelet-authentication)  
-> Ref: [https://kubernetes.io/docs/reference/access-authn-authz/webhook/](https://kubernetes.io/docs/reference/access-authn-authz/webhook/)  
-> Ref: [https://kubernetes.io/docs/reference/access-authn-authz/authentication/#client-go-credential-plugins](https://kubernetes.io/docs/reference/access-authn-authz/authentication/#client-go-credential-plugins)  
-> Ref: [https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/keystone-auth/using-client-keystone-auth.md](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/keystone-auth/using-client-keystone-auth.md)  
-> Ref: [https://ikcoo.tistory.com/27](https://ikcoo.tistory.com/27)  
-> Ref: [https://coffeewhale.com/kubernetes/authentication/webhook/2020/05/05/auth04/](https://coffeewhale.com/kubernetes/authentication/webhook/2020/05/05/auth04/)  
+---
+
+## 📚 References
+
+[1] **Authenticating**  
+- https://kubernetes.io/docs/reference/access-authn-authz/authentication/
+
+[2] **Webhook Token Authentication**  
+- https://kubernetes.io/docs/reference/access-authn-authz/authentication/#webhook-token-authentication
+
+[3] **Webhook Token Authentication**  
+- https://kubernetes.io/docs/reference/access-authn-authz/kubelet-authn-authz/#kubelet-authentication
+
+[4] **Webhook Mode**  
+- https://kubernetes.io/docs/reference/access-authn-authz/webhook/
+
+[5] **client-go credential plugins**  
+- https://kubernetes.io/docs/reference/access-authn-authz/authentication/#client-go-credential-plugins
+
+[6] **Using client keystone auth**  
+- https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/keystone-auth/using-client-keystone-auth.md
+
+[7] **Kubernetes 인증 ( Webhook ), 참고문서**  
+- https://ikcoo.tistory.com/27
+
+[8] **k8s 인증 완벽이해 #4 - Webhook 인증, 참고문서**  
+- https://coffeewhale.com/kubernetes/authentication/webhook/2020/05/05/auth04/

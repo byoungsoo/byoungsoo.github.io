@@ -110,6 +110,12 @@ kubecost-cost-analyzer   alb     kubecost-main.bys.world   xxxxx.ap-northeast-2.
 
 
 
-<br><br><br>
+---
 
-- References  
+## 📚 References
+
+[1] **AWS EKS Kubecost**  
+- https://docs.aws.amazon.com/eks/latest/userguide/cost-monitoring.html
+
+[2] **Kubecost Helm Chart** - GitHub 저장소  
+- https://github.com/kubecost/cost-analyzer-helm-chart/tree/develop/cost-analyzer

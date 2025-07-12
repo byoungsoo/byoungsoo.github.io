@@ -158,7 +158,10 @@ spec:
                   number: 8080
 ```
 
-<br><br><br>
 
-- References  
+---
 
+## 📚 References
+
+[1] **ArgoCD Rollout**  
+- https://argo-rollouts.readthedocs.io/en/stable/#what-is-argo-rollouts

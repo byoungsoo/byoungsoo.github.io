@@ -167,7 +167,16 @@ $ kubectl logs -f -l app.kubernetes.io/instance=aws-load-balancer-controller -n 
 
 
 
-<br><br><br>
-> Ref: https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.4/deploy/upgrade/migrate_v1_v2/  
-> Ref: https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.4/guide/ingress/annotations  
-> Ref: https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.4/guide/ingress/ingress_class  
+
+---
+
+## 📚 References
+
+[1] **AWS Load Balancer Controller Migration** - v1에서 v2로 마이그레이션 가이드  
+- https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.4/deploy/upgrade/migrate_v1_v2/
+
+[2] **Ingress Annotations** - AWS Load Balancer Controller 어노테이션 가이드  
+- https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.4/guide/ingress/annotations
+
+[3] **Ingress Class** - IngressClass 설정 가이드  
+- https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.4/guide/ingress/ingress_class

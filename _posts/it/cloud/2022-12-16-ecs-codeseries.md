@@ -701,10 +701,22 @@ CodeDeployToECS로 provider를 변경하고 나서 CodePipeline에서 발생한 
 
 
 
-<br><br><br>
 
-> Ref: https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-env-vars.html  
-> Ref: https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-variables.html  
-> Ref: https://docs.aws.amazon.com/codebuild/latest/userguide/view-project-details.html#view-project-details-cli  
-> Ref: https://docs.aws.amazon.com/codebuild/latest/userguide/create-project-cli.html#cli.badgeenabled  
-> Ref: https://docs.aws.amazon.com/codepipeline/latest/userguide/pipelines-create.html#pipelines-create-cli
+---
+
+## 📚 References
+
+[1] **참고 문서**  
+- https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-env-vars.html  
+
+[2] **참고 문서**  
+- https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-variables.html  
+
+[3] **참고 문서**  
+- https://docs.aws.amazon.com/codebuild/latest/userguide/view-project-details.html#view-project-details-cli  
+
+[4] **참고 문서**  
+- https://docs.aws.amazon.com/codebuild/latest/userguide/create-project-cli.html#cli.badgeenabled  
+
+[5] **참고 문서**  
+- https://docs.aws.amazon.com/codepipeline/latest/userguide/pipelines-create.html#pipelines-create-cli

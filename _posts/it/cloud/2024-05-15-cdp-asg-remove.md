@@ -106,9 +106,17 @@ def delete_failed_asg(deploymentGroupName, deploymentId):
 #### 6. Test
 배포가 실패되는 신규 배포를 생성한다. 만약, 배포가 실패하면 바로 SNS 토픽이 트리거 되며 이를 구독하는 Lambda가 실행된다. 정상적으로 배포 실패로 남아 있는 ASG가 삭제되는 것을 확인할 수 있다. 
 
-<br><br><br>
 
-- References  
-[1] CodeDeploy Trigger - https://docs.aws.amazon.com/codedeploy/latest/userguide/monitoring-sns-event-notifications-create-trigger.html
-[2] AWS Lambda with Amazon SNS - https://docs.aws.amazon.com/lambda/latest/dg/with-sns.html
-[3] AWS Lambda with Amazon SNS - https://docs.aws.amazon.com/ko_kr/lambda/latest/dg/with-sns-example.html
+
+---
+
+## 📚 References
+
+[1] **CodeDeploy Trigger**  
+- https://docs.aws.amazon.com/codedeploy/latest/userguide/monitoring-sns-event-notifications-create-trigger.html
+
+[2] **Invoking Lambda functions with Amazon SNS notifications**  
+- https://docs.aws.amazon.com/lambda/latest/dg/with-sns.html
+
+[3] **자습서: Amazon Simple Notification Service에서 AWS Lambda 사용**  
+- https://docs.aws.amazon.com/ko_kr/lambda/latest/dg/with-sns-example.html

@@ -21,7 +21,13 @@ tags: ecs aws
 
 ## 10. [Trouble Shooting]()  
 
-<br><br><br>
 
-- References  
-[1] 
+---
+
+## 📚 References
+
+[1] **AWS ECS 공식 문서** - 클러스터 가이드  
+- https://docs.aws.amazon.com/AmazonECS/latest/developerguide/clusters.html
+
+[2] **ECS Capacity Provider** - 용량 공급자 가이드  
+- https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cluster-capacity-providers.html

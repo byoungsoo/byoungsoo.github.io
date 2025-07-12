@@ -174,7 +174,13 @@ eksctl create iamserviceaccount \
     ```
 
 
-<br><br><br>
 
-> Ref: [https://eksctl.io/usage/creating-and-managing-clusters/](https://eksctl.io/usage/creating-and-managing-clusters/)  
-> Ref: https://docs.aws.amazon.com/eks/latest/userguide/delete-managed-node-group.html
+---
+
+## 📚 References
+
+[1] **eksctl 공식 문서** - 클러스터 생성 및 관리 가이드  
+- https://eksctl.io/usage/creating-and-managing-clusters/
+
+[2] **AWS EKS 공식 문서** - Managed Node Group 삭제 가이드  
+- https://docs.aws.amazon.com/eks/latest/userguide/delete-managed-node-group.html

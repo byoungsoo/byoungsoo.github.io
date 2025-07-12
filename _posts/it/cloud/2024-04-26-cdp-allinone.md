@@ -368,8 +368,7 @@ ASG를 통해 신규 인스턴스를 지속 생성하는데도, CodeDeploy 서�
 
 
 
-<br><br><br>
 
-- References  
-[1] EC2 Autoscaling Lifecycle hook - https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-lifecycle.html
+---
 
+## 📚 References

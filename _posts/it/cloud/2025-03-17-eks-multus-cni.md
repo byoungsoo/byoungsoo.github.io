@@ -15,7 +15,9 @@ Multus CNI는 여러 네트워크 인터페이스를 파드에 연결할 수 있
 ![multus-cni](/assets/it/cloud/eks/multus-cni.png){: width="60%" height="auto"}
 
 
-### [Install multus on EKS](https://github.com/aws-samples/eks-install-guide-for-multus/blob/main/README.md), [Install multus](https://github.com/aws-samples/eks-install-guide-for-multus/blob/main/cfn/templates/nodegroup/README.md#install-multus), [Manifest on amazon-vpc-cni-k8s](https://github.com/aws/amazon-vpc-cni-k8s/tree/master/config/multus)
+### [Install multus on EKS](https://github.com/aws-samples/eks-install-guide-for-multus/blob/main/README.md)
+### [Install multus](https://github.com/aws-samples/eks-install-guide-for-multus/blob/main/cfn/templates/nodegroup/README.md#install-multus)
+### [Manifest on amazon-vpc-cni-k8s](https://github.com/aws/amazon-vpc-cni-k8s/tree/master/config/multus)
 
 
 `Deploy multus cni`
@@ -47,6 +49,7 @@ spec:
 ```
 
 ### [EKS multus Docs](https://docs.aws.amazon.com/eks/latest/userguide/pod-multiple-network-interfaces.html)
+
 - Amazon EKS won’t be building and publishing single root I/O virtualization (SR-IOV) and Data Plane Development Kit (DPDK) CNI plugins. However, you can achieve packet acceleration by connecting directly to Amazon EC2 Elastic Network Adapters (ENA) through Multus managed host-device and ipvlan plugins.
 
 - Amazon EKS is supporting Multus, which provides a generic process that enables simple chaining of additional CNI plugins. Multus and the process of chaining is supported, but AWS won’t provide support for all compatible CNI plugins that can be chained, or issues that may arise in those CNI plugins that are unrelated to the chaining configuration.
@@ -199,5 +202,9 @@ data:
 │   pods:                  29
 ----------------------------------------------------------------
 ```
-<br><br><br>
+
+
+---
+
+## 📚 References
 

@@ -435,16 +435,19 @@ CANONICAL_QUERYSTRING="${CANONICAL_QUERYSTRING}&X-Amz-Signature=${SIGNATURE}"
 echo "request_url = ${ENDPOINT}/${S3KEY}?${CANONICAL_QUERYSTRING}"
 ```
 
+---
+
+## 📚 References
 
 - References  
-[1] API 요청용 AWS Signature Version 4  
-https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/reference_sigv.html
+[1] **API 요청용 AWS Signature Version 4**  
+- https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/reference_sigv.html
 
-[2] AWS API 호출  
-https://aws.amazon.com/ko/blogs/korea/aws-api-call-1/
+[2] **AWS API 호출**  
+- https://aws.amazon.com/ko/blogs/korea/aws-api-call-1/
 
-[3] Create a signed AWS API request  
-https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_sigv-create-signed-request.html
+[3] **Create a signed AWS API request**  
+- https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_sigv-create-signed-request.html
 
-[4] AWS API 호출 - pre-signed URL 생성하기  
-https://aws.amazon.com/ko/blogs/korea/aws-api-call-2-s3-pre-signed-url/
+[4] **AWS API 호출 - pre-signed URL 생성하기**  
+- https://aws.amazon.com/ko/blogs/korea/aws-api-call-2-s3-pre-signed-url/

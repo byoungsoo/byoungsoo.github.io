@@ -114,9 +114,19 @@ HPA에 의해 노드가 확장한 이 후 다시 파드가 줄어들면서 노�
     ```
 
 
-<br><br><br>
 
-> Ref: [AWS Doc](https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/autoscaling.html)  
-> Ref: [EKS Best Practices Guides](https://aws.github.io/aws-eks-best-practices/cluster-autoscaling/)  
-> Ref: [Github - Frequently Asked Questions](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md)  
-> Ref: [parameters to CA](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#what-are-the-parameters-to-ca)  
+---
+
+## 📚 References
+
+[1] **AWS Doc**  
+- https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/autoscaling.html
+
+[2] **EKS Best Practices Guides**  
+- https://aws.github.io/aws-eks-best-practices/cluster-autoscaling/
+
+[3] **Github - Frequently Asked Questions**  
+- https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md
+
+[4] **parameters to CA**  
+- https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#what-are-the-parameters-to-ca

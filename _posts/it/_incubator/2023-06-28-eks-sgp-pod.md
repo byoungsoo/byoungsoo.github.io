@@ -36,22 +36,15 @@ https://guide.aws.dev/articles/ARVptFLTVMSk29jZDXpkFFjQ/eks-internals-of-securit
 
 ## 10. Trouble Shooting
 
-<br><br><br>
 
-
-
------------------
-kubectl set env daemonset aws-node -n kube-system ENABLE_POD_ENI=true
-설정하고나면
-
-잠시후 어노테이션
-kubectl get nodes -o wide -l vpc.amazonaws.com/has-trunk-attached=true
-
-노드에는 trunk-eni가할당됨
------------------
-
-
-
-
-- References  
 [1] https://guide.aws.dev/articles/ARVptFLTVMSk29jZDXpkFFjQ
+
+---
+
+## 📚 References
+
+[1] **AWS 공식 문서**  
+- [1] https://guide.aws.dev/articles/ARVptFLTVMSk29jZDXpkFFjQ
+
+[2] **AWS 공식 문서**  
+- https://guide.aws.dev/articles/ARVptFLTVMSk29jZDXpkFFjQ

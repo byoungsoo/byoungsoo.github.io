@@ -809,12 +809,28 @@ route del -net 192.168.103.134 netmask 255.255.255.255 gw 0.0.0.0
 route del -net 192.168.238.192 netmask 255.255.255.192 gw 10.20.2.10 
 ```
 
-<br><br><br>
 
-> Ref: [https://kubernetes.io/ko/docs/setup/production-environment/tools/kubeadm/install-kubeadm/](https://kubernetes.io/ko/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)  
-> Ref: [https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)  
-> Ref: [https://projectcalico.docs.tigera.io/getting-started/kubernetes/self-managed-onprem/onpremises](https://projectcalico.docs.tigera.io/getting-started/kubernetes/self-managed-onprem/onpremises)  
-> Ref: [https://www.youtube.com/watch?v=MpbIZ1SmEkU](https://www.youtube.com/watch?v=MpbIZ1SmEkU)  
-> Ref: [https://lifeplan-b.tistory.com/155?category=886551](https://lifeplan-b.tistory.com/155?category=886551)  
-> Ref: [https://trylhc.tistory.com/entry/Containerd-%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%84%A4%EC%A0%95](https://trylhc.tistory.com/entry/Containerd-%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%84%A4%EC%A0%95)  
-> Ref: [https://projectcalico.docs.tigera.io/networking/vxlan-ipip](https://projectcalico.docs.tigera.io/networking/vxlan-ipip)  
+---
+
+## 📚 References
+
+[1] **kubeadm 설치하기**  
+- https://kubernetes.io/ko/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
+
+[2] **Creating a cluster with kubeadm**  
+- https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/
+
+[3] **Install Calico networking and network policy for on-premises deployments**  
+- https://projectcalico.docs.tigera.io/getting-started/kubernetes/self-managed-onprem/onpremises
+
+[4] **Calico Routing Modes**  
+- https://www.youtube.com/watch?v=MpbIZ1SmEkU
+
+[5] **참고문서**  
+- https://lifeplan-b.tistory.com/155?category=886551
+
+[6] **Containerd 설치 및 설정**  
+- https://trylhc.tistory.com/entry/Containerd-%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%84%A4%EC%A0%95
+
+[7] **Overlay networking**  
+- https://projectcalico.docs.tigera.io/networking/vxlan-ipip

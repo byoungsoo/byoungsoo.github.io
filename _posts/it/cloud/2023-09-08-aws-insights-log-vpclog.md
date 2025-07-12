@@ -15,6 +15,10 @@ tags: aws vpc flow log insights
 ```
 
 
-<br><br><br>
 
-> Ref: [Log Insights document](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/AnalyzingLogData.html)
+---
+
+## 📚 References
+
+[1] **Log Insights document**  
+- https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/AnalyzingLogData.html

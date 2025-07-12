@@ -37,13 +37,13 @@ API 서버와 상호작용함으로서 상태를 관리하는 방법. Ex. kubern
 Control loop 의 셋트가 모놀리식으로 구성되어 서로 연결되어 있는 것 보다 간단한 컨트롤러로 사용하는 것이 유용하다.  
 
 
--------------------------
 
-<br><br><br>
+---
 
-> References
-[1] Controllers
+## 📚 References
+
+[1] **Controllers Pattern - Design**  
 - https://kubernetes.io/docs/concepts/architecture/controller/#design
 
-[2] 쿠버네티스 패턴
+[2] **쿠버네티스 패턴**  
 - O'REILLY

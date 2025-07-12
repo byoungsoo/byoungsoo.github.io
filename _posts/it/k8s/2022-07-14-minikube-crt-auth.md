@@ -225,8 +225,9 @@ nginx-deployment-544dc8b7c4-rsfkw   1/1     Running   0          45h
 ```
 
 
+---
 
+## 📚 References
 
-
-<br><br><br>
-> Ref: https://kubernetes.io/docs/reference/access-authn-authz/certificate-signing-requests/
+[1] **Certificates and Certificate Signing Requests**  
+- https://kubernetes.io/docs/reference/access-authn-authz/certificate-signing-requests/

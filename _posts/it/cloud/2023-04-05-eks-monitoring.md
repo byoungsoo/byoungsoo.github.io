@@ -310,8 +310,16 @@ kube_endpoint_address_available{app_kubernetes_io_instance="prometheus",endpoint
 ![grafana-dashboard002](/assets/it/cloud/eks/monitoring/grafana-dashboard002.png){: width="95%" height="auto"}
 
 
-<br><br><br>
 
-- References  
 [1] http://blog.itaysk.com/2019/01/15/Kubernetes-metrics-and-monitoring  
-[2] kube-state-metrics - https://github.com/kubernetes/kube-state-metrics#kube-state-metrics-vs-metrics-server  
+[2] kube-state-metrics - https://github.com/kubernetes/kube-state-metrics#kube-state-metrics-vs-metrics-server
+
+---
+
+## 📚 References
+
+[1] **Kubernetes Metrics and Monitoring**  
+- http://blog.itaysk.com/2019/01/15/Kubernetes-metrics-and-monitoring
+
+[2] **Kubernetes Metrics and Monitoring**  
+- https://github.com/kubernetes/kube-state-metrics#kube-state-metrics-vs-metrics-server

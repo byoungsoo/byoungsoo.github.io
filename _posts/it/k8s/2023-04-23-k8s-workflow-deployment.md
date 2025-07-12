@@ -89,6 +89,10 @@ EKS를 통해 deployment 생성 시 로그를 확인하며 Kubernetes에서 실�
 
 5. kubelet은 kube-apiserver를 watch하고 있다가 자신의 노드로 binding된 pod를 감지하고 docker/containerd runtime을 통해 pod를 실행한다.  
 
-<br><br><br>
 
-- References  
+---
+
+## 📚 References
+
+[1] **Kubernetes Deployment**  
+- https://kubernetes.io/docs/concepts/workloads/controllers/deployment/

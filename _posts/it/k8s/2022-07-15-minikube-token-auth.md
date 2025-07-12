@@ -150,5 +150,10 @@ Error from server (Forbidden): cronjobs.batch is forbidden: User "system:service
 Error from server (Forbidden): jobs.batch is forbidden: User "system:serviceaccount:dev:dev-sa" cannot list resource "jobs" in API group "batch" at the cluster scope
 ```
 
-<br><br><br>
-> Ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
+
+---
+
+## 📚 References
+
+[1] **Configure Service Accounts for Pods**   
+- https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/

@@ -717,10 +717,15 @@ kubectl run curl --rm -it --restart=Never --image curlimages/curl -- \
 
 
 
+---
 
+## 📚 References
 
-<br><br><br>
+[1] **Using client keystone auth**  
+- https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/keystone-auth/using-client-keystone-auth.md
 
-> Ref: [https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/keystone-auth/using-client-keystone-auth.md](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/keystone-auth/using-client-keystone-auth.md)  
-> Ref: [https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/keystone-auth/using-keystone-webhook-authenticator-and-authorizer.md](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/keystone-auth/using-keystone-webhook-authenticator-and-authorizer.md)  
-> Ref: [https://kubernetes.io/docs/tasks/administer-cluster/dns-debugging-resolution/](https://kubernetes.io/docs/tasks/administer-cluster/dns-debugging-resolution/)  
+[2] **Using keystone webhook authenticator and authorizer**  
+- https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/keystone-auth/using-keystone-webhook-authenticator-and-authorizer.md
+
+[3] **Debugging DNS Resolution**  
+- https://kubernetes.io/docs/tasks/administer-cluster/dns-debugging-resolution/

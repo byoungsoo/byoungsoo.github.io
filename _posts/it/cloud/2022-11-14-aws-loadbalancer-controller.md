@@ -259,11 +259,25 @@ spec:
   controller: ingress.k8s.aws/alb
 ```
 
-<br><br><br>
 
-> Ref: https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html  
-> Ref: https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.2/guide/ingress/annotations/  
-> Ref: https://kubernetes.io/blog/2019/04/17/the-future-of-cloud-providers-in-kubernetes/#:~:text=In%2DTree%20%26%20Out%2Dof%2DTree%20Providers   
-> Ref: https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/aws-load-balancer-controller.html  
-> Ref: https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.4/guide/ingress/annotations/  
-> Ref: https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.2/guide/ingress/ingress_class/  
+---
+
+## 📚 References
+
+[1] **AWS 공식 문서**  
+- https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html  
+
+[2] **Kubernetes 공식 문서**  
+- https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.2/guide/ingress/annotations/  
+
+[3] **Kubernetes 공식 문서**  
+- https://kubernetes.io/blog/2019/04/17/the-future-of-cloud-providers-in-kubernetes/#:~:text=In%2DTree%20%26%20Out%2Dof%2DTree%20Providers   
+
+[4] **AWS 공식 문서**  
+- https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/aws-load-balancer-controller.html  
+
+[5] **Kubernetes 공식 문서**  
+- https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.4/guide/ingress/annotations/  
+
+[6] **Kubernetes 공식 문서**  
+- https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.2/guide/ingress/ingress_class/

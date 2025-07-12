@@ -242,6 +242,10 @@ The Pod inherits the name resolution configuration from the node that the Pods r
 따라서 노드로부터 DNS설정을 상속받기 때문에 노드의 DNS정보가 들어가게 된다.  
 
 
-<br><br><br>
 
-> Ref: https://kubernetes.io/docs/concepts/overview/components/
+---
+
+## 📚 References
+
+[1] **Kubernetes Components**  
+- https://kubernetes.io/docs/concepts/overview/components/

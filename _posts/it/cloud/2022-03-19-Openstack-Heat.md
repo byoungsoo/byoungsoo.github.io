@@ -599,7 +599,13 @@ user_data.sh 파일 안에는 template_lb_server.yaml 파일에서 서버가 생
 <br>
 
 
-<br><br><br>
 
-> Ref: http://www.howardism.org/Technical/OpenStack/using-heat-templates.html  
-> Ref: https://docs.openstack.org/heat/train/template_guide/openstack.html  
+---
+
+## 📚 References
+
+[1] **OpenStack 공식 문서**  
+- http://www.howardism.org/Technical/OpenStack/using-heat-templates.html  
+
+[2] **OpenStack 공식 문서**  
+- https://docs.openstack.org/heat/train/template_guide/openstack.html

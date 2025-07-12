@@ -490,12 +490,28 @@ cpu(ns) = cpu_util(%) * 1000000000 * granularity(sec) * cpu_core(vpcu) / 100
 
 ---
 
-<br><br><br>
 
-> Ref: https://docs.openstack.org/aodh/train/admin/telemetry-alarms.html  
-> Ref: https://docs.openstack.org/python-openstackclient/ussuri/cli/plugin-commands/aodh.html  
-> Ref: https://gnocchi.osci.io/rest.html#  
-> Ref: https://docs.openstack.org/ceilometer/train/admin/telemetry-measurements.html  
-> Ref: https://docs.infomaniak.cloud/user-guide/0200.AODH/  
-> Ref: https://stackoverflow.com/questions/56216683/openstack-get-vm-cpu-util-with-stein-version  
-> Ref: https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.0/html-single/auto_scaling_for_instances/index#example_auto_scaling_based_on_cpu_use  
+---
+
+## 📚 References
+
+[1] **OpenStack 공식 문서**  
+- https://docs.openstack.org/aodh/train/admin/telemetry-alarms.html  
+
+[2] **OpenStack 공식 문서**  
+- https://docs.openstack.org/python-openstackclient/ussuri/cli/plugin-commands/aodh.html  
+
+[3] **참고 문서**  
+- https://gnocchi.osci.io/rest.html#  
+
+[4] **OpenStack 공식 문서**  
+- https://docs.openstack.org/ceilometer/train/admin/telemetry-measurements.html  
+
+[5] **참고 문서**  
+- https://docs.infomaniak.cloud/user-guide/0200.AODH/  
+
+[6] **OpenStack 공식 문서**  
+- https://stackoverflow.com/questions/56216683/openstack-get-vm-cpu-util-with-stein-version  
+
+[7] **OpenStack 공식 문서**  
+- https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.0/html-single/auto_scaling_for_instances/index#example_auto_scaling_based_on_cpu_use

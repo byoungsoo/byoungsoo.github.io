@@ -246,6 +246,10 @@ CNI란 Container Network Interface로 Tunneling을 통해 이루어진다.
 [![minikube002](/assets/it/k8s/minikube/minikube002.png){: width="70%" height="auto"}](/assets/it/k8s/minikube/minikube002.png)
 
 
-<br><br><br>
 
-> Ref: https://youtu.be/U35C0EPSwoY
+---
+
+## 📚 References
+
+[1] **참고 문서**  
+- https://youtu.be/U35C0EPSwoY

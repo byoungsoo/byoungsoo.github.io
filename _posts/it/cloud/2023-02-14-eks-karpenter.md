@@ -491,8 +491,13 @@ To correct the problem if it occurs, you can use the approach that AWS EBS uses,
 따라서, 버전 업그레이드가 필요한 상황이다.  
 
 
-<br><br><br>
 
-- References  
-[1] https://github.com/aws/karpenter/issues/101  
-[2] https://karpenter.sh/docs/troubleshooting/
+---
+
+## 📚 References
+
+[1] **Github Issue**  
+- https://github.com/aws/karpenter/issues/101
+
+[2] **Troubleshooting**  
+- https://karpenter.sh/docs/troubleshooting/

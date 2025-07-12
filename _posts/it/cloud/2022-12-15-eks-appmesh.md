@@ -239,9 +239,19 @@ spec:
 ```
 
 
-<br><br><br>
 
-> Ref: https://docs.aws.amazon.com/app-mesh/latest/userguide/getting-started-kubernetes.html  
-> Ref: https://docs.aws.amazon.com/app-mesh/latest/userguide/concepts.html  
-> Ref: https://www.youtube.com/watch?v=I6aIp0AmIC0  
-> Ref: https://www.youtube.com/watch?v=lOyRgNZrWA4
+---
+
+## 📚 References
+
+[1] **Getting started with AWS App Mesh and Kubernetes**  
+- https://docs.aws.amazon.com/app-mesh/latest/userguide/getting-started-kubernetes.html  
+
+[2] **App Mesh Concepts**  
+- https://docs.aws.amazon.com/app-mesh/latest/userguide/concepts.html  
+
+[3] **Getting Started with AWS App Mesh**  
+- https://www.youtube.com/watch?v=I6aIp0AmIC0  
+
+[4] **Service Mesh, 좀더 쉽게**  
+- https://www.youtube.com/watch?v=lOyRgNZrWA4
