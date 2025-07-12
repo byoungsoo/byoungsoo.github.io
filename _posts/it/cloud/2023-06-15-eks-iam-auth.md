@@ -85,7 +85,7 @@ $ aws-iam-authenticator token -i bys-dev-eks-main
 "https://sts.ap-northeast-2.amazonaws.com/?Action=GetCallerIdentity
 &Version=2011-06-15
 &X-Amz-Algorithm=AWS4-HMAC-SHA256
-&X-Amz-Credential=AKIAYTTTTTYYYYYXXXXX%2F20230615%2Fap-northeast-2%2Fsts%2Faws4_request
+&X-Amz-Credential=11112222XXXXYYYY%2F20230615%2Fap-northeast-2%2Fsts%2Faws4_request
 &X-Amz-Date=20230615T145344Z
 &X-Amz-Expires=0
 &X-Amz-SignedHeaders=host%3Bx-k8s-aws-id
@@ -101,7 +101,7 @@ https://sts.ap-northeast-2.amazonaws.com/?Action=GetCallerIdentity&Version=2011-
 
 
 참고로 x-k8s-aws-id 헤더에는 클러스터 ID가 들어간다.  
-이 중 실제 `X-Amz-Crednetial=AKIAYTTTTTYYYYYXXXXX` 정보는 해당 커맨드를 수행한 IAM User의 Access Key정보와 같다.  
+이 중 실제 `X-Amz-Crednetial=11112222XXXXYYYY` 정보는 해당 커맨드를 수행한 IAM User의 Access Key정보와 같다.  
 
 Pre-signed URL의 경우 위 URL 값 중 어떤 것을 변경하게 되면 이 요청은 허용되지 않는다. [문서](https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html)  
 
@@ -154,9 +154,15 @@ EKS API 서버는 Kubernetes의 User/Group 정보를 받으면 RBAC(Role-based A
 
 이렇게 Amazon EKS 에서는 인증/인가 과정이 동작하며 인증 과정은 AWS IAM 서비스를 통해 인가 과정은 Kubernetes 기반의 RBAC으로 동일하게 작동한다.  
 
-<br><br><br>
+---
 
-- References  
-[1] [Cluster authentication](https://docs.aws.amazon.com/eks/latest/userguide/cluster-auth.html)  
-[2] [aws-iam-authenticator](https://github.com/kubernetes-sigs/aws-iam-authenticator)
-[3] https://itnext.io/how-does-client-authentication-work-on-amazon-eks-c4f2b90d943b  
+## 📚 References
+
+[1] **1Cluster authentication**  
+- https://docs.aws.amazon.com/eks/latest/userguide/cluster-auth.html
+
+[2] **aws-iam-authenticator**  
+- https://github.com/kubernetes-sigs/aws-iam-authenticator
+
+[3] **Kubernetes Client Authentication on Amazon EKS**  
+- https://itnext.io/how-does-client-authentication-work-on-amazon-eks-c4f2b90d943b
