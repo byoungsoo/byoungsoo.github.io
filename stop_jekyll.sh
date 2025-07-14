@@ -88,3 +88,5 @@ if [ "$remaining_processes" -gt 0 ]; then
 else
     print_status "All Jekyll processes have been stopped"
 fi
+
+rm -rf ./_site .jekyll-cache
