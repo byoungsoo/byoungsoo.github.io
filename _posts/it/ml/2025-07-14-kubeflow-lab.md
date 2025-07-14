@@ -39,7 +39,7 @@ metadata:
 spec:
   ingressClassName: "mlops-ingress-class"
   rules:
-    - host: keycloak.bys.people.aws.dev
+    - host: keycloak.bys.asia
       http:
         paths:
           - path: /
@@ -64,8 +64,8 @@ Password: admin
 ![create-client-01.png](/assets/it/ml/kubeflow-lab/create-client-01.png){: width="90%" height="auto"}  
 ![create-client-02.png](/assets/it/ml/kubeflow-lab/create-client-02.png){: width="90%" height="auto"}  
 ![create-client-03.png](/assets/it/ml/kubeflow-lab/create-client-03.png){: width="90%" height="auto"}  
-- Valid redirect URIs: https://kubeflow.bys.people.aws.dev/dex/callback
-- Web origins - https://kubeflow.bys.people.aws.dev
+- Valid redirect URIs: https://kubeflow.bys.asia/dex/callback
+- Web origins - https://kubeflow.bys.asia
 ![client-secret.png](/assets/it/ml/kubeflow-lab/client-secret.png){: width="90%" height="auto"}  
 3. Create User and set password
 `Must verified E-mail`. If you don't, you got 500 Internal Server Error after login successfully.
@@ -104,7 +104,7 @@ metadata:
 spec:
   ingressClassName: "mlops-ingress-class"
   rules:
-    - host: argocd.bys.people.aws.dev
+    - host: argocd.bys.asia
       http:
         paths:
           - path: /
@@ -200,8 +200,8 @@ spec:
 `Create ACM`
 ```bash
 # 도메인에 대한 ACM 신규 생성, 호스트 존은 동일하게 유지 =
-*.bys.people.aws.dev
-*.kubeflow.bys.people.aws.dev
+*.bys.asia
+*.kubeflow.bys.asia
 ```
 
 
