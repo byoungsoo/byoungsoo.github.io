@@ -76,7 +76,17 @@ print_status "Port: $JEKYLL_PORT"
 print_status "Log file: $JEKYLL_LOG"
 
 # Start Jekyll in background and capture PID
-nohup bundle exec jekyll serve --host "$JEKYLL_HOST" --port "$JEKYLL_PORT" --livereload > "$JEKYLL_LOG" 2>&1 &
+# nohup bundle exec jekyll serve --host "$JEKYLL_HOST" --port "$JEKYLL_PORT" --livereload > "$JEKYLL_LOG" 2>&1 &
+
+nohup bundle exec jekyll serve \
+  --config _config.yml,_config_dev.yml \
+  --incremental \
+  --livereload \
+  --host 0.0.0.0 \
+  --port 4000 \
+  --force_polling \
+  --trace > "$JEKYLL_LOG" 2>&1 &
+
 JEKYLL_PID=$!
 
 # Save PID to file

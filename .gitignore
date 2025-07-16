@@ -223,3 +223,9 @@ fabric.properties
 .idea/codestream.xml
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij,eclipse
+
+### Development Files ###
+_config_dev.yml
+dev_serve.sh
+*.log
+node_modules/

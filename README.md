@@ -14,7 +14,7 @@
 - **Terraform**: Infrastructure as Code
 - **CDK**: AWS Cloud Development Kit
 
-### 🚢 Kubernetes & Container
+### ☸️ Kubernetes & Container
 - **Kubernetes**: 클러스터 구성, 컨트롤러, 네트워킹, CSI 드라이버
 - **EKS**: AWS 관리형 쿠버네티스 서비스
 - **Container**: Docker, Containerd, CRI
