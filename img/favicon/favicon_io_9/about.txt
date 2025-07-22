@@ -1,0 +1,4 @@
+- Font Title: Leckerli One
+- Background Color: #209CEE
+- Font Color: #FFFFFF
+- Font Size: 60
