@@ -1,0 +1,42 @@
+---
+layout: page
+permalink: /category/ai/
+title: AI Chat
+---
+
+<link rel="stylesheet" href="{{ '/css/ai-chat-style.css' | prepend: site.baseurl }}">
+
+<div class="ai-chat-container">
+  <div class="chat-header">
+    <h1>🤖 AI Chat</h1>
+    <p>Interact with Gemini and GPT AI models</p>
+    <button class="manage-keys-btn" onclick="showManageKeysModal()">🔑 Manage API Keys</button>
+  </div>
+  
+  <div class="chat-interface">
+    <div class="chat-messages" id="chatMessages">
+      <div class="message ai-message">
+        <div class="message-content">
+          <strong>AI Assistant:</strong> Hello! I'm ready to help you. What would you like to discuss?<br><br>
+          <em>⚠️ Note: GPT may not work due to CORS restrictions. Gemini works best in browsers!</em>
+        </div>
+      </div>
+    </div>
+    
+    <div class="chat-input-container">
+      <div class="model-selector">
+        <select id="modelSelect">
+          <option value="gemini">Gemini</option>
+          <option value="gpt">GPT</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <input type="text" id="chatInput" placeholder="Type your message..." />
+        <button id="sendButton">Send</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="{{ '/js/secure-api-config.js' | prepend: site.baseurl }}"></script>
+<script src="{{ '/js/secure-ai-chat.js' | prepend: site.baseurl }}"></script>
