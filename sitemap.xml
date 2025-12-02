@@ -1,30 +1,62 @@
 ---
 ---
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns:xsi ="http://www.w3.org/2001/XMLSchema-instance"
-	      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
         xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-    {% for post in site.posts %}
+  <!-- Homepage -->
+  <url>
+    <loc>{{ site.url }}/</loc>
+    <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Static Pages -->
+  {% for page in site.pages %}
+    {% unless page.url contains '/tags/' or page.url contains '/category/' or page.url contains '/assets/' %}
+    <url>
+      <loc>{{ site.url }}{{ page.url }}</loc>
+      <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    {% endunless %}
+  {% endfor %}
+
+  <!-- Posts -->
+  {% for post in site.posts %}
+    {% unless post.published == false %}
     <url>
       <loc>{{ site.url }}{{ post.url }}</loc>
-      {% if post.lastmod == null %}
-        <lastmod>{{ post.date | date_to_xmlschema }}</lastmod>
-      {% else %}
+      {% if post.lastmod %}
         <lastmod>{{ post.lastmod | date_to_xmlschema }}</lastmod>
-      {% endif %}
-
-      {% if post.sitemap.changefreq == null %}
-        <changefreq>daily</changefreq>
       {% else %}
+        <lastmod>{{ post.date | date_to_xmlschema }}</lastmod>
+      {% endif %}
+      {% if post.sitemap.changefreq %}
         <changefreq>{{ post.sitemap.changefreq }}</changefreq>
-      {% endif %}
-
-      {% if post.sitemap.priority == null %}
-          <priority>0.5</priority>
       {% else %}
+        <changefreq>weekly</changefreq>
+      {% endif %}
+      {% if post.sitemap.priority %}
         <priority>{{ post.sitemap.priority }}</priority>
+      {% else %}
+        <priority>0.7</priority>
       {% endif %}
     </url>
-    {% endfor %}
+    {% endunless %}
+  {% endfor %}
+
+  <!-- Tag Pages -->
+  {% for tag in site.tags %}
+  <url>
+    <loc>{{ site.url }}/tags/{{ tag[0] | slugify }}/</loc>
+    <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  {% endfor %}
+
 </urlset>
