@@ -9,5 +9,5 @@ Disallow: /project
 Disallow: /issue
 Disallow: /diary
 Allow: /
-Sitemap: http://byoungsoo.github.io/sitemap.xml
+Sitemap: https://byoungsoo.github.io/sitemap.xml
 
