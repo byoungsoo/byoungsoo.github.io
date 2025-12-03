@@ -438,8 +438,6 @@ echo "request_url = ${ENDPOINT}/${S3KEY}?${CANONICAL_QUERYSTRING}"
 ---
 
 ## 📚 References
-
-- References  
 [1] **API 요청용 AWS Signature Version 4**  
 - https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/reference_sigv.html
 

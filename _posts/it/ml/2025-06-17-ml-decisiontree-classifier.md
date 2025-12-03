@@ -104,3 +104,6 @@ plt.show()
 
 이 코드에서 mlflow를 제외하고 데이터 준비를 보면 X는 각 좌표를 의미하고, Y는 각 좌표에 대한 클래스(분류)를 한것으로 이해할 수 있다. 즉, 좌표 (1,1) 은 클래스 0이고, 좌표 (1,2) 도 클래스 0이다. 좌표 (10,15) 는  클래스 3이다. 
 위 코드를 시각화 하면 아래와 같다.
+
+![decisionboundary.png](/assets/it/ml/algorithm/decisionboundary.png)
+![decision-tree-structure](/assets/it/ml/algorithm/decision-tree-structure.png)
