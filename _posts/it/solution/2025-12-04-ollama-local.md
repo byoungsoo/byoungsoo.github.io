@@ -1,0 +1,452 @@
+---
+layout: post
+title: "Ollama on Local & EKS"
+author: "Bys"
+category: solution
+date: 2025-12-04 01:00:00
+keywords: "ollama, ai llm"
+tags: ollama ai llm
+---
+
+n8n 에서 LLM 모델에 API를 호출해야 테스트를 해야하는데 OpenAI 에는 최소 5$ 결제를 해야하고(이미 결제를 해서 사용은하지만...), Gemini 를 사용하기 위해서는 GCP에 Billing account를 만들어서 결제카드를 등록하고 사용(이 또한 이미 사용중이지만...)해야 한다. 
+비용이 많이 나오지는 않지만 테스트 단계에서 LLM 모델 성능 테스트를 하는것도 아닌데 굳이 비용을 내면서 사용해야할 이유는 없다고 느껴졌고, 로컬에서 LLM 모델을 실행하는 것으로 테스트를 진행하기로 했다. 이에 따라 Ollama 를 이용해 로컬에서 LLM 모델을 실행하고 API를 테스트 하는 과정에 대해 진행해보고자 한다.
+- 나의 경우 n8n 을 EKS에 올렸기 때문에 ollama 도 EKS 에서 구동하려고 한다. 
+- n8n을 로컬에서 설치했다면 ollama 도 로컬에서 설치하면 된다.  
+
+# [Ollama](https://ollama.com/)  
+Ollama 는 로컬에서 다양한 오픈소스 LLM을 다운로드하고 실행할 수 있도록 한 도구다.
+
+## 1. [Install on Local](https://ollama.com/download)  
+
+Ollama 페이지에서 Ollama 를 다운로드/설치 하면 LLM 모델을 로컬에서 실행하고 사용할 수 있다. 
+
+또는, Linux 환경에서는 아래와 같이 Ollama 를 설치할 수도 있다.  
+```bash
+curl -fsSL https://ollama.com/install.sh | sh
+```
+
+
+## 2. Ollama 를 통해 모델 실행하기  
+Ollama 는 Application으로 실행할 수도 있고, `ollama serve` 커맨드를 통해 실행할 수도 있다. 어떤 방식으로든 Ollama 를 실행하면 아래와 같이 프로세스가 잡힌다.  
+
+```bash
+$ $ps -ef | grep ollama
+504 24489 16659   0 10:42#오전 ttys030    0:00.07 ollama serve
+```
+
+정상 동작중이라면 11434 포트에서 `Ollama is running` 이라는 메세지도 확인 가능하다.  
+```bash
+$ curl http://127.0.0.1:11434
+Ollama is running
+```
+
+
+## 3. Ollama 를 통해 모델 실행하기 
+```bash
+$ ollama --help
+Usage:
+  ollama [flags]
+  ollama [command]
+
+Available Commands:
+  serve       Start ollama
+  create      Create a model
+  show        Show information for a model
+  run         Run a model
+  stop        Stop a running model
+  pull        Pull a model from a registry
+  push        Push a model to a registry
+  signin      Sign in to ollama.com
+  signout     Sign out from ollama.com
+  list        List models
+  ps          List running models
+  cp          Copy a model
+  rm          Remove a model
+```
+
+
+Ollama 에서 실행가능한 모델 정보는 [Ollama Github 페이지](https://github.com/ollama/ollama?tab=readme-ov-file#model-library)에서 확인 가능하다.  
+실행하고 싶은 모델에 대해서 아래와 같이 `ollama run` 커맨드를 통해 모델을 실행할 수 있다. (로컬에서 실행하기 때문에 가급적 사이즈가 작은 모델을 사용해야 한다.)
+```bash
+$ ollama run deepseek-r1
+
+>>> Hi, I am korean. I am glad to chat with you.
+
+Thinking...
+Okay, the user is a Korean speaker who's happy to chat. That's a great start! They're being friendly and open, which makes the interaction feel warm and welcoming.
+Since they didn't ask a specific question, I should keep the response light and encouraging. They might be just practicing English or casually chatting, so I'll match their energy with a cheerful tone.
+I'll mention "Korean" twice to show I'm paying attention to their identity, and offer multiple options (English, Korean, or mixed) to let them guide the conversation. The emojis will help convey enthusiasm since text can feel flat without tone.
+Hmm, they didn't specify their purpose, so I'll leave the door open with "anything at all" to encourage them to share if they want. The 😊 feels appropriate here—it's friendly without being overbearing.
+Wonder if they'll pick a topic or just keep it small-talk for now. Either way, staying adaptable is key.
+...done thinking.
+
+Hello! 😊 It's great to hear that you're Korean—I'm so happy to chat with you! Do you want to practice English, talk about Korean culture, or just have a general conversation? Feel free to start with anything at all! 😄
+
+>>> Send a message (/? for help)
+```
+채팅을 시작하면 Thinking(사고)과정을 통해 응답을 주는것을 확인할 수 있다.  
+
+
+
+## 3. [API 사용하기](https://github.com/ollama/ollama?tab=readme-ov-file#rest-api)
+
+API 사용의 경우 아래와 같이 localhost 주소를 통해 호출할 수 있으며 아래와 같이 답변이 오는것을 볼 수 있다.  
+
+```bash
+curl http://localhost:11434/api/chat -d '{
+  "model": "deepseek-r1",
+  "messages": [
+    { "role": "user", "content": "Hi, I am korean. I am glad to chat with you." }
+  ]
+}'
+
+{"model":"deepseek-r1","created_at":"2025-12-05T01:54:24.43512Z","message":{"role":"assistant","content":"","thinking":"Okay"},"done":false}
+{"model":"deepseek-r1","created_at":"2025-12-05T01:54:24.482729Z","message":{"role":"assistant","content":"","thinking":","},"done":false}
+{"model":"deepseek-r1","created_at":"2025-12-05T01:54:24.530557Z","message":{"role":"assistant","content":"","thinking":" the"},"done":false}
+{"model":"deepseek-r1","created_at":"2025-12-05T01:54:24.579649Z","message":{"role":"assistant","content":"","thinking":" user"},"done":false}
+{"model":"deepseek-r1","created_at":"2025-12-05T01:54:24.630073Z","message":{"role":"assistant","content":"","thinking":" is"},"done":false}
+{"model":"deepseek-r1","created_at":"2025-12-05T01:54:24.677701Z","message":{"role":"assistant","content":"","thinking":" Korean"},"done":false}
+{"model":"deepseek-r1","created_at":"2025-12-05T01:54:24.724552Z","message":{"role":"assistant","content":"","thinking":" and"},"done":false}
+......
+{"model":"deepseek-r1","created_at":"2025-12-05T01:54:33.708162Z","message":{"role":"assistant","content":"","thinking":" positive"},"done":false}
+{"model":"deepseek-r1","created_at":"2025-12-05T01:54:33.756876Z","message":{"role":"assistant","content":"","thinking":" seems"},"done":false}
+{"model":"deepseek-r1","created_at":"2025-12-05T01:54:33.803082Z","message":{"role":"assistant","content":"","thinking":" right"},"done":false}
+{"model":"deepseek-r1","created_at":"2025-12-05T01:54:33.850301Z","message":{"role":"assistant","content":"","thinking":".\n"},"done":false}
+{"model":"deepseek-r1","created_at":"2025-12-05T01:54:33.989729Z","message":{"role":"assistant","content":"안"},"done":false}
+{"model":"deepseek-r1","created_at":"2025-12-05T01:54:34.036608Z","message":{"role":"assistant","content":"녕"},"done":false}
+{"model":"deepseek-r1","created_at":"2025-12-05T01:54:34.083558Z","message":{"role":"assistant","content":"하세요"},"done":false}
+{"model":"deepseek-r1","created_at":"2025-12-05T01:54:34.130104Z","message":{"role":"assistant","content":"!"},"done":false}
+......
+{"model":"deepseek-r1","created_at":"2025-12-05T01:54:34.422438Z","message":{"role":"assistant","content":"저"},"done":false}
+{"model":"deepseek-r1","created_at":"2025-12-05T01:54:34.46951Z","message":{"role":"assistant","content":"도"},"done":false}
+{"model":"deepseek-r1","created_at":"2025-12-05T01:54:34.517768Z","message":{"role":"assistant","content":" 한국"},"done":false}
+{"model":"deepseek-r1","created_at":"2025-12-05T01:54:34.566924Z","message":{"role":"assistant","content":"어"},"done":false}
+{"model":"deepseek-r1","created_at":"2025-12-05T01:54:34.615945Z","message":{"role":"assistant","content":"로"},"done":false}
+{"model":"deepseek-r1","created_at":"2025-12-05T01:54:34.663252Z","message":{"role":"assistant","content":" 대"},"done":false}
+{"model":"deepseek-r1","created_at":"2025-12-05T01:54:34.712532Z","message":{"role":"assistant","content":"화"},"done":false}
+......
+{"model":"deepseek-r1","created_at":"2025-12-05T01:54:35.415095Z","message":{"role":"assistant","content":"에"},"done":false}
+{"model":"deepseek-r1","created_at":"2025-12-05T01:54:35.462348Z","message":{"role":"assistant","content":" 대해"},"done":false}
+{"model":"deepseek-r1","created_at":"2025-12-05T01:54:35.508886Z","message":{"role":"assistant","content":" 이야기"},"done":false}
+{"model":"deepseek-r1","created_at":"2025-12-05T01:54:35.55589Z","message":{"role":"assistant","content":"하고"},"done":false}
+{"model":"deepseek-r1","created_at":"2025-12-05T01:54:35.649849Z","message":{"role":"assistant","content":" 싶"},"done":false}
+{"model":"deepseek-r1","created_at":"2025-12-05T01:54:35.697227Z","message":{"role":"assistant","content":"으"},"done":false}
+{"model":"deepseek-r1","created_at":"2025-12-05T01:54:35.744548Z","message":{"role":"assistant","content":"신"},"done":false}
+{"model":"deepseek-r1","created_at":"2025-12-05T01:54:35.794448Z","message":{"role":"assistant","content":"가"},"done":false}
+{"model":"deepseek-r1","created_at":"2025-12-05T01:54:35.841586Z","message":{"role":"assistant","content":"요"},"done":false}
+{"model":"deepseek-r1","created_at":"2025-12-05T01:54:35.888454Z","message":{"role":"assistant","content":"?"},"done":false}
+{"model":"deepseek-r1","created_at":"2025-12-05T01:54:35.981704Z","message":{"role":"assistant","content":" 😊"},"done":false}
+{"model":"deepseek-r1","created_at":"2025-12-05T01:54:36.028287Z","message":{"role":"assistant","content":""},"done":true,"done_reason":"stop","total_duration":14212437792,"load_duration":164803125,"prompt_eval_count":17,"prompt_eval_duration":2354629375,"eval_count":245,"eval_duration":11576893495}
+```
+
+추후 LLM과 대화하는 채팅 세션을 만들 때는 저 스트리밍 응답들을 실시간으로 파싱해서 조립하는 과정이 필요하다. message.content 필드 값을 추출하여 하나의 문자열로 계속 이어 붙이고, "done": true인 JSON 객체가 나타나면 응답이 끝났음을 인지하고, content 필드 모으기를 중단하는 과정으로 파싱해서 조립하면 된다.  
+이 때 LLM과 연속적인 대화를 하려면 이전 대화 내용을 messages 배열에 계속 추가하여 다음 요청 시 함께 보내주어야 LLM이 이전 대화를 기억하고 문맥을 유지할 수 있다.  
+
+
+모델을 실행하고 아래 파이선 코드를 수행하면 실제 로컬에서 Python 코드를 통해 
+```python
+import requests
+import json
+import sys
+import threading
+import time
+
+# 'Thinking...' 메시지를 제어하기 위한 전역 변수
+stop_thinking_animation = threading.Event()
+thinking_thread = None
+
+def thinking_animation():
+    """백그라운드에서 'Thinking...' 애니메이션을 출력합니다."""
+    base_message = "Thinking"
+    dot_count = 0
+    max_dots = 3 # 점의 최대 개수
+
+    while not stop_thinking_animation.is_set():
+        dots = "." * dot_count
+        sys.stdout.write(f"\r{base_message}{dots}{' ' * (max_dots - dot_count)} ")
+        sys.stdout.flush()
+        
+        dot_count = (dot_count + 1) % (max_dots + 1) # 0 -> 1 -> 2 -> 3 -> 0 ...
+        time.sleep(0.5) # 0.5초마다 업데이트
+
+    sys.stdout.write(f"\r{' ' * (len(base_message) + max_dots + 1)}\r")
+    sys.stdout.flush()
+
+
+def chat_with_ollama(model_name: str, messages: list):
+    """
+    Ollama API와 채팅 세션을 진행하고 스트리밍 응답을 처리합니다.
+    스트리밍된 토큰만 출력하고, 최종 결과는 반환합니다.
+    """
+    global thinking_thread
+
+    url = "http://localhost:11434/api/chat"
+    headers = {"Content-Type": "application/json"}
+    
+    payload = {
+        "model": model_name,
+        "messages": messages,
+        "stream": True 
+    }
+
+    full_response_content = ""
+    is_first_content_chunk = True # 첫 번째 content chunk인지 확인하는 플래그 (애니메이션 중지 시점 결정)
+
+    try:
+        # LLM 응답이 시작되기 전에 'Thinking...' 애니메이션을 시작
+        stop_thinking_animation.clear() # 애니메이션 정지 이벤트 초기화
+        thinking_thread = threading.Thread(target=thinking_animation)
+        thinking_thread.start()
+
+        with requests.post(url, headers=headers, json=payload, stream=True) as response:
+            response.raise_for_status() # HTTP 에러 발생 시 예외 처리
+
+            for line in response.iter_lines():
+                if line:
+                    try:
+                        json_data = json.loads(line)
+                        
+                        if json_data.get("done"):
+                            break
+
+                        content_chunk = json_data.get("message", {}).get("content", "")
+                        
+                        if content_chunk: # content_chunk가 비어있지 않다면 (실제 토큰이 도착했다면)
+                            if is_first_content_chunk:
+                                # 'Thinking...' 애니메이션을 정지하고 지움
+                                stop_thinking_animation.set()
+                                if thinking_thread and thinking_thread.is_alive(): # 스레드가 살아있는지 확인
+                                    thinking_thread.join() # 애니메이션 스레드가 종료될 때까지 대기
+                                # 그 자리에 LLM 프롬프트 출력
+                                sys.stdout.write(f"{model_name}: ") # 'Thinking...'이 지워진 자리에 출력
+                                sys.stdout.flush()
+                                is_first_content_chunk = False 
+
+                            full_response_content += content_chunk
+                            # 모델이 생성한 토큰을 실시간으로 화면에 출력
+                            sys.stdout.write(content_chunk)
+                            sys.stdout.flush() 
+
+                    except json.JSONDecodeError:
+                        sys.stderr.write(f"Error decoding JSON: {line.decode('utf-8')}\n")
+                        sys.stderr.flush()
+                        continue
+
+        # 모든 스트리밍이 완료된 후 애니메이션이 아직 실행 중이라면 정지
+        if thinking_thread and thinking_thread.is_alive():
+            stop_thinking_animation.set()
+            thinking_thread.join()
+        
+        return full_response_content
+
+    except requests.exceptions.RequestException as e:
+        sys.stderr.write(f"Error during API call: {e}\n")
+        sys.stderr.flush()
+        # 에러 발생 시 애니메이션 강제 종료
+        if thinking_thread and thinking_thread.is_alive():
+            stop_thinking_animation.set()
+            thinking_thread.join()
+        return f"An error occurred: {e}"
+
+# --- 채팅 세션 예시 ---
+if __name__ == "__main__":
+    conversation_history = []
+    ollama_model = "deepseek-r1" # 사용할 Ollama 모델 이름
+
+    print(f"Ollama ({ollama_model})와 대화를 시작합니다. 'exit'을 입력하면 종료됩니다.")
+
+    while True:
+        user_input = input("You: ") # 최초 사용자 입력
+        if user_input.lower() == 'exit':
+            break
+        
+        conversation_history.append({"role": "user", "content": user_input})
+        
+        # 모델의 답변을 받아서 출력합니다. chat_with_ollama 함수 안에서 애니메이션과 토큰 출력을 담당.
+        assistant_response_content = chat_with_ollama(ollama_model, conversation_history)
+        
+        # 모델의 응답이 모두 출력된 후, 줄바꿈 처리
+        sys.stdout.write("\n")
+        sys.stdout.flush()
+
+        # Ollama 응답을 대화 히스토리에 추가
+        if assistant_response_content:
+            conversation_history.append({"role": "assistant", "content": assistant_response_content})
+
+    print("대화를 종료합니다.")
+```
+
+
+위 코드를 실행하면 아래와 같이 챗을 진행할 수 있다.  
+```bash
+(llm-chat) ➜  llm-chat git:(main) ✗ python llm_chat.py
+
+Ollama (deepseek-r1)와 대화를 시작합니다. 'exit'을 입력하면 종료됩니다.
+You: Hi, I'm Korean.
+Thinking..
+
+deepseek-r1: Hi there! Welcome!
+You: I want to learn english cahtting with you.
+Thinking...
+
+deepseek-r1: Great! I’d be happy to chat with you in English. 😊
+We can talk about anything—like your day, interests, travel, movies, books, or even practice grammar and vocabulary.
+Here are a few ways we can start:
+1. Ask me a question, and I’ll answer in English.
+2. You can tell me something about yourself.
+3. We can have a simple conversation on a topic of your choice.
+Which one would you like to do? Or just start with a simple question like:
+👉 What’s one thing you enjoy doing in your free time?
+Feel free to take your time—I’m here to help! 😊
+
+You:
+```
+
+
+## 4. [Install on EKS](https://artifacthub.io/packages/helm/ollama-helm/ollama/1.35.0)  
+EKS에는 ollama helm 차트를 통해 설치할 수 있다.  
+```bash
+helm repo add otwld https://helm.otwld.com/
+helm repo update
+helm install ollama otwld/ollama --namespace ollama --create-namespace
+```
+
+
+나의 경우에는 ArgoCD 를 통해 진행하므로 [다음 코드](https://github.com/byoungsoo/argocd-values/tree/main/dev-ap2-eks-main/ollama)를 통해 배포했다.
+
+`application.yaml`  
+```yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ollama
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: 'https://gitlab.bys.asia/bys/argocd-values.git'
+      targetRevision: main
+      ref: values
+    - repoURL: https://helm.otwld.com/
+      chart: ollama
+      targetRevision: 1.35.0
+      helm:
+        releaseName: ollama
+        valueFiles:
+          - $values/dev-ap2-eks-main/ollama/values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ollama
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=false
+```
+
+`values.yaml`  
+```yaml
+ollama:
+  port: 11434
+  models:
+    run:
+      - deepseek-r1
+
+ingress:
+  enabled: true
+  className: alb
+  annotations:
+    alb.ingress.kubernetes.io/group.name: eks-main-etc
+    alb.ingress.kubernetes.io/subnets: bys-dev-sbn-az1-extelb,bys-dev-sbn-az2-extelb,bys-dev-sbn-az3-extelb,bys-dev-sbn-az4-extelb
+    alb.ingress.kubernetes.io/scheme : internet-facing
+    alb.ingress.kubernetes.io/security-groups: bys-dev-sg-alb-eks-main-etc
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/ssl-policy: ELBSecurityPolicy-TLS13-1-2-2021-06
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-northeast-2:558846430793:certificate/3d2ce654-c747-4b3e-905b-17304b8962ef
+    alb.ingress.kubernetes.io/healthcheck-path: /
+    alb.ingress.kubernetes.io/healthcheck-interval-seconds: '15'
+    alb.ingress.kubernetes.io/healthcheck-timeout-seconds: '10'
+    alb.ingress.kubernetes.io/healthy-threshold-count: '2'
+    alb.ingress.kubernetes.io/unhealthy-threshold-count: '4'
+    alb.ingress.kubernetes.io/healthcheck-port: traffic-port
+    alb.ingress.kubernetes.io/success-codes: 200,301,302
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/tags: auto-delete=no
+  hosts:
+  - host: ollama.bys.asia
+    paths:
+      - path: /
+        pathType: Prefix
+
+resources:
+  limits:
+    cpu: 8000m
+    memory: 24Gi
+  requests:
+    cpu: 4000m
+    memory: 12Gi
+
+persistentVolume:
+  enabled: true
+  size: 100Gi
+  storageClass: ebs-sc-gp3
+```
+
+배포가 완료되고 나면 ingress에 설정한 ollama.domain 을 통해 접근을 할 수 있다. 마찬가지로 python 코드에서 localhost 주소만 변경해주면 모델을 직접 사용할 수 있게 된다.  
+
+
+
+## 5. Ollama on EKS 테스트
+
+API 가 정상 호출 되는 것을 볼 수 있다.  
+```bash
+curl https://ollama.bys.asia/api/chat -d '{
+  "model": "deepseek-r1",
+  "messages": [
+    { "role": "user", "content": "Hi, I am korean. I am glad to chat with you." }
+  ]
+}'
+
+{"model":"deepseek-r1","created_at":"2025-12-05T02:58:57.87324256Z","message":{"role":"assistant","content":"","thinking":" the"},"done":false}
+{"model":"deepseek-r1","created_at":"2025-12-05T02:58:58.11054889Z","message":{"role":"assistant","content":"","thinking":" user"},"done":false}
+{"model":"deepseek-r1","created_at":"2025-12-05T02:58:58.353970321Z","message":{"role":"assistant","content":"","thinking":" is"},"done":false}
+{"model":"deepseek-r1","created_at":"2025-12-05T02:58:58.500904734Z","message":{"role":"assistant","content":"","thinking":" Korean"},"done":false}
+......
+{"model":"deepseek-r1","created_at":"2025-12-05T02:59:21.510933183Z","message":{"role":"assistant","content":"","thinking":" \n\n"},"done":false}
+{"model":"deepseek-r1","created_at":"2025-12-05T02:59:21.682754707Z","message":{"role":"assistant","content":"","thinking":"The"},"done":false}
+{"model":"deepseek-r1","created_at":"2025-12-05T02:59:21.85146753Z","message":{"role":"assistant","content":"","thinking":" response"},"done":false}
+{"model":"deepseek-r1","created_at":"2025-12-05T02:59:21.955106225Z","message":{"role":"assistant","content":"","thinking":" feels"},"done":false}
+{"model":"deepseek-r1","created_at":"2025-12-05T02:59:22.119090474Z","message":{"role":"assistant","content":"","thinking":" balanced"},"done":false}
+{"model":"deepseek-r1","created_at":"2025-12-05T02:59:22.28381635Z","message":{"role":"assistant","content":"","thinking":" -"},"done":false}
+```
+
+파이썬 코드에서도 url 주소만 변경해주면 이제 LLM과 대화를 시작할 수 있다.  
+```Python
+def chat_with_ollama(model_name: str, messages: list):
+    """
+    Ollama API와 채팅 세션을 진행하고 스트리밍 응답을 처리합니다.
+    스트리밍된 토큰만 출력하고, 최종 결과는 반환합니다.
+    """
+    global thinking_thread
+
+    url = "https://ollama.bys.asia/api/chat"
+    headers = {"Content-Type": "application/json"}
+    
+    payload = {
+        "model": model_name,
+        "messages": messages,
+        "stream": True 
+    }
+```
+
+
+---
+
+## 📚 References
+
+[1] **Ollama Helm**
+- https://artifacthub.io/packages/helm/ollama-helm/ollama/1.35.0
+
+[2] **Ollama API**
+- https://github.com/ollama/ollama?tab=readme-ov-file#rest-api

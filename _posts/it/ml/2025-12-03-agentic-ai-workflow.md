@@ -3,7 +3,7 @@ layout: post
 title: "Agentic Systems - 5 workflow design patterns"
 author: "Bys"
 category: ml
-date: 2025-12-03 01:00:00
+date: 2025-12-02 01:00:00
 keywords: "agentic ai"
 tags: agentic ai workflow designpattern
 ---
