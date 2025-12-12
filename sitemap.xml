@@ -13,14 +13,26 @@
     <priority>1.0</priority>
   </url>
 
+  <!-- Category Pages -->
+  {% for page in site.pages %}
+    {% if page.url contains '/category/' and page.url contains '.html' %}
+    <url>
+      <loc>{{ site.url }}{{ page.url | remove: '.html' }}</loc>
+      <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    {% endif %}
+  {% endfor %}
+
   <!-- Static Pages -->
   {% for page in site.pages %}
-    {% unless page.url contains '/tags/' or page.url contains '/category/' or page.url contains '/assets/' %}
+    {% unless page.url contains '/tags/' or page.url contains '/category/' or page.url contains '/assets/' or page.url contains '.html' %}
     <url>
       <loc>{{ site.url }}{{ page.url }}</loc>
       <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
       <changefreq>monthly</changefreq>
-      <priority>0.8</priority>
+      <priority>0.7</priority>
     </url>
     {% endunless %}
   {% endfor %}
