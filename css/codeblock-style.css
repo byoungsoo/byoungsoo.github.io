@@ -1,0 +1,381 @@
+/**
+ * Custom Syntax Highlighting Theme
+ * Based on GitHub Gist with custom colors
+ */
+
+.hljs {
+  display: block;
+  background: #1e1e1e;
+  padding: 0.5em;
+  color: #d4d4d4;
+  overflow-x: auto;
+}
+
+/* Default code blocks without language specification */
+.highlighter-rouge {
+  background: #1e1e1e !important;
+  border: 1px solid #333 !important;
+  border-radius: 8px !important;
+}
+
+.highlight {
+  background: #1e1e1e !important;
+}
+
+pre.highlight {
+  background: #1e1e1e !important;
+  color: #d4d4d4 !important;
+  border: none !important;
+}
+
+.hljs-comment,
+.hljs-meta {
+  color: #969896;
+}
+
+.hljs-string,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-strong,
+.hljs-emphasis,
+.hljs-quote {
+  color: #16efe1;
+}
+
+/* Override for default code blocks */
+.highlighter-rouge .s,
+.highlighter-rouge .s1,
+.highlighter-rouge .s2 {
+  color: #16efe1 !important;
+}
+
+/* Inline code (plaintext) - Light yellow background with dark text */
+code.language-plaintext.highlighter-rouge {
+  background: #fff9e6 !important;
+  color: #ff5757 !important;
+  padding: 3px 8px !important;
+  border-radius: 4px !important;
+  font-size: 1.3rem !important;
+  border: 1px solid #fef3c7 !important;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-type {
+  color: #16efe1;
+}
+
+/* Override for default code blocks - keywords */
+.highlighter-rouge .k,
+.highlighter-rouge .kd,
+.highlighter-rouge .kn {
+  color: #16efe1 !important;
+  font-weight: normal !important;
+}
+
+.hljs-literal,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-attribute {
+  color: #0086b3;
+}
+
+.hljs-section,
+.hljs-name {
+  color: #63a35c;
+}
+
+.hljs-tag {
+  color: #333333;
+}
+
+.hljs-title,
+.hljs-attr,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo {
+  color: #795da3;
+}
+
+.hljs-addition {
+  color: #55a532;
+  background-color: #eaffea;
+}
+
+.hljs-deletion {
+  color: #bd2c00;
+  background-color: #ffecec;
+}
+
+.hljs-link {
+  text-decoration: underline;
+}
+
+/* Bash: Dark theme with cyan commands and green comments */
+.language-bash.highlighter-rouge {
+  background: #1e1e1e !important;
+  border: 1px solid #333 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+}
+
+.language-bash .highlight { background: #1e1e1e !important; }
+.language-bash pre.highlight { background: #1e1e1e !important; color: #16efe1 !important; border: none !important; }
+.language-bash code { color: #16efe1 !important; background: transparent !important; }
+.language-bash .hljs-comment,
+.language-bash .hljs-meta { color: #4d9966 !important; font-style: italic; }
+.language-bash .hljs-string { color: #16efe1 !important; }
+.language-bash .hljs-subst { color: #16efe1 !important; }
+.language-bash .hljs-template-variable { color: #16efe1 !important; }
+.language-bash .hljs-quote { color: #16efe1 !important; }
+.language-bash .hljs-emphasis { color: #16efe1 !important; }
+.language-bash .hljs-strong { color: #16efe1 !important; }
+.language-bash .hljs-keyword { color: #16efe1 !important; }
+.language-bash .hljs-variable { color: #16efe1 !important; }
+.language-bash .hljs-built_in { color: #16efe1 !important; }
+.language-bash .hljs-literal { color: #16efe1 !important; }
+.language-bash .hljs-symbol { color: #16efe1 !important; }
+.language-bash .hljs-bullet { color: #16efe1 !important; }
+.language-bash .hljs-number { color: #16efe1 !important; }
+.language-bash .hljs-title { color: #16efe1 !important; }
+.language-bash .hljs-name { color: #16efe1 !important; }
+.language-bash .hljs-attr { color: #16efe1 !important; }
+.language-bash .hljs-tag { color: #16efe1 !important; }
+.language-bash .hljs-selector-tag { color: #16efe1 !important; }
+.language-bash .hljs-section { color: #16efe1 !important; }
+
+/* Override syntax.css rouge classes for bash */
+.language-bash .s { color: #16efe1 !important; }
+.language-bash .s1 { color: #16efe1 !important; }
+.language-bash .s2 { color: #16efe1 !important; }
+.language-bash .sb { color: #16efe1 !important; }
+.language-bash .sc { color: #16efe1 !important; }
+.language-bash .sd { color: #16efe1 !important; }
+.language-bash .se { color: #16efe1 !important; }
+.language-bash .sh { color: #16efe1 !important; }
+.language-bash .si { color: #16efe1 !important; }
+.language-bash .sx { color: #16efe1 !important; }
+.language-bash .nv { color: #16efe1 !important; }
+.language-bash .m { color: #16efe1 !important; }
+.language-bash .mf { color: #16efe1 !important; }
+.language-bash .mi { color: #16efe1 !important; }
+.language-bash .il { color: #16efe1 !important; }
+.language-bash .nt { color: #16efe1 !important; }
+.language-bash .na { color: #16efe1 !important; }
+.language-bash .nb { color: #16efe1 !important; }
+.language-bash .nc { color: #16efe1 !important; }
+.language-bash .nd { color: #16efe1 !important; }
+.language-bash .ne { color: #16efe1 !important; }
+.language-bash .nf { color: #16efe1 !important; }
+.language-bash .nn { color: #16efe1 !important; }
+.language-bash .no { color: #16efe1 !important; }
+.language-bash .nl { color: #16efe1 !important; }
+
+/* YAML: Dark theme with cyan keys and purple values */
+.language-yaml.highlighter-rouge,
+.language-yml.highlighter-rouge {
+  background: #1e1e1e !important;
+  border: 1px solid #333 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+}
+
+.language-yaml .highlight,
+.language-yml .highlight { background: #1e1e1e !important; }
+.language-yaml pre.highlight,
+.language-yml pre.highlight { background: #1e1e1e !important; color: #d4d4d4 !important; border: none !important; }
+.language-yaml code,
+.language-yml code { color: #d4d4d4 !important; background: transparent !important; }
+.language-yaml .hljs-comment,
+.language-yml .hljs-comment { color: #4d9966 !important; font-style: italic; }
+.language-yaml .hljs-attr,
+.language-yml .hljs-attr { color: #16efe1 !important; }
+.language-yaml .hljs-string,
+.language-yml .hljs-string { color: #c586c0 !important; }
+.language-yaml .hljs-number,
+.language-yml .hljs-number { color: #c586c0 !important; }
+.language-yaml .hljs-literal,
+.language-yml .hljs-literal { color: #c586c0 !important; }
+
+/* Override syntax.css rouge classes for yaml */
+.language-yaml .na,
+.language-yml .na { color: #16efe1 !important; }
+.language-yaml .s,
+.language-yml .s { color: #c586c0 !important; }
+.language-yaml .s1,
+.language-yml .s1 { color: #c586c0 !important; }
+.language-yaml .s2,
+.language-yml .s2 { color: #c586c0 !important; }
+.language-yaml .pi,
+.language-yml .pi { color: #16efe1 !important; }
+.language-yaml .m,
+.language-yml .m { color: #c586c0 !important; }
+.language-yaml .mf,
+.language-yml .mf { color: #c586c0 !important; }
+.language-yaml .mi,
+.language-yml .mi { color: #c586c0 !important; }
+.language-yaml .hljs-variable,
+.language-yml .hljs-variable { color: #808080 !important; }
+.language-yaml .hljs-bullet,
+.language-yml .hljs-bullet { color: #d4d4d4 !important; }
+.language-yaml .hljs-meta,
+.language-yml .hljs-meta { color: #808080 !important; }
+.language-yaml .hljs-title,
+.language-yml .hljs-title { color: #16efe1 !important; }
+.language-yaml .hljs-name,
+.language-yml .hljs-name { color: #16efe1 !important; }
+.language-yaml .hljs-section,
+.language-yml .hljs-section { color: #16efe1 !important; }
+
+/* Python: Dark theme with VS Code style colors */
+.language-python.highlighter-rouge {
+  background: #1e1e1e !important;
+  border: 1px solid #333 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+}
+
+.language-python .highlight { background: #1e1e1e !important; }
+.language-python pre.highlight { background: #1e1e1e !important; color: #d4d4d4 !important; border: none !important; }
+.language-python code { color: #d4d4d4 !important; background: transparent !important; }
+.language-python .hljs-comment { color: #6a9955 !important; font-style: italic; }
+.language-python .hljs-string { color: #ce9178 !important; }
+.language-python .hljs-keyword { color: #569cd6 !important; }
+.language-python .hljs-function { color: #dcdcaa !important; }
+.language-python .hljs-title { color: #dcdcaa !important; }
+.language-python .hljs-params { color: #9cdcfe !important; }
+.language-python .hljs-built_in { color: #4ec9b0 !important; }
+.language-python .hljs-literal { color: #569cd6 !important; }
+.language-python .hljs-number { color: #b5cea8 !important; }
+.language-python .hljs-class { color: #4ec9b0 !important; }
+.language-python .hljs-decorator { color: #dcdcaa !important; }
+.language-python .hljs-meta { color: #dcdcaa !important; }
+
+/* Override syntax.css rouge classes for python */
+.language-python .s { color: #ce9178 !important; }
+.language-python .s1 { color: #ce9178 !important; }
+.language-python .s2 { color: #ce9178 !important; }
+.language-python .k { color: #569cd6 !important; }
+.language-python .kn { color: #c586c0 !important; }
+.language-python .kd { color: #569cd6 !important; }
+.language-python .nf { color: #dcdcaa !important; }
+.language-python .nc { color: #4ec9b0 !important; }
+.language-python .nb { color: #4ec9b0 !important; }
+.language-python .mi { color: #b5cea8 !important; }
+.language-python .mf { color: #b5cea8 !important; }
+
+/* Go/Golang: Dark theme with VS Code style colors */
+.language-go.highlighter-rouge,
+.language-golang.highlighter-rouge {
+  background: #1e1e1e !important;
+  border: 1px solid #333 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+}
+
+.language-go .highlight,
+.language-golang .highlight { background: #1e1e1e !important; }
+.language-go pre.highlight,
+.language-golang pre.highlight { background: #1e1e1e !important; color: #d4d4d4 !important; border: none !important; }
+.language-go code,
+.language-golang code { color: #d4d4d4 !important; background: transparent !important; }
+.language-go .hljs-comment,
+.language-golang .hljs-comment { color: #6a9955 !important; font-style: italic; }
+.language-go .hljs-string,
+.language-golang .hljs-string { color: #ce9178 !important; }
+.language-go .hljs-keyword,
+.language-golang .hljs-keyword { color: #569cd6 !important; }
+.language-go .hljs-function,
+.language-golang .hljs-function { color: #dcdcaa !important; }
+.language-go .hljs-title,
+.language-golang .hljs-title { color: #dcdcaa !important; }
+.language-go .hljs-params,
+.language-golang .hljs-params { color: #9cdcfe !important; }
+.language-go .hljs-built_in,
+.language-golang .hljs-built_in { color: #4ec9b0 !important; }
+.language-go .hljs-literal,
+.language-golang .hljs-literal { color: #569cd6 !important; }
+.language-go .hljs-number,
+.language-golang .hljs-number { color: #b5cea8 !important; }
+.language-go .hljs-type,
+.language-golang .hljs-type { color: #4ec9b0 !important; }
+.language-go .hljs-variable,
+.language-golang .hljs-variable { color: #9cdcfe !important; }
+
+/* Override syntax.css rouge classes for go */
+.language-go .s,
+.language-golang .s { color: #ce9178 !important; }
+.language-go .s1,
+.language-golang .s1 { color: #ce9178 !important; }
+.language-go .s2,
+.language-golang .s2 { color: #ce9178 !important; }
+.language-go .k,
+.language-golang .k { color: #569cd6 !important; }
+.language-go .kd,
+.language-golang .kd { color: #569cd6 !important; }
+.language-go .kt,
+.language-golang .kt { color: #4ec9b0 !important; }
+.language-go .nf,
+.language-golang .nf { color: #dcdcaa !important; }
+.language-go .nx,
+.language-golang .nx { color: #9cdcfe !important; }
+.language-go .nb,
+.language-golang .nb { color: #4ec9b0 !important; }
+.language-go .mi,
+.language-golang .mi { color: #b5cea8 !important; }
+.language-go .mf,
+.language-golang .mf { color: #b5cea8 !important; }
+.language-go .kc,
+.language-golang .kc { color: #569cd6 !important; }
+.language-go .no,
+.language-golang .no { color: #4ec9b0 !important; }
+.language-go .c,
+.language-golang .c { color: #6a9955 !important; }
+.language-go .c1,
+.language-golang .c1 { color: #6a9955 !important; }
+.language-go .cm,
+.language-golang .cm { color: #6a9955 !important; }
+
+/* Java: Dark theme with VS Code style colors */
+pre > code.language-Java {
+  background: #1e1e1e !important;
+  color: #d4d4d4 !important;
+  display: block;
+  padding: 0.5em;
+}
+
+pre:has(> code.language-Java) {
+  background: #1e1e1e !important;
+  border: 1px solid #333 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+  padding: 0 !important;
+}
+.language-Java .hljs-comment { color: #6a9955 !important; font-style: italic; }
+.language-Java .hljs-string { color: #ce9178 !important; }
+.language-Java .hljs-keyword { color: #569cd6 !important; }
+.language-Java .hljs-function { color: #dcdcaa !important; }
+.language-Java .hljs-title { color: #dcdcaa !important; }
+.language-Java .hljs-params { color: #9cdcfe !important; }
+.language-Java .hljs-built_in { color: #4ec9b0 !important; }
+.language-Java .hljs-literal { color: #569cd6 !important; }
+.language-Java .hljs-number { color: #b5cea8 !important; }
+.language-Java .hljs-class { color: #4ec9b0 !important; }
+.language-Java .hljs-type { color: #4ec9b0 !important; }
+.language-Java .hljs-meta { color: #dcdcaa !important; }
+.language-Java .hljs-annotation { color: #dcdcaa !important; }
+
+/* Override syntax.css rouge classes for Java */
+.language-Java .s { color: #ce9178 !important; }
+.language-Java .s1 { color: #ce9178 !important; }
+.language-Java .s2 { color: #ce9178 !important; }
+.language-Java .k { color: #569cd6 !important; }
+.language-Java .kd { color: #569cd6 !important; }
+.language-Java .kt { color: #4ec9b0 !important; }
+.language-Java .nf { color: #dcdcaa !important; }
+.language-Java .nc { color: #4ec9b0 !important; }
+.language-Java .nb { color: #4ec9b0 !important; }
+.language-Java .mi { color: #b5cea8 !important; }
+.language-Java .mf { color: #b5cea8 !important; }
+.language-Java .na { color: #9cdcfe !important; }
