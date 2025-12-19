@@ -34,7 +34,7 @@ x-amz-date: 20150830T123600Z
 1. Create a canonical request (표준 요청 생성)
 요청 내용(호스트, 작업, 헤더 등)을 표준 형식으로 정렬한다. Canonical request는 서명할 문자열을 생성하는 데 사용되는 입력 중 하나이다.  
 
-```
+```bash
 <HTTPMethod>\n
 <CanonicalURI>\n
 <CanonicalQueryString>\n
@@ -49,7 +49,7 @@ x-amz-date: 20150830T123600Z
 3. Create a string to sign (서명할 문자열 생성)
 표준 요청과 추가 정보(예: 알고리즘, 요청 날짜, 자격 증명 범위, 표준 요청의 다이제스트(해시))를 사용하여 서명할 문자열을 생성한다.  
 
-```
+```bash
 "AWS4-HMAC-SHA256" + "\n" +
 timeStampISO8601Format + "\n" +
 <Scope> + "\n" +
@@ -67,7 +67,7 @@ Hex(SHA256Hash(<CanonicalRequest>))
 
 또한 위 과정을 자동화 하기 위해 문서[4]에서는 쉘 스크립트를 제공하고 있습니다. 
 간단히 그 내용을 살펴보면 Signature 생성을 설명한 위의 과정을 코드로 제공하고 있는 것을 알 수 있습니다.  
-```
+```bash
 ......생략 
 
 HTTPMETHOD="GET"
@@ -305,7 +305,6 @@ echo "request_url = ${ENDPOINT}/${URI}?${CANONICAL_QUERYSTRING}"
 
 
 `apis3.sh`
-
 ```bash
 #!/bin/bash
 

@@ -87,7 +87,6 @@ fields @timestamp, userAgent, verb, objectRef.resource, objectRef.name, user.ext
 | sort @timestamp desc
 ```
 
-
 - Lease object
 ```bash
 fields @timestamp, userAgent, verb, objectRef.resource, objectRef.name, user.extra.sessionName.0
@@ -172,6 +171,15 @@ fields @timestamp, responseObject.spec.targetCPUUtilizationPercentage, responseO
 fields @timestamp, @message
 | filter @logStream like /^kube-apiserver-audit/
 | filter requestURI like '/eviction'
+| sort @timestamp desc
+```
+
+- Based on namespace
+```bash
+fields @timestamp, verb, user.username, objectRef.resource, objectRef.subresource, objectRef.name, responseObject.code
+| filter @logStream like /^kube-apiserver-audit/
+| filter objectRef.namespace == "default"
+| filter verb not in ["list", "watch", "get"]
 | sort @timestamp desc
 ```
 
