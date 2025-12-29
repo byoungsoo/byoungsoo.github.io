@@ -123,7 +123,7 @@
 }
 
 .post-content p {
-  margin-bottom: 1.8rem;
+  margin-bottom: 0.6rem;
   text-align: justify;
   font-size: 1.6rem;
   line-height: 1.8;
@@ -169,6 +169,10 @@
   padding: 20px;
   overflow-x: auto;
   margin: 2rem 0;
+}
+
+.post-content .highlighter-rouge {
+  margin-bottom: 2.5rem;
 }
 
 .post-content pre code {
