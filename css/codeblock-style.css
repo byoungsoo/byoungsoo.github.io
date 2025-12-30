@@ -112,7 +112,7 @@ code.language-plaintext.highlighter-rouge {
   text-decoration: underline;
 }
 
-/* Bash: Dark theme with cyan commands and green comments */
+/* Bash: Dark theme with VS Code style colors */
 .language-bash.highlighter-rouge {
   background: #1e1e1e !important;
   border: 1px solid #333 !important;
@@ -121,56 +121,44 @@ code.language-plaintext.highlighter-rouge {
 }
 
 .language-bash .highlight { background: #1e1e1e !important; }
-.language-bash pre.highlight { background: #1e1e1e !important; color: #16efe1 !important; border: none !important; }
-.language-bash code { color: #16efe1 !important; background: transparent !important; }
-.language-bash .hljs-comment,
-.language-bash .hljs-meta { color: #4d9966 !important; font-style: italic; }
-.language-bash .hljs-string { color: #16efe1 !important; }
-.language-bash .hljs-subst { color: #16efe1 !important; }
-.language-bash .hljs-template-variable { color: #16efe1 !important; }
-.language-bash .hljs-quote { color: #16efe1 !important; }
-.language-bash .hljs-emphasis { color: #16efe1 !important; }
-.language-bash .hljs-strong { color: #16efe1 !important; }
-.language-bash .hljs-keyword { color: #16efe1 !important; }
-.language-bash .hljs-variable { color: #16efe1 !important; }
-.language-bash .hljs-built_in { color: #16efe1 !important; }
-.language-bash .hljs-literal { color: #16efe1 !important; }
-.language-bash .hljs-symbol { color: #16efe1 !important; }
-.language-bash .hljs-bullet { color: #16efe1 !important; }
-.language-bash .hljs-number { color: #16efe1 !important; }
-.language-bash .hljs-title { color: #16efe1 !important; }
-.language-bash .hljs-name { color: #16efe1 !important; }
-.language-bash .hljs-attr { color: #16efe1 !important; }
-.language-bash .hljs-tag { color: #16efe1 !important; }
-.language-bash .hljs-selector-tag { color: #16efe1 !important; }
-.language-bash .hljs-section { color: #16efe1 !important; }
+.language-bash pre.highlight { background: #1e1e1e !important; color: #d4d4d4 !important; border: none !important; }
+.language-bash code { color: #d4d4d4 !important; background: transparent !important; }
+.language-bash .hljs-comment { color: #6a9955 !important; font-style: italic; }
+.language-bash .hljs-meta { color: #6a9955 !important; font-style: italic; }
+.language-bash .hljs-string { color: #dae1e8 !important; }
+.language-bash .hljs-keyword { color: #dae1e8 !important; }
+.language-bash .hljs-built_in { color: #4ec9b0 !important; }
+.language-bash .hljs-literal { color: #569cd6 !important; }
+.language-bash .hljs-number { color: #b5cea8 !important; }
+.language-bash .hljs-variable { color: #9cdcfe !important; }
+.language-bash .hljs-function { color: #dcdcaa !important; }
+.language-bash .hljs-title { color: #dcdcaa !important; }
+.language-bash .hljs-nginx { color: #0b68c6 !important; }
 
 /* Override syntax.css rouge classes for bash */
-.language-bash .s { color: #16efe1 !important; }
-.language-bash .s1 { color: #16efe1 !important; }
-.language-bash .s2 { color: #16efe1 !important; }
-.language-bash .sb { color: #16efe1 !important; }
-.language-bash .sc { color: #16efe1 !important; }
-.language-bash .sd { color: #16efe1 !important; }
-.language-bash .se { color: #16efe1 !important; }
-.language-bash .sh { color: #16efe1 !important; }
-.language-bash .si { color: #16efe1 !important; }
-.language-bash .sx { color: #16efe1 !important; }
-.language-bash .nv { color: #16efe1 !important; }
-.language-bash .m { color: #16efe1 !important; }
-.language-bash .mf { color: #16efe1 !important; }
-.language-bash .mi { color: #16efe1 !important; }
-.language-bash .il { color: #16efe1 !important; }
-.language-bash .nt { color: #16efe1 !important; }
-.language-bash .na { color: #16efe1 !important; }
-.language-bash .nb { color: #16efe1 !important; }
-.language-bash .nc { color: #16efe1 !important; }
-.language-bash .nd { color: #16efe1 !important; }
-.language-bash .ne { color: #16efe1 !important; }
-.language-bash .nf { color: #16efe1 !important; }
-.language-bash .nn { color: #16efe1 !important; }
-.language-bash .no { color: #16efe1 !important; }
-.language-bash .nl { color: #16efe1 !important; }
+.language-bash .s { color: #ce9178 !important; }
+.language-bash .s1 { color: #dae1e8 !important; }
+.language-bash .s2 { color: #dae1e8 !important; }
+.language-bash .sb { color: #ce9178 !important; }
+.language-bash .sc { color: #ce9178 !important; }
+.language-bash .sd { color: #ce9178 !important; }
+.language-bash .se { color: #ce9178 !important; }
+.language-bash .sh { color: #ce9178 !important; }
+.language-bash .si { color: #ce9178 !important; }
+.language-bash .sx { color: #ce9178 !important; }
+.language-bash .k { color: #569cd6 !important; }
+.language-bash .kd { color: #569cd6 !important; }
+.language-bash .nb { color: #dae1e8 !important; }
+.language-bash .nv { color: #9cdcfe !important; }
+.language-bash .nf { color: #dcdcaa !important; }
+.language-bash .m { color: #b5cea8 !important; }
+.language-bash .mf { color: #b5cea8 !important; }
+.language-bash .mi { color: #b5cea8 !important; }
+.language-bash .il { color: #b5cea8 !important; }
+.language-bash .c { color: #6a9955 !important; }
+.language-bash .c1 { color: #6a9955 !important; }
+.language-bash .cm { color: #6a9955 !important; }
+.language-bash .nt { color: #9cdcfe !important; }
 
 /* YAML: Dark theme with cyan keys and purple values */
 .language-yaml.highlighter-rouge,
