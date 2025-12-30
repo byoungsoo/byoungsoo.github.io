@@ -46,4 +46,4 @@ Monitoring을 통해 모델과 에이전트의 상호 작용에 대해 가시성
 ## 📚 References
 
 [1] **Udemy - AI Engineer Agentic Track**
-- https://www.udemy.com/course/the-complete-agentic-ai-engineering-course/?couponCode=MT251203G1
+- https://www.udemy.com/course/the-complete-agentic-ai-engineering-course

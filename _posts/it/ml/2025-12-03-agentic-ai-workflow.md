@@ -77,4 +77,4 @@ Evaluator LLM은 이전 작업에 대해 평가 후, 수락하면 출력으로 �
 ## 📚 References
 
 [1] **Udemy - AI Engineer Agentic Track**
-- https://www.udemy.com/course/the-complete-agentic-ai-engineering-course/?couponCode=MT251203G1
+- https://www.udemy.com/course/the-complete-agentic-ai-engineering-course
