@@ -156,6 +156,86 @@ textarea.form-control {
   margin: 0;
 }
 
+/* Chatbot Section */
+.chatbot-section {
+  margin-top: 40px;
+}
+
+.chatbot-card {
+  text-align: center;
+  padding: 40px 30px;
+  max-width: 100%;
+  background: linear-gradient(135deg, #f8fbff 0%, #f0f7ff 100%);
+  border: 2px solid #e3f2fd;
+}
+
+.chatbot-icon {
+  font-size: 60px;
+  margin-bottom: 20px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.chatbot-card h2 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+  font-size: 1.8rem;
+}
+
+.chatbot-card p {
+  color: #666;
+  margin-bottom: 30px;
+  font-size: 1.1rem;
+}
+
+.chatbot-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+  color: white;
+  padding: 16px 35px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(116, 185, 255, 0.2);
+}
+
+.chatbot-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(116, 185, 255, 0.4);
+  background: linear-gradient(135deg, #0984e3 0%, #74b9ff 100%);
+  color: white;
+}
+
+/* Card Header */
+.card-header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.card-header h2 {
+  color: #2c3e50;
+  font-size: 1.6rem;
+  margin: 0;
+}
+
+/* Post Card Hover Effect */
+.category-container .post-card {
+  transition: all 0.3s ease;
+}
+
+.category-container .post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .category-container .posts-grid {
@@ -166,5 +246,17 @@ textarea.form-control {
   
   .social-icons {
     justify-content: center;
+  }
+  
+  .chatbot-card {
+    padding: 30px 20px;
+  }
+  
+  .chatbot-icon {
+    font-size: 50px;
+  }
+  
+  .chatbot-card h2 {
+    font-size: 1.5rem;
   }
 }
