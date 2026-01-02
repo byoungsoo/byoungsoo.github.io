@@ -7,12 +7,12 @@ date: 2025-01-14 01:00:00
 tags: genai prompt
 ---
 
-
+{% comment %}
 - Workshop 
   - https://studio.us-east-1.prod.workshops.aws/preview/26bcaabd-082a-4b2d-a5a0-63d1c1d61485/builds/91252534-ac26-4fa3-bf4b-a2a43a1d37ab/en-US/amazon-bedrock-beginner/foundation-models/getting-started
   - https://catalog.us-east-1.prod.workshops.aws/workshops/0b6e72fe-77ee-4777-98cc-237eec795fdb/en-US
     - aws cloudformation create-stack --stack-name bedrock-workshop --capabilities CAPABILITY_NAMED_IAM --template-body file:///Users/bys/workspace/bedrock/cf.yml --tags Key=Name,Value=BedrockWorkshop --region us-east-1
-
+{% endcomment %}
 
 ```bash
 !pip install boto3 --upgrade
@@ -33,7 +33,6 @@ tags: genai prompt
 
 ```
 region = 'us-east-1'
-host = 'https://rp9itwyslknkyi5cqngd.us-east-1.aoss.amazonaws.com'
 ```
 
 
@@ -550,7 +549,6 @@ print(df[['cluster', 'names']])
 
 
 
-
 ### RAG(Retrieval Augmented Generation)
 검색 증강 생성 
 - Convert the prompt (question text) into embedding.
@@ -645,14 +643,4 @@ content = response['output']['message']['content']
 for item in content:
     print(item['text'])
 ```
-
-
-
-
-
----
-### Prompt
-
-너는 AWS 전문가이고 친절하게 설명할 수 있는 강사 역할이야. 한국인을 대상으로 항상 설명해줘야 하기 때문에 모든 질문에는 한국어로 대답해.
-너는 특히 ECS, ASG 서비스의 전문가야.
 
