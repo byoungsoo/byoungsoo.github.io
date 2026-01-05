@@ -1,26 +1,30 @@
 ---
 layout: page
-title: Contact!
+title: 💬 Chat & Contact
 permalink: /category/contact/
 ---
 
 <div class="category-container">
   <div class="category-header">
-    <h1>📧 Contact me</h1>
+    <h1>💬 Start a Conversation</h1>
     <p>궁금한 점이 있으시거나 협업을 원하신다면 언제든지 연락주세요!</p>
   </div>
   
   <!-- 챗봇 섹션 -->
   <div class="chatbot-section">
     <div class="post-card chatbot-card">
-      <div class="chatbot-icon">💬</div>
-      <h2>커리어 챗봇과 대화하기</h2>
-      <p>나의 경력, 기술 스택, 프로젝트 경험에 대해 물어보세요</p>
-      <a href="https://huggingface.co/spaces/skwltg90/career_conversation" target="_blank" rel="noopener noreferrer" class="chatbot-btn">
-        🚀 챗봇 시작하기
+      <!-- Gradio WebComponent Embed -->
+      <div class="chatbot-embed">
+        <gradio-app src="https://skwltg90-career-conversation.hf.space"></gradio-app>
+      </div>
+      
+      <a href="https://huggingface.co/spaces/skwltg90/career_conversation" target="_blank" rel="noopener noreferrer" class="chatbot-link">
+        🔗 새 창에서 열기
       </a>
     </div>
   </div>
+
+<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/5.9.1/gradio.js"></script>
   
   <div class="posts-grid">
     <div class="post-card">
