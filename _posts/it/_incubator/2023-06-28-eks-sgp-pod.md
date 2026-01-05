@@ -5,6 +5,7 @@ author: "Bys"
 category: incubator
 date: 2023-07-04 01:00:00
 tags: aws cloud eks sgp pod vpc-resource-controller branch-eni trunk-eni
+published: false
 ---
 
 # [Security Group for Pods](https://docs.aws.amazon.com/eks/latest/userguide/security-groups-for-pods.html)  

@@ -5,6 +5,7 @@ exclude:
   - "README.md"
   - "LICENSE.md"
   - "*.gemspec"
+  - "_posts/it/_incubator/"
 
 keep_files:
   - "CNAME"
@@ -90,6 +91,12 @@ defaults:
       comments: true
       share: true
       related: true
+  # _incubator posts - exclude from build
+  - scope:
+      path: "_posts/it/_incubator"
+      type: posts
+    values:
+      published: false
   # _portfolio
   - scope:
       path: ""
