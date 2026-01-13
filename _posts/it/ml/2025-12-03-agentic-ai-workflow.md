@@ -19,7 +19,7 @@ tags: agentic ai workflow designpattern
 #### - Five workflow design patterns
 
 #### 1. PROMPT CHAINING
-![prompt-chaining](/assets/it/ml/ai-agents/prompt-chaining.png)
+![prompt-chaining](/assets/it/ml/agents/prompt-chaining.png)
 - Decompose into fixed sub-tasks
 - 하나의 복잡한 작업을 여러 개의 작고 관리 가능한 하위 작업으로 분해하고, 각 하위 작업의 결과(출력)를 다음 하위 작업의 입력(프롬프트)으로 연속적으로 연결하여 최종 목표를 달성하는 기법을 의미한다.  
 
@@ -33,7 +33,7 @@ LangChain, CrewAI, AutoGen과 같은 AI Agent 프레임워크들은 이러한 �
 
 
 #### 2. ROUTING
-![routing](/assets/it/ml/ai-agents/routing.png)
+![routing](/assets/it/ml/agents/routing.png)
 - Direct an input into a specialized sub-task, ensuring separation of concerns.
 - 들어오는 요청, 작업 또는 정보를 기반으로 다음으로 실행할 LLM 모델, 도구(Tool), 하위 워크플로우 또는 특정 처리 경로를 동적으로 선택하고 연결하는 패턴이다.  
   
@@ -42,7 +42,7 @@ LangChain, CrewAI, AutoGen과 같은 AI Agent 프레임워크들은 이러한 �
 
 
 #### 3. PARALLELIZATION
-![parallelization](/assets/it/ml/ai-agents/parallelization.png)
+![parallelization](/assets/it/ml/agents/parallelization.png)
 - Breaking down tasks and running multiple subtasks concurrently
 - 전체 목표 달성에 필요한 여러 하위 작업을 동시에(concurrently) 실행하여 전체 처리 시간을 단축하고 효율성을 높이는 기법
 - 여기서 Coordinator 는 **어떤 코드** 이며 하나의 작업을 여러 조각으로 나누어 모두 병렬로 실행하는 코드를 작성한다. 그리고 동시에 세 가지 활동을 동시에 수행하기 위해 3 개의 LLM으로 전달된다.  
@@ -55,14 +55,14 @@ Parallelization(병렬화)에서는 서로 의존성이 없는(independent) 하�
 
 
 #### 4. ORCHESTRATOR-WORKER
-![orchestrator-worker](/assets/it/ml/ai-agents/orchestrator-worker.png)
+![orchestrator-worker](/assets/it/ml/agents/orchestrator-worker.png)
 - Complex tasks are broken down dynamically and combined
 - Parallelization(병렬화) 패턴과 유사하지만 오스케스트레이션을 수행하는 것이 더 이상 코드가 아닌 LLM 이라는 점이다. 
 - 모델을 사용하여 복잡한 작업을 더 작은 단계로 세분화한 다음 다음 모델을 사용하여 결과를 결합하는 것이다. 
 
 
 #### 5. EVALUATOR-OPTIMIZER
-![evaluator-optimizer](/assets/it/ml/ai-agents/evaluator-optimizer.png)
+![evaluator-optimizer](/assets/it/ml/agents/evaluator-optimizer.png)
 - LLM output is validated by another
 - LLM Generator 는 업무를 수행하는 LLM 이다. LLM Generator 가 어떤 해결책을 제시하면 Evaluator LLM 은 이전 LLM의 작업을 확인하기 위해 존재한다. 
 - 어떤 작업을 수행한 결과물(생성된 텍스트, 코드, 계획 등)을 Evaluator LLM을 통해'평가'하고, 이 평가 결과를 바탕으로 다시 원래 작업을 수행하는 LLM 또는 도구(Optimizer)에 '피드백'하여 결과물을 개선(Optimize)하는 반복적인 프로세스

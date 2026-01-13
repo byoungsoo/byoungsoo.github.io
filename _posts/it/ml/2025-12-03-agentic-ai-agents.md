@@ -16,7 +16,7 @@ tags: agentic ai workflow designpattern
   2. Feedback loops - 여러 번 처리될 수 있음
   3. No fixed path - 일련의 단계까 없고 유동적이고 역동적임
 
-![agents](/assets/it/ml/ai-agents/agents.png)
+![agents](/assets/it/ml/agents/agents.png)
 
 Agents 다이어그램에서는 더 이상 결과물이 나오지 않는다. 보다시피 사람, LLM, Environment(상호작용 할 수 있는 외부 세계를 반영하는 환경. Ex: 도구, 조명, 장비 등)이 존재한다.  
 사람은 LLM 에게 어떤 요청을 할 수 있고, LLM 은 어떤 방식으로든 환경에서 정보를 다시 가져올 수 있으며 반복되는 루프를 수행할 수 있다. LLM은 계속해서 다른 작업을 수행하고 피드백을 받을 수 있으며, 원할 경우 중단을 선택할 수 있다. 

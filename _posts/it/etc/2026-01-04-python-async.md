@@ -72,6 +72,29 @@ async def process_three_requests():
 여기서 헷갈리지 말아야하는 건(await 키워드를 붙인 동기 방식 사례) await 키워드를 붙여서 call_api_1, 2, 3 을 호출하더라도 call_api_1() 호출 중 다른일을 할 수 있을 때도 다른 coroutine 함수가 asyncio.gather 에 의해 묶이지 않았기 때문에 다른 coroutine 작업을 진행하지 않는다. 따라서, 기존 동기방식과 같이 9초가 걸린다. 따라서, `async def` 함수는 `await`와 함께 사용한다고 이해하면 좋다.  
 
 
+```python
+def watch_movie():
+    print("영화 전체 다운로드 중...")
+    time.sleep(3600)  # 1시간 대기
+    print("다운로드 완료! 이제 재생합니다")
+    play_entire_movie()
+
+→ 1시간 기다려야 영화 볼 수 있음 😭
+스트리밍 (비동기)
+
+async def watch_movie():
+    async for chunk in movie_stream():  # 조각조각 받음
+        play(chunk)  # 받는 즉시 재생!
+        # 다음 조각 오는 동안 지금 조각 재생
+
+→ 바로 볼 수 있음! 넷플릭스처럼! 🎉
+
+원래 코드가 정확히 이겁니다!
+
+# AI가 이메일을 "스트리밍"으로 생성
+async for event in result.stream_events():  # 한 글자씩 받음
+    print(event.data.delta, end="")  # 받는 즉시 출력!
+```
 
 
 ## 2. 사용 규칙
@@ -144,16 +167,7 @@ async def main():  # ← await 쓰려면 async def 필요
 4. **`asyncio.gather()`** = 여러 작업 동시 실행
 
 
-
-
-
-
-
-
-
-
 ## 4. 실제 사용 예시
-
 ## 🎬 상세한 실행 과정
 
 ```python
@@ -263,3 +277,4 @@ B: 시작
 A: 완료
 B: 완료
 ```
+
