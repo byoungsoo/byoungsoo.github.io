@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "OpenAI Agents SDK"
+title: "OpenAI API"
 author: "Bys"
 category: ml
 date: 2026-01-05 01:00:00
