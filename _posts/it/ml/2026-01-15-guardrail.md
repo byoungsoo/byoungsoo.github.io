@@ -6,7 +6,6 @@ category: ml
 date: 2026-01-15 01:00:00
 keywords: "openai, agents, sdk, guardrail"
 tags: openai guardrail sdk
-published: false
 ---
 
 # [Guardrail](https://openai.github.io/openai-agents-python/guardrails/)  
@@ -46,7 +45,9 @@ async def input_guardrail_against_emoji(ctx, agent, message):
     print(f"Input guardrail result: {result}")
     is_emoji_in_message = result.final_output.is_emoji_in_message
     return GuardrailFunctionOutput(output_info={"found_emoji": result.final_output},tripwire_triggered=is_emoji_in_message)
+```
 
+```python
 manager_instruction = """
 You are a senior weather cast manager. Your goal is to find the single best weather cast email using weather_cast_agent tools and send e-mail. 
 
@@ -146,8 +147,9 @@ async def output_guardrail_against_emoji(ctx, agent, message):
     print(f"Output guardrail result: {result}")
     is_emoji_in_message = result.final_output.is_emoji_in_message
     return GuardrailFunctionOutput(output_info={"found_emoji": result.final_output},tripwire_triggered=is_emoji_in_message)
+```
 
-
+```python
 manager_instruction = """
 You are a senior weather cast manager. Your goal is to find the single best weather cast email using weather_cast_agent tools and send e-mail. 
 
