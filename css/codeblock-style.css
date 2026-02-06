@@ -160,61 +160,61 @@ code.language-plaintext.highlighter-rouge {
 .language-bash .cm { color: #6a9955 !important; }
 .language-bash .nt { color: #9cdcfe !important; }
 
-/* YAML: Dark theme with cyan keys and purple values */
+/* YAML: Light theme with VS Code style colors */
 .language-yaml.highlighter-rouge,
 .language-yml.highlighter-rouge {
-  background: #1e1e1e !important;
-  border: 1px solid #333 !important;
+  background: #f5f5f5 !important;
+  border: 1px solid #ddd !important;
   border-radius: 8px !important;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
 }
 
 .language-yaml .highlight,
-.language-yml .highlight { background: #1e1e1e !important; }
+.language-yml .highlight { background: #f5f5f5 !important; }
 .language-yaml pre.highlight,
-.language-yml pre.highlight { background: #1e1e1e !important; color: #d4d4d4 !important; border: none !important; }
+.language-yml pre.highlight { background: #f5f5f5 !important; color: #333 !important; border: none !important; }
 .language-yaml code,
-.language-yml code { color: #d4d4d4 !important; background: transparent !important; }
+.language-yml code { color: #333 !important; background: transparent !important; }
 .language-yaml .hljs-comment,
-.language-yml .hljs-comment { color: #4d9966 !important; font-style: italic; }
+.language-yml .hljs-comment { color: #008000 !important; font-style: italic; }
 .language-yaml .hljs-attr,
-.language-yml .hljs-attr { color: #16efe1 !important; }
+.language-yml .hljs-attr { color: #0451a5 !important; }
 .language-yaml .hljs-string,
-.language-yml .hljs-string { color: #c586c0 !important; }
+.language-yml .hljs-string { color: #a31515 !important; }
 .language-yaml .hljs-number,
-.language-yml .hljs-number { color: #c586c0 !important; }
+.language-yml .hljs-number { color: #098658 !important; }
 .language-yaml .hljs-literal,
-.language-yml .hljs-literal { color: #c586c0 !important; }
+.language-yml .hljs-literal { color: #0000ff !important; }
 
 /* Override syntax.css rouge classes for yaml */
 .language-yaml .na,
-.language-yml .na { color: #16efe1 !important; }
+.language-yml .na { color: #0451a5 !important; }
 .language-yaml .s,
-.language-yml .s { color: #c586c0 !important; }
+.language-yml .s { color: #a31515 !important; }
 .language-yaml .s1,
-.language-yml .s1 { color: #c586c0 !important; }
+.language-yml .s1 { color: #a31515 !important; }
 .language-yaml .s2,
-.language-yml .s2 { color: #c586c0 !important; }
+.language-yml .s2 { color: #a31515 !important; }
 .language-yaml .pi,
-.language-yml .pi { color: #16efe1 !important; }
+.language-yml .pi { color: #0451a5 !important; }
 .language-yaml .m,
-.language-yml .m { color: #c586c0 !important; }
+.language-yml .m { color: #098658 !important; }
 .language-yaml .mf,
-.language-yml .mf { color: #c586c0 !important; }
+.language-yml .mf { color: #098658 !important; }
 .language-yaml .mi,
-.language-yml .mi { color: #c586c0 !important; }
+.language-yml .mi { color: #098658 !important; }
 .language-yaml .hljs-variable,
-.language-yml .hljs-variable { color: #808080 !important; }
+.language-yml .hljs-variable { color: #001080 !important; }
 .language-yaml .hljs-bullet,
-.language-yml .hljs-bullet { color: #d4d4d4 !important; }
+.language-yml .hljs-bullet { color: #333 !important; }
 .language-yaml .hljs-meta,
 .language-yml .hljs-meta { color: #808080 !important; }
 .language-yaml .hljs-title,
-.language-yml .hljs-title { color: #16efe1 !important; }
+.language-yml .hljs-title { color: #0451a5 !important; }
 .language-yaml .hljs-name,
-.language-yml .hljs-name { color: #16efe1 !important; }
+.language-yml .hljs-name { color: #0451a5 !important; }
 .language-yaml .hljs-section,
-.language-yml .hljs-section { color: #16efe1 !important; }
+.language-yml .hljs-section { color: #0451a5 !important; }
 
 /* Python: Dark theme with VS Code style colors */
 .language-python.highlighter-rouge {
@@ -367,3 +367,103 @@ pre:has(> code.language-Java) {
 .language-Java .mi { color: #b5cea8 !important; }
 .language-Java .mf { color: #b5cea8 !important; }
 .language-Java .na { color: #9cdcfe !important; }
+
+/* SQL: Dark theme with VS Code style colors */
+.language-sql.highlighter-rouge,
+.language-SQL.highlighter-rouge {
+  background: #1e1e1e !important;
+  border: 1px solid #333 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+}
+
+.language-sql .highlight,
+.language-SQL .highlight { background: #1e1e1e !important; }
+.language-sql pre.highlight,
+.language-SQL pre.highlight { background: #1e1e1e !important; color: #d4d4d4 !important; border: none !important; }
+.language-sql code,
+.language-SQL code { color: #d4d4d4 !important; background: transparent !important; }
+.language-sql .hljs-comment,
+.language-SQL .hljs-comment { color: #6a9955 !important; font-style: italic; }
+.language-sql .hljs-string,
+.language-SQL .hljs-string { color: #ce9178 !important; }
+.language-sql .hljs-keyword,
+.language-SQL .hljs-keyword { color: #569cd6 !important; }
+.language-sql .hljs-built_in,
+.language-SQL .hljs-built_in { color: #4ec9b0 !important; }
+.language-sql .hljs-literal,
+.language-SQL .hljs-literal { color: #569cd6 !important; }
+.language-sql .hljs-number,
+.language-SQL .hljs-number { color: #b5cea8 !important; }
+.language-sql .hljs-type,
+.language-SQL .hljs-type { color: #4ec9b0 !important; }
+.language-sql .hljs-function,
+.language-SQL .hljs-function { color: #dcdcaa !important; }
+
+/* Override syntax.css rouge classes for SQL */
+.language-sql .s,
+.language-SQL .s { color: #ce9178 !important; }
+.language-sql .s1,
+.language-SQL .s1 { color: #ce9178 !important; }
+.language-sql .s2,
+.language-SQL .s2 { color: #ce9178 !important; }
+.language-sql .k,
+.language-SQL .k { color: #569cd6 !important; }
+.language-sql .kd,
+.language-SQL .kd { color: #569cd6 !important; }
+.language-sql .kt,
+.language-SQL .kt { color: #4ec9b0 !important; }
+.language-sql .nf,
+.language-SQL .nf { color: #dcdcaa !important; }
+.language-sql .nb,
+.language-SQL .nb { color: #4ec9b0 !important; }
+.language-sql .mi,
+.language-SQL .mi { color: #b5cea8 !important; }
+.language-sql .mf,
+.language-SQL .mf { color: #b5cea8 !important; }
+.language-sql .c,
+.language-SQL .c { color: #6a9955 !important; }
+.language-sql .c1,
+.language-SQL .c1 { color: #6a9955 !important; }
+.language-sql .cm,
+.language-SQL .cm { color: #6a9955 !important; }
+
+/* JSON: Light theme with VS Code style colors */
+.language-json.highlighter-rouge,
+.language-JSON.highlighter-rouge {
+  background: #f5f5f5 !important;
+  border: 1px solid #ddd !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+.language-json .highlight,
+.language-JSON .highlight { background: #f5f5f5 !important; }
+.language-json pre.highlight,
+.language-JSON pre.highlight { background: #f5f5f5 !important; color: #333 !important; border: none !important; }
+.language-json code,
+.language-JSON code { color: #333 !important; background: transparent !important; }
+.language-json .hljs-attr,
+.language-JSON .hljs-attr { color: #0451a5 !important; }
+.language-json .hljs-string,
+.language-JSON .hljs-string { color: #a31515 !important; }
+.language-json .hljs-number,
+.language-JSON .hljs-number { color: #098658 !important; }
+.language-json .hljs-literal,
+.language-JSON .hljs-literal { color: #0000ff !important; }
+
+/* Override syntax.css rouge classes for JSON */
+.language-json .s,
+.language-JSON .s { color: #a31515 !important; }
+.language-json .s1,
+.language-JSON .s1 { color: #a31515 !important; }
+.language-json .s2,
+.language-JSON .s2 { color: #a31515 !important; }
+.language-json .na,
+.language-JSON .na { color: #0451a5 !important; }
+.language-json .mi,
+.language-JSON .mi { color: #098658 !important; }
+.language-json .mf,
+.language-JSON .mf { color: #098658 !important; }
+.language-json .kc,
+.language-JSON .kc { color: #0000ff !important; }
