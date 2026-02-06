@@ -352,7 +352,7 @@ Trace 결과를 확인하면 다음과 같다.
 ![deep_research_trace1](/assets/it/ml/agents/deep_research_trace1.png)  
 
 Planner 에이전트는 Output으로 구조화된 타입(WebSearchPlan - list[WebSearchItem])으로 출력해준 것을 알 수 있으며 Search 에이전트는 검색을 수행했다.  
-```Json
+```json
 {
   "searches": [
     {
