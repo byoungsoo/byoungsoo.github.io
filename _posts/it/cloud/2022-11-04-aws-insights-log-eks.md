@@ -76,6 +76,22 @@ fields @timestamp, @message
   | sort @timestamp desc
 ```
 
+### Dataplane log
+`/aws/containerinsights/Cluster_Name/dataplane`  
+```bash
+fields @timestamp, systemd_unit, message
+| filter systemd_unit == "kubelet.service"
+| sort @timestamp desc
+```
+
+`/aws/containerinsights/Cluster_Name/host`  
+```bash
+fields @timestamp, ident, message
+| filter host == "ip-10-20-135-17.ap-northeast-2.compute.internal"
+| filter ident not in ["kubelet", "containerd", "amazon-ssm-agent", "install_chronicled.py"]
+| sort @timestamp desc
+```
+
 
 ### Audit Log
 - Event object
@@ -182,6 +198,9 @@ fields @timestamp, verb, user.username, objectRef.resource, objectRef.subresourc
 | filter verb not in ["list", "watch", "get"]
 | sort @timestamp desc
 ```
+
+
+
 
 
 - 특정 requestURI를 통해 찾을 때 아래의 내용을 통해 확인한다. [API Docs](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#-strong-api-overview-strong-)  
