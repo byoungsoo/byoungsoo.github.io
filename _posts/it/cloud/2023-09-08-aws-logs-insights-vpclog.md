@@ -10,8 +10,14 @@ tags: aws vpc flow log insights
 
 
 ## VPC Flog Logs Query
-```bash
 
+- srcAddr, dstAddr, dstPort
+```bash
+fields @timestamp, @message
+| filter srcAddr == '10.20.2.177'
+| filter dstAddr in ['10.25.30.84', '10.25.43.168', '10.25.59.190']
+| filter dstPort == 443
+| sort @timestamp desc
 ```
 
 
