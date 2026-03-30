@@ -96,7 +96,7 @@ fields @timestamp, ident, message
 ### Audit Log
 - Event object
 ```bash
-fields @timestamp, userAgent, verb, objectRef.resource, objectRef.name, user.extra.sessionName.0
+fields @timestamp, userAgent, verb, objectRef.resource, objectRef.name, responseObject.message
 | filter @logStream like "kube-apiserver-audit" 
 | filter verb not in ["list", "watch", "get"]
 | filter objectRef.resource == "events"
