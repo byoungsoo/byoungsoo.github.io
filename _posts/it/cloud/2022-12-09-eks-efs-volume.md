@@ -201,22 +201,8 @@ efs-app-1    1/1     Running   0          8s     10.20.11.47   ip-10-20-11-227.a
 
 <br>
 
-## 5. 권한 테스트
 
-Static vs Dynamic 격리 단위 정리
-
-Static Provisioning:   격리 단위 = EFS 디렉토리 권한 (POSIX uid/gid)
-                        → SecurityContext uid/gid가 직접 권한 제어
-
-Dynamic Provisioning:  격리 단위 = Access Point (PVC)
-                        → AP가 uid/gid를 강제 override
-                        → SecurityContext는 AP uid/gid와 맞춰주는 것이 권장
-                        → 진짜 격리는 "누가 어떤 PVC를 마운트할 수 있는가" (RBAC)
-
-                        
-
-
-## 6. TroubleShooting
+## 5. TroubleShooting
 EKS에서 EFS를 PVC로 사용 할 때 발생할 수 있는 여러가지 문제들...
 
 #### 1. Pod가 ContainerCreating 또는 Terminating 단계에서 진행되지 않고 멈춤  
