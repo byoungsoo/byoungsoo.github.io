@@ -70,6 +70,15 @@ rules:
 **단일 Repository로 코드 통합**  
 모든 어카운트/리전의 Terraform 코드를 하나의 GitLab Repository에 통합했다. 디렉토리 구조로 어카운트와 리전을 구분하고, 각 디렉토리가 독립적인 Terraform Workspace로 동작한다.  
 
+**terraform state mv**  
+리팩토링 과정에서 Terraform 코드의 리소스 주소가 변경되는 경우가 있다(예: `count` 제거). 이 때 state 파일의 주소와 코드의 주소가 불일치하면 Terraform은 기존 리소스를 삭제하고 새로 만들려고 한다. `terraform state mv`는 실제 인프라는 건드리지 않고 state 파일 안의 주소만 변경하는 명령이다.  
+
+```bash
+terraform state mv 'module.vpc.aws_vpc.vpc_main[0]' 'module.vpc.aws_vpc.vpc_main'
+```
+
+state mv 후 `terraform plan`에서 **No changes**가 나오면 성공이다.  
+
 <br>
 
 ## 배포 구조
@@ -188,19 +197,6 @@ module "vpc" {
 이렇게 하면 모듈을 수정해도 `ref`를 올리지 않은 환경은 영향을 받지 않는다.  
 
 <br>
-
-## terraform state mv
-Terraform 코드에서 리소스의 주소가 변경되면(예: `count` 제거), state 파일의 주소와 코드의 주소가 불일치하게 된다. 이 상태에서 `terraform plan`을 실행하면 기존 리소스를 삭제하고 새로 만들려고 한다.  
-
-`terraform state mv`는 실제 인프라는 건드리지 않고, state 파일 안의 주소만 변경하는 명령이다.  
-
-```bash
-# count 제거로 인한 주소 변경
-# [0] 인덱스가 사라짐
-terraform state mv 'module.vpc.aws_vpc.vpc_main[0]' 'module.vpc.aws_vpc.vpc_main'
-```
-
-state mv 후 `terraform plan`에서 **No changes**가 나오면 성공이다.  
 
 
 <br><br><br>
