@@ -2,7 +2,7 @@
 layout: post
 title: "Terraform 사용법, Terraform을 통해 VPC 구성하기"
 author: "Bys"
-category: cloud
+category: solution
 date: 2022-09-08 01:00:00
 tags: terraform vpc
 ---

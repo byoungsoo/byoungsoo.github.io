@@ -1,0 +1,216 @@
+---
+layout: post
+title: "Terraform 멀티 어카운트 IaC 구조 설계 및 리팩토링"
+author: "Bys"
+category: solution
+date: 2026-04-03 01:00:00
+tags: terraform eks vpc module iac
+---
+
+# Terraform 멀티 어카운트 IaC 구조 설계 및 리팩토링
+
+## 개요
+개인로컬환경에서 AWS 멀티 어카운트 환경에서 Terraform을 통해 인프라를 관리하고 있었고, 각 manage, shared, dev 3개의 어카운트에 걸쳐 VPC, TGW, EKS 등의 리소스를 Terraform으로 프로비저닝하고 있었다. 
+이 글에서는 로컬 환경에서 개인이 관리하던 Terraform 코드를 프로젝트 레벨로 끌어올리는 리팩토링 과정과, GitLab CI/CD를 통해 배포 파이프라인을 변경한 과정 및 전체 프로젝트 구조에 대해 정리한다.  
+
+<br>
+
+## 리팩토링 배경
+
+### 기존 구조의 문제점
+초기에는 로컬 환경에서 개인이 Terraform을 실행하는 방식으로 인프라를 관리했다. 이 방식에는 몇 가지 문제가 있었다.  
+
+**State 파일 로컬 관리**  
+tfstate 파일이 로컬에 저장되어 있어 다른 사람이 동일한 인프라를 관리할 수 없었다. 로컬 파일이 유실되면 Terraform이 기존 인프라를 인식하지 못하는 위험도 있었다.  
+
+**실행 환경의 불일치**  
+각자의 로컬 환경에서 Terraform을 실행하면 Terraform 버전, Provider 버전, AWS Credential 설정 등이 달라 동일한 코드라도 다른 결과가 나올 수 있었다.  
+
+### 개선 방향
+이러한 문제를 해결하기 위해 다음과 같은 방향으로 리팩토링을 진행했다.  
+
+**S3 Backend로 State 중앙 관리**  
+shared 어카운트의 S3 버킷(`bys-shared-ap2-s3-terraform`)에 모든 tfstate 파일을 저장하도록 변경했다. 어카운트/리전/리소스별로 key를 분리하여 state 충돌을 방지한다.  
+
+```hcl
+terraform {
+  backend "s3" {
+    bucket  = "bys-shared-ap2-s3-terraform"
+    key     = "aws-dev-ap3/vpc/terraform.tfstate"
+    region  = "ap-northeast-2"
+    encrypt = true
+  }
+}
+```
+
+기존 로컬 state에서 S3 Backend로 전환할 때는 backend 설정을 추가한 후 `terraform init -migrate-state`를 실행한다. 이 명령은 로컬의 tfstate 파일을 S3로 마이그레이션한다. 커맨드를 수행하면 자동으로 provider에 설정된 S3로 terraform.tfstate 파일을 업로드하고 관리한다.  
+
+```bash
+terraform init -migrate-state
+```
+
+이미 S3 Backend를 사용 중인 상태에서 backend 설정이 변경된 경우(예: bucket이나 key 변경)에는 `-reconfigure` 옵션을 사용한다.  
+
+```bash
+terraform init -reconfigure
+```
+
+**GitLab CI/CD를 통한 Remote 실행**  
+로컬에서 직접 `terraform apply`를 실행하는 대신, GitLab CI/CD 파이프라인을 통해 validate → plan → apply 단계를 거치도록 변경했다. 코드 변경이 push되면 해당 디렉토리의 validate와 plan이 자동으로 실행되어 변경 영향을 즉시 확인할 수 있고, apply는 항상 manual로 실행하여 의도하지 않은 인프라 변경을 방지한다. 코드 변경 없이 수동으로 파이프라인을 실행할 때는 validate, plan, apply 모두 manual로 동작한다.  
+
+```yaml
+rules:
+  - if: $CI_PIPELINE_SOURCE == "push"  # push 시 자동 실행 (validate, plan)
+    changes:
+      - account/aws-dev-ap3/vpc/**/*   # 해당 디렉토리 변경 시에만
+  - when: manual                        # 그 외에는 수동 실행
+    allow_failure: true
+```  
+
+**단일 Repository로 코드 통합**  
+모든 어카운트/리전의 Terraform 코드를 하나의 GitLab Repository에 통합했다. 디렉토리 구조로 어카운트와 리전을 구분하고, 각 디렉토리가 독립적인 Terraform Workspace로 동작한다.  
+
+<br>
+
+## 배포 구조
+
+### Terraform 배포 구조
+shared 어카운트의 GitLab Runner Pod에 부여된 Pod Identity Role(GitlabTerraformRole)이 각 어카운트의 Terraform Role을 assume하여 배포한다.  
+
+```
+shared 계정 (202949997891) - GitLab Runner
+  └── GitlabTerraformRole (Runner Pod Identity Role)
+        ├── assume → ManageTerraformRole (692806374063)
+        ├── assume → DevTerraformRole (558846430793)
+        └── assume → SharedTerraformRole (202949997891)
+```
+
+로컬 환경에서도 동일한 구조로 배포가 가능하다.  
+```
+Mac Local 계정 (558846430793) - IAM User(Byoungsoo)
+        ├── assume → ManageTerraformRole (692806374063)
+        ├── assume → DevTerraformRole (558846430793)
+        └── assume → SharedTerraformRole (202949997891)
+```
+
+<br>
+
+### 디렉토리 구조
+```
+terraform/
+├── .gitlab-ci.yml
+├── .gitlab-ci/
+│   ├── dev-ap2.yml
+│   ├── dev-ap3.yml
+│   ├── dev-ue1.yml
+│   ├── manage-ap2.yml
+│   ├── manage-ap3.yml
+│   └── manage-ue1.yml
+├── account/
+│   ├── aws-dev-ap2/
+│   │   ├── eks-tf/
+│   │   ├── tgw/
+│   │   └── vpc-endpoint/
+│   ├── aws-dev-ap3/
+│   │   └── vpc/
+│   ├── aws-dev-ue1/
+│   │   ├── vpc/
+│   │   └── vpc-endpoint/
+│   ├── aws-manage-ap2/
+│   │   ├── tgw/
+│   │   └── vpc/
+│   ├── aws-manage-ap3/
+│   │   ├── tgw/
+│   │   └── vpc/
+│   └── aws-manage-ue1/
+│       ├── tgw/
+│       └── vpc/
+└── module/
+    └── module-vpc/
+        ├── main.tf
+        ├── variable.tf
+        ├── output.tf
+        └── versions.tf
+```
+
+어카운트와 리전별로 디렉토리를 분리하고, 각 디렉토리가 독립적인 Terraform Workspace로 동작한다. VPC는 공통 모듈을 사용하고, EKS는 직접 리소스로 관리한다.  
+
+<br>
+
+### 네이밍 규칙
+```
+${var.project_code}-${var.account}-${var.aws_region_code}-resource-{az}-{name}
+```
+예시: `bys-dev-ap2-sbn-2a-app`, `bys-manage-ue1-vpc-main`
+
+<br>
+
+### 배포 결과
+위 구조를 통해 3개 어카운트, 3개 리전에 걸쳐 다음과 같은 네트워크 아키텍처가 배포되어 있다.  
+
+```
+ [manage-ue1 VPC]                                     [manage-ap2 VPC]                                          [manage-ap3 VPC]  
+  10.5.0.0/16                                          10.0.0.0/16                                                10.3.0.0/16     
+       │                                                     │                                                         │          
+       ▼                                                     ▼                                                         ▼          
+  [TGW ue1]        ◄══════════════════════════════►       [TGW ap2]        ◄══════════════════════════════►        [TGW ap3]      
+(manage account)              Peering                  (manage account)                Peering                  (manage account)  
+       ▲                                                ▲          ▲                                                   ▲          
+       │                                     ┌──────────┘          └──────────┐                                        │          
+ [dev-ue1 VPC]                         [dev-ap2 VPC]                    [shared-ap2 VPC]                          [dev-ap3 VPC]   
+  10.25.0.0/16                          10.20.0.0/16                      10.10.0.0/16                             10.30.0.0/16   
+```
+
+TGW Peering을 통해 리전 간 통신이 가능하며, manage 어카운트의 TGW를 Hub로 사용하여 Cross-Account Attachment(RAM)를 통해 dev, shared 어카운트의 VPC를 연결하고 있다.  
+
+<br>
+
+## 모듈 사용에 대한 고민
+
+### 모듈이 유용한 경우
+- 동일한 구성을 다수 반복 생성할 때
+- 여러 팀이 공유하는 표준화된 컴포넌트가 있을 때
+- 버전 태깅으로 독립 배포가 가능한 경우
+
+### 모듈이 오히려 방해되는 경우
+- 환경마다 구성이 조금씩 다른데 변수로 억지로 맞추고 있을 때
+- 모듈 수정 시 영향 범위를 제어할 수 없을 때
+- 모듈의 추상화 수준이 너무 높아 유연성이 떨어질 때
+
+현재 프로젝트에서는 VPC 모듈을 유지하되, 모듈 변경 시 전체 환경에 영향이 가지 않도록 버전 태깅 방식을 고려하고 있다.  
+
+```hcl
+module "vpc" {
+  source = "git::https://gitlab.bys.digital/bys/module-vpc.git?ref=v1.0.0"
+}
+```
+
+이렇게 하면 모듈을 수정해도 `ref`를 올리지 않은 환경은 영향을 받지 않는다.  
+
+<br>
+
+## terraform state mv
+Terraform 코드에서 리소스의 주소가 변경되면(예: `count` 제거), state 파일의 주소와 코드의 주소가 불일치하게 된다. 이 상태에서 `terraform plan`을 실행하면 기존 리소스를 삭제하고 새로 만들려고 한다.  
+
+`terraform state mv`는 실제 인프라는 건드리지 않고, state 파일 안의 주소만 변경하는 명령이다.  
+
+```bash
+# count 제거로 인한 주소 변경
+# [0] 인덱스가 사라짐
+terraform state mv 'module.vpc.aws_vpc.vpc_main[0]' 'module.vpc.aws_vpc.vpc_main'
+```
+
+state mv 후 `terraform plan`에서 **No changes**가 나오면 성공이다.  
+
+
+<br><br><br>
+
+---
+
+## 📚 References
+
+[1] **Terraform State mv**  
+- https://developer.hashicorp.com/terraform/cli/commands/state/mv
+
+[2] **Terraform Modules**  
+- https://developer.hashicorp.com/terraform/language/modules

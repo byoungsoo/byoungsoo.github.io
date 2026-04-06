@@ -12,11 +12,97 @@ tags: eks kubecost monitoring
 
 Kubecost는 Kubernetes를 사용하는데 있어 실시간 비용과 인사이트를 제공한다고 소개한다. Amazon EKS에서는 Kubecost 번들을 제공하여 EKS의 비용 가시성을 보여준다. 
 
-## [Kubecost Install](https://docs.aws.amazon.com/eks/latest/userguide/cost-monitoring.html)
+## [Kubecost Install](https://docs.aws.amazon.com/eks/latest/userguide/cost-monitoring-kubecost-bundles.html)
+
+#### Kubecost Install v3
+[`values.yaml`](https://github.com/byoungsoo/argocd-apps/blob/main/dev-ap2-eks-main/kubecost/values.yaml)
+
+```yaml
+global:
+  imageRegistry: public.ecr.aws
+  clusterId: eks-main
+  federatedStorage:
+    config: |-
+      type: S3
+      config:
+        bucket: bys-dev-s3-ap2-kubecost
+        endpoint: s3.amazonaws.com
+        region: ap-northeast-2
+
+localStore:
+  enabled: false
+
+frontend:
+  image:
+    repository: kubecost/frontend
+
+aggregator:
+  image:
+    repository: kubecost/cost-model
+  resources:
+    ## Consider setting a limit after a baseline has been established
+    limits:
+      memory: 3Gi
+    requests:
+      memory: 3Gi
+      cpu: 100m
+
+forecasting:
+  image:
+    repository: kubecost/modeling
+
+networkCosts:
+  image:
+    repository: kubecost/network-costs
+
+clusterController:
+  image:
+    repository: kubecost/cluster-controller
+
+finopsagent:
+  image:
+    repository: kubecost/agent
+
+ingress:
+  enabled: true
+  className: alb
+  annotations:
+    alb.ingress.kubernetes.io/group.name: eks-main-etc
+    alb.ingress.kubernetes.io/subnets: bys-dev-sbn-az1-extelb,bys-dev-sbn-az2-extelb,bys-dev-sbn-az3-extelb,bys-dev-sbn-az4-extelb
+    alb.ingress.kubernetes.io/scheme : internet-facing
+    alb.ingress.kubernetes.io/security-groups: bys-dev-sg-alb-eks-main-etc
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 443}]'
+    # alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": {"Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
+    # alb.ingress.kubernetes.io/conditions.host-path-rule1: 
+    #   [{"field":"host-header","hostHeaderConfig":{"values":["kubecost-main.bys.digital"]}}]
+    alb.ingress.kubernetes.io/ssl-policy: ELBSecurityPolicy-TLS13-1-2-2021-06
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-northeast-2:558846430793:certificate/c09f4f31-89da-4ca3-b072-a0fedddf5f7f
+    alb.ingress.kubernetes.io/healthcheck-path: /
+    alb.ingress.kubernetes.io/healthcheck-interval-seconds: '15'
+    alb.ingress.kubernetes.io/healthcheck-timeout-seconds: '10'
+    alb.ingress.kubernetes.io/healthy-threshold-count: '2'
+    alb.ingress.kubernetes.io/unhealthy-threshold-count: '4'
+    alb.ingress.kubernetes.io/healthcheck-port: traffic-port
+    alb.ingress.kubernetes.io/success-codes: 200,301,302
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/tags: auto-delete=no
+  pathType: Prefix
+  paths: ["/"]
+  hosts:
+    - kubecost-main.bys.digital
+  tls: []
+```
 
 
-### [Helm Chart](https://github.com/kubecost/cost-analyzer-helm-chart/tree/develop/cost-analyzer)
+https://www.ibm.com/docs/en/kubecost/self-hosted/3.x?topic=installations-amazon-eks-integration
 
+- Pod Identity Association
+SA: kubecost - IAM Role (S3) 
+SA: kubecost-finopsagent - IAM Role (S3) 
+
+
+#### Kubecost Install v2
+[`valyes.yaml`](https://docs.aws.amazon.com/eks/latest/userguide/cost-monitoring.html)
 Values 파일을 내려 받는다. 
 ```bash
 wget https://raw.githubusercontent.com/kubecost/cost-analyzer-helm-chart/develop/cost-analyzer/values-eks-cost-monitoring.yaml
