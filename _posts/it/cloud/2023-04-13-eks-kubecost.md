@@ -8,7 +8,7 @@ tags: eks kubecost monitoring
 ---
 
 
-# Kubecost
+# Kubecost 
 
 Kubecost는 Kubernetes를 사용하는데 있어 실시간 비용과 인사이트를 제공한다고 소개한다. Amazon EKS에서는 Kubecost 번들을 제공하여 EKS의 비용 가시성을 보여준다. 
 
