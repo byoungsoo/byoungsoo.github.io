@@ -282,13 +282,13 @@ Karpenter currently performs the following operations when it detect pending pod
 {
   "userIdentity": {
         "type": "AssumedRole",
-        "principalId": "AROAYEHOXZZE4O3LUTVQB:1676620212864829436",
+        "principalId": "111122222:1676620212864829436",
         "arn": "arn:aws:sts::558846430793:assumed-role/KarpenterControllerRole-bys-dev-eks-main/1676620212864829436",
         "accountId": "558846430793",
         "sessionContext": {
             "sessionIssuer": {
                 "type": "Role",
-                "principalId": "AROAYEHOXZZE4O3LUTVQB",
+                "principalId": "111122222",
                 "arn": "arn:aws:iam::558846430793:role/KarpenterControllerRole-bys-dev-eks-main",
                 "accountId": "558846430793",
                 "userName": "KarpenterControllerRole-bys-dev-eks-main"

@@ -105,7 +105,7 @@ $ aws-iam-authenticator token -i bys-dev-eks-main
 ```bash
 echo "aHR0cHM6Ly9zdHMuYXAtbm9ydGhlYXN0LTIuYW1hem9uYXdzLmNvbS8_QWN0aW9uPUdldENhbGxlcklkZW50aXR5JlZlcnNpb249MjAxMS0wNi0xNSZYLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFZRUhPWFpaRVJHM1lVRlVJJTJGMjAyMzA2MTUlMkZhcC1ub3J0aGVhc3QtMiUyRnN0cyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjMwNjE1VDE0NTM0NFomWC1BbXotRXhwaXJlcz0wJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCUzQngtazhzLWF3cy1pZCZYLUFtei1TaWduYXR1cmU9MWJlMGM1NTI4MWI3ZThlOTc4MDdkYzRkZjk1MDQ3YzA0NmU4MDJiMzlkYWIxOTQxYmY3MDNkMWRhZGIyNDYyOA" | base64 --decode
 
-https://sts.ap-northeast-2.amazonaws.com/?Action=GetCallerIdentity&Version=2011-06-15&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAYEHOXZZERG3YUFUI%2F20230615%2Fap-northeast-2%2Fsts%2Faws4_request&X-Amz-Date=20230615T145344Z&X-Amz-Expires=0&X-Amz-SignedHeaders=host%3Bx-k8s-aws-id&X-Amz-Signature=1be0c55281b7e8e97807dc4df95047%
+https://sts.ap-northeast-2.amazonaws.com/?Action=GetCallerIdentity&Version=2011-06-15&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=11112222%2F20230615%2Fap-northeast-2%2Fsts%2Faws4_request&X-Amz-Date=20230615T145344Z&X-Amz-Expires=0&X-Amz-SignedHeaders=host%3Bx-k8s-aws-id&X-Amz-Signature=1be0c55281b7e8e97807dc4df95047%
 ```
 
 
