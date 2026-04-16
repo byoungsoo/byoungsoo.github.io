@@ -5,6 +5,7 @@ author: "Bys"
 category: cloud
 date: 2022-03-19 01:00:00
 tags: openstack heat orchestration
+published: false
 ---
 
 # Heat (Orchestration)
@@ -60,12 +61,12 @@ parameters:
     max_size: 5
     # AutoScalingGroup Instance
     instance_name: was_server
-    key_name: key_pari_name
+    key_name: key_pair_name
     flavor: flavor_id or name
     availability_zone: nova
-    image: ubutnu_tomcat_8
+    image: ubuntu_tomcat_8
     volume_size: 100
-    volume_type: SDD
+    volume_type: SSD
     delete_on_termination: true
     network_id: network_id
     subnet_id: subnet_id

@@ -5,6 +5,7 @@ author: "Bys"
 category: ml
 date: 2025-01-14 01:00:00
 tags: genai prompt
+published: false
 ---
 
 {% comment %}
@@ -218,7 +219,7 @@ def calculate_dot_product_similarity(v1, v2):
     similarity = dot(v1, v2)
     return similarity
 
-def calculate_cousin_similarity(v1, v2):
+def calculate_cosine_similarity(v1, v2):
     similarity = dot(v1, v2)/(norm(v1)*norm(v2))
     return similarity
 
@@ -393,7 +394,7 @@ def calculate_dot_product_similarity(v1, v2):
     return similarity
 
 ## Cosine Similarity
-def calculate_cousin_similarity(v1, v2):
+def calculate_cosine_similarity(v1, v2):
     similarity = dot(v1, v2)/(norm(v1)*norm(v2))
     return similarity
 

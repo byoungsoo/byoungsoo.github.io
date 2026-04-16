@@ -6,7 +6,7 @@ category: ml
 date: 2026-04-14 01:00:00
 keywords: "claude"
 tags: claude
-published: true
+published: false
 ---
 
 이 페이지는 claude code 전체 문서를 읽으면서 개인적으로 필요한 내용만 요약 정리한 페이지다.  
@@ -167,7 +167,7 @@ src/auth/를 읽고 세션 처리 방식을 이해해줘.
 ```
 만료된 카드를 가진 사용자의 결제 흐름이 깨졌어.
 관련 코드는 src/payments/에 있어. 조사하고 수정해줄 수 있어?
-```
+```  
 
 <br>
 

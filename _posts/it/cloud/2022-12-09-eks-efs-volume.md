@@ -5,9 +5,10 @@ author: "Bys"
 category: cloud
 date: 2022-12-09 01:00:00
 tags: kubernetes eks efs csi controller
+published: false
 ---
 
-# EFS CSI driver
+# EFS CSI driver  
 EFS CSI driver는 Amazon EKS 클러스터가 영구 볼륨을 위해 Amazon EFS 볼륨의 수명 주기를 관리할 수 있게 해주는 CSI 인터페이스를 제공한다. 
 
 ## 1. [Install](https://docs.aws.amazon.com/eks/latest/userguide/efs-csi.html)

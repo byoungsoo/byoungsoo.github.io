@@ -6,6 +6,7 @@ category: cloud
 date: 2026-03-10 01:00:00
 keywords: "eks alarm sms"
 tags: eks alarm sms
+published: false
 ---
 
 
@@ -224,7 +225,7 @@ EKS 관리형 Add-on(`amazon-cloudwatch-observability`)으로 Container Insights
   "interface_exclude": ["eth1"],
   "metrics_include": ["bw_in_allowance_exceeded", "..."]
 }
-```
+```  
 
 
 ---
