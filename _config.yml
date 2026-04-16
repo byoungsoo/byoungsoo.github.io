@@ -18,7 +18,8 @@ keep_files:
 title: bys GithubPage
 subtitle: "Github Blog"
 name: "Byoungsoo"
-description: "Personal blog and portfolio"
+lang: "ko"
+description: "AWS, EKS, Kubernetes, MLOps, AI/ML 실무 경험을 정리하는 기술 블로그. Cloud Infra, DevOps, LLM Agent 등 실전 노하우를 공유합니다."
 
 # the base hostname & protocol for your site
 url: "https://byoungsoo.github.io"
@@ -62,7 +63,7 @@ tag_page_layout: tagpage
 tag_page_dir: tags
 
 # Google analytics
-ga_tracking_id: "UA-137282255-1"
+ga_tracking_id: "G-Y4MJ6RFLWJ"
 
 # Category
 categories: category/
@@ -71,7 +72,7 @@ categories: category/
 author:
   name: "Byoungsoo"
   avatar: "/assets/logo.png"
-  bio: "Github Blog"
+  bio: "AWS/EKS 및 MLOps 실무 엔지니어. Cloud Infra, Kubernetes, LLM Agent 경험 공유."
   location: "South Korea"
   links:
     - label: "GitHub"
