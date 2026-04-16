@@ -133,7 +133,7 @@ from agents import Agent, function_tool
 import requests
 
 @function_tool
-def send_email(title: str, body, str):
+def send_email(title: str, body: str):
     domain = "bys.digital"
     api_key = os.getenv('MAILGUN_API_KEY')
     if not api_key:
