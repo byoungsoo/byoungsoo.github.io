@@ -42,7 +42,7 @@ kubeadm을 통해 구성할 때 필요사항은 아래와 같다.
 
 ## 1. Master 노드, Worker 노드 환경 구성
 
-### 1.1 Master 노드, Woker 노드 환경 구성
+### 1.1 Master 노드, Worker 노드 환경 구성
 
 `hostname set`  
 호스트명은 모두 Unique해야 하며 dns등록이 필요하다.(여기서는 hosts파일에 등록)  
@@ -208,7 +208,7 @@ Release 버전은 문서에 확인 가능하다. [Release](https://github.com/co
   ```
 
 `container image(Optional)`  
-만약 마스터 노드에 인턴텟이 되지 않는다면 아래의 문서를 추가로 참고한다.  
+만약 마스터 노드에 인터넷이 되지 않는다면 아래의 문서를 추가로 참고한다.  
 [without an internet connection](https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init/#without-internet-connection)
 
 아래와 같이 필요한 이미지와 
@@ -287,7 +287,7 @@ To see the stack trace of this error execute with --v=5 or higher
       echo 1 > /proc/sys/net/bridge/bridge-nf-call-iptables
       ```
 3. /proc/sys/net/ipv4/ip_forward contents are not set to 1  
-    - 마찬가지로 정학환 원인은 추가 확인 필요하다. 아래와 같이 조치 후 넘어갔다.  
+    - 마찬가지로 정확한 원인은 추가 확인 필요하다. 아래와 같이 조치 후 넘어갔다.  
       ```bash
       echo '1' > /proc/sys/net/ipv4/ip_forward
       ```

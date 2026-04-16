@@ -13,7 +13,7 @@ kubeadm을 통해 클러스터를 구축하였다면 사용자를 인증할 수 
 
 Kubernetes 사용자에 대해서 먼저 알아보자. 
 쿠버네티스는 일반사용자와 Kubernetes에서 관리하는 Service Account라는 두 가지 카테고리의 사용자가 존재한다. 
-쿠버네티스는 일반 사용자 계정을 표현하는 개체가 없으며 API등을 통해서 추가하하는 것도 불가하다. 
+쿠버네티스는 일반 사용자 계정을 표현하는 개체가 없으며 API등을 통해서 추가하는 것도 불가하다. 
 하지만 이와 관련하여 유저는 아래와 같은 방법으로 인증이 가능하다. 자세한 내용은 공식문서를 참고한다. [Authenticating](https://kubernetes.io/docs/reference/access-authn-authz/authentication/)  
 
 - Authentication strategies

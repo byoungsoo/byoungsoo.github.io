@@ -35,7 +35,7 @@ agent,server 방식에서는 아래와 같은 구성 요소를 갖는다.
 
 1. **APM-Server**  
    [APM Download](https://www.elastic.co/kr/downloads/apm)에 접속 > 알맞은 OS를 선택한 후 다운로드 받는다. (여기서는 Choose platform: Linux x86_64)  
-   이 때 다운로드 되는 apm-server버전은 elasticsearch 버전과 동일해야 해야한다. apm-server-7.1.1-linux-x86_64.tar.gz
+   이 때 다운로드 되는 apm-server버전은 elasticsearch 버전과 동일해야 한다. apm-server-7.1.1-linux-x86_64.tar.gz
    tar파일 압축해제하고 내용을 확인해보면 아래와 같다.  
    ```bash
    tar -xvf apm-server-7.1.1-linux-x86_64.tar.gz

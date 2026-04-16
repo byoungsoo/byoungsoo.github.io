@@ -67,7 +67,7 @@ spec:
 EOF
 ```
 
-요청을 진행하고 나면 아래와 같이 Pending(승인이 안된상태) 상태의 test이라는 이름의 서명요청이 생성되었다.  
+요청을 진행하고 나면 아래와 같이 Pending(승인이 안 된 상태) 상태의 test이라는 이름의 서명요청이 생성되었다.  
 ```bash
 kubectl get csr
 ##Print

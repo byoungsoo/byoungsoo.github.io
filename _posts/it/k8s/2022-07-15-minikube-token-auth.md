@@ -70,7 +70,7 @@ token:      eyJhbGciOiJSUzI1NiIsImtpZCI6IjN3cWM2WmtlbWFIQVNtdGY0MGRVckJmUDRFRkdj
 
 ### 1.2 Role & Rolebinding 생성
 
-ServiceAccount에 어떤 부여할 Role을 생성하고 Binding해준다.  
+ServiceAccount에 어떤 Role을 부여할지 생성하고 Binding해준다.  
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role

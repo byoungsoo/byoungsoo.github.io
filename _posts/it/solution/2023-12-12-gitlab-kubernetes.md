@@ -116,7 +116,7 @@ gitlab:
     persistence:
       size: 80Gi
 ```
-위 와 같이 values.yaml 파일을 수정한다. Chart의 구조상 Dependency가 있는 Chart에 대해서는 Chart의 이름: 에서 values.yaml파일의 값을 다시 수정한다.  
+위와 같이 values.yaml 파일을 수정한다. Chart의 구조상 Dependency가 있는 Chart에 대해서는 Chart의 이름: 에서 values.yaml파일의 값을 다시 수정한다.  
 
 <br>
 
@@ -400,6 +400,6 @@ post() {
 }
 ```
 
-이 작업을 통해 Gitlab 18 버전으로 정상적인 마이그레이션을 할 수 있었다. 18버전에서 오류가 발생하여 17버전으로 Helm Rollback을 한 경우에도 이미 데이터베이스 스키마가 망가져서 파이프라인 정보나 이런 것들도 조회가 되지 않았다. 아예 18버전으로 데이터 마이그레이션 까지 해서 띄우는 것이 좋다.  
+이 작업을 통해 Gitlab 18 버전으로 정상적인 마이그레이션을 할 수 있었다. 18버전에서 오류가 발생하여 17버전으로 Helm Rollback을 한 경우에도 이미 데이터베이스 스키마가 망가져서 파이프라인 정보나 이런 것들도 조회가 되지 않았다. 아예 18버전으로 데이터 마이그레이션까지 해서 띄우는 것이 좋다.  
 
 이 후 권한이슈가 일부 있어서 Runner 설정을 변경했다. Runner는 Gitlab 과 분리하여 별도의 차트로 관리하게 하고 SA와 Role을 정리했다.  Role은 [문서](https://docs.gitlab.com/runner/executors/kubernetes/#informers) 참고.  

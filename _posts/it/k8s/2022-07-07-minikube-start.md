@@ -29,7 +29,7 @@ docker -v
 ```
 
 ### 2.2 Kubectl설치  
-Kubectl은 Kubernetes 클러스터 전체를 컨트롤히가 위한 User-Client이다. 
+Kubectl은 Kubernetes 클러스터 전체를 컨트롤하기 위한 User-Client이다. 
 ```bash
 curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
 chmod +x ./kubectl
@@ -81,7 +81,7 @@ NAME       STATUS   ROLES           AGE   VERSION   INTERNAL-IP    EXTERNAL-IP  
 minikube   Ready    control-plane   11m   v1.24.1   192.168.49.2   <none>        Ubuntu 20.04.4 LTS   5.10.118-111.515.amzn2.x86_64   docker://20.10.17
 ```
 
-1차 적으로는 해당 kubectl 커맨드가 가능한 것은 minikube 기동 시 홈 디렉토리 하위 .kube/config 파일의 설정이 자동으로 업데이트가 된다.  
+1차적으로는 해당 kubectl 커맨드가 가능한 것은 minikube 기동 시 홈 디렉토리 하위 .kube/config 파일의 설정이 자동으로 업데이트가 된다.  
 config에는 context정보가 설정이 된다. context 정보는 user + cluster 정보의 조합으로 구성된다. 
 
 user는 minikube 유저이며 /home/minikube/.minikube/profiles/minikube/client.crt 인증서 및 /home/minikube/.minikube/profiles/minikube/client.key 파일을 통해 로그인이 가능하다. 

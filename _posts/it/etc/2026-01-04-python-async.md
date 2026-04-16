@@ -69,7 +69,7 @@ async def process_three_requests():
     # 총 3초 소요 (동시 실행)
 ```
 
-여기서 헷갈리지 말아야하는 건(await 키워드를 붙인 동기 방식 사례) await 키워드를 붙여서 call_api_1, 2, 3 을 호출하더라도 call_api_1() 호출 중 다른일을 할 수 있을 때도 다른 coroutine 함수가 asyncio.gather 에 의해 묶이지 않았기 때문에 다른 coroutine 작업을 진행하지 않는다. 따라서, 기존 동기방식과 같이 9초가 걸린다. 따라서, `async def` 함수는 `await`와 함께 사용한다고 이해하면 좋다.  
+여기서 헷갈리지 말아야 하는 건(await 키워드를 붙인 동기 방식 사례) await 키워드를 붙여서 call_api_1, 2, 3 을 호출하더라도 call_api_1() 호출 중 다른일을 할 수 있을 때도 다른 coroutine 함수가 asyncio.gather 에 의해 묶이지 않았기 때문에 다른 coroutine 작업을 진행하지 않는다. 따라서, 기존 동기방식과 같이 9초가 걸린다. 따라서, `async def` 함수는 `await`와 함께 사용한다고 이해하면 좋다.  
 
 
 ```python

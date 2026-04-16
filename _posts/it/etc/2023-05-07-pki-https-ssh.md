@@ -5,6 +5,7 @@ author: "Bys"
 category: etc
 date: 2023-05-07 01:00:00
 tags: pki https ssh
+publish: false
 ---
 
 ### 1. HTTPS 인증 과정
@@ -19,7 +20,7 @@ tags: pki https ssh
      - Validity - 유효기간
      - Subject - 소유자의 정보, DN형식 
      - SubjectPublicKeyInfo - 소유자의 공개키
-3. Client는 브라우저에 내장된 CA의 공개키를 이용하여 Signature를 복호화 하므로써 이 인증서가 유효한 인증서인지를 확인 하게 됨
+3. Client는 브라우저에 내장된 CA의 공개키를 이용하여 Signature를 복호화함으로써 이 인증서가 유효한 인증서인지를 확인 하게 됨
 4. 유효한 인증서의 경우 Public key를 사용할 수 있으며 임시 대칭키를 하나 생성하여 Public key를 사용하여 암호화 진행
 5. 암호화된 대칭키를 서버로 전송
 6. 서버에서는 암호화된 대칭키를 Private key로 복호화 하여 대칭키를 확보 
