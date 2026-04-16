@@ -10,7 +10,7 @@ tags: ml decisiontreeclassifier supervisedlearning
 ## 머신러닝
 
 ### 머신러닝
-머신러닝의 지도학습에는 분류(Classifier)와 회귀(Regression)이 있다. 이 중 사이킷런(sklearn)의 DecisionTreeClassifier 를 통해 간다한게 분류가 무엇인지 살펴본다.  
+머신러닝의 지도학습에는 분류(Classifier)와 회귀(Regression)이 있다. 이 중 사이킷런(sklearn)의 DecisionTreeClassifier 를 통해 간단하게 분류가 무엇인지 살펴본다.  
 
 ### [DecisionTreeClassifier]()
 
