@@ -9,7 +9,7 @@ tags: aws vpc flow log insights
 ---
 
 
-## VPC Flog Logs Query
+## VPC Flow Logs Query
 
 - srcAddr, dstAddr, dstPort
 ```bash

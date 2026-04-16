@@ -6,7 +6,7 @@ category: cloud
 date: 2019-04-01 18:00:00
 tags: cloud aws
 ---
-AWS - Amazon Web Service
+AWS - Amazon Web Services
 
 --------------------
 
@@ -171,7 +171,7 @@ Amazon ELB - Elastic Load Balancing
 
 Amazon CloudFront - Amazon CloudFront
 
-웹 사이트, API, 도영상 콘텐츠 또는 기타 웹 자산의 전송을 가속화하는 CDN 서비스.
+웹 사이트, API, 동영상 콘텐츠 또는 기타 웹 자산의 전송을 가속화하는 CDN 서비스.
 
 
 

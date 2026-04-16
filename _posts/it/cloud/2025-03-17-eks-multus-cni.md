@@ -25,7 +25,7 @@ Multus CNI는 여러 네트워크 인터페이스를 파드에 연결할 수 있
 kubectl apply -f https://github.com/aws/amazon-vpc-cni-k8s/blob/master/config/multus/v4.1.4-eksbuild.3/multus-daemonset-thick.yml
 ```
 
-`ipvlcan configuration`
+`ipvlan configuration`
 이 manifest를 만들 때 master 에는 실제 인터페이스 (eth0, eht1, ens5, ens6) 를 지정해주어야 한다. `ip link show` 커맨드를 통해 확인할 수 있다.  
 ```yaml
 apiVersion: "k8s.cni.cncf.io/v1"

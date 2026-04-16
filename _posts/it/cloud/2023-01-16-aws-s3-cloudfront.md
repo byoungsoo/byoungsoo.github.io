@@ -16,7 +16,7 @@ tags: aws codecommit codebuild s3 cloudfront
 - 참고
 여기서는 node.js를 통해 진행하므로 node.js를 미리 설치한다. 자세한 내용은 기타 설치문서 참고.
     - brew install nvm
-    - nvm instasll v18.13.0
+    - nvm install v18.13.0
 
 ## 1. CodeCommit, CodeBuild 구성 
 
@@ -116,7 +116,7 @@ tags: aws codecommit codebuild s3 cloudfront
 2. S3는 내/외부 모두에서 접근이 가능하므로 Bucket Policy와 ACLs를 통해서 접근제어가 가능하다. 
 3. ACLs Disabled(AWS 권장)인 경우 Bucket Policy 만으로 접근 제어가 이루어진다.  
 4. S3의 Object Ownership는 ACLs의 사용여부에 따라 `ACLs Disabled -> Bucket owner enforced` / `ACLs Enabled -> Bucket owner preferred, Object writer`로 나뉜다. [Bucket Ownership](https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html)
-    - ACLs Disabled(AWS 권장)인 경우 무조건 Bucker의 소유계정이 모든 업로드된 Object에 대해 소유권을 가지게 되며 Object들에 대한 접근제어는 bucket policy 설정을 통해 제어한다.  
+    - ACLs Disabled(AWS 권장)인 경우 무조건 Bucket의 소유계정이 모든 업로드된 Object에 대해 소유권을 가지게 되며 Object들에 대한 접근제어는 bucket policy 설정을 통해 제어한다.  
     - ACLs Enabled인 경우 'Bucket owner preferred'와 'Object writer'로 Ownership을 선택할 수 있다.
     - 'Bucket owner preferred'가 설정되어있는 상황에서 다른 계정에서 `--acl bucket-owner-full-control` 옵션을 통해 bucket에 object를 쓰는 경우, bucket을 소유한 계정에서 새 객체를 소유하고 제어 할 수 있다. 
     - 'Object writer'가 설정되어있는 상황에서 다른 계정에서 업로드한 경우 object를 업로드한 writer가 소유권을 가진다. ACLs를 통해 Permission 부여는 가능하다.  

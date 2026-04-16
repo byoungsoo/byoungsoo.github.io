@@ -260,7 +260,7 @@ admin 접속 후 별도 User를 생성하여 사용한다.
 
 <br><br>
 
-## 2. Prometehus & Grafana 동작방식
+## 2. Prometheus & Grafana 동작방식
 
 ![prometheus-architecture004](/assets/it/cloud/eks/monitoring/prometheus-architecture004.png){: width="90%" height="auto"}  [Ref](https://mihai-albert.com/2022/02/13/out-of-memory-oom-in-kubernetes-part-3-memory-metrics-sources-and-tools-to-collect-them/)
 

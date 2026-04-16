@@ -9,7 +9,7 @@ tags: kiro
 ---
 
 
-## 1. [Kiro Dashbaord](https://kiro.dev/docs/cli/enterprise/monitor-and-track/dashboard/#dashboard-metrics)  
+## 1. [Kiro Dashboard](https://kiro.dev/docs/cli/enterprise/monitor-and-track/dashboard/#dashboard-metrics)  
 Kiro 대시보드에서는 Pro, Pro+, Power tier 별 총 구독자수, 활성화 된 구독자수 등 전체적인 지표를 보여준다. Organization 을 관리 하는 입장에서는 사용자별 사용량에 대한 파악이 어렵기 때문에 개별 사용자 레포트를 발행하여 확인할 필요가 있다.  
 
 

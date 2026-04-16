@@ -72,7 +72,7 @@ data:
 ```
 
 
-`Asoociate IAM OIDC to Cluster`  
+`Associate IAM OIDC to Cluster`  
 EKS OIDC 자격 증명 공급  
 ```bash
 eksctl utils associate-iam-oidc-provider --region=ap-northeast-2 --cluster=smp-dev-eks-cluster --approve

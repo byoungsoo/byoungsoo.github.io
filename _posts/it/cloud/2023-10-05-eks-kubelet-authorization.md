@@ -104,7 +104,7 @@ PolicyRule:
 <br>
 
 *그렇다면 Kubelet은 어떻게 KUBE-API 서버로 많은 권한을 가지고 요청을 할 수 있을까?*  
-아래는 Amazon EKS에서 API 서버의 feature를 확인해보면 EKS에서는 authorization-mode로 Node, RBACK, Webhook 3가지를 사용하는 것을 확인할 수 있다. 
+아래는 Amazon EKS에서 API 서버의 feature를 확인해보면 EKS에서는 authorization-mode로 Node, RBAC, Webhook 3가지를 사용하는 것을 확인할 수 있다. 
 **CloudWatch Logs Insights**  
 ```bash
 fields @message
@@ -193,10 +193,10 @@ PolicyRule:
     - https://github.com/kubernetes/kubernetes/blob/master/plugin/pkg/auth/authorizer/node/node_authorizer.go#L137
 
 
-즉 Kubelet은 CSR 생성 요청에 대해서만 RBAC을 사용하며 이 외에는 Node Authrozier 권한을 사용한다. 
+즉 Kubelet은 CSR 생성 요청에 대해서만 RBAC을 사용하며 이 외에는 Node Authorizer 권한을 사용한다. 
 
 
-그런데 Node Authroizer 권한을 사용하기 위해서는 반드시 system:node:<nodeName> 사용자 이름으로 system:nodes 그룹에 속한 Credential을 사용하여야지만 한다.  
+그런데 Node Authorizer 권한을 사용하기 위해서는 반드시 system:node:<nodeName> 사용자 이름으로 system:nodes 그룹에 속한 Credential을 사용하여야지만 한다.  
 In order to be authorized by the Node authorizer, kubelets must use a credential that identifies them as being in the system:nodes group, with a username of system:node:<nodeName>
 
 
