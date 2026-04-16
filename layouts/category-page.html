@@ -1,0 +1,20 @@
+{{ define "main" }}
+{{ $category := .Params.filter_category }}
+{{ $icon := .Params.category_icon }}
+{{ $subtitle := .Params.category_subtitle }}
+<div class="category-container">
+  <div class="category-header">
+    <h1>{{ $icon }} {{ .Title }}</h1>
+    <p>{{ $subtitle }}</p>
+  </div>
+  <div class="posts-grid">
+    {{ $catPages := where .Site.RegularPages "Params.category" $category }}
+    {{ range sort $catPages "Date" "desc" }}
+    <a href="{{ .RelPermalink }}" class="post-card">
+      <div class="post-title">{{ .Title }}</div>
+      <p class="post-date">{{ .Date.Format "2006년 01월 02일" }}</p>
+    </a>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

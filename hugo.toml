@@ -1,0 +1,51 @@
+baseURL = "https://byoungsoo.github.io"
+languageCode = "ko"
+title = "bys GithubPage"
+theme = ""
+summaryLength = 40
+
+[params]
+  author = "Byoungsoo"
+  description = "AWS, EKS, Kubernetes, MLOps, AI/ML 실무 경험을 정리하는 기술 블로그"
+  keywords = ["AWS", "EKS", "Kubernetes", "MLOps", "AI", "ML", "DevOps", "Cloud", "기술블로그"]
+  ga_tracking_id = "G-Y4MJ6RFLWJ"
+  logo = "/assets/logo.png"
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+
+[pagination]
+  pagerSize = 5
+
+[outputs]
+  home = ["HTML", "RSS"]
+  section = ["HTML", "RSS"]
+  taxonomy = ["HTML", "RSS"]
+  term = ["HTML", "RSS"]
+
+[permalinks]
+  [permalinks.page]
+    "it/cloud" = "/it/cloud/:slug/"
+    "it/k8s" = "/it/k8s/:slug/"
+    "it/ml" = "/it/ml/:slug/"
+    "it/solution" = "/it/solution/:slug/"
+    "it/etc" = "/it/etc/:slug/"
+    "it/command" = "/it/command/:slug/"
+    "it/network" = "/it/network/:slug/"
+    "it/algorithm" = "/it/algorithm/:slug/"
+    "book/dev" = "/book/dev/:slug/"
+    "book/os" = "/book/os/:slug/"
+
+[sitemap]
+  changefreq = "weekly"
+  priority = 0.5
+  filename = "sitemap.xml"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    style = "github"
+    lineNos = false

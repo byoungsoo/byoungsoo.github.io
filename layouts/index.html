@@ -1,0 +1,101 @@
+{{ define "main" }}
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="hero-content">
+    <h1>🚢</h1>
+    <p>"The more you know, the more you realize you don't know."</p>
+    <div class="hero-quote">
+      
+    </div>
+  </div>
+</section>
+
+<!-- Categories Section -->
+<section class="categories-section">
+  <div class="section-title">
+    <h2>✨주요 카테고리</h2>
+    <p>다양한 IT 기술 분야의 학습 내용을 정리하고 있습니다</p>
+  </div>
+  
+  <div class="categories-grid">
+    <a href="/category/it/cloud" class="category-card">
+      <span class="category-icon">☁️</span>
+      <h3>Cloud & AWS</h3>
+      <p>클라우드 기술과 AWS 서비스 활용법을 다룹니다</p>
+    </a>
+    
+    <a href="/category/it/k8s" class="category-card">
+      <span class="category-icon">☸️</span>
+      <h3>Kubernetes</h3>
+      <p>쿠버네티스 기술과 컨테이너 오케스트레이션을 학습합니다</p>
+    </a>
+    
+    <a href="/category/it/ml" class="category-card">
+      <span class="category-icon">🤖</span>
+      <h3>ML & Gen AI</h3>
+      <p>MLOps, 머신러닝, 생성형 AI 기술을 탐구합니다</p>
+    </a>
+
+    <a href="/category/it/solution" class="category-card">
+      <span class="category-icon">🔧</span>
+      <h3>Solutions</h3>
+      <p>다양한 솔루션에 대해 학습합니다</p>
+    </a>
+    
+    <a href="/category/book" class="category-card">
+      <span class="category-icon">📚</span>
+      <h3>독서 기록</h3>
+      <p>개발 및 기술 관련 도서 독서 기록을 남깁니다</p>
+    </a>
+  </div>
+</section>
+
+<!-- Recent Posts Section -->
+<section class="recent-posts">
+  <div class="section-title">
+    <h2>🚀최근 포스트</h2>
+    <p>최근에 작성한 글들을 확인해보세요</p>
+  </div>
+  
+  <div class="posts-preview">
+    {{ range first 6 .Site.RegularPages }}
+      <a href="{{ .RelPermalink }}" class="post-preview-card">
+        <div class="post-preview-title">{{ .Title }}</div>
+        <div class="post-preview-date">{{ .Date.Format "2006년 01월 02일" }}</div>
+        <div class="post-preview-excerpt">
+          {{ .Summary | plainify | truncate 120 }}
+        </div>
+      </a>
+    {{ end }}
+  </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-wrapper">
+  <div class="stats-section">
+    <div class="section-title">
+      <h2>📊 블로그 통계</h2>
+      <p>지금까지의 학습 여정을 숫자로 확인해보세요</p>
+    </div>
+    
+    <div class="stats-grid">
+      <div class="stat-item">
+        <span class="stat-number">{{ len .Site.RegularPages }}</span>
+        <div class="stat-label">총 포스트</div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">{{ len .Site.Taxonomies.categories }}</span>
+        <div class="stat-label">카테고리</div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">{{ len .Site.Taxonomies.tags }}</span>
+        <div class="stat-label">태그</div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">2019</span>
+        <div class="stat-label">시작 연도</div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}

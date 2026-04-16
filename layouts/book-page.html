@@ -1,0 +1,55 @@
+{{ define "main" }}
+<div class="reading-container">
+  <div class="reading-header">
+    <h1>📖 독서 기록</h1>
+    <p>My Reading Journey</p>
+  </div>
+  
+  <div class="books-grid">
+    {{ $books := .Site.Data.books }}
+    {{ if $books }}
+      {{ range $year, $yearBooks := $books }}
+        <div class="year-card">
+          <div class="year-title">
+            {{ $year }}
+            <span class="book-count">{{ len $yearBooks }}권</span>
+          </div>
+          <ul class="book-list">
+            {{ range $yearBooks }}
+              <li class="book-item">
+                <div class="book-title">{{ .title }}</div>
+                <div class="book-author">{{ .author }}</div>
+              </li>
+            {{ end }}
+          </ul>
+        </div>
+      {{ end }}
+    {{ else }}
+      <p>데이터를 불러올 수 없습니다.</p>
+    {{ end }}
+  </div>
+
+  {{ $books2 := .Site.Data.books }}
+  {{ if $books2 }}
+    {{ $totalBooks := 0 }}
+    {{ range $year, $yearBooks := $books2 }}
+      {{ $totalBooks = add $totalBooks (len $yearBooks) }}
+    {{ end }}
+    {{ $yearsCount := len $books2 }}
+    
+    <div class="stats-section">
+      <h2>📊 독서 통계</h2>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-number">{{ $totalBooks }}</span>
+          <div class="stat-label">총 읽은 책</div>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">{{ $yearsCount }}</span>
+          <div class="stat-label">독서 연도</div>
+        </div>
+      </div>
+    </div>
+  {{ end }}
+</div>
+{{ end }}

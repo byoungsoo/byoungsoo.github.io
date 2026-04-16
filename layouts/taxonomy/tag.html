@@ -1,0 +1,16 @@
+{{ define "main" }}
+<div class="category-container">
+  <div class="category-header">
+    <h1>🏷️ {{ .Title }}</h1>
+    <p>"{{ .Title }}" 태그가 달린 모든 포스트 목록</p>
+  </div>
+  <div class="posts-grid">
+    {{ range .Pages }}
+    <div class="post-card">
+      <a href="{{ .RelPermalink }}" class="post-title">{{ .Title }}</a>
+      <p class="post-date">{{ .Date.Format "2006년 01월 02일" }}</p>
+    </div>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

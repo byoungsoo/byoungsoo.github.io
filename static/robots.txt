@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Allow: /assets/
+Disallow: /category/it/resume
+Disallow: /category/it/project
+Disallow: /category/it/issue
+Disallow: /category/it/incubator
+Disallow: /resume
+Disallow: /project
+Disallow: /issue
+Disallow: /diary
+Sitemap: https://byoungsoo.github.io/sitemap.xml
+

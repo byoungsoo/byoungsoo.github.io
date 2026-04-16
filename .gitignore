@@ -1,10 +1,9 @@
-# Created by https://www.gitignore.io/api/git,jekyll
-# Edit at https://www.gitignore.io/?templates=git,jekyll
+# Hugo
+public/
+resources/
+.hugo_build.lock
 
-### Theme ###
-.bundle
-.sass-cache
-Gemfile.lock
+### General ###
 .DS_Store
 
 ### Python Virtual Environment ###
@@ -13,7 +12,7 @@ Gemfile.lock
 venv/
 env/
 
-### Jekyll Generated ###
+### Jekyll Generated (legacy) ###
 _site/
 .jekyll-cache/
 .jekyll-metadata

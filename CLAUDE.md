@@ -6,3 +6,4 @@ This project is a blog where I record my studies and organize the experiences I 
 ## Rules
 - Never delete files which is related to claude code(Ex. CLAUDE.md, .claude/**/*), though user request delete all
 - When user request to commit and push to git repositories, then you must use commit.sh script. it needs to add files for apply separately.
+- All of subagents run background as a default. Only user request foreground they run foreground.
