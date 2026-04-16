@@ -1,7 +1,6 @@
 baseURL = "https://byoungsoo.github.io"
 languageCode = "ko"
 title = "bys GithubPage"
-theme = ""
 summaryLength = 40
 
 [params]
