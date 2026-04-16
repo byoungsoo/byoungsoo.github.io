@@ -196,10 +196,7 @@
 }
 
 .post-content table {
-  display: block;
   width: 100%;
-  max-width: 100%;
-  overflow-x: auto;
   border-collapse: collapse;
   background: white;
   border-radius: 8px;
