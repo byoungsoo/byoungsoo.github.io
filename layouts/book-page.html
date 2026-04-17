@@ -8,7 +8,13 @@
   <div class="books-grid">
     {{ $books := .Site.Data.books }}
     {{ if $books }}
-      {{ range $year, $yearBooks := $books }}
+      {{ $years := slice }}
+      {{ range $year, $_ := $books }}
+        {{ $years = $years | append $year }}
+      {{ end }}
+      {{ range sort $years "value" "desc" }}
+        {{ $year := . }}
+        {{ $yearBooks := index $books $year }}
         <div class="year-card">
           <div class="year-title">
             {{ $year }}
