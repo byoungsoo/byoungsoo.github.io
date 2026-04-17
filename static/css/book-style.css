@@ -125,8 +125,9 @@
 }
 
 .stats-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 30px;
   max-width: 1000px;
   margin: 50px auto 0;
@@ -184,7 +185,6 @@
   }
   
   .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
     gap: 40px;
   }
   
