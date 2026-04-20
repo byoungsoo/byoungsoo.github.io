@@ -8,6 +8,7 @@ date: '2025-08-11 01:00:00'
 tags:
 - k8s
 title: Kubernetes - managed fields 이해하기
+description: "Kubernetes Server-Side Apply와 managed fields의 동작 원리. Client-Side Apply와의 차이점, 필드 소유권 충돌 해결 방법, 운영 환경에서 server-side apply를 안전하게 적용하는 방법을 설명합니다."
 ---
 
 

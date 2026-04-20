@@ -11,6 +11,7 @@ tags:
 - log
 - insights
 title: AWS Log Insights를 통한 EKS Control Plane로그 확인
+description: "AWS CloudWatch Log Insights를 활용하여 EKS Control Plane 로그를 쿼리하고 분석하는 방법. API Server, Scheduler, Controller Manager 로그 쿼리 예제와 트러블슈팅 활용 방법을 설명합니다."
 ---
 
 

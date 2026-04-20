@@ -10,6 +10,7 @@ tags:
 - kubecost
 - monitoring
 title: Kubecost를 통한 EKS 비용계산
+description: "Kubecost를 EKS에 설치하여 Kubernetes 리소스 비용을 실시간으로 모니터링하는 방법. 네임스페이스, 워크로드별 비용 분석, 비용 최적화 인사이트 확인 방법을 실습 예제와 함께 설명합니다."
 ---
 
 

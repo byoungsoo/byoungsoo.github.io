@@ -10,6 +10,7 @@ tags:
 - ipv6
 - snat
 title: EKS VPC CNI 환경에서 IPv4, IPv6 파드의 SNAT와 통신
+description: "EKS VPC CNI 환경에서 IPv4, IPv6 파드의 네트워크 통신 동작 원리. SNAT 설정과 AWS_VPC_K8S_CNI_EXTERNALSNAT 옵션에 따른 트래픽 흐름 차이를 케이스별로 분석합니다."
 ---
 
 

@@ -9,6 +9,7 @@ tags:
 - codedeploy
 - deployment
 title: EC2 Blue/Green 배포 실패 시 생성된 ASG 자동 삭제 방법
+description: "AWS CodeDeploy EC2 Blue/Green 배포 실패 시 남겨지는 ASG를 자동 삭제하는 아키텍처. CodeDeploy 트리거, SNS, Lambda를 연동해 배포 실패 후 불필요한 Auto Scaling Group을 자동으로 정리하는 방법을 설명합니다."
 ---
 
 

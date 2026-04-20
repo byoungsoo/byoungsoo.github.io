@@ -10,6 +10,7 @@ tags:
 - karpenter
 - autoscaling
 title: EKS Karpenter를 통한 Autoscaling
+description: "AWS EKS에서 Karpenter를 사용한 노드 자동 프로비저닝 설정 방법. Cluster Autoscaler 대비 Karpenter의 장점, NodePool과 EC2NodeClass 설정, 스케줄링 전략을 실습 예제와 함께 설명합니다."
 ---
 
 

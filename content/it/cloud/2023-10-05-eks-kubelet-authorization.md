@@ -11,6 +11,7 @@ tags:
 - kubelet
 - authorization
 title: EKS kubelet의 권한과 Node Authorization
+description: "EKS kubelet의 권한 구조와 Node Authorization 동작 방식 심층 분석. kubelet이 kubeconfig를 통해 API 서버와 통신하는 과정, Node Authorizer의 RBAC 권한 제어 원리를 설명합니다."
 ---
 
 

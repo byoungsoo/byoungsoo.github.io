@@ -9,6 +9,7 @@ tags:
 - multus
 - eks
 title: EKS multus CNI
+description: "AWS EKS에서 Multus CNI를 사용해 파드에 다중 네트워크 인터페이스를 연결하는 방법. EKS 설치 가이드, NetworkAttachmentDefinition 설정, 멀티 NIC 파드 구성 실습 예제를 설명합니다."
 ---
 
 

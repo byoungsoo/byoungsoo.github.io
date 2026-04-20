@@ -13,6 +13,7 @@ tags:
 - authentication
 - authorization
 title: EKS IAM Authentication and RBAC (EKS 인증 및 인가 과정 Dive Deep)
+description: "EKS IAM 인증과 RBAC 인가 과정을 심층 분석. aws-iam-authenticator, aws-auth ConfigMap, EKS Access Entry 동작 원리와 사용자/역할 권한 설정 방법을 단계별로 설명합니다."
 ---
 
 

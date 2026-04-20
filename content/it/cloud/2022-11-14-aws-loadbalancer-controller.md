@@ -11,6 +11,7 @@ tags:
 - ingress
 - alb
 title: AWS Load Balancer Controller를 통한 ELB 사용하기
+description: "AWS Load Balancer Controller를 EKS에 설치하고 ALB Ingress와 NLB Service를 생성하는 방법. IRSA 설정, IngressClass 구성, 주요 어노테이션 사용법을 실습 예제와 함께 설명합니다."
 ---
 
 

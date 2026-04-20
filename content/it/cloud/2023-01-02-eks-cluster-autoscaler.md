@@ -10,6 +10,7 @@ tags:
 - eks
 - autoscaling
 title: EKS Cluster Autoscaler를 통한 노드 Autoscaling
+description: "AWS EKS에서 Cluster Autoscaler를 통한 워커노드 자동 확장 설정 방법. IAM 권한 설정, Helm 배포, Auto Scaling Group 연동 방법과 동작 원리를 실습 예제와 함께 설명합니다."
 ---
 
 

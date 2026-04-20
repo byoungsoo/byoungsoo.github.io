@@ -10,6 +10,7 @@ tags:
 - deployment
 - workflow
 title: Kubernetes Deployment생성 Workflow
+description: "Kubernetes에서 Deployment 생성 시 내부 동작 흐름을 단계별로 분석. API Server, etcd, Controller Manager, Scheduler, kubelet 간의 통신 과정과 리소스 생성 워크플로우를 로그와 함께 설명합니다."
 ---
 
 

@@ -9,6 +9,7 @@ tags:
 - argocd
 - deployment
 title: Argocd Rollout 과 ALB(AWS Load Balancer Controller)를 통해 Blue/Green 배포 하기
+description: "ArgoCD Rollout과 AWS ALB를 연동하여 Kubernetes에서 Blue/Green 배포를 구현하는 방법. Rollout 오브젝트 설정, TargetGroup 전환 전략, 트래픽 가중치 조절 방법을 실습 예제와 함께 설명합니다."
 ---
 
 

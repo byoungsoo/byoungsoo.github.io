@@ -12,6 +12,7 @@ tags:
 - csi
 - controller
 title: EBS CSI driver를 통한 EBS PersistentVolume 사용하기
+description: "AWS EKS에서 EBS CSI Driver를 설치하고 PersistentVolume을 동적으로 프로비저닝하는 방법. StorageClass 설정, PVC 생성, 스냅샷 기능 사용법을 실습 예제와 함께 설명합니다."
 ---
 
 

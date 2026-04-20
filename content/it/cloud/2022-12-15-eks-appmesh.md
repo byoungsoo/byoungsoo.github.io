@@ -11,6 +11,7 @@ tags:
 - appmesh
 - controller
 title: EKS AppMesh 적용하기
+description: "AWS App Mesh를 EKS에 적용하여 서비스 메시를 구성하는 방법. App Mesh Controller 설치, VirtualNode, VirtualService, VirtualRouter 설정, Envoy 사이드카 주입 방법을 실습 예제와 함께 설명합니다."
 ---
 
 

@@ -12,6 +12,7 @@ tags:
 - log
 - insights
 title: AWS Log Insights를 CloudWatch Logs 확인
+description: "AWS CloudWatch Log Insights를 사용한 VPC Flow Logs 쿼리 및 분석 방법. VPC 트래픽 패턴 분석, 보안 이슈 탐지, 네트워크 트러블슈팅을 위한 실용적인 쿼리 예제를 설명합니다."
 ---
 
 

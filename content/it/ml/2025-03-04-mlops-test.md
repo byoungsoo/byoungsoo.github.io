@@ -8,6 +8,7 @@ date: '2025-03-04 01:00:00'
 tags:
 - mlops
 title: MLOps - Model 빌드/배포 및 테스트
+description: "MLOps 파이프라인으로 ML 모델을 빌드하고 배포하는 전체 과정. JupyterLab에서 DecisionTreeClassifier 모델 학습, MLflow로 실험 추적, MinIO 저장, Seldon으로 서빙하는 엔드투엔드 실습을 설명합니다."
 ---
 
 

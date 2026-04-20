@@ -9,6 +9,7 @@ tags:
 - terraform
 - vpc
 title: Terraform 사용법, Terraform을 통해 VPC 구성하기
+description: "Terraform을 사용하여 AWS VPC를 Infrastructure as Code로 구성하는 방법. Terraform 기본 명령어, HCL 문법, VPC, 서브넷, 라우팅 테이블 설정 방법을 실습 예제와 함께 설명합니다."
 ---
 
 

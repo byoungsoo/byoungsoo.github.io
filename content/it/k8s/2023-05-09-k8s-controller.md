@@ -9,6 +9,7 @@ tags:
 - kubernetes
 - controller
 title: Kubernetes Controller
+description: "Kubernetes Controller의 동작 원리와 종류. Control Loop의 개념, ReplicaSet, Deployment, StatefulSet 컨트롤러의 역할, kube-controller-manager에서의 컨트롤러 실행 방식을 설명합니다."
 ---
 
 

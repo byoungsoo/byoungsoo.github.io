@@ -9,6 +9,7 @@ tags:
 - kubernetes
 - node
 title: kubernetes CSI Driver
+description: "Kubernetes CSI(Container Storage Interface) Driver의 동작 원리와 구조. Storage Provider 플러그인 개발 표준, CSI Node Plugin, Controller Plugin의 역할과 PersistentVolume 프로비저닝 흐름을 설명합니다."
 ---
 
 

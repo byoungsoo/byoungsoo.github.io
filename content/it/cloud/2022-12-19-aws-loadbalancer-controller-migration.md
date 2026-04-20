@@ -11,6 +11,7 @@ tags:
 - controller
 - migration
 title: EKS AWS load balancer controller migration(v1->v2)
+description: "EKS에서 AWS Load Balancer Controller v1에서 v2로 무중단 마이그레이션하는 방법. 기존 ALB 유지, 어노테이션 변경 사항, 마이그레이션 절차와 주의사항을 단계별로 설명합니다."
 ---
 
 

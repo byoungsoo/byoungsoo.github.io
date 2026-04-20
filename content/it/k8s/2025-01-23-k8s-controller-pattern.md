@@ -10,6 +10,7 @@ tags:
 - pattern
 - controller
 title: kubernetes Controller Pattern
+description: "Kubernetes Controller 패턴의 동작 원리와 구현 방법. Control Loop, Desired State와 Current State 개념, Informer와 WorkQueue를 활용한 커스텀 컨트롤러 개발 패턴을 설명합니다."
 ---
 
 

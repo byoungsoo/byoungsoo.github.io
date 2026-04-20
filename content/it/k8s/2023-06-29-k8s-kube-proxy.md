@@ -10,6 +10,7 @@ tags:
 - node
 - iptables
 title: Kubernetes kube-proxy 알아보기
+description: "Kubernetes kube-proxy의 동작 원리와 iptables 규칙 관리 방법. 서비스 트래픽 라우팅, iptables/ipvs 모드 비교, 실제 네트워크 패킷 흐름 분석을 통해 kube-proxy를 심층 분석합니다."
 ---
 
 

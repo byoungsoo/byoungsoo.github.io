@@ -12,6 +12,7 @@ tags:
 - workflow
 - designpattern
 title: Agentic Systems - 5 workflow design patterns
+description: "AI 에이전트 시스템의 5가지 워크플로우 디자인 패턴 설명. Prompt Chaining, Routing, Parallelization, Orchestrator-Subagents, Evaluator-Optimizer 패턴의 동작 방식과 적용 사례를 설명합니다."
 ---
 
 

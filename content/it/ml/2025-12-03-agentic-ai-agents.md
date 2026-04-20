@@ -12,6 +12,7 @@ tags:
 - workflow
 - designpattern
 title: Agentic Systems - Agents
+description: "AI Agent 시스템의 구조와 동작 원리 설명. LLM 기반 에이전트의 Perception, Memory, Action 구성 요소와 도구 호출, 멀티 에이전트 협업 패턴을 실제 예제와 함께 설명합니다."
 ---
 
 

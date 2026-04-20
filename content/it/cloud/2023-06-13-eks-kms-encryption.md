@@ -11,6 +11,7 @@ tags:
 - kms
 - secret
 title: EKS KMS를 통한 암호화
+description: "EKS에서 AWS KMS를 사용해 Kubernetes Secret을 암호화하는 방법. etcd 저장 데이터 암호화 설정, KMS Key 생성과 클러스터 연동 방법, Envelope Encryption 동작 원리를 설명합니다."
 ---
 
 

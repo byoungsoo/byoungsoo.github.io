@@ -9,6 +9,7 @@ tags:
 - mlops
 - seldon
 title: MLOps - Seldon Core Operator
+description: "MLOps에서 Seldon Core Operator를 이용한 ML 모델 서빙 환경 구축. Kubernetes에서 Seldon Core 설치, SeldonDeployment 설정, 모델 배포 및 A/B 테스트 방법을 설명합니다."
 ---
 
 

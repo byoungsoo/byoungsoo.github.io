@@ -11,6 +11,7 @@ tags:
 - gitlab-runner
 - helm
 title: Gitlab, Gitlab-Runner 를 Kubernetes 환경으로 전환하기
+description: "Docker Compose 기반 Gitlab을 Kubernetes 환경으로 마이그레이션하는 방법. Helm을 통한 Gitlab 설치, Gitlab-Runner 설정, CI/CD 파이프라인 구성 방법을 단계별로 설명합니다."
 ---
 
 

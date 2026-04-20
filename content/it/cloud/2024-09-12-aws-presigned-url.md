@@ -8,6 +8,7 @@ date: '2024-09-12 01:00:00'
 tags:
 - aws
 title: AWS Presigned URL
+description: "AWS Presigned URL의 동작 원리와 SigV4 서명 과정. S3 파일을 인증 없이 일시적으로 공유하는 방법과 Presigned URL 생성 실습 예제, 보안 고려사항을 설명합니다."
 ---
 
 

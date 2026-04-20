@@ -9,6 +9,7 @@ tags:
 - codedeploy
 - deployment
 title: CodeDeploy 배포와 관련된 모든 것
+description: "AWS CodeDeploy를 활용한 EC2 배포의 모든 것. AppSpec 파일 구조, 배포 훅(Hook) 설정, In-place와 Blue/Green 배포 방식 차이, 트러블슈팅 방법을 상세히 설명합니다."
 ---
 
 

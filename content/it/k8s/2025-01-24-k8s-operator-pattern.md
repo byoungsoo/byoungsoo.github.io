@@ -10,6 +10,7 @@ tags:
 - pattern
 - operator
 title: kubernetes Operator
+description: "Kubernetes Operator 패턴의 개념과 구현 방법. CRD(Custom Resource Definition)와 Custom Controller를 결합한 Operator 설계 원리, Operator SDK 활용 방법을 설명합니다."
 ---
 
 

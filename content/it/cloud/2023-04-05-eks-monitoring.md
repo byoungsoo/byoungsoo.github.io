@@ -11,6 +11,7 @@ tags:
 - grafana
 - monitoring
 title: Prometheus와 Grafana를 이용한 EKS 모니터링
+description: "EKS 클러스터에 Prometheus와 Grafana를 설치하여 모니터링 환경을 구축하는 방법. Helm을 통한 kube-prometheus-stack 설치, 대시보드 설정, 알람 규칙 구성 방법을 설명합니다."
 ---
 
 
