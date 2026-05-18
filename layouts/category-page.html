@@ -8,7 +8,7 @@
     <p>{{ $subtitle }}</p>
   </div>
   <div class="posts-grid">
-    {{ $catPages := where .Site.RegularPages "Params.category" $category }}
+    {{ $catPages := where .Site.RegularPages "Params.categories" "in" $category }}
     {{ range sort $catPages "Date" "desc" }}
     <a href="{{ .RelPermalink }}" class="post-card">
       <div class="post-title">{{ .Title }}</div>
