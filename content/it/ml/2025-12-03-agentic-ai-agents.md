@@ -3,7 +3,6 @@ slug: agentic-ai-agents
 author: Bys
 categories:
 - ml
-category: ml
 date: '2025-12-03 01:00:00'
 keywords: agentic ai
 tags:

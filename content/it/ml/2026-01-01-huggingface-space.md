@@ -3,7 +3,6 @@ slug: huggingface-space
 author: Bys
 categories:
 - ml
-category: ml
 date: '2026-01-01 01:00:00'
 keywords: tool, ai, llm huggingface
 tags:

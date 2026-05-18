@@ -3,7 +3,6 @@ slug: Openstack-Heat
 author: Bys
 categories:
 - cloud
-category: cloud
 date: '2022-03-19 01:00:00'
 draft: true
 tags:

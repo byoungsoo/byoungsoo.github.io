@@ -3,7 +3,6 @@ slug: Openstack-AODH
 author: Bys
 categories:
 - cloud
-category: cloud
 date: '2022-02-11 01:00:00'
 tags:
 - openstack

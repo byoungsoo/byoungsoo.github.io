@@ -3,7 +3,6 @@ slug: eks-monitoring
 author: Bys
 categories:
 - cloud
-category: cloud
 date: '2023-04-05 01:00:00'
 tags:
 - eks

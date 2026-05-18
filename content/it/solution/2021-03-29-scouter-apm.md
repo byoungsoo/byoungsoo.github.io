@@ -3,7 +3,6 @@ slug: scouter-apm
 author: Bys
 categories:
 - solution
-category: solution
 date: '2021-03-29 01:00:00'
 tags:
 - apm

@@ -3,7 +3,6 @@ slug: k8s-cluster-setup
 author: Bys
 categories:
 - k8s
-category: k8s
 date: '2022-07-18 01:00:00'
 tags:
 - kubernetes

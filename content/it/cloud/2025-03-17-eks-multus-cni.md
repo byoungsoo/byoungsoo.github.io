@@ -3,7 +3,6 @@ slug: eks-multus-cni
 author: Bys
 categories:
 - cloud
-category: cloud
 date: '2025-03-17 01:00:00'
 tags:
 - multus

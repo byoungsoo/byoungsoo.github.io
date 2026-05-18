@@ -3,7 +3,6 @@ slug: eks-vpc-cni
 author: Bys
 categories:
 - cloud
-category: cloud
 date: '2024-01-25 01:00:00'
 tags:
 - kubernetes

@@ -3,7 +3,6 @@ slug: lang-graph
 author: Bys
 categories:
 - ml
-category: ml
 date: '2026-04-06 01:00:00'
 draft: true
 keywords: keyword1, keyword2, keyword3

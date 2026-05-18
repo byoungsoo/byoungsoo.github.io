@@ -3,7 +3,6 @@ slug: pki-https-ssh
 author: Bys
 categories:
 - etc
-category: etc
 date: '2023-05-07 01:00:00'
 tags:
 - pki

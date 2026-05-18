@@ -3,7 +3,6 @@ slug: eks-ipv4-ipv6-network
 author: Bys
 categories:
 - cloud
-category: cloud
 date: '2024-07-18 01:00:00'
 tags:
 - ipv4

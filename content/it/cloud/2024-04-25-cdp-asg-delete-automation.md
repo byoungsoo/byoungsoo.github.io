@@ -3,7 +3,6 @@ slug: cdp-asg-delete-automation
 author: Bys
 categories:
 - cloud
-category: cloud
 date: '2024-04-25 01:00:00'
 tags:
 - codedeploy

@@ -3,7 +3,6 @@ slug: minikube-start
 author: Bys
 categories:
 - k8s
-category: k8s
 date: '2022-07-07 01:00:00'
 tags:
 - kubernetes

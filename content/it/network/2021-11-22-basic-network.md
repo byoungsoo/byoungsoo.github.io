@@ -3,7 +3,6 @@ slug: basic-network
 author: Bys
 categories:
 - network
-category: network
 date: '2021-11-22 01:00:00'
 tags:
 - network

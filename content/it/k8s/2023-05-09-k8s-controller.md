@@ -3,7 +3,6 @@ slug: k8s-controller
 author: Bys
 categories:
 - k8s
-category: k8s
 date: '2023-05-09 01:00:00'
 tags:
 - kubernetes

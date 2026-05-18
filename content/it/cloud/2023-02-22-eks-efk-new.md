@@ -3,7 +3,6 @@ slug: eks-efk-new
 author: Bys
 categories:
 - cloud
-category: cloud
 date: '2023-02-22 01:00:00'
 tags:
 - eks

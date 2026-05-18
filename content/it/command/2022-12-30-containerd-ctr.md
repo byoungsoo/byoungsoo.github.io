@@ -3,7 +3,6 @@ slug: containerd-ctr
 author: Bys
 categories:
 - command
-category: command
 date: '2022-12-30 01:00:00'
 tags:
 - cli

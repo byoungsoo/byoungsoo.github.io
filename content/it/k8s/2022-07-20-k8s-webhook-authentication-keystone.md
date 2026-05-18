@@ -3,7 +3,6 @@ slug: k8s-webhook-authentication-keystone
 author: Bys
 categories:
 - k8s
-category: k8s
 date: '2022-07-20 01:00:00'
 tags:
 - kubernetes

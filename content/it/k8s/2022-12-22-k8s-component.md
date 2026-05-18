@@ -3,7 +3,6 @@ slug: k8s-component
 author: Bys
 categories:
 - k8s
-category: k8s
 date: '2022-12-22 01:00:00'
 tags:
 - kubernetes

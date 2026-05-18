@@ -3,7 +3,6 @@ slug: agentic-ai-workflow
 author: Bys
 categories:
 - ml
-category: ml
 date: '2025-12-02 01:00:00'
 keywords: agentic ai
 tags:

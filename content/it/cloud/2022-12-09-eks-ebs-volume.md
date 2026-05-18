@@ -3,7 +3,6 @@ slug: eks-ebs-volume
 author: Bys
 categories:
 - cloud
-category: cloud
 date: '2022-12-09 01:00:00'
 tags:
 - kubernetes

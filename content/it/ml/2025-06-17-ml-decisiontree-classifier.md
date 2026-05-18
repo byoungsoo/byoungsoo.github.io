@@ -3,7 +3,6 @@ slug: ml-decisiontree-classifier
 author: Bys
 categories:
 - ml
-category: ml
 date: '2025-06-17 01:00:00'
 tags:
 - ml

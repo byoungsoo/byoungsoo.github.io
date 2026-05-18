@@ -3,7 +3,6 @@ slug: clean-architecture-004
 author: Bys
 categories:
 - dev
-category: dev
 date: '2022-02-12 01:00:00'
 tags:
 - book

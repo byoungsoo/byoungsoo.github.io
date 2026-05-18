@@ -3,7 +3,6 @@ slug: headfirst-design-pattern-001
 author: Bys
 categories:
 - dev
-category: dev
 date: '2022-05-10 01:00:00'
 tags:
 - book

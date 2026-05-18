@@ -3,7 +3,6 @@ slug: claude-code
 author: Bys
 categories:
 - ml
-category: ml
 date: '2026-04-14 01:00:00'
 draft: false
 keywords: claude
@@ -34,14 +33,18 @@ Claude는 자율적으로 작업하지만 우리의 작업에 항상 반응한�
 
 ## 세션 작업
 
-Claude Code는 작업하면서 대화를 로컬에 저장한다.  JSONL 파일에 기록되어 되감기, 재개, 포크가 가능하다.  
+Claude Code는 작업하면서 대화를 로컬에 저장한다.  JSONL 파일에 기록되어 되감기, 재개, 포크가 가능하다. 활성 세션 내에서는 `/resume`을 사용하여 다른 대화로 전환할 수 있다. 세션을 시작할 때는 나중에 찾을 수 있도록 세션 이름을 지정하는 것이 좋다. 
 ```bash
 # claude code 대화 기록
 ~/.claude/projects/
 
+# 세션 이름과 함께 세션 시작. 활성 세션에서는 /renmae 으로가능
+claude -n auth-refactor
+
 # 세션 재개 (동일 session id)
 claude --continue
 claude --resume
+
 
 # 원래 세션에 영향을 주지 않은 신규 세션 생성
 claude --continue --fork-session
@@ -53,7 +56,7 @@ claude --continue --fork-session
 
 ## 컨텍스트
 Claude의 컨텍스트 윈도우에는 대화 이력, 파일 내용, 명령 출력, CLAUDE.md, 자동 메모리, 로드된 Skills, 시스템 지침이 모두 포함된다. Subagent가 자체 별도 context window에서 조사를 처리한 것에 대해서는 컨텍스트에 남지 않는다. 요약과 작은 메타데이터 정보만 돌아온다.  
-Claude Code는 한계에 가까워지면 자동으로 컨텍스트를 관리한다. 영구 규칙은 CLAUDE.md에 넣어야 한다.  
+Claude Code는 한계에 가까워지면 자동으로 컨텍스트를 관리한다. **영구 규칙은 CLAUDE.md에 넣어야 한다.**  
 
 압축 중 보존할 내용을 제어하려면 CLAUDE.md에 "Compact Instructions" 섹션을 추가하거나 /compact를 포커스와 함께 실행할 수 있다. (예: `/compact focus on the API changes`).
 ```bash
@@ -286,16 +289,97 @@ paths:
 - ~/.claude/rules/의 개인 규칙은 machine의 모든 프로젝트에 적용된다.  
 
 
+<br>
+
+## Extended thinking 사용
+확장 사고는 기본적으로 활성화되어 있으며 Claude에게 응답하기 전에 복잡한 문제를 단계별로 추론할 공간을 제공한다. 추론은 verbose 모드에서 볼 수 있으며, Ctrl+O로 토글할 수 있다. 확장 사고는 복잡한 아키텍처 결정, 어려운 버그, 다단계 구현 계획, 다양한 접근 방식 간의 트레이드오프 평가에 특히 유용하다. 
+thinking mode는 기본적으로 활성화 되어 있으며 비활성화 할 수 있다.  
+
+확장 사고는 Cluade가 응답하기 전에 수행하는 내부 추론의 양을 제어한다. 더 많은 사고(thinking)는 솔루션을 탐색하고, 엣지 케이스를 분석하고, 실수에 대해 self-correct 하기 위한 더 많은 공간을 제공한다. Effort를 지원하는 모델에서 사고는 적응형 추론을 사용한다. 모델이 선택한 effort 레벨에 따라 사고 토큰을 동적으로 할당한다.  
+
+토큰 제어 방법
+- 끄기: /config 또는 Option+T 토글
+- 예산 제한: MAX_THINKING_TOKENS 환경변수
+- 고정 예산 강제: CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING=1 (Sonnet 4.6, Opus 4.6만)
+
+
+| 모델 | 사고 방식 |
+|------|----------|
+| Opus 4.7 | 항상 **적응형 추론** (고정 예산 불가) |
+| Sonnet 4.6, Opus 4.6 | 적응형 추론 기본, 고정 예산으로 변경 가능 |
+| 이전 모델 | 고정 토큰 예산 |
+
+<br>
+
+## [Claude로 부터 알림 받기](https://code.claude.com/docs/en/common-workflows#get-notified-when-claude-needs-your-attention)  
+장시간 실행되는 작업을 시작하고 다른 창으로 전환할 때, Cluade가 완료되거나 입력이 필요할 때 알 수 있도록 데스크톱 알람을 설정할 수 있다. **Notification*** 훅 이벤트를 사용하며, Cluade가 권한을 기다리거나, 유후 상태로 새 프롬프트를 기다리거나, 인증을 완료할 때 발생한다.  
+~/.claude/settings.json 파일에 Notification 훅을 추가한다.  
+```json
+{
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "osascript -e 'display notification \"Claude Code needs your attention\" with title \"Claude Code\"'"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+이렇게 설정하면 훅은 모든 알림 유형에 대해 발생하며, 특정 이벤트에서만 발생하도록 하려면 `matcher` 필드를 아래 중 하나로 설정해야 한다.  
+| Matcher | 발생 시점 |
+|---------|-----------|
+| `permission_prompt` | Claude가 도구 사용을 승인해야 할 때 |
+| `idle_prompt` | Claude가 완료되고 다음 프롬프트를 기다릴 때 |
+| `auth_success` | 인증이 완료될 때 |
+| `elicitation_dialog` | Claude가 질문을 할 때 |
+
+```json
+{
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "idle_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "osascript -e 'display notification \"Claude Code needs your attention\" with title \"Claude Code\"'"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+전체 이벤트 스키마와 알림 유형에 대해서는 [Notification 참조](https://code.claude.com/docs/en/hooks#notification)
+
+<br>
+
+## 스케줄에 따라 Claude 실행
+
+| 옵션 | 실행 위치 | 적합한 용도 |
+|------|-----------|-------------|
+| [Routines](https://code.claude.com/docs/en/routines) | Anthropic-managed infrastructure | 컴퓨터가 꺼져 있어도 실행되어야 하는 작업. 스케줄 외에 API 호출이나 GitHub 이벤트로도 트리거 가능. [claude.ai/code/routines](https://claude.ai/code/routines)에서 구성. |
+| [Desktop scheduled tasks](https://code.claude.com/docs/en/desktop-scheduled-tasks) | Your machine, via the desktop app | 로컬 파일, 도구, 또는 커밋되지 않은 변경 사항에 직접 접근해야 하는 작업. |
+| [GitHub Actions](https://code.claude.com/docs/en/github-actions) | Your CI pipeline | 열린 PR과 같은 저장소 이벤트에 연결된 작업, 또는 워크플로우 설정과 함께 있어야 하는 cron 스케줄. |
+| [`/loop`](https://code.claude.com/docs/en/scheduled-tasks) | The current CLI session | 세션이 열려 있는 동안의 빠른 폴링. 새 대화를 시작하면 작업이 중지됩니다; `--resume`과 `--continue`로 만료되지 않은 것을 복원합니다. |
 
 ## 효율적인 사용법
-#### Give Claude something to verify against  
+### Give Claude something to verify against  
 Claude는 자체적으로 작업을 확인할 수 있을 때 더 잘 동작한다. 테스트 케이스를 포함하거나, 예상 UI의 스크린샷을 붙여넣거나, 원하는 출력을 정의하면 좋다.  
 ```
 validateEmail을 구현해줘. 테스트 케이스: 'user@example.com' → true,
 'invalid' → false, 'user@.com' → false. 테스트도 실행해줘.
 ```
 
-#### Explore before implementing
+### Explore before implementing
 
 복잡한 문제의 경우 조사와 코딩을 분리하세요. 계획 모드(Shift+Tab 두 번)를 사용하여 먼저 코드베이스를 분석하세요:
 
@@ -304,12 +388,44 @@ src/auth/를 읽고 세션 처리 방식을 이해해줘.
 그다음 OAuth 지원 추가 계획을 만들어줘.
 ```
 
-#### Delegate, don’t dictate(지시하지 말고 위임하기)  
+### Delegate, don’t dictate(지시하지 말고 위임하기)  
 컨텍스트와 방향을 주고, 세부 사항은 Claude를 믿으세요:
 ```
 만료된 카드를 가진 사용자의 결제 흐름이 깨졌어.
 관련 코드는 src/payments/에 있어. 조사하고 수정해줄 수 있어?
 ```  
+
+### Image
+
+다음 방법 중 하나를 사용해 이미지 작업을 할 수 있다:
+1. Claude Code 창에 이미지를 드래그 앤 드롭
+2. 이미지를 복사하고 CLI에 ctrl+v로 붙여넣기 (Mac: cmd + v)
+3. Claude에게 이미지 경로 제공. 예: "Analyze this image: /path/to/your/image.png"
+
+### File & Directory
+@를 사용하여 Claude가 파일을 읽을 때까지 기다리지 않고 빠르게 파일이나 디렉토리를 포함할 수 있다.
+
+```bash
+# 단일 파일 참조
+Explain the logic in @src/utils/auth.js
+
+# 디렉토리 참조
+What's the structure of @src/components?
+```
+
+### Pipe data through Claude
+```bash
+cat build-error.txt | claude -p 'concisely explain the root cause of this build error' > output.txt
+
+cat data.txt | claude -p 'summarize this data' --output-format text > summary.txt
+
+cat code.py | claude -p 'analyze this code for bugs' --output-format json > analysis.json
+
+cat log.txt | claude -p 'parse this log file for errors' --output-format stream-json
+```
+
+
+
 
 <br>
 

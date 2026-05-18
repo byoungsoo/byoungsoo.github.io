@@ -3,7 +3,6 @@ slug: argocd-rollout-blue-green
 author: Bys
 categories:
 - solution
-category: solution
 date: '2025-04-07 01:00:00'
 tags:
 - argocd

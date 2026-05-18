@@ -3,7 +3,6 @@ slug: mlops-test
 author: Bys
 categories:
 - ml
-category: ml
 date: '2025-03-04 01:00:00'
 tags:
 - mlops

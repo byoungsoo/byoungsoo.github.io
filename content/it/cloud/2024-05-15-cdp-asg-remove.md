@@ -3,7 +3,6 @@ slug: cdp-asg-remove
 author: Bys
 categories:
 - incubator
-category: incubator
 date: '2024-05-15 01:00:00'
 tags:
 - incubator

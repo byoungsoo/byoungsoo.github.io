@@ -3,7 +3,6 @@ slug: cloud-overview
 author: Bys
 categories:
 - cloud
-category: cloud
 date: '2019-04-05 18:00:00'
 tags:
 - cloud

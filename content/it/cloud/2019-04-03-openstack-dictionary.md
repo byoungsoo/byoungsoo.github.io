@@ -3,7 +3,6 @@ slug: openstack-dictionary
 author: Bys
 categories:
 - cloud
-category: cloud
 date: '2019-04-03 18:00:00'
 tags:
 - cloud

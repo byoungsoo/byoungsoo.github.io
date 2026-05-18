@@ -3,7 +3,6 @@ slug: spring-framework-004
 author: Bys
 categories:
 - dev
-category: dev
 date: '2022-03-20 01:00:00'
 tags:
 - book

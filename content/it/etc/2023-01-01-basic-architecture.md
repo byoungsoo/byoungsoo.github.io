@@ -3,7 +3,6 @@ slug: basic-architecture
 author: Bys
 categories:
 - incubator
-category: incubator
 date: '2023-01-01 01:00:00'
 tags:
 - architecture

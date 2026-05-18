@@ -3,7 +3,6 @@ slug: k8s-workflow-deployment
 author: Bys
 categories:
 - k8s
-category: k8s
 date: '2023-04-23 01:00:00'
 tags:
 - kubernetes

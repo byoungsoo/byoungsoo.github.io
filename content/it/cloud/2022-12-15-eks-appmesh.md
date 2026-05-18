@@ -3,7 +3,6 @@ slug: eks-appmesh
 author: Bys
 categories:
 - cloud
-category: cloud
 date: '2022-12-15 01:00:00'
 tags:
 - kubernetes

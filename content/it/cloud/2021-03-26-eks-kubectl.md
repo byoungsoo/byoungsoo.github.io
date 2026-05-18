@@ -3,7 +3,6 @@ slug: eks-kubectl
 author: Bys
 categories:
 - cloud
-category: cloud
 date: '2021-03-26 01:00:00'
 tags:
 - aws

@@ -3,7 +3,6 @@ slug: minikube-crt-auth
 author: Bys
 categories:
 - k8s
-category: k8s
 date: '2022-07-14 01:00:00'
 tags:
 - kubernetes

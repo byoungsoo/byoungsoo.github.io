@@ -3,7 +3,6 @@ slug: bedrock-workshop
 author: Bys
 categories:
 - ml
-category: ml
 date: '2025-01-14 01:00:00'
 draft: true
 tags:

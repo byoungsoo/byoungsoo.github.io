@@ -3,7 +3,6 @@ slug: k8s-operator-pattern
 author: Bys
 categories:
 - k8s
-category: k8s
 date: '2025-01-24 01:00:00'
 tags:
 - kubernetes

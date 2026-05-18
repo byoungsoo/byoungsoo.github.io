@@ -3,7 +3,6 @@ slug: kiro-user-report
 author: Bys
 categories:
 - cloud
-category: cloud
 date: '2026-01-27 01:00:00'
 keywords: kiro
 tags:

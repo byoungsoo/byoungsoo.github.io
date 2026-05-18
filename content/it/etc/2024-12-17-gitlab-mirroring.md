@@ -3,7 +3,6 @@ slug: gitlab-mirroring
 author: Bys
 categories:
 - etc
-category: etc
 date: '2024-12-17 01:00:00'
 tags:
 - git

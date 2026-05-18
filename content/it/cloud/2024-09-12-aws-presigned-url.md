@@ -3,7 +3,6 @@ slug: aws-presigned-url
 author: Bys
 categories:
 - cloud
-category: cloud
 date: '2024-09-12 01:00:00'
 tags:
 - aws

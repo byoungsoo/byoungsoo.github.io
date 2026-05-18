@@ -3,7 +3,6 @@ slug: algorithm
 author: Bys
 categories:
 - algorithm
-category: algorithm
 date: '2025-11-08 01:00:00'
 tags:
 - algorithm

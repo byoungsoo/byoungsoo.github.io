@@ -3,7 +3,6 @@ slug: aws-loadbalancer-controller-migration
 author: Bys
 categories:
 - cloud
-category: cloud
 date: '2022-12-19 01:00:00'
 tags:
 - aws

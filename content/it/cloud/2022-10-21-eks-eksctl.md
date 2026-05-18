@@ -3,7 +3,6 @@ slug: eks-eksctl
 author: Bys
 categories:
 - cloud
-category: cloud
 date: '2022-10-21 01:00:00'
 tags:
 - kubernetes

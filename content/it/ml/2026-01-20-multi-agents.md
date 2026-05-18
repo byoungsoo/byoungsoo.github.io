@@ -3,7 +3,6 @@ slug: multi-agents
 author: Bys
 categories:
 - ml
-category: ml
 date: '2026-01-20 01:00:00'
 keywords: openai, agents, sdk, pydantic
 tags:

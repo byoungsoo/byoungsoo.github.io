@@ -3,7 +3,6 @@ slug: eks-helm-deploy
 author: Bys
 categories:
 - cloud
-category: cloud
 date: '2021-06-05 01:00:00'
 tags:
 - aws

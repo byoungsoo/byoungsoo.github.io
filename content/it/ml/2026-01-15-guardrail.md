@@ -3,7 +3,6 @@ slug: guardrail
 author: Bys
 categories:
 - ml
-category: ml
 date: '2026-01-15 01:00:00'
 keywords: openai, agents, sdk, guardrail
 tags:

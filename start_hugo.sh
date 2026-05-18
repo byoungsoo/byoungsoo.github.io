@@ -8,7 +8,7 @@ set -e  # Exit on any error
 # Configuration
 HUGO_LOG="/tmp/hugo.log"
 HUGO_PID_FILE="/tmp/hugo.pid"
-HUGO_PORT=1313
+HUGO_PORT=4000
 HUGO_HOST="0.0.0.0"
 
 # Colors for output

@@ -3,7 +3,6 @@ slug: aws-s3-cloudfront
 author: Bys
 categories:
 - cloud
-category: cloud
 date: '2023-01-16 01:00:00'
 tags:
 - aws

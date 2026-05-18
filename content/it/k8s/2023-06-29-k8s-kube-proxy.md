@@ -3,7 +3,6 @@ slug: k8s-kube-proxy
 author: Bys
 categories:
 - k8s
-category: k8s
 date: '2023-06-29 01:00:00'
 tags:
 - eks
@@ -26,7 +25,7 @@ description: "Kubernetes kube-proxy의 동작 원리와 iptables 규칙 관리 �
 
 ## Kube-proxy의 동작 방식
 
-#### 1. Iptables
+### 1. iptables
 1. Table - iptables는 여러 테이블로 구성되어 있으며, 각 테이블은 특정 유형의 패킷 처리를 담당한다.  
   - Filter: 기본 테이블, 패킷 필터링을 담당
     - Target
@@ -64,137 +63,136 @@ externalTrafficPolicy가 Cluster로 설정된 서비스에 대해서 kube-proxy�
 
 <br>
 
-#### 2. IPVS
 
 
 <br>
 
 ---
-#### - Scenario test
+### Scenario test
 
 #### Case1. PREROUTING - When `externalTrafficPolicy` is `Cluster`.
 
-1. nginx 샘플 배포  
+##### 1. nginx 샘플 배포  
 
-    ```yaml
-    apiVersion: apps/v1
-    kind: Deployment
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  namespace: test
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  replicas: 2
+  template:
     metadata:
-      name: nginx
-      namespace: test
-    spec:
-      selector:
-        matchLabels:
-          app: nginx
-      replicas: 2
-      template:
-        metadata:
-          labels:
-            app: nginx
-        spec:
-          containers:
-          - name: nginx
-            image: nginx
-            ports:
-            - containerPort: 80
-    ---
-    apiVersion: v1
-    kind: Service
-    metadata:
-      name: nginx
-      namespace: test
       labels:
         app: nginx
-      annotations:
     spec:
-      type: ClusterIP
-      selector:
-        app: nginx
-      ports:
-      - name: http
-        port: 80
-        protocol: TCP
-        targetPort: 80
-    ```
-    해당 매니페스트를 배포 하면 서비스의 externalTrafficPolicy는 기본 설정인 Cluster 값을 갖는다.  
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx
+  namespace: test
+  labels:
+    app: nginx
+  annotations:
+spec:
+  type: ClusterIP
+  selector:
+    app: nginx
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+```
+해당 매니페스트를 배포 하면 서비스의 externalTrafficPolicy는 기본 설정인 Cluster 값을 갖는다.  
 
-2. 배포 확인  
+##### 2. 배포 확인  
 
-    ```bash
-    $ kubectl get po -o wide -n test
-    NAME                    READY   STATUS    RESTARTS   AGE   IP             NODE                                              NOMINATED NODE   READINESS GATES
-    nginx-55f598f8d-25sx9   1/1     Running   0          13m   10.20.11.179   ip-10-20-11-149.ap-northeast-2.compute.internal   <none>           <none>
-    nginx-55f598f8d-wcqt7   1/1     Running   0          13m   10.20.10.127   ip-10-20-10-207.ap-northeast-2.compute.internal   <none>           <none>
+```bash
+$ kubectl get po -o wide -n test
+NAME                    READY   STATUS    RESTARTS   AGE   IP             NODE                                              NOMINATED NODE   READINESS GATES
+nginx-55f598f8d-25sx9   1/1     Running   0          13m   10.20.11.179   ip-10-20-11-149.ap-northeast-2.compute.internal   <none>           <none>
+nginx-55f598f8d-wcqt7   1/1     Running   0          13m   10.20.10.127   ip-10-20-10-207.ap-northeast-2.compute.internal   <none>           <none>
 
-    $ kubectl get svc -o wide -n test
-    NAME    TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE   SELECTOR
-    nginx   ClusterIP   172.20.247.136   <none>        80/TCP    30m   app=nginx
-    ```
-
-
-3. 워커노드의 iptables 확인  
-
-   - PREROUTING 확인 (패킷의 도착지 주소를 변경하는 과정)
-     ```bash
-     $ iptables -L PREROUTING -v -n -t nat
-
-     Chain PREROUTING (policy ACCEPT 2703 packets, 245K bytes)
-     pkts bytes target     prot opt in     out     source               destination
-     4823K  502M KUBE-SERVICES  all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* kubernetes service portals */
-     ```
-
-   - KUBE-SERVICES 확인
-     KUBE-SERVICES를 KUBE-SVC-IU46S4VZFN77LK6S target에 대해서는 목적지를 172.20.247.136로 변경하며 172.20.247.136는 test네임스페이스의 nginx서비스 IP주소  
-     ```bash
-     $ iptables -L KUBE-SERVICES -v -n -t nat
-
-     Chain KUBE-SERVICES (2 references)
-     pkts bytes target                     prot opt in     out     source               destination
-         0     0 KUBE-SVC-IU46S4VZFN77LK6S  tcp  --  *      *       0.0.0.0/0            172.20.247.136       /* test/nginx:http cluster IP */ tcp dpt:80
-     1946  117K KUBE-NODEPORTS             all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* kubernetes service nodeports; NOTE: this must be the last rule in this chain */ ADDRTYPE match dst-type LOCAL
-     ```
+$ kubectl get svc -o wide -n test
+NAME    TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE   SELECTOR
+nginx   ClusterIP   172.20.247.136   <none>        80/TCP    30m   app=nginx
+```
 
 
-   - KUBE-SVC-IU46S4VZFN77LK6S 확인
-     다시 KUBE-SVC-IU46S4VZFN77LK6S를 확인하면 (KUBE-SEP-XAAQ4E3V5J6GEKUJ, KUBE-SEP-S7XCV467AW272WRX) 두 개의 타겟이 존재하며 랜덤으로 분산이 되지만 통계 확률적으로는 0.5단위로 분산 됨  
-     ```bash
-     $ iptables -L KUBE-SVC-IU46S4VZFN77LK6S -v -n -t nat
+##### 3. 워커노드의 iptables 확인  
 
-     Chain KUBE-SVC-IU46S4VZFN77LK6S (1 references)
-     pkts bytes target                     prot opt in     out     source               destination
-         0     0 KUBE-SEP-XAAQ4E3V5J6GEKUJ  all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* test/nginx:http -> 10.20.10.127:80 */ statistic mode random probability 0.50000000000
-         0     0 KUBE-SEP-S7XCV467AW272WRX  all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* test/nginx:http -> 10.20.11.179:80 */
-     ```
+- PREROUTING 확인 (패킷의 도착지 주소를 변경하는 과정)
+```bash
+$ iptables -L PREROUTING -v -n -t nat
 
-   - KUBE-SEP-XAAQ4E3V5J6GEKUJ, KUBE-SEP-S7XCV467AW272WRX를 확인하면 최종적으로 172.20.247.136 서비스 IP는 (10.20.10.127, 10.20.11.179)로 목적지가 변경 됨  
-     ```bash
-     $ iptables -L KUBE-SEP-XAAQ4E3V5J6GEKUJ -v -n -t nat
+Chain PREROUTING (policy ACCEPT 2703 packets, 245K bytes)
+pkts bytes target     prot opt in     out     source               destination
+4823K  502M KUBE-SERVICES  all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* kubernetes service portals */
+```
 
-     Chain KUBE-SEP-XAAQ4E3V5J6GEKUJ (1 references)
-     pkts bytes target          prot opt in     out     source               destination
-         0     0 KUBE-MARK-MASQ  all  --  *      *       10.20.10.127         0.0.0.0/0            /* test/nginx:http */
-         0     0 DNAT            tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            /* test/nginx:http */ tcp to:10.20.10.127:80
+- KUBE-SERVICES 확인
+KUBE-SERVICES를 KUBE-SVC-IU46S4VZFN77LK6S target에 대해서는 목적지를 172.20.247.136로 변경하며 172.20.247.136는 test네임스페이스의 nginx서비스 IP주소  
+```bash
+$ iptables -L KUBE-SERVICES -v -n -t nat
 
-
-     $ iptables -L KUBE-SEP-S7XCV467AW272WRX -v -n -t nat
-
-     Chain KUBE-SEP-S7XCV467AW272WRX (1 references)
-     pkts bytes target          prot opt in     out     source               destination
-         0     0 KUBE-MARK-MASQ  all  --  *      *       10.20.11.179         0.0.0.0/0            /* test/nginx:http */
-         0     0 DNAT            tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            /* test/nginx:http */ tcp to:10.20.11.179:80
-     ```
+Chain KUBE-SERVICES (2 references)
+pkts bytes target                     prot opt in     out     source               destination
+    0     0 KUBE-SVC-IU46S4VZFN77LK6S  tcp  --  *      *       0.0.0.0/0            172.20.247.136       /* test/nginx:http cluster IP */ tcp dpt:80
+1946  117K KUBE-NODEPORTS             all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* kubernetes service nodeports; NOTE: this must be the last rule in this chain */ ADDRTYPE match dst-type LOCAL
+```
 
 
-4. 파드의 수를 3개로 늘린 후 KUBE-SVC-IU46S4VZFN77LK6S 확인
-  - KUBE-SVC-IU46S4VZFN77LK6S를 확인하면 파드를 3개로 늘린 상황에서는 아래와 같이 트래픽이 랜덤 분산되며 통계적으로 0.3, 0.5, 0.2의 확률이다. 
-  ```bash
-  $ iptables -L KUBE-SVC-IU46S4VZFN77LK6S -v -n -t nat
-  Chain KUBE-SVC-IU46S4VZFN77LK6S (1 references)
-  pkts bytes target                     prot opt in     out     source               destination
-      0     0 KUBE-SEP-XAAQ4E3V5J6GEKUJ  all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* test/nginx:http -> 10.20.10.127:80 */ statistic mode random probability 0.33333333349
-      0     0 KUBE-SEP-K34D3XS7VWEHKFPE  all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* test/nginx:http -> 10.20.10.218:80 */ statistic mode random probability 0.50000000000
-      0     0 KUBE-SEP-S7XCV467AW272WRX  all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* test/nginx:http -> 10.20.11.179:80 */
-  ```
+- KUBE-SVC-IU46S4VZFN77LK6S 확인
+다시 KUBE-SVC-IU46S4VZFN77LK6S를 확인하면 (KUBE-SEP-XAAQ4E3V5J6GEKUJ, KUBE-SEP-S7XCV467AW272WRX) 두 개의 타겟이 존재하며 랜덤으로 분산이 되지만 통계 확률적으로는 0.5단위로 분산 됨  
+```bash
+$ iptables -L KUBE-SVC-IU46S4VZFN77LK6S -v -n -t nat
+
+Chain KUBE-SVC-IU46S4VZFN77LK6S (1 references)
+pkts bytes target                     prot opt in     out     source               destination
+    0     0 KUBE-SEP-XAAQ4E3V5J6GEKUJ  all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* test/nginx:http -> 10.20.10.127:80 */ statistic mode random probability 0.50000000000
+    0     0 KUBE-SEP-S7XCV467AW272WRX  all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* test/nginx:http -> 10.20.11.179:80 */
+```
+
+- KUBE-SEP-XAAQ4E3V5J6GEKUJ, KUBE-SEP-S7XCV467AW272WRX를 확인하면 최종적으로 172.20.247.136 서비스 IP는 (10.20.10.127, 10.20.11.179)로 목적지가 변경 됨  
+```bash
+$ iptables -L KUBE-SEP-XAAQ4E3V5J6GEKUJ -v -n -t nat
+
+Chain KUBE-SEP-XAAQ4E3V5J6GEKUJ (1 references)
+pkts bytes target          prot opt in     out     source               destination
+    0     0 KUBE-MARK-MASQ  all  --  *      *       10.20.10.127         0.0.0.0/0            /* test/nginx:http */
+    0     0 DNAT            tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            /* test/nginx:http */ tcp to:10.20.10.127:80
+
+
+$ iptables -L KUBE-SEP-S7XCV467AW272WRX -v -n -t nat
+
+Chain KUBE-SEP-S7XCV467AW272WRX (1 references)
+pkts bytes target          prot opt in     out     source               destination
+    0     0 KUBE-MARK-MASQ  all  --  *      *       10.20.11.179         0.0.0.0/0            /* test/nginx:http */
+    0     0 DNAT            tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            /* test/nginx:http */ tcp to:10.20.11.179:80
+```
+
+
+##### 4. 파드의 수를 3개로 늘린 후 KUBE-SVC-IU46S4VZFN77LK6S 확인
+- KUBE-SVC-IU46S4VZFN77LK6S를 확인하면 파드를 3개로 늘린 상황에서는 아래와 같이 트래픽이 랜덤 분산되며 통계적으로 0.3, 0.5, 0.2의 확률이다. 
+```bash
+$ iptables -L KUBE-SVC-IU46S4VZFN77LK6S -v -n -t nat
+Chain KUBE-SVC-IU46S4VZFN77LK6S (1 references)
+pkts bytes target                     prot opt in     out     source               destination
+    0     0 KUBE-SEP-XAAQ4E3V5J6GEKUJ  all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* test/nginx:http -> 10.20.10.127:80 */ statistic mode random probability 0.33333333349
+    0     0 KUBE-SEP-K34D3XS7VWEHKFPE  all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* test/nginx:http -> 10.20.10.218:80 */ statistic mode random probability 0.50000000000
+    0     0 KUBE-SEP-S7XCV467AW272WRX  all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* test/nginx:http -> 10.20.11.179:80 */
+```
 
 ---
 
@@ -300,6 +298,230 @@ Chain AWS-SNAT-CHAIN-0 (1 references)
 서비스에는 spec.externalTrafficPolicy 필드가 존재하며 Cluster(Default 설정) 또는 Local 값을 갖으며 서비스의 externalTrafficPolicy 정책이 Local인 경우 트래픽이 랜덤으로 분산되지 않는다.
 
 
+<br><br>
+
+
+### 2. nftables
+nftables 또한 netfilter 프레임워크 위에서 동작하지만 해시 기반 이라는 점 에서 속도면이 빠르다. 
+
+
+##### 1. 전체 kube-proxy nftables 테이블 확인
+
+```bash
+# kube-proxy가 생성한 전체 nftables 룰셋 확인
+$ nft list table ip kube-proxy
+
+table ip kube-proxy {
+        comment "rules for kube-proxy"
+        set cluster-ips {
+                type ipv4_addr
+                comment "Active ClusterIPs"
+                elements = { 172.20.0.1, 172.20.0.10,
+                              172.20.154.213, 172.20.158.209,
+                              172.20.166.27 }
+        }
+
+        set nodeport-ips {
+                type ipv4_addr
+                comment "IPs that accept NodePort traffic"
+                elements = { 10.20.128.129 }
+        }
+
+        map no-endpoint-services {
+                type ipv4_addr . inet_proto . inet_service : verdict
+                comment "vmap to drop or reject packets to services with no endpoints"
+                elements = { 172.20.154.213 . tcp . 443 comment "kube-system/aws-load-balancer-webhook-service:webhook-server" : goto reject-chain }
+        }
+
+        map no-endpoint-nodeports {
+                type inet_proto . inet_service : verdict
+                comment "vmap to drop or reject packets to service nodeports with no endpoints"
+        }
+
+        map firewall-ips {
+                type ipv4_addr . inet_proto . inet_service : verdict
+                comment "destinations that are subject to LoadBalancerSourceRanges"
+        }
+
+        map service-ips {
+                type ipv4_addr . inet_proto . inet_service : verdict
+                comment "ClusterIP, ExternalIP and LoadBalancer IP traffic"
+                elements = { 172.20.0.10 . tcp . 53 : goto service-NWBZK7IH-kube-system/kube-dns/tcp/dns-tcp,
+                              172.20.0.10 . udp . 53 : goto service-FY5PMXPG-kube-system/kube-dns/udp/dns,
+                              172.20.166.27 . tcp . 8080 : goto service-2SONTFIS-sgp/nginx-service/tcp/,
+                              172.20.0.1 . tcp . 443 : goto service-2QRHZV4L-default/kubernetes/tcp/https,
+                              172.20.158.209 . tcp . 443 : goto service-QJWSRGPH-kube-system/eks-extension-metrics-api/tcp/metrics-api,
+                              172.20.0.10 . tcp . 9153 : goto service-AS2KJYAD-kube-system/kube-dns/tcp/metrics }
+        }
+
+        map service-nodeports {
+                type inet_proto . inet_service : verdict
+                comment "NodePort traffic"
+        }
+
+        chain filter-prerouting-pre-dnat {
+                type filter hook prerouting priority dstnat - 10; policy accept;
+                ct state new jump firewall-check
+        }
+
+        chain filter-output-pre-dnat {
+                type filter hook output priority -110; policy accept;
+                ct state new jump firewall-check
+        }
+
+        chain filter-input {
+                type filter hook input priority filter; policy accept;
+                ct state new jump nodeport-endpoints-check
+                ct state new jump service-endpoints-check
+        }
+
+        chain filter-forward {
+                type filter hook forward priority filter; policy accept;
+                ct state new jump service-endpoints-check
+                ct state new jump cluster-ips-check
+        }
+
+        chain filter-output {
+                type filter hook output priority filter; policy accept;
+                ct state new jump service-endpoints-check
+                ct state new jump cluster-ips-check
+        }
+
+        chain nat-prerouting {
+                type nat hook prerouting priority dstnat; policy accept;
+                jump services
+        }
+
+        chain nat-output {
+                type nat hook output priority -100; policy accept;
+                jump services
+        }
+
+        chain nat-postrouting {
+                type nat hook postrouting priority srcnat; policy accept;
+                jump masquerading
+        }
+
+        chain nodeport-endpoints-check {
+                ip daddr @nodeport-ips meta l4proto . th dport vmap @no-endpoint-nodeports
+        }
+
+        chain service-endpoints-check {
+                ip daddr . meta l4proto . th dport vmap @no-endpoint-services
+        }
+
+        chain firewall-check {
+                ip daddr . meta l4proto . th dport vmap @firewall-ips
+        }
+
+        chain services {
+                ip daddr . meta l4proto . th dport vmap @service-ips
+                ip daddr @nodeport-ips meta l4proto . th dport vmap @service-nodeports
+        }
+
+        chain masquerading {
+                meta mark & 0x00004000 == 0x00000000 return
+                meta mark set meta mark ^ 0x00004000
+                masquerade fully-random
+        }
+
+        chain cluster-ips-check {
+                ip daddr @cluster-ips reject comment "Reject traffic to invalid ports of ClusterIPs"
+                ip daddr 172.20.0.0/16 drop comment "Drop traffic to unallocated ClusterIPs"
+        }
+
+        chain mark-for-masquerade {
+                meta mark set meta mark | 0x00004000
+        }
+
+        chain reject-chain {
+                comment "helper for @no-endpoint-services / @no-endpoint-nodeports"
+                reject
+        }
+
+......
+
+        chain service-2QRHZV4L-default/kubernetes/tcp/https {
+                numgen random mod 2 vmap { 0 : goto endpoint-WANRV762-default/kubernetes/tcp/https__10.20.131.112/443, 1 : goto endpoint-YWEXS4MY-default/kubernetes/tcp/https__10.20.136.125/443 }
+        }
+
+        chain endpoint-T5VHWRWL-sgp/nginx-service/tcp/__100.64.7.86/80 {
+                ip saddr 100.64.7.86 jump mark-for-masquerade
+                meta l4proto tcp dnat to 100.64.7.86:80
+        }
+
+        chain service-2SONTFIS-sgp/nginx-service/tcp/ {
+                numgen random mod 2 vmap { 0 : goto endpoint-T5VHWRWL-sgp/nginx-service/tcp/__100.64.7.86/80, 1 : goto endpoint-2FSOWKR2-sgp/nginx-service/tcp/__100.64.8.163/80 }
+        }
+
+        chain endpoint-2FSOWKR2-sgp/nginx-service/tcp/__100.64.8.163/80 {
+                ip saddr 100.64.8.163 jump mark-for-masquerade
+                meta l4proto tcp dnat to 100.64.8.163:80
+        }
+}
+```
+
+##### 2. 서비스 라우팅 맵 확인 (KUBE-SERVICES에 해당)
+```bash
+# service-ips 맵 확인 — ClusterIP 기반 라우팅 맵
+$ nft list map ip kube-proxy service-ips
+
+table ip kube-proxy {
+        map service-ips {
+                type ipv4_addr . inet_proto . inet_service : verdict
+                comment "ClusterIP, ExternalIP and LoadBalancer IP traffic"
+                elements = { 172.20.0.10 . tcp . 53 : goto service-NWBZK7IH-kube-system/kube-dns/tcp/dns-tcp,
+                              172.20.0.10 . udp . 53 : goto service-FY5PMXPG-kube-system/kube-dns/udp/dns,
+                              172.20.166.27 . tcp . 8080 : goto service-2SONTFIS-sgp/nginx-service/tcp/,
+                              172.20.0.1 . tcp . 443 : goto service-2QRHZV4L-default/kubernetes/tcp/https,
+                              172.20.158.209 . tcp . 443 : goto service-QJWSRGPH-kube-system/eks-extension-metrics-api/tcp/metrics-api,
+                              172.20.0.10 . tcp . 9153 : goto service-AS2KJYAD-kube-system/kube-dns/tcp/metrics }
+        }
+}
+```
+
+##### 3. 특정 서비스의 엔드포인트 분산 확인 (KUBE-SVC-xxx에 해당)
+
+`numgen random mod 2` 는 0~1 사이의 랜덤 숫자 생성한다. 라우팅 비율은 50:50 균등 분산이 이루어진다. 
+- 0 → 10.20.131.112:443으로 DNAT
+- 1 → 10.20.136.125:443으로 DNAT
+
+```bash
+# 특정 서비스 체인 확인
+$ nft list chain ip kube-proxy service-2QRHZV4L-default/kubernetes/tcp/https
+
+table ip kube-proxy {
+        chain service-2QRHZV4L-default/kubernetes/tcp/https {
+                numgen random mod 2 vmap { 0 : goto endpoint-WANRV762-default/kubernetes/tcp/https__10.20.131.112/443, 1 : goto endpoint-YWEXS4MY-default/kubernetes/tcp/https__10.20.136.125/443 }
+        }
+}
+```
+
+
+##### 4. 엔드포인트 DNAT 확인 (KUBE-SEP-xxx에 해당)
+
+1. ip saddr 10.20.131.112 jump mark-for-masquerade: 출발지가 자기 자신(10.20.131.112)이면 MASQUERADE 마킹 → 헤어핀(hairpin) 트래픽 처리
+> MASQUERADE = 패킷의 출발지(src) IP를 나가는 인터페이스의 IP로 자동 변경하는 것  MASQUERADE 적용 시 (정상 동작). SNAT(파드 IP -> 노드 IP)
+
+
+2. meta l4proto tcp dnat to 10.20.131.112:443: 목적지 IP를 10.20.131.112:443으로 DNAT
+```bash
+# 특정 엔드포인트 체인 확인
+$ nft list chain ip kube-proxy endpoint-WANRV762-default/kubernetes/tcp/https__10.20.131.112/443
+
+table ip kube-proxy {
+        chain endpoint-WANRV762-default/kubernetes/tcp/https__10.20.131.112/443 {
+                ip saddr 10.20.131.112 jump mark-for-masquerade
+                meta l4proto tcp dnat to 10.20.131.112:443
+        }
+}
+```
+
+
+
+
+
 ---
 
 ## 📚 References
+

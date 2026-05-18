@@ -3,7 +3,6 @@ slug: aws-logs-insights-eks
 author: Bys
 categories:
 - cloud
-category: cloud
 date: '2022-11-04 01:00:00'
 tags:
 - aws

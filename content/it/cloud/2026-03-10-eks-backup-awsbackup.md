@@ -3,7 +3,6 @@ slug: eks-backup-awsbackup
 author: Bys
 categories:
 - cloud
-category: cloud
 date: '2026-03-10 01:00:00'
 draft: true
 keywords: eks backup

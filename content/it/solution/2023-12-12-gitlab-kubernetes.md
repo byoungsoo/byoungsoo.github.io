@@ -3,7 +3,6 @@ slug: gitlab-kubernetes
 author: Bys
 categories:
 - solution
-category: solution
 date: '2023-12-12 01:00:00'
 tags:
 - cicd

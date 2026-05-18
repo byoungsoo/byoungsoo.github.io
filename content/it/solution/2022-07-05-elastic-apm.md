@@ -3,7 +3,6 @@ slug: elastic-apm
 author: Bys
 categories:
 - solution
-category: solution
 date: '2022-07-05 01:00:00'
 tags:
 - elasticsearch

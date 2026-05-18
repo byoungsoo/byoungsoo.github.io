@@ -3,7 +3,6 @@ slug: argocd-multi-cluster
 author: Bys
 categories:
 - solution
-category: solution
 date: '2026-01-26 01:00:00'
 description: ArgoCD를 이용한 멀티 클러스터 환경 구성 방법과 ApplicationSet을 통해 여러 EKS 클러스터에 애플리케이션을
   일괄 배포하는 전략을 소개합니다.

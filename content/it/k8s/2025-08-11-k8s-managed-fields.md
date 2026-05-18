@@ -3,7 +3,6 @@ slug: k8s-managed-fields
 author: Bys
 categories:
 - k8s
-category: k8s
 date: '2025-08-11 01:00:00'
 tags:
 - k8s

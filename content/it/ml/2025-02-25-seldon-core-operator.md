@@ -3,7 +3,6 @@ slug: seldon-core-operator
 author: Bys
 categories:
 - ml
-category: ml
 date: '2025-02-25 01:00:00'
 tags:
 - mlops

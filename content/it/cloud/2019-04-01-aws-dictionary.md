@@ -3,7 +3,6 @@ slug: aws-dictionary
 author: Bys
 categories:
 - cloud
-category: cloud
 date: '2019-04-01 18:00:00'
 tags:
 - cloud

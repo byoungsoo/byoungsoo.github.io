@@ -3,7 +3,6 @@ slug: eks-efs-volume
 author: Bys
 categories:
 - cloud
-category: cloud
 date: '2022-12-09 01:00:00'
 draft: true
 tags:

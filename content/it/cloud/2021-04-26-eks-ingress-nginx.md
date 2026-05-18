@@ -3,7 +3,6 @@ slug: eks-ingress-nginx
 author: Bys
 categories:
 - cloud
-category: cloud
 date: '2021-04-26 01:00:00'
 tags:
 - aws

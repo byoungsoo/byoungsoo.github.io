@@ -3,7 +3,6 @@ slug: k8s-csi-driver
 author: Bys
 categories:
 - k8s
-category: k8s
 date: '2024-07-30 01:00:00'
 tags:
 - kubernetes

@@ -3,7 +3,6 @@ slug: aws-loadbalancer-controller
 author: Bys
 categories:
 - cloud
-category: cloud
 date: '2022-11-14 01:00:00'
 tags:
 - aws

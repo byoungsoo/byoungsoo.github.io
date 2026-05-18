@@ -3,7 +3,6 @@ slug: terraform
 author: Bys
 categories:
 - solution
-category: solution
 date: '2022-09-08 01:00:00'
 tags:
 - terraform
