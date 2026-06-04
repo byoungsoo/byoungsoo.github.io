@@ -47,7 +47,7 @@ Storage Provider가 플러그인을 한 번만 개발하면 여러 Container Orc
 
 #### [How to work](https://kubernetes.io/blog/2019/01/15/container-storage-interface-ga/#how-to-write-a-csi-driver)
 
-<img src="/assets/it/k8s/k8s/k8s-workflow-csi-driver.png" alt="k8s-workflow-csi-driver" .lightbox-image style="width: 100%; height: auto;">
+![k8s-workflow-csi-driver](/assets/it/k8s/k8s/k8s-workflow-csi-driver.png)
 
 - [external-provisioner(csi-provisioner)](https://kubernetes-csi.github.io/docs/external-provisioner.html#csi-external-provisioner)
   1. CSI external-provisioner 컨테이너는 PersistentVolumeClaim 리소스를 Watch 한다. 
