@@ -8,7 +8,7 @@
 /* LineHighlight */ .chroma .hl { background-color:#2d2d30 }
 /* LineNumbersTable */ .chroma .lnt { white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#858585 }
 /* LineNumbers */ .chroma .ln { white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#858585 }
-/* Line */ .chroma .line { display:flex; }
+/* Line */ .chroma .line { display:contents; }
 /* Keyword */ .chroma .k { color:#569cd6 }
 /* KeywordConstant */ .chroma .kc { color:#569cd6 }
 /* KeywordDeclaration */ .chroma .kd { color:#569cd6 }

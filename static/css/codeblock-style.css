@@ -65,6 +65,9 @@
   line-height: 1.6;
   background: transparent !important;
   color: #d4d4d4;
+  border-radius: 0;
+  padding: 0;
+  border: none;
 }
 
 /* chroma 래퍼 배경 통일 */
@@ -74,7 +77,8 @@
 
 /* ===== 인라인 코드 ===== */
 .post-content p code,
-.post-content li code,
+.post-content li > code,
+.post-content li > p code,
 .post-content td code {
   background: #f0f0f0 !important;
   color: #e06c75 !important;
