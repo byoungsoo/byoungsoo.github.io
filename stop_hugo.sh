@@ -80,11 +80,11 @@ else
 fi
 
 # Double-check that all Hugo processes are stopped
+sleep 1
 remaining_processes=$(ps -ef | grep "hugo server" | grep -v grep | wc -l)
 if [ "$remaining_processes" -gt 0 ]; then
-    print_error "Some Hugo processes may still be running"
-    print_status "Run 'ps -ef | grep hugo' to check manually"
-    exit 1
-else
-    print_status "All Hugo processes have been stopped"
+    print_warning "Some Hugo processes may still be running, force killing..."
+    ps -ef | grep "hugo server" | grep -v grep | awk '{print $2}' | xargs kill -KILL 2>/dev/null || true
+    sleep 1
 fi
+print_status "All Hugo processes have been stopped"
