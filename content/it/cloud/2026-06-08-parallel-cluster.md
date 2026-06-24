@@ -8,20 +8,18 @@ tags:
 - aws
 - parallel-cluster
 - slurm
-title: Parallel Cluster
+title: Parallel Cluster (Slurm)
 ---
 
 # [Parallel Cluster](https://docs.aws.amazon.com/parallelcluster/latest/ug/what-is-aws-parallelcluster.html)  
-AWS Parallel Cluster는 AWS에서 지원하는 오픈 소스 클러스터 관리 도구로 HPC(High-performance Computing)을 배포하고 관리하는데 도움을 준다. 이 도구는 AWS Batch 및 Slurm 스케줄러와 함께 사용할 수 있는데 이 문서에서는 Slurm 을 통해 사용하는 방법과 내부 동작에 대해 살펴본다.  
+AWS Parallel Cluster는 AWS에서 지원하는 오픈 소스 클러스터 관리 도구로 HPC(High-Performance Computing)를 배포하고 관리하는 데 도움을 준다. 이 도구는 AWS Batch 및 Slurm 스케줄러와 함께 사용할 수 있는데 이 문서에서는 Slurm을 통해 사용하는 방법과 내부 동작에 대해 살펴본다.  
 
 
 ## 1. Architecture
-
 ![architecture](/assets/it/cloud/parallel-cluster/architecture.png)
 
 
 ## 2. Overview
-
 Parallel Cluster는 AWS 콘솔에 서비스로 존재하지 않는다. Parallel Cluster 서비스는 일반적으로 pcluster CLI를 통해 구성하며, pcluster를 통해 생성하면 위 아키텍처와 같이 `Head Node`가 생성된다. 
 
 `Head Node`에는 Slurm이 구성되어 있으며, Slurm을 통해 잡을 제출하고 관리한다. Slurm 은 `Power Saving(ResumeProgram/SuspendProgram)` 인터페이스를 제공하는데 이를 구현하면 compute resources를 시작하고 중단할 수 있게 되어 있다. Parallel Cluster 서비스는 이 Slurm Power Saving 인터페이스(ResumeProgram/SuspendProgram)를 구현해서 EC2 API를 호출하는 방식이다.  
@@ -38,7 +36,7 @@ Parallel Cluster는 AWS 콘솔에 서비스로 존재하지 않는다. Parallel 
     ......
     ```
 3. 스크립트를 따라 구현체를 살펴보면, 결국 Python을 통해 EC2 인스턴스를 실행하고 중지하는 프로세스가 포함되어 있다.  
-4. 결국 Slurm과 Computing을 관리하는 스크립트의 조합이 결국 ParallelCluster 라고 이해할 수 있다.  
+4. Slurm과 Computing을 관리하는 스크립트의 조합이 ParallelCluster라고 이해할 수 있다.  
 
 
 ## 3. Install
