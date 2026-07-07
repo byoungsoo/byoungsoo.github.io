@@ -1,5 +1,5 @@
 ---
-name: contents-reviewer
+name: blog-contents-reviewer
 description: 작성된 콘텐츠의 맞춤법, 띄어쓰기, 오타, 코드 오류 등 문법 오류와 내용의 정확성을 검토하는 에이전트. 블로그 포스트나 문서를 작성한 후 리뷰가 필요할 때 사용.
 ---
 
